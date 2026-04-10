@@ -10,6 +10,7 @@
     --vio: #3D5A99; --gris: #F3F6F9; --bd: #C5D2DC; --txt: #2C3E50;
     --bco: #FFFFFF; --code-bg: #1E1E1E; --r: 12px;
     --colab: #F9AB00; --classroom: #137333;
+    --rojo: #C62828;
   }
   
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,7 +29,7 @@
   header p { font-size: 18px; opacity: 0.9; }
   
   .container { width: 95%; max-width: 1400px; margin: 20px auto; padding: 0 15px; }
-  
+
   /* Botón de volver */
   .back-btn {
     display: inline-block;
@@ -55,6 +56,10 @@
   .c-codigo { border-left-color: var(--vio); background: #FAFCFF; position: relative; }
   .c-eval { border-left-color: var(--classroom); background: #F6FEF8; }
   
+  /* Estilo para la advertencia */
+  .c-alerta { border: 3px solid var(--rojo); background: #FFEBEE; border-left: 10px solid var(--rojo); }
+  .c-alerta h2 { color: var(--rojo); border-bottom-color: #FFCDD2; }
+
   h2 { color: var(--nav); font-size: 24px; margin-bottom: 15px; text-transform: uppercase; border-bottom: 2px solid var(--gris); padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
   .badge { background: var(--nav); color: var(--bco); padding: 5px 12px; border-radius: 6px; font-size: 18px; font-weight: bold; }
   
@@ -91,19 +96,21 @@
 
 <header>
   <h1>CLASE 5: LA PRIMERA LLAMADA REAL</h1>
-  <p>Taller de IA Aplicada | 7°1° | CTP Antonio Martín Marte | 80 minutos</p>
+  <p>Taller de IA Aplicada | 7°1° | CTP Antonio Martín Marte | 10/04/26</p>
 </header>
 
 <div class="container">
 
   <a href="index.html" class="back-btn">⬅ Volver al Índice</a>
 
+  <!-- BLOQUE 0: CONTEXTO -->
   <div class="card c-repaso">
     <h2><span class="badge">0</span> EL PUNTO DE PARTIDA Y EL ERROR</h2>
     <p>Venimos de días sin clases. En la C4 aprendimos a usar <code>try / except</code>. ¿Por qué era tan importante?</p>
     <p style="margin-top: 10px;">Hasta ahora nuestro código vivía encerrado en nuestra compu. Hoy, Python va a salir a internet para conectarse a un servidor de IA. Cuando salís a la red, los fallos son reales: se corta el wifi, el servidor está caído o te rechazan el acceso. El <code>try/except</code> es nuestro escudo para evitar que el programa explote si algo de eso pasa.</p>
   </div>
 
+  <!-- BLOQUE 1: CONCEPTOS DEFINIDOS -->
   <div class="card c-teoria">
     <h2><span class="badge">1</span> GLOSARIO TÉCNICO</h2>
     <p>Para programar IA en el entorno profesional, la terminología debe ser exacta. Leé y asimilá estos conceptos antes de avanzar:</p>
@@ -134,6 +141,7 @@
     </div>
   </div>
 
+  <!-- BLOQUE 2: SETUP -->
   <div class="card c-setup">
     <h2><span class="badge">2</span> CONOCIENDO A GROQ Y TU API KEY</h2>
     <p>Para hacer nuestro programa, vamos a conectarnos a los servidores de una empresa llamada <strong>Groq</strong>. Es una plataforma gratuita y rapidísima que nos presta el acceso al "cerebro" de las IAs más potentes del mundo.</p>
@@ -148,29 +156,32 @@
     </ol>
   </div>
 
+  <!-- BLOQUE 3: EL ESPACIO DE TRABAJO -->
   <div class="card c-espacio">
     <h2><span class="badge" style="background: var(--colab); color: #000;">3</span> EL ESPACIO DE TRABAJO</h2>
-    <p>A partir de hoy dejamos de hacer ejercicios sueltos. Vamos a empezar a desarrollar la primera etapa de tu proyecto final de IA, y para eso necesitamos que tu código esté organizado en un solo lugar.</p>
-    
     <div class="action-box action-colab">
       <strong>📝 Tarea obligatoria antes de seguir:</strong>
       <ol style="margin-left: 20px; margin-top: 5px;">
-        <li>Abrí Google Colab en una pestaña nueva.</li>
-        <li>Creá un <strong>Nuevo Cuaderno</strong> (New Notebook).</li>
-        <li>Arriba a la izquierda, cambiá el título "Untitled.ipynb" y ponele: <strong>mi primer ia</strong>.</li>
-        <li>Todo el código que armemos en la clase de hoy y las siguientes va a vivir y crecer ahí adentro.</li>
+        <li>Abrí Google Colab y creá un <strong>Nuevo Cuaderno</strong>.</li>
+        <li>Cambiá el título y ponele: <strong>mi primer ia</strong>.</li>
       </ol>
     </div>
   </div>
 
+  <!-- ADVERTENCIA RESALTADA -->
+  <div class="card c-alerta">
+    <h2>⚠️ IMPORTANTE: TU LÓGICA ES LA QUE VALE</h2>
+    <p><strong>No uses la IA para que te escriba el código de estas actividades.</strong></p>
+    <p style="margin-top: 10px;">El objetivo de este taller es que vos aprendas a resolver la conexión y a manipular los datos. Copiar y pegar lo que te da un chatbot no te enseña nada. <strong>Recordá que en las evaluaciones presenciales no vas a tener acceso a la IA para programar</strong>; si no entendés el código ahora, no vas a poder aprobar después.</p>
+  </div>
+
+  <!-- BLOQUE 4: ESTRUCTURA DE LA CONEXIÓN -->
   <div class="card c-teoria">
     <h2><span class="badge">4</span> LA ESTRUCTURA DE LA CONEXIÓN Y EL CÓDIGO BASE</h2>
     <p>Antes de ejecutar, tenemos que entender las dos partes fundamentales de datos que le enviamos al servidor de Groq: los <strong>headers</strong> y el <strong>payload</strong>.</p>
 
     <h3 style="color: var(--nav); font-size: 22px; margin-top: 20px; border-bottom: 1px solid var(--bd); padding-bottom: 5px;">A) Los Headers (El "sobre" de la carta)</h3>
-    <p style="margin-top: 10px;">Son configuraciones ocultas que el servidor necesita para dejarnos pasar y entender en qué formato le hablamos.</p>
-    
-    <div class="code-container" style="margin-top: 10px; margin-bottom: 10px;">
+    <div class="code-container" style="margin-top: 10px;">
       <div class="code-block">headers = {
   <span class="string">"Authorization"</span>: f<span class="string">"Bearer {API_KEY}"</span>,
   <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span>
@@ -178,14 +189,12 @@
     </div>
     
     <ul style="margin-top: 15px; margin-left: 20px;">
-      <li style="margin-bottom: 10px;"><strong>"Authorization"</strong>: Acá usamos una <strong>f-string</strong> (Clase 4) para inyectar nuestra variable secreta <code>API_KEY</code>. La palabra <em>Bearer</em> significa "Portador". Le estamos diciendo al servidor: <em>"Dejame pasar, soy el portador de esta llave válida"</em>.</li>
-      <li style="margin-bottom: 10px;"><strong>"Content-Type"</strong>: Le avisa a Groq que el mensaje que le vamos a mandar a continuación está escrito en formato JSON.</li>
+      <li style="margin-bottom: 10px;"><strong>"Authorization"</strong>: Inyectamos nuestra <code>API_KEY</code>. <em>Bearer</em> significa que somos los portadores autorizados.</li>
+      <li style="margin-bottom: 10px;"><strong>"Content-Type"</strong>: Le avisa a Groq que el mensaje está en formato JSON.</li>
     </ul>
 
     <h3 style="color: var(--nav); font-size: 22px; margin-top: 25px; border-bottom: 1px solid var(--bd); padding-bottom: 5px;">B) El Payload (El contenido del mensaje)</h3>
-    <p style="margin-top: 10px;">Estos son los datos específicos que procesará la Red Neuronal: nuestro prompt y el modelo elegido.</p>
-
-    <div class="code-container" style="margin-top: 10px; margin-bottom: 10px;">
+    <div class="code-container" style="margin-top: 10px;">
       <div class="code-block">payload = {
   <span class="string">"model"</span>: <span class="string">"llama-3.3-70b-versatile"</span>,
   <span class="string">"messages"</span>: [
@@ -193,45 +202,26 @@
   ]
 }</div>
     </div>
-    
-    <ul style="margin-top: 15px; margin-left: 20px;">
-      <li style="margin-bottom: 10px;"><strong>"model"</strong>: Le indica a la API qué modelo queremos usar. En este caso, Llama 3.3.</li>
-      <li style="margin-bottom: 10px;"><strong>"messages"</strong>: Su valor es una <strong>lista `[ ]`</strong> que contiene diccionarios. Esto es porque un chat tiene historial. Cada mensaje es un diccionario adentro de esa lista.</li>
-      <li><strong>"role" y "content"</strong>: Dentro del diccionario del mensaje, <code>role</code> define quién habla (<em>"user"</em> = nosotros) y <code>content</code> es el texto.</li>
-    </ul>
 
-    <h3 style="color: var(--nav); font-size: 22px; margin-top: 25px; border-bottom: 1px solid var(--bd); padding-bottom: 5px;">C) El Envío y la Recepción</h3>
-    <p style="margin-top: 10px;">Una vez que tenemos el sobre (headers) y el contenido (payload) listos, hay que mandarlos y decodificar la respuesta.</p>
-
-    <div class="code-container" style="margin-top: 10px; margin-bottom: 10px;">
-      <div class="code-block">response = requests.<span class="keyword">post</span>(URL, headers=headers, json=payload)
-data = response.json()</div>
-    </div>
-
-    <ul style="margin-top: 15px; margin-left: 20px;">
-      <li style="margin-bottom: 10px;"><strong><code>requests.post()</code></strong>: Esta función ejecuta la conexión. Se llama POST porque estamos *enviando* información (el payload) al servidor, no solo "leyendo" una página web.</li>
-      <li style="margin-bottom: 10px;"><strong><code>response.json()</code></strong>: El servidor nos devuelve un bloque de texto gigante. Esta función lo "traduce" y lo convierte automáticamente en un diccionario de Python para que podamos acceder fácilmente a la respuesta.</li>
-    </ul>
-
-    <p style="margin-top: 30px; font-weight: bold; color: var(--nav); background: var(--gris); padding: 15px; border-radius: 8px;">Copiá el siguiente código y pegalo en la primera celda de tu cuaderno "mi primer ia". Reemplazá el texto en la línea 4 por tu API Key real.</p>
+    <p style="margin-top: 30px; font-weight: bold; color: var(--nav); background: var(--gris); padding: 15px; border-radius: 8px;">Copiá el código base y reemplazá la línea 4 por tu clave real.</p>
     
     <div class="code-container">
       <button class="copy-btn" onclick="copyCode('miCodigo')">Copiar Código</button>
-      <div id="miCodigo" class="code-block"><span class="comment"># 1. Importamos la librería para hacer pedidos a internet</span>
+      <div id="miCodigo" class="code-block"><span class="comment"># 1. Importamos la librería para internet</span>
 <span class="keyword">import</span> requests
 
-<span class="comment"># 2. Configuramos nuestras credenciales y el destino</span>
+<span class="comment"># 2. Configuramos credenciales</span>
 API_KEY = <span class="string">"gsk_PEGÁ_TU_CLAVE_ACÁ"</span>
 MODEL = <span class="string">"llama-3.3-70b-versatile"</span>
 URL = <span class="string">"https://api.groq.com/openai/v1/chat/completions"</span>
 
-<span class="comment"># 3. Armamos los "headers" (el sobre de la carta). Acá inyectamos la API Key.</span>
+<span class="comment"># 3. Armamos los headers</span>
 headers = {
   <span class="string">"Authorization"</span>: f<span class="string">"Bearer {API_KEY}"</span>,
   <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span>
 }
 
-<span class="comment"># 4. Armamos el "payload" (el contenido del mensaje). ¿Qué modelo y qué le decimos?</span>
+<span class="comment"># 4. Armamos el payload</span>
 payload = {
   <span class="string">"model"</span>: MODEL,
   <span class="string">"messages"</span>: [
@@ -239,63 +229,42 @@ payload = {
   ]
 }
 
-<span class="comment"># 5. Enviamos el pedido (POST) a la URL de Groq con nuestros headers y payload</span>
+<span class="comment"># 5. Enviamos y decodificamos</span>
 response = requests.<span class="keyword">post</span>(URL, headers=headers, json=payload)
-
-<span class="comment"># 6. Convertimos la respuesta cruda del servidor a un Diccionario de Python</span>
 data = response.json()
 
-<span class="comment"># 7. Extraemos solo el texto limpio navegando las claves del diccionario JSON devuelto</span>
+<span class="comment"># 6. Extraemos la respuesta limpia</span>
 <span class="keyword">print</span>(data[<span class="string">"choices"</span>][0][<span class="string">"message"</span>][<span class="string">"content"</span>])</div>
     </div>
   </div>
 
+  <!-- BLOQUE 5: LABORATORIO -->
   <div class="card c-teoria">
     <h2><span class="badge">5</span> LABORATORIO: PRIMERA EJECUCIÓN</h2>
-    <p>Ahora que ya tenés el código en tu Colab con tu API Key, vamos a poner a trabajar al modelo.</p>
-    
     <div class="action-box action-colab">
       <strong>📝 Tarea en Colab: Experimentación</strong>
       <ol style="margin-left: 20px; margin-top: 5px;">
-        <li>Ejecutá el código que pegaste.</li>
-        <li>Cambiá el valor de <code>"content"</code> en el payload por los siguientes tres prompts, ejecutando cada vez:
-          <ul>
-            <li><em>"Explicá qué es la IA en una sola oración."</em></li>
-            <li><em>"¿Cuál es la capital de Francia?"</em></li>
-            <li><em>"Escribí un chiste corto."</em></li>
-          </ul>
-        </li>
-        <li style="margin-top: 10px;"><strong>Pregunta para pensar:</strong> En estas tres pruebas, el motor de conexión y los 'headers' quedaron idénticos, solo cambiaste un valor dentro del diccionario <code>payload</code>. Si quisieras armar un programa automático que le haga 100 preguntas seguidas a la IA... ¿tendrías que reescribir todo el código 100 veces o solo automatizarías una parte? ¿Cuál?</li>
+        <li>Ejecutá el código y verificá que la IA te responda.</li>
+        <li>Cambiá el texto de <code>"content"</code> y probá preguntarle: <em>"¿Cuál es la capital de Francia?"</em> o <em>"Explicá la IA en una frase"</em>.</li>
       </ol>
     </div>
   </div>
 
+  <!-- BLOQUE 6: EVALUACIÓN -->
   <div class="card c-eval">
     <h2><span class="badge" style="background: var(--classroom);">6</span> EVALUACIÓN: EL ENTREVISTADOR AUTOMÁTICO</h2>
-    <p>Copiar código es fácil. Ahora vamos a demostrar que entendés cómo manipularlo integrando variables (Clase 2) y F-strings (Clase 4).</p>
-    
     <div class="action-box action-colab">
-      <strong>📝 Tarea en Colab: Tu turno de crear</strong>
+      <strong>📝 Tu turno de crear (Usa variables y F-strings)</strong>
       <ol style="margin-left: 20px; margin-top: 5px;">
-        <li>Creá una nueva celda de código (abajo de la primera).</li>
-        <li>Copiá el código base como punto de partida.</li>
-        <li>Agregá al principio del código dos variables tuyas: <br>
-          <code>personaje = "Albert Einstein"</code> (o el personaje histórico/famoso que quieras).<br>
-          <code>tema = "los videojuegos"</code> (o el tema que se te ocurra).
-        </li>
-        <li style="margin-top: 10px;"><strong>El desafío:</strong> Modificá el <code>payload</code>. En lugar de escribir el "content" a mano, usá una <strong>f-string</strong> para que el prompt se arme dinámicamente usando tus variables.<br>
-        <em>Ejemplo de lo que tiene que lograr la f-string: "Actuá como Albert Einstein y explicame qué opinás sobre los videojuegos."</em></li>
-        <li>Ejecutá el código y mirá qué te responde.</li>
+        <li>Agregá al principio del código: <code>personaje = "Albert Einstein"</code> y <code>tema = "los videojuegos"</code>.</li>
+        <li><strong>Desafío:</strong> Modificá el <code>payload</code> para que el prompt se arme solo usando f-strings con esas variables.</li>
+        <li>Ejemplo esperado: <em>"Actuá como Albert Einstein y explicame los videojuegos."</em></li>
       </ol>
     </div>
 
     <div class="action-box action-classroom">
-      <strong>📤 Entregable en Classroom (Ticket de Salida)</strong>
-      <p style="margin-bottom: 10px;">Andá a la tarea del día en Google Classroom y enviá:</p>
-      <ol style="margin-left: 20px;">
-        <li>El código final que armaste (con tus variables y la f-string).</li>
-        <li>La respuesta más divertida o interesante que te dio la IA con tus variables.</li>
-      </ol>
+      <strong>📤 Entregable en Classroom</strong>
+      <p>Subí el enlace de tu Colab con el código de las variables funcionando y respondé qué fue lo más raro que te dijo la IA.</p>
     </div>
   </div>
 
@@ -305,7 +274,6 @@ data = response.json()
   function copyCode(elementId) {
     var codeElement = document.getElementById(elementId);
     var textToCopy = codeElement.textContent || codeElement.innerText;
-    
     navigator.clipboard.writeText(textToCopy).then(function() {
       var btn = codeElement.previousElementSibling;
       var originalText = btn.innerText;
@@ -314,10 +282,7 @@ data = response.json()
       setTimeout(function() {
         btn.innerText = originalText;
         btn.style.background = "rgba(255,255,255,0.15)";
-        btn.style.borderColor = "rgba(255,255,255,0.3)";
       }, 2000);
-    }).catch(function(err) {
-      console.error('No se pudo copiar el texto: ', err);
     });
   }
 </script>
