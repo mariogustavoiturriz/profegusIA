@@ -17,6 +17,7 @@
     background: #EEF3F7; 
     color: var(--txt); 
     line-height: 1.6; 
+    font-size: 20px;
     padding-bottom: 60px; 
   }
   
@@ -28,20 +29,20 @@
     border-bottom: 6px solid var(--teal); 
   }
   header h1 { font-size: 32px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
-  header p { font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+  header p { font-size: 20px; opacity: 0.9; max-width: 800px; margin: 0 auto; }
   
-  .container { width: 95%; max-width: 1000px; margin: 40px auto; padding: 0 15px; }
+  .container { width: 95%; max-width: 1400px; margin: 40px auto; padding: 0 15px; }
   
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
   }
   
   .card { 
     background: var(--bco); 
     border-radius: var(--r); 
-    padding: 25px; 
+    padding: 30px; 
     box-shadow: 0 4px 12px rgba(0,0,0,.08); 
     border-top: 5px solid var(--bd);
     text-decoration: none;
@@ -56,15 +57,15 @@
     box-shadow: 0 8px 24px rgba(0,0,0,.12);
   }
   
-  .c-pasada { border-top-color: #4A6080; opacity: 0.85; }
-  .c-actual { border-top-color: var(--teal); }
+  .c-pasada { border-top-color: #4A6080; opacity: 0.9; }
+  .c-actual { border-top-color: var(--teal); background: #f0fafa; }
   
   .clase-num { 
-    font-size: 14px; 
+    font-size: 16px; 
     font-weight: bold; 
     color: #666; 
     text-transform: uppercase; 
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     letter-spacing: 1px;
   }
   
@@ -72,27 +73,28 @@
   
   .card h2 { 
     color: var(--nav); 
-    font-size: 22px; 
-    margin-bottom: 10px; 
+    font-size: 24px; 
+    margin-bottom: 12px; 
     line-height: 1.3;
   }
   
   .card p { 
-    font-size: 16px; 
+    font-size: 18px; 
     color: #555; 
     flex-grow: 1;
   }
   
   .btn {
     display: inline-block;
-    margin-top: 20px;
-    padding: 10px 15px;
-    border-radius: 6px;
+    margin-top: 25px;
+    padding: 12px 20px;
+    border-radius: 8px;
     font-weight: bold;
     text-align: center;
     background: var(--gris);
     color: var(--nav);
     transition: background 0.2s;
+    font-size: 18px;
   }
   
   .c-actual .btn { background: var(--teal); color: white; }
@@ -101,7 +103,7 @@
   .c-actual:hover .btn { background: #007A80; }
 
   .section-title {
-    font-size: 24px;
+    font-size: 28px;
     color: var(--nav);
     margin: 40px 0 20px 0;
     padding-bottom: 10px;
@@ -119,13 +121,13 @@
 
 <div class="container">
 
-  <h2 class="section-title">Clase Actual</h2>
+  <h2 class="section-title">10/04/26</h2>
   <div class="grid">
     
     <a href="clase_5.html" class="card c-actual">
       <div class="clase-num">Semana 3 • Clase 5</div>
       <h2>La Primera Llamada a la IA</h2>
-      <p>Conexión de Python a la API de Groq. Configuración de Headers, Payload (JSON) y extracción de respuestas.</p>
+      <p>Conexión de Python a la API de Groq. Configuración de Headers, Payload (JSON) y extracción de respuestas de forma profesional.</p>
       <div class="btn">Abrir Material</div>
     </a>
 
@@ -137,28 +139,28 @@
     <a href="clase_4.html" class="card c-pasada">
       <div class="clase-num">Semana 2 • Clase 4</div>
       <h2>Controlando Errores</h2>
-      <p>Prompts dinámicos con f-strings. Taller de depuración, lectura de tracebacks y uso de bloques try/except.</p>
+      <p>Prompts dinámicos con f-strings y gestión de excepciones con bloques try/except para programas robustos.</p>
       <div class="btn">Repasar Clase</div>
     </a>
 
     <a href="clase_3.html" class="card c-pasada">
       <div class="clase-num">Semana 2 • Clase 3</div>
       <h2>El Idioma de la IA</h2>
-      <p>Colecciones de datos en Python. Trabajo intensivo con Listas y Diccionarios simulando un historial de chat.</p>
+      <p>Colecciones de datos en Python: Listas y Diccionarios como base para la comunicación con modelos de lenguaje.</p>
       <div class="btn">Repasar Clase</div>
     </a>
 
     <a href="clase_2.html" class="card c-pasada">
       <div class="clase-num">Semana 1 • Clase 2</div>
       <h2>El Agente Inteligente</h2>
-      <p>Estructura de Sensor, Programa y Actuador. Creación de cuaderno en Google Colab y repaso de funciones.</p>
+      <p>Arquitectura de Sensor, Programa y Actuador. Introducción a funciones y entorno de trabajo en Google Colab.</p>
       <div class="btn">Repasar Clase</div>
     </a>
 
     <a href="clase_1.html" class="card c-pasada">
       <div class="clase-num">Semana 1 • Clase 1</div>
       <h2>El Desafío Imposible</h2>
-      <p>Reglas fijas vs. Aprendizaje por datos. Demostración práctica con Teachable Machine y concepto de Alucinación.</p>
+      <p>Diferencia entre programación basada en reglas y aprendizaje por datos. Demostraciones con Teachable Machine.</p>
       <div class="btn">Repasar Clase</div>
     </a>
 
