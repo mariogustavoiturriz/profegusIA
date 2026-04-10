@@ -30,7 +30,6 @@
   
   .container { width: 95%; max-width: 1400px; margin: 20px auto; padding: 0 15px; }
 
-  /* Botón de volver */
   .back-btn {
     display: inline-block;
     margin-bottom: 20px;
@@ -56,7 +55,6 @@
   .c-codigo { border-left-color: var(--vio); background: #FAFCFF; position: relative; }
   .c-eval { border-left-color: var(--classroom); background: #F6FEF8; }
   
-  /* Estilo para la advertencia */
   .c-alerta { border: 3px solid var(--rojo); background: #FFEBEE; border-left: 10px solid var(--rojo); }
   .c-alerta h2 { color: var(--rojo); border-bottom-color: #FFCDD2; }
 
@@ -103,14 +101,12 @@
 
   <a href="index.html" class="back-btn">⬅ Volver al Índice</a>
 
-  <!-- BLOQUE 0: CONTEXTO -->
   <div class="card c-repaso">
     <h2><span class="badge">0</span> EL PUNTO DE PARTIDA Y EL ERROR</h2>
     <p>Venimos de días sin clases. En la C4 aprendimos a usar <code>try / except</code>. ¿Por qué era tan importante?</p>
     <p style="margin-top: 10px;">Hasta ahora nuestro código vivía encerrado en nuestra compu. Hoy, Python va a salir a internet para conectarse a un servidor de IA. Cuando salís a la red, los fallos son reales: se corta el wifi, el servidor está caído o te rechazan el acceso. El <code>try/except</code> es nuestro escudo para evitar que el programa explote si algo de eso pasa.</p>
   </div>
 
-  <!-- BLOQUE 1: CONCEPTOS DEFINIDOS -->
   <div class="card c-teoria">
     <h2><span class="badge">1</span> GLOSARIO TÉCNICO</h2>
     <p>Para programar IA en el entorno profesional, la terminología debe ser exacta. Leé y asimilá estos conceptos antes de avanzar:</p>
@@ -141,7 +137,6 @@
     </div>
   </div>
 
-  <!-- BLOQUE 2: SETUP -->
   <div class="card c-setup">
     <h2><span class="badge">2</span> CONOCIENDO A GROQ Y TU API KEY</h2>
     <p>Para hacer nuestro programa, vamos a conectarnos a los servidores de una empresa llamada <strong>Groq</strong>. Es una plataforma gratuita y rapidísima que nos presta el acceso al "cerebro" de las IAs más potentes del mundo.</p>
@@ -156,7 +151,6 @@
     </ol>
   </div>
 
-  <!-- BLOQUE 3: EL ESPACIO DE TRABAJO -->
   <div class="card c-espacio">
     <h2><span class="badge" style="background: var(--colab); color: #000;">3</span> EL ESPACIO DE TRABAJO</h2>
     <div class="action-box action-colab">
@@ -168,43 +162,21 @@
     </div>
   </div>
 
-  <!-- ADVERTENCIA RESALTADA -->
   <div class="card c-alerta">
     <h2>⚠️ IMPORTANTE: TU LÓGICA ES LA QUE VALE</h2>
     <p><strong>No uses la IA para que te escriba el código de estas actividades.</strong></p>
     <p style="margin-top: 10px;">El objetivo de este taller es que vos aprendas a resolver la conexión y a manipular los datos. Copiar y pegar lo que te da un chatbot no te enseña nada. <strong>Recordá que en las evaluaciones presenciales no vas a tener acceso a la IA para programar</strong>; si no entendés el código ahora, no vas a poder aprobar después.</p>
   </div>
 
-  <!-- BLOQUE 4: ESTRUCTURA DE LA CONEXIÓN -->
   <div class="card c-teoria">
-    <h2><span class="badge">4</span> LA ESTRUCTURA DE LA CONEXIÓN Y EL CÓDIGO BASE</h2>
-    <p>Antes de ejecutar, tenemos que entender las dos partes fundamentales de datos que le enviamos al servidor de Groq: los <strong>headers</strong> y el <strong>payload</strong>.</p>
-
-    <h3 style="color: var(--nav); font-size: 22px; margin-top: 20px; border-bottom: 1px solid var(--bd); padding-bottom: 5px;">A) Los Headers (El "sobre" de la carta)</h3>
+    <h2><span class="badge">4</span> LA ESTRUCTURA DE LA CONEXIÓN</h2>
+    <p>Antes de ejecutar, tenemos que entender las partes fundamentales de datos que enviamos:</p>
+    <h3 style="color: var(--nav); font-size: 22px; margin-top: 20px; border-bottom: 1px solid var(--bd); padding-bottom: 5px;">A) Los Headers y el Payload</h3>
     <div class="code-container" style="margin-top: 10px;">
-      <div class="code-block">headers = {
-  <span class="string">"Authorization"</span>: f<span class="string">"Bearer {API_KEY}"</span>,
-  <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span>
-}</div>
+      <div class="code-block">headers = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
+payload = {"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": "¿Qué es Python?"}]}</div>
     </div>
-    
-    <ul style="margin-top: 15px; margin-left: 20px;">
-      <li style="margin-bottom: 10px;"><strong>"Authorization"</strong>: Inyectamos nuestra <code>API_KEY</code>. <em>Bearer</em> significa que somos los portadores autorizados.</li>
-      <li style="margin-bottom: 10px;"><strong>"Content-Type"</strong>: Le avisa a Groq que el mensaje está en formato JSON.</li>
-    </ul>
-
-    <h3 style="color: var(--nav); font-size: 22px; margin-top: 25px; border-bottom: 1px solid var(--bd); padding-bottom: 5px;">B) El Payload (El contenido del mensaje)</h3>
-    <div class="code-container" style="margin-top: 10px;">
-      <div class="code-block">payload = {
-  <span class="string">"model"</span>: <span class="string">"llama-3.3-70b-versatile"</span>,
-  <span class="string">"messages"</span>: [
-    {<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: <span class="string">"¿Qué es Python?"</span>}
-  ]
-}</div>
-    </div>
-
-    <p style="margin-top: 30px; font-weight: bold; color: var(--nav); background: var(--gris); padding: 15px; border-radius: 8px;">Copiá el código base y reemplazá la línea 4 por tu clave real.</p>
-    
+    <p style="margin-top: 30px; font-weight: bold; color: var(--nav); background: var(--gris); padding: 15px; border-radius: 8px;">Copiá el código base completo en tu cuaderno y reemplazá la línea 4 por tu clave.</p>
     <div class="code-container">
       <button class="copy-btn" onclick="copyCode('miCodigo')">Copiar Código</button>
       <div id="miCodigo" class="code-block"><span class="comment"># 1. Importamos la librería para internet</span>
@@ -238,9 +210,9 @@ data = response.json()
     </div>
   </div>
 
-  <!-- BLOQUE 5: LABORATORIO -->
+  <!-- BLOQUE 5: ACTIVIDAD 1 -->
   <div class="card c-teoria">
-    <h2><span class="badge">5</span> LABORATORIO: PRIMERA EJECUCIÓN</h2>
+    <h2><span class="badge">5</span> ACTIVIDAD 1: PRIMERA EJECUCIÓN</h2>
     <div class="action-box action-colab">
       <strong>📝 Tarea en Colab: Experimentación</strong>
       <ol style="margin-left: 20px; margin-top: 5px;">
@@ -250,9 +222,9 @@ data = response.json()
     </div>
   </div>
 
-  <!-- BLOQUE 6: EVALUACIÓN -->
+  <!-- BLOQUE 6: ACTIVIDAD 2 -->
   <div class="card c-eval">
-    <h2><span class="badge" style="background: var(--classroom);">6</span> EVALUACIÓN: EL ENTREVISTADOR AUTOMÁTICO</h2>
+    <h2><span class="badge" style="background: var(--classroom);">6</span> ACTIVIDAD 2: EL ENTREVISTADOR AUTOMÁTICO</h2>
     <div class="action-box action-colab">
       <strong>📝 Tu turno de crear (Usa variables y F-strings)</strong>
       <ol style="margin-left: 20px; margin-top: 5px;">
