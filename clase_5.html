@@ -20,16 +20,34 @@
     color: var(--txt); 
     line-height: 1.6; 
     font-size: 20px; 
-    padding: 15px 0 40px 0; 
+    padding: 0 0 40px 0; 
   }
   
   header { background: var(--nav); color: var(--bco); padding: 25px 20px; border-bottom: 5px solid var(--teal); }
   header h1 { font-size: 28px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
   header p { font-size: 18px; opacity: 0.9; }
   
-  .container { width: 95%; max-width: 1400px; margin: 0 auto; padding: 0 15px; }
+  .container { width: 95%; max-width: 1400px; margin: 20px auto; padding: 0 15px; }
   
-  .card { background: var(--bco); border-radius: var(--r); padding: 30px; margin-bottom: 30px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,.08); border-left: 6px solid var(--bd); }
+  /* Botón de volver */
+  .back-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background: var(--bco);
+    color: var(--nav);
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 2px solid var(--bd);
+    transition: all 0.2s;
+  }
+  .back-btn:hover {
+    border-color: var(--nav);
+    background: var(--gris);
+  }
+  
+  .card { background: var(--bco); border-radius: var(--r); padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(0,0,0,.08); border-left: 6px solid var(--bd); }
   .c-repaso { border-left-color: #4A6080; }
   .c-teoria { border-left-color: var(--teal); }
   .c-setup { border-left-color: var(--amb); }
@@ -77,6 +95,8 @@
 </header>
 
 <div class="container">
+
+  <a href="index.html" class="back-btn">⬅ Volver al Índice</a>
 
   <div class="card c-repaso">
     <h2><span class="badge">0</span> EL PUNTO DE PARTIDA Y EL ERROR</h2>
