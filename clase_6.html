@@ -111,7 +111,7 @@
   <h3>¿Qué pedía la consigna?</h3>
   <p>La idea era que el texto del prompt se armara <em>automáticamente</em> a partir de dos variables, en lugar de escribirlo a mano. Así podemos cambiar el personaje o el tema tocando solo una línea, sin reescribir nada más.</p>
 
-  <h3>Ejemplo resuelto</h3>
+  <h3>Ejemplo resuelto — leé esto antes de escribir el tuyo</h3>
 
   <p id="pistaOculta" style="font-style: italic; color: #666; font-size: 18px; margin-top: 10px;">(El código de ejemplo está oculto para que intentes resolverlo sin copiar. Pedile al profe el código para revelarlo).</p>
 
@@ -166,6 +166,7 @@ data = response.json()
     <strong>📝 Ahora tu turno — El Entrevistador Automático</strong>
     <ol style="margin-left: 20px; margin-top: 5px;">
       <li>Abrí el Colab <strong>"mi primer ia"</strong> y creá una nueva celda debajo de la última.</li>
+      <li>Usá el ejemplo de arriba como base.</li>
       <li>Cambiá <code>personaje</code> y <code>tema</code> por los que vos quieras — cualquier personaje (histórico, ficticio, famoso); cualquier tema.</li>
       <li>Ejecutalo <strong>al menos 3 veces</strong> con combinaciones distintas. Elegí la respuesta más divertida o inesperada.</li>
       <li>Probá cambiar la estructura del f-string para que la pregunta sea distinta. Por ejemplo: <code>f"Si {personaje} viviera hoy, ¿qué diría sobre {tema}?"</code></li>
@@ -173,7 +174,7 @@ data = response.json()
   </div>
 
   <div class="action-box action-classroom">
-    <strong>📤 Entregá en Classroom (de la clase 5)</strong>
+    <strong>📤 Entregá en Classroom</strong>
     <ol style="margin-left: 20px;">
       <li>Tu código final con las variables y la f-string.</li>
       <li>La respuesta más divertida o inesperada que te dio la IA.</li>
@@ -190,22 +191,22 @@ data = response.json()
 
   <div class="def-box info" style="margin-top: 20px;">
     <strong>JSON de Respuesta</strong>
-    Cuando el modelo responde, el servidor no manda solo el texto. Manda un <em>paquete completo</em> de información sobre toda la llamada: el nombre del modelo que respondió, cuántos tokens se consumieron, si terminó bien o fue interrumpido, y más. En C5 leímos solo una pequeña parte de ese paquete. Hoy exploramos todo lo que hay adentro.
+    Cuando el modelo responde, el servidor no manda solo el texto. Manda un <em>paquete completo</em> de información sobre toda la llamada: el nombre del modelo que respondió, cuántas unidades se procesaron, y metadatos técnicos. En C5 leímos solo una pequeña parte de ese paquete. Hoy exploramos todo lo que hay adentro.
   </div>
 
   <div class="def-box vio">
     <strong>Temperature</strong>
-    Un número entre <code>0.0</code> y <code>2.0</code> que se agrega al <code>payload</code>. Controla qué tan predecible o creativo es el modelo al elegir el siguiente token. No cambia lo que el modelo <em>sabe</em> — cambia <em>cómo elige</em> entre las opciones posibles.
+    Un número entre <code>0.0</code> y <code>2.0</code> que se agrega al <code>payload</code>. Controla qué tan arriesgado es el modelo al elegir cada palabra.
     <ul style="margin-top: 12px; margin-left: 20px; line-height: 2;">
-      <li><strong>0.0</strong> → Siempre elige el token más probable. Respuestas consistentes, casi idénticas si ejecutás varias veces.</li>
-      <li><strong>0.7</strong> → Un punto medio. La respuesta cambia un poco cada vez que ejecutás, pero se mantiene lógica y tiene sentido. Es el valor por defecto si no le ponés número.</li>
+      <li><strong>0.0</strong> → Siempre elige la palabra más probable. Respuestas consistentes y casi idénticas.</li>
+      <li><strong>0.7</strong> → Un punto medio. La respuesta cambia un poco cada vez que ejecutás, pero se mantiene lógica y tiene sentido.</li>
       <li><strong>1.5+</strong> → Alta variación. Puede tirar ideas muy creativas o directamente decir cualquier locura que no tiene nada que ver.</li>
     </ul>
   </div>
 
   <div class="def-box amb">
     <strong>Alucinación</strong>
-    Cuando el modelo genera texto convincente pero incorrecto, impreciso o directamente inventado. <strong>No es un error del programa.</strong> Es una consecuencia del mecanismo: el modelo predice lo que estadísticamente "suena bien", aunque no sea verdad. No tiene acceso a internet, no verifica nada. Solo predice el siguiente token.
+    Cuando el modelo genera texto convincente pero incorrecto, impreciso o directamente inventado. <strong>No es un error del programa.</strong> Es una consecuencia del mecanismo: el modelo predice lo que estadísticamente "suena bien", aunque no sea verdad.
   </div>
 </div>
 
@@ -252,21 +253,26 @@ data = response.json()
 
   <h3>¿Qué significa cada parte?</h3>
   <ul style="margin-top: 10px; margin-left: 20px; line-height: 2.4;">
-    <li><strong><code>"id"</code></strong>: Identificador único de esta llamada. Útil para rastrear errores: si algo falla, este id te dice exactamente qué llamada fue.</li>
-    <li><strong><code>"model"</code></strong>: Confirma qué modelo respondió. Útil para verificar que usaste el que pediste.</li>
-    <li><strong><code>"choices"</code></strong>: Es siempre una <strong>lista [ ]</strong> aunque casi siempre tenga un solo elemento. La API está diseñada para devolver varias respuestas al mismo tiempo si se lo pedís (con el parámetro <code>n</code>). Por defecto devuelve una sola, pero siempre envuelta en una lista. Por eso accedemos con <code>[0]</code>.</li>
-    <li><strong><code>"message"</code></strong>: El diccionario con la respuesta del modelo. Siempre tiene <code>"role": "assistant"</code> y <code>"content"</code> con el texto.</li>
-    <li><strong><code>"finish_reason"</code></strong>: Por qué paró el modelo. <code>"stop"</code> significa que terminó normalmente. <code>"length"</code> significa que se cortó por llegar al límite de tokens.</li>
-    <li><strong><code>"usage"</code></strong>: La cuenta exacta de tokens de esta llamada. Muy importante si el servicio es pago.</li>
+    <li><strong><code>"id"</code></strong>: Identificador único de esta llamada. Útil para rastrear errores técnicos.</li>
+    <li><strong><code>"model"</code></strong>: Confirma qué modelo respondió realmente.</li>
+    <li><strong><code>"choices"</code></strong>: Es una <strong>lista [ ]</strong> que contiene la respuesta. Aunque suele haber una sola, siempre viene en lista; por eso usamos <code>[0]</code>.</li>
+    <li><strong><code>"message"</code></strong>: El diccionario con la respuesta del modelo (texto y rol).</li>
+    <li><strong><code>"finish_reason"</code></strong>: Por qué paró el modelo. <code>"stop"</code> significa que terminó bien.</li>
+    <li><strong><code>"usage"</code></strong>: Es el contador de "gasto" o volumen. Nos dice cuántas unidades de texto (tokens) se procesaron en total en la llamada.</li>
   </ul>
 
-  <div class="def-box info" style="margin-top: 20px;">
-    <strong>¿Qué son prompt_tokens y completion_tokens?</strong>
-    <strong style="display:inline;color:inherit;font-size:inherit;text-transform:none;">prompt_tokens</strong>: los tokens de tu pregunta (lo que enviaste vos). <strong style="display:inline;color:inherit;font-size:inherit;text-transform:none;">completion_tokens</strong>: los tokens de la respuesta del modelo (lo que recibiste). <strong style="display:inline;color:inherit;font-size:inherit;text-transform:none;">total_tokens</strong>: la suma de los dos. En servicios de pago como OpenAI, se cobra por <em>total_tokens</em> — cuanto más larga la pregunta, más cara la llamada.
-  </div>
-
   <h3>Cómo acceder a cada parte por separado</h3>
-  <p>En lugar de imprimir todo junto, podés navegar el diccionario con las claves que ya conocés:</p>
+
+  <!-- TAREA MOVIDA ANTES DEL CÓDIGO -->
+  <div class="action-box action-colab">
+    <strong>📝 Explorá el JSON en tu Colab</strong>
+    <ol style="margin-left: 20px; margin-top: 5px;">
+      <li>Abrí una nueva celda de código.</li>
+      <li>Copiá y ejecutá el código de abajo con tu API Key.</li>
+      <li>Cambiá el prompt por algo muy corto ("Hola") y luego por uno largo (3 oraciones).</li>
+      <li>Fijate cómo cambia el número final de tokens. ¿Qué conclusión sacás?</li>
+    </ol>
+  </div>
 
   <div class="code-container">
     <button class="copy-btn" onclick="copyCode('navJson')">Copiar Código</button>
@@ -295,19 +301,8 @@ data = response.json()
 <span class="keyword">print</span>(<span class="string">"\n── Por qué paró el modelo:"</span>)
 <span class="keyword">print</span>(data[<span class="string">"choices"</span>][0][<span class="string">"finish_reason"</span>])
 
-<span class="keyword">print</span>(<span class="string">"\n── Los tokens consumidos:"</span>)
-<span class="keyword">print</span>(data[<span class="string">"usage"</span>])</div>
-  </div>
-
-  <div class="action-box action-colab">
-    <strong>📝 Explorá el JSON en tu Colab</strong>
-    <ol style="margin-left: 20px; margin-top: 5px;">
-      <li>Copiá y ejecutá el código de arriba con tu API Key.</li>
-      <li>Cambiá el prompt por algo muy corto ("Hola") y ejecutá. ¿Cambió <code>prompt_tokens</code>?</li>
-      <li>Ahora poné un prompt largo (3 oraciones). ¿Qué pasó con <code>prompt_tokens</code>?</li>
-      <li>¿Cambia <code>completion_tokens</code> si le pedís una respuesta corta en lugar de una larga? Probalo.</li>
-      <li>Respondé en tu cuaderno: si una API cobra $0.01 por cada 1.000 tokens, y tu llamada usó 160 <code>total_tokens</code>, ¿cuánto costó esa llamada?</li>
-    </ol>
+<span class="keyword">print</span>(<span class="string">"\n── Volumen total procesado (tokens):"</span>)
+<span class="keyword">print</span>(data[<span class="string">"usage"</span>][<span class="string">"total_tokens"</span>])</div>
   </div>
 </div>
 
@@ -317,21 +312,21 @@ data = response.json()
 <div class="card c-codigo">
   <h2><span class="badge" style="background: var(--vio);">3</span> EL PARÁMETRO TEMPERATURE — EXPERIMENTO</h2>
 
-  <p>¿Recordás la frase clave de C5? <strong>"El LLM predice el siguiente token más probable."</strong> Cuando el modelo está por escribir la siguiente palabra, tiene en mente una lista de candidatos posibles, cada uno con un porcentaje de probabilidad. El parámetro <code>temperature</code> controla qué tan arriesgado es al elegir de esa lista.</p>
+  <p>¿Recordás la frase clave de C5? <strong>"El LLM predice el siguiente token más probable."</strong> El parámetro <code>temperature</code> controla qué tan arriesgado es el modelo al elegir de la lista de opciones posibles.</p>
 
   <div class="def-box vio" style="margin-top: 20px;">
     <strong>Temperature = 0.0 — frío</strong>
-    Siempre elige el token con mayor probabilidad. El resultado es casi determinista: si ejecutás el mismo código tres veces, la respuesta es prácticamente idéntica. Útil cuando necesitás consistencia: resúmenes, traducciones, extracción de datos.
+    Siempre elige la opción más probable. El resultado es casi idéntico cada vez que ejecutás. Útil para tareas que requieren precisión como resúmenes o traducciones.
   </div>
 
   <div class="def-box vio2">
     <strong style="color: var(--vio);">Temperature = 0.7 — templado</strong>
-    El modelo puede elegir tokens un poco menos probables. Las respuestas varían cada vez que ejecutás el código, pero siempre mantienen la lógica y tienen sentido. Es el valor por defecto. Bueno para conversaciones, redacción, chatbots.
+    Las respuestas varían cada vez que ejecutás el código, pero siempre mantienen la lógica y tienen sentido. Es el valor por defecto.
   </div>
 
   <div class="def-box vio3">
     <strong>Temperature = 1.5+ — caliente</strong>
-    El modelo puede elegir tokens poco probables con frecuencia. Las respuestas son muy variadas: a veces sorprendentes, a veces sin sentido. Útil para lluvia de ideas o tareas creativas. No recomendado cuando necesitás precisión.
+    El modelo elige opciones poco probables. Las respuestas son muy variadas y a veces sorprendentes o raras. Útil para tareas creativas.
   </div>
 
   <h3>¿Cómo se agrega al código?</h3>
@@ -347,7 +342,7 @@ data = response.json()
 }</div>
   </div>
 
-  <p style="margin-top: 20px;">Copiá este código que hace el experimento completo de una sola vez, con las tres temperatures:</p>
+  <p style="margin-top: 20px;">Copiá este código que hace el experimento completo de una sola vez:</p>
 
   <div class="code-container">
     <button class="copy-btn" onclick="copyCode('codTemp')">Copiar Código</button>
@@ -406,7 +401,7 @@ temperaturas = [0.0, 0.7, 1.5]
 
   <div class="action-box action-colab" style="margin-top: 20px;">
     <strong>📝 Experimento extra — ¿0.0 siempre da lo mismo?</strong>
-    <p style="margin-top: 5px;">Ejecutá el código <strong>tres veces seguidas</strong> con <code>temperature = 0.0</code>. ¿Son idénticas las tres respuestas? Ahora hacé lo mismo con <code>temperature = 1.5</code>. ¿Qué diferencia notás? Anotá la conclusión en tu cuaderno con tus palabras.</p>
+    <p style="margin-top: 5px;">Ejecutá el código <strong>tres veces seguidas</strong> con <code>temperature = 0.0</code>. ¿Son idénticas las tres respuestas? Ahora hacé lo mismo con <code>temperature = 1.5</code>. ¿Qué diferencia notás? Anotá la conclusión en tu cuaderno.</p>
   </div>
 </div>
 
@@ -416,26 +411,16 @@ temperaturas = [0.0, 0.7, 1.5]
 <div class="card c-setup">
   <h2><span class="badge" style="background: var(--amb);">4</span> LA ALUCINACIÓN — POR QUÉ EL MODELO INVENTA</h2>
 
-  <p>El modelo <strong>no busca información</strong>. Predice tokens. Eso significa que cuando le hacés una pregunta, no consulta ninguna base de datos, no va a internet, no verifica nada. Solo genera el texto que estadísticamente tiene más probabilidad de seguir al tuyo.</p>
+  <p>El modelo <strong>no busca información</strong>. Predice tokens. Eso significa que cuando le hacés una pregunta, no consulta ninguna base de datos real. Solo genera el texto que estadísticamente tiene más probabilidad de seguir al tuyo.</p>
 
-  <p style="margin-top: 15px;">La consecuencia directa: si el texto más probable estadísticamente es incorrecto, el modelo lo genera igual — y con la misma confianza con la que genera texto correcto. <strong>No sabe que está equivocado.</strong></p>
+  <p style="margin-top: 15px;">La consecuencia directa: si el texto más probable estadísticamente es incorrecto, el modelo lo genera igual — y con total confianza. <strong>No sabe que está equivocado.</strong></p>
 
   <div class="def-box amb" style="margin-top: 20px;">
     <strong>¿Cuándo es más probable que alucine?</strong>
     <ul style="margin-top: 8px; margin-left: 20px; line-height: 2.2;">
-      <li>Cuando preguntás por datos numéricos precisos: fechas exactas, cantidades, estadísticas.</li>
-      <li>Cuando preguntás sobre información local o específica que tiene poca presencia en internet.</li>
-      <li>Cuando preguntás sobre eventos recientes (el modelo tiene una "fecha de corte" en su entrenamiento y no sabe qué pasó después).</li>
-      <li>Cuando una pregunta tiene una respuesta que "suena lógica" pero no es real.</li>
-    </ul>
-  </div>
-
-  <div class="def-box ok">
-    <strong>¿Cuándo suele NO alucinar?</strong>
-    <ul style="margin-top: 8px; margin-left: 20px; line-height: 2.2;">
-      <li>Conocimiento científico consolidado: fórmulas, leyes físicas, conceptos matemáticos.</li>
-      <li>Hechos históricos ampliamente documentados en todo internet.</li>
-      <li>Tareas donde no necesita recordar datos: resumir, traducir, reescribir, explicar.</li>
+      <li>Cuando preguntás por datos numéricos exactos o fechas muy precisas.</li>
+      <li>Cuando preguntás sobre información local (ej: de Ushuaia o Tierra del Fuego).</li>
+      <li>Cuando preguntás sobre eventos muy recientes.</li>
     </ul>
   </div>
 
@@ -449,15 +434,13 @@ temperaturas = [0.0, 0.7, 1.5]
       <li><em>"¿En qué año exacto se inauguró el aeropuerto Malvinas Argentinas de Ushuaia?"</em></li>
       <li><em>"¿Cuál es la fórmula química del agua?"</em></li>
       <li><em>"¿Quién ganó el último campeonato del torneo de fútbol de la liga fueguina?"</em></li>
-      <li><em>"¿Cuál es la temperatura promedio de Ushuaia en el mes de julio?"</em></li>
     </ol>
     <p style="margin-top: 15px;">Para cada respuesta anotá en tu cuaderno:</p>
     <ul style="margin-left: 20px; line-height: 2.2;">
       <li>¿La respuesta parece correcta, dudosa o inventada?</li>
-      <li>¿El modelo expresó alguna duda ("no estoy seguro", "aproximadamente") o la dio como certeza?</li>
-      <li>¿La podés verificar fácilmente o no?</li>
+      <li>¿La podés verificar fácilmente?</li>
     </ul>
-    <p style="margin-top: 15px;"><strong>Pregunta para pensar:</strong> ¿Qué conclusión sacás sobre cuándo conviene y cuándo <em>no</em> conviene usar un modelo de lenguaje para buscar información? ¿Cómo lo usarías vos de forma responsable?</p>
+    <p style="margin-top: 15px;"><strong>Pregunta para pensar:</strong> ¿Qué conclusión sacás sobre cuándo conviene usar un modelo para buscar información?</p>
   </div>
 </div>
 
@@ -475,7 +458,7 @@ temperaturas = [0.0, 0.7, 1.5]
       <li>Hacerle esta pregunta fija: <code>"Explicá en dos oraciones qué es el Machine Learning."</code></li>
       <li>Usar <strong>temperature = 0.3</strong> en el payload.</li>
       <li>Imprimir <strong>solo el texto</strong> de la respuesta (no todo el JSON).</li>
-      <li><strong>Extra:</strong> también imprimí cuántos <code>total_tokens</code> se consumieron en la llamada.</li>
+      <li><strong>Extra:</strong> también imprimí el número de <code>total_tokens</code> que se consumieron.</li>
     </ol>
   </div>
 
@@ -484,7 +467,7 @@ temperaturas = [0.0, 0.7, 1.5]
     <ol style="margin-left: 20px;">
       <li>El enlace a tu Colab con el código que escribiste desde cero.</li>
       <li>La respuesta que te dio el modelo.</li>
-      <li>Una oración explicando qué diferencia notaste entre temperature 0.0 y temperature 1.5 en el experimento del Bloque 3.</li>
+      <li>Una oración explicando qué diferencia notaste entre temperature 0.0 y temperature 1.5.</li>
     </ol>
   </div>
 </div>
@@ -496,10 +479,10 @@ temperaturas = [0.0, 0.7, 1.5]
   <h3>📋 Bitácora de hoy — lo que aprendiste</h3>
   <ul style="margin-left: 20px; line-height: 2.3;">
     <li>La respuesta del servidor tiene mucho más que el texto: <strong>id, model, choices, usage</strong>.</li>
-    <li><code>data["choices"]</code> es siempre una lista aunque tenga un solo elemento — por eso el <code>[0]</code>.</li>
-    <li><code>usage</code> lleva la cuenta exacta de tokens. En servicios de pago, eso equivale a plata.</li>
-    <li>El parámetro <strong>temperature</strong> controla qué tan predecible es el modelo al elegir cada token.</li>
-    <li>La <strong>alucinación</strong> no es un bug — es una consecuencia directa del mecanismo de predicción estadística.</li>
+    <li><code>data["choices"]</code> es una lista — por eso accedemos con <code>[0]</code>.</li>
+    <li><code>usage</code> lleva la cuenta de tokens procesados.</li>
+    <li>El parámetro <strong>temperature</strong> controla qué tan creativa o predecible es la respuesta.</li>
+    <li>La <strong>alucinación</strong> es cuando el modelo inventa información por fallas en la estadística.</li>
   </ul>
   <p style="margin-top: 22px; color: var(--teal); font-weight: bold; font-size: 20px;">
     👉 Próxima clase — C7 (viernes 17/04): Evaluación práctica individual. Revisá tu bitácora de C1 a C6.
