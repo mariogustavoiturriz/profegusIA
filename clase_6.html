@@ -18,7 +18,6 @@
   header p { font-size: 18px; opacity: 0.9; }
   .container { width: 95%; max-width: 1400px; margin: 0 auto; padding: 0 15px; }
   
-  /* Botón de volver */
   .back-btn {
     display: inline-block;
     margin-top: 20px;
@@ -63,7 +62,6 @@
   .def-box.eval { background: #F0FFF4; border-left: 4px solid var(--classroom); }
   .def-box.eval strong { color: var(--classroom); }
 
-  /* Caja de ejemplo resuelto */
   .ejemplo-box { background: #0F1E2A; border-radius: var(--r); padding: 22px 28px; margin: 20px 0; border-left: 6px solid var(--teal); }
   .ejemplo-titulo { color: var(--teal); font-size: 18px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
   .ejemplo-paso { color: #B8D4E8; font-size: 18px; margin-bottom: 8px; }
@@ -101,9 +99,7 @@
 
 <a href="index.html" class="back-btn">⬅ Volver al Índice</a>
 
-<!-- ══════════════════════════════════════════════════════════════ -->
-<!-- BLOQUE 0 — RETOMAMOS C5                                        -->
-<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- BLOQUE 0 — RETOMAMOS C5 -->
 <div class="card c-repaso">
   <h2><span class="badge">0</span> RETOMAMOS LO QUE QUEDÓ DE C5</h2>
   <p>En la última clase terminamos el laboratorio, pero nos quedó pendiente la actividad final: construir el prompt con variables y un f-string. Antes de hacerlo solos, repasamos exactamente qué se pedía y vemos un ejemplo resuelto.</p>
@@ -136,9 +132,6 @@ API_KEY   = <span class="string">"gsk_PEGA_TU_CLAVE_ACÁ"</span>
 <span class="comment">#    Las variables van adentro de llaves { } dentro del string</span>
 pregunta = f<span class="string">"Actuá como {personaje} y explicame qué pensás sobre {tema}."</span>
 
-<span class="comment"># Resultado: "Actuá como Albert Einstein y explicame qué pensás sobre los videojuegos."</span>
-<span class="comment"># Si cambiás personaje o tema arriba, el texto se actualiza solo.</span>
-
 <span class="comment"># ── 3. La conexión (igual que siempre) ───────────────────────────</span>
 MODEL   = <span class="string">"llama-3.3-70b-versatile"</span>
 URL     = <span class="string">"https://api.groq.com/openai/v1/chat/completions"</span>
@@ -158,7 +151,7 @@ data = response.json()
 
     <div class="def-box ok">
       <strong>¿Por qué funciona así?</strong>
-      El f-string arma el texto <em>antes</em> de enviarlo. Cuando Python ejecuta la línea del f-string, reemplaza <code>{personaje}</code> por el valor de la variable y <code>{tema}</code> por el suyo. El resultado es un texto normal — como si lo hubieras escrito a mano — y eso va al payload. La ventaja: si querés cambiar el personaje o el tema, solo tocás las variables del principio.
+      El f-string arma el texto <em>antes</em> de enviarlo. Cuando Python ejecuta la línea del f-string, reemplaza <code>{personaje}</code> por el valor de la variable y <code>{tema}</code> por el suyo. El resultado es un texto normal y eso va al payload. La ventaja: si querés cambiar el personaje o el tema, solo tocás las variables del principio.
     </div>
   </div>
 
@@ -167,9 +160,9 @@ data = response.json()
     <ol style="margin-left: 20px; margin-top: 5px;">
       <li>Abrí el Colab <strong>"mi primer ia"</strong> y creá una nueva celda debajo de la última.</li>
       <li>Usá el ejemplo de arriba como base.</li>
-      <li>Cambiá <code>personaje</code> y <code>tema</code> por los que vos quieras — cualquier personaje (histórico, ficticio, famoso); cualquier tema.</li>
-      <li>Ejecutalo <strong>al menos 3 veces</strong> con combinaciones distintas. Elegí la respuesta más divertida o inesperada.</li>
-      <li>Probá cambiar la estructura del f-string para que la pregunta sea distinta. Por ejemplo: <code>f"Si {personaje} viviera hoy, ¿qué diría sobre {tema}?"</code></li>
+      <li>Cambiá <code>personaje</code> y <code>tema</code> por los que vos quieras.</li>
+      <li>Ejecutalo <strong>al menos 3 veces</strong> con combinaciones distintas.</li>
+      <li>Probá cambiar la estructura del f-string para que la pregunta sea distinta.</li>
     </ol>
   </div>
 
@@ -182,26 +175,19 @@ data = response.json()
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════ -->
-<!-- BLOQUE 1 — GLOSARIO NUEVO                                      -->
-<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- BLOQUE 1 — GLOSARIO -->
 <div class="card c-teoria">
   <h2><span class="badge">1</span> GLOSARIO — CONCEPTOS NUEVOS DE HOY</h2>
   <p>Antes de tocar el código, tres conceptos que vamos a necesitar en toda la clase.</p>
 
   <div class="def-box info" style="margin-top: 20px;">
     <strong>JSON de Respuesta</strong>
-    Cuando el modelo responde, el servidor no manda solo el texto. Manda un <em>paquete completo</em> de información sobre toda la llamada: el nombre del modelo que respondió, cuántas unidades se procesaron, y metadatos técnicos. En C5 leímos solo una pequeña parte de ese paquete. Hoy exploramos todo lo que hay adentro.
+    Cuando el modelo responde, el servidor no manda solo el texto. Manda un <em>paquete completo</em> de información sobre toda la llamada: el nombre del modelo que respondió, cuántas unidades se procesaron, y metadatos técnicos.
   </div>
 
   <div class="def-box vio">
     <strong>Temperature</strong>
-    Un número entre <code>0.0</code> y <code>2.0</code> que se agrega al <code>payload</code>. Controla qué tan arriesgado es el modelo al elegir cada palabra.
-    <ul style="margin-top: 12px; margin-left: 20px; line-height: 2;">
-      <li><strong>0.0</strong> → Siempre elige la palabra más probable. Respuestas consistentes y casi idénticas.</li>
-      <li><strong>0.7</strong> → Un punto medio. La respuesta cambia un poco cada vez que ejecutás, pero se mantiene lógica y tiene sentido.</li>
-      <li><strong>1.5+</strong> → Alta variación. Puede tirar ideas muy creativas o directamente decir cualquier locura que no tiene nada que ver.</li>
-    </ul>
+    Es un número entre <code>0.0</code> y <code>2.0</code> que se agrega al <code>payload</code>. Funciona como un regulador que controla qué tan arriesgado o creativo es el modelo al elegir cada palabra de la respuesta.
   </div>
 
   <div class="def-box amb">
@@ -210,11 +196,9 @@ data = response.json()
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════ -->
-<!-- BLOQUE 2 — NAVEGAR EL JSON                                     -->
-<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- BLOQUE 2 — ACTIVIDAD 1 -->
 <div class="card c-teoria">
-  <h2><span class="badge">2</span> LA RESPUESTA COMPLETA — NAVEGANDO EL JSON</h2>
+  <h2><span class="badge">2</span> ACTIVIDAD 1: NAVEGANDO EL JSON</h2>
   <p>En C5 usamos esta línea para ver solo el texto:</p>
 
   <div class="code-container" style="margin-top: 10px;">
@@ -225,30 +209,6 @@ data = response.json()
 
   <div class="code-container" style="margin-top: 10px;">
     <div class="code-block no-btn"><span class="keyword">print</span>(data)  <span class="comment"># imprimí el paquete completo y mirá todo lo que manda el servidor</span></div>
-  </div>
-
-  <p style="margin-top: 15px;">El servidor manda algo parecido a esto (simplificado para que sea legible):</p>
-
-  <div class="code-container">
-    <div class="code-block no-btn">{
-  <span class="key-json">"id"</span>:     <span class="string">"chatcmpl-abc123xyz"</span>,
-  <span class="key-json">"model"</span>:  <span class="string">"llama-3.3-70b-versatile"</span>,
-  <span class="key-json">"choices"</span>: [
-    {
-      <span class="key-json">"index"</span>:   0,
-      <span class="key-json">"message"</span>: {
-        <span class="key-json">"role"</span>:    <span class="string">"assistant"</span>,
-        <span class="key-json">"content"</span>: <span class="string">"El villano principal de Batman es El Joker..."</span>
-      },
-      <span class="key-json">"finish_reason"</span>: <span class="string">"stop"</span>
-    }
-  ],
-  <span class="key-json">"usage"</span>: {
-    <span class="key-json">"prompt_tokens"</span>:     18,
-    <span class="key-json">"completion_tokens"</span>: 142,
-    <span class="key-json">"total_tokens"</span>:     160
-  }
-}</div>
   </div>
 
   <h3>¿Qué significa cada parte?</h3>
@@ -263,14 +223,13 @@ data = response.json()
 
   <h3>Cómo acceder a cada parte por separado</h3>
 
-  <!-- TAREA MOVIDA ANTES DEL CÓDIGO -->
   <div class="action-box action-colab">
-    <strong>📝 Explorá el JSON en tu Colab</strong>
+    <strong>📝 ACTIVIDAD: Explorá el JSON en tu Colab</strong>
     <ol style="margin-left: 20px; margin-top: 5px;">
-      <li>Abrí una nueva celda de código.</li>
+      <li>Abrí una nueva celda de código en Colab.</li>
       <li>Copiá y ejecutá el código de abajo con tu API Key.</li>
       <li>Cambiá el prompt por algo muy corto ("Hola") y luego por uno largo (3 oraciones).</li>
-      <li>Fijate cómo cambia el número final de tokens. ¿Qué conclusión sacás?</li>
+      <li>Fijate cómo cambia el número final de tokens en la consola. ¿Qué conclusión sacás?</li>
     </ol>
   </div>
 
@@ -306,17 +265,15 @@ data = response.json()
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════ -->
-<!-- BLOQUE 3 — TEMPERATURE                                         -->
-<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- BLOQUE 3 — ACTIVIDAD 2 -->
 <div class="card c-codigo">
-  <h2><span class="badge" style="background: var(--vio);">3</span> EL PARÁMETRO TEMPERATURE — EXPERIMENTO</h2>
+  <h2><span class="badge" style="background: var(--vio);">3</span> ACTIVIDAD 2: EL PARÁMETRO TEMPERATURE — EXPERIMENTO</h2>
 
   <p>¿Recordás la frase clave de C5? <strong>"El LLM predice el siguiente token más probable."</strong> El parámetro <code>temperature</code> controla qué tan arriesgado es el modelo al elegir de la lista de opciones posibles.</p>
 
   <div class="def-box vio" style="margin-top: 20px;">
     <strong>Temperature = 0.0 — frío</strong>
-    Siempre elige la opción más probable. El resultado es casi idéntico cada vez que ejecutás. Útil para tareas que requieren precisión como resúmenes o traducciones.
+    Siempre elige la opción más probable. El resultado es casi idéntico cada vez que ejecutás. Útil para tareas que requieren precisión.
   </div>
 
   <div class="def-box vio2">
@@ -342,7 +299,7 @@ data = response.json()
 }</div>
   </div>
 
-  <p style="margin-top: 20px;">Copiá este código que hace el experimento completo de una sola vez:</p>
+  <p style="margin-top: 20px;">Copiá este código e intentá completarlo para que el experimento funcione:</p>
 
   <div class="code-container">
     <button class="copy-btn" onclick="copyCode('codTemp')">Copiar Código</button>
@@ -354,23 +311,29 @@ URL     = <span class="string">"https://api.groq.com/openai/v1/chat/completions"
 headers = {<span class="string">"Authorization"</span>: f<span class="string">"Bearer {API_KEY}"</span>, <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span>}
 
 prompt       = <span class="string">"Describí la ciudad de Ushuaia en una sola oración."</span>
-temperaturas = [0.0, 0.7, 1.5]
+<span class="comment"># ── ACÁ DEFINIMOS LAS 3 PRUEBAS QUE QUEREMOS HACER ──────────────</span>
+temperaturas = [poné 3 temperaturas]
 
 <span class="keyword">for</span> temp <span class="keyword">in</span> temperaturas:
+    <span class="comment"># Armamos el paquete de datos para cada temperatura del bucle</span>
     payload = {
         <span class="string">"model"</span>: MODEL,
         <span class="string">"temperature"</span>: temp,
         <span class="string">"messages"</span>: [{<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: prompt}]
     }
-    response = requests.<span class="keyword">post</span>(URL, headers=headers, json=payload)
-    data     = response.json()
+    
+    <span class="comment"># 1. Hacemos la petición al servidor (Pista: usá requests.post)</span>
+    response = [COMPLETAR LO QUE FALTA]
+    
+    <span class="comment"># 2. Traducimos el JSON a diccionario de Python (Pista: usá .json())</span>
+    data = [COMPLETAR LO QUE FALTA]
 
     <span class="keyword">print</span>(f<span class="string">"──── Temperature {temp} ──────────────────────────────"</span>)
     <span class="keyword">print</span>(data[<span class="string">"choices"</span>][0][<span class="string">"message"</span>][<span class="string">"content"</span>])
     <span class="keyword">print</span>()</div>
   </div>
 
-  <p style="margin-top: 20px;">Anotá lo que observás. Ejecutá el código <strong>dos veces</strong> antes de completar la tabla:</p>
+  <p style="margin-top: 20px;">Anotá lo que observás en tu cuaderno. Ejecutá el código <strong>dos veces</strong> antes de completar la tabla:</p>
 
   <table class="comp">
     <tr>
@@ -405,15 +368,10 @@ temperaturas = [0.0, 0.7, 1.5]
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════ -->
-<!-- BLOQUE 4 — ALUCINACIÓN                                         -->
-<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- BLOQUE 4 — ACTIVIDAD 3 -->
 <div class="card c-setup">
-  <h2><span class="badge" style="background: var(--amb);">4</span> LA ALUCINACIÓN — POR QUÉ EL MODELO INVENTA</h2>
-
+  <h2><span class="badge" style="background: var(--amb);">4</span> ACTIVIDAD 3: LAS ALUCINACIONES — POR QUÉ EL MODELO INVENTA</h2>
   <p>El modelo <strong>no busca información</strong>. Predice tokens. Eso significa que cuando le hacés una pregunta, no consulta ninguna base de datos real. Solo genera el texto que estadísticamente tiene más probabilidad de seguir al tuyo.</p>
-
-  <p style="margin-top: 15px;">La consecuencia directa: si el texto más probable estadísticamente es incorrecto, el modelo lo genera igual — y con total confianza. <strong>No sabe que está equivocado.</strong></p>
 
   <div class="def-box amb" style="margin-top: 20px;">
     <strong>¿Cuándo es más probable que alucine?</strong>
@@ -444,12 +402,10 @@ temperaturas = [0.0, 0.7, 1.5]
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════ -->
-<!-- BLOQUE 5 — EVALUACIÓN                                          -->
-<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- BLOQUE 5 — ACTIVIDAD 4 -->
 <div class="card c-eval">
-  <h2><span class="badge" style="background: var(--classroom);">5</span> EVALUACIÓN — CÓDIGO DESDE CERO</h2>
-  <p>Sin copiar. Sin mirar el código anterior. Abrí un <strong>notebook vacío nuevo</strong> en Colab y escribí el programa completo que se describe abajo. Podés consultar únicamente el glosario de esta hoja.</p>
+  <h2><span class="badge" style="background: var(--classroom);">5</span> ACTIVIDAD 4: EVALUACIÓN — CÓDIGO DESDE CERO</h2>
+  <p>Abrí un <strong>notebook vacío nuevo</strong> en Colab y armá el programa completo desde cero. Podés ayudarte mirando los códigos de más arriba si tenés dudas, pero lo tenés que escribir vos solo en tu cuaderno nuevo.</p>
 
   <div class="def-box eval" style="margin-top: 20px;">
     <strong>Lo que tiene que hacer tu programa</strong>
@@ -458,23 +414,24 @@ temperaturas = [0.0, 0.7, 1.5]
       <li>Hacerle esta pregunta fija: <code>"Explicá en dos oraciones qué es el Machine Learning."</code></li>
       <li>Usar <strong>temperature = 0.3</strong> en el payload.</li>
       <li>Imprimir <strong>solo el texto</strong> de la respuesta (no todo el JSON).</li>
-      <li><strong>Extra:</strong> también imprimí el número de <code>total_tokens</code> que se consumieron.</li>
+      <li><strong>Extra:</strong> también imprimí el número de <code>total_tokens</code> que se consumieron en la llamada.</li>
     </ol>
   </div>
 
-  <div class="action-box action-classroom" style="margin-top: 20px;">
-    <strong>📤 Entregá en Classroom</strong>
+  <!-- CONSIGNA CLASSROOM ACTUALIZADA -->
+  <div class="action-box action-classroom" style="margin-top: 25px;">
+    <strong>📤 Lo que hay que entregar en Classroom </strong>
+    <p style="margin-bottom: 10px;">Andá a la tarea del día en Google Classroom y enviá:</p>
     <ol style="margin-left: 20px;">
-      <li>El enlace a tu Colab con el código que escribiste desde cero.</li>
-      <li>La respuesta que te dio el modelo.</li>
-      <li>Una oración explicando qué diferencia notaste entre temperature 0.0 y temperature 1.5.</li>
+      <li>El enlace de tu Cuaderno de COLAB ("mi primer ia") que contenga todas las actividades de hoy (desde la exploración del JSON hasta la evaluación final).</li>
+      <li>La respuesta más divertida o interesante que te dio la IA durante el experimento de <strong>Temperature</strong> (Actividad 2).</li>
+      <li><strong>Tus respuestas a las conclusiones de hoy:</strong> ¿Qué pasó con el número de tokens en la Actividad 1? ¿Cuándo notaste que la IA alucinó en la Actividad 3?</li>
+        <li>¿La Actividad 4 (Acordate que sea en una celda de código aparte)</li>
     </ol>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════ -->
-<!-- CIERRE                                                         -->
-<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- CIERRE -->
 <div class="cierre">
   <h3>📋 Bitácora de hoy — lo que aprendiste</h3>
   <ul style="margin-left: 20px; line-height: 2.3;">
@@ -485,7 +442,7 @@ temperaturas = [0.0, 0.7, 1.5]
     <li>La <strong>alucinación</strong> es cuando el modelo inventa información por fallas en la estadística.</li>
   </ul>
   <p style="margin-top: 22px; color: var(--teal); font-weight: bold; font-size: 20px;">
-    👉 Próxima clase — C7 (viernes 17/04): Evaluación práctica individual. Revisá tu bitácora de C1 a C6.
+    👉 Próxima clase — C7 (viernes 17/04): Trabajo práctico individual. Revisá tu bitácora de C1 a C6.
   </p>
 </div>
 
