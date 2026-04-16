@@ -73,15 +73,15 @@
 <div class="card c-tp">
   <h2><span class="badge">!</span> REGLAS DEL JUEGO Y MODALIDAD</h2>
   <div class="warning">
-    <strong>REGLA DE ORO (COMPRENSIÓN > MEMORIA):</strong> No queremos que memoricen sintaxis. Pueden y deben revisar sus cuadernos anteriores para extraer código. Lo que se evalúa es que sepan ensamblarlo. Por esto, <strong>es OBLIGATORIO comentar (<code>#</code>) cada línea o bloque clave explicando qué hace</strong>. Quien no puede explicar su código, no aprueba. <strong>Si vas a usar la IA para que te lo escriba, tené en cuenta que el código lo tenés que poder explicar oralmente bloque a bloque (te puedo preguntar que hace la línea payload = { o headers = { y vos me lo tenes que responder).</strong>
+    <strong>REGLA DE ORO (COMPRENSIÓN > MEMORIA):</strong> No queremos que memoricen sintaxis. Pueden y deben revisar sus cuadernos anteriores para extraer código. Lo que se evalúa es que sepan ensamblarlo. Por esto, <strong>es OBLIGATORIO comentar (<code>#</code>) cada línea o bloque clave explicando qué hace</strong>. Quien no puede explicar su código, no aprueba. <strong>Si vas a usar la IA, tené en cuenta que el código lo tenés que explicar.</strong>
   </div>
   
   <div class="dificultad">
     <strong>👥 MODALIDAD Y GRADOS DE DIFICULTAD:</strong> El TP puede hacerse individual o en grupos de hasta 3 personas. La exigencia técnica sube según la cantidad de integrantes:
     <ul style="margin-top: 10px; margin-bottom: 0;">
-      <li><strong>Individual:</strong> Arquitectura Base. El programa pide los datos una vez, se conecta, imprime la respuesta y termina.</li>
-      <li><strong>Parejas (2):</strong> Interfaz Continua. Deben agregar un bucle <code>while True</code> para que el programa siga pidiendo personajes y temas infinitamente hasta que el usuario escriba "salir".</li>
-      <li><strong>Tríos (3):</strong> Chatbot con Memoria. Además del bucle, deben implementar una lista <code>historial = []</code> usando <code>.append()</code> para que la IA recuerde toda la conversación anterior.</li>
+      <li><strong>Individual:</strong> Bucle Continuo. El programa debe estar dentro de un bucle <code>while True</code> para pedir personajes y temas infinitamente hasta que el usuario escriba "salir".</li>
+      <li><strong>Parejas (2):</strong> Bucle + Memoria. Además del bucle, deben implementar una lista <code>historial = []</code> usando <code>.append()</code> para que la IA recuerde toda la conversación anterior de esa sesión.</li>
+      <li><strong>Tríos (3):</strong> Memoria + Guardrails (Seguridad). Además del historial, deben programar un filtro lógico (un <code>if</code>) antes de la conexión. Si el tema del usuario contiene palabras de una "lista negra" (ej: insultos o temas bloqueados), el programa debe rechazar la consulta sin gastar tokens.</li>
     </ul>
   </div>
 </div>
@@ -107,10 +107,11 @@
     <h3>Módulo 2: Interfaz de Consola (Frontend)</h3>
     <p>Nada puede estar "hardcodeado" (escrito fijo en el código). Todo se pide en tiempo de ejecución:</p>
     <ul>
-      <li>Usar <code>input()</code> para pedir el <strong>Personaje</strong> y el <strong>Tema</strong>.</li>
-      <li>Usar <code>input()</code> para pedir el <strong>Nivel de Creatividad (Temperature)</strong>. <em>¡Atención técnica!</em> Este valor es un número con decimales, por lo que deben usar <code>float()</code> para convertir el texto ingresado por el usuario.</li>
+      <li>Implementar un bucle <code>while True</code> para que el programa corra continuamente.</li>
+      <li>Usar <code>input()</code> para pedir el <strong>Personaje</strong> y el <strong>Tema</strong>. (Manejar el comando "salir" para romper el bucle).</li>
+      <li>Usar <code>input()</code> para pedir el <strong>Nivel de Creatividad (Temperature)</strong>. <em>¡Atención técnica!</em> Este valor es un número con decimales, por lo que deben usar <code>float()</code> para convertir el texto ingresado.</li>
       <li>Llamar a su función pasándole estos tres datos, y hacer el <code>print()</code> final del resultado.</li>
-      <li><em>(Si son 2 o 3 integrantes, acá es donde aplican el <code>while True</code> y/o el <code>historial</code>).</em></li>
+      <li><em>(Si son 2 o 3 integrantes, acá aplican la lógica del <code>historial</code> y los <code>guardrails</code> según les corresponda).</em></li>
     </ul>
   </div>
 </div>
@@ -129,7 +130,7 @@
   
   <div class="instrucciones" style="margin-top: 20px;">
     <strong>🎤 Preparación para la Defensa Oral:</strong>
-    <p>El profesor pasará por los bancos validando los trabajos. Cada integrante deberá poder explicar una parte del código leyendo los comentarios que dejaron con el <code>#</code>. Si no pueden justificar por qué usaron un <code>return</code>, un <code>try</code> o un <code>float</code>, la nota grupal se verá afectada.</p>
+    <p>Voy a llamar a cada grupo para indagar sobre lo que hicieron. Cada integrante deberá poder explicar una parte del código leyendo los comentarios que dejaron con el <code>#</code>. Si no pueden justificar por qué usaron por ejemplo un <code>return</code>, un <code>try</code> o un <code>float</code>, la nota grupal se verá afectada.</p>
   </div>
 </div>
 
