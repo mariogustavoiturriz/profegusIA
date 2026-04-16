@@ -37,9 +37,9 @@
   .card { background: var(--bco); border-radius: var(--r); padding: 30px; margin-bottom: 30px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,.08); border-left: 6px solid var(--bd); }
   .c-contexto { border-left-color: var(--teal); background: #F4FAFC; }
   .c-tp { border-left-color: var(--amb); background: #FFFBF5; }
-  .c-req { border-left-color: var(--teal); }
+  .c-fase1 { border-left-color: var(--teal); }
   .c-fase2 { border-left-color: var(--vio); background: #FAFCFF; }
-  .c-entrega { border-left-color: var(--classroom); background: #F0FFF4; }
+  .c-fase3 { border-left-color: var(--classroom); background: #F0FFF4; }
 
   h2 { color: var(--nav); font-size: 24px; margin-bottom: 15px; text-transform: uppercase; border-bottom: 2px solid var(--gris); padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
   .badge { background: var(--nav); color: var(--bco); padding: 5px 12px; border-radius: 6px; font-size: 18px; font-weight: bold; }
@@ -48,7 +48,9 @@
   .instrucciones strong { color: var(--amb); display: block; margin-bottom: 10px; }
 
   .task-box { border: 1px solid var(--bd); padding: 20px; border-radius: var(--r); margin-bottom: 20px; background: white; border-left: 4px solid var(--teal); }
+  .task-box.vio { border-left-color: var(--vio); }
   .task-box h3 { color: var(--teal); margin-bottom: 10px; font-size: 22px; text-transform: uppercase; }
+  .task-box.vio h3 { color: var(--vio); }
   
   .warning { background: #FFEBEE; border-left: 5px solid var(--rojo); padding: 15px; color: #B71C1C; font-weight: bold; margin-bottom: 20px; border-radius: 8px; }
   .dificultad { background: #E3F2FD; border-left: 5px solid #1976D2; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
@@ -63,22 +65,22 @@
 <body>
 
 <header>
-  <h1>TRABAJO PRÁCTICO N° 1: NUESTRO PRIMER PROGRAMA CON IA</h1>
-  <p>Taller de IA | 7° Año TIC | CTP Antonio Martín Marte | Proyecto de 2 Clases</p>
+  <h1>TRABAJO PRÁCTICO N° 1: EL PROYECTO CHATBOT</h1>
+  <p>Taller de IA | 7° Año TIC | CTP Antonio Martín Marte | Proyecto de 3 Clases</p>
 </header>
 
 <div class="container">
 
 <a href="index.html" class="back-btn">⬅ Volver al Índice</a>
 
-<!-- NUEVA SECCIÓN DE CONTEXTO -->
+<!-- SECCIÓN DE CONTEXTO -->
 <div class="card c-contexto">
   <h2><span class="badge" style="background: var(--teal);">!</span> EL PROYECTO: TU PROPIO CHATBOT</h2>
-  <p>Durante el primer mes de clases aprendimos a conectarnos a los servidores de Groq, a armar preguntas dinámicas usando variables y a crear escudos (try/except) para atrapar errores. <strong>Hoy llegó el momento de integrar todo eso en un proyecto real.</strong></p>
+  <p>En las clases 4, 5 y 6 aprendimos a conectarnos a los servidores de Groq, a armar preguntas dinámicas usando variables y a crear escudos (try/except) para atrapar errores. <strong>Hoy llegó el momento de integrar todo eso en un proyecto real.</strong></p>
   
   <p style="margin-top: 15px;">El objetivo de este Trabajo Práctico es que construyan desde cero un <strong>Chatbot interactivo completo</strong>. No van a hacer un programa que responda una sola pregunta y se cierre; van a programar un sistema continuo donde el usuario pueda configurar un personaje y chatear fluidamente por la consola.</p>
   
-  <p style="margin-top: 15px;">Ustedes van a ser los arquitectos completos: van a armar el "backend" (la función que se conecta al cerebro de la IA) y el "frontend" (la interfaz que le pide los datos al usuario). ¡A programar!</p>
+  <p style="margin-top: 15px;">Ustedes van a ser los arquitectos completos: van a armar el "backend" (la función que se conecta al cerebro de la IA), el "frontend" (la interfaz que le pide los datos al usuario) y finalmente un <strong>Informe de Control de Calidad (QA)</strong> para documentar cómo probaron su sistema.</p>
 </div>
 
 <div class="card c-tp">
@@ -90,70 +92,79 @@
   <div class="dificultad">
     <strong>👥 MODALIDAD Y GRADOS DE DIFICULTAD:</strong> El TP puede hacerse individual o en grupos de hasta 3 personas. La exigencia técnica sube según la cantidad de integrantes:
     <ul style="margin-top: 10px; margin-bottom: 0;">
-      <li><strong>Individual:</strong> Bucle Continuo. El chatbot debe estar dentro de un bucle <code>while True</code> para pedir personajes y temas infinitamente hasta que el usuario escriba "salir".</li>
-      <li><strong>Parejas (2):</strong> Bucle + Memoria. Además del bucle continuo, deben implementar una lista <code>historial = []</code> usando <code>.append()</code> para que la IA recuerde toda la conversación anterior de esa sesión.</li>
-      <li><strong>Tríos (3):</strong> Memoria + Guardrails (Seguridad). Además del historial, deben programar un filtro lógico (un <code>if</code>) antes de la conexión. Si el texto del usuario contiene palabras de una "lista negra" (ej: insultos o temas bloqueados), el programa debe rechazar la consulta sin gastar tokens.</li>
+      <li><strong>Individual:</strong> Bucle Continuo + Informe QA. El chatbot debe estar dentro de un bucle <code>while True</code> para pedir personajes y temas infinitamente hasta que el usuario escriba "salir".</li>
+      <li><strong>Parejas (2):</strong> Bucle + Memoria + Comandos Ocultos. Además del bucle continuo, deben implementar una lista <code>historial = []</code>. Deben agregar comandos especiales de sistema: si el usuario escribe <code>/historial</code>, el programa imprime la memoria; si escribe <code>/limpiar</code>, la memoria se borra.</li>
+      <li><strong>Tríos (3):</strong> Memoria + Comandos + Guardrails (Seguridad). Además de lo anterior, deben programar un filtro lógico (un <code>if</code>) antes de la conexión. Si el texto del usuario contiene palabras de una "lista negra", el programa debe rechazar la consulta sin gastar tokens.</li>
     </ul>
   </div>
 </div>
 
-<div class="fase-header">⚙️ FASE 1: DESARROLLO DEL CÓDIGO (Viernes - 80 min)</div>
+<!-- FASE 1 -->
+<div class="fase-header">⚙️ FASE 1: DESARROLLO DEL BACKEND (Viernes - 80 min)</div>
 
-<div class="card c-req">
-  <h2><span class="badge">1</span> ARQUITECTURA DEL SOFTWARE</h2>
-  <p>Creen un nuevo Cuaderno en Colab llamado <code>TP1_Apellidos</code>. El programa debe cumplir estrictamente con esta estructura:</p>
+<div class="card c-fase1">
+  <h2><span class="badge">1</span> LA ARQUITECTURA BASE</h2>
+  <p>Creen un nuevo Cuaderno en Colab llamado <code>TP1_Apellidos</code>. Hoy el objetivo es que el motor de conexión funcione perfectamente.</p>
   
   <div class="task-box">
-    <h3>Módulo 1: La Función (Backend)</h3>
+    <h3>Módulo 1: La Función Principal</h3>
     <p>Toda la lógica de conexión debe estar encapsulada para ser reutilizable.</p>
     <ul>
       <li>Crear una función <code>def consultar_ia(personaje, tema, temperatura):</code></li>
       <li>Dentro de la función, armar el <code>payload</code> inyectando los parámetros. Usar f-strings para armar el prompt dinámico.</li>
       <li><strong>El Escudo:</strong> Envolver el <code>requests.post</code> y el manejo del JSON en un bloque <code>try / except</code>. Si la API falla, la función no debe romperse, debe retornar un mensaje de error amigable.</li>
-      <li>La función debe usar <code>return</code> para devolver exclusivamente el texto de la respuesta limpia de la IA. <em>Opcional: imprimir por consola los tokens consumidos.</em></li>
+      <li>La función debe usar <code>return</code> para devolver exclusivamente el texto de la respuesta limpia de la IA.</li>
     </ul>
   </div>
+</div>
 
-  <div class="task-box">
+<!-- FASE 2 -->
+<div class="fase-header">💻 FASE 2: FRONTEND E INFORME DE TESTING (Lunes - 120 min)</div>
+
+<div class="card c-fase2">
+  <h2><span class="badge" style="background: var(--vio);">2</span> INTERFAZ Y DOCUMENTACIÓN</h2>
+  <p>Con el motor funcionando, hoy armamos la interacción con el usuario y el reporte de calidad.</p>
+
+  <div class="task-box vio">
     <h3>Módulo 2: Interfaz de Consola (Frontend)</h3>
-    <p>Nada puede estar "hardcodeado" (escrito fijo en el código). Todo se pide en tiempo de ejecución:</p>
+    <p>Nada puede estar "hardcodeado". Todo se pide en tiempo de ejecución:</p>
     <ul>
       <li>Implementar un bucle <code>while True</code> para que el programa corra continuamente.</li>
       <li>Usar <code>input()</code> para pedir el <strong>Personaje</strong> y el <strong>Tema</strong>. (Manejar el comando "salir" para romper el bucle).</li>
-      <li>Usar <code>input()</code> para pedir el <strong>Nivel de Creatividad (Temperature)</strong>. <em>¡Atención técnica!</em> Este valor es un número con decimales, por lo que deben usar <code>float()</code> para convertir el texto ingresado.</li>
-      <li>Llamar a su función pasándole estos tres datos, y hacer el <code>print()</code> final del resultado.</li>
-      <li><em>(Si son 2 o 3 integrantes, acá aplican la lógica del <code>historial</code> y los <code>guardrails</code> según les corresponda).</em></li>
+      <li>Usar <code>input()</code> para pedir la <strong>Temperature</strong> (usando <code>float()</code> para convertir el texto a decimal).</li>
+      <li>Llamar a la función, imprimir el resultado, e implementar el <strong>Historial, Comandos Ocultos o Guardrails</strong> según la cantidad de integrantes de su grupo.</li>
     </ul>
   </div>
-</div>
 
-<div class="fase-header">🗣️ FASE 2: DOCUMENTACIÓN Y DEFENSA (Lunes - 120 min)</div>
-
-<div class="card c-fase2">
-  <h2><span class="badge">2</span> DOCUMENTACIÓN TÉCNICA Y QA</h2>
-  <p>Debajo de su código, agreguen una <strong>Celda de Texto</strong> en Colab y respondan con lenguaje técnico, consensuado con su grupo:</p>
-  <ol>
-    <li><strong>Alucinaciones:</strong> Expliquen qué es una Alucinación en Inteligencia Artificial y por qué el modelo inventa respuestas (basado en cómo predice tokens) en lugar de decir "no sé".</li>
-    <li><strong>Temperature:</strong> Si configuran la temperatura en <code>0.0</code>, ¿cómo se comporta el modelo a nivel estadístico? ¿En qué casos usarían 0.0 y en qué casos 1.5?</li>
-    <li><strong>Arquitectura:</strong> Miren su propio código. ¿Qué línea exacta cambiarían si el día de mañana deciden que, en lugar de <code>llama-3.3-70b-versatile</code>, quieren usar el modelo <code>mixtral-8x7b-32768</code>?</li>
-    <li><strong>Seguridad:</strong> ¿Por qué es una mala práctica dejar la <code>API_KEY</code> escrita directamente en el código fuente en un proyecto real de la industria?</li>
-  </ol>
-  
-  <div class="instrucciones" style="margin-top: 20px;">
-    <strong>🎤 Preparación para la Defensa Oral:</strong>
-    <p>Voy a llamar a cada grupo para indagar sobre lo que hicieron. Cada integrante deberá poder explicar una parte del código leyendo los comentarios que dejaron con el <code>#</code>. Si no pueden justificar por qué usaron por ejemplo un <code>return</code>, un <code>try</code> o un <code>float</code>, la nota grupal se verá afectada.</p>
+  <div class="task-box vio">
+    <h3>Módulo 3: El Informe de QA (Control de Calidad)</h3>
+    <p>Debajo de su código, agreguen una <strong>Celda de Texto</strong> en Colab. Van a redactar un informe profesional que contenga:</p>
+    <ol>
+      <li><strong>Ficha Técnica:</strong> ¿Qué modelo exacto de Groq utilizaron? ¿Qué valor de <code>temperature</code> consideran ideal para este chatbot y por qué?</li>
+      <li><strong>Prueba de Red (Crash Test):</strong> Borren una letra de su <code>API_KEY</code> a propósito y ejecuten el programa. Copien y peguen en el informe qué respondió su bloque <code>try/except</code> para demostrar que el programa no colapsó con letras rojas.</li>
+      <li><strong>Prueba de Alucinación:</strong> Documenten una pregunta local o imposible que le hayan hecho a su chatbot donde la IA haya inventado datos.</li>
+      <li><strong>Prueba de Seguridad (Solo grupos de 3):</strong> Muestren cómo reaccionó el sistema al ingresar una palabra de la lista negra.</li>
+    </ol>
   </div>
 </div>
 
-<div class="card c-entrega">
-  <h2><span class="badge">3</span> DEPLOYMENT (ENTREGA EN CLASSROOM)</h2>
+<!-- FASE 3 -->
+<div class="fase-header">🗣️ FASE 3: DEPLOYMENT Y DEFENSA (Viernes Próximo - 80 min)</div>
+
+<div class="card c-fase3">
+  <h2><span class="badge" style="background: var(--classroom);">3</span> EVALUACIÓN FINAL</h2>
+  
+  <div class="instrucciones">
+    <strong>🎤 Preparación para la Defensa Oral:</strong>
+    <p>Voy a llamar a cada grupo para indagar sobre lo que hicieron. Cada integrante deberá poder explicar una parte del código leyendo los comentarios que dejaron con el <code>#</code>. Si no pueden justificar por qué usaron por ejemplo un <code>return</code>, un <code>try</code>, un <code>float</code>, o cómo armaron el comando oculto, la nota grupal se verá afectada.</p>
+  </div>
+
   <div class="action-box action-classroom">
-    <strong>📋 Pasos finales para entregar el TP:</strong>
+    <strong>📋 Pasos para la Entrega en Classroom:</strong>
     <ol style="margin-left: 20px; margin-top: 5px;">
       <li>Verifiquen que el código esté <strong>completamente comentado</strong> bloque por bloque.</li>
-      <li>Prueben su código intentando "romperlo" (Ej: ingresen letras cuando les pide la temperatura).</li>
-      <li>En el Classroom, adjunten el enlace a su cuaderno de Colab (revisen que el profe tenga permisos de lector). Un solo enlace por grupo, pero todos marcan la tarea como completada.</li>
-      <li>En el comentario privado de la entrega, copien y peguen la respuesta más rara, divertida o alucinada que lograron generar durante sus pruebas.</li>
+      <li>Asegúrense de que el Informe de QA en la celda de texto esté completo.</li>
+      <li>Adjunten el enlace a su cuaderno de Colab en la tarea correspondiente (revisen que el profe tenga permisos de lector). Un solo enlace por grupo, pero todos marcan la tarea como completada.</li>
     </ol>
   </div>
 </div>
