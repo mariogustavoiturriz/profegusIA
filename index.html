@@ -29,6 +29,8 @@
   .c-pasada { border-top-color: #4A6080; opacity: 0.9; background: #FAFBFC; }
   .c-actual { border-top-color: var(--teal); }
   .c-tp { border-top-color: var(--tp); background: #FAF5FF; }
+  .c-bloqueada { opacity: 0.75; cursor: not-allowed; }
+  .c-bloqueada:hover { transform: none; box-shadow: 0 4px 12px rgba(0,0,0,.08); }
   
   .clase-num { font-size: 14px; font-weight: bold; color: #666; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px; }
   
@@ -42,6 +44,7 @@
   .c-pasada .btn { background: #E1E8EE; color: #4A6080; }
   .c-actual .btn { background: var(--teal); color: white; }
   .c-tp .btn { background: var(--tp); color: white; }
+  .c-bloqueada .btn { background: #D0D4D9; color: #666; border: 1px solid #B0B5BA; }
   
   .section-title { font-size: 26px; color: var(--nav); margin: 50px 0 25px 0; border-bottom: 3px solid var(--bd); padding-bottom: 10px; text-transform: uppercase; }
 </style>
@@ -56,11 +59,12 @@
   
   <h2 class="section-title">Evaluación en Curso</h2>
   <div class="grid">
-    <a href="clase_7.html" class="card c-tp">
+    <!-- Tarjeta del TP1 Bloqueada -->
+    <a href="#" class="card c-tp c-bloqueada" onclick="mostrarAlerta(event)">
       <div class="clase-num">Viernes 17/04 y Lunes 20/04</div>
       <h2>Trabajo Práctico N° 1</h2>
       <p>Desarrollo del Motor de Inferencia. Integración de inputs dinámicos, f-strings, control de errores (try/except) y preparación para la defensa oral.</p>
-      <div class="btn">Abrir Trabajo Práctico</div>
+      <div class="btn">🔒 Disponible mañana a las 10:35 hs</div>
     </a>
   </div>
 
@@ -90,5 +94,20 @@
   </div>
 
 </div>
+
+<script>
+  // Función para mostrar el aviso a los alumnos si intentan hacer clic
+  function mostrarAlerta(event) {
+    event.preventDefault();
+    alert("¡Paciencia! El Trabajo Práctico N° 1 se habilitará automáticamente mañana a las 10:35 hs.");
+  }
+
+  // Truco oculto para el profe Gus (Ctrl + Shift + U)
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'u') {
+      window.location.href = 'clase_7.html';
+    }
+  });
+</script>
 </body>
 </html>
