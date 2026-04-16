@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taller de IA · Clase 8 (Abril)</title>
+<title>Taller de IA · Trabajo Práctico 1</title>
 <style>
   :root {
-    --nav: #1A2C3A; --teal: #00949A; --grn: #2A6049; --amb: #D4873A;
+    --nav: #1A2C3A; --teal: #00949A; --grn: #2A6049; --amb: #D4873A; 
     --vio: #3D5A99; --gris: #F3F6F9; --bd: #C5D2DC; --txt: #2C3E50;
     --bco: #FFFFFF; --code-bg: #1E1E1E; --r: 12px;
     --colab: #F9AB00; --classroom: #137333;
@@ -14,185 +14,172 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #EEF3F7; color: var(--txt); line-height: 1.6; font-size: 20px; padding: 15px 0 40px 0; }
-  header { background: var(--nav); color: var(--bco); padding: 25px 20px; border-bottom: 5px solid var(--vio); }
+  header { background: var(--nav); color: var(--bco); padding: 25px 20px; border-bottom: 5px solid var(--amb); }
   header h1 { font-size: 28px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
   header p { font-size: 18px; opacity: 0.9; }
   .container { width: 95%; max-width: 1400px; margin: 0 auto; padding: 0 15px; }
-  .back-btn { display: inline-block; margin-top: 20px; margin-bottom: 10px; padding: 10px 20px; background: var(--bco); color: var(--nav); text-decoration: none; font-weight: bold; border-radius: 8px; border: 2px solid var(--bd); transition: all 0.2s; }
+  
+  .back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    background: var(--bco);
+    color: var(--nav);
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 2px solid var(--bd);
+    transition: all 0.2s;
+  }
   .back-btn:hover { border-color: var(--nav); background: var(--gris); }
-  
+
   .card { background: var(--bco); border-radius: var(--r); padding: 30px; margin-bottom: 30px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,.08); border-left: 6px solid var(--bd); }
-  .c-tp     { border-left-color: var(--amb); background: #FFFBF5; }
-  .c-req    { border-left-color: var(--teal); }
-  .c-qa     { border-left-color: var(--vio); background: #FAFAFF; }
-  .c-entrega{ border-left-color: var(--classroom); background: #F0FFF4; }
-  
+  .c-contexto { border-left-color: var(--teal); background: #F4FAFC; }
+  .c-tp { border-left-color: var(--amb); background: #FFFBF5; }
+  .c-fase1 { border-left-color: var(--teal); }
+  .c-fase2 { border-left-color: var(--vio); background: #FAFCFF; }
+  .c-fase3 { border-left-color: var(--classroom); background: #F0FFF4; }
+
   h2 { color: var(--nav); font-size: 24px; margin-bottom: 15px; text-transform: uppercase; border-bottom: 2px solid var(--gris); padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
   .badge { background: var(--nav); color: var(--bco); padding: 5px 12px; border-radius: 6px; font-size: 18px; font-weight: bold; }
   
-  .mensaje-amigable { background: #E8F5E9; border-left: 5px solid var(--grn); padding: 20px; color: #1B5E20; border-radius: 8px; margin-bottom: 20px; font-size: 20px; }
-  .mensaje-amigable strong { display: block; margin-bottom: 8px; font-size: 22px; }
+  .instrucciones { background: var(--gris); padding: 20px; border-radius: var(--r); margin-bottom: 20px; border: 1px solid var(--bd); }
+  .instrucciones strong { color: var(--amb); display: block; margin-bottom: 10px; }
 
-  .def-box { background: var(--gris); border: 1px solid var(--bd); border-left: 5px solid var(--teal); padding: 18px 20px; border-radius: var(--r); margin-bottom: 16px; }
-  .def-box strong { color: var(--teal); display: block; font-size: 20px; margin-bottom: 6px; }
+  .task-box { border: 1px solid var(--bd); padding: 20px; border-radius: var(--r); margin-bottom: 20px; background: white; border-left: 4px solid var(--teal); }
+  .task-box.vio { border-left-color: var(--vio); }
+  .task-box h3 { color: var(--teal); margin-bottom: 10px; font-size: 22px; text-transform: uppercase; }
+  .task-box.vio h3 { color: var(--vio); }
+  
+  .warning { background: #FFEBEE; border-left: 5px solid var(--rojo); padding: 15px; color: #B71C1C; font-weight: bold; margin-bottom: 20px; border-radius: 8px; }
+  .dificultad { background: #E3F2FD; border-left: 5px solid #1976D2; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+  .dificultad strong { color: #1565C0; }
 
-  .code-container { position: relative; margin: 20px 0; }
-  .code-block { background: var(--code-bg); color: #D4D4D4; font-family: 'Consolas', monospace; padding: 50px 20px 20px 20px; border-radius: var(--r); font-size: 17px; border: 1px solid #000; overflow-x: auto; white-space: pre; }
-  .keyword { color: #569CD6; } .string { color: #CE9178; } .comment { color: #6A9955; font-style: italic; }
-  .copy-btn { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); color: #FFF; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 15px; font-weight: bold; transition: 0.2s; z-index: 10; }
-  .copy-btn:hover { background: rgba(255,255,255,0.3); }
-
-  .action-box { padding: 20px; border-radius: var(--r); margin: 20px 0; font-size: 19px; border-left: 5px solid; }
-  .action-colab     { background: #FFF8E1; border-color: var(--colab);     color: #5D4000; }
-  .action-classroom { background: #E6F4EA; border-color: var(--classroom); color: #0D5323; }
-  .action-box strong { display: block; margin-bottom: 8px; font-size: 20px; text-transform: uppercase; }
-
-  .checklist { list-style: none; margin-left: 0; }
-  .checklist li { background: white; margin-bottom: 10px; padding: 15px; border-radius: 8px; border: 1px solid var(--bd); display: flex; align-items: flex-start; gap: 10px; }
-  .checklist input[type="checkbox"] { width: 24px; height: 24px; margin-top: 2px; cursor: pointer; }
-
+  ul, ol { margin-left: 30px; margin-bottom: 15px; }
+  li { margin-bottom: 8px; }
+  
+  .fase-header { font-size: 26px; color: var(--nav); font-weight: bold; text-align: center; margin: 40px 0 20px 0; background: var(--bd); padding: 10px; border-radius: 8px; }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>CLASE 8: SEGURIDAD Y CONTROL DE CALIDAD</h1>
-  <p>Taller de IA | Material de Estudio - Abril Oreste | Lunes 20/04/2026</p>
+  <h1>TRABAJO PRÁCTICO N° 1: EL PROYECTO CHATBOT</h1>
+  <p>Taller de IA | 7° Año TIC | CTP Antonio Martín Marte | Proyecto de 3 Clases</p>
 </header>
 
 <div class="container">
-<a href="index_abril.html" class="back-btn">⬅ Volver al Inicio</a>
 
-<!-- ════════════════════ OBJETIVO ════════════════════════════════ -->
-<div class="card c-tp">
-  <h2><span class="badge">!</span> ¿QUÉ HACEMOS HOY?</h2>
+<a href="index.html" class="back-btn">⬅ Volver al Índice</a>
+
+<!-- SECCIÓN DE CONTEXTO -->
+<div class="card c-contexto">
+  <h2><span class="badge" style="background: var(--teal);">!</span> EL PROYECTO: TU PROPIO CHATBOT</h2>
+  <p>En las clases 4, 5 y 6 aprendimos a conectarnos a los servidores de Groq, a armar preguntas dinámicas usando variables y a crear escudos (try/except) para atrapar errores. <strong>Hoy llegó el momento de integrar todo eso en un proyecto real.</strong></p>
   
-  <div class="mensaje-amigable">
-    <strong>🌟 ¡Doble misión!</strong>
-    La clase pasada lograste que tu programa hable con la IA y maneje errores. Hoy vamos a darle el toque final agregando un "Filtro de Seguridad". Y después, vas a tener un rol súper importante: ¡vas a auditar los programas de tus compañeros!
+  <p style="margin-top: 15px;">El objetivo de este Trabajo Práctico es que construyan desde cero un <strong>Chatbot interactivo completo</strong>. No van a hacer un programa que responda una sola pregunta y se cierre; van a programar un sistema continuo donde el usuario pueda configurar un personaje y chatear fluidamente por la consola.</p>
+  
+  <p style="margin-top: 15px;">Ustedes van a ser los arquitectos completos: van a armar el "backend" (la función que se conecta al cerebro de la IA), el "frontend" (la interfaz que le pide los datos al usuario) y finalmente un <strong>Informe de Control de Calidad (QA)</strong> para documentar cómo probaron su sistema.</p>
+</div>
+
+<div class="card c-tp">
+  <h2><span class="badge" style="background: var(--amb);">?</span> REGLAS DEL JUEGO Y MODALIDAD</h2>
+  <div class="warning">
+    <strong>REGLA DE ORO (COMPRENSIÓN > MEMORIA):</strong> No queremos que memoricen sintaxis. Pueden y deben revisar sus cuadernos anteriores para extraer código. Lo que se evalúa es que sepan ensamblarlo. Por esto, <strong>es OBLIGATORIO comentar (<code>#</code>) cada línea o bloque clave explicando qué hace</strong>. Quien no puede explicar su código, no aprueba. <strong>Si vas a usar la IA, tené en cuenta que el código lo tenés que explicar.</strong>
+  </div>
+  
+  <div class="dificultad">
+    <strong>👥 MODALIDAD Y GRADOS DE DIFICULTAD:</strong> El TP puede hacerse individual o en grupos de hasta 3 personas. La exigencia técnica sube según la cantidad de integrantes:
+    <ul style="margin-top: 10px; margin-bottom: 0;">
+      <li><strong>Individual:</strong> Bucle Continuo + Informe QA. El chatbot debe estar dentro de un bucle <code>while True</code> para pedir personajes y temas infinitamente hasta que el usuario escriba "salir".</li>
+      <li><strong>Parejas (2):</strong> Bucle + Memoria + Comandos Ocultos. Además del bucle continuo, deben implementar una lista <code>historial = []</code>. Deben agregar comandos especiales de sistema: si el usuario escribe <code>/historial</code>, el programa imprime la memoria; si escribe <code>/limpiar</code>, la memoria se borra.</li>
+      <li><strong>Tríos (3):</strong> Memoria + Comandos + Guardrails (Seguridad). Además de lo anterior, deben programar un filtro lógico (un <code>if</code>) antes de la conexión. Si el texto del usuario contiene palabras de una "lista negra", el programa debe rechazar la consulta sin gastar tokens.</li>
+    </ul>
   </div>
 </div>
 
-<!-- ════════════════════ PARTE 1: EL FILTRO ══════════════════════ -->
-<div class="card c-req">
-  <h2><span class="badge">1</span> EL FILTRO DE SEGURIDAD (GUARDRAIL)</h2>
+<!-- FASE 1 -->
+<div class="fase-header">⚙️ FASE 1: DESARROLLO DEL BACKEND (Viernes - 80 min)</div>
+
+<div class="card c-fase1">
+  <h2><span class="badge">1</span> LA ARQUITECTURA BASE</h2>
+  <p>Creen un nuevo Cuaderno en Colab llamado <code>TP1_Apellidos</code>. Hoy el objetivo es que el motor de conexión funcione perfectamente.</p>
   
-  <div class="def-box">
-    <strong>¿Qué es un Guardrail?</strong>
-    La IA no se manda sola, nosotros ponemos las reglas. Un Guardrail es un filtro (un <code>if/else</code>) que revisa lo que escribió el usuario ANTES de mandarlo a internet. Si el usuario escribe una palabra prohibida, el programa lo bloquea.
+  <div class="task-box">
+    <h3>Módulo 1: La Función Principal</h3>
+    <p>Toda la lógica de conexión debe estar encapsulada para ser reutilizable.</p>
+    <ul>
+      <li>Crear una función <code>def consultar_ia(personaje, tema, temperatura):</code></li>
+      <li>Dentro de la función, armar el <code>payload</code> inyectando los parámetros. Usar f-strings para armar el prompt dinámico. <em>(Ejemplo: <code>f"Actuá como {personaje} y hablá sobre {tema}"</code>)</em>.</li>
+      <li><strong>El Escudo:</strong> Envolver el <code>requests.post</code> y el manejo del JSON en un bloque <code>try / except</code>. Si la API falla, la función no debe romperse, debe retornar un mensaje de error amigable.</li>
+      <li>La función debe usar <code>return</code> para devolver exclusivamente el texto de la respuesta limpia de la IA.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- FASE 2 -->
+<div class="fase-header">💻 FASE 2: FRONTEND E INFORME DE TESTING (Lunes - 120 min)</div>
+
+<div class="card c-fase2">
+  <h2><span class="badge" style="background: var(--vio);">2</span> INTERFAZ Y DOCUMENTACIÓN</h2>
+  <p>Con el motor funcionando, hoy armamos la interacción con el usuario y el reporte de calidad.</p>
+
+  <div class="task-box vio">
+    <h3>Módulo 2: Interfaz de Consola (Frontend)</h3>
+    <p>Nada puede estar "hardcodeado". Todo se pide en tiempo de ejecución:</p>
+    <ul>
+      <li>Implementar un bucle <code>while True</code> para que el programa corra continuamente.</li>
+      <li>Usar <code>input()</code> para pedir el <strong>Personaje</strong> <em>(Ej: "Un pirata enojado", "Albert Einstein", "Un preceptor del colegio")</em> y el <strong>Tema</strong> <em>(Ej: "Los videojuegos", "La teoría de la relatividad", "Llegar tarde")</em>. Manejar el comando "salir" para romper el bucle.</li>
+      <li>Usar <code>input()</code> para pedir la <strong>Temperature</strong> (usando <code>float()</code> para convertir el texto a decimal, ej: <code>0.8</code>).</li>
+      <li>Llamar a la función, imprimir el resultado, e implementar el <strong>Historial, Comandos Ocultos o Guardrails</strong> según la cantidad de integrantes de su grupo.</li>
+    </ul>
+
+    <div style="background: #E8EAF6; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid var(--vio); font-family: 'Consolas', monospace; font-size: 17px; color: #1A237E;">
+      <strong style="font-family: 'Segoe UI', sans-serif; font-size: 18px; margin-bottom: 10px; display: block;">💡 Ejemplo de cómo debería verse su consola:</strong>
+      > ¿Qué personaje querés configurar? Un gaucho<br>
+      > ¿Sobre qué tema hablamos? Los jueguitos de computadora<br>
+      > Nivel de creatividad (0.0 a 2.0): 0.8<br>
+      <br>
+      🤖 <strong>IA (Gaucho):</strong> ¡Pero pibe! Esos jueguitos de ahora no se comparan con domar un buen potro en la estancia...<br>
+      <br>
+      > ¿Qué personaje querés configurar? (Escribí 'salir' para terminar) _
+    </div>
   </div>
 
-  <div class="action-box action-colab">
-    <strong>PASO A PASO:</strong>
-    <ol style="margin-left: 20px; margin-top: 5px;">
-      <li>Abrí tu Colab <code>TP1_Oreste_Abril</code> de la clase pasada.</li>
-      <li>Abajo de todo, agregá una celda nueva y pegá este código.</li>
-      <li>Pegá tu API Key real en la línea 4.</li>
-      <li><strong>Elegí una palabra prohibida</strong> en la línea 12 (por ejemplo: "trampa", "copiarse", "violencia").</li>
-      <li>Ejecutá el código e intentá hablar de ese tema prohibido. ¡Mirá cómo te bloquea!</li>
+  <div class="task-box vio">
+    <h3>Módulo 3: El Informe de QA (Control de Calidad)</h3>
+    <p>Debajo de su código, agreguen una <strong>Celda de Texto</strong> en Colab. Van a redactar un informe profesional que contenga:</p>
+    <ol>
+      <li><strong>Ficha Técnica:</strong> ¿Qué modelo exacto de Groq utilizaron? ¿Qué valor de <code>temperature</code> consideran ideal para este chatbot y por qué?</li>
+      <li><strong>Prueba de Red (Crash Test):</strong> Borren una letra de su <code>API_KEY</code> a propósito y ejecuten el programa. Copien y peguen en el informe qué respondió su bloque <code>try/except</code> para demostrar que el programa no colapsó con letras rojas.</li>
+      <li><strong>Prueba de Alucinación:</strong> Documenten una pregunta local o imposible que le hayan hecho a su chatbot donde la IA haya inventado datos.</li>
+      <li><strong>Prueba de Seguridad (Solo grupos de 3):</strong> Muestren cómo reaccionó el sistema al ingresar una palabra de la lista negra.</li>
     </ol>
   </div>
-
-  <div class="code-container">
-    <button class="copy-btn" onclick="copyCode('codFiltro')">Copiar Código</button>
-    <div id="codFiltro" class="code-block"><span class="keyword">import</span> requests
-
-<span class="comment"># 1. Configuración básica</span>
-API_KEY = <span class="string">"gsk_PEGA_TU_CLAVE_ACA"</span>
-URL = <span class="string">"https://api.groq.com/openai/v1/chat/completions"</span>
-headers = {<span class="string">"Authorization"</span>: f<span class="string">"Bearer {API_KEY}"</span>, <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span>}
-
-<span class="comment"># 2. Le pedimos el tema al usuario</span>
-tema = <span class="keyword">input</span>(<span class="string">"¿Sobre qué querés que te hable la IA hoy? "</span>)
-
-<span class="comment"># 3. --- EL FILTRO DE SEGURIDAD ---</span>
-palabra_prohibida = <span class="string">"trampa"</span>  <span class="comment"># ← CAMBIÁ ESTA PALABRA POR LA QUE QUIERAS</span>
-
-<span class="keyword">if</span> palabra_prohibida <span class="keyword">in</span> tema.lower():
-    <span class="keyword">print</span>(<span class="string">"🛑 ¡BLOQUEADO! No estoy autorizado a hablar sobre ese tema."</span>)
-<span class="keyword">else</span>:
-    <span class="keyword">print</span>(<span class="string">"✅ Tema aceptado. Conectando con la IA..."</span>)
-    
-    <span class="comment"># Si pasa el filtro, armamos la pregunta y la enviamos</span>
-    pregunta = f<span class="string">"Explicame brevemente sobre {tema}"</span>
-    payload = {
-        <span class="string">"model"</span>: <span class="string">"llama-3.3-70b-versatile"</span>,
-        <span class="string">"messages"</span>: [{<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: pregunta}]
-    }
-    
-    <span class="keyword">try</span>:
-        response = requests.<span class="keyword">post</span>(URL, headers=headers, json=payload)
-        data = response.json()
-        <span class="keyword">print</span>(<span class="string">"\n🤖 IA:"</span>, data[<span class="string">"choices"</span>][0][<span class="string">"message"</span>][<span class="string">"content"</span>])
-    <span class="keyword">except</span>:
-        <span class="keyword">print</span>(<span class="string">"⚠️ Falló la conexión."</span>)</div>
-  </div>
 </div>
 
-<!-- ════════════════════ PARTE 2: EL ROL DE QA ═══════════════════ -->
-<div class="card c-qa">
-  <h2><span class="badge" style="background: var(--vio);">2</span> TU NUEVO ROL: TESTER DE QA</h2>
+<!-- FASE 3 -->
+<div class="fase-header">🗣️ FASE 3: DEPLOYMENT Y DEFENSA (Viernes Próximo - 80 min)</div>
+
+<div class="card c-fase3">
+  <h2><span class="badge" style="background: var(--classroom);">3</span> EVALUACIÓN FINAL</h2>
   
-  <p style="margin-bottom: 15px;">En las grandes empresas de tecnología, los Testers de QA (Control de Calidad) se encargan de "intentar romper" los programas de sus compañeros antes de que salgan al público. ¡Esa es tu misión ahora!</p>
-
-  <div class="action-box action-colab">
-    <strong>INSTRUCCIONES:</strong>
-    <p>Pedile a un grupo de compañeros que te pasen el enlace de su Google Colab. Abrilo en tu celular y someté su programa a estas 3 pruebas extremas:</p>
+  <div class="instrucciones">
+    <strong>🎤 Preparación para la Defensa Oral:</strong>
+    <p>Voy a llamar a cada grupo para indagar sobre lo que hicieron. Cada integrante deberá poder explicar una parte del código leyendo los comentarios que dejaron con el <code>#</code>. Si no pueden justificar por qué usaron por ejemplo un <code>return</code>, un <code>try</code>, un <code>float</code>, o cómo armaron el comando oculto, la nota grupal se verá afectada.</p>
   </div>
-
-  <ul class="checklist">
-    <li>
-      <input type="checkbox" id="chk1">
-      <label for="chk1"><strong>Prueba 1: El Bucle.</strong> Escribí tus personajes y temas. ¿El programa te vuelve a preguntar otra vez o se termina rápido? Si te vuelve a preguntar, escribí "salir". ¿El programa se detiene como debería?</label>
-    </li>
-    <li>
-      <input type="checkbox" id="chk2">
-      <label for="chk2"><strong>Prueba 2: El rompe-sistemas.</strong> Cuando el programa te pida la "temperatura", en lugar de poner un número (como 0.5), escribí letras (por ejemplo: "hola"). ¿El programa ataja el error con elegancia o explota la consola con letras rojas?</label>
-    </li>
-    <li>
-      <input type="checkbox" id="chk3">
-      <label for="chk3"><strong>Prueba 3: La Alucinación.</strong> Pedile al programa que actúe como historiador y preguntale: <em>"¿En qué año se fundó el Club de Fútbol Pingüinos de Ushuaia?"</em> (Un club que no existe). ¿La IA admitió que no sabe, o inventó una mentira?</label>
-    </li>
-  </ul>
-</div>
-
-<!-- ════════════════════ ENTREGA ═════════════════════════════════ -->
-<div class="card c-entrega">
-  <h2><span class="badge">3</span> TU REPORTE FINAL EN CLASSROOM</h2>
-  <p>Como toda tester profesional, tenés que entregar un reporte de lo que encontraste.</p>
 
   <div class="action-box action-classroom">
-    <strong>📤 Tarea para entregar:</strong>
-    <p>Copiá este texto, pegalo en la tarea de Classroom de hoy, completalo con lo que descubriste y publicalo. ¡El profe Gus va a leer tu reporte para evaluar a tus compañeros!</p>
-  </div>
-
-  <div class="code-container">
-    <button class="copy-btn" onclick="copyCode('reporteQA')">Copiar Reporte</button>
-    <div id="reporteQA" class="code-block">REPORTE DE CALIDAD (QA)
-Tester a cargo: Abril Oreste
-Grupo evaluado: [Escribí los nombres de tus compañeros acá]
-
-RESULTADOS DE LAS PRUEBAS:
-1. Prueba del bucle (salir): [¿Funcionó bien o falló?]
-2. Prueba del error (rompe-sistemas): [¿Explotó con letras rojas o aguantó el error?]
-3. Prueba de alucinación: [¿Qué inventó la IA cuando le preguntaste algo falso?]
-
-Veredicto final de Abril: [Aprobado / Necesita arreglos]</div>
+    <strong>📋 Pasos para la Entrega en Classroom:</strong>
+    <ol style="margin-left: 20px; margin-top: 5px;">
+      <li>Verifiquen que el código esté <strong>completamente comentado</strong> bloque por bloque.</li>
+      <li>Asegúrense de que el Informe de QA en la celda de texto esté completo.</li>
+      <li>Adjunten el enlace a su cuaderno de Colab en la tarea correspondiente (revisen que el profe tenga permisos de lector). Un solo enlace por grupo, pero todos marcan la tarea como completada.</li>
+    </ol>
   </div>
 </div>
 
 </div>
-<script>
-  function copyCode(id) {
-    var el = document.getElementById(id);
-    navigator.clipboard.writeText(el.textContent || el.innerText).then(function() {
-      var btn = el.previousElementSibling;
-      var orig = btn.innerText;
-      btn.innerText = "¡Copiado!";
-      btn.style.background = "var(--teal)";
-      setTimeout(function() { btn.innerText = orig; btn.style.background = "rgba(255,255,255,0.15)"; btn.style.borderColor = "rgba(255,255,255,0.3)"; }, 2000);
-    });
-  }
-</script>
 </body>
 </html>
