@@ -120,9 +120,9 @@
   <div class="dificultad">
     <strong>👥 MODALIDAD Y GRADOS DE DIFICULTAD:</strong> El TP puede hacerse individual o en grupos de hasta 3 personas. La exigencia técnica sube según la cantidad de integrantes:
     <ul style="margin-top: 10px; margin-bottom: 0;">
-      <li><strong>Individual:</strong> Bucle Básico. El chatbot debe estar dentro de un bucle <code>while True</code> donde en cada vuelta pide el personaje y el tema hasta que el usuario escriba "salir".</li>
-      <li><strong>Parejas (2):</strong> Bucle de Sesión (Mejor Interfaz). Para no pedir todo a cada rato, el programa debe pedir el Personaje y la Temperatura <em>una sola vez</em> al principio. Luego entra al bucle <code>while True</code> donde <em>solo</em> le pide al usuario su nueva consulta.</li>
-      <li><strong>Tríos (3):</strong> Bucle de Sesión + Guardrails (Seguridad). Además de lo anterior, deben programar un filtro lógico (un <code>if</code>) adentro del bucle. Si la consulta del usuario contiene palabras de una "lista negra", el programa debe rechazar la consulta bloqueándola sin gastar tokens.</li>
+      <li><strong>Individual:</strong> Bucle Básico. El chatbot debe estar dentro de un bucle <code>while True</code> donde en cada vuelta pide el <strong>Personaje</strong>, el <strong>Tema</strong> y la <strong>Temperatura</strong> hasta que el usuario escriba "salir".</li>
+      <li><strong>De a dos:</strong> Bucle de Sesión (Mejor Interfaz). Para no pedir todo a cada rato, el programa debe pedir el Personaje y la Temperatura <em>una sola vez</em> al principio. Luego entra al bucle <code>while True</code> donde <em>solo</em> le pide al usuario su nueva consulta.</li>
+      <li><strong>De a tres:</strong> Bucle de Sesión + Guardrails (Seguridad). Además de lo anterior, deben programar un filtro lógico (un <code>if</code>) adentro del bucle. Si la consulta del usuario contiene palabras de una "lista negra", el programa debe rechazar la consulta bloqueándola sin gastar tokens.</li>
     </ul>
   </div>
 </div>
@@ -145,27 +145,25 @@
     </ul>
 
     <div class="code-container" style="margin-top: 20px; margin-bottom: 0;">
-      <button class="copy-btn" onclick="copyCode('ejemploFuncion')">Copiar Ejemplo</button>
+      <button class="copy-btn" onclick="copyCode('ejemploFuncion')">Copiar Estructura</button>
       <div id="ejemploFuncion" class="code-block"><span class="keyword">def</span> consultar_ia(personaje, consulta, temperatura):
-    <span class="comment"># 1. Armamos el prompt dinámico</span>
-    prompt = f<span class="string">"Actuá como {personaje} y respondé a esto: {consulta}"</span>
+    <span class="comment"># 1. Armá el prompt dinámico</span>
+    <span class="comment"># [COMPLETAR] Usá un f-string para juntar el personaje y la consulta en un solo texto.</span>
     
-    <span class="comment"># 2. Configuramos el payload incluyendo la variable 'temperatura'</span>
-    payload = {
-        <span class="string">"model"</span>: <span class="string">"llama-3.3-70b-versatile"</span>,
-        <span class="string">"temperature"</span>: temperatura,
-        <span class="string">"messages"</span>: [{<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: prompt}]
-    }
+    <span class="comment"># 2. Configurá el payload</span>
+    <span class="comment"># [COMPLETAR] Creá el diccionario payload.</span>
+    <span class="comment"># Acordate de usar el modelo "llama-3.3-70b-versatile" y de inyectar las variables 'temperatura' y el prompt que armaste arriba.</span>
     
     <span class="comment"># 3. El Escudo y el Retorno</span>
     <span class="keyword">try</span>:
-        response = requests.<span class="keyword">post</span>(URL, headers=headers, json=payload)
-        data = response.json()
+        <span class="comment"># [COMPLETAR] Hacé el requests.post a la URL pasándole los headers y el json.</span>
+        <span class="comment"># [COMPLETAR] Convertí la respuesta cruda del servidor a JSON (ej: data = ...)</span>
+        
         <span class="comment"># Devolvemos SOLO el texto limpio de la IA</span>
-        <span class="keyword">return</span> data[<span class="string">"choices"</span>][0][<span class="string">"message"</span>][<span class="string">"content"</span>]
+        <span class="keyword">return</span> <span class="comment"># [COMPLETAR con la ruta correcta navegando el diccionario data]</span>
         
     <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
-        <span class="comment"># Si la red falla, el programa no explota, devuelve este texto:</span>
+        <span class="comment"># Si la red falla, el programa no explota, ataja el error y devuelve este texto:</span>
         <span class="keyword">return</span> <span class="string">"⚠️ Ups, la IA no responde. Revisá tu conexión o API Key."</span></div>
     </div>
   </div>
@@ -186,17 +184,16 @@
     <div class="tabs-container">
       <div class="tabs">
         <div class="tab-btn active" onclick="openTab(event, 'tab-indiv')">👤 Individual</div>
-        <div class="tab-btn" onclick="openTab(event, 'tab-duo')">👥 Parejas (2)</div>
-        <div class="tab-btn" onclick="openTab(event, 'tab-trio')">🧑‍🤝‍🧑 Tríos (3)</div>
+        <div class="tab-btn" onclick="openTab(event, 'tab-duo')">👥 De a dos</div>
+        <div class="tab-btn" onclick="openTab(event, 'tab-trio')">🧑‍🤝‍🧑 De a tres</div>
       </div>
 
       <!-- PESTAÑA: INDIVIDUAL -->
       <div id="tab-indiv" class="tab-content active">
         <ul style="margin-left: 20px;">
           <li>Implementar un bucle <code>while True</code>.</li>
-          <li>Adentro del bucle, pedir el <strong>Personaje</strong> y la <strong>Consulta</strong> en cada vuelta.</li>
+          <li>Adentro del bucle, pedir el <strong>Personaje</strong>, la <strong>Consulta</strong> y la <strong>Temperatura</strong> (usar <code>float()</code> para convertir a decimal) en <em>cada</em> vuelta.</li>
           <li>Implementar la lógica para que si el usuario escribe <code>"salir"</code>, el bucle se rompa (<code>break</code>).</li>
-          <li>Pedir la <strong>Temperature</strong> (usar <code>float()</code> para convertir a decimal).</li>
           <li>Llamar a su función <code>consultar_ia</code> y hacer el <code>print()</code> del resultado.</li>
         </ul>
         <div class="console-box">
@@ -212,7 +209,7 @@
         </div>
       </div>
 
-      <!-- PESTAÑA: PAREJAS -->
+      <!-- PESTAÑA: DE A DOS -->
       <div id="tab-duo" class="tab-content">
         <ul style="margin-left: 20px;">
           <li><strong>ANTES DEL BUCLE:</strong> Pedir el Personaje y la Temperatura UNA SOLA VEZ para configurar la sesión.</li>
@@ -237,10 +234,10 @@ Vos: <span class="c-user">salir</span>
         </div>
       </div>
 
-      <!-- PESTAÑA: TRÍOS -->
+      <!-- PESTAÑA: DE A TRES -->
       <div id="tab-trio" class="tab-content">
         <ul style="margin-left: 20px;">
-          <li>Implementar la lógica de Parejas (Configurar Personaje y Temperatura una sola vez antes del bucle).</li>
+          <li>Implementar la lógica de "De a dos" (Configurar Personaje y Temperatura una sola vez antes del bucle).</li>
           <li><strong>El Guardrail (Filtro de Seguridad):</strong> Declarar una lista de palabras prohibidas antes del bucle (Ej: <code>prohibidas = ["trampa", "violencia", "insulto"]</code>).</li>
           <li>Después de pedirle la consulta al usuario (<code>input("Vos: ")</code>), usar un <code>if</code> y un <code>for</code> (o el operador <code>in</code>) para revisar si su texto contiene alguna palabra de la lista negra.</li>
           <li>Si detecta una palabra prohibida, mostrar un mensaje de alerta de seguridad y usar <code>continue</code> para reiniciar el ciclo <strong>sin llamar a la API</strong> (ahorrando tokens).</li>
