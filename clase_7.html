@@ -106,7 +106,7 @@
   <h2><span class="badge" style="background: var(--teal);">!</span> EL PROYECTO: TU PROPIO CHATBOT</h2>
   <p>En las clases 4, 5 y 6 aprendimos a conectarnos a los servidores de Groq, a armar preguntas dinámicas usando variables y a crear escudos (try/except) para atrapar errores. <strong>Hoy llegó el momento de integrar todo eso en un proyecto real.</strong></p>
   
-  <p style="margin-top: 15px;">El objetivo de este Trabajo Práctico es que construyan desde cero un <strong>Chatbot interactivo completo</strong>. No van a hacer un programa que responda una sola pregunta y se cierre; van a programar un sistema continuo donde el usuario pueda configurar un personaje y chatear fluidamente por la consola.</p>
+  <p style="margin-top: 15px;">El objetivo de este Trabajo Práctico es que construyan desde cero un <strong>Chatbot interactivo</strong>. No van a hacer un programa que responda una sola pregunta y se cierre; van a programar un sistema continuo donde el usuario pueda chatear fluidamente por la consola.</p>
   
   <p style="margin-top: 15px;">Ustedes van a ser los arquitectos completos: van a armar el "backend" (la función que se conecta al cerebro de la IA), el "frontend" (la interfaz que le pide los datos al usuario) y finalmente un <strong>Informe de Control de Calidad (QA)</strong> para documentar cómo probaron su sistema.</p>
 </div>
@@ -120,9 +120,9 @@
   <div class="dificultad">
     <strong>👥 MODALIDAD Y GRADOS DE DIFICULTAD:</strong> El TP puede hacerse individual o en grupos de hasta 3 personas. La exigencia técnica sube según la cantidad de integrantes:
     <ul style="margin-top: 10px; margin-bottom: 0;">
-      <li><strong>Individual:</strong> Bucle Continuo + Informe QA. El chatbot debe estar dentro de un bucle <code>while True</code> para pedir personajes y temas infinitamente hasta que el usuario escriba "salir".</li>
-      <li><strong>Parejas (2):</strong> Bucle + Memoria + Comandos Ocultos. Además del bucle continuo, deben implementar una lista <code>historial = []</code>. Deben agregar comandos especiales de sistema: si el usuario escribe <code>/historial</code>, el programa imprime la memoria; si escribe <code>/limpiar</code>, la memoria se borra.</li>
-      <li><strong>Tríos (3):</strong> Memoria + Comandos + Guardrails (Seguridad). Además de lo anterior, deben programar un filtro lógico (un <code>if</code>) antes de la conexión. Si el texto del usuario contiene palabras de una "lista negra", el programa debe rechazar la consulta sin gastar tokens.</li>
+      <li><strong>Individual:</strong> Bucle Básico. El chatbot debe estar dentro de un bucle <code>while True</code> donde en cada vuelta pide el personaje y el tema hasta que el usuario escriba "salir".</li>
+      <li><strong>Parejas (2):</strong> Bucle de Sesión (Mejor Interfaz). Para no pedir todo a cada rato, el programa debe pedir el Personaje y la Temperatura <em>una sola vez</em> al principio. Luego entra al bucle <code>while True</code> donde <em>solo</em> le pide al usuario su nueva consulta.</li>
+      <li><strong>Tríos (3):</strong> Bucle de Sesión + Guardrails (Seguridad). Además de lo anterior, deben programar un filtro lógico (un <code>if</code>) adentro del bucle. Si la consulta del usuario contiene palabras de una "lista negra", el programa debe rechazar la consulta bloqueándola sin gastar tokens.</li>
     </ul>
   </div>
 </div>
@@ -138,23 +138,23 @@
     <h3>Módulo 1: La Función Principal</h3>
     <p>Toda la lógica de conexión debe estar encapsulada para ser reutilizable.</p>
     <ul>
-      <li>Crear una función <code>def consultar_ia(personaje, tema, temperatura):</code></li>
-      <li>Dentro de la función, armar el <code>payload</code> inyectando los parámetros. Usar f-strings para armar el prompt dinámico. <em>(Ejemplo: <code>f"Actuá como {personaje} y hablá sobre {tema}"</code>)</em>.</li>
+      <li>Crear una función <code>def consultar_ia(personaje, consulta, temperatura):</code></li>
+      <li>Dentro de la función, armar el <code>payload</code> inyectando los parámetros. Usar f-strings para armar el prompt dinámico. <em>(Ejemplo: <code>f"Actuá como {personaje} y respondé a esto: {consulta}"</code>)</em>.</li>
       <li><strong>El Escudo:</strong> Envolver el <code>requests.post</code> y el manejo del JSON en un bloque <code>try / except</code>. Si la API falla, la función no debe romperse, debe retornar un mensaje de error amigable.</li>
       <li>La función debe usar <code>return</code> para devolver exclusivamente el texto de la respuesta limpia de la IA.</li>
     </ul>
 
     <div class="code-container" style="margin-top: 20px; margin-bottom: 0;">
       <button class="copy-btn" onclick="copyCode('ejemploFuncion')">Copiar Ejemplo</button>
-      <div id="ejemploFuncion" class="code-block"><span class="keyword">def</span> consultar_ia(personaje, tema, temperatura):
+      <div id="ejemploFuncion" class="code-block"><span class="keyword">def</span> consultar_ia(personaje, consulta, temperatura):
     <span class="comment"># 1. Armamos el prompt dinámico</span>
-    pregunta = f<span class="string">"Actuá como {personaje} y hablá sobre {tema}"</span>
+    prompt = f<span class="string">"Actuá como {personaje} y respondé a esto: {consulta}"</span>
     
     <span class="comment"># 2. Configuramos el payload incluyendo la variable 'temperatura'</span>
     payload = {
         <span class="string">"model"</span>: <span class="string">"llama-3.3-70b-versatile"</span>,
         <span class="string">"temperature"</span>: temperatura,
-        <span class="string">"messages"</span>: [{<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: pregunta}]
+        <span class="string">"messages"</span>: [{<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: prompt}]
     }
     
     <span class="comment"># 3. El Escudo y el Retorno</span>
@@ -180,7 +180,7 @@
 
   <div class="task-box vio">
     <h3>Módulo 2: Interfaz de Consola (Frontend)</h3>
-    <p>Nada puede estar "hardcodeado". Todo se pide en tiempo de ejecución. Seleccionen su nivel de dificultad para ver las instrucciones y el ejemplo de cómo debe verse su programa terminado:</p>
+    <p>Nada puede estar "hardcodeado". Todo se pide en tiempo de ejecución mediante <code>input()</code>. Seleccionen su nivel de dificultad para ver las instrucciones y el ejemplo de cómo debe verse su programa:</p>
 
     <!-- INICIO DE PESTAÑAS -->
     <div class="tabs-container">
@@ -193,8 +193,8 @@
       <!-- PESTAÑA: INDIVIDUAL -->
       <div id="tab-indiv" class="tab-content active">
         <ul style="margin-left: 20px;">
-          <li>Implementar un bucle <code>while True</code> para que el programa corra continuamente.</li>
-          <li>Usar <code>input()</code> para pedir el <strong>Personaje</strong> <em>(Ej: "Un pirata enojado")</em> y el <strong>Tema</strong>.</li>
+          <li>Implementar un bucle <code>while True</code>.</li>
+          <li>Adentro del bucle, pedir el <strong>Personaje</strong> y la <strong>Consulta</strong> en cada vuelta.</li>
           <li>Implementar la lógica para que si el usuario escribe <code>"salir"</code>, el bucle se rompa (<code>break</code>).</li>
           <li>Pedir la <strong>Temperature</strong> (usar <code>float()</code> para convertir a decimal).</li>
           <li>Llamar a su función <code>consultar_ia</code> y hacer el <code>print()</code> del resultado.</li>
@@ -202,7 +202,7 @@
         <div class="console-box">
           <span class="console-title">💡 Así debería verse tu consola:</span>
 > ¿Qué personaje querés configurar? (Escribí 'salir' para terminar) <span class="c-user">Un gaucho</span>
-> ¿Sobre qué tema hablamos? <span class="c-user">Los videojuegos</span>
+> ¿Qué querés preguntarle? <span class="c-user">¿Qué son los videojuegos?</span>
 > Nivel de creatividad (0.0 a 2.0): <span class="c-user">0.8</span>
 
 <span class="c-ia">🤖 IA (Gaucho):</span> ¡Pero pibe! Esos jueguitos de ahora no se comparan con domar un buen potro en la estancia. ¡Salí a tomar aire!
@@ -215,54 +215,50 @@
       <!-- PESTAÑA: PAREJAS -->
       <div id="tab-duo" class="tab-content">
         <ul style="margin-left: 20px;">
-          <li>Declarar una lista vacía <code>historial = []</code> <strong>antes</strong> de que empiece el <code>while True</code>.</li>
-          <li>Pedir los inputs normales. Antes de llamar a la IA, verificar si el usuario escribió un comando oculto usando <code>if</code>:</li>
-          <li>Si escribió <code>/historial</code>, el programa imprime la lista y <code>continue</code> al inicio del bucle.</li>
-          <li>Si escribió <code>/limpiar</code>, el programa vacía la lista (<code>historial.clear()</code>) y avisa en pantalla.</li>
-          <li>Si no es un comando, llamar a la API, hacer el <code>print</code>, y agregar la respuesta de la IA a la lista <code>historial.append(...)</code>.</li>
+          <li><strong>ANTES DEL BUCLE:</strong> Pedir el Personaje y la Temperatura UNA SOLA VEZ para configurar la sesión.</li>
+          <li><strong>ADENTRO DEL BUCLE (while True):</strong> Pedirle al usuario su consulta con <code>input("Vos: ")</code>.</li>
+          <li>Verificar si el usuario escribió <code>"salir"</code> para romper el bucle.</li>
+          <li>Llamar a la API enviando los datos, recibir la respuesta y hacer el print. En la próxima vuelta, la consola solo le pedirá una nueva consulta (manteniendo el mismo personaje).</li>
         </ul>
         <div class="console-box">
           <span class="console-title">💡 Así debería verse su consola:</span>
-> ¿Qué personaje querés? (Comandos: /historial, /limpiar, salir): <span class="c-user">Albert Einstein</span>
-> ¿Tema?: <span class="c-user">La gravedad</span>
-> Creatividad: <span class="c-user">0.5</span>
+> ¿Qué personaje querés?: <span class="c-user">Albert Einstein</span>
+> Creatividad (0.0 a 2.0): <span class="c-user">0.5</span>
+<span class="c-sys">--- INICIANDO CHAT (Escribí 'salir' para terminar) ---</span>
 
-<span class="c-ia">🤖 IA (Einstein):</span> Imagina que el espacio es una cama elástica. Si ponés una bola de boliche en el medio, se hunde...
+Vos: <span class="c-user">Hola Albert, explicame tu teoría en una oración.</span>
+<span class="c-ia">🤖 IA:</span> Imagina que el espacio es una cama elástica. Si ponés una bola de boliche en el medio, se hunde y atrae a las cosas más chicas.
 
-> ¿Qué personaje querés? (Comandos: /historial, /limpiar, salir): <span class="c-cmd">/historial</span>
-<span class="c-sys">[COMANDO SISTEMA] Memoria actual: 1 interacción guardada.
-Registro: ['La gravedad']</span>
+Vos: <span class="c-user">¿Te gustan los videojuegos?</span>
+<span class="c-ia">🤖 IA:</span> La verdad que prefiero tocar el violín, me ayuda a pensar en mis fórmulas.
 
-> ¿Qué personaje querés? (Comandos: /historial, /limpiar, salir): <span class="c-cmd">/limpiar</span>
-<span class="c-sys">[COMANDO SISTEMA] Memoria borrada. La IA tiene amnesia.</span>
+Vos: <span class="c-user">salir</span>
+<span class="c-sys">¡Nos vemos! Apagando el sistema...</span>
         </div>
       </div>
 
       <!-- PESTAÑA: TRÍOS -->
       <div id="tab-trio" class="tab-content">
         <ul style="margin-left: 20px;">
-          <li>Implementar todo lo de Parejas (Historial y comandos).</li>
-          <li><strong>El Guardrail:</strong> Declarar una lista de palabras prohibidas (Ej: <code>prohibidas = ["trampa", "violencia", "insulto"]</code>).</li>
-          <li>Después de pedir el tema al usuario, usar un <code>if</code> para revisar si el tema contiene alguna palabra de la lista negra.</li>
+          <li>Implementar la lógica de Parejas (Configurar Personaje y Temperatura una sola vez antes del bucle).</li>
+          <li><strong>El Guardrail (Filtro de Seguridad):</strong> Declarar una lista de palabras prohibidas antes del bucle (Ej: <code>prohibidas = ["trampa", "violencia", "insulto"]</code>).</li>
+          <li>Después de pedirle la consulta al usuario (<code>input("Vos: ")</code>), usar un <code>if</code> y un <code>for</code> (o el operador <code>in</code>) para revisar si su texto contiene alguna palabra de la lista negra.</li>
           <li>Si detecta una palabra prohibida, mostrar un mensaje de alerta de seguridad y usar <code>continue</code> para reiniciar el ciclo <strong>sin llamar a la API</strong> (ahorrando tokens).</li>
         </ul>
         <div class="console-box">
           <span class="console-title">💡 Así debería verse su consola:</span>
-> Personaje (o comandos): <span class="c-user">Un profesor</span>
-> ¿Tema?: <span class="c-user">Las matemáticas</span>
+> Personaje: <span class="c-user">Un profesor universitario</span>
 > Creatividad: <span class="c-user">0.7</span>
+<span class="c-sys">--- INICIANDO CHAT ---</span>
 
-<span class="c-ia">🤖 IA (Profesor):</span> Las matemáticas son el lenguaje con el que Dios escribió el universo...
+Vos: <span class="c-user">¿Para qué sirven las matemáticas?</span>
+<span class="c-ia">🤖 IA:</span> Son el lenguaje con el que entendemos el universo...
 
-> Personaje (o comandos): <span class="c-user">Un hacker</span>
-> ¿Tema?: <span class="c-user">Cómo hacer trampa en un examen</span>
-> Creatividad: <span class="c-user">1.0</span>
-
+Vos: <span class="c-user">Tengo un examen mañana. Pasame un truco para hacer trampa.</span>
 <span class="c-sys">🛑 [GUARDRAIL DE SEGURIDAD ACTIVADO] 
-Petición bloqueada. El tema contiene lenguaje no permitido por las políticas del servidor.
-(0 Tokens gastados).</span>
+Petición bloqueada. Tu mensaje contiene lenguaje no permitido por las políticas de seguridad. (0 Tokens gastados).</span>
 
-> Personaje (o comandos): _
+Vos: _
         </div>
       </div>
     </div>
@@ -273,7 +269,7 @@ Petición bloqueada. El tema contiene lenguaje no permitido por las políticas d
     <h3>Módulo 3: El Informe de QA (Control de Calidad)</h3>
     <p>Debajo de su código, agreguen una <strong>Celda de Texto</strong> en Colab. Van a redactar un informe profesional que contenga:</p>
     <ol>
-      <li><strong>Ficha Técnica:</strong> ¿Qué modelo exacto de Groq utilizaron? ¿Qué valor de <code>temperature</code> consideran ideal para este chatbot y por qué?</li>
+      <li><strong>Ficha Técnica:</strong> ¿Qué modelo exacto de Groq utilizaron? ¿Qué valor de <code>temperature</code> consideran ideal para que el personaje actúe bien y por qué?</li>
       <li><strong>Prueba de Red (Crash Test):</strong> Borren una letra de su <code>API_KEY</code> a propósito y ejecuten el programa. Copien y peguen en el informe qué respondió su bloque <code>try/except</code> para demostrar que el programa no colapsó con letras rojas.</li>
       <li><strong>Prueba de Alucinación:</strong> Documenten una pregunta local o imposible que le hayan hecho a su chatbot donde la IA haya inventado datos.</li>
       <li><strong>Prueba de Seguridad (Solo grupos de 3):</strong> Muestren cómo reaccionó el sistema al ingresar una palabra de la lista negra.</li>
@@ -289,7 +285,7 @@ Petición bloqueada. El tema contiene lenguaje no permitido por las políticas d
   
   <div class="instrucciones">
     <strong>🎤 Preparación para la Defensa Oral:</strong>
-    <p>Voy a llamar a cada grupo para indagar sobre lo que hicieron. Cada integrante deberá poder explicar una parte del código leyendo los comentarios que dejaron con el <code>#</code>. Si no pueden justificar por qué usaron por ejemplo un <code>return</code>, un <code>try</code>, un <code>float</code>, o cómo armaron el comando oculto, la nota grupal se verá afectada.</p>
+    <p>Voy a llamar a cada grupo para indagar sobre lo que hicieron. Cada integrante deberá poder explicar una parte del código leyendo los comentarios que dejaron con el <code>#</code>. Si no pueden justificar por qué usaron por ejemplo un <code>return</code>, un <code>try</code>, un <code>float</code>, o cómo armaron la interfaz, la nota grupal se verá afectada.</p>
   </div>
 
   <div class="action-box action-classroom">
