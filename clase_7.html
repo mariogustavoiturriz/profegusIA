@@ -35,6 +35,7 @@
   .back-btn:hover { border-color: var(--nav); background: var(--gris); }
 
   .card { background: var(--bco); border-radius: var(--r); padding: 30px; margin-bottom: 30px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,.08); border-left: 6px solid var(--bd); }
+  .c-contexto { border-left-color: var(--teal); background: #F4FAFC; }
   .c-tp { border-left-color: var(--amb); background: #FFFBF5; }
   .c-req { border-left-color: var(--teal); }
   .c-fase2 { border-left-color: var(--vio); background: #FAFCFF; }
@@ -62,7 +63,7 @@
 <body>
 
 <header>
-  <h1>TRABAJO PRÁCTICO N° 1: EL MOTOR DE INFERENCIA</h1>
+  <h1>TRABAJO PRÁCTICO N° 1: NUESTRO PRIMER PROGRAMA CON IA</h1>
   <p>Taller de IA | 7° Año TIC | CTP Antonio Martín Marte | Proyecto de 2 Clases</p>
 </header>
 
@@ -70,8 +71,18 @@
 
 <a href="index.html" class="back-btn">⬅ Volver al Índice</a>
 
+<!-- NUEVA SECCIÓN DE CONTEXTO -->
+<div class="card c-contexto">
+  <h2><span class="badge" style="background: var(--teal);">!</span> EL PROYECTO: TU PROPIO CHATBOT</h2>
+  <p>Durante el primer mes de clases aprendimos a conectarnos a los servidores de Groq, a armar preguntas dinámicas usando variables y a crear escudos (try/except) para atrapar errores. <strong>Hoy llegó el momento de integrar todo eso en un proyecto real.</strong></p>
+  
+  <p style="margin-top: 15px;">El objetivo de este Trabajo Práctico es que construyan desde cero un <strong>Chatbot interactivo completo</strong>. No van a hacer un programa que responda una sola pregunta y se cierre; van a programar un sistema continuo donde el usuario pueda configurar un personaje y chatear fluidamente por la consola.</p>
+  
+  <p style="margin-top: 15px;">Ustedes van a ser los arquitectos completos: van a armar el "backend" (la función que se conecta al cerebro de la IA) y el "frontend" (la interfaz que le pide los datos al usuario). ¡A programar!</p>
+</div>
+
 <div class="card c-tp">
-  <h2><span class="badge">!</span> REGLAS DEL JUEGO Y MODALIDAD</h2>
+  <h2><span class="badge" style="background: var(--amb);">?</span> REGLAS DEL JUEGO Y MODALIDAD</h2>
   <div class="warning">
     <strong>REGLA DE ORO (COMPRENSIÓN > MEMORIA):</strong> No queremos que memoricen sintaxis. Pueden y deben revisar sus cuadernos anteriores para extraer código. Lo que se evalúa es que sepan ensamblarlo. Por esto, <strong>es OBLIGATORIO comentar (<code>#</code>) cada línea o bloque clave explicando qué hace</strong>. Quien no puede explicar su código, no aprueba. <strong>Si vas a usar la IA, tené en cuenta que el código lo tenés que explicar.</strong>
   </div>
@@ -79,9 +90,9 @@
   <div class="dificultad">
     <strong>👥 MODALIDAD Y GRADOS DE DIFICULTAD:</strong> El TP puede hacerse individual o en grupos de hasta 3 personas. La exigencia técnica sube según la cantidad de integrantes:
     <ul style="margin-top: 10px; margin-bottom: 0;">
-      <li><strong>Individual:</strong> Bucle Continuo. El programa debe estar dentro de un bucle <code>while True</code> para pedir personajes y temas infinitamente hasta que el usuario escriba "salir".</li>
-      <li><strong>Parejas (2):</strong> Bucle + Memoria. Además del bucle, deben implementar una lista <code>historial = []</code> usando <code>.append()</code> para que la IA recuerde toda la conversación anterior de esa sesión.</li>
-      <li><strong>Tríos (3):</strong> Memoria + Guardrails (Seguridad). Además del historial, deben programar un filtro lógico (un <code>if</code>) antes de la conexión. Si el tema del usuario contiene palabras de una "lista negra" (ej: insultos o temas bloqueados), el programa debe rechazar la consulta sin gastar tokens.</li>
+      <li><strong>Individual:</strong> Bucle Continuo. El chatbot debe estar dentro de un bucle <code>while True</code> para pedir personajes y temas infinitamente hasta que el usuario escriba "salir".</li>
+      <li><strong>Parejas (2):</strong> Bucle + Memoria. Además del bucle continuo, deben implementar una lista <code>historial = []</code> usando <code>.append()</code> para que la IA recuerde toda la conversación anterior de esa sesión.</li>
+      <li><strong>Tríos (3):</strong> Memoria + Guardrails (Seguridad). Además del historial, deben programar un filtro lógico (un <code>if</code>) antes de la conexión. Si el texto del usuario contiene palabras de una "lista negra" (ej: insultos o temas bloqueados), el programa debe rechazar la consulta sin gastar tokens.</li>
     </ul>
   </div>
 </div>
