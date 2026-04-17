@@ -127,7 +127,6 @@
   </div>
 </div>
 
-<!-- FASE 1 -->
 <div class="fase-header">⚙️ FASE 1: DESARROLLO DEL BACKEND (Viernes - 80 min)</div>
 
 <div class="card c-fase1">
@@ -137,10 +136,16 @@
   <div class="task-box">
     <h3>Módulo 1: La Función Principal</h3>
     <p>Toda la lógica de conexión debe estar encapsulada para ser reutilizable.</p>
+    
+    <div style="background: #FFF8E1; border-left: 5px solid #FFC107; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+      <strong style="color: #FF8F00; font-size: 18px; text-transform: uppercase;">💡 Píldora Técnica: ¿Print o Return?</strong>
+      <p style="margin-top: 5px; font-size: 17px;">Imaginen que su programa es un restaurante. La función <code>consultar_ia</code> es el cocinero (Backend) y el bucle <code>while</code> es el mozo (Frontend). El <code>print()</code> es el mozo entregando el plato en la mesa. El <code>return</code> es el cocinero sacando el plato por la ventanilla para que el mozo lo agarre. <strong>La función no imprime textos en pantalla, solo "retorna" (devuelve) la información.</strong></p>
+    </div>
+
     <ul>
       <li>Crear una función <code>def consultar_ia(personaje, consulta, temperatura):</code></li>
-      <li>Dentro de la función, armar el <code>payload</code> inyectando los parámetros. Usar f-strings para armar el prompt dinámico. <em>(Ejemplo: <code>f"Actuá como {personaje} y respondé a esto: {consulta}"</code>)</em>.</li>
-      <li><strong>El Escudo:</strong> Envolver el <code>requests.post</code> y el manejo del JSON en un bloque <code>try / except</code>. Si la API falla, la función no debe romperse, debe retornar un mensaje de error amigable.</li>
+      <li>Dentro de la función, armar el <code>payload</code> inyectando los parámetros. Usar f-strings para armar el prompt dinámico.</li>
+      <li><strong>El Escudo:</strong> Envolver la conexión en un bloque <code>try / except</code>.</li>
       <li>La función debe usar <code>return</code> para devolver exclusivamente el texto de la respuesta limpia de la IA.</li>
     </ul>
 
@@ -151,19 +156,18 @@
     <span class="comment"># [COMPLETAR] Usá un f-string para juntar el personaje y la consulta en un solo texto.</span>
     
     <span class="comment"># 2. Configurá el payload</span>
-    <span class="comment"># [COMPLETAR] Creá el diccionario payload.</span>
-    <span class="comment"># Acordate de usar el modelo "llama-3.3-70b-versatile" y de inyectar las variables 'temperatura' y el prompt que armaste arriba.</span>
+    <span class="comment"># [COMPLETAR] Creá el diccionario payload (modelo, temperatura, messages).</span>
     
     <span class="comment"># 3. El Escudo y el Retorno</span>
     <span class="keyword">try</span>:
-        <span class="comment"># [COMPLETAR] Hacé el requests.post a la URL pasándole los headers y el json.</span>
-        <span class="comment"># [COMPLETAR] Convertí la respuesta cruda del servidor a JSON (ej: data = ...)</span>
+        <span class="comment"># [COMPLETAR] Hacé el requests.post a la URL.</span>
+        <span class="comment"># [COMPLETAR] Convertí la respuesta a JSON (ej: data = response.json())</span>
         
-        <span class="comment"># Devolvemos SOLO el texto limpio de la IA</span>
-        <span class="keyword">return</span> <span class="comment"># [COMPLETAR con la ruta correcta navegando el diccionario data]</span>
+        <span class="comment"># Sacamos la respuesta del laberinto del diccionario y la DEVOLVEMOS:</span>
+        <span class="keyword">return</span> data[<span class="string">"choices"</span>][0][<span class="string">"message"</span>][<span class="string">"content"</span>]
         
     <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
-        <span class="comment"># Si la red falla, el programa no explota, ataja el error y devuelve este texto:</span>
+        <span class="comment"># Si la red falla, atajamos el error y devolvemos un aviso:</span>
         <span class="keyword">return</span> <span class="string">"⚠️ Ups, la IA no responde. Revisá tu conexión o API Key."</span></div>
     </div>
   </div>
