@@ -14,20 +14,20 @@
   body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #EEF3F7; color: var(--txt); line-height: 1.6; font-size: 18px; padding-bottom: 50px; }
   
   header { background: var(--nav); color: var(--bco); padding: 40px 20px; text-align: center; border-bottom: 5px solid var(--amb); }
-  header h1 { font-size: 32px; text-transform: uppercase; letter-spacing: 2px; }
-  header p { opacity: 0.8; font-size: 20px; margin-top: 5px; }
+  header h1 { font-size: 34px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px;}
+  header p { opacity: 0.9; font-size: 20px; }
 
-  .container { width: 95%; max-width: 1100px; margin: 30px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+  .container { width: 95%; max-width: 1100px; margin: 40px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
 
   .card { 
     background: var(--bco); border-radius: var(--r); padding: 25px; 
-    box-shadow: 0 4px 12px rgba(0,0,0,.08); border-top: 5px solid var(--bd);
+    box-shadow: 0 4px 12px rgba(0,0,0,.08); border-top: 5px solid var(--teal);
     display: flex; flex-direction: column; transition: transform 0.2s;
   }
   .card:hover { transform: translateY(-5px); }
   
   .card h2 { font-size: 22px; color: var(--nav); margin-bottom: 10px; }
-  .card p { font-size: 16px; color: #666; flex-grow: 1; margin-bottom: 20px; }
+  .card p { font-size: 16px; color: #555; flex-grow: 1; margin-bottom: 20px; }
   
   .btn { 
     display: block; text-align: center; padding: 12px; background: var(--teal); 
@@ -37,12 +37,12 @@
 
   /* Estilos para clases bloqueadas */
   .locked { background: #E0E0E0 !important; color: #888 !important; cursor: not-allowed; pointer-events: none; }
-  .badge-date { font-size: 14px; color: var(--amb); font-weight: bold; margin-bottom: 10px; display: block; }
+  .badge-date { font-size: 14px; color: var(--amb); font-weight: bold; margin-bottom: 10px; display: block; text-transform: uppercase;}
   
-  /* Tarjetas específicas de Abril */
-  .card.abril { border-top-color: var(--vio); background: #F8F9FF; }
-  .card.abril .btn { background: var(--vio); }
-  .card.abril .btn:hover { background: #2A3F7A; }
+  /* Clases pasadas (grisecito para no distraer) */
+  .card.pasada { border-top-color: var(--bd); opacity: 0.8; }
+  .card.pasada .btn { background: var(--nav); }
+  .card.pasada .btn:hover { background: #2C3E50; }
 </style>
 </head>
 <body>
@@ -54,45 +54,45 @@
 
 <div class="container">
 
-  <!-- CLASE 7 GENERAL (DESBLOQUEADA HOY) -->
+  <!-- CLASES ANTERIORES -->
+  <div class="card pasada" data-date="2026-03-20">
+    <span class="badge-date">Clases Anteriores</span>
+    <h2>Unidad 1 y 2: Bases</h2>
+    <p>Introducción a Python, APIs, conexión a la nube (Groq), variables, f-strings y try/except.</p>
+    <a href="#" class="btn">Materiales Previos</a>
+  </div>
+
+  <!-- CLASE 7 (HOY - DESBLOQUEADA) -->
   <div class="card" data-date="2026-04-17">
     <span class="badge-date">Viernes 17 de Abril</span>
-    <h2>TP1: El Proyecto Chatbot</h2>
-    <p>Fase 1: Arquitectura del Backend, prompts dinámicos y manejo de errores con Groq.</p>
+    <h2>Clase 7: TP1 (Fase 1)</h2>
+    <p>Desarrollo del Backend. Armado del motor de conexión, funciones y prompt dinámico para el Chatbot.</p>
     <a href="clase_7.html" class="btn">Abrir Clase</a>
   </div>
 
-  <!-- CLASE 7 ABRIL (DESBLOQUEADA HOY) -->
-  <div class="card abril" data-date="2026-04-17">
-    <span class="badge-date">Viernes 17 de Abril</span>
-    <h2>Clase 7: Abril (Adaptada)</h2>
-    <p>Análisis de código y configuración del primer chatbot personal.</p>
-    <a href="clase_7_abril.html" class="btn">Abrir Clase</a>
-  </div>
-
-  <!-- CLASE 8 ABRIL (BLOQUEADA HASTA EL LUNES) -->
-  <div class="card abril" data-date="2026-04-20">
+  <!-- CLASE 8 (FUTURA - BLOQUEADA) -->
+  <div class="card" data-date="2026-04-20">
     <span class="badge-date">Lunes 20 de Abril</span>
-    <h2>Clase 8: Abril (QA Tester)</h2>
-    <p>Misión especial: Testear los programas de los compañeros y aplicar Guardrails.</p>
-    <a href="clase_8_abril.html" class="btn">Abrir Clase</a>
+    <h2>Clase 8: TP1 (Fase 2)</h2>
+    <p>Desarrollo del Frontend. Bucle while True, inputs de usuario e Informe de Testing (QA).</p>
+    <a href="clase_8.html" class="btn">Abrir Clase</a>
   </div>
 
-  <!-- CLASE 9 GENERAL (DEFENSA - BLOQUEADA HASTA EL PRÓXIMO VIERNES) -->
+  <!-- CLASE 9 (FUTURA - BLOQUEADA) -->
   <div class="card" data-date="2026-04-24">
     <span class="badge-date">Viernes 24 de Abril</span>
-    <h2>Defensa Oral TP1</h2>
-    <p>Presentación de proyectos, informes de QA y evaluación de código comentado.</p>
+    <h2>Clase 9: TP1 (Fase 3)</h2>
+    <p>Defensa Oral del código. Evaluación de comentarios y justificación técnica del proyecto.</p>
     <a href="clase_9.html" class="btn">Abrir Clase</a>
   </div>
 
 </div>
 
 <script>
-  // Script robusto para bloquear clases futuras (compara textos para evitar error de zona horaria)
+  // Script robusto para bloquear clases futuras sin problemas de zona horaria
   function lockClasses() {
     const today = new Date();
-    // Armamos la fecha de hoy en formato YYYY-MM-DD
+    // Formato YYYY-MM-DD asegurando que sea el día local exacto
     const yyyy = today.getFullYear();
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const dd = String(today.getDate()).padStart(2, '0');
@@ -104,10 +104,10 @@
       const classDateStr = card.getAttribute('data-date');
       const btn = card.querySelector('.btn');
       
-      // Si la fecha de hoy es menor a la de la clase, bloqueamos el botón
+      // Si la fecha de hoy es menor a la fecha de la clase, se bloquea
       if (todayStr < classDateStr) {
         btn.classList.add('locked');
-        // Separamos YYYY, MM, DD para mostrar lindo el texto
+        // Extraemos DD/MM para mostrar en el botón
         const parts = classDateStr.split('-');
         btn.innerHTML = `🔒 Bloqueada hasta el ${parts[2]}/${parts[1]}`;
       }
