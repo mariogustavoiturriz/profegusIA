@@ -1,39 +1,119 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taller de IA | Inicio</title>
+<title>Taller de IA · CTP Antonio Martín Marte</title>
 <style>
   :root {
-    --nav: #1A2C3A; --teal: #00949A; --grn: #2A6049; --amb: #D4873A; 
+    --nav: #1A2C3A; --teal: #00949A; --amb: #D4873A; 
     --vio: #3D5A99; --gris: #F3F6F9; --bd: #C5D2DC; --txt: #2C3E50;
-    --bco: #FFFFFF; --r: 12px; --tp: #8E24AA;
+    --bco: #FFFFFF; --r: 12px;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #EEF3F7; color: var(--txt); line-height: 1.6; font-size: 18px; padding-bottom: 50px; }
   
-  body { background: #EEF3F7; color: var(--txt); line-height: 1.6; padding-bottom: 60px; }
+  header { background: var(--nav); color: var(--bco); padding: 40px 20px; text-align: center; border-bottom: 5px solid var(--amb); }
+  header h1 { font-size: 32px; text-transform: uppercase; letter-spacing: 2px; }
+  header p { opacity: 0.8; font-size: 20px; margin-top: 5px; }
+
+  .container { width: 95%; max-width: 1100px; margin: 30px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+
+  .card { 
+    background: var(--bco); border-radius: var(--r); padding: 25px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,.08); border-top: 5px solid var(--bd);
+    display: flex; flex-direction: column; transition: transform 0.2s;
+  }
+  .card:hover { transform: translateY(-5px); }
   
-  header { background: var(--nav); color: var(--bco); padding: 40px 20px; text-align: center; border-bottom: 6px solid var(--teal); }
-  header h1 { font-size: 32px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
-  header p { font-size: 18px; opacity: 0.9; }
+  .card h2 { font-size: 22px; color: var(--nav); margin-bottom: 10px; }
+  .card p { font-size: 16px; color: #666; flex-grow: 1; margin-bottom: 20px; }
   
-  .container { width: 95%; max-width: 1200px; margin: 40px auto; padding: 0 15px; }
+  .btn { 
+    display: block; text-align: center; padding: 12px; background: var(--teal); 
+    color: white; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s;
+  }
+  .btn:hover { background: #007B80; }
+
+  /* Estilos para clases bloqueadas */
+  .locked { background: #E0E0E0 !important; color: #888 !important; cursor: not-allowed; pointer-events: none; }
+  .badge-date { font-size: 14px; color: var(--amb); font-weight: bold; margin-bottom: 10px; display: block; }
   
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
-  
-  .card { background: var(--bco); border-radius: var(--r); padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,.08); border-top: 6px solid var(--bd); text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-  .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,.12); }
-  
-  /* Estados de las tarjetas */
-  .c-pasada { border-top-color: #4A6080; opacity: 0.9; background: #FAFBFC; }
-  .c-actual { border-top-color: var(--teal); }
-  .c-tp { border-top-color: var(--tp); background: #FAF5FF; }
-  .c-bloqueada { opacity: 0.75; cursor: not-allowed; }
-  .c-bloqueada:hover { transform: none; box-shadow: 0 4px 12px rgba(0,0,0,.08); }
-  
-  .clase-num { font-size: 14px; font-weight: bold; color: #666; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px; }
-  
+  .card.abril { border-top-color: var(--vio); background: #F8F9FF; }
+  .card.abril .btn { background: var(--vio); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Taller de IA</h1>
+  <p>7° Año TIC | CTP Antonio Martín Marte</p>
+</header>
+
+<div class="container">
+
+  <div class="card" data-date="2026-04-17">
+    <span class="badge-date">Viernes 17 de Abril</span>
+    <h2>TP1: El Proyecto Chatbot</h2>
+    <p>Fase 1: Arquitectura del Backend, prompts dinámicos y manejo de errores con Groq.</p>
+    <a href="clase_7.html" class="btn">Abrir Clase</a>
+  </div>
+
+  <div class="card abril" data-date="2026-04-17">
+    <span class="badge-date">Viernes 17 de Abril</span>
+    <h2>Clase 7: Abril (Adaptada)</h2>
+    <p>Análisis de código y configuración del primer chatbot personal.</p>
+    <a href="clase_7_abril.html" class="btn">Abrir Clase</a>
+  </div>
+
+  <div class="card abril" data-date="2026-04-20">
+    <span class="badge-date">Lunes 20 de Abril</span>
+    <h2>Clase 8: Abril (QA Tester)</h2>
+    <p>Misión especial: Testear los programas de los compañeros y aplicar Guardrails.</p>
+    <a href="clase_8_abril.html" class="btn">Abrir Clase</a>
+  </div>
+
+  <div class="card" data-date="2026-04-24">
+    <span class="badge-date">Viernes 24 de Abril</span>
+    <h2>Defensa Oral TP1</h2>
+    <p>Presentación de proyectos, informes de QA y evaluación de código comentado.</p>
+    <a href="clase_9.html" class="btn">Abrir Clase</a>
+  </div>
+
+</div>
+
+<script>
+  // Función para bloquear clases según la fecha actual
+  function lockClasses() {
+    const today = new Date();
+    // Ajustamos la fecha para que tome el horario local de Ushuaia correctamente
+    today.setHours(0, 0, 0, 0);
+
+    const cards = document.querySelectorAll('.card');
+    
+    cards.forEach(card => {
+      const classDate = new Date(card.getAttribute('data-date'));
+      classDate.setHours(0, 0, 0, 0);
+      
+      const btn = card.querySelector('.btn');
+      
+      if (today < classDate) {
+        btn.classList.add('locked');
+        btn.innerHTML = '🔒 Bloqueada hasta el ' + card.getAttribute('data-date').split('-').reverse().join('/');
+      }
+    });
+  }
+
+  // Ejecutar al cargar la página
+  window.onload = lockClasses;
+</script>
+
+</body>
+</html>
+
+
+```
   .card h2 { color: var(--nav); font-size: 24px; margin-bottom: 12px; line-height: 1.2; }
   .c-tp h2 { color: var(--tp); }
   
