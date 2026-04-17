@@ -155,7 +155,7 @@
       <li>La función debe usar <code>return</code> para devolver exclusivamente el texto de la respuesta limpia de la IA.</li>
     </ul>
 
-    <div class="code-container" style="margin-top: 20px; margin-bottom: 0;">
+   <div class="code-container" style="margin-top: 20px; margin-bottom: 0;">
       <button class="copy-btn" onclick="copyCode('ejemploFuncion')">Copiar Estructura</button>
       <div id="ejemploFuncion" class="code-block"><span class="keyword">def</span> consultar_ia(personaje, consulta, temperatura):
     <span class="comment"># 1. Armá el prompt dinámico</span>
@@ -170,7 +170,7 @@
         <span class="comment"># [COMPLETAR] Convertí la respuesta a JSON (ej: data = response.json())</span>
         
         <span class="comment"># Sacamos la respuesta del laberinto del diccionario y la DEVOLVEMOS:</span>
-        <span class="keyword">return</span> data[<span class="string">"choices"</span>][0][<span class="...</span>] ># Terminá de completar la línea como cuando hacíamos el print de la respuesta de la IA
+        <span class="keyword">return</span> data[<span class="string">"choices"</span>][0] ... <span class="comment"># Terminá de completar la línea como cuando hacíamos el print de la respuesta de la IA</span>
         
     <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
         <span class="comment"># Si la red falla, atajamos el error y devolvemos un aviso:</span>
