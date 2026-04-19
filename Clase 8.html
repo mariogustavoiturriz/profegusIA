@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller de IA · Clase 8</title>
+<style>
+  :root {
+    --nav: #1A2C3A; --teal: #00949A; --grn: #2A6049; --amb: #D4873A; 
+    --vio: #3D5A99; --gris: #F3F6F9; --bd: #C5D2DC; --txt: #2C3E50;
+    --bco: #FFFFFF; --code-bg: #1E1E1E; --r: 12px;
+    --colab: #F9AB00; --classroom: #137333;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #EEF3F7; color: var(--txt); line-height: 1.6; font-size: 20px; padding: 15px 0 40px 0; }
+  header { background: var(--nav); color: var(--bco); padding: 25px 20px; border-bottom: 5px solid var(--teal); }
+  header h1 { font-size: 28px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+  header p { font-size: 18px; opacity: 0.9; }
+  .container { width: 95%; max-width: 1400px; margin: 0 auto; padding: 0 15px; }
+  
+  .back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    background: var(--bco);
+    color: var(--nav);
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 2px solid var(--bd);
+    transition: all 0.2s;
+  }
+  .back-btn:hover { border-color: var(--nav); background: var(--gris); }
+
+  .card { background: var(--bco); border-radius: var(--r); padding: 30px; margin-bottom: 30px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,.08); border-left: 6px solid var(--bd); }
+  .c-repaso  { border-left-color: #4A6080; background: #F4F6F9; }
+  .c-branding{ border-left-color: var(--amb); background: #FFFBF5; }
+  .c-niveles { border-left-color: var(--vio); }
+  .c-entrega { border-left-color: var(--classroom); background: #F0FFF4; }
+  
+  h2 { color: var(--nav); font-size: 24px; margin-bottom: 15px; text-transform: uppercase; border-bottom: 2px solid var(--gris); padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+  .badge { background: var(--nav); color: var(--bco); padding: 5px 12px; border-radius: 6px; font-size: 18px; font-weight: bold; }
+  h3 { color: var(--nav); font-size: 22px; margin-top: 25px; margin-bottom: 10px; border-bottom: 1px solid var(--bd); padding-bottom: 5px; }
+  
+  .def-box { background: var(--gris); border: 1px solid var(--bd); padding: 20px; border-radius: var(--r); margin-bottom: 15px; border-left: 5px solid var(--teal); }
+  .def-box strong { color: var(--teal); display: block; font-size: 20px; margin-bottom: 8px; text-transform: uppercase; }
+
+  .nivel-box { border: 2px solid var(--bd); border-radius: var(--r); padding: 25px; margin-bottom: 25px; background: white; transition: 0.2s; }
+  .nivel-box:hover { box-shadow: 0 6px 15px rgba(0,0,0,0.08); transform: translateY(-3px); }
+  .n1 { border-left: 6px solid #4CAF50; }
+  .n2 { border-left: 6px solid #2196F3; }
+  .n3 { border-left: 6px solid #9C27B0; }
+  
+  .nivel-box h3 { border-bottom: none; margin-top: 0; padding-bottom: 0; font-size: 22px; display: flex; align-items: center; gap: 10px; }
+  .n1 h3 { color: #2E7D32; }
+  .n2 h3 { color: #1565C0; }
+  .n3 h3 { color: #6A1B9A; }
+
+  ul { margin-left: 25px; margin-top: 10px; margin-bottom: 15px; }
+  li { margin-bottom: 8px; }
+
+  .action-box { padding: 20px; border-radius: var(--r); margin: 20px 0; font-size: 19px; border-left: 5px solid; }
+  .action-classroom { background: #E6F4EA; border-color: var(--classroom); color: #0D5323; }
+  .action-box strong { display: block; margin-bottom: 8px; font-size: 20px; text-transform: uppercase; }
+
+</style>
+</head>
+<body>
+
+<header>
+  <h1>CLASE 8: FRONTEND Y LA AGENCIA DE IA</h1>
+  <p>Taller de IA | 7° Año TIC | CTP Antonio Martín Marte</p>
+</header>
+
+<div class="container">
+
+<a href="index.html" class="back-btn">⬅ Volver al Índice</a>
+
+<!-- BLOQUE 1 — REPASO Y OBJETIVO -->
+<div class="card c-repaso">
+  <h2><span class="badge" style="background: #4A6080;">1</span> OBJETIVO BASE: CERRAR EL CÓDIGO</h2>
+  <p>Durante la primera hora de hoy, el objetivo es <strong>terminar la Fase 2 del TP1</strong>. Esto significa que su código debe tener funcionando a la perfección:</p>
+  <ul>
+    <li>El bucle <code>while True</code> para que la conversación no se corte.</li>
+    <li>Los <code>input()</code> para pedir los datos en tiempo real.</li>
+    <li>La condición para romper el ciclo (<code>break</code>) escribiendo "salir".</li>
+    <li><em>(Si eligieron el desafío avanzado)</em> El Escudo de seguridad operativo.</li>
+  </ul>
+  <p>Una vez que el código esté sólido, comentado y funcionando, <strong>¡es hora de venderlo!</strong> Pasen a la siguiente misión.</p>
+</div>
+
+<!-- BLOQUE 2 — MISIÓN EXTRA (BRANDING) -->
+<div class="card c-branding">
+  <h2><span class="badge" style="background: var(--amb);">2</span> MISIÓN EXTRA: LA IDENTIDAD VISUAL</h2>
+  
+  <div class="def-box">
+    <strong>De Programadores a Emprendedores</strong>
+    Tener un buen código (Backend) es solo el 50% del éxito. Si una aplicación no tiene una buena identidad, un nombre pegadizo y un diseño claro, nadie la va a usar. 
+    <br><br>Su misión ahora es crear el <strong>Branding</strong> de su Chatbot.
+  </div>
+  
+  <p>Busquen el nivel del desafío que eligieron programar y cumplan los requisitos. Pueden (y deben) usar la Inteligencia Artificial (Groq, ChatGPT, etc.) para que los ayude con ideas de marketing.</p>
+</div>
+
+<!-- BLOQUE 3 — NIVELES DE DIFICULTAD -->
+<div class="card c-niveles">
+  <h2><span class="badge" style="background: var(--vio);">3</span> REQUISITOS POR NIVEL</h2>
+
+  <!-- NIVEL 1: BÁSICO -->
+  <div class="nivel-box n1">
+    <h3>👤 Nivel 1 (Básico): El Emprendedor</h3>
+    <p>Agregá una celda de texto al final de tu Colab y creá la identidad básica de tu bot:</p>
+    <ul>
+      <li><strong>Nombre de la App:</strong> (Ej: <em>GauchoBot, UshuaIA, EduChat</em>).</li>
+      <li><strong>Slogan Comercial:</strong> Una frase corta y vendedora. (Ej: <em>"Tu guía inteligente en el fin del mundo"</em>).</li>
+      <li><strong>Mensaje de Bienvenida:</strong> Modificá el <code>print()</code> del inicio de tu código para que no diga solo "Hola". Hacé un cartel de bienvenida usando símbolos en la consola (arte ASCII, guiones, estrellas).</li>
+    </ul>
+  </div>
+
+  <!-- NIVEL 2: INTERMEDIO -->
+  <div class="nivel-box n2">
+    <h3>👥 Nivel 2 (Intermedio): La Startup</h3>
+    <p>Agregá una celda de texto al final de tu Colab y creá la identidad básica de tu bot. Van a armar un <strong>Afiche Promocional</strong>:</p>
+    <ul>
+      <li><strong>Nombre y Slogan</strong> de su Chatbot. (Ej: <em>"AeroBot: Viajá sin dudas"</em>).</li>
+      <li><strong>Público Objetivo:</strong> ¿Para quién está pensado? (Ej: Estudiantes de secundaria, turistas, programadores).</li>
+      <li><strong>Casos de uso reales:</strong> Describan 2 situaciones exactas donde alguien usaría su aplicación para solucionar un problema.</li>
+      <li><strong>Mensaje de Bienvenida:</strong> Modifiquen el <code>print()</code> del inicio con arte ASCII o símbolos para darle estilo y diseño a la consola.</li>
+    </ul>
+  </div>
+
+  <!-- NIVEL 3: AVANZADO -->
+  <div class="nivel-box n3">
+    <h3>🧑‍💻 Nivel 3 (Avanzado): La Agencia de IA</h3>
+    <p>Agregá una celda de texto al final de tu Colab y creá la identidad básica de tu bot. Como tienen el código más complejo (con Escudo de Seguridad), su presentación debe destacarse:</p>
+    <ul>
+      <li><strong>Nombre y Slogan:</strong> La marca oficial de su Chatbot.</li>
+      <li><strong>Mensaje de Bienvenida:</strong> Un <code>print()</code> inicial con símbolos o arte ASCII que le dé un toque profesional a la consola de comandos.</li>
+      <li><strong>Ingeniería de Prompts (El Logo):</strong> Redacten un <em>Prompt de Generación de Imagen</em> súper detallado (en inglés o español) que usarían en Midjourney o DALL-E para generar el logo de su empresa. Detallen el estilo (minimalista, 3D, neon), los colores y los elementos que contiene.</li>
+      <li><strong>Reporte de Seguridad:</strong> Cuenten brevemente si su Escudo protector (las palabras prohibidas) funcionó bien al probar el código hoy.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- BLOQUE 4 — ENTREGA -->
+<div class="card c-entrega">
+  <h2><span class="badge" style="background: var(--classroom);">4</span> PREPARANDO LA DEFENSA</h2>
+  
+  <p>Recuerden que el viernes tenemos la **Defensa Oral**. Además de explicar los <code># comentarios</code> del código técnico, les voy a pedir que me "vendan" su Chatbot usando la identidad visual que acaban de inventar.</p>
+
+  <div class="action-box action-classroom">
+    <strong>📤 QUÉ ENTREGAR HOY EN CLASSROOM:</strong>
+    <ol style="margin-left: 20px;">
+      <li>Asegúrense de que todo esté en el mismo archivo (<code>TP1_Apellidos</code>).</li>
+      <li>Arriba: El código terminado, funcionando y comentado.</li>
+      <li>Abajo: La celda de texto con el Informe QA y el nuevo <strong>Branding de la App</strong> que hicieron recién.</li>
+      <li>Adjuntar el enlace en la tarea correspondiente.</li>
+    </ol>
+  </div>
+</div>
+
+</div>
+
+</body>
+</html>
