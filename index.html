@@ -8,7 +8,7 @@
   :root {
     --nav: #1A2C3A; --teal: #00949A; --amb: #D4873A; 
     --vio: #3D5A99; --gris: #F3F6F9; --bd: #C5D2DC; --txt: #2C3E50;
-    --bco: #FFFFFF; --r: 12px;
+    --bco: #FFFFFF; --r: 12px; --tp: #8E24AA;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
   
@@ -69,25 +69,17 @@
 
   <h2 class="section-title">Clase de Hoy</h2>
   <div class="grid">
-    <!-- CLASE 7 (HOY - DESBLOQUEADA) -->
-    <a href="clase_7.html" class="card c-actual" style="text-decoration: none;" data-date="2026-04-17">
-      <span class="badge-date">Viernes 17 de Abril</span>
-      <h2>Clase 7: TP1 (Fase 1)</h2>
-      <p>Desarrollo del Backend. Armado del motor de conexión, funciones y prompt dinámico para el Chatbot.</p>
+    <!-- CLASE 8 (HOY - DESBLOQUEADA) -->
+    <a href="clase_8.html" class="card c-actual" style="text-decoration: none;" data-date="2026-04-20">
+      <span class="badge-date">Lunes 20 de Abril</span>
+      <h2>Clase 8: Frontend y Agencia IA</h2>
+      <p>Terminamos la Fase 2 del TP1 y creamos el Branding (identidad visual) de nuestro Chatbot interactivo.</p>
       <div class="btn">Abrir Clase</div>
     </a>
   </div>
 
   <h2 class="section-title">Próximas Clases (Bloqueadas)</h2>
   <div class="grid">
-    <!-- CLASE 8 (FUTURA) -->
-    <div class="card c-futura" data-date="2026-04-20">
-      <span class="badge-date">Lunes 20 de Abril</span>
-      <h2>Clase 8: TP1 (Fase 2)</h2>
-      <p>Desarrollo del Frontend. Bucle while True, inputs de usuario e Informe de Testing (QA).</p>
-      <a href="clase_8.html" class="btn">Abrir Clase</a>
-    </div>
-
     <!-- CLASE 9 (FUTURA) -->
     <div class="card c-futura" data-date="2026-04-24">
       <span class="badge-date">Viernes 24 de Abril</span>
@@ -99,9 +91,17 @@
 
   <h2 class="section-title">Clases Anteriores</h2>
   <div class="grid">
+    <!-- CLASE 7 (TP1) -->
+    <a href="clase_7.html" class="card c-pasada" style="text-decoration: none; border-top-color: var(--tp);" data-date="2026-04-17">
+      <span class="badge-date" style="color: var(--tp);">Viernes 17 de Abril</span>
+      <h2>Clase 7: TP1 (Fase 1)</h2>
+      <p>Desarrollo del Backend. Armado del motor de conexión, funciones y prompt dinámico para el Chatbot.</p>
+      <div class="btn" style="background: #FAF5FF; color: var(--tp); border: 2px solid var(--tp);">Repasar TP1</div>
+    </a>
+
     <!-- CLASE 6 -->
     <a href="clase_6.html" class="card c-pasada" style="text-decoration: none;" data-date="2026-04-13">
-      <span class="badge-date">Clase 6</span>
+      <span class="badge-date">Lunes 13 de Abril</span>
       <h2>Anatomía de la Inferencia</h2>
       <p>Análisis del JSON de respuesta, consumo de tokens y el hiperparámetro Temperature.</p>
       <div class="btn">Repasar Clase</div>
@@ -109,7 +109,7 @@
 
     <!-- CLASE 5 -->
     <a href="clase_5.html" class="card c-pasada" style="text-decoration: none;" data-date="2026-04-10">
-      <span class="badge-date">Clase 5</span>
+      <span class="badge-date">Viernes 10 de Abril</span>
       <h2>La Primera Llamada Real</h2>
       <p>Generación de API Key, estructura de Headers y Payload. Conexión a Groq.</p>
       <div class="btn">Repasar Clase</div>
@@ -117,7 +117,7 @@
 
     <!-- CLASE 4 -->
     <a href="#" class="card c-pasada" style="text-decoration: none; opacity: 0.8;" data-date="2026-03-16">
-      <span class="badge-date">Clase 4</span>
+      <span class="badge-date">Marzo 2026</span>
       <h2>Prompts Dinámicos</h2>
       <p>F-strings y control de errores con Try/Except para hacer programas robustos.</p>
       <div class="btn">Repasar Clase</div>
@@ -125,7 +125,7 @@
 
     <!-- CLASE 3 -->
     <a href="#" class="card c-pasada" style="text-decoration: none; opacity: 0.8;" data-date="2026-03-13">
-      <span class="badge-date">Clase 3</span>
+      <span class="badge-date">Marzo 2026</span>
       <h2>Colecciones de Datos</h2>
       <p>Listas y Diccionarios. Preparando el formato de comunicación con la IA.</p>
       <div class="btn">Repasar Clase</div>
@@ -133,7 +133,7 @@
 
     <!-- CLASE 2 -->
     <a href="#" class="card c-pasada" style="text-decoration: none; opacity: 0.8;" data-date="2026-03-09">
-      <span class="badge-date">Clase 2</span>
+      <span class="badge-date">Marzo 2026</span>
       <h2>El Agente Inteligente</h2>
       <p>Sensor, Programa y Actuador. Repaso de funciones (def y return) en Colab.</p>
       <div class="btn">Repasar Clase</div>
@@ -141,7 +141,7 @@
 
     <!-- CLASE 1 -->
     <a href="#" class="card c-pasada" style="text-decoration: none; opacity: 0.8;" data-date="2026-03-06">
-      <span class="badge-date">Clase 1</span>
+      <span class="badge-date">Marzo 2026</span>
       <h2>El Desafío Imposible</h2>
       <p>Diagnóstico lógico, Teachable Machine y el concepto de Alucinación en IA.</p>
       <div class="btn">Repasar Clase</div>
