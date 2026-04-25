@@ -28,6 +28,7 @@
     background: var(--bco); border-radius: var(--r); padding: 25px; 
     box-shadow: 0 4px 12px rgba(0,0,0,.08); border-top: 6px solid var(--bd);
     display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none; color: inherit;
   }
   .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,.1); }
   
@@ -55,7 +56,8 @@
   .c-futura .btn { background: var(--amb); }
 
   /* Estilos para clases bloqueadas */
-  .locked { background: #E0E0E0 !important; color: #888 !important; cursor: not-allowed; pointer-events: none; }
+  .locked { background: #E0E0E0 !important; color: #888 !important; border: 1px solid #ccc; cursor: not-allowed; }
+  .card-locked { pointer-events: none; opacity: 0.8; }
 </style>
 </head>
 <body>
@@ -69,30 +71,29 @@
 
   <h2 class="section-title">Clase de Hoy</h2>
   <div class="grid">
-    <!-- CLASE 8 (HOY - DESBLOQUEADA) -->
-    <a href="clase_8.html" class="card c-actual" style="text-decoration: none;" data-date="2026-04-20">
-      <span class="badge-date">Lunes 20 de Abril</span>
-      <h2>Clase 8: Frontend y Agencia IA</h2>
-      <p>Terminamos la Fase 2 del TP1 y creamos el Branding (identidad visual) de nuestro Chatbot interactivo.</p>
+    <!-- CLASE 9 (BLOQUEADA HASTA LUNES 9:45 AM ARGENTINA) -->
+    <!-- Formato ISO 8601 con zona horaria de Argentina (-03:00) -->
+    <a href="clase_9.html" class="card c-actual" data-unlock="2026-04-27T09:45:00-03:00">
+      <span class="badge-date">Lunes 27 de Abril</span>
+      <h2>Clase 9: Defensa y Ciberseguridad</h2>
+      <p>Defensa Técnica del TP1 y simulador de Inyección de Prompts (Jailbreak) en la sala de espera.</p>
       <div class="btn">Abrir Clase</div>
     </a>
   </div>
 
-  <h2 class="section-title">Próximas Clases (Bloqueadas)</h2>
-  <div class="grid">
-    <!-- CLASE 9 (FUTURA) -->
-    <div class="card c-futura" data-date="2026-04-24">
-      <span class="badge-date">Viernes 24 de Abril</span>
-      <h2>Clase 9: TP1 (Fase 3)</h2>
-      <p>Defensa Oral del código. Evaluación de comentarios y justificación técnica del proyecto.</p>
-      <a href="clase_9.html" class="btn">Abrir Clase</a>
-    </div>
-  </div>
-
   <h2 class="section-title">Clases Anteriores</h2>
   <div class="grid">
+
+    <!-- CLASE 8 -->
+    <a href="clase_8.html" class="card c-pasada">
+      <span class="badge-date">Lunes 20 de Abril</span>
+      <h2>Clase 8: Frontend y Agencia IA</h2>
+      <p>Terminamos la Fase 2 del TP1 y creamos el Branding (identidad visual) de nuestro Chatbot interactivo.</p>
+      <div class="btn">Repasar Clase</div>
+    </a>
+
     <!-- CLASE 7 (TP1) -->
-    <a href="clase_7.html" class="card c-pasada" style="text-decoration: none; border-top-color: var(--tp);" data-date="2026-04-17">
+    <a href="clase_7.html" class="card c-pasada" style="border-top-color: var(--tp);">
       <span class="badge-date" style="color: var(--tp);">Viernes 17 de Abril</span>
       <h2>Clase 7: TP1 (Fase 1)</h2>
       <p>Desarrollo del Backend. Armado del motor de conexión, funciones y prompt dinámico para el Chatbot.</p>
@@ -100,7 +101,7 @@
     </a>
 
     <!-- CLASE 6 -->
-    <a href="clase_6.html" class="card c-pasada" style="text-decoration: none;" data-date="2026-04-13">
+    <a href="clase_6.html" class="card c-pasada">
       <span class="badge-date">Lunes 13 de Abril</span>
       <h2>Anatomía de la Inferencia</h2>
       <p>Análisis del JSON de respuesta, consumo de tokens y el hiperparámetro Temperature.</p>
@@ -108,75 +109,84 @@
     </a>
 
     <!-- CLASE 5 -->
-    <a href="clase_5.html" class="card c-pasada" style="text-decoration: none;" data-date="2026-04-10">
+    <a href="clase_5.html" class="card c-pasada">
       <span class="badge-date">Viernes 10 de Abril</span>
       <h2>La Primera Llamada Real</h2>
       <p>Generación de API Key, estructura de Headers y Payload. Conexión a Groq.</p>
       <div class="btn">Repasar Clase</div>
     </a>
 
-    <!-- CLASE 4 -->
-    <a href="#" class="card c-pasada" style="text-decoration: none; opacity: 0.8;" data-date="2026-03-16">
+    <!-- CLASES VIEJAS (Desactivadas visualmente para no saturar) -->
+    <a href="#" class="card c-pasada card-locked" style="opacity: 0.6;">
       <span class="badge-date">Marzo 2026</span>
       <h2>Prompts Dinámicos</h2>
       <p>F-strings y control de errores con Try/Except para hacer programas robustos.</p>
-      <div class="btn">Repasar Clase</div>
+      <div class="btn locked">Clase Archivada</div>
     </a>
 
-    <!-- CLASE 3 -->
-    <a href="#" class="card c-pasada" style="text-decoration: none; opacity: 0.8;" data-date="2026-03-13">
+    <a href="#" class="card c-pasada card-locked" style="opacity: 0.6;">
       <span class="badge-date">Marzo 2026</span>
       <h2>Colecciones de Datos</h2>
       <p>Listas y Diccionarios. Preparando el formato de comunicación con la IA.</p>
-      <div class="btn">Repasar Clase</div>
+      <div class="btn locked">Clase Archivada</div>
     </a>
 
-    <!-- CLASE 2 -->
-    <a href="#" class="card c-pasada" style="text-decoration: none; opacity: 0.8;" data-date="2026-03-09">
+    <a href="#" class="card c-pasada card-locked" style="opacity: 0.6;">
       <span class="badge-date">Marzo 2026</span>
       <h2>El Agente Inteligente</h2>
       <p>Sensor, Programa y Actuador. Repaso de funciones (def y return) en Colab.</p>
-      <div class="btn">Repasar Clase</div>
+      <div class="btn locked">Clase Archivada</div>
     </a>
 
-    <!-- CLASE 1 -->
-    <a href="#" class="card c-pasada" style="text-decoration: none; opacity: 0.8;" data-date="2026-03-06">
+    <a href="#" class="card c-pasada card-locked" style="opacity: 0.6;">
       <span class="badge-date">Marzo 2026</span>
       <h2>El Desafío Imposible</h2>
       <p>Diagnóstico lógico, Teachable Machine y el concepto de Alucinación en IA.</p>
-      <div class="btn">Repasar Clase</div>
+      <div class="btn locked">Clase Archivada</div>
     </a>
   </div>
 
 </div>
 
 <script>
-  // Script robusto para bloquear clases futuras
-  function lockClasses() {
-    const today = new Date();
-    // Armamos la fecha de hoy en formato YYYY-MM-DD
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const dd = String(today.getDate()).padStart(2, '0');
-    const todayStr = `${yyyy}-${mm}-${dd}`;
-
-    const cards = document.querySelectorAll('.card.c-futura'); // Solo evaluamos las futuras
+  // Función para bloquear clases con fecha y HORA exacta
+  function lockClassesWithTime() {
+    const now = new Date(); // Toma la fecha y hora actual del navegador del alumno
+    
+    // Busca todas las tarjetas que tengan el atributo data-unlock
+    const cards = document.querySelectorAll('.card[data-unlock]');
     
     cards.forEach(card => {
-      const classDateStr = card.getAttribute('data-date');
+      const unlockString = card.getAttribute('data-unlock');
+      const unlockTime = new Date(unlockString);
       const btn = card.querySelector('.btn');
       
-      // Si la fecha de hoy es menor a la de la clase, bloqueamos el botón
-      if (todayStr < classDateStr) {
+      // Si todavía no llegó el momento de apertura...
+      if (now < unlockTime) {
+        // Formatear hora para mostrar en el botón (ej: 09:45)
+        const hora = String(unlockTime.getHours()).padStart(2, '0');
+        const min = String(unlockTime.getMinutes()).padStart(2, '0');
+        
+        // Bloquear visualmente y quitar el enlace
+        card.classList.add('card-locked');
+        card.removeAttribute('href'); // Evita que puedan hacer clic
+        
         btn.classList.add('locked');
-        const parts = classDateStr.split('-');
-        btn.innerHTML = `🔒 Bloqueada hasta el ${parts[2]}/${parts[1]}`;
+        btn.innerHTML = `🔒 Bloqueada hasta el Lunes a las ${hora}:${min}`;
+      } else {
+        // Si ya pasó la hora, nos aseguramos de que esté habilitada
+        card.classList.remove('card-locked');
+        btn.classList.remove('locked');
+        btn.innerHTML = "Abrir Clase";
       }
     });
   }
 
-  // Ejecutar al cargar la página
-  window.onload = lockClasses;
+  // Ejecutar script al cargar la página
+  window.onload = lockClassesWithTime;
+  
+  // Opcional: Actualizar el candado automáticamente cada 1 minuto sin recargar la página
+  setInterval(lockClassesWithTime, 60000);
 </script>
 
 </body>
