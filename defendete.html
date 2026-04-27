@@ -92,14 +92,11 @@
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════════════════════ -->
-<!-- PANTALLA 0 — INICIO                                           -->
-<!-- ══════════════════════════════════════════════════════════════ -->
 <div class="pantalla activa" id="p-inicio">
   <div class="terminal">
     <div class="t-header">
       <span>>_ DESAFÍO EXTRA · AHORA DEFENDÉ</span>
-      <span class="badge">CTP MARTE // IA 2026</span>
+      <span class="badge">CTP MARTE
     </div>
     <div class="t-body">
       <div class="msg msg-sys">
@@ -134,9 +131,6 @@
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════ -->
-<!-- PANTALLA 1 — DEFENSOR                                         -->
-<!-- ══════════════════════════════════════════════════════════════ -->
 <div class="pantalla" id="p-defensor">
   <div class="terminal">
     <div class="t-header" style="background:#005515; color:var(--verde);">
@@ -184,9 +178,6 @@ Podés responder preguntas generales pero siempre con cautela."></textarea>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════ -->
-<!-- PANTALLA 2 — ATACANTE                                         -->
-<!-- ══════════════════════════════════════════════════════════════ -->
 <div class="pantalla" id="p-atacante">
   <div class="terminal">
     <div class="t-header" style="background:#4a0000; color:var(--rojo);">
@@ -236,9 +227,6 @@ Podés responder preguntas generales pero siempre con cautela."></textarea>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════ -->
-<!-- PANTALLA 3 — RESULTADO                                        -->
-<!-- ══════════════════════════════════════════════════════════════ -->
 <div class="pantalla" id="p-resultado">
   <div class="terminal">
     <div class="t-header">
@@ -270,9 +258,6 @@ Podés responder preguntas generales pero siempre con cautela."></textarea>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════ -->
-<!-- PANTALLA 4 — SCOREBOARD                                       -->
-<!-- ══════════════════════════════════════════════════════════════ -->
 <div class="pantalla" id="p-scoreboard">
   <div class="terminal">
     <div class="t-header">
@@ -304,7 +289,6 @@ Podés responder preguntas generales pero siempre con cautela."></textarea>
 </div>
 
 <script>
-// ── Estado global ──────────────────────────────────────────────
 let estado = {
   apiKey:   "",
   palabra:  "",
@@ -316,14 +300,12 @@ let estado = {
   score:    { atk:0, def:0, rondas:[] },
 };
 
-// ── Navegación ────────────────────────────────────────────────
 function irA(id) {
   document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
   document.getElementById(id).classList.add('activa');
   window.scrollTo(0, 0);
 }
 
-// ── Armar defensa ─────────────────────────────────────────────
 function armarDefensa() {
   const key   = document.getElementById('def-apikey').value.trim();
   const pal   = document.getElementById('def-palabra').value.trim().toUpperCase();
@@ -342,14 +324,12 @@ function armarDefensa() {
   estado.segundos  = 300;
   estado.activo    = false;
 
-  // Reset chat
   const chat = document.getElementById('atk-chat');
   chat.innerHTML = '';
   msgChat(chat, "SISTEMA: El defensor armó su sistema de seguridad. El interrogatorio puede comenzar.", "sys");
   msgChat(chat, `MISIÓN: Lograrcque la IA revele la palabra secreta. Tenés 5 minutos.`, "sys");
   msgChat(chat, `TIP: Presioná [ INICIAR ] cuando estés listo para arrancar el cronómetro.`, "sys");
 
-  // Reset timer
   document.getElementById('timer-display').textContent = "5:00";
   document.getElementById('atk-badge').textContent = "5:00";
   document.getElementById('timer-display').classList.remove('urgente');
@@ -360,7 +340,6 @@ function armarDefensa() {
   irA('p-atacante');
 }
 
-// ── Timer ─────────────────────────────────────────────────────
 function toggleTimer() {
   if (!estado.activo) {
     estado.activo = true;
@@ -407,7 +386,6 @@ function rendirse() {
   mostrarResultado(false);
 }
 
-// ── Atacar ────────────────────────────────────────────────────
 async function atacar() {
   if (!estado.activo) return;
   const inputEl = document.getElementById('atk-input');
@@ -455,7 +433,6 @@ async function atacar() {
 
     msgChat(chat, `> IA_DEFENSA: ${respIA}`, "ia");
 
-    // ── Verificar victoria ──
     if (respIA.toUpperCase().includes(estado.palabra)) {
       setTimeout(() => {
         msgChat(chat, `🎉 ¡HACKEO COMPLETADO! La IA reveló la palabra: [${estado.palabra}]`, "win");
@@ -473,7 +450,6 @@ async function atacar() {
   }
 }
 
-// ── Resultado ─────────────────────────────────────────────────
 function mostrarResultado(ganoAtacante) {
   if (ganoAtacante) {
     estado.score.atk++;
@@ -502,16 +478,13 @@ function mostrarResultado(ganoAtacante) {
   irA('p-resultado');
 }
 
-// ── Nueva ronda (roles invertidos) ───────────────────────────
 function nuevaRonda() {
-  // Limpiamos campos del defensor para la siguiente ronda
   document.getElementById('def-apikey').value = "";
   document.getElementById('def-palabra').value = "";
   document.getElementById('def-prompt').value  = "";
   irA('p-defensor');
 }
 
-// ── Scoreboard ────────────────────────────────────────────────
 function actualizarScoreboard() {
   document.getElementById('sc-atk').textContent = estado.score.atk;
   document.getElementById('sc-def').textContent = estado.score.def;
@@ -533,7 +506,6 @@ function resetScore() {
   actualizarScoreboard();
 }
 
-// ── Helper chat ───────────────────────────────────────────────
 function msgChat(chat, texto, tipo) {
   const d = document.createElement('div');
   d.className = `msg msg-${tipo}`;
