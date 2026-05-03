@@ -11,64 +11,54 @@
     --bco: #FFFFFF; --r: 12px; --tp: #8E24AA;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+  
   body { background: #EEF3F7; color: var(--txt); line-height: 1.6; font-size: 18px; padding-bottom: 50px; }
+  
   header { background: var(--nav); color: var(--bco); padding: 40px 20px; text-align: center; border-bottom: 5px solid var(--amb); }
-  header h1 { font-size: 34px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
+  header h1 { font-size: 34px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px;}
   header p { opacity: 0.9; font-size: 20px; }
+
   .container { width: 95%; max-width: 1200px; margin: 40px auto; }
+  
   .section-title { font-size: 26px; color: var(--nav); margin: 40px 0 20px 0; padding-bottom: 10px; border-bottom: 3px solid var(--bd); text-transform: uppercase; }
+
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
 
-  .card {
-    background: var(--bco); border-radius: var(--r); padding: 25px;
+  .card { 
+    background: var(--bco); border-radius: var(--r); padding: 25px; 
     box-shadow: 0 4px 12px rgba(0,0,0,.08); border-top: 6px solid var(--bd);
     display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s;
     text-decoration: none; color: inherit;
   }
   .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,.1); }
-
+  
+  /* Colores de las tarjetas según estado */
   .c-pasada { border-top-color: #4A6080; background: #FAFBFC; }
-  .c-actual  { border-top-color: var(--teal); background: #F0FAFA; }
-  .c-futura  { border-top-color: var(--amb); }
-
-  /* ── Tarjeta terminal para el desafío extra ── */
-  .c-extra   {
-    border-top-color: #00FF41;
-    background: #060D0A;
-    color: #00FF41;
-    box-shadow: 0 4px 20px rgba(0,255,65,0.15);
-  }
-  .c-extra:hover { box-shadow: 0 8px 28px rgba(0,255,65,0.3); }
-  .c-extra h2    { color: #00FF41; font-family: 'Courier New', monospace; line-height: 1.4; }
-  .c-extra p     { color: #00AA2A; font-family: 'Courier New', monospace; font-size: 15px; }
-  .c-extra .badge-date { color: #00882A; font-family: 'Courier New', monospace; }
-
+  .c-actual { border-top-color: var(--teal); background: #F0FAFA; }
+  .c-futura { border-top-color: var(--amb); }
+  
   .badge-date { font-size: 14px; font-weight: bold; margin-bottom: 10px; display: block; text-transform: uppercase; color: #666; }
   .c-actual .badge-date { color: var(--teal); }
-
+  .c-futura .badge-date { color: var(--amb); }
+  
   .card h2 { font-size: 22px; color: var(--nav); margin-bottom: 10px; line-height: 1.3; }
-  .card p  { font-size: 16px; color: #555; flex-grow: 1; margin-bottom: 20px; }
-
-  .btn { display: block; text-align: center; padding: 12px; border-radius: 8px; font-weight: bold; text-decoration: none; transition: 0.3s; color: white; }
+  .card p { font-size: 16px; color: #555; flex-grow: 1; margin-bottom: 20px; }
+  
+  .btn { 
+    display: block; text-align: center; padding: 12px; border-radius: 8px; 
+    font-weight: bold; text-decoration: none; transition: 0.3s; color: white;
+  }
   .c-pasada .btn { background: #4A6080; }
   .c-pasada .btn:hover { background: #2C3E50; }
-  .c-actual .btn  { background: var(--teal); }
+  
+  .c-actual .btn { background: var(--teal); }
   .c-actual .btn:hover { background: #007B80; }
-  .c-futura .btn  { background: var(--amb); }
-  .c-extra  .btn  {
-    background: transparent; color: #00FF41;
-    border: 2px solid #00FF41;
-    font-family: 'Courier New', monospace;
-    box-shadow: 0 0 8px rgba(0,255,65,0.2);
-  }
-  .c-extra  .btn:hover { background: #00FF41; color: #000; box-shadow: 0 0 18px rgba(0,255,65,0.5); }
 
-  .locked { background: #E0E0E0 !important; color: #888 !important; border: 1px solid #ccc !important; cursor: not-allowed; box-shadow: none !important; }
-  .c-extra.card-locked h2 { color: #1A4A28; }
-  .c-extra.card-locked p  { color: #1A4A28; }
-  .c-extra.card-locked .badge-date { color: #1A4A28; }
-  .c-extra.card-locked { background: #060D0A; box-shadow: none; opacity: 0.7; }
-  .card-locked { pointer-events: none; opacity: 0.8; }
+  .c-futura .btn { background: var(--amb); }
+
+  /* Estilos para clases bloqueadas dinámicas */
+  .btn.locked { background: #E0E0E0 !important; color: #888 !important; border: 1px solid #ccc; cursor: not-allowed; }
+  .card-locked-static { pointer-events: none; opacity: 0.6; }
 </style>
 </head>
 <body>
@@ -80,55 +70,60 @@
 
 <div class="container">
 
-  <h2 class="section-title">Clase de Hoy</h2>
+  <h2 class="section-title">Clases de la Semana</h2>
   <div class="grid">
-
-    <!-- CLASE 9 — habilita a las 9:45 -->
-    <a href="clase_9.html" class="card c-actual"
-       data-unlock="2026-04-27T09:45:00-03:00"
-       data-label="Abrir Clase">
-      <span class="badge-date">Lunes 27 de Abril</span>
-      <h2>Clase 9: Defensa y Ciberseguridad</h2>
-      <p>Defensa Técnica del TP1 y simulador de Inyección de Prompts (Jailbreak) en la sala de espera.</p>
+    <!-- CLASE 10 (Lunes) -->
+    <a href="Clase_10.html" class="card c-futura" data-unlock="2026-05-04T09:45:00">
+      <span class="badge-date">Lunes 04 de Mayo</span>
+      <h2>Clase 10: La IA que recuerda</h2>
+      <p>El problema del estado y la solución: construir el historial de la conversación.</p>
       <div class="btn">Abrir Clase</div>
     </a>
 
-    <!-- DESAFÍO EXTRA — habilita a las 10:35 -->
-    <a href="clase_9_bis.html" class="card c-extra"
-       data-unlock="2026-04-27T10:35:00-03:00"
-       data-label="&gt;_ INICIAR_DESAFÍO">
-      <span class="badge-date">&gt;_ Lunes 27 · Fase 2</span>
-      <h2>&gt;_ DESAFÍO EXTRA:<br>AHORA DEFENDÉ</h2>
-      <p>Pasaste de atacante a defensor. Diseñá tu propio sistema de seguridad y ponelo a prueba contra un compañero.</p>
-      <div class="btn">&gt;_ INICIAR_DESAFÍO</div>
+    <!-- CLASE 11 (Viernes) -->
+    <a href="Clase_11.html" class="card c-futura" data-unlock="2026-05-08T10:35:00">
+      <span class="badge-date">Viernes 08 de Mayo</span>
+      <h2>Clase 11: El System Prompt</h2>
+      <p>Darle personalidad a la IA. Construyendo el historial con el rol 'system'.</p>
+      <div class="btn">Abrir Clase</div>
     </a>
-
   </div>
 
   <h2 class="section-title">Clases Anteriores</h2>
   <div class="grid">
+    <!-- CLASE 9 -->
+    <a href="clase_9.html" class="card c-pasada">
+      <span class="badge-date">Lunes 27 de Abril</span>
+      <h2>Clase 9: Defensa y Ciberseguridad</h2>
+      <p>Defensa Técnica del TP1 y simulador de Inyección de Prompts (Jailbreak).</p>
+      <div class="btn">Repasar Clase</div>
+    </a>
 
+    <!-- CLASE 8 -->
     <a href="clase_8.html" class="card c-pasada">
       <span class="badge-date">Lunes 20 de Abril</span>
       <h2>Clase 8: Frontend y Agencia IA</h2>
-      <p>Terminamos la Fase 2 del TP1 y creamos el Branding (identidad visual) de nuestro Chatbot interactivo.</p>
+      <p>Terminamos la Fase 2 del TP1 y creamos el Branding de nuestro Chatbot.</p>
       <div class="btn">Repasar Clase</div>
     </a>
 
+    <!-- CLASE 7 (TP1) -->
     <a href="clase_7.html" class="card c-pasada" style="border-top-color: var(--tp);">
       <span class="badge-date" style="color: var(--tp);">Viernes 17 de Abril</span>
       <h2>Clase 7: TP1 (Fase 1)</h2>
-      <p>Desarrollo del Backend. Armado del motor de conexión, funciones y prompt dinámico para el Chatbot.</p>
+      <p>Desarrollo del Backend. Motor de conexión, funciones y prompt dinámico.</p>
       <div class="btn" style="background: #FAF5FF; color: var(--tp); border: 2px solid var(--tp);">Repasar TP1</div>
     </a>
 
+    <!-- CLASE 6 -->
     <a href="clase_6.html" class="card c-pasada">
       <span class="badge-date">Lunes 13 de Abril</span>
       <h2>Anatomía de la Inferencia</h2>
-      <p>Análisis del JSON de respuesta, consumo de tokens y el hiperparámetro Temperature.</p>
+      <p>Análisis del JSON de respuesta, consumo de tokens y la Temperature.</p>
       <div class="btn">Repasar Clase</div>
     </a>
 
+    <!-- CLASE 5 -->
     <a href="clase_5.html" class="card c-pasada">
       <span class="badge-date">Viernes 10 de Abril</span>
       <h2>La Primera Llamada Real</h2>
@@ -136,70 +131,103 @@
       <div class="btn">Repasar Clase</div>
     </a>
 
-    <a href="#" class="card c-pasada card-locked" style="opacity: 0.6;">
+    <!-- CLASES VIEJAS ARCHIVADAS -->
+    <a href="#" class="card c-pasada card-locked-static">
       <span class="badge-date">Marzo 2026</span>
       <h2>Prompts Dinámicos</h2>
-      <p>F-strings y control de errores con Try/Except para hacer programas robustos.</p>
+      <p>F-strings y control de errores con Try/Except para programas robustos.</p>
       <div class="btn locked">Clase Archivada</div>
     </a>
 
-    <a href="#" class="card c-pasada card-locked" style="opacity: 0.6;">
+    <a href="#" class="card c-pasada card-locked-static">
       <span class="badge-date">Marzo 2026</span>
       <h2>Colecciones de Datos</h2>
       <p>Listas y Diccionarios. Preparando el formato de comunicación con la IA.</p>
       <div class="btn locked">Clase Archivada</div>
     </a>
 
-    <a href="#" class="card c-pasada card-locked" style="opacity: 0.6;">
+    <a href="#" class="card c-pasada card-locked-static">
       <span class="badge-date">Marzo 2026</span>
       <h2>El Agente Inteligente</h2>
-      <p>Sensor, Programa y Actuador. Repaso de funciones (def y return) en Colab.</p>
+      <p>Sensor, Programa y Actuador. Repaso de funciones en Colab.</p>
       <div class="btn locked">Clase Archivada</div>
     </a>
-
-    <a href="#" class="card c-pasada card-locked" style="opacity: 0.6;">
-      <span class="badge-date">Marzo 2026</span>
-      <h2>El Desafío Imposible</h2>
-      <p>Diagnóstico lógico, Teachable Machine y el concepto de Alucinación en IA.</p>
-      <div class="btn locked">Clase Archivada</div>
-    </a>
-
   </div>
+
 </div>
 
 <script>
-  function lockClassesWithTime() {
+  let modoProfe = false;
+
+  function lockClasses() {
+    if (modoProfe) return; // Si el profe desbloqueó todo, no hacemos nada
+    
     const now = new Date();
-    document.querySelectorAll('.card[data-unlock]').forEach(card => {
-      const unlockTime = new Date(card.getAttribute('data-unlock'));
-      const btn        = card.querySelector('.btn');
-      const label      = card.getAttribute('data-label') || 'Abrir';
-      const href       = card.getAttribute('data-href-orig') || card.getAttribute('href');
-
-      // Guardar href original la primera vez
-      if (!card.getAttribute('data-href-orig') && href && href !== '#') {
-        card.setAttribute('data-href-orig', href);
-      }
-
-      if (now < unlockTime) {
-        card.classList.add('card-locked');
-        card.removeAttribute('href');
+    const cards = document.querySelectorAll('.card[data-unlock]');
+    
+    cards.forEach(card => {
+      const unlockTimeStr = card.getAttribute('data-unlock');
+      const unlockDate = new Date(unlockTimeStr);
+      const btn = card.querySelector('.btn');
+      
+      if (now < unlockDate) {
+        // Aún no es la hora, bloqueamos
+        card.style.pointerEvents = 'none';
+        card.style.opacity = '0.7';
         btn.classList.add('locked');
-        const h = String(unlockTime.getHours()).padStart(2,'0');
-        const m = String(unlockTime.getMinutes()).padStart(2,'0');
-        btn.textContent = `🔒 Se habilita a las ${h}:${m}`;
+        
+        // Formatear la fecha para mostrar en el botón
+        const dia = String(unlockDate.getDate()).padStart(2, '0');
+        const mes = String(unlockDate.getMonth() + 1).padStart(2, '0');
+        const hora = String(unlockDate.getHours()).padStart(2, '0');
+        const min = String(unlockDate.getMinutes()).padStart(2, '0');
+        
+        btn.innerHTML = `🔒 Bloqueada hasta el ${dia}/${mes} a las ${hora}:${min} hs`;
+        btn.style.background = '#E0E0E0';
+        btn.style.color = '#888';
       } else {
-        card.classList.remove('card-locked');
-        const orig = card.getAttribute('data-href-orig');
-        if (orig) card.setAttribute('href', orig);
+        // Ya pasó la hora, desbloqueamos automáticamente
+        card.style.pointerEvents = 'auto';
+        card.style.opacity = '1';
         btn.classList.remove('locked');
-        btn.innerHTML = label;
+        btn.innerHTML = 'Abrir Clase';
+        btn.style.background = ''; // Resetea al color original de CSS
+        btn.style.color = '';
+        
+        // Cambiamos el color de la tarjeta para que se vea como actual
+        card.classList.remove('c-futura');
+        card.classList.add('c-actual');
       }
     });
   }
 
-  window.onload   = lockClassesWithTime;
-  setInterval(lockClassesWithTime, 30000); // chequea cada 30 seg
+  // Atajo de teclado oculto: Ctrl + Shift + U
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'u') {
+      modoProfe = !modoProfe; // Activar o desactivar
+      
+      if (modoProfe) {
+        const cards = document.querySelectorAll('.card[data-unlock]');
+        cards.forEach(card => {
+          const btn = card.querySelector('.btn');
+          card.style.pointerEvents = 'auto';
+          card.style.opacity = '1';
+          btn.classList.remove('locked');
+          btn.innerHTML = '🔓 Desbloqueada (Modo Profe)';
+          btn.style.background = '#8E24AA'; // Violeta para indicar que es bypass
+          btn.style.color = 'white';
+        });
+      } else {
+        // Si lo vuelve a tocar, vuelve a la normalidad
+        lockClasses();
+      }
+    }
+  });
+
+  // Ejecutamos la función apenas carga la página
+  window.onload = lockClasses;
+  // Revisamos cada 30 segundos por si se hacen las 09:45 estando en la página
+  setInterval(lockClasses, 30000); 
 </script>
 
 </body>
