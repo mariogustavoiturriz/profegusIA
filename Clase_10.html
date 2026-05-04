@@ -232,9 +232,54 @@ headers = {<span class="string">"Authorization"</span>: f<span class="string">"B
   <p style="margin-top: 10px;">Después de cada mensaje van a ver cómo el número crece: 1, 2, 3, 4... Cada número par es una respuesta de la IA que se acumuló.</p>
 </div>
 
-<!-- ════════════════════ BLOQUE 4 — LIMITACIÓN Y TAREA ═══════════ -->
+<!-- ════════════════════ BLOQUE 4 — INTEGRACIÓN CON EL TP1 ═════════ -->
+<div class="card c-exp">
+  <h2><span class="badge" style="background:var(--amb);">4</span> DESAFÍO — DALE MEMORIA A TU TP1</h2>
+
+  <p>El chatbot del TP1 tiene una función <code>consultar_ia(personaje, tema, temperatura)</code> que hace la llamada a la API. Pero el historial necesita vivir <em>fuera</em> de la función para no reiniciarse con cada llamada. Eso crea un problema de diseño: ¿cómo conectamos los dos?</p>
+
+  <h3>El problema</h3>
+  <p>Mirá las dos opciones y pensá cuál tiene más sentido antes de probarlas:</p>
+
+  <div class="comparacion">
+    <div class="comp-card comp-sin">
+      <h4>❌ Opción A — historial dentro de la función</h4>
+      <div style="background: var(--code-bg); border-radius: 8px; padding: 14px; margin-top: 10px; font-family: Consolas, monospace; font-size: 16px; color: #D4D4D4; white-space: pre;"><span class="keyword">def</span> consultar_ia(personaje, tema, temp):
+    historial = []  <span class="comment"># ← problema</span>
+    historial.append(...)
+    ...</div>
+      <p style="margin-top: 10px;">El historial se reinicia cada vez que se llama a la función. La IA siempre empieza de cero.</p>
+    </div>
+    <div class="comp-card comp-con">
+      <h4>✅ Opción B — historial fuera, se pasa como parámetro</h4>
+      <div style="background: var(--code-bg); border-radius: 8px; padding: 14px; margin-top: 10px; font-family: Consolas, monospace; font-size: 16px; color: #D4D4D4; white-space: pre;"><span class="keyword">def</span> consultar_ia(personaje, tema, temp, hist):
+    hist.append(...)  <span class="comment"># modifica la lista externa</span>
+    ...</div>
+      <p style="margin-top: 10px;">El historial vive fuera, la función lo recibe y lo modifica. Persiste entre llamadas.</p>
+    </div>
+  </div>
+
+  <div class="action-box action-colab" style="margin-top: 20px;">
+    <strong>📝 Tarea: Reescribí el TP1 con memoria</strong>
+    <p style="margin-top: 5px;">Abrí tu Colab del TP1 y creá una celda nueva con una versión que tenga historial. La firma de la función tiene que cambiar:</p>
+    <ol style="margin-left: 20px; margin-top: 10px; line-height: 2.2;">
+      <li>Agregá <code>historial</code> como parámetro de <code>consultar_ia</code>.</li>
+      <li>Dentro de la función, usá <code>historial.append()</code> en lugar de armar el payload con un mensaje fijo.</li>
+      <li>Declará <code>historial = []</code> fuera del <code>while True</code> en el programa principal.</li>
+      <li>Pasale el historial cuando llamás a la función: <code>consultar_ia(personaje, tema, temp, historial)</code>.</li>
+      <li>Probá con 3 intercambios — ¿la IA recuerda lo que dijiste antes?</li>
+    </ol>
+    <p style="margin-top: 15px;"><strong>Pregunta de diseño (celda de texto):</strong> ¿Por qué en la Opción B el historial se modifica dentro de la función aunque no lo retornemos con <code>return</code>? ¿Qué propiedad de las listas en Python hace que eso funcione?</p>
+  </div>
+
+  <p style="background: var(--gris); padding: 15px; border-radius: 8px; margin-top: 5px;">
+    💡 <strong>Pista:</strong> En Python, las listas se pasan <em>por referencia</em> — cuando la función modifica la lista, está modificando la misma lista que existe afuera. No es una copia. Lo mismo pasa con los diccionarios.
+  </p>
+</div>
+
+<!-- ════════════════════ BLOQUE 5 — LIMITACIÓN Y TAREA ═══════════ -->
 <div class="card c-eval">
-  <h2><span class="badge" style="background:var(--classroom);">4</span> UNA LIMITACIÓN REAL Y LA TAREA</h2>
+  <h2><span class="badge" style="background:var(--classroom);">5</span> UNA LIMITACIÓN REAL Y LA ENTREGA</h2>
 
   <div class="def-box amb">
     <strong>El problema del historial infinito</strong>
@@ -243,23 +288,21 @@ headers = {<span class="string">"Authorization"</span>: f<span class="string">"B
 
   <div class="action-box action-colab">
     <strong>📝 Tarea: El interrogatorio con memoria</strong>
-    <p style="margin-top: 5px;">Usá el chatbot CON memoria para hacer esto:</p>
+    <p style="margin-top: 5px;">Usá el chatbot CON memoria (el simple del Bloque 2) para hacer esto:</p>
     <ol style="margin-left: 20px; margin-top: 10px; line-height: 2.2;">
       <li>Contale tres datos sobre vos: nombre, ciudad y algo que te guste.</li>
       <li>Hacé al menos 4 preguntas de cualquier tema (no relacionadas con los datos).</li>
       <li>Al final preguntale: <em>"¿Qué tres cosas te conté de mí al principio?"</em></li>
       <li>Guardá el log de esa conversación para entregar.</li>
     </ol>
-    <p style="margin-top: 15px;"><strong>Pregunta de documentación (celda de texto en el Colab):</strong><br>
-    ¿Qué diferencia hay entre el historial de este código y el payload del TP1 sin historial? Explicá qué línea es la clave y por qué tiene que estar <em>fuera</em> del <code>while True</code>.</p>
   </div>
 
   <div class="action-box action-classroom" style="margin-top: 5px;">
     <strong>📤 Entregá en Classroom</strong>
     <ol style="margin-left: 20px;">
-      <li>El enlace a tu Colab con los dos códigos (con y sin memoria).</li>
-      <li>El log del interrogatorio con los 3 datos + 4 preguntas + pregunta final.</li>
-      <li>La respuesta a la pregunta de documentación.</li>
+      <li>El enlace a tu Colab con los dos códigos (con y sin memoria) y la versión del TP1 con historial.</li>
+      <li>El log del interrogatorio (3 datos + 4 preguntas + pregunta final).</li>
+      <li>La respuesta a la pregunta de diseño del Bloque 4.</li>
     </ol>
   </div>
 </div>
