@@ -57,8 +57,8 @@
 <body>
 
 <header>
-  <h1>CLASE 10: LA IA QUE RECUERDA</h1>
-  <p>Taller de IA Aplicada | 7°1° | CTP Antonio Martín Marte | Lunes | 120 minutos</p>
+  <h1>CLASE 10: LA IA "QUE RECUERDA"</h1>
+  <p>Taller de IA Aplicada | 7°1° | CTP Antonio Martín Marte | Lunes | </p>
 </header>
 
 <div class="container">
@@ -66,8 +66,8 @@
 
 <!-- ════════════════════ BLOQUE 0 — CONEXIÓN CON C9 ══════════════ -->
 <div class="card c-repaso">
-  <h2><span class="badge" style="background:#4A6080;">0</span> LO QUE VIERON "SIN SABERLO" EN LA CLASE 9</h2>
-  <p>En el simulador Jailbreak del viernes, los niveles tenían un "guardián" que mantenía su personaje durante toda la conversación. Eso no era magia — era exactamente lo que van a aprender hoy.</p>
+  <h2><span class="badge" style="background:#4A6080;">0</span> LO QUE VIERON "SIN SABERLO" EN Clase 9</h2>
+  <p>En el simulador Jailbreak del viernes (el segundo), los niveles tenían un "guardián" que mantenía su personaje durante toda la conversación. Eso no era magia — era exactamente lo que van a aprender hoy.</p>
   <p style="margin-top: 15px;">Mirá el payload que mandaba el simulador a la API:</p>
 
   <div class="code-container" style="margin-top: 10px;">
@@ -174,151 +174,4 @@ historial = []
   <div class="action-box action-colab">
     <strong>📝 Ejecutalo y probá esto</strong>
     <ol style="margin-left: 20px; margin-top: 5px;">
-      <li>Ejecutá el código con tu API Key.</li>
-      <li>Escribí: <em>"Mi personaje favorito de ficción es Sherlock Holmes."</em></li>
-      <li>Después escribí: <em>"¿Cuál dije que era mi personaje favorito?"</em></li>
-      <li>¿La IA lo recuerda? ¿Por qué ahora sí y antes no?</li>
-    </ol>
-  </div>
-</div>
-
-<!-- ════════════════════ BLOQUE 3 — EXPERIMENTO ══════════════════ -->
-<div class="card c-exp">
-  <h2><span class="badge" style="background:var(--amb);">3</span> EXPERIMENTO — DEMOSTRAR LA MEMORIA</h2>
-  <p>Para entender de verdad cómo funciona, hay que verlo fallar. Copiá este segundo código que hace <strong>exactamente lo mismo pero sin guardar el historial</strong>.</p>
-
-  <div class="code-container">
-    <button class="copy-btn" onclick="copyCode('codSinMem')">Copiar Código</button>
-    <div id="codSinMem" class="code-block"><span class="keyword">import</span> requests
-
-API_KEY = <span class="string">"gsk_PEGA_TU_CLAVE_ACA"</span>
-URL     = <span class="string">"https://api.groq.com/openai/v1/chat/completions"</span>
-headers = {<span class="string">"Authorization"</span>: f<span class="string">"Bearer {API_KEY}"</span>, <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span>}
-
-<span class="keyword">print</span>(<span class="string">"🤖 Chatbot SIN memoria. Escribí 'salir' para terminar.\n"</span>)
-
-<span class="keyword">while</span> <span class="keyword">True</span>:
-    mensaje = <span class="keyword">input</span>(<span class="string">"Vos: "</span>)
-    <span class="keyword">if</span> mensaje.lower() == <span class="string">"salir"</span>:
-        <span class="keyword">break</span>
-
-    payload = {
-        <span class="string">"model"</span>: <span class="string">"llama-3.3-70b-versatile"</span>,
-        <span class="string">"temperature"</span>: 0.7,
-        <span class="string">"messages"</span>: [{<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: mensaje}]
-    }
-
-    response  = requests.<span class="keyword">post</span>(URL, headers=headers, json=payload)
-    data      = response.json()
-    respuesta = data[<span class="string">"choices"</span>][0][<span class="string">"message"</span>][<span class="string">"content"</span>]
-    <span class="keyword">print</span>(f<span class="string">"\nIA: {respuesta}\n"</span>)</div>
-  </div>
-
-  <div class="action-box action-colab">
-    <strong>📝 El experimento de la memoria</strong>
-    <p style="margin-top: 5px;">Hacele las mismas dos preguntas a este chatbot sin memoria:</p>
-    <ol style="margin-left: 20px; margin-top: 10px; line-height: 2.2;">
-      <li>Escribí: <em>"Mi personaje favorito de ficción es Sherlock Holmes."</em></li>
-      <li>Escribí: <em>"¿Cuál dije que era mi personaje favorito?"</em></li>
-    </ol>
-    <p style="margin-top: 15px;"><strong>Pregunta para pensar:</strong> Las dos versiones del código hacen exactamente la misma llamada a la misma API. ¿Dónde está la diferencia entonces? ¿En Groq o en nuestro código?</p>
-  </div>
-
-  <h3>¿Qué está pasando por dentro?</h3>
-  <p>Agregá esta línea justo antes del <code>payload</code> en el código CON memoria para ver el historial crecer:</p>
-  <div class="code-container" style="margin-top: 10px;">
-    <div class="code-block no-btn"><span class="keyword">print</span>(f<span class="string">"\n[DEBUG] Mensajes en historial: {len(historial)}"</span>)</div>
-  </div>
-  <p style="margin-top: 10px;">Después de cada mensaje van a ver cómo el número crece: 1, 2, 3, 4... Cada número par es una respuesta de la IA que se acumuló.</p>
-</div>
-
-<!-- ════════════════════ BLOQUE 4 — INTEGRACIÓN CON EL TP1 ═════════ -->
-<div class="card c-exp">
-  <h2><span class="badge" style="background:var(--amb);">4</span> DESAFÍO — DALE MEMORIA A TU TP1</h2>
-
-  <p>El chatbot del TP1 tiene una función <code>consultar_ia(personaje, tema, temperatura)</code> que hace la llamada a la API. Pero el historial necesita vivir <em>fuera</em> de la función para no reiniciarse con cada llamada. Eso crea un problema de diseño: ¿cómo conectamos los dos?</p>
-
-  <h3>El problema</h3>
-  <p>Mirá las dos opciones y pensá cuál tiene más sentido antes de probarlas:</p>
-
-  <div class="comparacion">
-    <div class="comp-card comp-sin">
-      <h4>❌ Opción A — historial dentro de la función</h4>
-      <div style="background: var(--code-bg); border-radius: 8px; padding: 14px; margin-top: 10px; font-family: Consolas, monospace; font-size: 16px; color: #D4D4D4; white-space: pre;"><span class="keyword">def</span> consultar_ia(personaje, tema, temp):
-    historial = []  <span class="comment"># ← problema</span>
-    historial.append(...)
-    ...</div>
-      <p style="margin-top: 10px;">El historial se reinicia cada vez que se llama a la función. La IA siempre empieza de cero.</p>
-    </div>
-    <div class="comp-card comp-con">
-      <h4>✅ Opción B — historial fuera, se pasa como parámetro</h4>
-      <div style="background: var(--code-bg); border-radius: 8px; padding: 14px; margin-top: 10px; font-family: Consolas, monospace; font-size: 16px; color: #D4D4D4; white-space: pre;"><span class="keyword">def</span> consultar_ia(personaje, tema, temp, hist):
-    hist.append(...)  <span class="comment"># modifica la lista externa</span>
-    ...</div>
-      <p style="margin-top: 10px;">El historial vive fuera, la función lo recibe y lo modifica. Persiste entre llamadas.</p>
-    </div>
-  </div>
-
-  <div class="action-box action-colab" style="margin-top: 20px;">
-    <strong>📝 Tarea: Reescribí el TP1 con memoria</strong>
-    <p style="margin-top: 5px;">Abrí tu Colab del TP1 y creá una celda nueva con una versión que tenga historial. La firma de la función tiene que cambiar:</p>
-    <ol style="margin-left: 20px; margin-top: 10px; line-height: 2.2;">
-      <li>Agregá <code>historial</code> como parámetro de <code>consultar_ia</code>.</li>
-      <li>Dentro de la función, usá <code>historial.append()</code> en lugar de armar el payload con un mensaje fijo.</li>
-      <li>Declará <code>historial = []</code> fuera del <code>while True</code> en el programa principal.</li>
-      <li>Pasale el historial cuando llamás a la función: <code>consultar_ia(personaje, tema, temp, historial)</code>.</li>
-      <li>Probá con 3 intercambios — ¿la IA recuerda lo que dijiste antes?</li>
-    </ol>
-    <p style="margin-top: 15px;"><strong>Pregunta de diseño (celda de texto):</strong> ¿Por qué en la Opción B el historial se modifica dentro de la función aunque no lo retornemos con <code>return</code>? ¿Qué propiedad de las listas en Python hace que eso funcione?</p>
-  </div>
-
-  <p style="background: var(--gris); padding: 15px; border-radius: 8px; margin-top: 5px;">
-    💡 <strong>Pista:</strong> En Python, las listas se pasan <em>por referencia</em> — cuando la función modifica la lista, está modificando la misma lista que existe afuera. No es una copia. Lo mismo pasa con los diccionarios.
-  </p>
-</div>
-
-<!-- ════════════════════ BLOQUE 5 — LIMITACIÓN Y TAREA ═══════════ -->
-<div class="card c-eval">
-  <h2><span class="badge" style="background:var(--classroom);">5</span> UNA LIMITACIÓN REAL Y LA ENTREGA</h2>
-
-  <div class="def-box amb">
-    <strong>El problema del historial infinito</strong>
-    Cada mensaje agrega tokens. Cuanto más larga la conversación, más caro cada request y más lento. Los modelos tienen un límite máximo de tokens por llamada — si el historial es muy largo, la API devuelve error. En producción, los chatbots comerciales usan técnicas de compresión o "ventana deslizante" para manejar esto. Hoy lo ignoramos, pero es bueno saberlo.
-  </div>
-
-  <div class="action-box action-colab">
-    <strong>📝 Tarea: El interrogatorio con memoria</strong>
-    <p style="margin-top: 5px;">Usá el chatbot CON memoria (el simple del Bloque 2) para hacer esto:</p>
-    <ol style="margin-left: 20px; margin-top: 10px; line-height: 2.2;">
-      <li>Contale tres datos sobre vos: nombre, ciudad y algo que te guste.</li>
-      <li>Hacé al menos 4 preguntas de cualquier tema (no relacionadas con los datos).</li>
-      <li>Al final preguntale: <em>"¿Qué tres cosas te conté de mí al principio?"</em></li>
-      <li>Guardá el log de esa conversación para entregar.</li>
-    </ol>
-  </div>
-
-  <div class="action-box action-classroom" style="margin-top: 5px;">
-    <strong>📤 Entregá en Classroom</strong>
-    <ol style="margin-left: 20px;">
-      <li>El enlace a tu Colab con los dos códigos (con y sin memoria) y la versión del TP1 con historial.</li>
-      <li>El log del interrogatorio (3 datos + 4 preguntas + pregunta final).</li>
-      <li>La respuesta a la pregunta de diseño del Bloque 4.</li>
-    </ol>
-  </div>
-</div>
-
-</div>
-<script>
-  function copyCode(id) {
-    var el = document.getElementById(id);
-    navigator.clipboard.writeText(el.textContent || el.innerText).then(function() {
-      var btn = el.previousElementSibling;
-      var orig = btn.innerText;
-      btn.innerText = "¡Copiado!";
-      btn.style.background = "var(--teal)";
-      setTimeout(function() { btn.innerText = orig; btn.style.background = "rgba(255,255,255,0.15)"; btn.style.borderColor = "rgba(255,255,255,0.3)"; }, 2000);
-    });
-  }
-</script>
-</body>
-</html>
+      <li>Ejecutá el código con tu API Key
