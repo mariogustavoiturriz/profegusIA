@@ -150,13 +150,19 @@ historial = [COMPLETAR]
 
 <span class="keyword">print</span>(<span class="string">"🤖 Chatbot con memoria. Escribí 'salir' para terminar.\n"</span>)
 
+<span class="comment"># Pedimos el rol que va a jugar la IA (como hacíamos en el TP1)</span>
+personaje = <span class="keyword">input</span>(<span class="string">"¿Qué personaje querés que sea la IA? "</span>)
+
 <span class="keyword">while</span> <span class="keyword">True</span>:
     mensaje = <span class="keyword">input</span>(<span class="string">"Vos: "</span>)
     <span class="keyword">if</span> mensaje.lower() == <span class="string">"salir"</span>:
         <span class="keyword">print</span>(<span class="string">"¡Hasta luego!"</span>)
         <span class="keyword">break</span>
 
-    <span class="comment"># 1. Guardamos lo que escribió el usuario</span>
+    <span class="comment"># Armamos el prompt dinámico juntando el personaje y el mensaje</span>
+    orden_para_la_ia = f<span class="string">"Actuá como {personaje} y respondé a esto: {mensaje}"</span>
+
+    <span class="comment"># 1. Guardamos la orden que le enviamos a la IA</span>
     historial.append({<span class="string">"role"</span>: <span class="string">"[COMPLETAR]"</span>, <span class="string">"content"</span>: [COMPLETAR]})
 
     payload = {
@@ -169,7 +175,7 @@ historial = [COMPLETAR]
     data      = response.json()
     respuesta = data[<span class="string">"choices"</span>][0][<span class="string">"message"</span>][<span class="string">"content"</span>]
 
-    <span class="keyword">print</span>(f<span class="string">"\nIA: {respuesta}\n"</span>)
+    <span class="keyword">print</span>(f<span class="string">"\n🤖 IA ({personaje}): {respuesta}\n"</span>)
 
     <span class="comment"># 2. Guardamos también la respuesta de la IA</span>
     historial.append({<span class="string">"role"</span>: <span class="string">"[COMPLETAR]"</span>, <span class="string">"content"</span>: [COMPLETAR]})</div>
@@ -183,17 +189,8 @@ historial = [COMPLETAR]
       <li>Después escribí: <em>"¿Cuál dije que era mi personaje favorito?"</em></li>
       <li>¿La IA lo recuerda? ¿Por qué ahora sí y antes no?</li>
     </ol>
-    <p style="margin-top: 15px;"><strong>Pregunta de documentación (celda de texto en el Colab):</strong><br>
+    <p style="margin-top: 15px;"><strong>Pregunta de documentación (anotá la respuesta para el final):</strong><br>
     ¿Qué diferencia hay entre el historial de este código y el payload del TP1 sin historial? Explicá qué línea es la clave y por qué tiene que estar <em>fuera</em> del <code>while True</code>.</p>
-  </div>
-
-  <div class="action-box action-classroom" style="margin-top: 5px;">
-    <strong>📤 Entregá en Classroom</strong>
-    <ol style="margin-left: 20px;">
-      <li>El enlace a tu Colab con los dos códigos (con y sin memoria).</li>
-      <li>El log del interrogatorio con la prueba de tu personaje favorito.</li>
-      <li>La respuesta a la pregunta de documentación.</li>
-    </ol>
   </div>
 </div>
 
@@ -276,15 +273,36 @@ headers = {<span class="string">"Authorization"</span>: f<span class="string">"B
 
   <div class="action-box action-colab" style="margin-top: 20px;">
     <strong>📝 Tarea: Reescribí el TP1 con memoria</strong>
-    <p style="margin-top: 5px;">Abrí tu Colab del TP1, copiá el código en una nueva celda del nuevo cuaderno (CHATBOT 2.0). La firma de la función tiene que cambiar:</p>
+    <p style="margin-top: 5px;">Abrí tu Colab del TP1, copiá el código y pegalo en una <strong>nueva celda</strong> de tu nuevo cuaderno (CHATBOT 2.0). La firma de la función tiene que cambiar.</p>
+    <p style="margin-top: 10px;">Acá tenés un pequeño andamiaje de ayuda para guiarte en la modificación:</p>
+    
+    <div class="code-container" style="margin-top: 15px; margin-bottom: 15px;">
+      <div class="code-block" style="padding-top: 20px; font-size: 16px;">
+<span class="keyword">def</span> consultar_ia(personaje, consulta, temp, <span class="string">historial</span>):
+    <span class="comment"># 1. Armás el prompt dinámico</span>
+    pregunta = f<span class="string">"Actuá como {personaje} y respondé a esto: {consulta}"</span>
+
+    <span class="comment"># 2. Guardás la pregunta del usuario en la lista que recibiste por parámetro</span>
+    historial.append({<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: pregunta})
+    
+    <span class="comment"># 3. Armás el payload enviando TODA la lista historial</span>
+    payload = {
+        <span class="string">"model"</span>: <span class="string">"llama-3.3-70b-versatile"</span>,
+        <span class="string">"temperature"</span>: temp,
+        <span class="string">"messages"</span>: historial
+    }
+    <span class="comment"># ... (sigue tu bloque try/except conectando a la API y devolviendo la respuesta) ...</span>
+      </div>
+    </div>
+
     <ol style="margin-left: 20px; margin-top: 10px; line-height: 2.2;">
-      <li>Agregá <code>historial</code> como parámetro de <code>consultar_ia</code>.</li>
+      <li>Asegurate de agregar <code>historial</code> como parámetro de tu función <code>consultar_ia</code>.</li>
       <li>Dentro de la función, usá <code>historial.append()</code> en lugar de armar el payload con un mensaje fijo.</li>
-      <li>Declará <code>historial = []</code> fuera del <code>while True</code> en el programa principal.</li>
-      <li>Pasale el historial cuando llamás a la función: <code>consultar_ia(personaje, tema, temp, historial)</code>.</li>
+      <li>Declará <code>historial = []</code> <strong>fuera</strong> del <code>while True</code> en el programa principal.</li>
+      <li>Pasale la lista vacía cuando llamás a la función: <code>consultar_ia(personaje, consulta, temp, historial)</code>.</li>
       <li>Probá con 3 intercambios — ¿la IA recuerda lo que dijiste antes?</li>
     </ol>
-    <p style="margin-top: 15px;"><strong>Pregunta de diseño (celda de texto):</strong> ¿Por qué en la Opción B el historial se modifica dentro de la función aunque no lo retornemos con <code>return</code>? ¿Qué propiedad de las listas en Python hace que eso funcione?</p>
+    <p style="margin-top: 15px;"><strong>Pregunta de diseño (abrí una nueva celda de texto para responder):</strong> ¿Por qué en la Opción B el historial se modifica dentro de la función aunque no lo retornemos con <code>return</code>? ¿Qué propiedad de las listas en Python hace que eso funcione?</p>
   </div>
 
   <p style="background: var(--gris); padding: 15px; border-radius: 8px; margin-top: 5px;">
@@ -313,11 +331,12 @@ headers = {<span class="string">"Authorization"</span>: f<span class="string">"B
   </div>
 
   <div class="action-box action-classroom" style="margin-top: 5px;">
-    <strong>📤 Entregá en Classroom</strong>
+    <strong>📤 Entregá en Classroom (TICKET DE SALIDA)</strong>
+    <p style="margin-top: 5px;">Al finalizar la clase, subí a Classroom lo siguiente:</p>
     <ol style="margin-left: 20px;">
-      <li>El enlace a tu Colab con los dos códigos (con y sin memoria) y la versión del TP1 con historial.</li>
-      <li>El log del interrogatorio (3 datos + 4 preguntas + pregunta final).</li>
-      <li>La respuesta a la pregunta de diseño del Bloque 4.</li>
+      <li><strong>El enlace a tu Colab</strong> con todo lo de hoy (los códigos con y sin memoria del principio, y tu TP1 v2.0).</li>
+      <li><strong>El log de tus pruebas</strong> (la prueba de Batman del Bloque 2 y el interrogatorio final del Bloque 5).</li>
+      <li><strong>Las respuestas a las dos preguntas teóricas</strong> (la de documentación del Bloque 2 y la de diseño de listas del Bloque 4).</li>
     </ol>
   </div>
 </div>
