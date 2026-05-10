@@ -17,35 +17,52 @@
   header h1 { font-size: 28px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
   header p { font-size: 18px; opacity: 0.9; }
   .container { width: 95%; max-width: 1400px; margin: 0 auto; padding: 0 15px; }
+  
   .back-btn { display: inline-block; margin-top: 20px; margin-bottom: 10px; padding: 10px 20px; background: var(--bco); color: var(--nav); text-decoration: none; font-weight: bold; border-radius: 8px; border: 2px solid var(--bd); transition: all 0.2s; }
   .back-btn:hover { border-color: var(--nav); background: var(--gris); }
+  
   .card { background: var(--bco); border-radius: var(--r); padding: 30px; margin-bottom: 30px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,.08); border-left: 6px solid var(--bd); }
   .c-repaso  { border-left-color: #4A6080; background: #F4F6F9; }
   .c-teoria  { border-left-color: var(--teal); }
   .c-codigo  { border-left-color: var(--vio); background: #FAFCFF; }
   .c-exp     { border-left-color: var(--amb); background: #FFFBF5; }
   .c-eval    { border-left-color: var(--classroom); background: #F6FEF8; }
+  
   h2 { color: var(--nav); font-size: 24px; margin-bottom: 15px; text-transform: uppercase; border-bottom: 2px solid var(--gris); padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
   .badge { background: var(--nav); color: var(--bco); padding: 5px 12px; border-radius: 6px; font-size: 18px; font-weight: bold; }
+  
   .def-box { background: var(--gris); border: 1px solid var(--bd); border-left: 5px solid var(--teal); padding: 18px 20px; border-radius: var(--r); margin-bottom: 16px; }
   .def-box strong { color: var(--teal); display: block; font-size: 20px; margin-bottom: 6px; text-transform: uppercase; }
+
   .code-container { position: relative; margin: 20px 0; }
   .code-block { background: var(--code-bg); color: #D4D4D4; font-family: 'Consolas', monospace; padding: 50px 20px 20px 20px; border-radius: var(--r); font-size: 18px; border: 1px solid #000; overflow-x: auto; white-space: pre; line-height: 1.5; }
   .code-block.no-btn { padding-top: 20px; }
   .keyword { color: #569CD6; } .string { color: #CE9178; } .comment { color: #6A9955; font-style: italic; }
+  .completar { color: #000; font-weight: bold; background: #FFEB3B; padding: 2px 6px; border-radius: 4px; border: 1px solid #FBC02D; font-style: normal; }
+  
   .copy-btn { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); color: #FFF; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 15px; font-weight: bold; transition: 0.2s; z-index: 10; }
   .copy-btn:hover { background: rgba(255,255,255,0.3); }
+  
   .action-box { padding: 20px; border-radius: var(--r); margin: 20px 0; font-size: 19px; border-left: 5px solid; }
   .action-colab     { background: #FFF8E1; border-color: var(--colab);     color: #5D4000; }
   .action-classroom { background: #E6F4EA; border-color: var(--classroom); color: #0D5323; }
   .action-box strong { display: block; margin-bottom: 10px; font-size: 20px; text-transform: uppercase; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 5px;}
+
   .modo-tabla { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 15px; }
   .modo-tabla th, .modo-tabla td { padding: 12px; border: 1px solid var(--bd); text-align: left; }
   .modo-tabla th { background: var(--nav); color: white; font-weight: bold; }
   .modo-tabla td { background: white; }
   .modo-tabla code { background: #eee; padding: 2px 6px; border-radius: 4px; color: var(--rojo); font-weight: bold; }
+  
   .tp-aviso { background: #FFEBEE; border: 2px dashed var(--rojo); padding: 20px; border-radius: var(--r); text-align: center; margin-top: 25px; }
   .tp-aviso h3 { color: var(--rojo); margin-bottom: 10px; text-transform: uppercase; font-size: 24px; }
+
+  /* Estilos para el Glosario de Código */
+  .pieza-box { border: 2px solid var(--bd); border-radius: 8px; margin-bottom: 20px; overflow: hidden; }
+  .pieza-header { background: var(--gris); padding: 15px 20px; font-weight: bold; color: var(--nav); border-bottom: 1px solid var(--bd); display: flex; justify-content: space-between; align-items: center;}
+  .pieza-header span { background: var(--vio); color: white; padding: 4px 10px; border-radius: 4px; font-size: 14px; text-transform: uppercase; }
+  .pieza-body { padding: 20px; background: white; }
+  .pieza-explicacion { margin-bottom: 15px; font-size: 18px; color: #444; border-left: 4px solid var(--teal); padding-left: 15px;}
 </style>
 </head>
 <body>
@@ -56,101 +73,212 @@
 </header>
 
 <div class="container">
-<a href="index.html" class="back-btn">&#8592; Volver al Índice</a>
+<a href="index.html" class="back-btn">⬅ Volver al Índice</a>
 
+<!-- ════════════════ BLOQUE 0 — EL FIN DEL COPY PASTE ════════════════════ -->
 <div class="card c-repaso">
-  <h2><span class="badge" style="background:#4A6080;">0</span> EL FIN DEL COPY-PASTE</h2>
+  <h2><span class="badge" style="background:#4A6080;">0</span> EL FIN DEL COPY-PASTE (EN BLOQUE)</h2>
   <p>Hasta hoy, veníamos trabajando con "plantillas". Ustedes copiaban un bloque gigante de código que yo les daba y solo le cambiaban un par de palabras o completaban los huecos.</p>
-  <p style="margin-top: 15px;">A partir de hoy, <strong>se terminan las plantillas prearmadas</strong>. Son casi técnicos; tienen que entender qué hace cada bloque de código y ser capaces de construir el sistema desde cero armando las piezas.</p>
-  <p style="margin-top: 15px; font-weight: bold; color: var(--nav);">Hoy nace el Chatbot 2.1. Vamos a delimitar perfectamente qué es el Backend (la conexión) y qué es el Frontend (la interfaz con el usuario).</p>
+  
+  <p style="margin-top: 15px;">A partir de hoy, <strong>se termina el copy-paste automático de un solo bloque</strong>. Vamos a seguir copiando y pegando código (¡es lo que hace todo programador en la vida real!), pero ahora son casi técnicos: van a tener que entender qué hace cada pieza y armar el sistema ustedes mismos ubicándolas en el lugar correcto de la arquitectura.</p>
+
+  <p style="margin-top: 15px; font-weight: bold; color: var(--nav);">Hoy nace el Chatbot 2.1. Vamos a delimitar perfectamente qué es el Backend (la conexión), qué es el Frontend (la interfaz con el usuario) y vamos a inicializar todas nuestras variables al principio.</p>
 </div>
 
+<!-- ════════════════ BLOQUE 1 — EL ESQUELETO ════════════════════ -->
 <div class="card c-codigo">
   <h2><span class="badge" style="background:var(--vio);">1</span> EL ESQUELETO DE LA ARQUITECTURA</h2>
-  <p>Abran Google Colab y creen un cuaderno 100% nuevo llamado <strong>Chatbot_v2.1</strong>. Abajo tienen el esqueleto vacío de un sistema profesional. Su misión es ir a sus trabajos anteriores, copiar los fragmentos de código necesarios y pegarlos debajo de cada comentario para que el programa funcione.</p>
+
+  <p>Abran Google Colab y creen un cuaderno 100% nuevo llamado <strong>Chatbot_v2.1</strong>. Abajo tienen el esqueleto vacío de un sistema profesional. Su misión es ir al <strong>Glosario de Código</strong> (Bloque 2), copiar los fragmentos necesarios y pegarlos debajo de cada comentario para que el programa funcione.</p>
 
   <div class="action-box action-colab">
-    <strong>&#127919; CONSIGNA 1: ARMAR EL ROMPECABEZAS</strong>
+    <strong>🎯 CONSIGNA 1: ARMAR EL ROMPECABEZAS</strong>
     <ol style="margin-left: 20px; margin-top: 5px; line-height: 1.8;">
       <li>Copiá el esqueleto de abajo y pegalo en tu Colab.</li>
-      <li>Buscá en tus códigos viejos qué va en cada lugar. <strong>No escribas todo amontonado.</strong> Mantené el orden que te marca el esqueleto.</li>
-      <li>El programa tiene que tener: elección de personaje, elección de temperatura, System Prompt dinámico, la lista de memoria (<code>historial</code>) y el bucle infinito.</li>
-      <li><strong>Nombre de variable importante:</strong> en esta versión el input del usuario se llama <code>mensaje_usuario</code> (no <code>mensaje</code>). Usá ese nombre en todo el código, incluyendo el bloque <code>/guardar</code>.</li>
+      <li>Buscá en el <strong>Glosario de Código</strong> (abajo) qué va en cada lugar. <strong>No escribas todo amontonado.</strong> Mantené el orden estricto que te marca el esqueleto.</li>
     </ol>
   </div>
 
   <div class="code-container">
     <button class="copy-btn" onclick="copyCode('codEsqueleto')">Copiar Esqueleto</button>
     <div id="codEsqueleto" class="code-block"><span class="comment"># ==========================================</span>
-<span class="comment"># 📦 1. LIBRERÍAS Y CLAVES</span>
+<span class="comment"># 📦 1. LIBRERÍAS, CONSTANTES Y VARIABLES</span>
 <span class="comment"># ==========================================</span>
-<span class="comment"># [PEGÁ ACÁ TU IMPORT Y TU API KEY]</span>
+<span class="comment"># [PEGÁ ACÁ LA PIEZA 1: Import, Claves y las variables vacías (Inventario)]</span>
+
 
 
 <span class="comment"># ==========================================</span>
 <span class="comment"># ⚙️ 2. BACKEND (La función que habla con Groq)</span>
 <span class="comment"># ==========================================</span>
-<span class="comment"># [CREÁ LA FUNCIÓN ACÁ: def consultar_ia(historial): ]</span>
+<span class="comment"># [PEGÁ ACÁ LA PIEZA 2: Función consultar_ia con su try/except y return]</span>
 
-    <span class="comment"># [ARMÁ EL DICCIONARIO PAYLOAD Y HEADERS ACÁ ADENTRO]</span>
-
-    <span class="comment"># [ARMÁ EL BLOQUE TRY/EXCEPT ACÁ Y DEVOLVÉ LA RESPUESTA CON RETURN]</span>
 
 
 <span class="comment"># ==========================================</span>
-<span class="comment"># 🎨 3. FRONTEND (La interfaz con el usuario)</span>
+<span class="comment"># 🎨 3. FRONTEND (Configuración inicial)</span>
 <span class="comment"># ==========================================</span>
 <span class="keyword">print</span>(<span class="string">"🤖 Iniciando Chatbot 2.1..."</span>)
 
-<span class="comment"># [PEDÍ EL PERSONAJE Y LA TEMPERATURA AL USUARIO USANDO INPUTS ACÁ]</span>
+<span class="comment"># [PEGÁ ACÁ LA PIEZA 3: Pedido de datos y llenado del System Prompt]</span>
 
-<span class="comment"># [ARMÁ EL TEXTO DE TU SYSTEM PROMPT ACÁ ADENTRO DE UNA VARIABLE]</span>
-
-<span class="comment"># [DECLARÁ LA LISTA 'historial' VACÍA Y GUARDÁ EL SYSTEM PROMPT EN LA POSICIÓN 0]</span>
 
 
 <span class="comment"># ==========================================</span>
 <span class="comment"># 🔄 4. EL BUCLE PRINCIPAL (El motor del chat)</span>
 <span class="comment"># ==========================================</span>
-<span class="comment"># [INICIÁ EL WHILE TRUE ACÁ]</span>
+<span class="comment"># [PEGÁ ACÁ LA PIEZA 4: El while True, los inputs y la llamada a la función]</span>
 
-    <span class="comment"># [PEDÍ EL MENSAJE DEL USUARIO (Ej: mensaje_usuario = input(...))]</span>
-
-    <span class="comment"># [PROGRAMÁ LA CONDICIÓN PARA SALIR CON BREAK]</span>
-
+    
     <span class="comment"># ======================================================================</span>
     <span class="comment"># 💾 ¡ATENCIÓN! ACÁ VA EL CÓDIGO NUEVO DEL COMANDO /GUARDAR</span>
-    <span class="comment"># Ese bloque lo vas a aprender y copiar en el Bloque 3 de la clase.</span>
-    <span class="comment"># Pegalo exactamente en este lugar, antes de enviar nada a la IA.</span>
+    <span class="comment"># Ese bloque lo vas a aprender y copiar en el Bloque 4 de la clase.</span>
+    <span class="comment"># Pegalo exactamente en este lugar, antes de conectarte a Groq.</span>
     <span class="comment"># ======================================================================</span>
 
-    <span class="comment"># [GUARDÁ LO QUE DIJO EL USUARIO EN LA LISTA 'historial' USANDO .append()]</span>
-
-    <span class="comment"># [LLAMÁ A LA FUNCIÓN DEL BACKEND Y GUARDÁ LO QUE DEVUELVE EN UNA VARIABLE]</span>
-
-    <span class="comment"># [IMPRIMÍ LA RESPUESTA DE LA IA EN PANTALLA]</span>
-
-    <span class="comment"># [GUARDÁ LA RESPUESTA DE LA IA EN LA LISTA 'historial']</span></div>
+</div>
   </div>
 </div>
 
+<!-- ════════════════ BLOQUE 2 — EL GLOSARIO DE CÓDIGO ════════════════════ -->
 <div class="card c-teoria">
-  <h2><span class="badge">2</span> EL COMANDO /GUARDAR (EXPORTACIÓN)</h2>
-  <p>Una vez que hayan logrado hacer funcionar su Chatbot 2.1, tenemos que solucionar el problema de la Memoria RAM. Si escriben "salir" o cierran Colab, <strong>la charla se borra para siempre</strong>.</p>
-  <p style="margin-top: 15px;">Para escribir en un archivo guardado en el disco de la computadora, Python tiene la función <code>open()</code>. Se usa siempre con <code>with</code>, que garantiza que el archivo se cierre y se guarde correctamente al terminar el proceso, evitando que se corrompa.</p>
+  <h2><span class="badge">2</span> GLOSARIO DE CÓDIGO (TU CAJA DE REPUESTOS)</h2>
+  
+  <div style="background: #FFF3E0; border: 2px dashed var(--amb); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+    <h3 style="color: var(--amb); margin-top: 0; font-size: 22px;">⚠️ ¡ATENCIÓN! CÓDIGO INCOMPLETO</h3>
+    <p style="color: #E65100;">Para que dejen de copiar y pegar en piloto automático, los bloques de acá abajo tienen huecos. Donde vean la marca <span class="completar">[completar]</span>, van a tener que usar lo que aprendieron las clases pasadas para rellenar el código con la instrucción o variable correcta.</p>
+    <p style="color: #E65100; font-weight: bold; margin-top: 10px;">💡 DATO CLAVE: Todo lo que necesitan para rellenar estos huecos lo pueden sacar de su TP1 o de las Clases 10 y 11. Además, vayan preparándose: una parte fundamental de la Defensa Oral del TP será justamente explicar cómo funciona cada uno de estos bloques.</p>
+  </div>
+
+  <p>Acá tenés las piezas exactas para rellenar tu esqueleto. Prestá atención a las explicaciones de <strong>por qué</strong> van en el lugar que van.</p>
+
+  <!-- PIEZA 1 -->
+  <div class="pieza-box">
+    <div class="pieza-header">PIEZA 1: LIBRERÍAS, CONSTANTES Y VARIABLES <span>Bloque 1</span></div>
+    <div class="pieza-body">
+      <div class="pieza-explicacion">
+        <strong>¿Por qué inicializamos variables vacías al principio?</strong> Porque funciona como un <em>Inventario</em>. Al declarar qué variables y listas vamos a usar arriba de todo, cualquier programador que lea nuestro código sabe exactamente qué datos vamos a manipular sin tener que leer todo el programa. Es una excelente práctica profesional.
+      </div>
+      <div class="code-container" style="margin: 0;">
+        <button class="copy-btn" onclick="copyCode('p1')">Copiar</button>
+        <div id="p1" class="code-block no-btn"><span class="keyword">import</span> requests
+
+<span class="comment"># Constantes de conexión</span>
+API_KEY = <span class="completar">"[completar]"</span>
+URL = <span class="completar">"[completar]"</span>
+headers = <span class="completar">[completar]</span>
+
+<span class="comment"># Inicialización de variables (Inventario)</span>
+historial = []
+personaje = <span class="string">""</span>
+temperatura = 0.0</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIEZA 2 -->
+  <div class="pieza-box">
+    <div class="pieza-header">PIEZA 2: EL BACKEND (LA FUNCIÓN) <span>Bloque 2</span></div>
+    <div class="pieza-body">
+      <div class="pieza-explicacion">
+        <strong>¿Por qué esta función solo tiene el try/except?</strong> El Backend es el obrero ciego. No le importa si es un chat, un juego o una página web. Solo recibe una lista con mensajes (`historial_chat`), se la tira a Groq, ataja los errores y <strong>devuelve (`return`)</strong> el texto limpio. No hace <code>print()</code>, eso es trabajo del Frontend.
+      </div>
+      <div class="code-container" style="margin: 0;">
+        <button class="copy-btn" onclick="copyCode('p2')">Copiar</button>
+        <div id="p2" class="code-block no-btn"><span class="keyword">def</span> consultar_ia(historial_chat, temp):
+    payload = {
+        <span class="string">"model"</span>: <span class="completar">"[completar]"</span>,
+        <span class="string">"temperature"</span>: temp,
+        <span class="string">"messages"</span>: historial_chat
+    }
+    <span class="keyword">try</span>:
+        response = <span class="completar">[completar]</span>
+        data = <span class="completar">[completar]</span>
+        <span class="keyword">return</span> data[<span class="string">"choices"</span>][0][<span class="string">"message"</span>][<span class="string">"content"</span>]
+    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
+        <span class="keyword">return</span> f<span class="string">"⚠️ Error de red: {e}"</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIEZA 3 -->
+  <div class="pieza-box">
+    <div class="pieza-header">PIEZA 3: FRONTEND Y SYSTEM PROMPT <span>Bloque 3</span></div>
+    <div class="pieza-body">
+      <div class="pieza-explicacion">
+        <strong>¿Por qué armamos el System Prompt antes del bucle?</strong> Como ya inicializamos la lista <code>historial</code> en el bloque 1, acá simplemente le pedimos los datos al usuario y usamos <code>.append()</code> para inyectar las reglas maestras en la posición 0. Así nos aseguramos de que el bot nunca olvide su personalidad antes de empezar a chatear.
+      </div>
+      <div class="code-container" style="margin: 0;">
+        <button class="copy-btn" onclick="copyCode('p3')">Copiar</button>
+        <div id="p3" class="code-block no-btn">personaje = <span class="keyword">input</span>(<span class="completar">"[completar]"</span>) <span class="comment"># 💡 Ayuda: ¿Qué texto le mostrás al usuario para pedirle el personaje?</span>
+temperatura = <span class="keyword">float</span>(<span class="keyword">input</span>(<span class="completar">"[completar]"</span>)) <span class="comment"># 💡 Ayuda: Pedile un número entre 0.0 y 2.0</span>
+
+<span class="comment"># El System Prompt: Las reglas maestras de la Clase 11</span>
+reglas_ia = f<span class="completar">"[completar]"</span> <span class="comment"># 💡 Ayuda: Escribí el texto con las reglas inquebrantables</span>
+
+<span class="comment"># Inyectamos las reglas en la memoria que creamos en el Bloque 1</span>
+historial.append({<span class="string">"role"</span>: <span class="string">"system"</span>, <span class="string">"content"</span>: reglas_ia})</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIEZA 4 -->
+  <div class="pieza-box">
+    <div class="pieza-header">PIEZA 4: EL BUCLE PRINCIPAL <span>Bloque 4</span></div>
+    <div class="pieza-body">
+      <div class="pieza-explicacion">
+        <strong>¿Cómo funciona el motor?</strong> Pide tu mensaje, se fija si querés salir, guarda lo que dijiste en el historial, se lo manda a la función Backend para procesarlo, imprime la respuesta, y la guarda en la memoria.
+      </div>
+      <div class="code-container" style="margin: 0;">
+        <button class="copy-btn" onclick="copyCode('p4')">Copiar</button>
+        <div id="p4" class="code-block no-btn"><span class="keyword">while True</span>:
+    mensaje_usuario = <span class="keyword">input</span>(<span class="completar">"[completar]"</span>) <span class="comment"># 💡 Ayuda: ¿Qué texto le mostrás para pedir su mensaje?</span>
+    
+    <span class="keyword">if</span> mensaje_usuario.lower() == <span class="completar">"[completar]"</span>: <span class="comment"># 💡 Ayuda: ¿Cuál es la palabra para cerrar el chat?</span>
+        <span class="keyword">print</span>(<span class="string">"¡Nos vemos!"</span>)
+        <span class="keyword">break</span>
+        
+    <span class="comment"># (ACÁ PEGAREMOS EL CÓDIGO DEL /GUARDAR EN UN RATO)</span>
+    
+    <span class="comment"># Guardamos tu mensaje en la memoria</span>
+    historial.append({<span class="completar">[completar]</span>: mensaje_usuario}) <span class="comment"># 💡 Ayuda: Faltan las claves "role" (user) y "content"</span>
+    
+    <span class="keyword">print</span>(<span class="string">"⏳ Conectando..."</span>)
+    <span class="comment"># Llamamos al backend pasándole TODA la memoria y la temperatura</span>
+    respuesta_ia = consultar_ia(<span class="completar">[completar]</span>) <span class="comment"># 💡 Ayuda: Pasale tu lista historial y la temp</span>
+    
+    <span class="keyword">print</span>(f<span class="string">"🤖 {personaje}: {respuesta_ia}"</span>)
+    
+    <span class="comment"># Guardamos la respuesta de la IA en la memoria</span>
+    historial.append({<span class="string">"role"</span>: <span class="string">"assistant"</span>, <span class="string">"content"</span>: respuesta_ia})</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════ BLOQUE 3 — ARCHIVOS EN PYTHON ════════════════════ -->
+<div class="card c-exp">
+  <h2><span class="badge" style="background:var(--amb);">3</span> EL COMANDO /GUARDAR (EXPORTACIÓN)</h2>
+
+  <p>Una vez que hayan logrado armar el rompecabezas, llenar los huecos de código y hacer funcionar su Chatbot 2.1, tenemos que solucionar el problema de la Memoria RAM. Si escriben "salir" o cierran Colab, <strong>la charla se borra para siempre</strong>.</p>
+  
+  <p style="margin-top: 15px;">Para escribir en un archivo guardado físicamente en el disco de la computadora, Python tiene la función <code>open()</code>. Se usa siempre con <code>with</code>, que garantiza que el archivo se cierre y se guarde correctamente al terminar el proceso, evitando que se corrompa.</p>
 
   <div class="code-container">
     <div class="code-block no-btn"><span class="keyword">with open</span>(<span class="string">"mi_archivo.txt"</span>, <span class="string">"w"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> archivo:
-    archivo.write(<span class="string">"Hola, esto queda guardado en el disco duro.
-"</span>)
-    archivo.write(<span class="string">"Esta es la segunda línea.
-"</span>)</div>
+    &nbsp;&nbsp;&nbsp;&nbsp;archivo.write(<span class="string">"Hola, esto queda guardado en el disco duro.\n"</span>)
+    &nbsp;&nbsp;&nbsp;&nbsp;archivo.write(<span class="string">"Esta es la segunda línea.\n"</span>)</div>
   </div>
 
   <h3 style="color:var(--nav); font-size:21px; margin-top:20px; margin-bottom:10px;">Los tres modos de apertura más comunes</h3>
   <table class="modo-tabla">
     <thead>
-      <tr><th>Modo</th><th>Nombre</th><th>¿Qué hace exactamente?</th></tr>
+      <tr>
+        <th>Modo</th>
+        <th>Nombre</th>
+        <th>¿Qué hace exactamente?</th>
+      </tr>
     </thead>
     <tbody>
       <tr>
@@ -172,20 +300,23 @@
   </table>
 
   <div class="action-box action-colab" style="margin-top: 20px; border-color: #2196F3; background: #E3F2FD; color: #0D47A1;">
-    <strong style="color: #0D47A1;">&#128221; CONSIGNA 2 — PREGUNTA DE DISEÑO</strong>
+    <strong style="color: #0D47A1;">📝 CONSIGNA 2 — PREGUNTA DE DISEÑO</strong>
     <p style="margin-top: 5px;">En una celda de texto de tu Colab respondé: ¿Qué diferencia habría en tu chatbot si usaras el modo <code>"a"</code> en lugar de <code>"w"</code> para guardar el historial? ¿En qué situación real de la industria preferirías uno sobre el otro?</p>
   </div>
 </div>
 
+<!-- ════════════════ BLOQUE 4 — EL CÓDIGO DE EXPORTACIÓN ════════════════════════ -->
 <div class="card c-exp">
-  <h2><span class="badge" style="background:var(--amb);">3</span> AGREGANDO EL COMANDO OCULTO</h2>
+  <h2><span class="badge" style="background:var(--amb);">4</span> AGREGANDO EL COMANDO OCULTO</h2>
+
   <p>Si el usuario escribe exactamente <code>/guardar</code>, el programa no debe enviarle ese texto a la IA. En su lugar, va a recorrer toda la lista <code>historial</code> y la va a imprimir en un archivo de texto.</p>
 
   <div class="action-box action-colab">
-    <strong>&#127919; CONSIGNA 3: EL RESPALDO DEL CHAT</strong>
+    <strong>🎯 CONSIGNA 3: EL RESPALDO DEL CHAT</strong>
     <ol style="margin-left: 20px; margin-top: 5px;">
       <li>Copiá el bloque de código de abajo.</li>
-      <li>Pegalo <strong>adentro del esqueleto</strong> de tu Chatbot 2.1, justo en el lugar que te dejamos marcado en los comentarios.</li>
+      <li>Reemplazá el <span class="completar">[completar]</span> por el cartel de <code>print</code> que avise al usuario que el proceso terminó con éxito.</li>
+      <li>Pegalo <strong>adentro del esqueleto</strong> de tu Chatbot 2.1, justo en el lugar que te dejamos marcado en los comentarios del Bucle Principal.</li>
       <li>Prestá atención a la indentación (los espacios a la izquierda) para que quede alineado correctamente dentro del ciclo.</li>
     </ol>
   </div>
@@ -195,41 +326,44 @@
     <div id="codGuardar" class="code-block">    <span class="comment"># Comando oculto para exportar la charla</span>
     <span class="keyword">if</span> mensaje_usuario.lower() == <span class="string">"/guardar"</span>:
         <span class="keyword">print</span>(<span class="string">"💾 Generando archivo de respaldo..."</span>)
-
+        
+        <span class="comment"># Abrimos el archivo en modo escritura ("w") con soporte para tildes (utf-8)</span>
         <span class="keyword">with open</span>(<span class="string">"conversacion.txt"</span>, <span class="string">"w"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> archivo:
+            <span class="comment"># Recorremos cada diccionario dentro de la lista historial</span>
             <span class="keyword">for</span> linea <span class="keyword">in</span> historial:
                 rol = linea[<span class="string">"role"</span>].upper()
                 texto = linea[<span class="string">"content"</span>]
-                archivo.write(f<span class="string">"{rol}: {texto}
-
-"</span>)
-
-        <span class="keyword">print</span>(<span class="string">"✅ ¡Listo! La charla se guardó en 'conversacion.txt'"</span>)
+                
+                <span class="comment"># Escribimos en el archivo: QUIÉN HABLA: Qué dice + Enter</span>
+                archivo.write(f<span class="string">"{rol}: {texto}\n\n"</span>)
+                
+        <span class="keyword">print</span>(<span class="completar">"[completar]"</span>)
         <span class="keyword">continue</span> <span class="comment"># Vuelve al principio del while sin enviar esto a Groq</span></div>
   </div>
 
   <div class="action-box action-colab" style="margin-top: 25px; background: #E8EAF6; border-color: #3F51B5; color: #1A237E;">
-    <strong>&#129514; CONSIGNA 4: PRUEBA DE FUNCIONAMIENTO</strong>
+    <strong>🧪 CONSIGNA 4: PRUEBA DE FUNCIONAMIENTO</strong>
     <ol style="margin-left: 20px; line-height: 1.8;">
       <li>Ejecutá tu chatbot. Configurá el personaje y la temperatura.</li>
       <li>Hablá unas 3 o 4 veces con tu IA.</li>
       <li>Escribí <code>/guardar</code>.</li>
       <li>En Google Colab, mirá el menú de la izquierda y hacé clic en el ícono de la <strong>Carpeta (Archivos)</strong>.</li>
-      <li>Ahí debería aparecer <code>conversacion.txt</code>. Hacéle doble clic para abrirlo y verificar que la charla esté guardada.</li>
+      <li>Ahí debería aparecer <code>conversacion.txt</code>. Hacéle doble clic para abrirlo a la derecha de tu pantalla y verificar que la charla esté guardada.</li>
     </ol>
   </div>
 </div>
 
+<!-- ════════════════ BLOQUE 5 — ENTREGA Y TP ══════════════════════════ -->
 <div class="card c-eval">
-  <h2><span class="badge" style="background:var(--classroom);">4</span> TICKET DE SALIDA Y PREPARACIÓN</h2>
+  <h2><span class="badge" style="background:var(--classroom);">5</span> TICKET DE SALIDA Y PREPARACIÓN</h2>
 
   <div class="tp-aviso">
-    <h3>&#128680; ATENCIÓN: TRABAJO PRÁCTICO N° 2</h3>
-    <p>Este viernes 15 de mayo realizaremos el <strong>TP2 (Evaluación Integradora)</strong>. Será una actividad práctica de 80 minutos. Evaluará exactamente lo que hicimos hoy: armar la estructura limpia, inyectar el System Prompt, manejar la memoria y exportar la sesión a un archivo de texto.</p>
+    <h3>🚨 ATENCIÓN: TRABAJO PRÁCTICO N° 2</h3>
+    <p>Este viernes 15 de mayo realizaremos el <strong>TP2 (Evaluación Integradora)</strong>. Será una actividad práctica de 80 minutos. Evaluará exactamente lo que hicimos hoy: armar la estructura limpia, rellenar y entender sus partes, inyectar el System Prompt, manejar la memoria y exportar la sesión a un archivo de texto.</p>
   </div>
 
   <div class="action-box action-classroom" style="margin-top: 25px;">
-    <strong>&#128228; ENTREGÁ HOY EN CLASSROOM:</strong>
+    <strong>📤 ENTREGÁ HOY EN CLASSROOM:</strong>
     <ol style="margin-left: 20px; line-height: 1.8;">
       <li>Tu enlace a Colab del <strong>Chatbot_v2.1</strong> completo y funcionando (con la pregunta de diseño respondida al final).</li>
       <li>Descargá a tu compu el archivo <code>conversacion.txt</code> que acabás de generar en Colab y <strong>subilo como archivo adjunto</strong> a la tarea de hoy.</li>
