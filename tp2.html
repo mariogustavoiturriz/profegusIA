@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller de IA - TP2</title>
+<style>
+:root{--nav:#1A2C3A;--teal:#00949A;--amb:#D4873A;--vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;--bco:#FFFFFF;--code-bg:#1E1E1E;--r:12px;--colab:#F9AB00;--classroom:#137333;--rojo:#C62828;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',sans-serif;background:#EEF3F7;color:var(--txt);font-size:20px;padding:15px 0 40px;}
+header{background:var(--nav);color:#fff;padding:25px 20px;border-bottom:5px solid var(--rojo);}
+header h1{font-size:28px;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
+header p{font-size:18px;opacity:.9;}
+.container{width:95%;max-width:1400px;margin:0 auto;padding:0 15px;}
+.back-btn{display:inline-block;margin-top:20px;margin-bottom:10px;padding:10px 20px;background:#fff;color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+.card{background:#fff;border-radius:var(--r);padding:30px;margin-bottom:30px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+.c-aviso{border-left-color:var(--rojo);background:#FFEBEE;}
+.c-selector{border-left-color:var(--teal);background:#F0FAFA;}
+.c-codigo{border-left-color:var(--vio);background:#FAFCFF;}
+.c-req{border-left-color:var(--teal);}
+.c-prueba{border-left-color:var(--amb);background:#FFFBF5;}
+.c-preguntas{border-left-color:var(--vio);background:#F0EFFF;}
+.c-eval{border-left-color:var(--classroom);background:#F6FEF8;}
+h2{color:var(--nav);font-size:24px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
+.badge{background:var(--nav);color:#fff;padding:5px 12px;border-radius:6px;font-size:18px;font-weight:bold;}
+.btn-alumno{padding:10px 22px;border-radius:8px;border:2px solid var(--bd);background:#fff;cursor:pointer;font-size:18px;font-weight:bold;color:var(--nav);transition:.15s;}
+.btn-alumno:hover{border-color:var(--teal);background:#F0FAFA;}
+.btn-alumno.activo{background:var(--teal);color:#fff;border-color:var(--teal);}
+.alumno-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px;}
+.code-container{position:relative;margin:20px 0;}
+.code-block{background:var(--code-bg);color:#D4D4D4;font-family:Consolas,monospace;padding:50px 20px 20px;border-radius:var(--r);font-size:17px;border:1px solid #000;overflow-x:auto;white-space:pre;line-height:1.7;min-height:120px;}
+.completar{color:#000;font-weight:bold;background:#FFEB3B;padding:2px 5px;border-radius:4px;border:1px solid #FBC02D;}
+.copy-btn{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);color:#fff;padding:10px 15px;border-radius:6px;cursor:pointer;font-size:15px;font-weight:bold;}
+.copy-btn:hover{background:rgba(255,255,255,.3);}
+.action-box{padding:20px;border-radius:var(--r);margin:15px 0;font-size:19px;border-left:5px solid;}
+.action-colab{background:#FFF8E1;border-color:var(--colab);color:#5D4000;}
+.action-classroom{background:#E6F4EA;border-color:var(--classroom);color:#0D5323;}
+.action-box strong{display:block;margin-bottom:10px;font-size:20px;text-transform:uppercase;border-bottom:1px solid rgba(0,0,0,.1);padding-bottom:5px;}
+.pregunta-teorica{background:#fff;border-left:4px solid var(--vio);border-radius:8px;padding:18px 22px;margin-bottom:14px;border:1px solid var(--bd);}
+.pregunta-teorica .num{color:var(--vio);font-weight:bold;font-size:19px;display:block;margin-bottom:6px;}
+.defensa-aviso{background:#FFF8E1;border:2px solid var(--amb);border-radius:var(--r);padding:20px 24px;margin-top:15px;}
+.defensa-aviso strong{color:var(--amb);display:block;font-size:21px;margin-bottom:10px;}
+.tiempo-grid{display:grid;grid-template-columns:120px 1fr;border:1px solid var(--bd);border-radius:8px;overflow:hidden;margin-top:15px;}
+.t-t{background:var(--nav);color:#fff;padding:12px 14px;font-weight:bold;font-size:17px;border-bottom:1px solid #2A3F50;}
+.t-a{background:#fff;padding:12px 16px;font-size:17px;border-bottom:1px solid var(--bd);}
+.t-t:last-of-type,.t-a:last-child{border-bottom:none;}
+.t-verde{background:var(--classroom)!important;}
+.t-rojo{background:var(--rojo)!important;}
+code{background:#E8E6FF;color:var(--vio);padding:2px 6px;border-radius:4px;font-family:Consolas,monospace;font-size:17px;}
+#sin-seleccion{color:#888;font-style:italic;font-size:18px;margin-top:15px;padding:15px;text-align:center;}
+</style>
+</head>
+<body>
+<header>
+  <h1>TRABAJO PR&#193;CTICO N&#176; 2</h1>
+  <p>Taller de IA Aplicada | 7&#176; A&#241;o | CTP Antonio Mart&#237;n Marte | Lunes | 120 minutos</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">&#8592; Volver al &#205;ndice</a>
+
+<div id="main-content" style="display:block">
+<div class="card c-aviso">
+  <h2><span class="badge" style="background:var(--rojo);">!</span> LE&#201;LO ANTES DE ARRANCAR</h2>
+  <ul style="margin-left:25px;line-height:2.4;font-size:20px;">
+    <li><strong>Es una evaluaci&#243;n individual.</strong> Cada uno construye y entrega su propio programa.</li>
+    <li><strong>Pod&#233;s consultar a un compa&#241;ero</strong> si te trab&#225;s, pero el c&#243;digo que entregues tiene que ser el tuyo.</li>
+    <li><strong>Cada esqueleto es &#250;nico.</strong> Si entregás el de otro, se nota.</li>
+  </ul>
+</div>
+<div class="card c-selector">
+  <h2><span class="badge">0</span> &#191;QUI&#201;N SOS?</h2>
+  <p>Hac&#233; clic en tu apellido. El esqueleto se actualiza con tu versi&#243;n personalizada.</p>
+  <div class="alumno-grid" id="alumno-grid"></div>
+  <p id="sin-seleccion">&#128070; Seleccion&#225; tu apellido para ver tu esqueleto.</p>
+</div>
+<div class="card c-codigo">
+  <h2><span class="badge" style="background:var(--vio);">1</span> EL ESQUELETO &#8212; ARMALO VOS</h2>
+  <p>Copi&#225; este esqueleto en tu Colab. Lo resaltado en amarillo es el c&#243;digo que ten&#233;s que escribir vos.</p>
+  <div class="code-container">
+    <button class="copy-btn" onclick="copiarEsqueleto()">Copiar</button>
+    <div id="skeleton-display" class="code-block" style="color:#6A9955;font-style:italic;">Seleccion&#225; tu apellido arriba.</div>
+  </div>
+</div>
+<div class="card" id="card-asistente" style="display:none;border-left:6px solid #8E24AA;background:#F3E5F5;">
+  <h2><span class="badge" style="background:#8E24AA;">&#129302;</span> ASISTENTE DE APOYO</h2>
+  <p style="margin-bottom:14px;">Si te trabaste, el asistente te puede orientar. <strong>No te va a dar el c&#243;digo</strong> — te va a ayudar a pensar c&#243;mo resolverlo vos.</p>
+
+  <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;">
+    <input type="password" id="asist-key" placeholder="Tu API Key de Groq para usar el asistente"
+           style="flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;">
+    <button onclick="activarAsistente()"
+            style="padding:10px 16px;background:#8E24AA;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;white-space:nowrap;">
+      Activar
+    </button>
+  </div>
+
+  <div id="asist-chat" style="display:none;">
+    <div id="asist-msgs" style="background:#1E1E1E;border-radius:10px;padding:16px;min-height:180px;max-height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:10px;">
+      <div style="align-self:flex-start;background:#2D2D2D;color:#A8D5B5;padding:11px 15px;border-radius:10px;font-size:17px;max-width:90%;line-height:1.5;">
+        Hola! Soy el asistente del TP. Contame en qu&#233; bloque est&#225;s trabado y qu&#233; intent&#225;s hacer. No te voy a dar el c&#243;digo, pero te ayudo a pensar c&#243;mo resolverlo.
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <input type="text" id="asist-input" placeholder="Preguntame lo que necesites..."
+             style="flex:1;padding:11px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;"
+             onkeypress="if(event.key==='Enter') enviarAsistente()">
+      <button onclick="enviarAsistente()"
+              id="asist-btn"
+              style="padding:0 18px;background:#8E24AA;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">
+        Enviar
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="card c-req">
+  <h2><span class="badge">2</span> QU&#201; SE EVAL&#218;A</h2>
+  <ol style="margin-left:25px;margin-top:15px;line-height:2.4;font-size:19px;">
+    <li><strong>System Prompt bien definido:</strong> m&#237;nimo 3 oraciones. Define qui&#233;n es, c&#243;mo habla y qu&#233; no puede hacer.</li>
+    <li><strong>Separaci&#243;n Backend / Frontend:</strong> la funci&#243;n solo usa <code>return</code>. Todo <code>print()</code> e <code>input()</code> est&#225; afuera.</li>
+    <li><strong>Protecci&#243;n contra errores:</strong> el <code>try/except</code> est&#225; dentro de la funci&#243;n.</li>
+    <li><strong>Memoria funcionando:</strong> el <code>historial</code> arranca con el system prompt y acumula cada mensaje.</li>
+    <li><strong>Exportaci&#243;n funcionando:</strong> <code>/guardar</code> crea <code>conversacion.txt</code> con toda la conversaci&#243;n.</li>
+  </ol>
+</div>
+<div class="card c-prueba">
+  <h2><span class="badge" style="background:var(--amb);">&#9201;</span> GU&#205;A DE TIEMPO</h2>
+  <div class="tiempo-grid">
+    <div class="t-t">0 &ndash; 10 min</div><div class="t-a">Cre&#225; el Colab con tu apellido. Seleccion&#225; tu nombre, copi&#225; el esqueleto. Complet&#225; API Key y System Prompt.</div>
+    <div class="t-t">10 &ndash; 45 min</div><div class="t-a">Complet&#225; el Backend y el Frontend (while True completo con /guardar).</div>
+    <div class="t-t">45 &ndash; 65 min</div><div class="t-a">Ejecut&#225;, depur&#225; y hac&#233; las 3 pruebas. Export&#225; el <code>.txt</code>.</div>
+    <div class="t-t t-verde">65 &ndash; 95 min</div><div class="t-a">Celda de texto con las 3 preguntas te&#243;ricas.</div>
+    <div class="t-t t-rojo">95 &ndash; 120 min</div><div class="t-a">Margen. Revis&#225; y entreg&#225; en Classroom.</div>
+  </div>
+</div>
+<div class="card c-prueba">
+  <h2><span class="badge" style="background:var(--rojo);">3</span> PRUEBA OBLIGATORIA &mdash; TU PERSONAJE A EXAMEN</h2>
+  <p>Hac&#233; estas tres pruebas en orden con tu propio chatbot.</p>
+  <div class="action-box" style="background:#FFEBEE;border-color:var(--rojo);color:#B71C1C;">
+    <strong>&#129514; PRUEBA 1 &mdash; IDENTIDAD</strong>
+    Preguntale a tu IA qui&#233;n es y de qu&#233; puede hablar. &#191;Responde con el personaje que le programaste?
+  </div>
+  <div class="action-box" style="background:#FFF3E0;border-color:var(--amb);color:#5D4000;">
+    <strong>&#127758; PRUEBA 2 &mdash; MEMORIA</strong>
+    D&#225;le 2 datos falsos al principio. Despu&#233;s de 3 mensajes preguntale: <em>&ldquo;&#191;Te acord&#225;s c&#243;mo me llamaba y qu&#233; hac&#237;a?&rdquo;</em>
+  </div>
+  <div class="action-box" style="background:#F3E5F5;border-color:#8E24AA;color:#4A148C;">
+    <strong>&#128683; PRUEBA 3 &mdash; EL L&#205;MITE</strong>
+    Preguntale algo que vaya en contra de la regla que le pusiste. &#191;La respeta?
+  </div>
+  <p style="margin-top:15px;background:#E8F5E9;border-left:4px solid var(--classroom);padding:14px;border-radius:8px;">
+    &#128190; Cuando termines: escrib&#237; <code>/guardar</code> y verific&#225; el <code>conversacion.txt</code> en Colab.
+  </p>
+</div>
+<div class="card c-preguntas" id="card-preguntas" style="display:none;">
+  <h2><span class="badge" style="background:var(--vio);">4</span> 3 PREGUNTAS TE&#211;RICAS</h2>
+  <p>Agr&#233;g&#225; una <strong>celda de texto</strong> al final del Colab y respond&#233; las tres.</p>
+  <div id="preguntas-display"></div>
+</div>
+<div class="card c-eval">
+  <h2><span class="badge" style="background:var(--classroom);">5</span> ENTREGA</h2>
+  <div class="action-box action-classroom">
+    <strong>&#128228; ENTREGA EN CLASSROOM ANTES DE QUE TERMINE LA CLASE:</strong>
+    <ol style="margin-left:20px;line-height:1.8;">
+      <li>El enlace a tu Colab <code>TP2_TuApellido</code> &mdash; permisos de <strong>Lector</strong>.</li>
+      <li>El archivo <code>conversacion.txt</code> de las pruebas.</li>
+    </ol>
+  </div>
+  <div class="defensa-aviso">
+    <strong>&#127897;&#65039; Defensa Oral</strong>
+    Le&#233; tu c&#243;digo y asegur&#225;te de poder explicar cada bloque con tus palabras.
+  </div>
+</div>
+</div>
+<script>
+var ENCODED = "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";
+
+var STUDENTS = JSON.parse(xorDecodeFixed(ENCODED));
+var current = null;
+function xorDecodeFixed(enc) {
+  var pin = "1805", b = atob(enc), r = [];
+  for (var i = 0; i < b.length; i++)
+    r.push(String.fromCharCode(b.charCodeAt(i) ^ pin.charCodeAt(i % pin.length)));
+  return decodeURIComponent(escape(r.join('')));
+}
+function inicializarAlumnos(students) {
+  var grid = document.getElementById('alumno-grid');
+  students.forEach(function(s) {
+    var btn = document.createElement('button');
+    btn.className = 'btn-alumno';
+    btn.textContent = s.name;
+    btn.onclick = function() {
+      document.querySelectorAll('.btn-alumno').forEach(function(b){ b.classList.remove('activo'); });
+      btn.classList.add('activo');
+      current = s;
+      document.getElementById('skeleton-display').innerHTML = renderSkeleton(buildSkeleton(s));
+      document.getElementById('sin-seleccion').style.display = 'none';
+      document.getElementById('card-asistente').style.display = 'block';
+      var qs = buildPreguntas(s);
+      var html = '';
+      qs.forEach(function(q, i) {
+        html += '<div class="pregunta-teorica"><span class="num">Pregunta ' + (i+1) + '</span>' + q + '</div>';
+      });
+      document.getElementById('preguntas-display').innerHTML = html;
+      document.getElementById('card-preguntas').style.display = 'block';
+    };
+    grid.appendChild(btn);
+  });
+}
+function renderSkeleton(text) {
+  var e = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return e.replace(/(\[COMPLETAR\][^\n]*)/g,'<span class="completar">$1</span>');
+}
+function buildSkeleton(s) {
+  var c = s.code;
+  var avanzados = ['Barrionuevo','Sifuente','Vallejos','Rodriguez','Padilla Ramirez','Romero','Orquera'];
+  var conAyuda  = ['Corbalan','Roa'];
+  var adv = avanzados.indexOf(s.name) !== -1;
+  var ayu = conAyuda.indexOf(s.name) !== -1;
+  var t = '';
+
+  // 1. ENCABEZADO — marca #1 (obvia)
+  t += '# ==========================================\n';
+  t += '# TP2_' + s.name.replace(/ /g,'_') + '   # tp2-' + c + '\n';
+  t += '# ==========================================\n\n';
+
+  // 2. LIBRERIAS — marca #2 (al final de linea, parece numero de version)
+  t += '# 1. LIBRERIAS, CLAVES Y VARIABLES  [v-' + c + ']\n';
+  t += '[COMPLETAR] Importar la libreria de conexiones HTTP\n';
+  t += '           la misma que usaste siempre\n\n';
+  t += '[COMPLETAR] Las 3 constantes: API_KEY, URL y headers\n';
+  t += '           fijate en tus Colabs anteriores\n\n';
+  t += '[COMPLETAR] historial = [],  personaje = "",  nivel_creatividad = 0.0\n';
+
+  if (ayu) {
+    t += '\n# RECORDATORIO payload: {"model":..., "temperature":nivel_creatividad, "messages":mensajes}\n';
+    t += '# RECORDATORIO append:  historial.append({"role": "...", "content": ...})\n';
+  }
+
+  // 3. BACKEND — marca #3 (dentro del try/except, parece tag de debug)
+  t += '\n# 2. BACKEND\n';
+  t += '[COMPLETAR] def consultar_ia(mensajes, nivel_creatividad):\n\n';
+  t += '    [COMPLETAR] Armar el payload (dict con "model", "temperature", "messages")\n\n';
+  t += '    [COMPLETAR] try/except: post -> .json() -> navegar hasta el texto -> return\n';
+  t += '               # debug-ref: ' + c + '\n';
+  t += '               solo return, nunca print adentro de la funcion\n';
+
+  // 4. SYSTEM PROMPT — marca #4 (en la seccion del personaje, parece un tag)
+  t += '\n# 3. FRONTEND - Configuracion inicial\n';
+  t += 'print("Iniciando Chatbot 2.1...")\n\n';
+  t += '[COMPLETAR] Pedir personaje y nivel_creatividad con input()\n';
+  t += '           nivel_creatividad tiene que convertirse a float\n\n';
+  t += '# PERSONAJE ASIGNADO: ' + s.tipo.toUpperCase() + '  [id:' + c + ']\n';
+  t += '#   Regla: ' + s.regla + '\n';
+  t += '#   Estilo: ' + s.estilo + '\n';
+  t += '[COMPLETAR] reglas_ia con al menos 3 oraciones\n\n';
+  t += '[COMPLETAR] historial.append() con rol "system" y reglas_ia (antes del while)\n';
+
+  // 5. GUARDAR — marca #5 (en el nombre del archivo de salida)
+  t += '\n# 4. FRONTEND - Motor del chat\n';
+  t += '[COMPLETAR] while True:\n\n';
+  t += '    [COMPLETAR] consulta = input(...)  <- nombre de variable obligatorio\n\n';
+  t += '    [COMPLETAR] condicion de salida: "salir" -> break\n\n';
+  t += '    # /guardar: abrir conversacion_' + c + '.txt modo "w" utf-8,\n';
+  t += '    # recorrer historial con for, escribir rol+contenido, continue\n';
+  t += '    [COMPLETAR] implementar el bloque /guardar\n\n';
+  t += '    [COMPLETAR] historial.append() con rol "user" y consulta\n\n';
+  t += '    [COMPLETAR] respuesta = consultar_ia(historial, nivel_creatividad)\n\n';
+  t += '    [COMPLETAR] print de la respuesta\n\n';
+  t += '    [COMPLETAR] historial.append() con rol "assistant" y respuesta\n';
+
+  if (adv) {
+    t += '\n# DESAFIO OPTATIVO\n';
+    t += '# El historial crece y puede agotar los tokens.\n';
+    t += '# Implementa una ventana de contexto: recorta el historial\n';
+    t += '# ANTES de consultar_ia(), sin perder historial[0].\n';
+    t += '# Pista: combina historial[0] con los ultimos mensajes.\n';
+    t += '# Defensa: por que historial[0] siempre debe estar?\n';
+  }
+  return t;
+}
+
+var asistKey = '';
+var asistHist = [];
+var ASIST_PROMPT = 'Sos un asistente de apoyo para el Trabajo Practico N2 del Taller de IA del CTP Antonio Martin Marte en Ushuaia.\n\nTu rol es ayudar a los estudiantes a completar su chatbot. Podes mostrar fragmentos de codigo de referencia tomados de la Clase 12 para orientar, pero NUNCA escribas el codigo completo del TP2 para copiar y pegar directamente.\n\nREGLAS:\n- Podes mostrar fragmentos del codigo de C12 como referencia cuando ayude a entender.\n- Señala siempre la diferencia entre C12 y el TP2 para que el alumno tenga que adaptar.\n- Si el alumno esta trabado, mostra el fragmento de C12 relevante y preguntale como lo adaptaria.\n- Si te piden el codigo del TP2 resuelto directamente, mostra el de C12 y preguntale que diferencia ve.\n- Sos claro, directo y alentador.\n\n========================================\nCODIGO DE REFERENCIA DE LA CLASE 12\n========================================\n\nBLOQUE 1 - Librerias y constantes:\nimport requests\nAPI_KEY = \'gsk_...\'\nURL     = \'https://api.groq.com/openai/v1/chat/completions\'\nheaders = {\'Authorization\': f\'Bearer {API_KEY}\', \'Content-Type\': \'application/json\'}\nhistorial = []\npersonaje = \'\'\nnivel_creatividad = 0.0\n\nBLOQUE 2 - Backend:\ndef consultar_ia(historial_chat, temp):\n    payload = {\n        \'model\': \'llama-3.3-70b-versatile\',\n        \'temperature\': temp,\n        \'messages\': historial_chat\n    }\n    try:\n        response = requests.post(URL, headers=headers, json=payload)\n        data     = response.json()\n        return data[\'choices\'][0][\'message\'][\'content\']\n    except Exception as e:\n        return f\'Error: {e}\'\n\nBLOQUE 3 - Frontend inicial:\nprint(\'Iniciando Chatbot 2.1...\')\npersonaje         = input(\'Nombre del personaje: \')\nnivel_creatividad = float(input(\'Temperatura: \'))\nreglas_ia = \'Sos [personaje]. [tus reglas].\'\nhistorial.append({\'role\': \'system\', \'content\': reglas_ia})\n\nBLOQUE 4 - Bucle:\nwhile True:\n    mensaje_usuario = input(\'Vos: \')\n    if mensaje_usuario.lower() == \'salir\':\n        print(\'Hasta luego!\')\n        break\n    if mensaje_usuario.lower() == \'/guardar\':\n        with open(\'conversacion.txt\', \'w\', encoding=\'utf-8\') as archivo:\n            for linea in historial:\n                archivo.write(f\'{linea[\'role\'].upper()}: {linea[\'content\']}\\n\\n\')\n        print(\'Guardado!\')\n        continue\n    historial.append({\'role\': \'user\', \'content\': mensaje_usuario})\n    respuesta = consultar_ia(historial, nivel_creatividad)\n    print(f\'IA: {respuesta}\')\n    historial.append({\'role\': \'assistant\', \'content\': respuesta})\n\n========================================\nDIFERENCIAS CRITICAS C12 vs TP2\n========================================\n- Funcion: C12 usaba consultar_ia(historial_chat, temp). TP2 usa consultar_ia(mensajes, nivel_creatividad).\n- Input: C12 usaba mensaje_usuario. TP2 usa consulta.\n- Archivo: C12 guardaba en conversacion.txt. TP2 incluye el codigo personal del alumno en el nombre.\n\nCuando el alumno este trabado, mostrale el bloque de C12 que corresponde y preguntale que diferencia ve con lo que tiene que hacer en el TP2.';
+
+function activarAsistente() {
+  var key = document.getElementById('asist-key').value.trim();
+  if (!key) { alert('Ingresa tu API Key primero.'); return; }
+  asistKey = key;
+  asistHist = [{role:'system', content: ASIST_PROMPT}];
+  document.getElementById('asist-chat').style.display = 'block';
+  document.getElementById('asist-input').focus();
+}
+
+async function enviarAsistente() {
+  var inp = document.getElementById('asist-input');
+  var msg = inp.value.trim();
+  if (!msg || !asistKey) return;
+  inp.value = '';
+  document.getElementById('asist-btn').disabled = true;
+
+  agregarMsgAsist(msg, 'user');
+  asistHist.push({role:'user', content: msg});
+
+  var pens = agregarMsgAsist('...', 'asist');
+  try {
+    var res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {'Authorization':'Bearer '+asistKey,'Content-Type':'application/json'},
+      body: JSON.stringify({model:'llama-3.3-70b-versatile', temperature:0.4, messages:asistHist})
+    });
+    var data = await res.json();
+    var resp = data.choices[0].message.content;
+    pens.remove();
+    asistHist.push({role:'assistant', content: resp});
+    agregarMsgAsist(resp, 'asist');
+  } catch(e) {
+    pens.remove();
+    agregarMsgAsist('Error de conexion. Revisa tu API Key.', 'error');
+    asistHist.pop();
+  }
+  document.getElementById('asist-btn').disabled = false;
+}
+
+function agregarMsgAsist(texto, tipo) {
+  var msgs = document.getElementById('asist-msgs');
+  var div = document.createElement('div');
+  var esUser = tipo === 'user';
+  var esError = tipo === 'error';
+  div.style.cssText = 'max-width:90%;padding:11px 15px;border-radius:10px;font-size:17px;line-height:1.5;white-space:pre-wrap;' +
+    (esUser   ? 'align-self:flex-end;background:#8E24AA;color:#fff;'
+              : esError ? 'align-self:center;background:#C62828;color:#fff;font-size:14px;'
+              : 'align-self:flex-start;background:#2D2D2D;color:#A8D5B5;');
+  div.textContent = texto;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+
+function buildPreguntas(s) {
+  var tipo = s.tipo;
+  var regla = s.regla;
+  var code = s.code;
+  var idx = ['Barrionuevo','Britos','Copa Cabrera','Corbalan','Diaz Colodrero',
+             'Huide Lovisolo','Orquera','Padilla Ramirez','Quispe','Ramirez Garro',
+             'Roa','Rodriguez','Romero','Sifuente','Vallejos'].indexOf(s.name) % 3;
+
+  var q1 = [
+    'Tu IA es ' + tipo + ' y tiene que mantener ese personaje durante toda la conversacion. Si el system prompt estuviera DENTRO del while True, \xbfcuantas veces quedar\xeda cargado en el historial despu\xe9s de 5 mensajes? \xbfQu\xe9 problema causar\xeda eso?',
+    'El system prompt define qui\xe9n es tu ' + tipo + ' antes de que empiece a hablar. \xbfQu\xe9 pasar\xeda si ese texto estuviera adentro del bucle while True en lugar de antes? \xbfSe aplicar\xeda bien la regla "' + regla + '"?',
+    '\xbfPor qu\xe9 el system prompt de tu ' + tipo + ' se inyecta al historial una sola vez, antes del while True? \xbfQu\xe9 pasar\xeda con la memoria de la IA si se agregara en cada vuelta del bucle?'
+  ];
+
+  var q2 = [
+    'La funci\xf3n consultar_ia usa return y no print. Si tu ' + tipo + ' imprimiera la respuesta con print adentro de la funci\xf3n, \xbfc\xf3mo har\xedas para guardar esa respuesta en el historial despu\xe9s?',
+    'La funci\xf3n del backend solo usa return, nunca print. Explic\xe1 con tus palabras la diferencia entre que una funci\xf3n "diga" algo por pantalla y que "devuelva" algo al programa. \xbfPor qu\xe9 importa esa diferencia en la arquitectura de tu chatbot?',
+    '\xbfPor qu\xe9 la funci\xf3n consultar_ia termina con return y no con print? \xbfQu\xe9 le pasar\xeda al historial de tu ' + tipo + ' si la respuesta se imprimiera en lugar de devolverse?'
+  ];
+
+  var q3 = [
+    'El historial es la memoria activa de tu ' + tipo + ' mientras el programa corre. El archivo conversacion_' + code + '.txt es el registro que queda en el disco. \xbfCu\xe1l de los dos lee la IA para recordar lo que dijiste antes? \xbfY cu\xe1l pod\xe9s abrir con el Bloc de Notas?',
+    'Si cerr\xe1s el programa sin usar /guardar, \xbfqu\xe9 le pasa al historial de tu ' + tipo + '? \xbfY al archivo .txt si ya lo hab\xedas generado? Explic\xe1 la diferencia entre memoria RAM y almacenamiento en disco usando tu chatbot como ejemplo.',
+    'Explic\xe1 con tus palabras: \xbfpor qu\xe9 la IA puede recordar lo que dijiste hace 3 mensajes pero no puede "leer" el archivo conversacion_' + code + '.txt que genera el comando /guardar?'
+  ];
+
+  return [q1[idx], q2[idx], q3[idx]];
+}
+
+inicializarAlumnos(STUDENTS);
+function copiarEsqueleto() {
+  if (!current) { alert('Primero selecciona tu apellido.'); return; }
+  navigator.clipboard.writeText(buildSkeleton(current)).then(function() {
+    var btn = document.querySelector('.copy-btn');
+    var orig = btn.textContent;
+    btn.textContent = 'Copiado!';
+    btn.style.background = 'var(--teal)';
+    setTimeout(function(){ btn.textContent = orig; btn.style.background = 'rgba(255,255,255,0.15)'; }, 2000);
+  });
+}
+
+</script>
+</body>
+</html>
