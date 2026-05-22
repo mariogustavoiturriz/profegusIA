@@ -11,6 +11,7 @@
     --modBg: #FFEBEE;  --modBorder: #C62828;
     --memBg: #FFF8E1;  --memBorder: #F9A825;
     --ifBg: #F3E5F5;   --ifBorder: #6A1B9A;
+    --rpgBg: #F8F3FF;  --rpgBorder: #5C2070;
     --codeBg: #FAFAFA; --r: 10px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -22,9 +23,8 @@
 
   .container { width: 95%; max-width: 1000px; margin: 20px auto; background: var(--bco); border-radius: var(--r); box-shadow: 0 4px 12px rgba(0,0,0,0.1); overflow: hidden; }
   
-  /* Pestañas */
   .tabs { display: flex; background: #DCDCDC; border-bottom: 3px solid var(--nav); }
-  .tab-btn { flex: 1; padding: 18px; text-align: center; font-size: 20px; font-weight: bold; cursor: pointer; transition: 0.3s; color: #555; }
+  .tab-btn { flex: 1; padding: 18px; text-align: center; font-size: 19px; font-weight: bold; cursor: pointer; transition: 0.3s; color: #555; }
   .tab-btn:hover { background: #E8E8E8; }
   .tab-btn.active { background: var(--bco); color: var(--nav); border-bottom: 4px solid var(--fijoBorder); }
   
@@ -32,7 +32,6 @@
   .tab-content.active { display: block; animation: fadeIn 0.4s; }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-  /* Elementos de la Guía */
   h2 { color: var(--nav); margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid #ddd; padding-bottom: 5px; font-size: 26px; }
   ul { margin-left: 25px; margin-bottom: 15px; }
   li { margin-bottom: 8px; }
@@ -53,16 +52,23 @@
   .tbox.ifbox { background: var(--ifBg); border-color: var(--ifBorder); }
   .tbox.ifbox .tbox-title { background: #E1BEE7; color: var(--ifBorder); border-bottom: 2px solid var(--ifBorder); }
 
+  .tbox.rpg { background: var(--rpgBg); border-color: var(--rpgBorder); }
+  .tbox.rpg .tbox-title { background: #E8D5F5; color: var(--rpgBorder); border-bottom: 2px solid var(--rpgBorder); }
+
+  .alerta { background: #FFF3CD; border: 2px solid #F9A825; border-radius: 8px; padding: 14px 18px; margin: 15px 0; font-size: 18px; }
+  .alerta strong { color: #E65100; display: block; margin-bottom:5px; }
+
   .code-block { background: var(--codeBg); border: 1px solid #ccc; padding: 15px; border-radius: 6px; font-family: 'Consolas', monospace; font-size: 16px; overflow-x: auto; white-space: pre; margin-top: 10px; color: #333; }
   .kw { color: blue; font-weight: bold; }
   .str { color: #D84315; }
   .cmt { color: #2E7D32; font-style: italic; }
+  .ok  { color: #1B5E20; font-weight: bold; }
+  .err { color: #C62828; text-decoration: line-through; }
 
   .mem-table { width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 10px; background: white; }
   .mem-table th, .mem-table td { border: 1px solid var(--memBorder); padding: 10px; text-align: left; }
   .mem-table th { background: #FFE082; }
   
-  /* Estilos del Quiz */
   .quiz-q { background: #F9F9F9; border: 1px solid #DDD; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
   .quiz-q p { font-weight: bold; margin-bottom: 10px; font-size: 20px; }
   .option { display: block; padding: 10px; margin-bottom: 8px; background: #FFF; border: 1px solid #CCC; border-radius: 6px; cursor: pointer; transition: 0.2s; }
@@ -72,7 +78,6 @@
   .correct { background: #C8E6C9 !important; border-color: #2E7D32 !important; color: #1B5E20; font-weight: bold; }
   .incorrect { background: #FFCDD2 !important; border-color: #C62828 !important; color: #B71C1C; text-decoration: line-through; }
 
-  /* Estilos de Ordenar */
   .order-container { background: #F3E5F5; border: 2px solid #8E24AA; padding: 20px; border-radius: 8px; margin-top: 30px; }
   .order-item { display: flex; align-items: center; justify-content: space-between; background: white; padding: 12px 15px; margin-bottom: 10px; border: 1px solid #BA68C8; border-radius: 6px; font-weight: bold; font-size: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
   .btn-group { display: flex; gap: 5px; }
@@ -82,8 +87,17 @@
 
   .btn-submit { display: block; width: 100%; background: var(--nav); color: white; border: none; padding: 15px; font-size: 22px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 30px; transition: 0.3s; }
   .btn-submit:hover { background: #1565C0; }
-  
   #quiz-result { margin-top: 20px; padding: 20px; border-radius: 8px; font-size: 22px; font-weight: bold; text-align: center; display: none; }
+
+  .conexion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+  .con-card { border-radius: 8px; padding: 18px; border: 2px solid; }
+  .con-tp2 { border-color: var(--fijoBorder); background: var(--fijoBg); }
+  .con-rpg { border-color: var(--rpgBorder); background: var(--rpgBg); }
+  .con-card h4 { font-size: 18px; margin-bottom: 10px; }
+  .con-tp2 h4 { color: var(--fijoBorder); }
+  .con-rpg h4 { color: var(--rpgBorder); }
+  .con-card ul { font-size: 17px; line-height: 2; }
+  @media(max-width:600px){ .conexion-grid{grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
@@ -95,28 +109,28 @@
 
 <div class="container">
   <div class="tabs">
-    <div class="tab-btn active" onclick="openTab(event, 'guia')">📖 La Guía Teórica</div>
-    <div class="tab-btn" onclick="openTab(event, 'repaso')">🧠 Actividad de Repaso</div>
+    <div class="tab-btn active" onclick="openTab(event,'guia')">📖 La Guía Teórica</div>
+    <div class="tab-btn" onclick="openTab(event,'repaso')">🧠 Actividad de Repaso</div>
+    <div class="tab-btn" onclick="openTab(event,'juego')">🎮 Conexión con el Juego</div>
   </div>
 
-  <!-- PESTAÑA 1: LA GUÍA VISUAL -->
+  <!-- ══════ PESTAÑA 1: GUÍA ══════════════════════════════════════════════ -->
   <div id="guia" class="tab-content active">
     
     <h2>La Regla de Oro: El Restaurante</h2>
     <p>Para entender tu código, imaginate que tu programa es un restaurante:</p>
     <ul>
-        <li><strong>La Cocina (Backend):</strong> Es la función <code>consultar_ia</code>. El chef trabaja a puertas cerradas, se conecta a internet y cocina la respuesta. <strong>Nunca sale a hablar con el cliente</strong> (no usa <code>print</code>).</li>
-        <li><strong>El Salón (Frontend):</strong> Es el bucle <code>while True</code>. Es el mozo que atiende al usuario, anota los pedidos y habla con él.</li>
-        <li><strong>La Libreta (El Historial):</strong> Es la memoria. El mozo anota TODO ahí para no olvidarse de nada.</li>
+      <li><strong>La Cocina (Backend):</strong> Es la función <code>consultar_ia</code>. El chef trabaja a puertas cerradas, se conecta a internet y cocina la respuesta. <strong>Nunca sale a hablar con el cliente</strong> (no usa <code>print</code>).</li>
+      <li><strong>El Salón (Frontend):</strong> Es el bucle <code>while True</code>. Es el mozo que atiende al usuario, anota los pedidos y habla con él.</li>
+      <li><strong>La Libreta (El Historial):</strong> Es la memoria. El mozo anota TODO ahí para no olvidarse de nada.</li>
     </ul>
 
-    <div class="tbox fijo" style="margin-top: 20px;">
+    <div class="tbox fijo" style="margin-top:20px;">
       <div class="tbox-title">CAJA AZUL: EL MOTOR (No se toca)</div>
       <div class="tbox-content">Lo que está en estas cajas es estructural. Solo tenés que copiarlo y ubicarlo en el lugar correcto.</div>
     </div>
-    
     <div class="tbox mod">
-      <div class="tbox-title">CAJA ROJA: TU CREATIVIDAD (Vos programás)</div>
+      <div class="tbox-title">CAJA ROJA: TU CREATIVIDAD (Vos completás)</div>
       <div class="tbox-content">Acá completás vos. Son tus datos, tus reglas y tus variables.</div>
     </div>
 
@@ -125,33 +139,29 @@
 
     <div class="tbox fijo">
       <div class="tbox-title">1.A. Librería (Fijo)</div>
-      <div class="tbox-content">
-        <div class="code-block"><span class="kw">import</span> requests</div>
-      </div>
+      <div class="tbox-content"><div class="code-block"><span class="kw">import</span> requests</div></div>
     </div>
 
     <div class="tbox mod">
       <div class="tbox-title">1.B. Tu Llave de Acceso (Modificable)</div>
       <div class="tbox-content">
-        <em>¡Atención acá! Borrá el texto de ejemplo y pegá tu clave de Groq real entre las comillas.</em>
+        <em>Borrá el texto de ejemplo y pegá tu clave de Groq real entre las comillas.</em>
         <div class="code-block">API_KEY = <span class="str">"gsk_pega_tu_clave_aqui"</span></div>
       </div>
     </div>
 
     <div class="tbox fijo">
       <div class="tbox-title">1.C. Constantes y Libreta (Fijo)</div>
-      <div class="tbox-content">
-        <div class="code-block">URL = <span class="str">"https://api.groq.com/openai/v1/chat/completions"</span>
+      <div class="tbox-content"><div class="code-block">URL = <span class="str">"https://api.groq.com/openai/v1/chat/completions"</span>
 headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer {API_KEY}"</span>, <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>}
 
-historial = [] <span class="cmt"># <- LA LIBRETA VACIA</span></div>
-      </div>
+historial = []  <span class="cmt"># LA LIBRETA VACÍA</span></div></div>
     </div>
 
     <div class="tbox fijo">
-      <div class="tbox-title">2. El Backend (La Cocina)</div>
+      <div class="tbox-title">2. El Backend — La Cocina (Fijo)</div>
       <div class="tbox-content">
-        Esta función va a internet. Recibe la libreta (<code>mensajes</code>) y devuelve la respuesta lista.
+        Esta función va a internet. Recibe la libreta (<code>mensajes</code>) y devuelve la respuesta lista. <strong>Nunca usa print adentro.</strong>
         <div class="code-block"><span class="kw">def</span> consultar_ia(mensajes, nivel_creatividad):
     payload = {
         <span class="str">"model"</span>: <span class="str">"llama-3.3-70b-versatile"</span>,
@@ -161,125 +171,112 @@ historial = [] <span class="cmt"># <- LA LIBRETA VACIA</span></div>
     <span class="kw">try</span>:
         response = requests.post(URL, headers=headers, json=payload)
         data = response.json()
-        <span class="kw">return</span> data[<span class="str">"choices"</span>][0][<span class="str">"message"</span>][<span class="str">"content"</span>] <span class="cmt"># EL CHEF SACA EL PLATO</span>
+        <span class="kw">return</span> data[<span class="str">"choices"</span>][0][<span class="str">"message"</span>][<span class="str">"content"</span>]  <span class="cmt"># EL CHEF SACA EL PLATO</span>
     <span class="kw">except</span> Exception <span class="kw">as</span> e:
         <span class="kw">return</span> <span class="str">"Ups, error de red."</span></div>
       </div>
     </div>
 
     <div class="tbox mod">
-      <div class="tbox-title">3. El System Prompt (El ADN de la IA)</div>
+      <div class="tbox-title">3. El System Prompt — El ADN de la IA (Vos lo diseñás)</div>
       <div class="tbox-content">
-        Le damos la personalidad. Esto <strong>sí</strong> lo programás vos.
+        Le damos la personalidad a la IA. Esto sí lo programás vos: definís quién es y cómo se comporta.
         <div class="code-block"><span class="kw">print</span>(<span class="str">"Iniciando sistema..."</span>)
 personaje = <span class="kw">input</span>(<span class="str">"¿Personaje?: "</span>)
 temp = <span class="kw">float</span>(<span class="kw">input</span>(<span class="str">"Creatividad (0.0 a 2.0): "</span>))
 
-<span class="cmt"># Armas las reglas</span>
-reglas = f<span class="str">"Sos {personaje}. Responde siempre en mayusculas y en tono enojado."</span>
+<span class="cmt"># Armas las reglas — describí quién es la IA y cómo habla</span>
+reglas = f<span class="str">"Sos {personaje}. Respondés siempre de manera educada y clara."</span>
 
-<span class="cmt"># ANOTAMOS LA PRIMERA REGLA EN LA LIBRETA</span>
+<span class="cmt"># ANOTAMOS LA PRIMERA REGLA EN LA LIBRETA (antes del while True)</span>
 historial.append({<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: reglas})</div>
       </div>
     </div>
 
     <h2>¿Cómo funciona la memoria? (El Historial)</h2>
-    <p>Seguro te cuesta entender por qué usamos <code>.append()</code> todo el tiempo. La lista <code>historial</code> es, literalmente, un chat de WhatsApp interno. Cada mensaje tiene un "quién" (<code>role</code>) y un "qué dijo" (<code>content</code>).</p>
+    <p>La lista <code>historial</code> es, literalmente, un chat interno. Cada mensaje tiene un "quién" (<code>role</code>) y un "qué dijo" (<code>content</code>).</p>
 
     <div class="tbox mem">
       <div class="tbox-title">CÓMO SE VE LA LIBRETA POR DENTRO</div>
       <div class="tbox-content">
         A medida que avanza el programa, la lista va creciendo así:
         <table class="mem-table">
-          <tr><th>Posición 0 (System)</th><td><code>{"role": "system", "content": "Sos Batman"}</code></td></tr>
+          <tr><th>Posición 0 (System)</th><td><code>{"role": "system", "content": "Sos un guía de Ushuaia..."}</code></td></tr>
           <tr><th>Posición 1 (User)</th><td><code>{"role": "user", "content": "Hola, ¿quién sos?"}</code></td></tr>
-          <tr><th>Posición 2 (Assistant)</th><td><code>{"role": "assistant", "content": "Soy la venganza."}</code></td></tr>
-          <tr><th>Posición 3 (User)</th><td><code>{"role": "user", "content": "¿Te gustan los gatos?"}</code></td></tr>
+          <tr><th>Posición 2 (Assistant)</th><td><code>{"role": "assistant", "content": "Soy Marcos, guía del fin del mundo."}</code></td></tr>
+          <tr><th>Posición 3 (User)</th><td><code>{"role": "user", "content": "¿Qué lugares recomendás?"}</code></td></tr>
         </table>
         <em>¡Si no guardamos el mensaje del usuario y la respuesta de la IA en cada vuelta, el bot se olvida de lo que acabamos de hablar!</em>
       </div>
     </div>
 
     <h2>PARTE 2: El Motor (Adentro del <code>while True</code>)</h2>
-    <p>El bucle <code>while True</code> es un ciclo infinito. En cada vuelta, el programa se frena en el <code>input()</code> a esperar que el usuario escriba. Dependiendo de lo que escriba, toma <strong>uno de tres caminos (los IFs)</strong>:</p>
+    <p>El bucle <code>while True</code> es un ciclo infinito. En cada vuelta se frena en el <code>input()</code> y, dependiendo de lo que escriba el usuario, toma <strong>uno de tres caminos (las Puertas)</strong>.</p>
+
+    <div class="alerta">
+      <strong>⚠️ Error frecuente: el /guardar tiene que ir PRIMERO</strong>
+      El comando <code>/guardar</code> debe estar <strong>antes</strong> de que el programa llame a la IA. Si lo ponés al final del bucle, primero manda el texto "/guardar" a la API y gasta tokens innecesarios. Fijate en el orden de las Puertas abajo.
+    </div>
 
     <div class="tbox ifbox">
-      <div class="tbox-title">Las 3 Puertas del Frontend</div>
+      <div class="tbox-title">Las 3 Puertas del Frontend — en el orden correcto</div>
       <div class="tbox-content">
         <div class="code-block"><span class="kw">while True</span>:
-    consulta = <span class="kw">input</span>(<span class="str">"Vos: "</span>) <span class="cmt"># EL PROGRAMA SE FRENA ACA</span>
+    consulta = <span class="kw">input</span>(<span class="str">"Vos: "</span>)  <span class="cmt"># EL PROGRAMA SE FRENA ACÁ</span>
     
-    <span class="cmt"># ---------------------------------------------------------</span>
+    <span class="cmt"># ─────────────────────────────────────────────────────────</span>
     <span class="cmt"># PUERTA 1: EL USUARIO SE QUIERE IR</span>
-    <span class="cmt"># Si escribe salir, nos despedimos y rompemos el ciclo (break).</span>
+    <span class="cmt"># Si escribe "salir", nos despedimos y rompemos el ciclo.</span>
     <span class="kw">if</span> consulta.lower() == <span class="str">"salir"</span>:
         <span class="kw">print</span>(<span class="str">"¡Chau!"</span>)
-        <span class="kw">break</span> 
+        <span class="kw">break</span>
         
-    <span class="cmt"># ---------------------------------------------------------</span>
+    <span class="cmt"># ─────────────────────────────────────────────────────────</span>
     <span class="cmt"># PUERTA 2: EL USUARIO QUIERE GUARDAR EL LOG</span>
-    <span class="cmt"># Escribimos el .txt en el disco y volvemos a empezar (continue).</span>
+    <span class="cmt"># Va ANTES de llamar a la IA para no gastar tokens innecesarios.</span>
+    <span class="cmt"># El continue al final es OBLIGATORIO: sin él, el código de abajo</span>
+    <span class="cmt"># igual se ejecuta y le manda "/guardar" a la IA como si fuera un mensaje.</span>
     <span class="kw">if</span> consulta.lower() == <span class="str">"/guardar"</span>:
         <span class="kw">with open</span>(<span class="str">"conversacion.txt"</span>, <span class="str">"w"</span>, encoding=<span class="str">"utf-8"</span>) <span class="kw">as</span> archivo:
             <span class="kw">for</span> linea <span class="kw">in</span> historial:
                 archivo.write(f<span class="str">"{linea['role']}: {linea['content']}\n\n"</span>)
-        <span class="kw">print</span>(<span class="str">"¡Archivo guardado con exito!"</span>)
-        <span class="kw">continue</span> <span class="cmt"># Ignora lo de abajo y vuelve a pedir un input</span>
+        <span class="kw">print</span>(<span class="str">"¡Archivo guardado!"</span>)
+        <span class="kw">continue</span>  <span class="ok"># ← OBLIGATORIO: vuelve arriba sin pasar por la Puerta 3</span>
         
-    <span class="cmt"># ---------------------------------------------------------</span>
+    <span class="cmt"># ─────────────────────────────────────────────────────────</span>
     <span class="cmt"># PUERTA 3: EL USUARIO QUIERE CHARLAR (El camino normal)</span>
-    <span class="cmt"># Si no escribio "salir" ni "/guardar", entonces le esta hablando a la IA.</span>
+    <span class="cmt"># Solo llega acá si NO escribió "salir" ni "/guardar".</span>
     
     <span class="cmt"># A) Anotamos lo que dijo el usuario en la libreta</span>
     historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: consulta})
     
-    <span class="cmt"># B) Le mandamos la libreta al Backend (Chef) para que cocine la respuesta</span>
+    <span class="cmt"># B) Le mandamos la libreta al Backend para que cocine la respuesta</span>
     respuesta_ia = consultar_ia(historial, temp)
     
-    <span class="cmt"># C) Imprimimos la respuesta en pantalla (El Mozo sirve el plato)</span>
+    <span class="cmt"># C) Imprimimos la respuesta en pantalla</span>
     <span class="kw">print</span>(f<span class="str">"IA: {respuesta_ia}"</span>)
     
-    <span class="cmt"># D) Anotamos lo que respondio la IA en la libreta para que no se olvide</span>
+    <span class="cmt"># D) Anotamos lo que respondió la IA para que no se olvide</span>
     historial.append({<span class="str">"role"</span>: <span class="str">"assistant"</span>, <span class="str">"content"</span>: respuesta_ia})</div>
       </div>
     </div>
   </div>
 
-  <!-- PESTAÑA 2: REPASO INTERACTIVO -->
+  <!-- ══════ PESTAÑA 2: REPASO ════════════════════════════════════════════ -->
   <div id="repaso" class="tab-content">
-    <h2>📝 Cuestionario de Fijación (Multiple Choice)</h2>
-    <p style="margin-bottom: 20px;">Lee cada pregunta y seleccioná la respuesta correcta. Al final, apretá "Corregir".</p>
-
-    <div id="quiz-container">
-      <!-- Las preguntas se generan con JS -->
-    </div>
+    <h2>📝 Cuestionario de Fijación</h2>
+    <p style="margin-bottom:20px;">Leé cada pregunta y seleccioná la respuesta correcta. Al final apretá "Corregir".</p>
+    <div id="quiz-container"></div>
 
     <div class="order-container">
-      <h2 style="margin-top: 0; color: #6A1B9A; border-bottom-color: #BA68C8;">🔄 Ordená el Flujo del Chat</h2>
-      <p style="margin-bottom: 15px;">Pensá en la "Puerta 3" (cuando el usuario quiere charlar). Ordená estos pasos lógicamente usando los botones de subir (⬆️) y bajar (⬇️).</p>
-      
+      <h2 style="margin-top:0;color:#6A1B9A;border-bottom-color:#BA68C8;">🔄 Ordená el Flujo del Chat</h2>
+      <p style="margin-bottom:15px;">Pensá en la Puerta 3 (cuando el usuario quiere charlar). Ordená estos pasos usando los botones.</p>
       <div id="order-list">
-        <!-- Elementos mezclados -->
-        <div class="order-item" data-id="4">
-          <span>El programa imprime la respuesta en la pantalla (print).</span>
-          <div class="btn-group"><button class="btn-move" onclick="moveUp(this)">⬆️</button><button class="btn-move" onclick="moveDown(this)">⬇️</button></div>
-        </div>
-        <div class="order-item" data-id="1">
-          <span>El usuario escribe su consulta en el input.</span>
-          <div class="btn-group"><button class="btn-move" onclick="moveUp(this)">⬆️</button><button class="btn-move" onclick="moveDown(this)">⬇️</button></div>
-        </div>
-        <div class="order-item" data-id="5">
-          <span>El programa anota la respuesta de la IA en la libreta (append assistant).</span>
-          <div class="btn-group"><button class="btn-move" onclick="moveUp(this)">⬆️</button><button class="btn-move" onclick="moveDown(this)">⬇️</button></div>
-        </div>
-        <div class="order-item" data-id="2">
-          <span>El programa anota lo que dijo el usuario en la libreta (append user).</span>
-          <div class="btn-group"><button class="btn-move" onclick="moveUp(this)">⬆️</button><button class="btn-move" onclick="moveDown(this)">⬇️</button></div>
-        </div>
-        <div class="order-item" data-id="3">
-          <span>El programa le manda la libreta completa al Chef (Llama a consultar_ia).</span>
-          <div class="btn-group"><button class="btn-move" onclick="moveUp(this)">⬆️</button><button class="btn-move" onclick="moveDown(this)">⬇️</button></div>
-        </div>
+        <div class="order-item" data-id="4"><span>El programa imprime la respuesta en la pantalla (print).</span><div class="btn-group"><button class="btn-move" onclick="moveUp(this)">⬆️</button><button class="btn-move" onclick="moveDown(this)">⬇️</button></div></div>
+        <div class="order-item" data-id="1"><span>El usuario escribe su consulta en el input.</span><div class="btn-group"><button class="btn-move" onclick="moveUp(this)">⬆️</button><button class="btn-move" onclick="moveDown(this)">⬇️</button></div></div>
+        <div class="order-item" data-id="5"><span>El programa anota la respuesta de la IA en la libreta (append assistant).</span><div class="btn-group"><button class="btn-move" onclick="moveUp(this)">⬆️</button><button class="btn-move" onclick="moveDown(this)">⬇️</button></div></div>
+        <div class="order-item" data-id="2"><span>El programa anota lo que dijo el usuario en la libreta (append user).</span><div class="btn-group"><button class="btn-move" onclick="moveUp(this)">⬆️</button><button class="btn-move" onclick="moveDown(this)">⬇️</button></div></div>
+        <div class="order-item" data-id="3"><span>El programa le manda la libreta completa al Chef (llama a consultar_ia).</span><div class="btn-group"><button class="btn-move" onclick="moveUp(this)">⬆️</button><button class="btn-move" onclick="moveDown(this)">⬇️</button></div></div>
       </div>
     </div>
 
@@ -287,196 +284,239 @@ historial.append({<span class="str">"role"</span>: <span class="str">"system"</s
     <div id="quiz-result"></div>
   </div>
 
-</div>
+  <!-- ══════ PESTAÑA 3: CONEXIÓN CON EL JUEGO ════════════════════════════ -->
+  <div id="juego" class="tab-content">
+    <h2>🎮 Del Chatbot a la Aventura Narrada</h2>
+    <p>El juego de hoy usa <strong>exactamente la misma arquitectura</strong> que el TP2. No empezás de cero — agregás dos piezas nuevas sobre lo que ya sabés.</p>
+
+    <div class="conexion-grid">
+      <div class="con-card con-tp2">
+        <h4>📱 TP2 — Chatbot</h4>
+        <ul>
+          <li>Función <code>consultar_ia</code></li>
+          <li>Libreta <code>historial</code></li>
+          <li>System Prompt (personaje)</li>
+          <li>Puerta 1: <code>salir</code></li>
+          <li>Puerta 2: <code>/guardar</code> + continue</li>
+          <li>Puerta 3: append → consultar → print → append</li>
+        </ul>
+      </div>
+      <div class="con-card con-rpg">
+        <h4>🗺️ Juego — Aventura Narrada</h4>
+        <ul>
+          <li>Función <code>consultar_ia</code> — igual</li>
+          <li>Libreta <code>historial</code> — igual</li>
+          <li>System Prompt — ahora es el <strong>narrador</strong></li>
+          <li>Puerta 1: <code>salir</code> — igual</li>
+          <li>Puerta 2: <code>/guardar</code> — igual</li>
+          <li>Puerta 3: igual + <strong>estado inyectado</strong></li>
+          <li>➕ Diccionario <code>jugador</code> con HP e inventario</li>
+          <li>➕ Puertas nuevas: <code>/estado</code>, <code>/tomar</code>, etc.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tbox rpg" style="margin-top:25px;">
+      <div class="tbox-title">¿Dónde va el diccionario jugador?</div>
+      <div class="tbox-content">
+        Va entre las constantes y el historial — afuera del bucle, igual que el historial:
+        <div class="code-block"><span class="cmt"># Después de las constantes (URL, headers) y la función consultar_ia</span>
+
+jugador = {
+    <span class="str">"nombre"</span>:    <span class="str">"Viajero"</span>,
+    <span class="str">"hp"</span>:        100,       <span class="cmt"># HP = Hit Points = puntos de vida</span>
+    <span class="str">"inventario"</span>: [],
+    <span class="str">"ubicacion"</span>: <span class="str">"punto de partida"</span>
+}
+
+historial = []  <span class="cmt"># La libreta, igual que siempre</span>
+historial.append({<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: game_master})</div>
+      </div>
+    </div>
+
+    <div class="tbox rpg">
+      <div class="tbox-title">¿Cómo se inyecta el estado en la Puerta 3?</div>
+      <div class="tbox-content">
+        En lugar de mandar solo lo que escribió el usuario, mandamos el estado actual del jugador también. Así el narrador siempre sabe cómo está el personaje:
+        <div class="code-block"><span class="cmt"># En la Puerta 3, en lugar de:</span>
+historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: consulta})
+
+<span class="cmt"># Usamos esto (el estado viaja junto con la acción del jugador):</span>
+mensaje_turno = f<span class="str">"""[Estado: HP={jugador['hp']}, inventario={jugador['inventario']}]
+Acción: {consulta}"""</span>
+historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: mensaje_turno})</div>
+      </div>
+    </div>
+
+    <div class="alerta" style="margin-top:20px;">
+      <strong>💡 Lo único que cambia de verdad</strong>
+      El System Prompt ya no define un asistente que responde preguntas. Ahora define un <strong>narrador que guía una historia</strong>: describe el mundo, interpreta las acciones del jugador y al final de cada respuesta siempre ofrece 3 opciones (A, B, C) para que el jugador elija.
+    </div>
+  </div>
+
+</div><!-- /container -->
 
 <script>
-  // Lógica de Pestañas
-  function openTab(evt, tabId) {
-    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById(tabId).classList.add('active');
-    evt.currentTarget.classList.add('active');
+function openTab(evt, tabId) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  evt.currentTarget.classList.add('active');
+}
+
+// Quiz — respuestas distribuidas intencionalmente en A/B/C sin patrón fijo
+const questions = [
+  {
+    q: "1. En la metáfora del restaurante, ¿qué representa la 'Cocina'?",
+    opts: [
+      { text: "A. La función consultar_ia", val: true },
+      { text: "B. El bucle while True", val: false },
+      { text: "C. El historial", val: false }
+    ]
+  },
+  {
+    q: "2. ¿Qué instrucción usamos para que el Chef 'saque el plato' sin salir al salón?",
+    opts: [
+      { text: "A. print()", val: false },
+      { text: "B. append()", val: false },
+      { text: "C. return", val: true }
+    ]
+  },
+  {
+    q: "3. ¿Para qué sirve la lista historial?",
+    opts: [
+      { text: "A. Para guardar el código del programa", val: false },
+      { text: "B. Para darle memoria a la IA y que no olvide la charla", val: true },
+      { text: "C. Para conectarse a internet", val: false }
+    ]
+  },
+  {
+    q: "4. El System Prompt se anota en el historial...",
+    opts: [
+      { text: "A. Adentro del bucle, en cada vuelta", val: false },
+      { text: "B. Adentro de la función del backend", val: false },
+      { text: "C. Afuera del bucle, una sola vez al principio", val: true }
+    ]
+  },
+  {
+    q: "5. ¿Por qué el /guardar tiene que ir ANTES de llamar a la IA?",
+    opts: [
+      { text: "A. Porque si va al final, manda el texto '/guardar' a la API y gasta tokens innecesarios", val: true },
+      { text: "B. Porque Python no permite abrir archivos dentro del bucle", val: false },
+      { text: "C. Porque el historial se borra si llamás a consultar_ia primero", val: false }
+    ]
+  },
+  {
+    q: "6. ¿Qué pasa si te olvidás del 'continue' después del /guardar?",
+    opts: [
+      { text: "A. El archivo no se guarda", val: false },
+      { text: "B. El programa sigue ejecutando la Puerta 3 y le manda '/guardar' a la IA como si fuera un mensaje", val: true },
+      { text: "C. El programa se cierra solo", val: false }
+    ]
+  },
+  {
+    q: "7. ¿Qué pasa si olvidás anotar la respuesta de la IA en el historial?",
+    opts: [
+      { text: "A. El programa tira un error rojo", val: false },
+      { text: "B. La IA se olvida de lo que acaba de responder en el próximo turno", val: false },
+      { text: "C. La IA se olvida inmediatamente de lo que acaba de responder", val: true }
+    ]
+  },
+  {
+    q: "8. Las cajas ROJAS en la guía significan:",
+    opts: [
+      { text: "A. Código que tenés que completar vos con tus datos y variables", val: true },
+      { text: "B. Código que está mal y tira error", val: false },
+      { text: "C. Estructura fija que no se puede tocar", val: false }
+    ]
+  },
+  {
+    q: "9. ¿Cuál es el trabajo principal del mozo (Frontend / while True)?",
+    opts: [
+      { text: "A. Procesar la inteligencia artificial", val: false },
+      { text: "B. Validar que la API Key sea correcta", val: false },
+      { text: "C. Hablar con el usuario, pedir inputs y mostrar prints", val: true }
+    ]
+  },
+  {
+    q: "10. En el proyecto del juego, ¿qué cambia respecto al TP2?",
+    opts: [
+      { text: "A. La función consultar_ia cambia completamente", val: false },
+      { text: "B. Se agrega un diccionario de estado del jugador y el System Prompt define un narrador en lugar de un asistente", val: true },
+      { text: "C. El historial ya no se usa", val: false }
+    ]
   }
+];
 
-  // Datos del Quiz
-  const questions = [
-    {
-      q: "1. En nuestra metáfora del restaurante, ¿qué representa la 'Cocina'?",
-      opts: [
-        { text: "A. El bucle while True", val: false },
-        { text: "B. La función consultar_ia", val: true },
-        { text: "C. El historial", val: false }
-      ]
-    },
-    {
-      q: "2. ¿Qué instrucción usamos para que el Chef 'saque el plato' sin salir al salón?",
-      opts: [
-        { text: "A. print()", val: false },
-        { text: "B. append()", val: false },
-        { text: "C. return", val: true }
-      ]
-    },
-    {
-      q: "3. ¿Para qué sirve la lista historial?",
-      opts: [
-        { text: "A. Para guardar el código de programación", val: false },
-        { text: "B. Para darle memoria a la IA y que no se olvide de la charla", val: true },
-        { text: "C. Para conectarse al internet de Groq", val: false }
-      ]
-    },
-    {
-      q: "4. El System Prompt (las reglas del personaje) se anota en el historial...",
-      opts: [
-        { text: "A. Afuera del bucle, una sola vez al principio", val: true },
-        { text: "B. Adentro del bucle, en cada vuelta", val: false },
-        { text: "C. Adentro de la función del backend", val: false }
-      ]
-    },
-    {
-      q: "5. ¿Qué hace exactamente la instrucción historial.append(...)?",
-      opts: [
-        { text: "A. Borra el último mensaje", val: false },
-        { text: "B. Anota un nuevo mensaje al final de la libreta", val: true },
-        { text: "C. Envía el mensaje a la API", val: false }
-      ]
-    },
-    {
-      q: "6. ¿Qué pasa si te olvidás de anotar la respuesta de la IA en el historial?",
-      opts: [
-        { text: "A. El programa tira un error rojo gigante", val: false },
-        { text: "B. La IA se olvida inmediatamente de lo que acaba de responder", val: true },
-        { text: "C. Se corta la conexión a internet", val: false }
-      ]
-    },
-    {
-      q: "7. En el código de la guía, ¿qué significan las cajas ROJAS?",
-      opts: [
-        { text: "A. Es el código donde vos tenés que pensar y poner tus datos/variables", val: true },
-        { text: "B. Es código que está mal y tira error", val: false },
-        { text: "C. Es la estructura fija que no se puede tocar", val: false }
-      ]
-    },
-    {
-      q: "8. Cuando el usuario escribe '/guardar', usamos 'continue'. ¿Para qué sirve?",
-      opts: [
-        { text: "A. Para frenar y apagar el programa por completo", val: false },
-        { text: "B. Para borrar todo el historial", val: false },
-        { text: "C. Para ignorar el código de abajo y volver arriba a pedir otro mensaje", val: true }
-      ]
-    },
-    {
-      q: "9. ¿Cuál es el trabajo principal del mozo (Frontend / while True)?",
-      opts: [
-        { text: "A. Procesar la inteligencia artificial", val: false },
-        { text: "B. Hablar con el usuario, pedir inputs y mostrar prints", val: true },
-        { text: "C. Validar que la API KEY sea correcta", val: false }
-      ]
-    },
-    {
-      q: "10. La instrucción 'while True:' sirve para...",
-      opts: [
-        { text: "A. Crear un ciclo infinito para que el chat no se cierre tras un mensaje", val: true },
-        { text: "B. Saber si el usuario dijo la verdad", val: false },
-        { text: "C. Guardar un archivo de texto", val: false }
-      ]
-    }
-  ];
+const quizContainer = document.getElementById('quiz-container');
+questions.forEach((item, index) => {
+  let html = `<div class="quiz-q" id="q-${index}"><p>${item.q}</p>`;
+  item.opts.forEach(opt => {
+    html += `<label class="option"><input type="radio" name="q${index}" value="${opt.val}"> ${opt.text}</label>`;
+  });
+  html += `</div>`;
+  quizContainer.innerHTML += html;
+});
 
-  // Renderizar Quiz
-  const quizContainer = document.getElementById('quiz-container');
+function updateButtons() {
+  const items = document.querySelectorAll('.order-item');
+  items.forEach((item, index) => {
+    const btns = item.querySelectorAll('.btn-move');
+    btns[0].disabled = (index === 0);
+    btns[1].disabled = (index === items.length - 1);
+  });
+}
+function moveUp(btn) {
+  const item = btn.closest('.order-item');
+  if (item.previousElementSibling) { item.parentNode.insertBefore(item, item.previousElementSibling); updateButtons(); }
+}
+function moveDown(btn) {
+  const item = btn.closest('.order-item');
+  if (item.nextElementSibling) { item.parentNode.insertBefore(item.nextElementSibling, item); updateButtons(); }
+}
+updateButtons();
+
+function corregirTodo() {
+  let puntaje = 0;
   questions.forEach((item, index) => {
-    let html = `<div class="quiz-q" id="q-${index}"><p>${item.q}</p>`;
-    item.opts.forEach((opt, optIndex) => {
-      html += `<label class="option"><input type="radio" name="q${index}" value="${opt.val}"> ${opt.text}</label>`;
+    const qDiv = document.getElementById(`q-${index}`);
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    qDiv.querySelectorAll('.option').forEach(lbl => {
+      lbl.classList.remove('correct','incorrect');
+      if (lbl.querySelector('input').value === "true") lbl.classList.add('correct');
     });
-    html += `</div>`;
-    quizContainer.innerHTML += html;
+    if (selected && selected.value === "true") puntaje++;
+    else if (selected) selected.closest('.option').classList.add('incorrect');
   });
 
-  // Funciones para Ordenar Listas
-  function updateButtons() {
-    const items = document.querySelectorAll('.order-item');
-    items.forEach((item, index) => {
-      const btns = item.querySelectorAll('.btn-move');
-      btns[0].disabled = (index === 0); // Disable Up
-      btns[1].disabled = (index === items.length - 1); // Disable Down
-    });
+  const orderItems = document.querySelectorAll('.order-item');
+  let actualOrder = [];
+  orderItems.forEach(item => actualOrder.push(item.getAttribute('data-id')));
+  let ordenCorrecto = actualOrder.join(',') === "1,2,3,4,5";
+  const oc = document.querySelector('.order-container');
+  if (ordenCorrecto) {
+    oc.style.borderColor = "#2E7D32"; oc.style.backgroundColor = "#E8F5E9"; puntaje += 2;
+  } else {
+    oc.style.borderColor = "#C62828"; oc.style.backgroundColor = "#FFEBEE";
   }
 
-  function moveUp(btn) {
-    const item = btn.closest('.order-item');
-    if (item.previousElementSibling) {
-      item.parentNode.insertBefore(item, item.previousElementSibling);
-      updateButtons();
-    }
+  const resDiv = document.getElementById('quiz-result');
+  resDiv.style.display = "block";
+  const total = puntaje;
+  if (total >= 9) {
+    resDiv.innerHTML = `🌟 ¡Excelente! ${total}/12 puntos. ¡Tenés clarísima la arquitectura!`;
+    resDiv.style.background = "#D4EDDA"; resDiv.style.color = "#155724";
+  } else if (total >= 6) {
+    resDiv.innerHTML = `👍 ¡Aprobado! ${total}/12 puntos. Dale una leída más a las cajas azules.`;
+    resDiv.style.background = "#FFF3CD"; resDiv.style.color = "#856404";
+  } else {
+    resDiv.innerHTML = `💪 ¡A no bajar los brazos! ${total}/12 puntos. Revisá bien qué puerta abre cada instrucción.`;
+    resDiv.style.background = "#F8D7DA"; resDiv.style.color = "#721C24";
   }
-
-  function moveDown(btn) {
-    const item = btn.closest('.order-item');
-    if (item.nextElementSibling) {
-      item.parentNode.insertBefore(item.nextElementSibling, item);
-      updateButtons();
-    }
+  if (!ordenCorrecto) {
+    resDiv.innerHTML += `<br><span style="font-size:16px;font-weight:normal;margin-top:10px;display:block;">⚠️ Pista para ordenar: primero el usuario escribe → se anota → va al Chef → se muestra → se anota la respuesta.</span>`;
   }
-  
-  // Inicializar botones de orden
-  updateButtons();
-
-  // Corrección
-  function corregirTodo() {
-    let puntaje = 0;
-    
-    // Corregir Multiple Choice
-    questions.forEach((item, index) => {
-      const qDiv = document.getElementById(`q-${index}`);
-      const selected = document.querySelector(`input[name="q${index}"]:checked`);
-      const labels = qDiv.querySelectorAll('.option');
-      
-      labels.forEach(lbl => {
-        lbl.classList.remove('correct', 'incorrect');
-        const inp = lbl.querySelector('input');
-        if(inp.value === "true") lbl.classList.add('correct');
-      });
-
-      if (selected && selected.value === "true") puntaje++;
-      else if (selected) selected.closest('.option').classList.add('incorrect');
-    });
-
-    // Corregir Orden
-    const orderItems = document.querySelectorAll('.order-item');
-    let ordenCorrecto = true;
-    let actualOrder = [];
-    orderItems.forEach(item => actualOrder.push(item.getAttribute('data-id')));
-    
-    if (actualOrder.join(',') === "1,2,3,4,5") {
-      document.querySelector('.order-container').style.borderColor = "#2E7D32";
-      document.querySelector('.order-container').style.backgroundColor = "#E8F5E9";
-      puntaje += 2; // El orden vale 2 puntos
-    } else {
-      document.querySelector('.order-container').style.borderColor = "#C62828";
-      document.querySelector('.order-container').style.backgroundColor = "#FFEBEE";
-      ordenCorrecto = false;
-    }
-
-    // Resultados
-    const resDiv = document.getElementById('quiz-result');
-    resDiv.style.display = "block";
-    let total = puntaje; // Sobre 12
-    if (total >= 9) {
-      resDiv.innerHTML = `🌟 ¡Excelente! Lograste ${total}/12 puntos. ¡Tenés clarísima la arquitectura!`;
-      resDiv.style.background = "#D4EDDA"; resDiv.style.color = "#155724";
-    } else if (total >= 6) {
-      resDiv.innerHTML = `👍 ¡Aprobado! Lograste ${total}/12 puntos. Estás en el buen camino, dale una leída más a las cajas azules.`;
-      resDiv.style.background = "#FFF3CD"; resDiv.style.color = "#856404";
-    } else {
-      resDiv.innerHTML = `💪 ¡A no bajar los brazos! Lograste ${total}/12 puntos. Revisá bien qué puerta abre cada instrucción en la guía.`;
-      resDiv.style.background = "#F8D7DA"; resDiv.style.color = "#721C24";
-    }
-
-    if(!ordenCorrecto) {
-      resDiv.innerHTML += `<br><span style="font-size:16px;font-weight:normal;margin-top:10px;display:block;">⚠️ Pista para ordenar: Primero el usuario escribe, después se anota, después va al Chef, se muestra en pantalla y por último se anota la respuesta.</span>`;
-    }
-  }
+}
 </script>
 </body>
 </html>
