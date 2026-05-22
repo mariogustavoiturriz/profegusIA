@@ -404,25 +404,31 @@ historial = [{<span class="str">"role"</span>: <span class="str">"system"</span>
         <span class="kw">print</span>(<span class="str">"💾 log_partida.txt generado.\n"</span>)
         <span class="kw">continue</span>   <span class="cm"># vuelve arriba sin llamar a la IA</span>
 
-    <span class="kw">if</span> accion.lower() == <span class="str">"/estado"</span>:
-        inv = <span class="str">", "</span>.join(jugador[<span class="str">"inventario"</span>]) <span class="kw">or</span> <span class="str">"Mochila vacía"</span>
-        <span class="kw">print</span>(f<span class="str">"\n❤️ Vida: {jugador['hp']} | 🎒 {inv}\n"</span>)
-        <span class="kw">continue</span>
+    <span class="cm"># ── TU DESAFÍO: agregá el comando /estado ─────────────────────────────</span>
+    <span class="cm"># Cuando el jugador escriba "/estado", queremos mostrar la ficha:</span>
+    <span class="cm"># ❤️ Vida: 80 | 🎒 llave, antorcha</span>
+    <span class="cm">#</span>
+    <span class="cm"># Tips:</span>
+    <span class="cm"># 1. Detectá si accion == "/estado"  (igual que /guardar)</span>
+    <span class="cm"># 2. Usá jugador["hp"] para la vida y jugador["inventario"] para los objetos</span>
+    <span class="cm"># 3. Para mostrar la lista como texto: ", ".join(jugador["inventario"])</span>
+    <span class="cm">#    Ejemplo: ["llave", "antorcha"]  →  "llave, antorcha"</span>
+    <span class="cm"># 4. No olvides el continue al final</span>
 
     <span class="kw">if</span> accion.lower().startswith(<span class="str">"/tomar "</span>):
-        obj = accion[<span class="nm">7</span>:].strip()       <span class="cm"># saca "/tomar " (7 caracteres) y toma el resto</span>
+        <span class="cm"># accion[7:] descarta los primeros 7 caracteres ("/tomar ")</span>
+        <span class="cm"># y guarda lo que viene después como el objeto</span>
+        <span class="cm"># Ejemplo: "/tomar llave"  →  obj = "llave"</span>
+        obj = accion[<span class="nm">7</span>:]
         jugador[<span class="str">"inventario"</span>].append(obj)
         <span class="kw">print</span>(f<span class="str">"🎒 '{obj}' agregado al inventario.\n"</span>)
         <span class="kw">continue</span>
 
-    <span class="kw">if</span> accion.lower().startswith(<span class="str">"/hp "</span>):
-        <span class="kw">try</span>:
-            cambio = <span class="kw">int</span>(accion[<span class="nm">4</span>:].strip())   <span class="cm"># convierte "/hp -20" → -20</span>
-            jugador[<span class="str">"hp"</span>] = <span class="kw">max</span>(<span class="nm">0</span>, jugador[<span class="str">"hp"</span>] + cambio)
-            <span class="kw">print</span>(f<span class="str">"❤️ HP actualizado: {jugador['hp']}\n"</span>)
-        <span class="kw">except</span>:
-            <span class="kw">print</span>(<span class="str">"Usá: /hp -20 o /hp +10\n"</span>)
-        <span class="kw">continue</span></div></div>
+    <span class="cm"># ── TU DESAFÍO: agregá el comando /hp ─────────────────────────────────</span>
+    <span class="cm"># Cuando la IA narre que perdiste vida, querés poder escribir /hp -20</span>
+    <span class="cm"># para restarle 20 al HP del personaje.</span>
+    <span class="cm"># Pista: es igual que /tomar — detectá si empieza con "/hp ",</span>
+    <span class="cm"># tomá el número que viene después y sumalo a jugador["hp"].</span></div></div>
       </div>
 
       <!-- B8 -->
