@@ -86,7 +86,7 @@
 <div class="container">
   <h2 class="section-title">Próximas Clases y Evaluaciones</h2>
   <div class="grid">
-    <!-- CLASE 12 (Lunes) — habilita el lunes 11 a las 09:45 -->
+    <!-- CLASE 12 (Lunes) — habilita el lunes 11 a las 10:35 -->
     <a href="Clase_12.html" class="card c-futura" 
        data-unlock="2026-05-11T10:35:00-03:00" 
        data-label="Abrir Clase">
@@ -94,6 +94,16 @@
       <h2>Clase 12: Arquitectura 2.1 y Exportación</h2>
       <p>Cierre de Unidad 3. Uso de la función open() para exportar el historial y división técnica de Backend y Frontend.</p>
       <div class="btn">Abrir Clase</div>
+    </a>
+
+    <!-- GUÍA VISUAL CLASE 12 (Miércoles) — habilita el miércoles 13 a las 10:35 -->
+    <a href="guia_tp2.html" class="card c-futura" 
+       data-unlock="2026-05-13T10:35:00-03:00" 
+       data-label="Abrir Guía">
+      <span class="badge-date">Miércoles 13 de Mayo</span>
+      <h2>Repaso Visual: Tu Chatbot (TP2)</h2>
+      <p>Pestaña interactiva para repasar el bucle While, la inyección del System Prompt y el guardado local antes del examen práctico.</p>
+      <div class="btn">Abrir Guía</div>
     </a>
 
     <!-- TP2 (Lunes 18) — habilita el lunes 18 a las 09:45 -->
@@ -104,6 +114,16 @@
       <h2 style="color: var(--rojo);">Trabajo Práctico N° 2</h2>
       <p>Evaluación integradora de 80 minutos. System prompt, memoria de historial y exportación a disco.</p>
       <div class="btn">Abrir Evaluación</div>
+    </a>
+
+    <!-- CLASE 13 (Viernes 22) — habilita el viernes 22 a las 10:35 -->
+    <a href="Clase_13.html" class="card c-futura" 
+       data-unlock="2026-05-22T10:35:00-03:00" 
+       data-label="Abrir Clase">
+      <span class="badge-date">Viernes 22 de Mayo</span>
+      <h2>Clase 13: (Proyecto RPG)</h2>
+      <p>Iniciamos el Proyecto RPG: Aventura Conversacional. Aprendé a diseñar prompts estructurados y controlar la narrativa de la IA.</p>
+      <div class="btn">Abrir Clase</div>
     </a>
   </div>
 
@@ -215,7 +235,9 @@
         
         /* Ponemos el color especifico */
         card.classList.remove('c-futura');
-        if (label === 'Abrir Evaluación') {
+        if (label === 'Abrir Guía') {
+          card.classList.add('c-actual');
+        } else if (label === 'Abrir Evaluación') {
           card.classList.add('c-tp-nuevo');
         } else {
           card.classList.add('c-actual');
