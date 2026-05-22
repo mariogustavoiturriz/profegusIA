@@ -5,82 +5,79 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Taller de IA · Clase 13</title>
 <style>
-  :root {
+  :root{
     --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
     --vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;
     --bco:#FFFFFF;--code-bg:#1E1E1E;--r:12px;
     --rpg:#5C2070;--rpg-bg:#F8F3FF;
     --rojo:#C62828;--rojo-bg:#FFEBEE;
     --azul:#1565C0;--azul-bg:#E3F2FD;
-    --colab:#F9AB00; 
+    --colab:#F9AB00;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:18px;padding:15px 0 50px;}
-  header{background:var(--nav);color:var(--bco);padding:25px 20px;border-bottom:5px solid var(--rpg);border-radius: 8px 8px 0 0;}
+  header{background:var(--nav);color:var(--bco);padding:25px 20px;border-bottom:5px solid var(--rpg);border-radius:8px 8px 0 0;}
   header h1{font-size:26px;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
   header p{font-size:17px;opacity:.9;}
   .container{width:95%;max-width:1400px;margin:0 auto;padding:0 15px;}
-  
   .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
   .c-repaso{border-left-color:#4A6080;background:#F4F7FA;}
   .c-concepto{border-left-color:var(--teal);}
-  .c-esqueleto{border-left-color:var(--vio);background:#FAFCFF;}
-  .c-hoy{border-left-color:var(--grn);background:var(--g2-bg);}
-  .c-entrega{border-left-color:var(--colab);background:#FFFDF0;}
-  .c-asistente{border-left-color:var(--rpg);background:var(--rpg-bg);}
   .c-arte{border-left-color:#E91E63;background:#FCE4EC;}
+  .c-colab{border-left-color:var(--colab);background:#FFFDF0;}
+  .c-esqueleto{border-left-color:var(--vio);background:#FAFCFF;}
+  .c-entrega{border-left-color:var(--grn);background:#EFF8EE;}
+  .c-asistente{border-left-color:var(--rpg);background:var(--rpg-bg);}
   h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
-  
+  h3{color:var(--nav);font-size:19px;margin:20px 0 10px;}
   .badge{background:var(--nav);color:var(--bco);padding:5px 12px;border-radius:6px;font-size:17px;font-weight:bold;}
 
+  /* Errores */
   .errores-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px;}
   .error-card{background:var(--rojo-bg);border:1px solid #FFCDD2;border-left:5px solid var(--rojo);border-radius:var(--r);padding:18px;}
   .error-card h4{color:var(--rojo);font-size:18px;margin-bottom:8px;}
   .error-card p{font-size:16px;line-height:1.6;}
 
+  /* Tabla */
   .tabla-comp{width:100%;border-collapse:collapse;margin-top:14px;font-size:17px;}
   .tabla-comp th{background:var(--nav);color:var(--bco);padding:10px 14px;text-align:left;}
   .tabla-comp td{padding:10px 14px;border-bottom:1px solid var(--bd);}
   .tabla-comp tr:nth-child(even) td{background:var(--gris);}
   .acento{color:var(--rpg);font-weight:bold;}
 
-  .ruta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px;}
-  .ruta-card{border-radius:var(--r);padding:20px;border:2px solid;text-align:center;}
-  .r-hoy{border-color:var(--grn);background:var(--g2-bg);}
-  .r-finde{border-color:var(--amb);background:#FFF8EE;}
-  .r-prox{border-color:var(--rpg);background:var(--rpg-bg);}
-  .ruta-card .cuando{font-size:16px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
-  .r-hoy .cuando{color:var(--grn);}
-  .r-finde .cuando{color:var(--amb);}
-  .r-prox .cuando{color:var(--rpg);}
-
-  .info{padding:18px 20px;border-radius:var(--r);margin:15px 0;border-left:5px solid;font-size:17px;line-height:1.7;}
+  /* Info boxes */
+  .info{padding:16px 20px;border-radius:var(--r);margin:14px 0;border-left:5px solid;font-size:17px;line-height:1.7;}
   .i-teal{background:var(--gris);border-color:var(--teal);}
   .i-amb{background:#FFF8EE;border-color:var(--amb);}
+  .i-colab{background:#FFFDF0;border-color:var(--colab);}
+  .i-rpg{background:var(--rpg-bg);border-color:var(--rpg);}
   .info strong{display:block;margin-bottom:6px;font-size:18px;}
-  
-  /* Tabs */
-  .tabs-container {margin-top: 20px;}
-  .tabs-header {display: flex; gap: 8px; border-bottom: 3px solid var(--vio); flex-wrap: wrap;}
-  .tab-btn {background: var(--bd); border: none; padding: 12px 24px; font-size: 17px; font-weight: bold; color: var(--txt); border-radius: 8px 8px 0 0; cursor: pointer; transition: 0.2s;}
-  .tab-btn:hover {background: #B0C4DE;}
-  .tab-btn.active {background: var(--vio); color: #fff;}
-  .tab-btn.btn-demo {background: #000; color: #00FF41;}
-  .tab-btn.btn-demo.active {background: #00FF41; color: #000;}
-  .tab-pane {display: none; padding: 25px 0; animation: fadeIn 0.3s;}
-  .tab-pane.active {display: block;}
-  @keyframes fadeIn {from {opacity:0;} to {opacity:1;}}
 
-  /* Bloques esqueleto */
+  /* Tabs */
+  .tabs-container{margin-top:20px;}
+  .tabs-header{display:flex;gap:8px;border-bottom:3px solid var(--vio);flex-wrap:wrap;}
+  .tab-btn{background:var(--bd);border:none;padding:12px 24px;font-size:17px;font-weight:bold;color:var(--txt);border-radius:8px 8px 0 0;cursor:pointer;transition:0.2s;}
+  .tab-btn:hover{background:#B0C4DE;}
+  .tab-btn.active{background:var(--vio);color:#fff;}
+  .tab-btn.btn-demo{background:#000;color:#00FF41;}
+  .tab-btn.btn-demo.active{background:#00FF41;color:#000;}
+  .tab-pane{display:none;padding:25px 0;animation:fadeIn 0.3s;}
+  .tab-pane.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+  /* Leyenda */
   .bloque-leyenda{display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap;}
   .ley{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:bold;}
   .ley-dot{width:18px;height:18px;border-radius:4px;flex-shrink:0;}
   .ley-azul{background:var(--azul);}
   .ley-rojo{background:var(--rojo);}
 
-  .bloque{border:2px solid;border-radius:var(--r);margin-bottom:24px;overflow:hidden;position:relative;}
+  /* Bloques */
+  .bloque{border:2px solid;border-radius:var(--r);margin-bottom:24px;overflow:hidden;}
   .bloque-titulo{padding:11px 16px;font-weight:bold;font-size:18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
-  .bloque-desc{padding:12px 16px;font-size:16px;line-height:1.6;border-top:1px solid;background:#fff;}
+  .bloque-desc{padding:14px 16px;font-size:16px;line-height:1.65;border-top:1px solid;background:#fff;}
+  .bloque-ej{padding:12px 16px;font-size:15px;line-height:1.6;border-top:1px dashed;background:#FAFAFA;color:#555;}
+  .bloque-ej strong{color:var(--nav);display:block;margin-bottom:4px;font-size:15px;}
   .b-fijo{border-color:var(--azul);}
   .b-fijo .bloque-titulo{background:#BBDEFB;color:var(--azul);border-bottom:1px solid var(--azul);}
   .b-fijo .bloque-desc{background:var(--azul-bg);border-color:#BBDEFB;}
@@ -88,586 +85,481 @@
   .b-mod .bloque-titulo{background:#FFCDD2;color:var(--rojo);border-bottom:1px solid var(--rojo);}
   .b-mod .bloque-desc{background:var(--rojo-bg);border-color:#FFCDD2;}
 
-  .code-container {position:relative;}
-  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas', 'Courier New', monospace;padding:18px 20px;font-size:16px;overflow-x:auto;white-space:pre;line-height:1.65;margin:0;}
-  
-  .btn-copiar {background: rgba(255, 255, 255, 0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold; transition: all 0.2s;}
-  .btn-copiar:hover {background: rgba(255, 255, 255, 0.3);}
-  
-  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
-  .dk{color:#9CDCFE;} .nm{color:#B5CEA8;} .completar{color:#FFEB3B;font-weight:bold;}
+  /* Código */
+  .code-container{position:relative;}
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas','Courier New',monospace;padding:18px 20px;font-size:16px;overflow-x:auto;white-space:pre;line-height:1.65;margin:0;}
+  .btn-copiar{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);padding:4px 10px;border-radius:4px;cursor:pointer;font-size:13px;font-weight:bold;transition:all 0.2s;}
+  .btn-copiar:hover{background:rgba(255,255,255,0.3);}
+  .kw{color:#569CD6;}.str{color:#CE9178;}.cm{color:#6A9955;font-style:italic;}
+  .dk{color:#9CDCFE;}.nm{color:#B5CEA8;}.completar{color:#FFEB3B;font-weight:bold;}
 
   /* Preguntas */
-  .pregunta-box {background:#fff; border-radius:8px; padding:20px; margin-bottom:15px; border:2px solid var(--bd); box-shadow:0 2px 5px rgba(0,0,0,0.05);}
-  .pregunta-box h4 {color:var(--nav); margin-bottom:8px;}
+  .pregunta-box{background:#fff;border-radius:8px;padding:20px;margin-bottom:15px;border:2px solid var(--bd);box-shadow:0 2px 5px rgba(0,0,0,0.05);}
+  .pregunta-box h4{color:var(--nav);margin-bottom:8px;font-size:18px;}
+  .pregunta-box p{font-size:17px;line-height:1.6;}
 
-  /* Demo RPG */
-  .demo-container {background: #0d1321; color: #e2e8f0; font-family: Consolas, monospace; padding: 20px; border-radius: 12px; border: 2px solid #38bdf8;}
-  .demo-header {border-bottom: 1px solid #334155; padding-bottom: 15px; margin-bottom: 15px;}
-  .demo-header input {width: 100%; padding: 10px; background: #1e293b; border: 1px solid #475569; color: #fff; border-radius: 6px; font-size: 16px;}
-  #demo-chat {height: 350px; overflow-y: auto; background: #1a2235; border-radius: 8px; padding: 15px; margin-bottom: 15px; border: 1px solid #334155;}
-  .msg-ia {color: #38bdf8; margin-bottom: 15px; line-height: 1.5;}
-  .msg-user {color: #a78bfa; text-align: right; margin-bottom: 15px;}
-  .msg-sys {color: #ef4444; font-weight: bold; text-align: center; margin-bottom: 15px;}
-  .demo-input {display: flex; gap: 10px;}
-  .demo-input input {flex: 1; padding: 12px; background: #1e293b; border: 1px solid #475569; color: #fff; border-radius: 6px; font-size: 16px;}
-  .demo-input button {background: #38bdf8; color: #0d1321; font-weight: bold; border: none; padding: 0 20px; border-radius: 6px; cursor: pointer;}
-  
+  /* Demo */
+  .demo-container{background:#0d1321;color:#e2e8f0;font-family:Consolas,monospace;padding:20px;border-radius:12px;border:2px solid #38bdf8;}
+  .demo-header{border-bottom:1px solid #334155;padding-bottom:15px;margin-bottom:15px;}
+  .demo-header p{font-size:15px;color:#cbd5e1;margin-bottom:10px;}
+  .demo-header input{width:100%;padding:10px;background:#1e293b;border:1px solid #475569;color:#fff;border-radius:6px;font-size:16px;}
+  #demo-chat{height:350px;overflow-y:auto;background:#1a2235;border-radius:8px;padding:15px;margin-bottom:15px;border:1px solid #334155;}
+  .msg-ia{color:#38bdf8;margin-bottom:15px;line-height:1.5;}
+  .msg-user{color:#a78bfa;text-align:right;margin-bottom:15px;}
+  .msg-sys{color:#ef4444;font-weight:bold;text-align:center;margin-bottom:15px;}
+  .demo-input{display:flex;gap:10px;}
+  .demo-input input{flex:1;padding:12px;background:#1e293b;border:1px solid #475569;color:#fff;border-radius:6px;font-size:16px;}
+  .demo-input button{background:#38bdf8;color:#0d1321;font-weight:bold;border:none;padding:0 20px;border-radius:6px;cursor:pointer;}
+
   /* Asistente */
   #asist-chat{display:none;margin-top:15px;}
   #asist-msgs{background:#1E1E1E;border-radius:10px;padding:16px;min-height:180px;max-height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:10px;}
   .asist-inp{display:flex;gap:8px;}
   .asist-inp input{flex:1;padding:11px;border-radius:8px;border:1px solid #ccc;font-size:17px;outline:none;}
-  .btn-rpg{background:var(--rpg);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;transition: background 0.2s;}
-  .btn-rpg:hover {background:#4A155B;}
+  .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
+  .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
+  .btn-rpg{background:var(--rpg);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;}
+  .btn-rpg:hover{background:#4A155B;}
 
-  @media(max-width:768px){
-    .errores-grid,.ruta-grid{grid-template-columns:1fr;}
-    .code-block{font-size:14px;}
-  }
+  @media(max-width:768px){.errores-grid{grid-template-columns:1fr;}.code-block{font-size:14px;}}
 </style>
 </head>
 <body>
-
 <div class="container">
-  <header style="margin-top: 20px;">
-    <h1>UNIDAD 3: PROYECTO RPG (Fase 1) <span style="font-size:18px;opacity:.8;font-weight:normal;">(Clase 1 de 3)</span></h1>
-    <p>Taller de IA Aplicada · 7° Año · CTP "Antonio Martín Marte" · Diseño, Narrativa y Prompts</p>
-  </header>
+<header style="margin-top:20px;">
+  <h1>UNIDAD 3 — PROYECTO RPG <span style="font-size:18px;opacity:.8;font-weight:normal;">(Fase 1 · Clase 1 de 3)</span></h1>
+  <p>Taller de IA Aplicada · 7° Año · CTP "Antonio Martín Marte" · Diseño, Narrativa y Prompts</p>
+</header>
 
-  <!-- ══ 1: EL PROYECTO ════════════════════════════════════════ -->
-  <div class="card c-concepto">
-    <h2><span class="badge">1</span> EL PROYECTO: UNA AVENTURA CONVERSACIONAL</h2>
-    <p>Hoy empezamos el desarrollo del <strong>Proyecto 2 (Aventura RPG)</strong>. Dejamos atrás al bot estático del TP2 y nos introducimos en la creación de un <strong>Juego de Rol interactivo</strong>, donde la IA actúa como el <strong>Director de Juego (Game Master)</strong> guiando la historia.</p>
-    <p style="margin-top:10px;">La IA ya no responderá de forma pasiva. Ahora tomará el control: describirá el escenario, reaccionará a lo que decidas y te presentará 3 opciones lógicas para continuar. El reto principal de hoy es <strong>escribir instrucciones tan rigurosas</strong> en su prompt que el narrador nunca tome decisiones por el jugador.</p>
-    
-    <table class="tabla-comp">
-      <thead>
-        <tr>
-          <th>Detalle</th>
-          <th>TP2 (Chatbot de Consultas)</th>
-          <th>Hoy (Proyecto RPG - Fase 1)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Rol de la IA</strong></td>
-          <td>Pasivo (espera tus preguntas)</td>
-          <td class="acento">Activo (conduce y guía la historia)</td>
-        </tr>
-        <tr>
-          <td><strong>Interacción</strong></td>
-          <td>Pregunta / Respuesta libre</td>
-          <td class="acento">Acción del jugador - Consecuencias + 3 Opciones lógicas</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<!-- ══ 1: EL PROYECTO ══════════════════════════════════════════════════ -->
+<div class="card c-concepto">
+  <h2><span class="badge">1</span> EL PROYECTO: UNA AVENTURA CONVERSACIONAL</h2>
+  <p>Hoy empezamos el <strong>Proyecto 2 — Aventura RPG</strong>. Dejamos atrás el bot estático del TP2 y creamos un <strong>Juego de Rol interactivo</strong> donde la IA actúa como <strong>Director de Juego (Game Master)</strong> que guía la historia.</p>
+  <p style="margin-top:10px;">La IA ya no responde preguntas — ahora <strong>narra consecuencias</strong> y presenta 3 opciones al jugador en cada turno. El reto principal es escribir instrucciones tan rigurosas en el System Prompt que el narrador nunca tome decisiones por el jugador.</p>
+  <table class="tabla-comp">
+    <thead><tr><th>Elemento</th><th>TP2 — Chatbot</th><th>Proyecto RPG — Hoy</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Rol de la IA</strong></td><td>Pasivo — espera preguntas</td><td class="acento">Activo — conduce la historia</td></tr>
+      <tr><td><strong>Interacción</strong></td><td>Pregunta / Respuesta libre</td><td class="acento">Acción → Consecuencia + 3 opciones</td></tr>
+      <tr><td><strong>System Prompt</strong></td><td>Define un asistente</td><td class="acento">Define un narrador con reglas de juego</td></tr>
+      <tr><td><strong>Estado</strong></td><td>Solo el historial</td><td class="acento">Historial + diccionario de HP e inventario</td></tr>
+    </tbody>
+  </table>
+</div>
 
-  <!-- ══ 2: REPASO ══════════════════════════════════════════════════════════ -->
-  <div class="card c-repaso">
-    <h2><span class="badge" style="background:#4A6080">2</span> ANTES DE EMPEZAR: CUIDADO CON ESTOS ERRORES</h2>
-    <p>Para evitar fallas de código y optimizar el rendimiento de la API de Groq, repasemos los descuidos más comunes vistos en el TP2:</p>
-    <div class="errores-grid">
-      <div class="error-card">
-        <h4>🔥 Fuga de tokens (/guardar)</h4>
-        <p>El comando <code>/guardar</code> debe ir <strong>antes</strong> de consultar a la IA. No queremos enviar el historial completo a la nube una vez que el bucle ya terminó.</p>
-      </div>
-      <div class="error-card">
-        <h4>👻 Variables fantasma</h4>
-        <p>Si pedís datos de entrada (como el nombre del guerrero o un objeto inicial), tenés que inyectarlos en tu System Prompt. Declararlas sin llamarlas ensucia el código.</p>
-      </div>
-      <div class="error-card">
-        <h4>⟹ Indentación (Sangrías)</h4>
-        <p>Python es muy estricto. Una tabulación fuera de lugar adentro del bucle <code>while</code> causará errores lógicos o detendrá el script por completo.</p>
-      </div>
+<!-- ══ 2: REPASO ═══════════════════════════════════════════════════════ -->
+<div class="card c-repaso">
+  <h2><span class="badge" style="background:#4A6080">2</span> ANTES DE EMPEZAR — ERRORES DEL TP2</h2>
+  <p>Repasemos los errores más comunes que hay que corregir antes del recuperatorio:</p>
+  <div class="errores-grid">
+    <div class="error-card">
+      <h4>🔥 Fuga de tokens</h4>
+      <p>El <code>/guardar</code> va <strong>antes</strong> de llamar a la IA. Si va al final, el historial completo ya se mandó a la API antes de cerrar.</p>
+    </div>
+    <div class="error-card">
+      <h4>👻 Variables que no se usan</h4>
+      <p>Si declarás una variable con <code>input()</code> pero nunca la usás en el código, sobra. Borrala o incorporala donde corresponde.</p>
+    </div>
+    <div class="error-card">
+      <h4>⟹ Sangrías (indent)</h4>
+      <p>Python es estricto. Una tabulación fuera de lugar dentro del <code>while</code> rompe el programa o produce comportamiento incorrecto.</p>
     </div>
   </div>
+</div>
 
-  <!-- ══ 3: DISEÑO ══════════════════════════════════════════════════════════ -->
-  <div class="card c-arte">
-    <h2><span class="badge" style="background:#E91E63">3</span> DISEÑO DE MUNDO Y PERSONAJES</h2>
-    <p>Antes de sentarnos a picar código, todo gran juego de rol necesita una base sólida. Diseñen en sus carpetas:</p>
-    <ul style="margin-left: 20px; font-size: 17px; line-height: 1.8;">
-      <li><strong>El Contexto:</strong> ¿Ocurre en una estación espacial desierta, una isla rodeada de niebla o una Ushuaia post-apocalíptica?</li>
-      <li><strong>Tu Personaje:</strong> Nombre, puntos iniciales de vida (HP) y el equipamiento inicial de su mochila.</li>
-      <li><strong>El Objetivo:</strong> ¿Qué debe pasar para ganar la partida? (Ej: Reparar el motor, encender el faro, huir de la criatura).</li>
-    </ul>
-    <div class="info" style="background:#fff; border-color:#E91E63; margin-top: 15px;">
-      🎨 <strong>Dirección de Arte:</strong> Utilicen herramientas como <strong>Bing Image Creator</strong> o <strong>Gemini</strong> en otra pestaña para generar imágenes conceptuales de su protagonista o del ambiente. Guarden estas ilustraciones en su drive: ¡las usaremos en las próximas semanas cuando agreguemos una interfaz gráfica (GUI) al código!
-    </div>
+<!-- ══ 3: DISEÑO ════════════════════════════════════════════════════════ -->
+<div class="card c-arte">
+  <h2><span class="badge" style="background:#E91E63">3</span> PRIMERO: DISEÑÁ EL MUNDO</h2>
+  <p>Antes de escribir código, definí en tu carpeta o en una celda de texto del Colab:</p>
+  <ul style="margin-left:20px;font-size:17px;line-height:2;">
+    <li><strong>El escenario:</strong> ¿Dónde transcurre? ¿Una estación espacial, el Canal Beagle de noche, una Ushuaia post-apocalíptica?</li>
+    <li><strong>El personaje:</strong> Nombre, HP inicial (100 recomendado) y qué lleva en la mochila al arrancar.</li>
+    <li><strong>El objetivo:</strong> ¿Qué tiene que lograr el jugador para ganar? (Ej: Reparar el motor, encender el faro, escapar de la criatura).</li>
+  </ul>
+  <div class="info" style="background:#fff;border-color:#E91E63;margin-top:15px;">
+    🎨 <strong>Dirección de Arte (opcional):</strong> Usá <strong>Bing Image Creator</strong> o <strong>Gemini</strong> para generar una imagen de tu protagonista o del escenario. Guardala en tu Drive — la vamos a usar cuando agreguemos interfaz visual al proyecto.
   </div>
+</div>
 
-  <!-- ══ 4: ESQUELETO (TABS) ══════════════════════════════════════════════════════ -->
-  <div class="card c-esqueleto">
-    <h2><span class="badge" style="background:var(--vio)">4</span> DESARROLLO DEL ESQUELETO DE CÓDIGO</h2>
-    <p style="margin-bottom: 15px;">En la pestaña <strong>Código Estándar</strong> encontrarán la secuencia lógica por bloques para Colab. También pueden utilizar la pestaña <strong>Jugar Demo RPG</strong> para interactuar con un ejemplo real en tiempo real.</p>
+<!-- ══ 4: NUEVO COLAB ══════════════════════════════════════════════════ -->
+<div class="card c-colab">
+  <h2><span class="badge" style="background:var(--colab);color:#000;">4</span> ABRÍ UN COLAB NUEVO</h2>
+  <div class="info i-colab">
+    <strong>📁 Nombre del archivo</strong>
+    Antes de escribir cualquier código, renombrá el notebook. El nombre tiene que seguir este formato:<br><br>
+    <code style="font-size:18px;background:#fff;padding:6px 12px;border-radius:6px;border:1px solid var(--colab);">RPG_Apellido1_Apellido2.ipynb</code><br><br>
+    Ejemplo: <code>RPG_Gonzalez_Martinez.ipynb</code>. Sin espacios, sin acentos.
+  </div>
+  <div class="info i-teal" style="margin-top:10px;">
+    <strong>⚠️ No modifiques el TP2</strong>
+    Este es un archivo nuevo. El TP2 queda intacto — lo vas a necesitar para el recuperatorio del viernes 29/05.
+  </div>
+</div>
 
-    <div class="tabs-container">
-      <div class="tabs-header">
-        <button id="btn-std" class="tab-btn active" onclick="openTab('std')">👨‍💻 Código Estándar</button>
-        <button id="btn-demo" class="tab-btn btn-demo" onclick="openTab('demo')">🎮 Jugar Demo RPG</button>
-        <!-- Pestaña oculta para nivelar o dar ayuda guiada -->
-        <button id="btn-lite" class="tab-btn" onclick="openTab('lite')" style="display: none;">🛟 Versión Lite</button>
+<!-- ══ 5: ESQUELETO ════════════════════════════════════════════════════ -->
+<div class="card c-esqueleto">
+  <h2><span class="badge" style="background:var(--vio)">5</span> EL CÓDIGO — BLOQUE A BLOQUE</h2>
+  <p style="margin-bottom:15px;">En la pestaña <strong>Código</strong> encontrás los bloques en orden. La pestaña <strong>Demo RPG</strong> te muestra cómo debería funcionar el narrador cuando esté bien configurado.</p>
+
+  <div class="tabs-container">
+    <div class="tabs-header">
+      <button id="btn-std" class="tab-btn active" onclick="openTab('std')">👨‍💻 Código</button>
+      <button id="btn-demo" class="tab-btn btn-demo" onclick="openTab('demo')">🎮 Demo RPG</button>
+      <button id="btn-lite" class="tab-btn" onclick="openTab('lite')" style="display:none;">🛟 Versión Lite</button>
+    </div>
+
+    <!-- TAB CÓDIGO -->
+    <div id="tab-std" class="tab-pane active">
+      <div class="bloque-leyenda">
+        <div class="ley"><div class="ley-dot ley-azul"></div> AZUL — Copialo igual, no lo cambiés</div>
+        <div class="ley"><div class="ley-dot ley-rojo"></div> ROJO — Completá con tu diseño</div>
       </div>
 
-      <!-- TAB ESTANDAR -->
-      <div id="tab-std" class="tab-pane active">
-        <div class="bloque-leyenda">
-          <div class="ley"><div class="ley-dot ley-azul"></div> AZUL — Estático (Copiar tal cual)</div>
-          <div class="ley"><div class="ley-dot ley-rojo"></div> ROJO — Diseño (Completar con sus ideas)</div>
-        </div>
-
-        <!-- B1 -->
-        <div class="bloque b-fijo">
-          <div class="bloque-titulo"><span>📦 B1 — Librerías</span><button class="btn-copiar" onclick="copiarCodigo('b1-std')">Copiar</button></div>
-          <div class="bloque-desc">Para esta primera fase solo utilizaremos la librería <code>requests</code>.</div>
-          <div class="code-container"><div id="b1-std" class="code-block"><span class="cm"># --- Bloque 1: Importación de Librerías ---</span>
+      <!-- B1 -->
+      <div class="bloque b-fijo">
+        <div class="bloque-titulo"><span>📦 B1 — Librerías</span><button class="btn-copiar" onclick="copiar('b1')">Copiar</button></div>
+        <div class="bloque-desc">Igual que en el TP2. Una sola librería por ahora.</div>
+        <div class="code-container"><div id="b1" class="code-block"><span class="cm"># B1: Librería</span>
 <span class="kw">import</span> requests</div></div>
-        </div>
+      </div>
 
-        <!-- B2 -->
-        <div class="bloque b-mod">
-          <div class="bloque-titulo"><span>🔑 B2 — Clave y Configuración</span><button class="btn-copiar" onclick="copiarCodigo('b2-std')">Copiar</button></div>
-          <div class="bloque-desc">Sustituí el valor por tu API Key de Groq sin alterar las comillas.</div>
-          <div class="code-container"><div id="b2-std" class="code-block"><span class="cm"># --- Bloque 2: Clave API y Configuración ---</span>
-API_KEY = <span class="str">"gsk_PEGA_TU_CLAVE_ACA"</span>
+      <!-- B2 -->
+      <div class="bloque b-mod">
+        <div class="bloque-titulo"><span>🔑 B2 — Tu API Key y las constantes</span><button class="btn-copiar" onclick="copiar('b2')">Copiar</button></div>
+        <div class="bloque-desc">Reemplazá solo el texto entre comillas con tu clave real. La URL y los headers son siempre los mismos — no los toques.</div>
+        <div class="code-container"><div id="b2" class="code-block"><span class="cm"># B2: Configuración</span>
+API_KEY = <span class="completar">"gsk_PEGA_TU_CLAVE_ACA"</span>   <span class="cm"># ← tu clave de Groq</span>
 URL     = <span class="str">"https://api.groq.com/openai/v1/chat/completions"</span>
 headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer {API_KEY}"</span>, <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>}</div></div>
-        </div>
+      </div>
 
-        <!-- B3 -->
-        <div class="bloque b-fijo">
-          <div class="bloque-titulo"><span>🍳 B3 — Función de Inferencia</span><button class="btn-copiar" onclick="copiarCodigo('b3-std')">Copiar</button></div>
-          <div class="bloque-desc">Función genérica para encapsular la solicitud hacia la API.</div>
-          <div class="code-container"><div id="b3-std" class="code-block"><span class="cm"># --- Bloque 3: Función de conexión a la IA ---</span>
+      <!-- B3 -->
+      <div class="bloque b-fijo">
+        <div class="bloque-titulo"><span>🍳 B3 — La función (igual que el TP2)</span><button class="btn-copiar" onclick="copiar('b3')">Copiar</button></div>
+        <div class="bloque-desc">Esta función no cambia. Recibe el historial y devuelve la respuesta de la IA. Nunca usa <code>print</code> adentro — solo <code>return</code>.</div>
+        <div class="code-container"><div id="b3" class="code-block"><span class="cm"># B3: Función de conexión (La Cocina)</span>
 <span class="kw">def</span> consultar_ia(mensajes, temperatura):
-    payload = {<span class="str">"model"</span>: <span class="str">"llama-3.3-70b-versatile"</span>, <span class="str">"temperature"</span>: temperatura, <span class="str">"messages"</span>: mensajes}
+    payload = {
+        <span class="str">"model"</span>:       <span class="str">"llama-3.3-70b-versatile"</span>,
+        <span class="str">"temperature"</span>: temperatura,
+        <span class="str">"messages"</span>:    mensajes
+    }
     <span class="kw">try</span>:
         respuesta = requests.post(URL, headers=headers, json=payload)
         <span class="kw">return</span> respuesta.json()[<span class="str">"choices"</span>][<span class="nm">0</span>][<span class="str">"message"</span>][<span class="str">"content"</span>]
     <span class="kw">except</span> Exception <span class="kw">as</span> e:
-        <span class="kw">return</span> f<span class="str">"Error de conexión: {e}"</span></div></div>
-        </div>
+        <span class="kw">return</span> f<span class="str">"Error: {e}"</span></div></div>
+      </div>
 
-        <!-- B4 -->
-        <div class="bloque b-mod">
-          <div class="bloque-titulo"><span>🗂️ B4 — Estado del Jugador</span><button class="btn-copiar" onclick="copiarCodigo('b4-std')">Copiar</button></div>
-          <div class="bloque-desc">El inventario inicial y el HP del personaje.</div>
-          <div class="code-container"><div id="b4-std" class="code-block"><span class="cm"># --- Bloque 4: Estado Inicial del Jugador ---</span>
+      <!-- B4 -->
+      <div class="bloque b-mod">
+        <div class="bloque-titulo"><span>🗂️ B4 — El estado del jugador ← NUEVO</span><button class="btn-copiar" onclick="copiar('b4')">Copiar</button></div>
+        <div class="bloque-desc">
+          Esta es la novedad respecto al TP2: un diccionario que guarda la situación del personaje en tiempo real. Completá los tres valores en amarillo según tu diseño.<br><br>
+          <strong>¿Qué es un diccionario?</strong> Como una lista, pero en lugar de posición numérica usás un nombre para acceder a cada dato:<br>
+          <code style="background:#f0f0f0;padding:3px 8px;border-radius:4px;">jugador["hp"]</code> → devuelve 100 &nbsp;|&nbsp; <code style="background:#f0f0f0;padding:3px 8px;border-radius:4px;">jugador["nombre"]</code> → devuelve el nombre
+        </div>
+        <div class="bloque-ej">
+          <strong>Ejemplo completo:</strong>
+          jugador = {"nombre": "Valeria", "hp": 100, "inventario": ["linterna", "mapa"]}
+        </div>
+        <div class="code-container"><div id="b4" class="code-block"><span class="cm"># B4: Estado del jugador</span>
 jugador = {
-    <span class="dk">"nombre"</span>:    <span class="completar">"Escribí tu nombre"</span>,
-    <span class="dk">"hp"</span>:        <span class="nm">100</span>,
-    <span class="dk">"inventario"</span>: <span class="completar">["linterna"]</span>
+    <span class="dk">"nombre"</span>:    <span class="completar">"Nombre del personaje"</span>,
+    <span class="dk">"hp"</span>:        <span class="completar">100</span>,            <span class="cm"># HP = Hit Points = puntos de vida</span>
+    <span class="dk">"inventario"</span>: <span class="completar">[]</span>             <span class="cm"># lista de objetos — puede empezar vacía o con items</span>
 }</div></div>
-        </div>
+      </div>
 
-        <!-- B5 -->
-        <div class="bloque b-mod">
-          <div class="bloque-titulo"><span>🎭 B5 — System Prompt (Instrucciones)</span><button class="btn-copiar" onclick="copiarCodigo('b5-std')">Copiar</button></div>
-          <div class="bloque-desc">Definí las directrices estrictas para que la IA actúe como un narrador impecable.</div>
-          <div class="code-container"><div id="b5-std" class="code-block"><span class="cm"># --- Bloque 5: El Cerebro del Juego (System Prompt) ---</span>
+      <!-- B5 -->
+      <div class="bloque b-mod">
+        <div class="bloque-titulo"><span>🎭 B5 — El System Prompt del narrador ← NUEVO</span><button class="btn-copiar" onclick="copiar('b5')">Copiar</button></div>
+        <div class="bloque-desc">
+          Esta es la parte más importante del proyecto. En el TP2 el System Prompt definía un asistente. Acá define un <strong>narrador con reglas de juego</strong>.<br><br>
+          Completá los tres campos en amarillo. Las 4 reglas ya están escritas — podés ajustar el tono o agregar reglas propias, pero estas 4 son obligatorias.
+        </div>
+        <div class="bloque-ej">
+          <strong>Ejemplo de [MUNDO] bien completado:</strong>
+          "una Ushuaia post-apocalíptica donde las criaturas del Canal Beagle mutaron y tomaron la ciudad"<br><br>
+          <strong>Ejemplo de [TONO]:</strong> oscuro y opresivo / épico y esperanzador / misterioso y pausado
+        </div>
+        <div class="code-container"><div id="b5" class="code-block"><span class="cm"># B5: El cerebro del narrador</span>
+<span class="cm"># """ triple comillas: para escribir texto en varias líneas sin usar \n</span>
 game_master = <span class="str">"""
-Sos el Narrador de un juego de rol de supervivencia ambientado en <span class="completar">[MUNDO]</span>.
-Tu tono de escritura debe ser <span class="completar">[MISTERIOSO/ÉPICO]</span> y muy atrapante.
+Sos el Narrador de una aventura de supervivencia ambientada en <span class="completar">[MUNDO]</span>.
+Tu tono es <span class="completar">[TONO: oscuro / épico / misterioso]</span>.
 
 REGLAS INQUEBRANTABLES:
-1. Describí qué pasa en el entorno usando máximo 2 o 3 oraciones. Sé directo.
-2. NUNCA tomes decisiones por el jugador. No asumas que corrió, saltó o atacó.
-3. Al final de tu descripción, SIEMPRE dale al jugador 3 opciones claras (A, B, C).
-4. Pedile al jugador explícitamente: "¿Qué vas a hacer? Elegí A, B o C".
+1. Describí la escena en 2 o 3 oraciones. Sé concreto y directo.
+2. NUNCA tomes decisiones por el jugador. No asumas que corrió, atacó ni eligió nada.
+3. Al final de CADA respuesta dale al jugador SIEMPRE 3 opciones claras (A, B, C).
+4. Terminá con: "¿Qué vas a hacer? Elegí A, B o C."
+
+El jugador empieza en: <span class="completar">[describí el punto de partida de la historia]</span>.
 """</span>
 
+<span class="cm"># El historial arranca con el System Prompt como primer mensaje</span>
 historial = [{<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: game_master}]</div></div>
+      </div>
+
+      <!-- B6 -->
+      <div class="bloque b-mod">
+        <div class="bloque-titulo"><span>🎬 B6 — Inicio del juego</span><button class="btn-copiar" onclick="copiar('b6')">Copiar</button></div>
+        <div class="bloque-desc">El mensaje de bienvenida. Completá solo el nombre del juego en amarillo.</div>
+        <div class="code-container"><div id="b6" class="code-block"><span class="cm"># B6: Bienvenida</span>
+<span class="kw">print</span>(<span class="str">"🎮 <span class="completar">NOMBRE DE TU AVENTURA</span>"</span>)
+<span class="kw">print</span>(<span class="str">"=" * 40</span>)
+<span class="kw">print</span>(<span class="str">"Comandos: /estado  /tomar objeto  /hp -20  /guardar  /salir\n"</span>)</div></div>
+      </div>
+
+      <!-- B7 -->
+      <div class="bloque b-fijo">
+        <div class="bloque-titulo"><span>🔁 B7 — El bucle y los comandos ← NUEVO</span><button class="btn-copiar" onclick="copiar('b7')">Copiar</button></div>
+        <div class="bloque-desc">
+          El <code>while True</code> es el mismo del TP2. Lo nuevo son los comandos que actualizan el diccionario <code>jugador</code> manualmente.<br><br>
+          <strong>¿Por qué <code>continue</code> después de cada comando?</strong> Para que el código no siga ejecutando las líneas de abajo (que llaman a la IA). Sin <code>continue</code>, el comando <code>/estado</code> también le preguntaría a la IA — gastando tokens innecesarios.<br><br>
+          <strong>¿Qué hace <code>", ".join(jugador["inventario"])</code>?</strong> Une los elementos de la lista en un texto: <code>["espada", "antorcha"]</code> → <code>"espada, antorcha"</code>.
         </div>
-
-        <!-- B6 -->
-        <div class="bloque b-fijo">
-          <div class="bloque-titulo"><span>🔁 B6 — Bucle de Entrada (While)</span><button class="btn-copiar" onclick="copiarCodigo('b6-std')">Copiar</button></div>
-          <div class="bloque-desc">Como hoy no tenemos "Automatización", el jugador usará comandos como <code>/hp</code> o <code>/tomar</code> para actualizar su estado.</div>
-          <div class="code-container"><div id="b6-std" class="code-block"><span class="cm"># --- Bloque 6: Bucle Principal ---</span>
-<span class="kw">print</span>(<span class="str">"🎮 <span class="completar">TU JUEGO RPG</span>"</span>)
-<span class="kw">print</span>(<span class="str">"Comandos ocultos: /estado  /tomar objeto  /hp -20  /guardar  /salir\n"</span>)
-
+        <div class="code-container"><div id="b7" class="code-block"><span class="cm"># B7: El bucle principal</span>
 <span class="kw">while True</span>:
     accion = <span class="kw">input</span>(<span class="str">"Acción > "</span>).strip()
-    <span class="kw">if</span> accion.lower() == <span class="str">"salir"</span>: <span class="kw">break</span>
 
+    <span class="kw">if</span> accion.lower() == <span class="str">"salir"</span>:
+        <span class="kw">print</span>(<span class="str">"Fin de la aventura."</span>)
+        <span class="kw">break</span>
+
+    <span class="cm"># /guardar va ANTES de llamar a la IA para no gastar tokens innecesarios</span>
     <span class="kw">if</span> accion.lower() == <span class="str">"/guardar"</span>:
-        <span class="cm"># Esto solo guarda un LOG de texto para que el profe corrija. No retoma partidas.</span>
         <span class="kw">with open</span>(<span class="str">"log_partida.txt"</span>, <span class="str">"w"</span>, encoding=<span class="str">"utf-8"</span>) <span class="kw">as</span> f:
             f.write(f<span class="str">"ESTADO: {jugador}\n\n"</span>)
-            <span class="kw">for</span> msg <span class="kw">in</span> historial[<span class="nm">1</span>:]:
+            <span class="kw">for</span> msg <span class="kw">in</span> historial[<span class="nm">1</span>:]:   <span class="cm"># historial[0] es el system prompt, lo salteamos</span>
                 f.write(f<span class="str">"{msg['role'].upper()}: {msg['content']}\n\n"</span>)
-        <span class="kw">print</span>(<span class="str">"💾 Archivo log_partida.txt generado.\n"</span>)
-        <span class="kw">continue</span>
+        <span class="kw">print</span>(<span class="str">"💾 log_partida.txt generado.\n"</span>)
+        <span class="kw">continue</span>   <span class="cm"># vuelve arriba sin llamar a la IA</span>
 
     <span class="kw">if</span> accion.lower() == <span class="str">"/estado"</span>:
         inv = <span class="str">", "</span>.join(jugador[<span class="str">"inventario"</span>]) <span class="kw">or</span> <span class="str">"Mochila vacía"</span>
         <span class="kw">print</span>(f<span class="str">"\n❤️ Vida: {jugador['hp']} | 🎒 {inv}\n"</span>)
         <span class="kw">continue</span>
-        
+
     <span class="kw">if</span> accion.lower().startswith(<span class="str">"/tomar "</span>):
-        jugador[<span class="str">"inventario"</span>].append(accion[<span class="nm">7</span>:].strip()); <span class="kw">print</span>(<span class="str">"🎒 Agregado\n"</span>); <span class="kw">continue</span>
+        obj = accion[<span class="nm">7</span>:].strip()       <span class="cm"># saca "/tomar " (7 caracteres) y toma el resto</span>
+        jugador[<span class="str">"inventario"</span>].append(obj)
+        <span class="kw">print</span>(f<span class="str">"🎒 '{obj}' agregado al inventario.\n"</span>)
+        <span class="kw">continue</span>
 
     <span class="kw">if</span> accion.lower().startswith(<span class="str">"/hp "</span>):
         <span class="kw">try</span>:
-            jugador[<span class="str">"hp"</span>]=<span class="kw">max</span>(<span class="nm">0</span>, jugador[<span class="str">"hp"</span>]+<span class="kw">int</span>(accion[<span class="nm">4</span>:])); <span class="kw">print</span>(f<span class="str">"❤️ HP: {jugador['hp']}\n"</span>)
-        <span class="kw">except</span>: 
+            cambio = <span class="kw">int</span>(accion[<span class="nm">4</span>:].strip())   <span class="cm"># convierte "/hp -20" → -20</span>
+            jugador[<span class="str">"hp"</span>] = <span class="kw">max</span>(<span class="nm">0</span>, jugador[<span class="str">"hp"</span>] + cambio)
+            <span class="kw">print</span>(f<span class="str">"❤️ HP actualizado: {jugador['hp']}\n"</span>)
+        <span class="kw">except</span>:
             <span class="kw">print</span>(<span class="str">"Usá: /hp -20 o /hp +10\n"</span>)
         <span class="kw">continue</span></div></div>
-        </div>
+      </div>
 
-        <!-- B7 -->
-        <div class="bloque b-fijo">
-          <div class="bloque-titulo"><span>💬 B7 — Inyección de Estado y Turno</span><button class="btn-copiar" onclick="copiarCodigo('b7-std')">Copiar</button></div>
-          <div class="bloque-desc">Le enviamos los datos del jugador a la IA de manera oculta antes de la narración. Va adentro de la indentación del <code>while</code>.</div>
-          <div class="code-container"><div id="b7-std" class="code-block">    <span class="cm"># --- Bloque 7: El Turno ---</span>
-    <span class="cm"># Inyectamos el estado oculto del jugador para que el Narrador sepa cómo venimos</span>
+      <!-- B8 -->
+      <div class="bloque b-fijo">
+        <div class="bloque-titulo"><span>💬 B8 — El turno normal ← NUEVO</span><button class="btn-copiar" onclick="copiar('b8')">Copiar</button></div>
+        <div class="bloque-desc">
+          Igual que el TP2 en la Puerta 3, con una diferencia: antes de mandar el mensaje del jugador, <strong>inyectamos el estado actual del personaje</strong>. La IA lo recibe junto con la acción y puede narrar consecuencias coherentes (si tiene poca vida, si ya encontró tal objeto, etc).<br><br>
+          <strong>¿Por qué va adentro del <code>while</code> pero sin <code>if</code>?</strong> Porque es el camino que toma el código cuando ninguno de los comandos de arriba coincide — es decir, cuando el jugador escribió algo para la historia.
+        </div>
+        <div class="bloque-ej">
+          <strong>Cómo lo ve la IA en cada turno:</strong>
+          [Jugador: Valeria | Vida: 70 | Mochila: ['linterna']]
+          Acción del jugador: Abro la puerta lentamente
+        </div>
+        <div class="code-container"><div id="b8" class="code-block">    <span class="cm"># B8: El turno — va adentro del while, con la sangría del bucle</span>
     mensaje_turno = f<span class="str">"""[Jugador: {jugador['nombre']} | Vida: {jugador['hp']} | Mochila: {jugador['inventario']}]
 Acción del jugador: {accion}"""</span>
-    
+
     historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: mensaje_turno})
-    
-    <span class="kw">print</span>(<span class="str">"..."</span>) 
-    respuesta_ia = consultar_ia(historial, <span class="nm">0.7</span>) <span class="cm"># Temperatura creativa</span>
+
+    <span class="kw">print</span>(<span class="str">"..."</span>)
+    respuesta_ia = consultar_ia(historial, <span class="nm">0.7</span>)
     historial.append({<span class="str">"role"</span>: <span class="str">"assistant"</span>, <span class="str">"content"</span>: respuesta_ia})
 
     <span class="kw">print</span>(f<span class="str">"\n🌲 {respuesta_ia}\n"</span>)</div></div>
+      </div>
+    </div>
+
+    <!-- TAB DEMO -->
+    <div id="tab-demo" class="tab-pane">
+      <div class="demo-container">
+        <div class="demo-header">
+          <h3 style="color:#38bdf8;margin:0 0 10px 0;">Demo: Aventura en Tierra del Fuego</h3>
+          <p>Así funciona un narrador bien configurado. Pegá tu API Key y jugá un par de turnos para entender el comportamiento esperado antes de armar el tuyo.</p>
+          <input type="password" id="demo-key" placeholder="gsk_PegáTuClaveAcá...">
+        </div>
+        <div id="demo-chat">
+          <div class="msg-ia"><strong>Narrador:</strong> Te despertás en el muelle de Ushuaia. La niebla cubre todo y el Canal Beagle está en silencio. Hay una lancha abandonada amarrada al muelle, con el motor apagado.<br><br>¿Qué vas a hacer?<br>A) Subir a la lancha y revisar el motor.<br>B) Buscar a alguien en las construcciones cercanas.<br>C) Quedarte quieto y escuchar el entorno.</div>
+        </div>
+        <div class="demo-input">
+          <input type="text" id="demo-input" placeholder="Ej: Elijo la opción A..." onkeypress="if(event.key==='Enter')enviarDemo()">
+          <button id="demo-btn" onclick="enviarDemo()">Jugar</button>
         </div>
       </div>
+    </div>
 
-      <!-- TAB DEMO -->
-      <div id="tab-demo" class="tab-pane">
-        <div class="demo-container">
-          <div class="demo-header">
-            <h3 style="color: #38bdf8; margin:0 0 10px 0;">Ejemplo: RPG Fueguino (Versión de Prueba)</h3>
-            <p style="font-size: 15px; color: #cbd5e1; margin-bottom:10px;">Pegá tu API Key de Groq acá abajo. Vas a ver cómo la IA te narra y te plantea opciones impecables. <strong>Recordá que tu vida y mochila no van a cambiar solas:</strong> ese es el desafío técnico de la clase que viene.</p>
-            <input type="password" id="demo-key" placeholder="gsk_PegáTuClaveAcá...">
-          </div>
-          <div id="demo-chat">
-            <div class="msg-ia"><strong>Narrador:</strong> Te despertás en medio de un bosque nevado en Tierra del Fuego. Hace mucho frío y a lo lejos ves el Faro del Fin del Mundo apagado. En tu bolsillo solo tenés un fósforo húmedo.<br><br>¿Qué vas a hacer?<br>A) Caminar hacia el faro entre la nieve profunda.<br>B) Buscar refugio en unos árboles cercanos.<br>C) Intentar prender el fósforo para entrar en calor.</div>
-          </div>
-          <div class="demo-input">
-            <input type="text" id="demo-input" placeholder="Ej: Elijo la opción B..." onkeypress="if(event.key==='Enter')enviarDemo()">
-            <button id="demo-btn" onclick="enviarDemo()">Jugar Acción</button>
-          </div>
-        </div>
+    <!-- TAB LITE (oculto) -->
+    <div id="tab-lite" class="tab-pane">
+      <div class="info i-amb" style="margin-top:0;">
+        <strong>🛟 Versión Lite — Código en una sola celda</strong>
+        Si los bloques separados te complican, copiá todo esto en una celda única de Colab y arrancá desde ahí.
       </div>
-
-      <!-- TAB LITE -->
-      <div id="tab-lite" class="tab-pane">
-        <div class="info i-amb" style="margin-top:0;">
-          <strong>🛟 Versión Lite / Guiada</strong>
-          Si se te complica estructurar los archivos celda por celda, copiá este código unificado completo a una celda única en tu notebook de Colab. Ya posee un prompt narrativo inicial de ejemplo.
-        </div>
-
-        <div class="bloque b-fijo">
-          <div class="bloque-titulo"><span>🚀 Código Completo (Celda única)</span><button class="btn-copiar" onclick="copiarCodigo('b-lite')">Copiar Todo</button></div>
-          <div class="code-container"><div id="b-lite" class="code-block"><span class="cm"># --- Código Completo del RPG (Versión Lite) ---</span>
-<span class="kw">import</span> requests
-
-<span class="cm"># --- 1. CONFIGURACIÓN ---</span>
-<span class="cm"># __profile__ = "guiado_v1"</span>
-API_KEY = <span class="str">"gsk_PEGA_TU_CLAVE_ACA"</span>  <span class="completar"># <-- ¡No te olvides de poner tu clave!</span>
+      <div class="bloque b-fijo">
+        <div class="bloque-titulo"><span>🚀 Código completo</span><button class="btn-copiar" onclick="copiar('b-lite')">Copiar todo</button></div>
+        <div class="code-container"><div id="b-lite" class="code-block"><span class="kw">import</span> requests
+API_KEY = <span class="completar">"gsk_PEGA_TU_CLAVE_ACA"</span>
 URL     = <span class="str">"https://api.groq.com/openai/v1/chat/completions"</span>
 headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer {API_KEY}"</span>, <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>}
 
-<span class="kw">def</span> consultar_ia(mensajes):
+<span class="kw">def</span> consultar_ia(mensajes, temperatura):
     <span class="kw">try</span>:
-        respuesta = requests.post(URL, headers=headers, json={<span class="str">"model"</span>: <span class="str">"llama-3.3-70b-versatile"</span>, <span class="str">"temperature"</span>: <span class="nm">0.7</span>, <span class="str">"messages"</span>: mensajes})
-        <span class="kw">return</span> respuesta.json()[<span class="str">"choices"</span>][<span class="nm">0</span>][<span class="str">"message"</span>][<span class="str">"content"</span>]
-    <span class="kw">except</span> Exception <span class="kw">as</span> e:
-        <span class="kw">return</span> f<span class="str">"Error: {e}"</span>
+        <span class="kw">return</span> requests.post(URL, headers=headers, json={<span class="str">"model"</span>:<span class="str">"llama-3.3-70b-versatile"</span>,<span class="str">"temperature"</span>:temperatura,<span class="str">"messages"</span>:mensajes}).json()[<span class="str">"choices"</span>][<span class="nm">0</span>][<span class="str">"message"</span>][<span class="str">"content"</span>]
+    <span class="kw">except</span> Exception <span class="kw">as</span> e: <span class="kw">return</span> f<span class="str">"Error: {e}"</span>
 
-<span class="cm"># --- 2. EL JUGADOR ---</span>
-jugador = {
-    <span class="dk">"nombre"</span>:    <span class="str">"Viajero"</span>,
-    <span class="dk">"hp"</span>:        <span class="nm">100</span>,
-    <span class="dk">"inventario"</span>: []
-}
+jugador = {<span class="dk">"nombre"</span>: <span class="completar">"Nombre del personaje"</span>, <span class="dk">"hp"</span>: <span class="nm">100</span>, <span class="dk">"inventario"</span>: []}
 
-<span class="cm"># --- 3. EL CEREBRO DE LA IA (System Prompt) ---</span>
 game_master = <span class="str">"""
-Sos el narrador de un juego de escape en un Laberinto Subterráneo.
-Tu tono es frío, oscuro y peligroso.
-
-REGLAS:
-1. Relatá cortito (2 o 3 oraciones).
-2. Nunca elijas qué hace el jugador.
-3. Al final, SIEMPRE dale 3 opciones (A, B, C).
-4. Terminá diciendo: "¿Qué vas a hacer? Responde A, B o C".
+Sos el Narrador de una aventura en <span class="completar">[MUNDO]</span>. Tono: <span class="completar">[TONO]</span>.
+Reglas: (1) Máx 3 oraciones. (2) Nunca decidás por el jugador. (3) SIEMPRE 3 opciones A/B/C.
+El jugador empieza en: <span class="completar">[PUNTO DE PARTIDA]</span>.
 """</span>
-historial = [{<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: game_master}]
+historial = [{<span class="str">"role"</span>:<span class="str">"system"</span>,<span class="str">"content"</span>:game_master}]
 
-<span class="cm"># --- 4. BUCLE DEL JUEGO ---</span>
-<span class="kw">print</span>(<span class="str">"👻 ESCAPE DEL LABERINTO\n(Comandos ocultos: /estado, /tomar obj, /hp -10, /guardar, /salir)\n"</span>)
+<span class="kw">print</span>(<span class="str">"🎮 <span class="completar">NOMBRE DEL JUEGO</span>\nComandos: /estado /tomar obj /hp -20 /guardar /salir\n"</span>)
 
 <span class="kw">while True</span>:
     accion = <span class="kw">input</span>(<span class="str">"Acción > "</span>).strip()
-    
-    <span class="kw">if</span> accion == <span class="str">"/salir"</span>: <span class="kw">break</span>
-    
-    <span class="kw">if</span> accion == <span class="str">"/estado"</span>:
-        <span class="kw">print</span>(f<span class="str">"❤️ Vida: {jugador['hp']} | 🎒 Mochila: {jugador['inventario']}"</span>); <span class="kw">continue</span>
-        
-    <span class="kw">if</span> accion.startswith(<span class="str">"/tomar "</span>):
-        jugador[<span class="str">"inventario"</span>].append(accion[<span class="nm">7</span>:]); <span class="kw">print</span>(<span class="str">"Objeto guardado."</span>); <span class="kw">continue</span>
-        
-    <span class="kw">if</span> accion.startswith(<span class="str">"/hp "</span>):
-        jugador[<span class="str">"hp"</span>] += <span class="kw">int</span>(accion[<span class="nm">4</span>:]); <span class="kw">print</span>(f<span class="str">"Vida actualizada a {jugador['hp']}"</span>); <span class="kw">continue</span>
-
-    <span class="kw">if</span> accion == <span class="str">"/guardar"</span>:
-        <span class="kw">with open</span>(<span class="str">"log_partida.txt"</span>, <span class="str">"w"</span>) <span class="kw">as</span> f:
-            for m in historial[1:]: f.write(f"{m['role']}: {m['content']}\n")
-        <span class="kw">print</span>(<span class="str">"💾 Log guardado!"</span>); <span class="kw">continue</span>
-
-    <span class="cm"># Turno del juego: pasamos el estado oculto y llamamos a la IA</span>
-    estado_oculto = f<span class="str">"[Vida={jugador['hp']} | Mochila={jugador['inventario']}] - Jugador dice: {accion}"</span>
-    historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: estado_oculto})
-    
-    <span class="kw">print</span>(<span class="str">"..."</span>) 
-    respuesta = consultar_ia(historial)
-    historial.append({<span class="str">"role"</span>: <span class="str">"assistant"</span>, <span class="str">"content"</span>: respuesta})
-
-    <span class="kw">print</span>(f<span class="str">"\n🌲 {respuesta}\n"</span>)</div></div>
-        </div>
+    <span class="kw">if</span> accion.lower() == <span class="str">"salir"</span>: <span class="kw">break</span>
+    <span class="kw">if</span> accion.lower() == <span class="str">"/guardar"</span>:
+        <span class="kw">with open</span>(<span class="str">"log_partida.txt"</span>,<span class="str">"w"</span>,encoding=<span class="str">"utf-8"</span>) <span class="kw">as</span> f:
+            f.write(f<span class="str">"ESTADO:{jugador}\n\n"</span>)
+            <span class="kw">for</span> m <span class="kw">in</span> historial[<span class="nm">1</span>:]: f.write(f<span class="str">"{m['role'].upper()}:{m['content']}\n\n"</span>)
+        <span class="kw">print</span>(<span class="str">"💾 Guardado\n"</span>); <span class="kw">continue</span>
+    <span class="kw">if</span> accion.lower() == <span class="str">"/estado"</span>:
+        <span class="kw">print</span>(f<span class="str">"❤️{jugador['hp']} 🎒{', '.join(jugador['inventario']) or 'vacío'}\n"</span>); <span class="kw">continue</span>
+    <span class="kw">if</span> accion.lower().startswith(<span class="str">"/tomar "</span>):
+        jugador[<span class="str">"inventario"</span>].append(accion[<span class="nm">7</span>:].strip()); <span class="kw">print</span>(<span class="str">"🎒 OK\n"</span>); <span class="kw">continue</span>
+    <span class="kw">if</span> accion.lower().startswith(<span class="str">"/hp "</span>):
+        <span class="kw">try</span>: jugador[<span class="str">"hp"</span>]=<span class="kw">max</span>(<span class="nm">0</span>,jugador[<span class="str">"hp"</span>]+<span class="kw">int</span>(accion[<span class="nm">4</span>:])); <span class="kw">print</span>(f<span class="str">"❤️{jugador['hp']}\n"</span>)
+        <span class="kw">except</span>: <span class="kw">print</span>(<span class="str">"Usá /hp -20\n"</span>)
+        <span class="kw">continue</span>
+    historial.append({<span class="str">"role"</span>:<span class="str">"user"</span>,<span class="str">"content"</span>:f<span class="str">"[{jugador['nombre']}|HP:{jugador['hp']}|Mochila:{jugador['inventario']}] {accion}"</span>})
+    r = consultar_ia(historial, <span class="nm">0.7</span>)
+    historial.append({<span class="str">"role"</span>:<span class="str">"assistant"</span>,<span class="str">"content"</span>:r})
+    <span class="kw">print</span>(f<span class="str">"\n🌲 {r}\n"</span>)</div></div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- ══ 5: HOJA DE RUTA Y ENTREGAS ═══════════════════════════════════════════════════ -->
-  <div class="card c-hoy">
-    <h2><span class="badge" style="background:var(--grn)">5</span> CRONOGRAMA DE TRABAJO</h2>
-    <div class="ruta-grid">
-      <div class="ruta-card r-hoy">
-        <div class="cuando">🟢 Hoy (Clase Práctica)</div>
-        <p>Pensar la historia, crear el personaje y armar el System Prompt. Luego, armar los bloques en Colab y probar.</p>
+<!-- ══ 6: PRUEBAS ══════════════════════════════════════════════════════ -->
+<div class="card c-entrega">
+  <h2><span class="badge" style="background:var(--grn)">6</span> LA TAREA DE HOY — PRUEBAS DE ESTRÉS</h2>
+  <p style="margin-bottom:15px;">Al final del Colab agregá una <strong>Celda de Texto</strong> y respondé estas 3 preguntas. Para responderlas bien tenés que ir al código, jugar y forzar al modelo:</p>
+  <div class="pregunta-box">
+    <h4>🚨 Prueba 1 — El Narrador Rebelde</h4>
+    <p>Jugá un par de turnos dando respuestas cortas o ambiguas. ¿El narrador tomó decisiones por vos? Si sí, ¿cómo ajustaste la regla 2 del System Prompt para frenarlo?</p>
+  </div>
+  <div class="pregunta-box">
+    <h4>💾 Prueba 2 — La ilusión de guardar</h4>
+    <p>Usá <code>/guardar</code> y abrí el archivo <code>log_partida.txt</code> desde el panel izquierdo de Colab. ¿Podés usar ese archivo para retomar la partida si apagás la compu? Explicá para qué sirve realmente.</p>
+  </div>
+  <div class="pregunta-box">
+    <h4>⚙️ Prueba 3 — El problema mecánico</h4>
+    <p>Jugá 5 turnos. Usá <code>/hp -15</code> cuando el narrador diga que te lastimaste, y <code>/tomar</code> cuando encuentres algo. ¿Qué limitación le ves a este sistema manual? ¿Qué tendría que hacer el código para que no tengas que escribir los comandos vos?</p>
+  </div>
+  <div class="info i-teal" style="margin-top:15px;">
+    <strong>📤 Entrega</strong>
+    Compartí el link del Colab con permiso de lector antes del viernes 29/05. El archivo tiene que llamarse <code>RPG_TuApellido.ipynb</code>.
+  </div>
+</div>
+
+<!-- ══ 7: ASISTENTE ════════════════════════════════════════════════════ -->
+<div class="card c-asistente">
+  <h2><span class="badge" style="background:var(--rpg)">🤖</span> TUTOR VIRTUAL</h2>
+  <p style="margin-bottom:14px;">¿El narrador se volvió loco o no te salen las opciones? Preguntá acá. No te da el código resuelto — te guía para que lo resuelvas vos.</p>
+  <div class="key-row">
+    <input type="password" id="asist-key" placeholder="Tu API Key de Groq">
+    <button class="btn-rpg" onclick="activar()">Activar Tutor</button>
+  </div>
+  <div id="asist-chat">
+    <div id="asist-msgs">
+      <div style="align-self:flex-start;background:#2D2D2D;color:#CE9AF5;padding:11px 15px;border-radius:10px;font-size:16px;max-width:90%;line-height:1.5;">
+        ¡Hola! Soy el tutor de la Clase 13. No te doy el código resuelto — te hago preguntas para que llegues vos. ¿En qué estás trabado?
       </div>
-      <div class="ruta-card r-finde">
-        <div class="cuando">⚪ Próxima Semana</div>
-        <p>Afinar detalles de la aventura. Los grupos de 3 deberán probar trucos en el Prompt para que la IA no falle al mandar el JSON.</p>
-      </div>
-      <div class="ruta-card r-prox">
-        <div class="cuando">🟣 Viernes 29/05</div>
-        <p><strong>Recuperatorio TP2</strong> y Entrega de esta Aventura Conversacional completa con registro de la partida jugada.</p>
-      </div>
+    </div>
+    <div class="asist-inp">
+      <input type="text" id="asist-input" placeholder="Preguntame..." onkeypress="if(event.key==='Enter')enviar()">
+      <button class="btn-rpg" id="asist-btn" onclick="enviar()">Enviar</button>
     </div>
   </div>
-
-  <!-- ══ 6: ENTREGABLE Y PREGUNTAS ══════════════════════════════════════════════════════ -->
-  <div class="card c-entrega">
-    <h2><span class="badge" style="background:var(--colab); color:#000;">6</span> LA TAREA DE HOY: PRUEBAS DE ESTRÉS</h2>
-    <p style="margin-bottom: 15px;">Al final de su cuaderno de Colab, agreguen una <strong>Celda de Texto</strong> y respondan estas 3 preguntas. Para responderlas de forma correcta, <strong>tienen que ir al código, jugar y forzar al modelo</strong> para ver qué sucede:</p>
-    
-    <div class="pregunta-box">
-      <h4>🚨 Prueba 1: El Narrador Rebelde</h4>
-      <p>A veces los modelos de lenguaje se "emocionan" y deciden jugar por nosotros (ej: <em>"Elegís la A, corrés a la puerta, la abrís y escapás"</em>). Jugá un par de turnos dando respuestas cortas o ambiguas. ¿Tu narrador toma decisiones por vos? Si lo hace, ¿cómo ajustaste la regla N° 2 del System Prompt para frenarlo?</p>
-    </div>
-    
-    <div class="pregunta-box">
-      <h4>💾 Prueba 2: La ilusión de guardar</h4>
-      <p>Usá el comando oculto <code>/guardar</code>. Después revisá la carpeta izquierda de Colab y abrí el archivo de texto generado. ¿Podés usar este archivo para "Cargar la partida" si apagás la compu y volvés mañana? Explicá brevemente para qué sirve realmente hacer esto en nuestra clase de programación.</p>
-    </div>
-    
-    <div class="pregunta-box">
-      <h4>⚙️ Prueba 3: El problema mecánico</h4>
-      <p>Jugá 5 turnos. Inventá que un monstruo te ataca y usá <code>/hp -15</code>, y que encontrás una espada y usás <code>/tomar espada</code>. ¿Qué problema o limitación le ves a este sistema manual como experiencia de juego? ¿Qué tendría que hacer el código de Python para que no tengas que escribir los comandos vos?</p>
-    </div>
-  </div>
-
-  <!-- ══ 7: ASISTENTE ══════════════════════════════════════════════════════ -->
-  <div class="card c-asistente">
-    <h2><span class="badge" style="background:var(--rpg)">🤖</span> CHAT DE AYUDA (Tutor Virtual)</h2>
-    <p style="margin-bottom:14px;">¿Tirame un centro: el narrador se volvió loco o no te salen las opciones? Consultá por acá.</p>
-    <div class="key-row">
-      <input type="password" id="asist-key" placeholder="Tu API Key de Groq">
-      <button class="btn-rpg" onclick="activar()">Activar Tutor</button>
-    </div>
-    <div id="asist-chat">
-      <div id="asist-msgs">
-        <div style="align-self:flex-start;background:#2D2D2D;color:#CE9AF5;padding:11px 15px;border-radius:10px;font-size:16px;max-width:90%;line-height:1.5;">
-          ¡Hola! Soy el asistente virtual de la Clase 13. Mi idea no es darte el código regalado ni responderte la tarea, sino guiarte para que lo descubras. ¿En qué andás trabado hoy?
-        </div>
-      </div>
-      <div class="asist-inp">
-        <input type="text" id="asist-input" placeholder="Preguntame..." onkeypress="if(event.key==='Enter')enviar()">
-        <button class="btn-rpg" id="asist-btn" onclick="enviar()">Enviar</button>
-      </div>
-    </div>
-  </div>
+</div>
 
 </div>
 
 <script>
-// Manejo de TABS
-function openTab(tabId) {
-  document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-  document.getElementById('tab-' + tabId).classList.add('active');
-  document.getElementById('btn-' + tabId).classList.add('active');
+function openTab(id){
+  document.querySelectorAll('.tab-pane').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(e=>e.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  document.getElementById('btn-'+id).classList.add('active');
 }
-
-// Easter Egg / Menú Secreto Docente: Ctrl + Shift + U para habilitar versión Lite
-document.addEventListener('keydown', function(event) {
-  if (event.ctrlKey && event.shiftKey && (event.key === 'u' || event.key === 'U')) {
-    event.preventDefault();
-    var btnLite = document.getElementById('btn-lite');
-    if (btnLite.style.display === 'none') {
-      btnLite.style.display = 'block'; 
-      openTab('lite'); 
-    } else {
-      btnLite.style.display = 'none'; 
-      openTab('std'); 
-    }
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey&&e.shiftKey&&(e.key==='u'||e.key==='U')){
+    e.preventDefault();
+    var b=document.getElementById('btn-lite');
+    if(b.style.display==='none'){b.style.display='block';openTab('lite');}
+    else{b.style.display='none';openTab('std');}
   }
 });
-
-// Copia de código
-function copiarCodigo(id) {
-  var el = document.getElementById(id);
-  var texto = el.textContent || el.innerText;
-  var textarea = document.createElement('textarea');
-  textarea.value = texto;
-  textarea.style.position = 'fixed'; 
-  document.body.appendChild(textarea);
-  textarea.select();
-  try {
-    var copiado = document.execCommand('copy');
-    if (copiado) {
-      var btn = event.target;
-      var textoOriginal = btn.innerText;
-      btn.innerText = "¡Copiado!";
-      btn.style.background = "var(--teal)";
-      setTimeout(function() {
-        btn.innerText = textoOriginal;
-        btn.style.background = "";
-      }, 1500);
-    }
-  } catch (err) {
-    console.error("Fallo al copiar", err);
-  } finally {
-    document.body.removeChild(textarea);
-  }
+function copiar(id){
+  var el=document.getElementById(id);
+  var t=document.createElement('textarea');
+  t.value=el.textContent||el.innerText;
+  t.style.position='fixed';document.body.appendChild(t);t.select();
+  try{
+    document.execCommand('copy');
+    var btn=event.target;var orig=btn.innerText;
+    btn.innerText='¡Copiado!';btn.style.background='var(--teal)';
+    setTimeout(function(){btn.innerText=orig;btn.style.background='';},1500);
+  }catch(err){}finally{document.body.removeChild(t);}
 }
-
-// ==========================================
-// LOGICA DE LA PESTAÑA "DEMO RPG"
-// ==========================================
-let demoHistorial = [];
-let demoKey = "";
-
-async function enviarDemo() {
-  const inp = document.getElementById('demo-input');
-  const txt = inp.value.trim();
-  const k = document.getElementById('demo-key').value.trim();
-  
-  if (!txt) return;
-  if (!k) { alert("¡Necesitás pegar tu API Key de Groq arriba para jugar la Demo!"); return; }
-  
-  demoKey = k;
-  
-  if (demoHistorial.length === 0) {
-    demoHistorial.push({
-      role: "system",
-      content: "Sos el narrador de un juego de supervivencia en un bosque congelado en Tierra del Fuego. Tu tono es oscuro. Describe qué pasa en 2 oraciones máximo y al final dale al jugador SIEMPRE 3 opciones (A, B, C)."
-    });
-    demoHistorial.push({role: "assistant", content: "Te despertás en medio de un bosque nevado en Tierra del Fuego. Hace mucho frío y a lo lejos ves el Faro del Fin del Mundo apagado. En tu bolsillo solo tenés un fósforo húmedo.\n\n¿Qué vas a hacer?\nA) Caminar hacia el faro entre la nieve profunda.\nB) Buscar refugio en unos árboles cercanos.\nC) Intentar prender el fósforo para entrar en calor."});
+let dH=[],dK='';
+async function enviarDemo(){
+  var inp=document.getElementById('demo-input');
+  var txt=inp.value.trim();var k=document.getElementById('demo-key').value.trim();
+  if(!txt)return;if(!k){alert('Pegá tu API Key.');return;}
+  dK=k;
+  if(dH.length===0){
+    dH.push({role:'system',content:'Sos el narrador de una aventura de supervivencia en Tierra del Fuego. Tono oscuro y misterioso. Máx 3 oraciones. NUNCA decidas por el jugador. SIEMPRE 3 opciones A/B/C al final. Terminá con ¿Qué vas a hacer?'});
+    dH.push({role:'assistant',content:'Te despertás en el muelle de Ushuaia. La niebla cubre todo y el Canal Beagle está en silencio. Hay una lancha abandonada amarrada al muelle, con el motor apagado.\n\n¿Qué vas a hacer?\nA) Subir a la lancha y revisar el motor.\nB) Buscar a alguien en las construcciones cercanas.\nC) Quedarte quieto y escuchar el entorno.'});
   }
-
-  const chat = document.getElementById('demo-chat');
-  chat.innerHTML += `<div class="msg-user"><strong>Vos:</strong> ${txt}</div>`;
-  inp.value = '';
-  chat.scrollTop = chat.scrollHeight;
-  document.getElementById('demo-btn').disabled = true;
-
-  demoHistorial.push({role: "user", content: txt});
-
-  chat.innerHTML += `<div id="demo-load" class="msg-sys">...El Narrador está escribiendo...</div>`;
-  chat.scrollTop = chat.scrollHeight;
-
-  try {
-    const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'Authorization': 'Bearer ' + demoKey, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'llama-3.3-70b-versatile', temperature: 0.7, messages: demoHistorial })
-    });
-    const d = await r.json();
-    if(d.error) throw new Error(d.error.message);
-    const resp = d.choices[0].message.content;
-    
-    document.getElementById('demo-load').remove();
-    demoHistorial.push({role: "assistant", content: resp});
-    
-    const htmlResp = resp.replace(/\n/g, '<br>');
-    chat.innerHTML += `<div class="msg-ia"><strong>Narrador:</strong><br>${htmlResp}</div>`;
-  } catch (e) {
-    document.getElementById('demo-load').remove();
-    chat.innerHTML += `<div class="msg-sys">Error de conexión: Verifica tu API Key.</div>`;
-    demoHistorial.pop(); 
-  }
-  
-  chat.scrollTop = chat.scrollHeight;
-  document.getElementById('demo-btn').disabled = false;
-  inp.focus();
+  var chat=document.getElementById('demo-chat');
+  chat.innerHTML+=`<div class="msg-user"><strong>Vos:</strong> ${txt}</div>`;
+  inp.value='';chat.scrollTop=chat.scrollHeight;
+  document.getElementById('demo-btn').disabled=true;
+  dH.push({role:'user',content:txt});
+  chat.innerHTML+=`<div id="dl" class="msg-sys">El narrador está escribiendo...</div>`;
+  chat.scrollTop=chat.scrollHeight;
+  try{
+    var r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+dK,'Content-Type':'application/json'},body:JSON.stringify({model:'llama-3.3-70b-versatile',temperature:0.7,messages:dH})});
+    var d=await r.json();if(d.error)throw new Error(d.error.message);
+    var resp=d.choices[0].message.content;
+    document.getElementById('dl').remove();
+    dH.push({role:'assistant',content:resp});
+    chat.innerHTML+=`<div class="msg-ia"><strong>Narrador:</strong><br>${resp.replace(/\n/g,'<br>')}</div>`;
+  }catch(e){document.getElementById('dl').remove();chat.innerHTML+=`<div class="msg-sys">Error. Verificá tu API Key.</div>`;dH.pop();}
+  chat.scrollTop=chat.scrollHeight;document.getElementById('demo-btn').disabled=false;inp.focus();
 }
-
-// ==========================================
-// LOGICA DEL ASISTENTE VIRTUAL
-// ==========================================
 var KEY='',HIST=[];
-var SYS='Sos el Tutor Virtual de la Clase 13 del Proyecto RPG, CTP Antonio Martín Marte. Español argentino. Máximo 3-4 oraciones. HOY NO SE USA JSON, solo prompts y comandos manuales (/hp, /estado). Si preguntan por las respuestas a las 3 preguntas, guiá sin dar la solución. Si preguntan por la Versión Lite, deciles que vos o el profe se las habilitan si están muy perdidos con los bloques.';
-
-function activar(){
-  var k=document.getElementById('asist-key').value.trim();
-  if(!k){alert('Por favor, ingresá una API Key.');return;}
-  KEY=k; HIST=[{role:'system',content:SYS}];
-  document.getElementById('asist-chat').style.display='block';
-  document.getElementById('asist-input').focus();
-}
-
-async function enviar(){
-  var inp = document.getElementById('asist-input');
-  var msg = inp.value.trim();
-  if(!msg || !KEY) return;
-  inp.value = '';
-  document.getElementById('asist-btn').disabled = true;
-  
-  add(msg, 'user');
-  HIST.push({role:'user', content:msg});
-  var p = add('Pensando...', 'pens');
-  
-  try {
-    var r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method:'POST',
-      headers:{'Authorization':'Bearer ' + KEY, 'Content-Type':'application/json'},
-      body:JSON.stringify({model:'llama-3.3-70b-versatile', temperature:0.4, messages:HIST})
-    });
-    var d = await r.json();
-    var resp = d.choices[0].message.content;
-    p.remove();
-    HIST.push({role:'assistant', content:resp});
-    add(resp, 'asist');
-  } catch(e) {
-    p.remove();
-    add('Error de conexión a la API.', 'err');
-    HIST.pop();
-  }
-  document.getElementById('asist-btn').disabled = false;
-}
-
-function add(txt, tipo){
-  var box = document.getElementById('asist-msgs');
-  var d = document.createElement('div');
-  d.style.cssText = 'max-width:90%;padding:11px 15px;border-radius:10px;font-size:16px;line-height:1.5;white-space:pre-wrap;'+
-    (tipo==='user'?'align-self:flex-end;background:#7B2D8B;color:#fff;margin-left:auto;':
-     tipo==='asist'?'align-self:flex-start;background:#2D2D2D;color:#CE9AF5;':
-     'align-self:center;background:#333;color:#aaa;font-size:13px;font-style:italic;');
-  d.textContent = txt;
-  box.appendChild(d);
-  box.scrollTop = box.scrollHeight;
-  return d;
-}
+var SYS='Sos el tutor de la Clase 13 del Taller de IA, CTP Antonio Martín Marte. Español argentino con vos. Máximo 4 oraciones. Guiá sin dar soluciones. El proyecto es un RPG narrativo: el TP2 como base más un diccionario jugador y comandos /hp /tomar /estado /guardar. Sin JSON. El narrador responde con consecuencias + 3 opciones A/B/C.';
+function activar(){var k=document.getElementById('asist-key').value.trim();if(!k){alert('Ingresá tu API Key.');return;}KEY=k;HIST=[{role:'system',content:SYS}];document.getElementById('asist-chat').style.display='block';document.getElementById('asist-input').focus();}
+async function enviar(){var inp=document.getElementById('asist-input');var msg=inp.value.trim();if(!msg||!KEY)return;inp.value='';document.getElementById('asist-btn').disabled=true;add(msg,'user');HIST.push({role:'user',content:msg});var p=add('Pensando...','pens');try{var r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+KEY,'Content-Type':'application/json'},body:JSON.stringify({model:'llama-3.3-70b-versatile',temperature:0.4,messages:HIST})});var d=await r.json();var resp=d.choices[0].message.content;p.remove();HIST.push({role:'assistant',content:resp});add(resp,'asist');}catch(e){p.remove();add('Error de conexión.','err');HIST.pop();}document.getElementById('asist-btn').disabled=false;}
+function add(txt,tipo){var box=document.getElementById('asist-msgs');var d=document.createElement('div');d.style.cssText='max-width:90%;padding:11px 15px;border-radius:10px;font-size:16px;line-height:1.5;white-space:pre-wrap;'+(tipo==='user'?'align-self:flex-end;background:#7B2D8B;color:#fff;margin-left:auto;':tipo==='asist'?'align-self:flex-start;background:#2D2D2D;color:#CE9AF5;':'align-self:center;background:#333;color:#aaa;font-size:13px;font-style:italic;');d.textContent=txt;box.appendChild(d);box.scrollTop=box.scrollHeight;return d;}
 </script>
 </body>
 </html>
