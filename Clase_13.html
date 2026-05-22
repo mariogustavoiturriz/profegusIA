@@ -170,20 +170,76 @@
 <!-- ══ 3: DISEÑO ════════════════════════════════════════════════════════ -->
 <div class="card c-arte">
   <h2><span class="badge" style="background:#E91E63">3</span> PRIMERO: DISEÑÁ EL MUNDO</h2>
-  <p>Antes de escribir código, definí en tu carpeta o en una celda de texto del Colab:</p>
+  <p>Abrí una celda de texto en el Colab antes de empezar con el código y respondé esto:</p>
   <ul style="margin-left:20px;font-size:17px;line-height:2;">
     <li><strong>El escenario:</strong> ¿Dónde transcurre? ¿Una estación espacial, el Canal Beagle de noche, una Ushuaia post-apocalíptica?</li>
     <li><strong>El personaje:</strong> Nombre, HP inicial (100 recomendado) y qué lleva en la mochila al arrancar.</li>
     <li><strong>El objetivo:</strong> ¿Qué tiene que lograr el jugador para ganar? (Ej: Reparar el motor, encender el faro, escapar de la criatura).</li>
   </ul>
   <div class="info" style="background:#fff;border-color:#E91E63;margin-top:15px;">
-    🎨 <strong>Dirección de Arte (opcional):</strong> Podés usar herramientas gratuitas como <a href="https://www.bing.com/images/create" target="_blank" style="color:#E91E63;font-weight:bold;">Bing Image Creator</a>, <a href="https://gemini.google.com/" target="_blank" style="color:#E91E63;font-weight:bold;">Gemini</a> o <a href="https://leonardo.ai/" target="_blank" style="color:#E91E63;font-weight:bold;">Leonardo.ai</a> (excelente para RPGs) para generar una imagen de tu protagonista o del escenario. Guardala en tu Drive — la vamos a usar cuando agreguemos interfaz visual al proyecto.
+    🎨 <strong>Dirección de Arte (opcional):</strong> Usá <strong>Bing Image Creator</strong> o <strong>Gemini</strong> para generar una imagen de tu protagonista o del escenario. Guardala en tu Drive — la vamos a usar cuando agreguemos interfaz visual al proyecto.
   </div>
 </div>
 
-<!-- ══ 4: NUEVO COLAB ══════════════════════════════════════════════════ -->
+<!-- ══ 4: CÓMO FUNCIONA EL JUEGO ══════════════════════════════════════ -->
+<div class="card" style="border-left:6px solid var(--teal);">
+  <h2><span class="badge" style="background:var(--teal)">4</span> CÓMO FUNCIONA EL JUEGO</h2>
+
+  <p>El juego tiene <strong>dos modos de input</strong>. Los dos van en el mismo <code>input()</code>, pero el código los trata de forma diferente:</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;">
+    <div style="border-radius:12px;border:2px solid var(--rpg);background:var(--rpg-bg);padding:20px;">
+      <h3 style="color:var(--rpg);margin-top:0;border:none;font-size:19px;margin-bottom:12px;">🌲 Modo historia</h3>
+      <p style="font-size:17px;margin-bottom:12px;">Escribís lo que hace tu personaje en lenguaje natural. La IA lo interpreta, narra las consecuencias y te da 3 opciones para el próximo turno.</p>
+      <div style="background:#1E1E1E;border-radius:8px;padding:14px;font-family:Consolas,monospace;font-size:15px;color:#D4D4D4;">
+        <span style="color:#a78bfa;">Acción &gt;</span> Abro la puerta lentamente<br><br>
+        <span style="color:#38bdf8;">🌲 La puerta cruje. Al otro lado hay un pasillo oscuro con un bulto en el suelo.<br><br>
+        A) Avanzar hacia el bulto.<br>
+        B) Buscar un interruptor en la pared.<br>
+        C) Retroceder y cerrar la puerta.</span>
+      </div>
+    </div>
+    <div style="border-radius:12px;border:2px solid var(--teal);background:#E8F8F8;padding:20px;">
+      <h3 style="color:var(--teal);margin-top:0;border:none;font-size:19px;margin-bottom:12px;">⚙️ Modo comando</h3>
+      <p style="font-size:17px;margin-bottom:12px;">Escribís un comando especial que empieza con <code>/</code>. El código actualiza la ficha del personaje <strong>sin llamar a la IA</strong> — gratis, instantáneo.</p>
+      <div style="background:#1E1E1E;border-radius:8px;padding:14px;font-family:Consolas,monospace;font-size:15px;color:#D4D4D4;">
+        <span style="color:#a78bfa;">Acción &gt;</span> /tomar llave<br>
+        <span style="color:#6A9955;">🎒 'llave' agregado al inventario.</span><br><br>
+        <span style="color:#a78bfa;">Acción &gt;</span> /hp -20<br>
+        <span style="color:#6A9955;">❤️ HP actualizado: 80</span><br><br>
+        <span style="color:#a78bfa;">Acción &gt;</span> /estado<br>
+        <span style="color:#6A9955;">❤️ Vida: 80 | 🎒 llave</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:24px;">Tabla de comandos</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:17px;margin-top:10px;">
+    <thead>
+      <tr>
+        <th style="background:var(--nav);color:#fff;padding:10px 14px;text-align:left;border-radius:6px 0 0 0;">Comando</th>
+        <th style="background:var(--nav);color:#fff;padding:10px 14px;text-align:left;">Qué escribís</th>
+        <th style="background:var(--nav);color:#fff;padding:10px 14px;text-align:left;border-radius:0 6px 0 0;">Qué hace</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td style="padding:10px 14px;border-bottom:1px solid var(--bd);font-family:Consolas;font-size:16px;">/estado</td><td style="padding:10px 14px;border-bottom:1px solid var(--bd);font-family:Consolas;font-size:16px;">/estado</td><td style="padding:10px 14px;border-bottom:1px solid var(--bd);">Muestra la ficha del personaje: HP e inventario actual.</td></tr>
+      <tr style="background:var(--gris);"><td style="padding:10px 14px;border-bottom:1px solid var(--bd);font-family:Consolas;font-size:16px;">/tomar</td><td style="padding:10px 14px;border-bottom:1px solid var(--bd);font-family:Consolas;font-size:16px;">/tomar espada</td><td style="padding:10px 14px;border-bottom:1px solid var(--bd);">Agrega "espada" al inventario. Lo que escribas después del espacio es el objeto.</td></tr>
+      <tr><td style="padding:10px 14px;border-bottom:1px solid var(--bd);font-family:Consolas;font-size:16px;">/hp</td><td style="padding:10px 14px;border-bottom:1px solid var(--bd);font-family:Consolas;font-size:16px;">/hp -20 &nbsp;o&nbsp; /hp +10</td><td style="padding:10px 14px;border-bottom:1px solid var(--bd);">Modifica los puntos de vida. Negativo para perder, positivo para recuperar.</td></tr>
+      <tr style="background:var(--gris);"><td style="padding:10px 14px;border-bottom:1px solid var(--bd);font-family:Consolas;font-size:16px;">/guardar</td><td style="padding:10px 14px;border-bottom:1px solid var(--bd);font-family:Consolas;font-size:16px;">/guardar</td><td style="padding:10px 14px;border-bottom:1px solid var(--bd);">Exporta el estado del personaje y el log completo de la partida a <code>log_partida.txt</code>.</td></tr>
+      <tr><td style="padding:10px 14px;font-family:Consolas;font-size:16px;">salir</td><td style="padding:10px 14px;font-family:Consolas;font-size:16px;">salir</td><td style="padding:10px 14px;">Termina el programa.</td></tr>
+    </tbody>
+  </table>
+
+  <div style="background:#FFF3CD;border:2px solid var(--amb);border-radius:8px;padding:14px 18px;margin-top:18px;font-size:17px;">
+    <strong style="color:#E65100;display:block;margin-bottom:5px;">⚠️ Los comandos los manejás vos, no la IA</strong>
+    Si la IA narra "encontrás una llave", el inventario del código <strong>no se actualiza solo</strong>. Tenés que escribir <code>/tomar llave</code> vos. Esa es la limitación del sistema manual — y es exactamente lo que analizás en la Prueba 3.
+  </div>
+</div>
+
+<!-- ══ 5: NUEVO COLAB ══════════════════════════════════════════════════ -->
 <div class="card c-colab">
-  <h2><span class="badge" style="background:var(--colab);color:#000;">4</span> ABRÍ UN COLAB NUEVO</h2>
+  <h2><span class="badge" style="background:var(--colab);color:#000;">5</span> ABRÍ UN COLAB NUEVO</h2>
   <div class="info i-colab">
     <strong>📁 Nombre del archivo</strong>
     Antes de escribir cualquier código, renombrá el notebook. El nombre tiene que seguir este formato:<br><br>
@@ -196,9 +252,9 @@
   </div>
 </div>
 
-<!-- ══ 5: ESQUELETO ════════════════════════════════════════════════════ -->
+<!-- ══ 6: ESQUELETO ════════════════════════════════════════════════════ -->
 <div class="card c-esqueleto">
-  <h2><span class="badge" style="background:var(--vio)">5</span> EL CÓDIGO — BLOQUE A BLOQUE</h2>
+  <h2><span class="badge" style="background:var(--vio)">6</span> EL CÓDIGO — BLOQUE A BLOQUE</h2>
   <p style="margin-bottom:15px;">En la pestaña <strong>Código</strong> encontrás los bloques en orden. La pestaña <strong>Demo RPG</strong> te muestra cómo debería funcionar el narrador cuando esté bien configurado.</p>
 
   <div class="tabs-container">
@@ -241,7 +297,7 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 <span class="kw">def</span> consultar_ia(mensajes, temperatura):
     payload = {
         <span class="str">"model"</span>:       <span class="str">"llama-3.3-70b-versatile"</span>,
-        <span class="str">"temperature"</span>: temperatura,
+        <span class="str">"temperature"</span>: nivel_creatividad,
         <span class="str">"messages"</span>:    mensajes
     }
     <span class="kw">try</span>:
@@ -456,9 +512,9 @@ historial = [{<span class="str">"role"</span>:<span class="str">"system"</span>,
   </div>
 </div>
 
-<!-- ══ 6: PRUEBAS ══════════════════════════════════════════════════════ -->
+<!-- ══ 7: PRUEBAS ══════════════════════════════════════════════════════ -->
 <div class="card c-entrega">
-  <h2><span class="badge" style="background:var(--grn)">6</span> LA TAREA DE HOY — PRUEBAS DE ESTRÉS</h2>
+  <h2><span class="badge" style="background:var(--grn)">7</span> LA TAREA DE HOY — PRUEBAS DE ESTRÉS</h2>
   <p style="margin-bottom:15px;">Al final del Colab agregá una <strong>Celda de Texto</strong> y respondé estas 3 preguntas. Para responderlas bien tenés que ir al código, jugar y forzar al modelo:</p>
   <div class="pregunta-box">
     <h4>🚨 Prueba 1 — El Narrador Rebelde</h4>
@@ -478,7 +534,7 @@ historial = [{<span class="str">"role"</span>:<span class="str">"system"</span>,
   </div>
 </div>
 
-<!-- ══ 7: ASISTENTE ════════════════════════════════════════════════════ -->
+<!-- ══ 8: ASISTENTE ════════════════════════════════════════════════════ -->
 <div class="card c-asistente">
   <h2><span class="badge" style="background:var(--rpg)">🤖</span> TUTOR VIRTUAL</h2>
   <p style="margin-bottom:14px;">¿El narrador se volvió loco o no te salen las opciones? Preguntá acá. No te da el código resuelto — te guía para que lo resuelvas vos.</p>
