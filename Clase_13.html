@@ -6,419 +6,453 @@
 <title>Taller de IA · Clase 13</title>
 <style>
   :root {
-    --nav:#1A2C3A; --teal:#00949A; --grn:#2A6049; --amb:#D4873A;
-    --vio:#3D5A99; --gris:#F3F6F9; --bd:#C5D2DC; --txt:#2C3E50;
-    --bco:#FFFFFF; --code-bg:#1E1E1E; --r:12px;
-    --rpg:#5C2070; --rpg-bg:#F8F3FF;
-    --g2:#2E6820; --g2-bg:#EFF8EE;
-    --g3:#8B4A00; --g3-bg:#FEF6EE;
-    --azul:#1565C0; --azul-bg:#E3F2FD;
-    --rojo:#C62828; --rojo-bg:#FFEBEE;
+    --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
+    --vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;
+    --bco:#FFFFFF;--code-bg:#1E1E1E;--r:12px;
+    --rpg:#5C2070;--rpg-bg:#F8F3FF;
+    --g2:#2E6820;--g2-bg:#EFF8EE;
+    --g3:#8B4A00;--g3-bg:#FEF6EE;
+    --json:#006400;--json-bg:#F0FFF0;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;
+    --azul:#1565C0;--azul-bg:#E3F2FD;
   }
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background:#EEF3F7; color:var(--txt); line-height:1.6; font-size:20px; padding:15px 0 50px; }
-  header { background:var(--nav); color:var(--bco); padding:25px 20px; border-bottom:5px solid var(--rpg); }
-  header h1 { font-size:26px; margin-bottom:5px; text-transform:uppercase; letter-spacing:1px; }
-  header p  { font-size:17px; opacity:.9; }
-  .container { width:95%; max-width:1400px; margin:0 auto; padding:0 15px; }
-  .back-btn { display:inline-block; margin-top:20px; margin-bottom:10px; padding:10px 20px; background:var(--bco); color:var(--nav); text-decoration:none; font-weight:bold; border-radius:8px; border:2px solid var(--bd); }
-  .card { background:var(--bco); border-radius:var(--r); padding:30px; margin-bottom:28px; margin-top:20px; box-shadow:0 4px 12px rgba(0,0,0,.08); border-left:6px solid var(--bd); }
-  .c-repaso  { border-left-color:#4A6080; background:#F4F7FA; }
-  .c-concepto{ border-left-color:var(--teal); }
-  .c-niveles { border-left-color:var(--amb); background:#FFFBF5; }
-  .c-hoy     { border-left-color:var(--grn); background:var(--g2-bg); }
-  .c-esqueleto{ border-left-color:var(--vio); background:#FAFCFF; }
-  .c-asistente{ border-left-color:var(--rpg); background:var(--rpg-bg); }
-  h2 { color:var(--nav); font-size:23px; margin-bottom:15px; text-transform:uppercase; border-bottom:2px solid var(--gris); padding-bottom:10px; display:flex; align-items:center; gap:10px; }
-  .badge { background:var(--nav); color:var(--bco); padding:5px 12px; border-radius:6px; font-size:17px; font-weight:bold; }
-  h3 { color:var(--nav); font-size:20px; margin-top:20px; margin-bottom:10px; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:20px;padding:15px 0 50px;}
+  header{background:var(--nav);color:var(--bco);padding:25px 20px;border-bottom:5px solid var(--rpg);}
+  header h1{font-size:26px;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
+  header p{font-size:17px;opacity:.9;}
+  .container{width:95%;max-width:1400px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:20px;margin-bottom:10px;padding:10px 20px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  .c-repaso{border-left-color:#4A6080;background:#F4F7FA;}
+  .c-concepto{border-left-color:var(--teal);}
+  .c-nuevo{border-left-color:var(--json);background:var(--json-bg);}
+  .c-niveles{border-left-color:var(--amb);background:#FFFBF5;}
+  .c-hoy{border-left-color:var(--grn);background:var(--g2-bg);}
+  .c-esqueleto{border-left-color:var(--vio);background:#FAFCFF;}
+  .c-asistente{border-left-color:var(--rpg);background:var(--rpg-bg);}
+  h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
+  .badge{background:var(--nav);color:var(--bco);padding:5px 12px;border-radius:6px;font-size:17px;font-weight:bold;}
+  .badge-new{background:var(--json);color:#fff;padding:4px 10px;border-radius:6px;font-size:14px;font-weight:bold;margin-left:8px;vertical-align:middle;}
+  h3{color:var(--nav);font-size:20px;margin-top:20px;margin-bottom:10px;}
 
-  /* ── Errores ── */
-  .errores-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:16px; }
-  .error-card { background:var(--rojo-bg); border:1px solid #FFCDD2; border-left:5px solid var(--rojo); border-radius:var(--r); padding:18px; }
-  .error-card h4 { color:var(--rojo); font-size:18px; margin-bottom:8px; }
-  .error-card p  { font-size:17px; line-height:1.6; }
+  .errores-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px;}
+  .error-card{background:var(--rojo-bg);border:1px solid #FFCDD2;border-left:5px solid var(--rojo);border-radius:var(--r);padding:18px;}
+  .error-card h4{color:var(--rojo);font-size:18px;margin-bottom:8px;}
+  .error-card p{font-size:17px;line-height:1.6;}
 
-  /* ── Tabla comparativa ── */
-  .tabla-comp { width:100%; border-collapse:collapse; margin-top:14px; font-size:18px; }
-  .tabla-comp th { background:var(--nav); color:var(--bco); padding:10px 14px; text-align:left; }
-  .tabla-comp td { padding:10px 14px; border-bottom:1px solid var(--bd); }
-  .tabla-comp tr:nth-child(even) td { background:var(--gris); }
-  .acento { color:var(--rpg); font-weight:bold; }
+  .tabla-comp{width:100%;border-collapse:collapse;margin-top:14px;font-size:18px;}
+  .tabla-comp th{background:var(--nav);color:var(--bco);padding:10px 14px;text-align:left;}
+  .tabla-comp td{padding:10px 14px;border-bottom:1px solid var(--bd);}
+  .tabla-comp tr:nth-child(even) td{background:var(--gris);}
+  .acento{color:var(--rpg);font-weight:bold;}
 
-  /* ── Niveles ── */
-  .niveles-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:16px; }
-  .nivel-card { border-radius:var(--r); padding:22px; border:2px solid; }
-  .n2 { border-color:var(--g2); background:var(--g2-bg); }
-  .n3 { border-color:var(--g3); background:var(--g3-bg); }
-  .nivel-card h4 { font-size:20px; margin-bottom:12px; }
-  .n2 h4 { color:var(--g2); }
-  .n3 h4 { color:var(--g3); }
-  .nivel-card ul { margin-left:20px; line-height:2.2; font-size:18px; }
-  .nivel-card .tag { display:inline-block; font-size:13px; font-weight:bold; padding:3px 10px; border-radius:20px; margin-bottom:10px; }
-  .n2 .tag { background:var(--g2); color:#fff; }
-  .n3 .tag { background:var(--g3); color:#fff; }
+  /* Comparación JSON */
+  .json-comp{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+  .jbox{border-radius:var(--r);padding:18px;border:2px solid;}
+  .jbox.antes{border-color:var(--bd);background:var(--gris);}
+  .jbox.despues{border-color:var(--json);background:var(--json-bg);}
+  .jbox h4{font-size:18px;margin-bottom:10px;}
+  .jbox.antes h4{color:#555;}
+  .jbox.despues h4{color:var(--json);}
 
-  /* ── Hoja de ruta ── */
-  .ruta-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
-  .ruta-card { border-radius:var(--r); padding:20px; border:2px solid; text-align:center; }
-  .r-hoy  { border-color:var(--grn);  background:var(--g2-bg); }
-  .r-finde{ border-color:var(--bd);   background:var(--gris); }
-  .r-prox { border-color:var(--rpg);  background:var(--rpg-bg); }
-  .ruta-card .cuando { font-size:16px; font-weight:bold; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; }
-  .r-hoy  .cuando { color:var(--grn); }
-  .r-finde .cuando { color:#666; }
-  .r-prox  .cuando { color:var(--rpg); }
-  .ruta-card p { font-size:17px; line-height:1.6; }
+  .niveles-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px;}
+  .nivel-card{border-radius:var(--r);padding:22px;border:2px solid;}
+  .n2{border-color:var(--g2);background:var(--g2-bg);}
+  .n3{border-color:var(--g3);background:var(--g3-bg);}
+  .nivel-card h4{font-size:20px;margin-bottom:12px;}
+  .n2 h4{color:var(--g2);}
+  .n3 h4{color:var(--g3);}
+  .nivel-card ul{margin-left:20px;line-height:2.2;font-size:18px;}
+  .nivel-card .tag{display:inline-block;font-size:13px;font-weight:bold;padding:3px 10px;border-radius:20px;margin-bottom:10px;}
+  .n2 .tag{background:var(--g2);color:#fff;}
+  .n3 .tag{background:var(--g3);color:#fff;}
 
-  /* ── Info boxes ── */
-  .info { padding:18px 20px; border-radius:var(--r); margin:15px 0; border-left:5px solid; font-size:18px; line-height:1.7; }
-  .i-teal { background:var(--gris); border-color:var(--teal); }
-  .i-rpg  { background:var(--rpg-bg); border-color:var(--rpg); }
-  .i-grn  { background:var(--g2-bg); border-color:var(--g2); }
-  .i-amb  { background:#FFF8EE; border-color:var(--amb); }
-  .info strong { display:block; margin-bottom:6px; font-size:19px; }
-  .alerta { background:#FFF3CD; border:2px solid var(--amb); border-radius:8px; padding:14px 18px; margin:15px 0; font-size:18px; }
-  .alerta strong { color:#E65100; display:block; margin-bottom:5px; }
+  .ruta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px;}
+  .ruta-card{border-radius:var(--r);padding:20px;border:2px solid;text-align:center;}
+  .r-hoy{border-color:var(--grn);background:var(--g2-bg);}
+  .r-finde{border-color:var(--bd);background:var(--gris);}
+  .r-prox{border-color:var(--rpg);background:var(--rpg-bg);}
+  .ruta-card .cuando{font-size:16px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+  .r-hoy .cuando{color:var(--grn);}
+  .r-finde .cuando{color:#666;}
+  .r-prox .cuando{color:var(--rpg);}
+  .ruta-card p{font-size:17px;line-height:1.6;}
 
-  /* ── BLOQUES DEL ESQUELETO (estilo guía) ── */
-  .bloque-leyenda { display:flex; gap:16px; margin-bottom:20px; flex-wrap:wrap; }
-  .ley { display:flex; align-items:center; gap:8px; font-size:17px; font-weight:bold; }
-  .ley-dot { width:18px; height:18px; border-radius:4px; flex-shrink:0; }
-  .ley-azul { background:var(--azul); }
-  .ley-rojo { background:var(--rojo); }
+  .info{padding:18px 20px;border-radius:var(--r);margin:15px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
+  .i-teal{background:var(--gris);border-color:var(--teal);}
+  .i-rpg{background:var(--rpg-bg);border-color:var(--rpg);}
+  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
+  .i-json{background:var(--json-bg);border-color:var(--json);}
+  .i-amb{background:#FFF8EE;border-color:var(--amb);}
+  .info strong{display:block;margin-bottom:6px;font-size:19px;}
+  .alerta{background:#FFF3CD;border:2px solid var(--amb);border-radius:8px;padding:14px 18px;margin:15px 0;font-size:18px;}
+  .alerta strong{color:#E65100;display:block;margin-bottom:5px;}
 
-  .bloque { border:2px solid; border-radius:var(--r); margin-bottom:18px; overflow:hidden; }
-  .bloque-titulo { padding:11px 16px; font-weight:bold; font-size:18px; display:flex; align-items:center; gap:10px; }
-  .bloque-desc { padding:12px 16px; font-size:17px; line-height:1.6; border-top:1px solid; }
-  .bloque-code { padding:0; }
+  /* Bloques esqueleto */
+  .bloque-leyenda{display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap;}
+  .ley{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:bold;}
+  .ley-dot{width:18px;height:18px;border-radius:4px;flex-shrink:0;}
+  .ley-azul{background:var(--azul);}
+  .ley-rojo{background:var(--rojo);}
+  .ley-verde{background:var(--json);}
 
-  .b-fijo { border-color:var(--azul); }
-  .b-fijo .bloque-titulo { background:#BBDEFB; color:var(--azul); border-bottom:1px solid var(--azul); }
-  .b-fijo .bloque-desc   { background:var(--azul-bg); border-color:#BBDEFB; }
+  .bloque{border:2px solid;border-radius:var(--r);margin-bottom:18px;overflow:hidden;}
+  .bloque-titulo{padding:11px 16px;font-weight:bold;font-size:18px;display:flex;align-items:center;gap:10px;}
+  .bloque-desc{padding:12px 16px;font-size:17px;line-height:1.6;border-top:1px solid;}
+  .b-fijo{border-color:var(--azul);}
+  .b-fijo .bloque-titulo{background:#BBDEFB;color:var(--azul);border-bottom:1px solid var(--azul);}
+  .b-fijo .bloque-desc{background:var(--azul-bg);border-color:#BBDEFB;}
+  .b-mod{border-color:var(--rojo);}
+  .b-mod .bloque-titulo{background:#FFCDD2;color:var(--rojo);border-bottom:1px solid var(--rojo);}
+  .b-mod .bloque-desc{background:var(--rojo-bg);border-color:#FFCDD2;}
+  .b-nuevo{border-color:var(--json);}
+  .b-nuevo .bloque-titulo{background:#C8F7C8;color:var(--json);border-bottom:1px solid var(--json);}
+  .b-nuevo .bloque-desc{background:var(--json-bg);border-color:#C8F7C8;}
 
-  .b-mod  { border-color:var(--rojo); }
-  .b-mod  .bloque-titulo { background:#FFCDD2; color:var(--rojo); border-bottom:1px solid var(--rojo); }
-  .b-mod  .bloque-desc   { background:var(--rojo-bg); border-color:#FFCDD2; }
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:18px 20px;font-size:17px;overflow-x:auto;white-space:pre;line-height:1.65;margin:0;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
+  .dk{color:#9CDCFE;} .nm{color:#B5CEA8;} .jk{color:#4EC9B0;}
+  .completar{color:#FFEB3B;font-weight:bold;}
 
-  .b-puerta { border-color:var(--vio); }
-  .b-puerta .bloque-titulo { background:#E1BEE7; color:var(--vio); border-bottom:1px solid var(--vio); }
-  .b-puerta .bloque-desc   { background:var(--ifBg,#F3E5F5); border-color:#E1BEE7; }
+  #asist-chat{display:none;}
+  #asist-msgs{background:#1E1E1E;border-radius:10px;padding:16px;min-height:180px;max-height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:10px;}
+  .asist-inp{display:flex;gap:8px;}
+  .asist-inp input{flex:1;padding:11px;border-radius:8px;border:1px solid #ccc;font-size:17px;outline:none;}
+  .btn-rpg{background:var(--rpg);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;}
+  .btn-rpg:disabled{background:#ccc;cursor:not-allowed;}
+  .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
+  .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
 
-  .code-block { background:var(--code-bg); color:#D4D4D4; font-family:'Consolas',monospace; padding:18px 20px; font-size:17px; overflow-x:auto; white-space:pre; line-height:1.65; margin:0; }
-  .kw  { color:#569CD6; }
-  .str { color:#CE9178; }
-  .cm  { color:#6A9955; font-style:italic; }
-  .dk  { color:#9CDCFE; }
-  .nm  { color:#B5CEA8; }
-  .completar { color:#FFEB3B; font-weight:bold; background:rgba(255,235,59,.15); border-radius:3px; padding:0 3px; }
-
-  /* ── Asistente ── */
-  #asist-chat { display:none; }
-  #asist-msgs { background:#1E1E1E; border-radius:10px; padding:16px; min-height:180px; max-height:340px; overflow-y:auto; display:flex; flex-direction:column; gap:12px; margin-bottom:10px; }
-  .asist-inp { display:flex; gap:8px; }
-  .asist-inp input { flex:1; padding:11px; border-radius:8px; border:1px solid #ccc; font-size:17px; outline:none; }
-  .btn-rpg { background:var(--rpg); color:#fff; border:none; padding:10px 16px; border-radius:8px; font-weight:bold; cursor:pointer; }
-  .btn-rpg:disabled { background:#ccc; cursor:not-allowed; }
-  .key-row { display:flex; gap:8px; align-items:center; margin-bottom:12px; }
-  .key-row input { flex:1; padding:10px; border-radius:8px; border:1px solid #ccc; font-size:16px; outline:none; }
-
-  @media(max-width:768px){ .errores-grid,.niveles-grid,.ruta-grid{grid-template-columns:1fr;} }
+  @media(max-width:768px){.errores-grid,.niveles-grid,.ruta-grid,.json-comp{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 <header>
-  <h1>CLASE 13 — AVENTURA NARRADA CON IA</h1>
+  <h1>CLASE 13 — AVENTURA NARRADA CON IA <span style="font-size:18px;opacity:.7;font-weight:normal;">+ JSON como output schema</span></h1>
   <p>Taller de IA Aplicada · 7°1° · CTP Antonio Martín Marte · Viernes 22/05 · 80 minutos</p>
 </header>
 
 <div class="container">
 <a href="index.html" class="back-btn">⬅ Volver al Índice</a>
 
-<!-- ══════════ BLOQUE 0 — REPASO ══════════════════════════════════════════ -->
+<!-- ══ 0: REPASO ══════════════════════════════════════════════════════════ -->
 <div class="card c-repaso">
-  <h2><span class="badge" style="background:#4A6080">0</span> REPASO RÁPIDO — LO QUE MEJORAR DEL TP2</h2>
-  <p>Antes de arrancar, tres errores que aparecieron en casi todos los trabajos:</p>
+  <h2><span class="badge" style="background:#4A6080">0</span> REPASO RÁPIDO — ERRORES DEL TP2</h2>
   <div class="errores-grid">
     <div class="error-card">
       <h4>🔥 Fuga de tokens</h4>
-      <p>El <code>/guardar</code> tiene que ir <strong>antes</strong> de llamar a la IA. Si va al final, el historial completo se manda a la API antes de cerrar y gastás tokens innecesarios.</p>
+      <p>El <code>/guardar</code> va <strong>antes</strong> de llamar a la IA. Al final del bucle ya se mandó el historial completo y gastaste tokens innecesarios.</p>
     </div>
     <div class="error-card">
-      <h4>👻 Variables fantasma</h4>
-      <p>Si pedís datos con <code>input()</code>, usalos. Si una variable nunca aparece en el código después de ser declarada, sobra. Borrala o usala.</p>
+      <h4>👻 Variables que no se usan</h4>
+      <p>Si pedís datos con <code>input()</code>, usalos. Si una variable no aparece en ningún lugar después de ser declarada, sobra.</p>
     </div>
     <div class="error-card">
       <h4>⟹ Sangrías (indent)</h4>
-      <p>Python es estricto. Si el código de respuesta está dentro de un <code>if</code> que no corresponde, el programa se rompe o el bot no responde.</p>
+      <p>Python es estricto. Código dentro de un <code>if</code> que no corresponde rompe el programa silenciosamente.</p>
     </div>
   </div>
   <div class="info i-teal" style="margin-top:20px;">
-    <strong>💡 Para el recuperatorio del viernes próximo</strong>
-    Corregí estos tres puntos en tu código antes de esa fecha. La guía de corrección está disponible en Classroom.
+    <strong>💡 Recuperatorio del viernes próximo</strong>
+    Corregí estos tres puntos antes del 29/05. La guía de corrección está en Classroom.
   </div>
 </div>
 
-<!-- ══════════ BLOQUE 1 — CONCEPTO ════════════════════════════════════════ -->
+<!-- ══ 1: DEL CHATBOT AL NARRADOR ════════════════════════════════════════ -->
 <div class="card c-concepto">
-  <h2><span class="badge">1</span> DEL CHATBOT AL DUNGEON MASTER</h2>
-  <p>En el TP2 programaron un asistente: la IA <strong>espera</strong> que el usuario haga una pregunta y responde. El rol de la IA es <em>pasivo</em>.</p>
-  <p style="margin-top:12px;">En este proyecto el rol cambia. La IA es un <strong>narrador omnisciente</strong>: guía la historia, describe el entorno, interpreta las acciones del jugador y decide las consecuencias. El rol de la IA es <em>activo</em>.</p>
-
+  <h2><span class="badge">1</span> DEL CHATBOT AL NARRADOR</h2>
+  <p>En el TP2 la IA era <strong>pasiva</strong>: esperaba la pregunta y respondía. Hoy la IA es <strong>activa</strong>: guía la historia, narra consecuencias y ofrece opciones.</p>
   <table class="tabla-comp">
-    <thead>
-      <tr><th>Elemento</th><th>TP2 — Chatbot</th><th>Clase 13 — Aventura</th></tr>
-    </thead>
+    <thead><tr><th>Elemento</th><th>TP2 — Chatbot</th><th>Clase 13 — Aventura</th></tr></thead>
     <tbody>
-      <tr><td><strong>System Prompt</strong></td><td>"Sos un veterinario austral…"</td><td>"Sos el narrador de una historia…"</td></tr>
-      <tr><td><strong>Rol de la IA</strong></td><td>Pasivo — espera la pregunta</td><td class="acento">Activo — guía la historia</td></tr>
-      <tr><td><strong>Interacción</strong></td><td>Pregunta / Respuesta directa</td><td class="acento">Acción / Consecuencia + 3 opciones</td></tr>
-      <tr><td><strong>Memoria</strong></td><td>Contexto lineal de la charla</td><td class="acento">Estado del mundo y progreso</td></tr>
+      <tr><td><strong>Rol de la IA</strong></td><td>Pasivo — espera preguntas</td><td class="acento">Activo — guía la historia</td></tr>
+      <tr><td><strong>Interacción</strong></td><td>Pregunta / Respuesta</td><td class="acento">Acción / Consecuencia + 3 opciones</td></tr>
+      <tr><td><strong>Output</strong></td><td>Solo texto</td><td class="acento">Texto + JSON con cambios de estado</td></tr>
     </tbody>
   </table>
+</div>
 
-  <h3>Prompt Engineering para el narrador</h3>
-  <div class="info i-rpg" style="margin-top:12px;">
-    <strong>1. Persona definida</strong>
-    No es "una IA". Es un narrador con un tono específico: urgente, épico, misterioso, sombrío.
+<!-- ══ 2: CONCEPTO NUEVO — JSON OUTPUT ═══════════════════════════════════ -->
+<div class="card c-nuevo">
+  <h2><span class="badge" style="background:var(--json)">2</span> CONCEPTO NUEVO <span class="badge-new">★ TRAMO 3</span> — LA IA COMO EXTRACTOR DE DATOS</h2>
+
+  <p>Hasta ahora la IA siempre devolvió texto libre. Hoy aprendemos a pedirle que devuelva <strong>texto + datos estructurados en formato JSON</strong> al mismo tiempo. Esto se llama <em>output schema</em> — definir de antemano qué forma tiene que tener la respuesta.</p>
+
+  <h3>¿Por qué necesitamos esto en el juego?</h3>
+  <p>Cuando la IA narra "el dragón te quita 30 HP y encontraste una llave", el diccionario <code>jugador</code> no cambia solo. Alguien tiene que actualizar el HP y el inventario.</p>
+  <p style="margin-top:10px;">En grupos de 2 eso lo hace el jugador a mano con <code>/hp -30</code> y <code>/tomar llave</code>. En grupos de 3 se lo pedimos <strong>a la IA directamente</strong>: que incluya un bloque JSON en cada respuesta con los cambios, y el código lo parsea.</p>
+
+  <div class="json-comp">
+    <div class="jbox antes">
+      <h4>🔤 Respuesta normal (grupos de 2)</h4>
+      <div class="code-block" style="font-size:15px;">"El dragón te ataca con sus garras.
+Perdés 30 HP y caés al suelo.
+Encontrás una llave entre los escombros.
+
+A) Huir por el pasillo norte
+B) Usar la llave en la puerta
+C) Atacar al dragón"</div>
+      <p style="margin-top:10px;font-size:17px;">Solo texto. El jugador actualiza el estado a mano.</p>
+    </div>
+    <div class="jbox despues">
+      <h4>📦 Respuesta con JSON (grupos de 3)</h4>
+      <div class="code-block" style="font-size:15px;">"El dragón te ataca con sus garras.
+Perdés 30 HP y caés al suelo.
+Encontrás una llave entre los escombros.
+
+A) Huir B) Usar la llave C) Atacar
+
+<span class="jk">```json
+{"hp_delta": -30, "agregar": ["llave"], "quitar": []}
+```</span>"</div>
+      <p style="margin-top:10px;font-size:17px;">Texto + JSON. El código extrae el JSON y actualiza el diccionario solo.</p>
+    </div>
   </div>
-  <div class="info i-rpg">
-    <strong>2. Contexto del mundo</strong>
-    El System Prompt describe el entorno inicial y las reglas físicas. ¿Dónde estamos? ¿Qué peligros hay?
-  </div>
-  <div class="info i-rpg">
-    <strong>3. Siempre 3 opciones al final</strong>
-    Cada respuesta tiene que terminar con A, B y C para que el jugador no se pierda. Esto se instruye en el System Prompt.
+
+  <h3>¿Cómo se instruye al narrador?</h3>
+  <p>Se agrega una regla en el System Prompt. El narrador tiene que incluir ese bloque JSON <strong>siempre</strong>, aunque no haya cambios:</p>
+  <div class="code-block" style="border-radius:8px;margin-top:10px;font-size:17px;"># En el system prompt del narrador (grupos de 3):
+<span class="str">"""
+...reglas del narrador...
+
+Al final de CADA respuesta incluí un bloque JSON con los cambios de estado:
+```json
+{"hp_delta": N, "agregar": ["objeto"], "quitar": ["objeto"]}
+```
+hp_delta es la variación de HP (negativo si pierde, 0 si no cambia).
+Si no hay cambios usá: {"hp_delta": 0, "agregar": [], "quitar": []}
+"""</span></div>
+
+  <h3>¿Cómo lo parsea el código?</h3>
+  <p>Después de recibir la respuesta del narrador, el código busca el bloque JSON, lo extrae y lo aplica al diccionario:</p>
+  <div class="code-block" style="border-radius:8px;margin-top:10px;font-size:17px;"><span class="kw">import</span> json, re
+
+<span class="cm"># Extraer el bloque JSON de la respuesta del narrador</span>
+match = re.search(<span class="str">r'```json\s*(.*?)\s*```'</span>, narracion, re.DOTALL)
+<span class="kw">if</span> match:
+    <span class="kw">try</span>:
+        cambios = json.loads(match.group(<span class="nm">1</span>))
+        jugador[<span class="str">"hp"</span>] = <span class="kw">max</span>(<span class="nm">0</span>, jugador[<span class="str">"hp"</span>] + cambios.get(<span class="str">"hp_delta"</span>, <span class="nm">0</span>))
+        <span class="kw">for</span> obj <span class="kw">in</span> cambios.get(<span class="str">"agregar"</span>, []):
+            jugador[<span class="str">"inventario"</span>].append(obj)
+        <span class="kw">for</span> obj <span class="kw">in</span> cambios.get(<span class="str">"quitar"</span>, []):
+            <span class="kw">if</span> obj <span class="kw">in</span> jugador[<span class="str">"inventario"</span>]:
+                jugador[<span class="str">"inventario"</span>].remove(obj)
+        <span class="cm"># Mostrar solo el texto, sin el bloque JSON</span>
+        texto_limpio = re.sub(<span class="str">r'```json.*?```'</span>, <span class="str">''</span>, narracion, flags=re.DOTALL).strip()
+        <span class="kw">print</span>(f<span class="str">"\n🌲 {texto_limpio}\n"</span>)
+    <span class="kw">except</span>:
+        <span class="kw">print</span>(f<span class="str">"\n🌲 {narracion}\n"</span>)  <span class="cm"># si el JSON falló, mostrar todo igual</span>
+<span class="kw">else</span>:
+    <span class="kw">print</span>(f<span class="str">"\n🌲 {narracion}\n"</span>)</div>
+
+  <div class="info i-json" style="margin-top:15px;">
+    <strong>⚠️ La IA no siempre devuelve JSON válido</strong>
+    A veces el modelo se olvida del bloque JSON, lo formatea mal o lo incluye dentro del texto. Por eso el <code>try/except</code> es obligatorio: si el parseo falla, el juego sigue igual — solo no se actualiza el estado automáticamente. Eso es exactamente lo que veremos en C15: validación de outputs.
   </div>
 </div>
 
-<!-- ══════════ BLOQUE 2 — NIVELES ════════════════════════════════════════ -->
+<!-- ══ 3: LOS GRUPOS ═════════════════════════════════════════════════════ -->
 <div class="card c-niveles">
-  <h2><span class="badge" style="background:var(--amb)">2</span> LOS GRUPOS Y LOS NIVELES</h2>
-  <p>Hoy definen los grupos. El nivel de dificultad depende de cuántos integrantes.</p>
+  <h2><span class="badge" style="background:var(--amb)">3</span> LOS GRUPOS Y LOS NIVELES</h2>
   <div class="niveles-grid">
     <div class="nivel-card n2">
       <span class="tag">Grupos de 2</span>
       <h4>🗺️ Estado + Comandos manuales</h4>
-      <p style="font-size:17px;margin-bottom:12px;">La IA narra, el jugador actualiza el estado con comandos.</p>
+      <p style="font-size:17px;margin-bottom:12px;">La IA devuelve solo texto. El jugador actualiza el estado con comandos.</p>
       <ul>
-        <li>Diccionario con HP, inventario y ubicación</li>
-        <li><code>/estado</code> → muestra la ficha</li>
-        <li><code>/tomar objeto</code> → agrega al inventario</li>
-        <li><code>/soltar objeto</code> → quita del inventario</li>
-        <li><code>/hp +20</code> o <code>/hp -30</code> → modifica vida</li>
-        <li><code>/guardar</code> → exporta el log</li>
+        <li>Diccionario con HP, inventario, ubicación</li>
+        <li><code>/estado</code> <code>/tomar</code> <code>/soltar</code> <code>/hp ±n</code> <code>/guardar</code></li>
+        <li>System Prompt: narrador + 3 opciones por turno</li>
+        <li>Sin JSON, sin parseo</li>
       </ul>
     </div>
     <div class="nivel-card n3">
       <span class="tag">Grupos de 3</span>
-      <h4>🧠 Estado + IA gestiona el inventario</h4>
-      <p style="font-size:17px;margin-bottom:12px;">El diccionario existe, pero la IA lleva la cuenta en su narrativa. Sin comandos manuales de actualización.</p>
+      <h4>🧠 Estado + JSON output schema</h4>
+      <p style="font-size:17px;margin-bottom:12px;">La IA devuelve texto + JSON. El código parsea el JSON y actualiza el diccionario automáticamente.</p>
       <ul>
-        <li>Diccionario igual que en grupos de 2</li>
-        <li><code>/estado</code> y <code>/guardar</code> siguen existiendo</li>
-        <li>Sin <code>/tomar</code>, <code>/soltar</code>, <code>/hp</code></li>
-        <li>La IA recuerda el inventario y la salud sola</li>
-        <li>El desafío está en el <strong>prompt engineering</strong></li>
+        <li>Mismo diccionario que grupos de 2</li>
+        <li>Sin <code>/tomar</code> <code>/soltar</code> <code>/hp</code> — los reemplaza el parseo</li>
+        <li>System Prompt: narrador + 3 opciones + bloque JSON obligatorio</li>
+        <li><strong>Concepto nuevo:</strong> <code>json.loads()</code>, <code>re.search()</code>, <code>try/except</code> para validar</li>
       </ul>
     </div>
   </div>
 </div>
 
-<!-- ══════════ BLOQUE 3 — HOJA DE RUTA ════════════════════════════════════ -->
+<!-- ══ 4: HOJA DE RUTA ═══════════════════════════════════════════════════ -->
 <div class="card c-hoy">
-  <h2><span class="badge" style="background:var(--grn)">3</span> QUÉ HACEMOS HOY Y LA SEMANA QUE VIENE</h2>
+  <h2><span class="badge" style="background:var(--grn)">4</span> QUÉ HACEMOS HOY Y LA SEMANA QUE VIENE</h2>
   <div class="ruta-grid">
     <div class="ruta-card r-hoy">
       <div class="cuando">🟢 Hoy — Vie 22/05</div>
-      <p><strong>Diseñar el juego:</strong> mundo, personaje, dilema. Armar el System Prompt y hacer una primera prueba con el esqueleto.</p>
+      <p>Diseñar el juego: mundo, personaje, dilema. Armar el System Prompt y hacer una primera prueba corriendo el esqueleto.</p>
     </div>
     <div class="ruta-card r-finde">
       <div class="cuando">⚪ Fin de semana</div>
-      <p>El lunes es feriado. Si querés avanzar, pulí el diseño y corregí errores del TP2.</p>
+      <p>Lunes feriado. Opcional: pulir el diseño. Grupos de 3: pensar cómo instruir al narrador para que devuelva JSON siempre.</p>
     </div>
     <div class="ruta-card r-prox">
       <div class="cuando">🟣 Vie 29/05</div>
-      <p><strong>Recuperatorio TP2</strong> + <strong>entrega del juego completo</strong> para los grupos que arrancaron hoy.</p>
+      <p><strong>Recuperatorio TP2</strong> + pipeline de extracción: el log de la partida se exporta como CSV de eventos.</p>
     </div>
   </div>
   <div class="info i-grn" style="margin-top:20px;">
-    <strong>📝 La entrega del viernes próximo incluye:</strong>
-    Colab compartido con código comentado + <code>partida.txt</code> exportado con al menos 6 turnos + celda de texto con: ¿qué desafío tuvieron con el System Prompt? ¿Qué cambiarían?
+    <strong>📝 Entrega del viernes próximo:</strong>
+    Colab compartido con código comentado + <code>partida.txt</code> con al menos 6 turnos + celda de texto: ¿qué desafíos tuvieron con el System Prompt?
   </div>
 </div>
 
-<!-- ══════════ BLOQUE 4 — ESQUELETO POR BLOQUES ═══════════════════════════ -->
+<!-- ══ 5: ESQUELETO ══════════════════════════════════════════════════════ -->
 <div class="card c-esqueleto">
-  <h2><span class="badge" style="background:var(--vio)">4</span> EL ESQUELETO — CONSTRUILO BLOQUE A BLOQUE</h2>
-  <p>Abrí un Colab nuevo. Copiá cada bloque en orden, de arriba hacia abajo. Los bloques azules van igual que siempre — no los modificás. Los rojos los completás vos según el juego de tu grupo.</p>
+  <h2><span class="badge" style="background:var(--vio)">5</span> EL ESQUELETO — BLOQUE A BLOQUE</h2>
+  <p>Abrí un Colab nuevo. Copiá cada bloque en orden. Azul = fijo. Rojo = completás vos. Verde = nuevo respecto al TP2.</p>
 
   <div class="bloque-leyenda">
     <div class="ley"><div class="ley-dot ley-azul"></div> AZUL — Fijo, copialo igual</div>
     <div class="ley"><div class="ley-dot ley-rojo"></div> ROJO — Vos lo completás</div>
+    <div class="ley"><div class="ley-dot ley-verde"></div> VERDE — Concepto nuevo (Tramo 3)</div>
   </div>
 
-  <!-- B1: Librería -->
   <div class="bloque b-fijo">
-    <div class="bloque-titulo">📦 BLOQUE 1 — Librería</div>
-    <div class="bloque-desc">La misma que usaste en todas las clases. Una sola línea, va al principio del Colab.</div>
-    <div class="bloque-code"><div class="code-block"><span class="kw">import</span> requests</div></div>
+    <div class="bloque-titulo">📦 B1 — Librerías</div>
+    <div class="bloque-desc">Igual que siempre más <code>json</code> y <code>re</code> para grupos de 3.</div>
+    <div class="code-block"><span class="kw">import</span> requests
+<span class="kw">import</span> json   <span class="cm"># para parsear la respuesta JSON del narrador (grupos de 3)</span>
+<span class="kw">import</span> re     <span class="cm"># para extraer el bloque JSON del texto (grupos de 3)</span></div>
   </div>
 
-  <!-- B2: Claves -->
   <div class="bloque b-mod">
-    <div class="bloque-titulo">🔑 BLOQUE 2 — Tu API Key y las constantes</div>
-    <div class="bloque-desc">Pegá tu clave de Groq entre las comillas. La URL y los headers van igual que siempre — no los tocás.</div>
-    <div class="bloque-code"><div class="code-block">API_KEY = <span class="str">"gsk_PEGA_TU_CLAVE_ACA"</span>   <span class="cm"># ← cambiá esto</span>
+    <div class="bloque-titulo">🔑 B2 — API Key y constantes</div>
+    <div class="bloque-desc">Pegá tu clave. URL y headers igual que siempre.</div>
+    <div class="code-block">API_KEY = <span class="str">"gsk_PEGA_TU_CLAVE_ACA"</span>
 URL     = <span class="str">"https://api.groq.com/openai/v1/chat/completions"</span>
-headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer {API_KEY}"</span>, <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>}</div></div>
+headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer {API_KEY}"</span>, <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>}</div>
   </div>
 
-  <!-- B3: Función -->
   <div class="bloque b-fijo">
-    <div class="bloque-titulo">🍳 BLOQUE 3 — La función (La Cocina)</div>
-    <div class="bloque-desc">Igual que el TP2. Recibe el historial y devuelve la respuesta. No usa print adentro, solo return.</div>
-    <div class="bloque-code"><div class="code-block"><span class="kw">def</span> consultar_ia(mensajes, nivel_creatividad):
-    payload = {
-        <span class="str">"model"</span>:       <span class="str">"llama-3.3-70b-versatile"</span>,
-        <span class="str">"temperature"</span>: nivel_creatividad,
-        <span class="str">"messages"</span>:    mensajes
-    }
+    <div class="bloque-titulo">🍳 B3 — La función (igual que TP2)</div>
+    <div class="bloque-desc">Sin cambios respecto al TP2. Recibe el historial, devuelve texto.</div>
+    <div class="code-block"><span class="kw">def</span> consultar_ia(mensajes, nivel_creatividad):
+    payload = {<span class="str">"model"</span>: <span class="str">"llama-3.3-70b-versatile"</span>, <span class="str">"temperature"</span>: nivel_creatividad, <span class="str">"messages"</span>: mensajes}
     <span class="kw">try</span>:
         respuesta = requests.post(URL, headers=headers, json=payload)
-        datos     = respuesta.json()
-        <span class="kw">return</span> datos[<span class="str">"choices"</span>][<span class="nm">0</span>][<span class="str">"message"</span>][<span class="str">"content"</span>]
+        <span class="kw">return</span> respuesta.json()[<span class="str">"choices"</span>][<span class="nm">0</span>][<span class="str">"message"</span>][<span class="str">"content"</span>]
     <span class="kw">except</span> Exception <span class="kw">as</span> e:
-        <span class="kw">return</span> f<span class="str">"Error: {e}"</span></div></div>
+        <span class="kw">return</span> f<span class="str">"Error: {e}"</span></div>
   </div>
 
-  <!-- B4: Estado -->
   <div class="bloque b-mod">
-    <div class="bloque-titulo">🗂️ BLOQUE 4 — El estado del jugador <span style="font-size:15px;font-weight:normal;margin-left:8px;">NUEVO respecto al TP2</span></div>
-    <div class="bloque-desc">Este diccionario guarda la información del personaje durante el juego. Completá los valores iniciales según tu historia: el nombre del personaje, la ubicación de arranque, y los objetos con los que empieza (si empieza sin nada, dejá la lista vacía).</div>
-    <div class="bloque-code"><div class="code-block">jugador = {
-    <span class="dk">"nombre"</span>:    <span class="completar">"nombre de tu personaje"</span>,
-    <span class="dk">"hp"</span>:        <span class="nm">100</span>,                     <span class="cm"># HP = Hit Points = puntos de vida</span>
-    <span class="dk">"inventario"</span>: <span class="completar">[]</span>,                <span class="cm"># lista de objetos — puede empezar vacía</span>
-    <span class="dk">"ubicacion"</span>: <span class="completar">"punto de partida"</span>    <span class="cm"># dónde empieza el jugador</span>
-}</div></div>
+    <div class="bloque-titulo">🗂️ B4 — Estado del jugador <span style="font-size:14px;font-weight:normal;color:#555;">← NUEVO vs TP2</span></div>
+    <div class="bloque-desc">Completá con los valores iniciales de tu historia.</div>
+    <div class="code-block">jugador = {
+    <span class="dk">"nombre"</span>:    <span class="completar">"nombre del personaje"</span>,
+    <span class="dk">"hp"</span>:        <span class="nm">100</span>,
+    <span class="dk">"inventario"</span>: <span class="completar">[]</span>,
+    <span class="dk">"ubicacion"</span>: <span class="completar">"punto de partida"</span>
+}</div>
   </div>
 
-  <!-- B5: System Prompt -->
   <div class="bloque b-mod">
-    <div class="bloque-titulo">🎭 BLOQUE 5 — El narrador (System Prompt)</div>
-    <div class="bloque-desc">El diseño más importante del proyecto. Acá definís quién es la IA: su tono, el mundo que conoce y las reglas del juego. Tres instrucciones obligatorias: (1) describir el mundo inicial, (2) narrar consecuencias sin decidir por el jugador, (3) terminar siempre con 3 opciones A / B / C.</div>
-    <div class="bloque-code"><div class="code-block"><span class="cm"># """ triple comillas: para escribir texto en varias líneas sin usar \n</span>
-game_master = <span class="str">"""
-Sos el narrador de una aventura ambientada en <span class="completar">[describí el mundo]</span>.
-Tu tono es <span class="completar">[épico / misterioso / de terror / otro]</span>.
+    <div class="bloque-titulo">🎭 B5 — System Prompt del narrador</div>
+    <div class="bloque-desc">Definís el tono, el mundo y las reglas. <strong>Grupos de 3:</strong> agregar la instrucción del bloque JSON al final.</div>
+    <div class="code-block">game_master = <span class="str">"""
+Sos el narrador de una aventura en <span class="completar">[describí el mundo]</span>.
+Tu tono es <span class="completar">[épico / misterioso / de terror]</span>.
 
-Reglas:
-- Describís cada escena en 2-3 oraciones y narras las consecuencias de las acciones del jugador.
-- Nunca decidís por el jugador — solo describís lo que pasa.
-- Al final de CADA respuesta siempre ofrecés exactamente 3 opciones:
-  A) <span class="completar">[primera opción]</span>
-  B) <span class="completar">[segunda opción]</span>
-  C) <span class="completar">[tercera opción]</span>
+- Describís cada escena en 2-3 oraciones.
+- Nunca decidís por el jugador.
+- Al final de CADA respuesta ofrecés 3 opciones A / B / C.
 
-El jugador empieza en <span class="completar">[ubicación inicial]</span>. <span class="completar">[Describí la escena de apertura]</span>.
+<span class="cm"># SOLO GRUPOS DE 3 — agregar esto:</span>
+Además, al final de CADA respuesta incluí un bloque JSON con los cambios de estado:
+```json
+{"hp_delta": 0, "agregar": [], "quitar": []}
+```
+Si el jugador pierde 20 HP y toma un objeto: {"hp_delta": -20, "agregar": ["objeto"], "quitar": []}
 """</span>
 
-historial = [{<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: game_master}]</div></div>
+historial = [{<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: game_master}]</div>
   </div>
 
-  <!-- B6: Inicio -->
-  <div class="bloque b-mod">
-    <div class="bloque-titulo">🎬 BLOQUE 6 — Inicio del juego</div>
-    <div class="bloque-desc">El mensaje de bienvenida y los comandos disponibles. Cambiá el título por el nombre de tu aventura.</div>
-    <div class="bloque-code"><div class="code-block"><span class="kw">print</span>(<span class="str">"🎮 <span class="completar">NOMBRE DE TU AVENTURA</span>"</span>)
-<span class="kw">print</span>(<span class="str">"=" * 40</span>)
-<span class="kw">print</span>(<span class="str">"Comandos: /estado  /tomar &lt;obj&gt;  /soltar &lt;obj&gt;  /hp &lt;±n&gt;  /guardar  /salir\n"</span>)</div></div>
-  </div>
-
-  <!-- B7: Bucle — comandos -->
   <div class="bloque b-fijo">
-    <div class="bloque-titulo">🔁 BLOQUE 7 — El bucle y los comandos de estado <span style="font-size:15px;font-weight:normal;margin-left:8px;">NUEVO respecto al TP2</span></div>
-    <div class="bloque-desc">El while True igual que siempre, más los comandos nuevos del juego. El /guardar va primero — antes de llamar a la IA — para no mandar texto innecesario a la API. El <code>continue</code> es obligatorio: sin él el programa igual ejecutaría la Puerta 3.</div>
-    <div class="bloque-code"><div class="code-block"><span class="kw">while True</span>:
+    <div class="bloque-titulo">🔁 B6 — Bucle y comandos de estado <span style="font-size:14px;font-weight:normal;color:#555;">← NUEVO vs TP2</span></div>
+    <div class="bloque-desc">El while True con las puertas del juego. /guardar va antes de llamar a la IA.</div>
+    <div class="code-block"><span class="kw">print</span>(<span class="str">"🎮 <span class="completar">NOMBRE DEL JUEGO</span>"</span>)
+<span class="kw">print</span>(<span class="str">"Comandos: /estado  /tomar &lt;obj&gt;  /soltar &lt;obj&gt;  /hp ±n  /guardar  /salir\n"</span>)
+
+<span class="kw">while True</span>:
     accion = <span class="kw">input</span>(<span class="str">"¿Qué hacés? > "</span>).strip()
 
-    <span class="cm"># Puerta 1: salir</span>
-    <span class="kw">if</span> accion.lower() == <span class="str">"salir"</span>:
-        <span class="kw">print</span>(<span class="str">"Fin de la aventura."</span>)
-        <span class="kw">break</span>
+    <span class="kw">if</span> accion.lower() == <span class="str">"salir"</span>: <span class="kw">break</span>
 
-    <span class="cm"># Puerta 2: guardar (va ANTES de llamar a la IA)</span>
     <span class="kw">if</span> accion.lower() == <span class="str">"/guardar"</span>:
         <span class="kw">with open</span>(<span class="str">"partida.txt"</span>, <span class="str">"w"</span>, encoding=<span class="str">"utf-8"</span>) <span class="kw">as</span> f:
             f.write(f<span class="str">"ESTADO: {jugador}\n\n"</span>)
             <span class="kw">for</span> msg <span class="kw">in</span> historial[<span class="nm">1</span>:]:
                 f.write(f<span class="str">"{msg['role'].upper()}: {msg['content']}\n\n"</span>)
         <span class="kw">print</span>(<span class="str">"💾 Guardado en partida.txt\n"</span>)
-        <span class="kw">continue</span>   <span class="cm"># obligatorio: vuelve arriba sin pasar por la Puerta 3</span>
+        <span class="kw">continue</span>
 
-    <span class="cm"># Puerta 3a: /estado</span>
     <span class="kw">if</span> accion.lower() == <span class="str">"/estado"</span>:
         inv = <span class="str">", "</span>.join(jugador[<span class="str">"inventario"</span>]) <span class="kw">or</span> <span class="str">"vacío"</span>
-        <span class="kw">print</span>(f<span class="str">"\n📋 {jugador['nombre']} | HP: {jugador['hp']}/100"</span>)
-        <span class="kw">print</span>(f<span class="str">"📍 {jugador['ubicacion']}"</span>)
-        <span class="kw">print</span>(f<span class="str">"🎒 {inv}\n"</span>)
+        <span class="kw">print</span>(f<span class="str">"\n📋 {jugador['nombre']} | HP:{jugador['hp']} | 📍{jugador['ubicacion']} | 🎒{inv}\n"</span>)
         <span class="kw">continue</span>
 
-    <span class="cm"># Puerta 3b: /tomar</span>
     <span class="kw">if</span> accion.lower().startswith(<span class="str">"/tomar "</span>):
-        obj = accion[<span class="nm">7</span>:].strip()
-        jugador[<span class="str">"inventario"</span>].append(obj)
-        <span class="kw">print</span>(f<span class="str">"🎒 '{obj}' agregado al inventario.\n"</span>)
-        <span class="kw">continue</span>
+        jugador[<span class="str">"inventario"</span>].append(accion[<span class="nm">7</span>:].strip()); <span class="kw">print</span>(<span class="str">"🎒 Agregado\n"</span>); <span class="kw">continue</span>
 
-    <span class="cm"># Puerta 3c: /soltar</span>
     <span class="kw">if</span> accion.lower().startswith(<span class="str">"/soltar "</span>):
-        obj = accion[<span class="nm">8</span>:].strip()
-        <span class="kw">if</span> obj <span class="kw">in</span> jugador[<span class="str">"inventario"</span>]:
-            jugador[<span class="str">"inventario"</span>].remove(obj)
-            <span class="kw">print</span>(f<span class="str">"🗑️ '{obj}' quitado del inventario.\n"</span>)
-        <span class="kw">else</span>:
-            <span class="kw">print</span>(f<span class="str">"No tenés '{obj}'.\n"</span>)
+        obj=accion[<span class="nm">8</span>:].strip()
+        <span class="kw">if</span> obj <span class="kw">in</span> jugador[<span class="str">"inventario"</span>]: jugador[<span class="str">"inventario"</span>].remove(obj); <span class="kw">print</span>(<span class="str">"🗑️ Quitado\n"</span>)
         <span class="kw">continue</span>
 
-    <span class="cm"># Puerta 3d: /hp</span>
     <span class="kw">if</span> accion.lower().startswith(<span class="str">"/hp "</span>):
         <span class="kw">try</span>:
-            cambio = <span class="kw">int</span>(accion[<span class="nm">4</span>:].strip())
-            jugador[<span class="str">"hp"</span>] = <span class="kw">max</span>(<span class="nm">0</span>, <span class="kw">min</span>(<span class="nm">100</span>, jugador[<span class="str">"hp"</span>] + cambio))
-            <span class="kw">print</span>(f<span class="str">"❤️ HP actualizado: {jugador['hp']}/100\n"</span>)
-        <span class="kw">except</span>:
-            <span class="kw">print</span>(<span class="str">"Usá /hp +20 o /hp -30\n"</span>)
-        <span class="kw">continue</span></div></div>
+            jugador[<span class="str">"hp"</span>]=<span class="kw">max</span>(<span class="nm">0</span>,<span class="kw">min</span>(<span class="nm">100</span>,jugador[<span class="str">"hp"</span>]+<span class="kw">int</span>(accion[<span class="nm">4</span>:]))); <span class="kw">print</span>(f<span class="str">"❤️ HP:{jugador['hp']}\n"</span>)
+        <span class="kw">except</span>: <span class="kw">print</span>(<span class="str">"Usá /hp +20 o /hp -30\n"</span>)
+        <span class="kw">continue</span></div>
   </div>
 
-  <!-- B8: Turno normal -->
-  <div class="bloque b-fijo">
-    <div class="bloque-titulo">💬 BLOQUE 8 — El turno normal (Puerta 4) <span style="font-size:15px;font-weight:normal;margin-left:8px;">NUEVO respecto al TP2</span></div>
-    <div class="bloque-desc">El flujo normal del chat, igual que el TP2 pero con una diferencia: antes de mandar el mensaje del jugador, le agregamos el estado actual del personaje. Así el narrador siempre sabe cómo está el jugador sin que se lo tengamos que repetir en el system prompt.</div>
-    <div class="bloque-code"><div class="code-block">    <span class="cm"># Inyectamos el estado + la acción del jugador en el mismo mensaje</span>
-    mensaje_turno = f<span class="str">"""[Estado actual: HP={jugador['hp']}, ubicación="{jugador['ubicacion']}", inventario={jugador['inventario']}]
-Acción del jugador: {accion}"""</span>
-
+  <div class="bloque b-nuevo">
+    <div class="bloque-titulo">💬 B7 — El turno normal <span style="font-size:14px;font-weight:normal;">← Grupos de 2: igual que TP2 / Grupos de 3: parseo JSON</span></div>
+    <div class="bloque-desc">Acá está la diferencia entre los dos niveles. Grupos de 2: mismo flujo del TP2. Grupos de 3: parseo del JSON para actualizar el estado automáticamente.</div>
+    <div class="code-block">    <span class="cm"># ── Turno normal (mismo para los dos niveles) ────────────────────────</span>
+    mensaje_turno = f<span class="str">"""[Estado: HP={jugador['hp']}, ubicación="{jugador['ubicacion']}", inventario={jugador['inventario']}]
+Acción: {accion}"""</span>
     historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: mensaje_turno})
-
     narracion = consultar_ia(historial, <span class="nm">0.8</span>)
+    historial.append({<span class="str">"role"</span>: <span class="str">"assistant"</span>, <span class="str">"content"</span>: narracion})
+
+    <span class="cm"># ── GRUPOS DE 2: mostrar la narración y listo ────────────────────────</span>
     <span class="kw">print</span>(f<span class="str">"\n🌲 {narracion}\n"</span>)
 
-    historial.append({<span class="str">"role"</span>: <span class="str">"assistant"</span>, <span class="str">"content"</span>: narracion})</div></div>
-  </div>
-
-  <div class="alerta">
-    <strong>💡 Grupos de 3: qué cambia</strong>
-    El esqueleto es idéntico. Eliminá los bloques /tomar, /soltar y /hp del Bloque 7. El System Prompt (Bloque 5) tiene que incluir instrucciones para que el narrador lleve la cuenta del inventario y la salud en su propia narrativa.
+    <span class="cm"># ── GRUPOS DE 3: extraer JSON y actualizar el estado ─────────────────</span>
+    <span class="cm"># Reemplazá el print de arriba por este bloque:</span>
+    <span class="cm">#</span>
+    <span class="cm"># match = re.search(r'```json\s*(.*?)\s*```', narracion, re.DOTALL)</span>
+    <span class="cm"># if match:</span>
+    <span class="cm">#     try:</span>
+    <span class="cm">#         cambios = json.loads(match.group(1))</span>
+    <span class="cm">#         jugador["hp"] = max(0, jugador["hp"] + cambios.get("hp_delta", 0))</span>
+    <span class="cm">#         for obj in cambios.get("agregar", []): jugador["inventario"].append(obj)</span>
+    <span class="cm">#         for obj in cambios.get("quitar", []):</span>
+    <span class="cm">#             if obj in jugador["inventario"]: jugador["inventario"].remove(obj)</span>
+    <span class="cm">#         texto = re.sub(r'```json.*?```', '', narracion, flags=re.DOTALL).strip()</span>
+    <span class="cm">#         print(f"\n🌲 {texto}\n")</span>
+    <span class="cm">#     except:</span>
+    <span class="cm">#         print(f"\n🌲 {narracion}\n")</span>
+    <span class="cm"># else:</span>
+    <span class="cm">#     print(f"\n🌲 {narracion}\n")</span></div>
   </div>
 </div>
 
-<!-- ══════════ BLOQUE 5 — ASISTENTE ════════════════════════════════════════ -->
+<!-- ══ 6: ASISTENTE ══════════════════════════════════════════════════════ -->
 <div class="card c-asistente">
   <h2><span class="badge" style="background:var(--rpg)">🤖</span> ASISTENTE DE APOYO</h2>
-  <p style="margin-bottom:14px;">¿Algo no queda claro? Preguntale. No te da el código terminado — te ayuda a pensar.</p>
+  <p style="margin-bottom:14px;">Preguntale sobre cualquier bloque, el System Prompt, el JSON o la diferencia entre los dos niveles.</p>
   <div class="key-row">
     <input type="password" id="asist-key" placeholder="Tu API Key de Groq">
     <button class="btn-rpg" onclick="activar()">Activar</button>
@@ -426,7 +460,7 @@ Acción del jugador: {accion}"""</span>
   <div id="asist-chat">
     <div id="asist-msgs">
       <div style="align-self:flex-start;background:#2D2D2D;color:#CE9AF5;padding:11px 15px;border-radius:10px;font-size:17px;max-width:90%;line-height:1.5;">
-        Hola! Soy el asistente de la Clase 13. Puedo ayudarte con cualquier bloque del esqueleto, el System Prompt del narrador, los comandos de estado o la diferencia entre grupos de 2 y 3. ¿En qué estás?
+        Hola! Soy el asistente de la Clase 13. Puedo ayudarte con el esqueleto, el System Prompt, el parseo JSON (grupos de 3) o la diferencia entre los niveles.
       </div>
     </div>
     <div class="asist-inp">
@@ -436,48 +470,41 @@ Acción del jugador: {accion}"""</span>
   </div>
 </div>
 
-</div><!-- /container -->
-
+</div>
 <script>
-var KEY='', HIST=[];
-var SYS='Sos un asistente de apoyo para la Clase 13 del Taller de IA del CTP Antonio Martín Marte, Ushuaia.\n\nREGLAS:\n- Español argentino con vos. Máximo 3-4 oraciones. Nunca das código completo.\n- Mostrás fragmentos de referencia y hacés preguntas para que lleguen solos.\n\nCONTEXTO DE LA CLASE:\nEl proyecto es una aventura narrada con IA. El esqueleto tiene 8 bloques:\n- Bloque 1: import requests (fijo)\n- Bloque 2: API_KEY, URL, headers (el alumno pone su clave)\n- Bloque 3: función consultar_ia (fijo, igual que TP2)\n- Bloque 4: diccionario jugador con nombre, hp, inventario, ubicacion (el alumno completa)\n- Bloque 5: game_master con triple comillas — System Prompt del narrador (el alumno diseña)\n  Requisitos del system prompt: persona definida, contexto del mundo, siempre 3 opciones A/B/C al final\n- Bloque 6: print de bienvenida (el alumno pone el nombre del juego)\n- Bloque 7: while True con puertas — salir, /guardar (ANTES de llamar a la IA, con continue obligatorio), /estado, /tomar, /soltar, /hp (fijo)\n- Bloque 8: turno normal — inyecta estado + acción en un solo mensaje, llama a consultar_ia, print, append (fijo)\n\nGRUPOS DE 2: usan todos los comandos (/tomar, /soltar, /hp)\nGRUPOS DE 3: eliminan esos comandos y el system prompt instruye al narrador para llevar la cuenta del inventario y la salud en su narrativa\n\nERRORES FRECUENTES DEL TP2:\n1. Fuga de tokens: /guardar al final del bucle en lugar de antes de llamar a la IA\n2. Variables fantasma: pedir con input() datos que después no se usan\n3. Sangrías incorrectas: código dentro del if que no corresponde';
+var KEY='',HIST=[];
+var SYS='Sos asistente de la Clase 13 del Taller de IA, CTP Antonio Martín Marte, Ushuaia. Español argentino con vos. Máximo 3-4 oraciones. Nunca das código completo — mostrás fragmentos y hacés preguntas.\n\nCONTEXTO:\nConcepto nuevo: output schema — la IA devuelve texto + bloque JSON con los cambios de estado del juego.\nGrupos de 2: la IA devuelve solo texto, el jugador actualiza el estado con comandos manuales (/tomar, /soltar, /hp).\nGrupos de 3: el system prompt instruye al narrador a incluir siempre un bloque JSON al final. El código lo extrae con re.search() y lo parsea con json.loads(). Si falla el parseo, el juego sigue igual (try/except).\nEl JSON tiene: {"hp_delta": N, "agregar": ["obj"], "quitar": ["obj"]}\nEl estado se inyecta en cada turno: [Estado: HP=..., ubicacion=..., inventario=...] + la acción del jugador.\nEl /guardar va ANTES de llamar a la IA (error frecuente del TP2).';
 
 function activar(){
   var k=document.getElementById('asist-key').value.trim();
   if(!k){alert('Ingresá tu API Key.');return;}
-  KEY=k; HIST=[{role:'system',content:SYS}];
+  KEY=k;HIST=[{role:'system',content:SYS}];
   document.getElementById('asist-chat').style.display='block';
   document.getElementById('asist-input').focus();
 }
-
 async function enviar(){
   var inp=document.getElementById('asist-input');
-  var msg=inp.value.trim(); if(!msg||!KEY)return;
-  inp.value=''; document.getElementById('asist-btn').disabled=true;
-  add(msg,'user'); HIST.push({role:'user',content:msg});
-  var pens=add('...','pens');
+  var msg=inp.value.trim();if(!msg||!KEY)return;
+  inp.value='';document.getElementById('asist-btn').disabled=true;
+  add(msg,'user');HIST.push({role:'user',content:msg});
+  var p=add('...','pens');
   try{
-    var r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
-      method:'POST',
+    var r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',
       headers:{'Authorization':'Bearer '+KEY,'Content-Type':'application/json'},
-      body:JSON.stringify({model:'llama-3.3-70b-versatile',temperature:0.4,messages:HIST})
-    });
-    var d=await r.json();
-    var resp=d.choices[0].message.content;
-    pens.remove(); HIST.push({role:'assistant',content:resp}); add(resp,'asist');
-  }catch(e){pens.remove();add('Error de conexión.','err');HIST.pop();}
+      body:JSON.stringify({model:'llama-3.3-70b-versatile',temperature:0.4,messages:HIST})});
+    var d=await r.json();var resp=d.choices[0].message.content;
+    p.remove();HIST.push({role:'assistant',content:resp});add(resp,'asist');
+  }catch(e){p.remove();add('Error de conexión.','err');HIST.pop();}
   document.getElementById('asist-btn').disabled=false;
 }
-
 function add(txt,tipo){
   var box=document.getElementById('asist-msgs');
   var d=document.createElement('div');
   d.style.cssText='max-width:90%;padding:11px 15px;border-radius:10px;font-size:17px;line-height:1.5;white-space:pre-wrap;'+
     (tipo==='user'?'align-self:flex-end;background:#7B2D8B;color:#fff;margin-left:auto;':
      tipo==='asist'?'align-self:flex-start;background:#2D2D2D;color:#CE9AF5;':
-     tipo==='err'?'align-self:center;background:#C62828;color:#fff;font-size:14px;':
      'align-self:center;background:#333;color:#aaa;font-size:14px;font-style:italic;');
-  d.textContent=txt; box.appendChild(d); box.scrollTop=box.scrollHeight; return d;
+  d.textContent=txt;box.appendChild(d);box.scrollTop=box.scrollHeight;return d;
 }
 </script>
 </body>
