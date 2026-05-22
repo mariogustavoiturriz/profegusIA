@@ -527,9 +527,7 @@ function openTabJuego(evt) {
     var diff = desbloqueo - ahora;
     var h = Math.floor(diff / 3600000);
     var m = Math.floor((diff % 3600000) / 60000);
-    alert('Esta sección se habilita mañana a las 10:35 hs.
-
-Faltan: ' + h + 'h ' + m + 'min.');
+    alert('Esta sección se habilita mañana a las 10:35 hs. Faltan: ' + h + 'h ' + m + 'min.');
     return;
   }
   document.getElementById('tab-juego').classList.remove('bloqueado');
