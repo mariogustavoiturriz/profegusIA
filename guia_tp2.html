@@ -87,6 +87,8 @@
 
   .btn-submit { display: block; width: 100%; background: var(--nav); color: white; border: none; padding: 15px; font-size: 22px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 30px; transition: 0.3s; }
   .btn-submit:hover { background: #1565C0; }
+  .tab-btn.bloqueado { opacity: 0.45; cursor: not-allowed; }
+  .tab-btn.bloqueado:hover { background: #DCDCDC; }
   #quiz-result { margin-top: 20px; padding: 20px; border-radius: 8px; font-size: 22px; font-weight: bold; text-align: center; display: none; }
 
   .conexion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
@@ -111,7 +113,7 @@
   <div class="tabs">
     <div class="tab-btn active" onclick="openTab(event,'guia')">📖 La Guía Teórica</div>
     <div class="tab-btn" onclick="openTab(event,'repaso')">🧠 Actividad de Repaso</div>
-    <div class="tab-btn" onclick="openTab(event,'juego')">🎮 Conexión con el Juego</div>
+    <div class="tab-btn" id="tab-juego" onclick="openTabJuego(event)">🔒 Conexión con el Juego</div>
   </div>
 
   <!-- ══════ PESTAÑA 1: GUÍA ══════════════════════════════════════════════ -->
@@ -517,6 +519,32 @@ function corregirTodo() {
     resDiv.innerHTML += `<br><span style="font-size:16px;font-weight:normal;margin-top:10px;display:block;">⚠️ Pista para ordenar: primero el usuario escribe → se anota → va al Chef → se muestra → se anota la respuesta.</span>`;
   }
 }
+
+function openTabJuego(evt) {
+  var ahora = new Date();
+  var desbloqueo = new Date('2026-05-22T10:35:00');
+  if (ahora < desbloqueo) {
+    var diff = desbloqueo - ahora;
+    var h = Math.floor(diff / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    alert('Esta sección se habilita mañana a las 10:35 hs.
+
+Faltan: ' + h + 'h ' + m + 'min.');
+    return;
+  }
+  document.getElementById('tab-juego').classList.remove('bloqueado');
+  openTab(evt, 'juego');
+}
+
+// Al cargar, verificar si ya pasó la hora
+window.addEventListener('DOMContentLoaded', function() {
+  var ahora = new Date();
+  var desbloqueo = new Date('2026-05-22T10:35:00');
+  var btn = document.getElementById('tab-juego');
+  if (ahora < desbloqueo) {
+    btn.classList.add('bloqueado');
+  }
+});
 </script>
 </body>
 </html>
