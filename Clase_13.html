@@ -386,6 +386,15 @@ historial = [{<span class="str">"role"</span>: <span class="str">"system"</span>
           El <code>while True</code> es el mismo del TP2. Lo nuevo son los comandos que actualizan el diccionario <code>jugador</code> manualmente.<br><br>
           <strong>¿Por qué <code>continue</code> después de cada comando?</strong> Para que el código no siga ejecutando las líneas de abajo (que llaman a la IA). Sin <code>continue</code>, el comando <code>/estado</code> también le preguntaría a la IA — gastando tokens innecesarios.<br><br>
           <strong>¿Qué hace <code>", ".join(jugador["inventario"])</code>?</strong> Une los elementos de la lista en un texto: <code>["espada", "antorcha"]</code> → <code>"espada, antorcha"</code>.
+
+          <div class="alerta">
+            <strong>🔥 TU DESAFÍO: PROGRAMAR LOS COMANDOS /estado Y /hp</strong>
+            En el código de abajo vas a notar que dejamos dos bloques comentados para que los resuelvas vos. Usando tus conocimientos sobre <strong>diccionarios</strong>, tenés que lograr lo siguiente:
+            <ul style="margin-top:10px; margin-bottom:0;">
+                <li><strong>Comando <code>/estado</code>:</strong> Detectá si el usuario escribió "/estado". Si es así, usá <code>print()</code> para mostrar en pantalla los puntos de vida (<code>jugador["hp"]</code>) y los objetos de la mochila (<code>jugador["inventario"]</code>). Recordá poner el <code>continue</code> al final.</li>
+                <li><strong>Comando <code>/hp</code>:</strong> Atrapá el número que el usuario escribe después de "/hp " (por ejemplo, "-20"). Ese número tenés que sumarlo o restarlo al valor actual de <code>jugador["hp"]</code>. <em>¡Fijate cómo el comando <code>/tomar</code> recorta el texto para saber qué agarrar!</em></li>
+            </ul>
+          </div>
         </div>
         <div class="code-container"><div id="b7" class="code-block"><span class="cm"># B7: El bucle principal</span>
 <span class="kw">while True</span>:
