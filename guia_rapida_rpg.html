@@ -3,233 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guía Rápida: Tu Aventura RPG</title>
+<title>Guía Rápida - Clase 13</title>
 <style>
-  :root {
-    --rpg: #5C2070;
-    --rpg-bg: #F8F3FF;
-    --nav: #1A2C3A;
-    --bco: #FFFFFF;
-    --txt: #2C3E50;
-    --acc: #00949A;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-    background: #EEF3F7; 
-    color: var(--txt); 
-    line-height: 1.6; 
-    font-size: 19px; 
-    padding: 20px; 
-  }
-  .container { max-width: 900px; margin: 0 auto; }
-  header { 
-    background: var(--nav); 
-    color: var(--bco); 
-    padding: 30px; 
-    border-radius: 12px 12px 0 0; 
-    border-bottom: 6px solid var(--rpg);
-    text-align: center;
-  }
-  header h1 { font-size: 32px; text-transform: uppercase; margin-bottom: 10px; }
-  header p { font-size: 20px; color: #cbd5e1; }
-  
-  .paso-card { 
-    background: var(--bco); 
-    padding: 30px; 
-    border-radius: 12px; 
-    margin-top: 20px; 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    border-left: 6px solid var(--rpg);
-  }
-  
-  .paso-num { 
-    display: inline-block; 
-    background: var(--rpg); 
-    color: white; 
-    width: 35px; 
-    height: 35px; 
-    text-align: center; 
-    line-height: 35px; 
-    border-radius: 50%; 
-    font-weight: bold; 
-    margin-right: 10px;
-  }
-  
-  h2 { color: var(--nav); font-size: 24px; margin-bottom: 15px; display: flex; align-items: center; }
-  
-  .codigo { 
-    background: #1E1E1E; 
-    color: #D4D4D4; 
-    padding: 20px; 
-    border-radius: 8px; 
-    font-family: Consolas, monospace; 
-    font-size: 17px; 
-    overflow-x: auto; 
-    margin-top: 15px;
-    border: 1px solid #000;
-  }
-  
-  .amarillo { color: #FFEB3B; font-weight: bold; }
-  .verde { color: #A5D6A7; }
-  .celeste { color: #81D4FA; }
-  .cmt { color: #6A9955; font-style: italic; }
-  
-  .tip {
-    background: #E0F7FA;
-    border-left: 4px solid #0288D1;
-    padding: 15px;
-    margin-top: 15px;
-    border-radius: 0 8px 8px 0;
-    font-size: 18px;
-  }
-  .tip strong { color: #0277BD; }
-
-  .herramientas {
-    background: #FFF3E0;
-    border-left: 5px solid #F57C00;
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 20px;
-  }
-  .herramientas h3 { color: #E65100; margin-bottom: 10px; }
-  .herramientas ul { margin-left: 25px; line-height: 1.8; }
-  .herramientas code { background: #FFE0B2; padding: 2px 6px; border-radius: 4px; color: #E65100; font-weight: bold; }
+  body{font-family:sans-serif;line-height:1.6;padding:20px;background:#f4f4f9;}
+  .bloque{border:2px solid #333;border-radius:8px;margin-bottom:20px;overflow:hidden;}
+  .titulo{background:#333;color:#fff;padding:10px;font-weight:bold;}
+  .desc{padding:10px;background:#fff;}
+  .code{background:#222;color:#0f0;padding:15px;font-family:monospace;white-space:pre-wrap;}
+  .nota{background:#fff3cd;padding:10px;border-left:5px solid #ffc107;margin-bottom:10px;}
 </style>
 </head>
 <body>
 
-<div class="container">
-  <header>
-    <h1>⚔️ Guía Rápida: Proyecto RPG</h1>
-    <p>Pasos simples para transformar tu Chatbot en un Narrador de Aventuras</p>
-  </header>
+<h1>Guía Rápida: Estructura del RPG</h1>
 
-  <div class="paso-card">
-    <h2><span class="paso-num">1</span> El Guion del Juego</h2>
-    <p>Antes de tocar el código, necesitás tener claro en tu cabeza (o anotado en tu carpeta):</p>
-    <ul style="margin-left: 30px; margin-top: 10px; font-weight: bold;">
-      <li>¿Dónde pasa la historia? (Ej: Una base espacial, un bosque oscuro, Ushuaia en el 2050).</li>
-      <li>¿Cómo se llama tu personaje?</li>
-      <li>¿Cuál es tu objetivo principal?</li>
-    </ul>
-  </div>
+<div class="bloque">
+  <div class="titulo">B5 - Inicialización del Historial</div>
+  <div class="desc">Es vital inicializar el historial después de definir el <code>game_master</code>.</div>
+  <div class="code">game_master = "..." # Tu guion aquí
+historial = [{"role": "system", "content": game_master}]</div>
+</div>
 
-  <div class="paso-card">
-    <h2><span class="paso-num">2</span> El Diccionario del Jugador</h2>
-    <p>Acá armamos la "ficha" de tu personaje en Python. Esto va <strong>afuera</strong> del bucle <code>while</code>, justo debajo de donde ponés tu API Key.</p>
-    <div class="codigo">
-jugador = {
-    <span class="celeste">"nombre"</span>: <span class="amarillo">"Tu Nombre"</span>,
-    <span class="celeste">"hp"</span>: <span class="amarillo">100</span>,
-    <span class="celeste">"inventario"</span>: [],
-    <span class="celeste">"ubicacion"</span>: <span class="amarillo">"Punto de partida"</span>
-}
-    </div>
-    <div class="tip">
-      <strong>💡 Tip:</strong> El HP (Hit Points) es tu vida. El inventario empieza vacío (es una lista <code>[]</code>), pero podés agregarle una <code>"linterna"</code> o un <code>"mapa"</code> inicial si querés.
-    </div>
-  </div>
+<div class="bloque">
+  <div class="titulo">B6 - Inicio Forzado (Fuera del Bucle)</div>
+  <div class="nota"><strong>Importante:</strong> Esto va ANTES del 'while True'. Es lo que permite que el juego arranque solo.</div>
+  <div class="code"># Forzar el primer mensaje
+historial.append({"role": "user", "content": "Empezar la partida."})
+respuesta = consultar_ia(historial, 0.7)
+historial.append({"role": "assistant", "content": respuesta})
+print(f"\nNarrador: {respuesta}\n")
 
-  <div class="paso-card">
-    <h2><span class="paso-num">3</span> El System Prompt Mágico</h2>
-    <p>Esta es la parte más importante. Le decimos a la IA que ya no es un asistente, sino un <strong>Game Master</strong>. ¡Copiá estas reglas y agregales tu propio mundo!</p>
-    <div class="codigo">
-reglas_ia = <span class="verde">"""
-Sos el Narrador de una aventura de supervivencia ambientada en <span class="amarillo">[TU MUNDO ACÁ]</span>.
+# Ahora sí, arranca el bucle
+while True:
+    accion = input("¿Qué hacés? > ").strip()
+    if accion.lower() == "salir": break
+    # ... acá van tus IF de comandos manuales ...</div>
+</div>
 
-REGLAS INQUEBRANTABLES:
-1. Describí la escena en 2 o 3 oraciones (no seas aburrido ni largo).
-2. NUNCA decidas por el jugador. Solo contale qué pasa a su alrededor.
-3. Al final de tu respuesta, dale SIEMPRE 3 opciones claras (A, B, C).
-4. Terminá preguntando: '¿Qué vas a hacer?'
-"""</span>
-
-historial.append({<span class="celeste">"role"</span>: <span class="verde">"system"</span>, <span class="celeste">"content"</span>: reglas_ia})
-    </div>
-  </div>
-
-  <div class="paso-card">
-    <h2><span class="paso-num">4</span> El Arranque (¡Forzar a la IA!)</h2>
-    <p>Para evitar que el juego arranque en silencio y se quede esperando eternamente, vamos a <strong>obligar a la IA a que hable primero</strong> para darte la bienvenida y mostrarte las opciones iniciales. ¡Esto va justo arriba del <code>while True</code>!</p>
-    <div class="codigo">
-<span class="cmt"># --- FORZAR EL PRIMER MENSAJE DE LA IA ---</span>
-print(<span class="verde">"⏳ Cargando el mundo..."</span>)
-historial.append({<span class="celeste">"role"</span>: <span class="verde">"user"</span>, <span class="celeste">"content"</span>: <span class="amarillo">"Empezar la partida. Describí dónde estoy y dame opciones."</span>})
-
-respuesta_inicial = consultar_ia(historial, 0.8)
-historial.append({<span class="celeste">"role"</span>: <span class="verde">"assistant"</span>, <span class="celeste">"content"</span>: respuesta_inicial})
-
-print(f<span class="verde">"\n🌲 {respuesta_inicial}\n"</span>)
-<span class="cmt"># -----------------------------------------</span>
-    </div>
-  </div>
-
-  <div class="herramientas">
-    <h3>🛠️ Caja de Herramientas (Leé esto antes del Paso 5)</h3>
-    <p>Para que los comandos manuales del próximo paso funcionen, vamos a usar 3 trucos nuevos de Python. Son muy simples:</p>
-    <ul>
-      <li><code>.strip()</code>: Sirve para "limpiar" los espacios en blanco que ponemos sin querer. (Ej: <code>"  salir  "</code> se convierte automáticamente en <code>"salir"</code>).</li>
-      <li><code>.startswith("texto")</code>: En vez de preguntar si el mensaje es <i>exactamente igual</i>, pregunta si el texto <i>"empieza con..."</i>. Es clave para comandos largos como <code>"/tomar espada"</code>: detectamos que empieza con "/tomar " y recortamos el resto.</li>
-      <li><code>", ".join(lista)</code>: Agarra nuestra lista del inventario (ej: <code>["llave", "mapa"]</code>) y la convierte en un texto lindo para mostrar en pantalla: <code>"llave, mapa"</code>.</li>
-    </ul>
-  </div>
-
-  <div class="paso-card" style="border-left-color: #00949A; background: #F0FAFA;">
-    <h2 style="color: #00949A;"><span class="paso-num" style="background: #00949A;">5</span> Los Comandos Manuales</h2>
-    <p>Como la IA solo te narra la historia, <strong>vos</strong> sos el encargado de actualizar tu vida y tu inventario. Adentro de tu <code>while True</code>, agregá estas "puertas" mágicas para manejar tu estado a mano:</p>
-    <div class="codigo">
-    <span class="cmt"># Comando para ver cómo estás:</span>
-    if accion.lower() == <span class="verde">"/estado"</span>:
-        inv = <span class="verde">", "</span>.join(jugador[<span class="celeste">"inventario"</span>]) or <span class="verde">"vacío"</span>
-        print(f<span class="verde">"\n❤️ Vida: {jugador['hp']} | 🎒 Mochila: {inv}\n"</span>)
-        <span class="celeste">continue</span>
-
-    <span class="cmt"># Comando para agarrar objetos (Ej: /tomar espada):</span>
-    if accion.lower().startswith(<span class="verde">"/tomar "</span>):
-        objeto = accion[7:].strip()
-        jugador[<span class="celeste">"inventario"</span>].append(objeto)
-        print(f<span class="verde">"🎒 '{objeto}' guardado en la mochila.\n"</span>)
-        <span class="celeste">continue</span>
-
-    <span class="cmt"># Comando para curarte o lastimarte (Ej: /hp -20):</span>
-    if accion.lower().startswith(<span class="verde">"/hp "</span>):
-        try:
-            cambio = int(accion[4:])
-            jugador[<span class="celeste">"hp"</span>] = jugador[<span class="celeste">"hp"</span>] + cambio
-            print(f<span class="verde">"❤️ Vida actual: {jugador['hp']}\n"</span>)
-        except:
-            print(<span class="verde">"Usá el formato: /hp +20 o /hp -30\n"</span>)
-        <span class="celeste">continue</span>
-
-    <span class="cmt"># [TU TURNO] Podés inventar nuevos comandos acá. Por ejemplo: /magia, /soltar.</span>
-    <span class="cmt"># Copiá la misma estructura de los IFs de arriba. ¡No te olvides del continue!</span>
-    </div>
-    <div class="tip" style="border-color: #00949A; background: #E0F2F1;">
-      <strong>⚠️ El continue es obligatorio:</strong> Le dice al programa que vuelva arriba a pedir otro comando y no le mande estos mensajes ocultos a la IA.
-    </div>
-  </div>
-
-  <div class="paso-card">
-    <h2><span class="paso-num">6</span> El Turno Inyectado (El Camino Normal)</h2>
-    <p>Adentro del <code>while True</code>, justo debajo de tus comandos, va este bloque. En lugar de mandarle a la IA solo lo que escribís, le vamos a mandar <strong>oculto</strong> tu estado actual para que sepa si estás lastimado o si tenés algo útil para usar en la historia.</p>
-    <div class="codigo">
-<span class="cmt"># Cuando el usuario elige su acción (El juego normal)</span>
-
-mensaje_turno = f<span class="verde">"""[Estado: HP={jugador[<span class="celeste">'hp'</span>]} | Mochila={jugador[<span class="celeste">'inventario'</span>]}]
-Acción del jugador: {accion}"""</span>
-
-historial.append({<span class="celeste">"role"</span>: <span class="verde">"user"</span>, <span class="celeste">"content"</span>: mensaje_turno})
-
-<span class="cmt"># ... Y llamás a la IA como siempre ...</span>
-    </div>
-  </div>
-
-  <div class="paso-card" style="background: #2C3E50; color: white;">
-    <h2 style="color: white;"><span class="paso-num" style="background: #E91E63;">🚀</span> ¿Listo? ¡A probar!</h2>
-    <p style="color: #cbd5e1;">Ejecutá tu código. Si la IA te responde tomando decisiones por vos o haciendo textos larguísimos, significa que tu System Prompt (Paso 3) necesita reglas más estrictas. <strong>¡Ajustalo y volvé a probar!</strong></p>
-  </div>
-
+<div class="bloque">
+  <div class="titulo">B7 - El Turno (Dentro del Bucle)</div>
+  <div class="nota">Este código debe ir al final del bloque 'while', después de todos los 'if' de comandos.</div>
+  <div class="code">    # Si no fue un comando manual, entra la IA
+    mensaje_turno = f"[Estado: {jugador}] Acción: {accion}"
+    historial.append({"role": "user", "content": mensaje_turno})
+    narracion = consultar_ia(historial, 0.8)
+    historial.append({"role": "assistant", "content": narracion})
+    print(f"\nNarrador: {narracion}\n")</div>
 </div>
 
 </body>
