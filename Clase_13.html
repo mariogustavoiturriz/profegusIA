@@ -130,8 +130,8 @@
 </head>
 <body>
 <header>
-  <h1>CLASE 13 — AVENTURA NARRADA CON IA <span style="font-size:18px;opacity:.7;font-weight:normal;">+ Extracción de datos en JSON</span></h1>
-  <p>Taller de IA Aplicada · 7°1° · CTP Antonio Martín Marte · Viernes 22/05 · 80 minutos</p>
+  <h1>CLASE 13 — AVENTURA NARRADA CON IA <span style="font-size:18px;opacity:.7;font-weight:normal;">+ Extracción de datos</span></h1>
+  <p>Taller de IA Aplicada · 7°1° · CTP Antonio Martín Marte · Viernes 29/05 · 80 minutos</p>
 </header>
 
 <div class="container">
@@ -155,8 +155,8 @@
     </div>
   </div>
   <div class="info i-teal" style="margin-top:20px;">
-    <strong>💡 Recuperatorio del viernes próximo</strong>
-    Corregí estos tres puntos antes del 29/05. La guía de corrección está en Classroom.
+    <strong>💡 Para los que rinden hoy:</strong>
+    Mientras nosotros empezamos a armar la historia, tus compañeros están rindiendo el Recuperatorio del TP2 corrigiendo estos tres puntos clave.
   </div>
 </div>
 
@@ -219,16 +219,16 @@
   <h2><span class="badge" style="background:var(--grn)">4</span> QUÉ HACEMOS HOY Y LA SEMANA QUE VIENE</h2>
   <div class="ruta-grid">
     <div class="ruta-card r-hoy">
-      <div class="cuando">🟢 Hoy — Vie 22/05</div>
-      <p>Fase creativa (el guion), armado del System Prompt y primera prueba corriendo el esqueleto.</p>
+      <div class="cuando">🟢 Hoy — Vie 29/05</div>
+      <p>Fase creativa (el guion), armado del System Prompt y primera prueba del esqueleto. (Mientras los demás rinden el Recuperatorio TP2).</p>
     </div>
     <div class="ruta-card r-finde">
-      <div class="cuando">⚪ Fin de semana</div>
-      <p>Lunes feriado. Opcional: pulir el diseño y probar agregar comandos manuales de estado propios.</p>
+      <div class="cuando">⚪ Fin de semana largo</div>
+      <p>Lunes 01/06 feriado. Opcional: pulir el diseño y probar agregar comandos manuales de estado propios.</p>
     </div>
     <div class="ruta-card r-prox">
-      <div class="cuando">🟣 Vie 29/05</div>
-      <p><strong>Recuperatorio TP2</strong> + cierre de la aventura narrativa.</p>
+      <div class="cuando">🟣 Vie 05/06</div>
+      <p>Cierre de la aventura narrativa e integración de los estudiantes que recuperaron el TP2.</p>
     </div>
   </div>
 </div>
@@ -255,7 +255,7 @@
     <div class="bloque-titulo">🔑 B2 — API Key y constantes</div>
     <div class="bloque-desc">Pegá tu clave. URL y headers igual que siempre.</div>
     <div class="code-block">API_KEY = <span class="str">"gsk_PEGA_TU_CLAVE_ACA"</span>
-URL     = <span class="str">"[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)"</span>
+URL     = <span class="str">"https://api.groq.com/openai/v1/chat/completions"</span>
 headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer {API_KEY}"</span>, <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>}</div>
   </div>
 
@@ -300,9 +300,20 @@ REGLAS INQUEBRANTABLES:
 historial = [{<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: game_master}]</div>
   </div>
 
+  <!-- NUEVA CAJA DE HERRAMIENTAS -->
+  <div class="info i-teal" style="margin-top: 30px;">
+    <strong>🛠️ CAJA DE HERRAMIENTAS: 3 TRUCOS NUEVOS PARA TEXTOS</strong>
+    <p style="margin-bottom: 10px; font-size: 18px;">Antes de armar el motor del juego (el <code>while True</code>), les presento tres herramientas nuevas que vamos a usar para que los comandos manuales del jugador funcionen perfecto, sin tener que escribir 100 líneas de código:</p>
+    <ul style="margin-top:0; margin-bottom:0; line-height: 1.8; font-size: 18px;">
+      <li><code>.strip()</code>: Ya lo vimos de pasada en el TP2. Sirve para "limpiar" los espacios en blanco que el usuario pone sin querer al principio o al final de su mensaje. (Ej: <code>"  salir  "</code> se convierte en <code>"salir"</code>).</li>
+      <li><code>.startswith("texto")</code>: En vez de preguntar si el mensaje es <i>exactamente igual</i> (usando <code>==</code>), esta función pregunta si el texto <i>"empieza con..."</i>. Es clave para comandos compuestos como <code>"/tomar espada"</code> o <code>"/hp -20"</code>: el código detecta la primera parte y luego recorta el resto.</li>
+      <li><code>", ".join(lista)</code>: Transforma una lista de Python (como nuestro inventario) en un texto lindo para leer. Si tu lista es <code>["llave", "mapa"]</code>, al usar esto se imprime en pantalla como <code>"llave, mapa"</code>.</li>
+    </ul>
+  </div>
+
   <div class="bloque b-fijo">
-    <div class="bloque-titulo">🔁 B6 — Bucle y Comandos Manuales (Frontend)</div>
-    <div class="bloque-desc">Forzamos el primer turno para que el juego no arranque en silencio. Además, les dejo los comandos básicos listos, <strong>¡y un espacio para que agreguen los suyos!</strong></div>
+    <div class="bloque-titulo">🔁 B6 — El Motor del Juego (Parte 1: Comandos Especiales)</div>
+    <div class="bloque-desc">Acá abrimos la puerta al bucle infinito (<code>while True</code>). Vas a ver que usamos las herramientas nuevas para atrapar las acciones del jugador. Forzamos el primer turno antes del bucle para que el juego no arranque en silencio.</div>
     <div class="code-block"><span class="kw">print</span>(<span class="str">"🎮 INICIANDO AVENTURA..."</span>)
 
 <span class="cmt"># --- FORZAR EL PRIMER MENSAJE DE LA IA ---</span>
@@ -330,7 +341,7 @@ historial.append({<span class="str">"role"</span>: <span class="str">"assistant"
         <span class="kw">print</span>(f<span class="str">"\n📋 Vida:{jugador['hp']} | 🎒 {inv}\n"</span>)
         <span class="kw">continue</span>
 
-    <span class="cmt"># Comando para agregar a la lista del inventario</span>
+    <span class="cmt"># Comando para agregar a la lista del inventario usando startswith</span>
     <span class="kw">if</span> accion.lower().startswith(<span class="str">"/tomar "</span>):
         jugador[<span class="str">"inventario"</span>].append(accion[<span class="nm">7</span>:].strip()); <span class="kw">print</span>(<span class="str">"🎒 Agregado\n"</span>); <span class="kw">continue</span>
 
@@ -346,10 +357,11 @@ historial.append({<span class="str">"role"</span>: <span class="str">"assistant"
   </div>
 
   <div class="bloque b-mod">
-    <div class="bloque-titulo">💬 B7 — El Turno Normal (Inyección de Estado)</div>
-    <div class="bloque-desc">Este es el bloque que se ejecuta si no usaste ningún comando especial.</div>
-    <div class="code-block">    <span class="cm"># ── GRUPOS DE 2: Textos Simples ────────────────────────</span>
-    <span class="cm"># Ocultamos tus datos en el mensaje para que la IA sepa cómo estás de salud e inventario.</span>
+    <div class="bloque-titulo">💬 B7 — El Turno Normal (Parte 2: Inyección de Estado)</div>
+    <div class="bloque-desc">¡ATENCIÓN ACÁ! Este bloque <strong>no va separado</strong>. Es la continuación directa del bloque B6. Tiene que ir <strong>adentro</strong> del <code>while True</code>, justo debajo de los comandos de arriba y respetando su misma sangría. Este es el bloque que se ejecuta si el usuario eligió jugar y no usó ningún comando especial.</div>
+    <div class="code-block">    <span class="cmt"># ---- CONTINUACIÓN DEL WHILE TRUE ----</span>
+    <span class="cmt"># ── GRUPOS DE 2: Textos Simples ────────────────────────</span>
+    <span class="cmt"># Ocultamos tus datos en el mensaje para que la IA sepa cómo estás de salud e inventario.</span>
     mensaje_turno = f<span class="str">"""[Estado actual: HP={jugador['hp']}, inventario={jugador['inventario']}]
 Acción del jugador: {accion}"""</span>
     
@@ -362,8 +374,9 @@ Acción del jugador: {accion}"""</span>
 
   <div class="bloque b-nuevo">
     <div class="bloque-titulo">🏆 Desafío JSON: Solo Grupos de 3</div>
-    <div class="bloque-desc">Si eligieron este desafío, su <code>System Prompt</code> (Bloque 5) tiene que ser tan estricto que la IA devuelva <strong>solamente</strong> datos crudos, sin charla ni decoraciones. Si logran eso, pueden <strong>reemplazar el print final del bloque anterior</strong> por este lector automático:</div>
-    <div class="code-block">    <span class="cm"># ── GRUPOS DE 3: Convertir el texto de la IA en Diccionario ───</span>
+    <div class="bloque-desc">Si eligieron este desafío, su <code>System Prompt</code> (Bloque 5) tiene que ser tan estricto que la IA devuelva <strong>solamente</strong> datos crudos, sin charla ni decoraciones. Si logran eso, pueden <strong>reemplazar el print final del bloque B7</strong> por este lector automático que sigue adentro del <code>while</code>:</div>
+    <div class="code-block">    <span class="cmt"># ---- CONTINUACIÓN DEL WHILE TRUE ----</span>
+    <span class="cmt"># ── GRUPOS DE 3: Convertir el texto de la IA en Diccionario ───</span>
     <span class="kw">try</span>:
         <span class="cmt"># Intentamos convertir el texto puro a un diccionario real de Python</span>
         datos = json.loads(narracion) 
@@ -419,7 +432,7 @@ async function enviar(){
   add(msg,'user');HIST.push({role:'user',content:msg});
   var p=add('...','pens');
   try{
-    var r=await fetch('[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)',{method:'POST',
+    var r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',
       headers:{'Authorization':'Bearer '+KEY,'Content-Type':'application/json'},
       body:JSON.stringify({model:'llama-3.3-70b-versatile',temperature:0.4,messages:HIST})});
     var d=await r.json();var resp=d.choices[0].message.content;
