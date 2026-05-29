@@ -47,8 +47,10 @@
   .tabla-comp tr:nth-child(even) td{background:var(--gris);}
   .acento{color:var(--rpg);font-weight:bold;}
 
-  /* Comparación JSON */
-  .json-comp{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+  /* Corrección visual: Una sola columna para que no se aplaste en resoluciones medianas */
+  .json-comp{display:grid;grid-template-columns:1fr;gap:16px;margin-top:16px;}
+  .niveles-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:16px;}
+  
   .jbox{border-radius:var(--r);padding:18px;border:2px solid;}
   .jbox.antes{border-color:var(--bd);background:var(--gris);}
   .jbox.despues{border-color:var(--json);background:var(--json-bg);}
@@ -56,7 +58,6 @@
   .jbox.antes h4{color:#555;}
   .jbox.despues h4{color:var(--json);}
 
-  .niveles-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px;}
   .nivel-card{border-radius:var(--r);padding:22px;border:2px solid;}
   .n2{border-color:var(--g2);background:var(--g2-bg);}
   .n3{border-color:var(--g3);background:var(--g3-bg);}
@@ -124,12 +125,12 @@
   .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
   .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
 
-  @media(max-width:768px){.errores-grid,.niveles-grid,.ruta-grid,.json-comp{grid-template-columns:1fr;}}
+  @media(max-width:768px){.errores-grid,.ruta-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 <header>
-  <h1>CLASE 13 — AVENTURA NARRADA CON IA</h1>
+  <h1>CLASE 13 — AVENTURA NARRADA CON IA <span style="font-size:18px;opacity:.7;font-weight:normal;">+ Extracción de datos en JSON</span></h1>
   <p>Taller de IA Aplicada · 7°1° · CTP Antonio Martín Marte · Viernes 22/05 · 80 minutos</p>
 </header>
 
@@ -159,128 +160,59 @@
   </div>
 </div>
 
-<!-- ══ 1: DEL CHATBOT AL NARRADOR ════════════════════════════════════════ -->
+<!-- ══ 1: EL GUION (DISEÑO) ════════════════════════════════════════════════ -->
 <div class="card c-concepto">
-  <h2><span class="badge">1</span> DEL CHATBOT AL NARRADOR</h2>
+  <h2><span class="badge">1</span> EL GUION: DISEÑÁ TU MUNDO (Fase Creativa)</h2>
+  <p>Antes de escribir una sola línea de código en Python, tenemos que diseñar nuestro juego de rol. Tómense 10 minutos para anotar en sus carpetas o en un documento:</p>
+  <ul style="margin-top: 10px; font-size: 18px;">
+    <li><strong>El Escenario:</strong> ¿Dónde estamos? (Ej: Una nave espacial abandonada, un bosque oscuro, Ushuaia en el año 2050).</li>
+    <li><strong>El Tono:</strong> ¿Es de terror, de comedia, épico?</li>
+    <li><strong>El Objetivo:</strong> ¿Qué tiene que lograr el jugador para ganar?</li>
+    <li><strong>El Inventario Inicial:</strong> ¿Con qué objetos arranca el personaje?</li>
+  </ul>
+  <p style="margin-top: 10px;">¡Esta información va a ser el corazón de su <code>System Prompt</code>!</p>
+</div>
+
+<!-- ══ 2: DEL CHATBOT AL NARRADOR ════════════════════════════════════════ -->
+<div class="card c-concepto">
+  <h2><span class="badge">2</span> DEL CHATBOT AL NARRADOR</h2>
   <p>En el TP2 la IA era <strong>pasiva</strong>: esperaba la pregunta y respondía. Hoy la IA es <strong>activa</strong>: guía la historia, narra consecuencias y ofrece opciones.</p>
   <table class="tabla-comp">
     <thead><tr><th>Elemento</th><th>TP2 — Chatbot</th><th>Clase 13 — Aventura</th></tr></thead>
     <tbody>
       <tr><td><strong>Rol de la IA</strong></td><td>Pasivo — espera preguntas</td><td class="acento">Activo — guía la historia</td></tr>
       <tr><td><strong>Interacción</strong></td><td>Pregunta / Respuesta</td><td class="acento">Acción / Consecuencia + 3 opciones</td></tr>
-      <tr><td><strong>Output</strong></td><td>Solo texto</td><td class="acento">Texto + JSON con cambios de estado</td></tr>
+      <tr><td><strong>Output</strong></td><td>Solo texto</td><td class="acento">Texto (Grupos de 2) / JSON (Grupos de 3)</td></tr>
     </tbody>
   </table>
 </div>
 
-<!-- ══ 2: CONCEPTO NUEVO — JSON OUTPUT ═══════════════════════════════════ -->
-<div class="card c-nuevo">
-  <h2><span class="badge" style="background:var(--json)">2</span> CONCEPTO NUEVO <span class="badge-new">★ TRAMO 3</span> — LA IA COMO EXTRACTOR DE DATOS</h2>
-
-  <p>Hasta ahora la IA siempre devolvió texto libre. Hoy aprendemos a pedirle que devuelva <strong>texto + datos estructurados en formato JSON</strong> al mismo tiempo. Esto significa definir un <strong>molde o formato estricto</strong>: decirle de antemano qué forma exacta tiene que tener la respuesta.</p>
-
-  <h3>¿Por qué necesitamos esto en el juego?</h3>
-  <p>Cuando la IA narra "el dragón te quita 30 HP y encontraste una llave", el diccionario <code>jugador</code> no cambia solo. Alguien tiene que actualizar los puntos de vida y el inventario.</p>
-  <p style="margin-top:10px;">En grupos de 2 eso lo hace el jugador a mano tipeando comandos como <code>/hp -30</code> y <code>/tomar llave</code>. En grupos de 3 se lo pedimos <strong>a la IA directamente</strong>: le decimos que incluya un bloque JSON en cada respuesta con los cambios, y el código lo procesa automáticamente.</p>
-
-  <div class="json-comp">
-    <div class="jbox antes">
-      <h4>🔤 Respuesta normal (grupos de 2)</h4>
-      <div class="code-block" style="font-size:15px;">"El dragón te ataca con sus garras.
-Perdés 30 HP y caés al suelo.
-Encontrás una llave entre los escombros.
-
-A) Huir por el pasillo norte
-B) Usar la llave en la puerta
-C) Atacar al dragón"</div>
-      <p style="margin-top:10px;font-size:17px;">Solo texto. El jugador actualiza el estado a mano.</p>
-    </div>
-    <div class="jbox despues">
-      <h4>📦 Respuesta con JSON (grupos de 3)</h4>
-      <div class="code-block" style="font-size:15px;">"El dragón te ataca con sus garras.
-Perdés 30 HP y caés al suelo.
-Encontrás una llave entre los escombros.
-
-A) Huir B) Usar la llave C) Atacar
-
-<span class="jk">```json
-{"hp_delta": -30, "agregar": ["llave"], "quitar": []}
-```</span>"</div>
-      <p style="margin-top:10px;font-size:17px;">Texto + JSON. El código saca los datos del JSON y actualiza el diccionario solo.</p>
-    </div>
-  </div>
-
-  <h3>¿Cómo se le da esta instrucción al narrador?</h3>
-  <p>Se agrega una regla en el System Prompt. El narrador tiene que incluir ese bloque JSON <strong>siempre</strong>, aunque no haya cambios:</p>
-  <div class="code-block" style="border-radius:8px;margin-top:10px;font-size:17px;"># En el system prompt del narrador (grupos de 3):
-<span class="str">"""
-...reglas del narrador...
-
-Al final de CADA respuesta incluí un bloque JSON con los cambios de estado:
-```json
-{"hp_delta": N, "agregar": ["objeto"], "quitar": ["objeto"]}
-```
-hp_delta es la variación de HP (negativo si pierde, 0 si no cambia).
-Si no hay cambios usá: {"hp_delta": 0, "agregar": [], "quitar": []}
-"""</span></div>
-
-  <h3>¿Cómo procesa estos datos el código?</h3>
-  <p>Después de recibir la respuesta del narrador, el código busca el bloque JSON, lo extrae y lo aplica al diccionario:</p>
-  <div class="code-block" style="border-radius:8px;margin-top:10px;font-size:17px;"><span class="kw">import</span> json, re
-
-<span class="cm"># Extraer el bloque JSON de la respuesta del narrador</span>
-match = re.search(<span class="str">r'```json\s*(.*?)\s*```'</span>, narracion, re.DOTALL)
-<span class="kw">if</span> match:
-    <span class="kw">try</span>:
-        cambios = json.loads(match.group(<span class="nm">1</span>))
-        jugador[<span class="str">"hp"</span>] = <span class="kw">max</span>(<span class="nm">0</span>, jugador[<span class="str">"hp"</span>] + cambios.get(<span class="str">"hp_delta"</span>, <span class="nm">0</span>))
-        <span class="kw">for</span> obj <span class="kw">in</span> cambios.get(<span class="str">"agregar"</span>, []):
-            jugador[<span class="str">"inventario"</span>].append(obj)
-        <span class="kw">for</span> obj <span class="kw">in</span> cambios.get(<span class="str">"quitar"</span>, []):
-            <span class="kw">if</span> obj <span class="kw">in</span> jugador[<span class="str">"inventario"</span>]:
-                jugador[<span class="str">"inventario"</span>].remove(obj)
-        <span class="cm"># Mostrar solo el texto, sin el bloque JSON</span>
-        texto_limpio = re.sub(<span class="str">r'```json.*?```'</span>, <span class="str">''</span>, narracion, flags=re.DOTALL).strip()
-        <span class="kw">print</span>(f<span class="str">"\n🌲 {texto_limpio}\n"</span>)
-    <span class="kw">except</span>:
-        <span class="kw">print</span>(f<span class="str">"\n🌲 {narracion}\n"</span>)  <span class="cm"># si el JSON falló, mostrar todo igual</span>
-<span class="kw">else</span>:
-    <span class="kw">print</span>(f<span class="str">"\n🌲 {narracion}\n"</span>)</div>
-
-  <div class="info i-json" style="margin-top:15px;">
-    <strong>⚠️ La IA no siempre devuelve JSON válido</strong>
-    A veces el modelo se olvida del bloque JSON, le da un formato incorrecto o lo incluye mezclado dentro del texto. Por eso el <code>try/except</code> es obligatorio: si la lectura de esos datos falla, el juego sigue igual — solo que no se actualiza el estado automáticamente. Eso es exactamente lo que veremos en la Clase 15: validación estricta de formatos.
-  </div>
-</div>
-
-<!-- ══ 3: LOS GRUPOS ═════════════════════════════════════════════════════ -->
+<!-- ══ 3: LOS GRUPOS Y LOS NIVELES ════════════════════════════════════════ -->
 <div class="card c-niveles">
   <h2><span class="badge" style="background:var(--amb)">3</span> LOS GRUPOS Y LOS NIVELES</h2>
   <div class="niveles-grid">
     <div class="nivel-card n2">
       <span class="tag">Grupos de 2</span>
       <h4>🗺️ Estado + Comandos manuales</h4>
-      <p style="font-size:17px;margin-bottom:12px;">La IA devuelve solo texto. El jugador actualiza el estado con comandos.</p>
+      <p style="font-size:17px;margin-bottom:12px;">La IA devuelve solo la narración. El jugador debe actualizar el estado con comandos (ampliando lo que hicimos en el TP2).</p>
       <ul>
-        <li>Diccionario con HP, inventario, ubicación</li>
-        <li><code>/estado</code> <code>/tomar</code> <code>/soltar</code> <code>/hp ±n</code> <code>/guardar</code></li>
-        <li>System Prompt: narrador + 3 opciones por turno</li>
-        <li>Sin JSON, sin procesar datos automáticamente</li>
+        <li>Diccionario con HP, inventario, ubicación.</li>
+        <li>Usan comandos manuales: <code>/estado</code>, <code>/tomar</code>, <code>/hp</code>, etc.</li>
+        <li><strong>Pueden crear nuevos comandos</strong> usando <code>if accion.startswith("..."):</code></li>
       </ul>
     </div>
     <div class="nivel-card n3">
       <span class="tag">Grupos de 3</span>
-      <h4>🧠 Estado + JSON (Molde de datos)</h4>
-      <p style="font-size:17px;margin-bottom:12px;">La IA devuelve texto + JSON. El código lee el JSON y actualiza el diccionario automáticamente.</p>
-      <table class="tabla-comp">
-        <thead><tr><th>Elemento</th><th>TP2 — Chatbot</th><th>Clase 13 — Aventura</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Rol de la IA</strong></td><td>Pasivo — espera preguntas</td><td class="acento">Activo — guía la historia</td></tr>
-          <tr><td><strong>Interacción</strong></td><td>Pregunta / Respuesta</td><td class="acento">Acción / Consecuencia + 3 opciones</td></tr>
-          <tr><td><strong>Estado</strong></td><td>Solo el historial</td><td class="acento">Historial + diccionario de HP e inventario</td></tr>
-        </tbody>
-      </table>
+      <h4>🧠 Desafío de Prompting: Formato Estricto (JSON)</h4>
+      <p style="font-size:17px;margin-bottom:12px;">En lugar de usar expresiones regulares complejas, el desafío es <strong>obligar a la IA</strong> a devolver ÚNICAMENTE un formato de datos (JSON) usando instrucciones muy estrictas en el Prompt.</p>
+      <ul>
+        <li>Sin usar comandos manuales de <code>/tomar</code> o <code>/hp</code>.</li>
+        <li>El código lee el JSON con <code>json.loads()</code> y actualiza el diccionario automáticamente.</li>
+        <li><strong>El reto:</strong> Si la IA responde con texto normal ("¡Claro! Acá tenés la respuesta..."), el programa fallará. ¡Deben domar al modelo con reglas inquebrantables!</li>
+      </ul>
     </div>
+  </div>
+</div>
 
 <!-- ══ 4: HOJA DE RUTA ═══════════════════════════════════════════════════ -->
 <div class="card c-hoy">
@@ -288,50 +220,48 @@ match = re.search(<span class="str">r'```json\s*(.*?)\s*```'</span>, narracion, 
   <div class="ruta-grid">
     <div class="ruta-card r-hoy">
       <div class="cuando">🟢 Hoy — Vie 22/05</div>
-      <p>Diseñar el juego: mundo, personaje, dilema. Armar el System Prompt y hacer una primera prueba corriendo el esqueleto.</p>
+      <p>Fase creativa (el guion), armado del System Prompt y primera prueba corriendo el esqueleto.</p>
     </div>
     <div class="ruta-card r-finde">
       <div class="cuando">⚪ Fin de semana</div>
-      <p>Lunes feriado. Opcional: pulir el diseño y probar comandos manuales de estado.</p>
+      <p>Lunes feriado. Opcional: pulir el diseño y probar agregar comandos manuales de estado propios.</p>
     </div>
     <div class="ruta-card r-prox">
       <div class="cuando">🟣 Vie 29/05</div>
-      <p><strong>Recuperatorio TP2</strong> + flujo de datos: el log de la partida se exporta como CSV de eventos.</p>
+      <p><strong>Recuperatorio TP2</strong> + cierre de la aventura narrativa.</p>
     </div>
-  </div>
-  <div class="info i-grn" style="margin-top:20px;">
-    <strong>📝 Entrega del viernes próximo:</strong>
-    Colab compartido con código comentado + <code>partida.txt</code> con al menos 6 turnos + celda de texto: ¿qué desafíos tuvieron con el System Prompt?
   </div>
 </div>
 
 <!-- ══ 5: ESQUELETO ══════════════════════════════════════════════════════ -->
 <div class="card c-esqueleto">
   <h2><span class="badge" style="background:var(--vio)">5</span> EL ESQUELETO — BLOQUE A BLOQUE</h2>
-  <p>Abrí un Colab nuevo. Copiá cada bloque en orden. Azul = fijo. Rojo = completás vos. Verde = nuevo respecto al TP2.</p>
+  <p>Abrí un Colab nuevo. Copiá cada bloque en orden. Azul = fijo. Rojo = completás vos. Verde = Desafío JSON.</p>
 
   <div class="bloque-leyenda">
     <div class="ley"><div class="ley-dot ley-azul"></div> AZUL — Fijo, copialo igual</div>
     <div class="ley"><div class="ley-dot ley-rojo"></div> ROJO — Vos lo completás</div>
+    <div class="ley"><div class="ley-dot ley-verde"></div> VERDE — Desafío (Grupos de 3)</div>
   </div>
 
   <div class="bloque b-fijo">
     <div class="bloque-titulo">📦 B1 — Librerías</div>
-    <div class="bloque-desc">Igual que siempre en la arquitectura base.</div>
-    <div class="code-block"><span class="kw">import</span> requests</div>
+    <div class="bloque-desc">Igual que siempre. Agregamos <code>json</code> solo si son Grupo de 3.</div>
+    <div class="code-block"><span class="kw">import</span> requests
+<span class="kw">import</span> json   <span class="cm"># Solo necesario para el Desafío de Grupos de 3</span></div>
   </div>
 
   <div class="bloque b-mod">
     <div class="bloque-titulo">🔑 B2 — API Key y constantes</div>
     <div class="bloque-desc">Pegá tu clave. URL y headers igual que siempre.</div>
     <div class="code-block">API_KEY = <span class="str">"gsk_PEGA_TU_CLAVE_ACA"</span>
-URL     = <span class="str">"https://api.groq.com/openai/v1/chat/completions"</span>
+URL     = <span class="str">"[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)"</span>
 headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer {API_KEY}"</span>, <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>}</div>
   </div>
 
   <div class="bloque b-fijo">
-    <div class="bloque-titulo">🍳 B3 — La función (igual que TP2)</div>
-    <div class="bloque-desc">Sin cambios respecto al TP2. Recibe el historial, devuelve texto.</div>
+    <div class="bloque-titulo">🍳 B3 — La función (Backend)</div>
+    <div class="bloque-desc">Sin cambios respecto al TP2. Recibe el historial, devuelve la respuesta de Groq.</div>
     <div class="code-block"><span class="kw">def</span> consultar_ia(mensajes, nivel_creatividad):
     payload = {<span class="str">"model"</span>: <span class="str">"llama-3.3-70b-versatile"</span>, <span class="str">"temperature"</span>: nivel_creatividad, <span class="str">"messages"</span>: mensajes}
     <span class="kw">try</span>:
@@ -342,42 +272,42 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
   </div>
 
   <div class="bloque b-mod">
-    <div class="bloque-titulo">🗂️ B4 — Estado del jugador <span style="font-size:14px;font-weight:normal;color:#555;">← NUEVO vs TP2</span></div>
-    <div class="bloque-desc">Completá con los valores iniciales de tu historia.</div>
+    <div class="bloque-titulo">🗂️ B4 — Estado del jugador (El Diccionario)</div>
+    <div class="bloque-desc">Acá volcamos parte de la creatividad del Paso 1. Completá con los valores iniciales.</div>
     <div class="code-block">jugador = {
-    <span class="dk">"nombre"</span>:    <span class="completar">"nombre del personaje"</span>,
+    <span class="dk">"nombre"</span>:    <span class="str">"Tu Nombre"</span>,
     <span class="dk">"hp"</span>:        <span class="nm">100</span>,
-    <span class="dk">"inventario"</span>: <span class="completar">[]</span>,
-    <span class="dk">"ubicacion"</span>: <span class="completar">"punto de partida"</span>
+    <span class="dk">"inventario"</span>: [<span class="str">"linterna"</span>], <span class="cm"># Puede arrancar vacío [] o con objetos</span>
+    <span class="dk">"ubicacion"</span>: <span class="str">"punto de partida"</span>
 }</div>
   </div>
 
   <div class="bloque b-mod">
-    <div class="bloque-titulo">🎭 B5 — System Prompt del narrador</div>
-    <div class="bloque-desc">Definís el tono, el mundo y las reglas inquebrantables de tu aventura.</div>
+    <div class="bloque-titulo">🎭 B5 — System Prompt del Narrador</div>
+    <div class="bloque-desc">Acá va el guion. Definís el tono, el mundo y las reglas inquebrantables de tu aventura.</div>
     <div class="code-block">game_master = <span class="str">"""
-Sos el narrador de una aventura en <span class="completar">[describí el mundo]</span>.
-Tu tono es <span class="completar">[épico / misterioso / de terror]</span>.
+Sos el narrador de una aventura en [Tú Mundo].
+Tu tono es [épico / misterioso / etc].
 
 REGLAS INQUEBRANTABLES:
-1. Describí la escena en 2 o 3 oraciones.
+1. Describí la escena de forma inmersiva.
 2. Nunca decidís por el jugador. No asumas que corrió o atacó.
 3. Al final de CADA respuesta ofrecés 3 opciones A / B / C.
+
+[GRUPO DE 3: AGREGAR INSTRUCCIONES ESTRICTAS DE RESPONDER SOLO EN FORMATO JSON AQUÍ]
 """</span>
 
 historial = [{<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: game_master}]</div>
   </div>
 
   <div class="bloque b-fijo">
-    <div class="bloque-titulo">🔁 B6 — Inicio y Bucle de estado <span style="font-size:14px;font-weight:normal;color:#555;">← CORREGIDO</span></div>
-    <div class="bloque-desc">Antes de entrar al bucle infinito, <strong>forzamos el primer turno</strong> para que la IA nos describa el lugar y nos dé las opciones iniciales. Luego entramos al <code>while True</code> con las puertas del juego.</div>
-    <div class="code-block"><span class="kw">print</span>(<span class="str">"🎮 <span class="completar">NOMBRE DEL JUEGO</span>"</span>)
-<span class="kw">print</span>(<span class="str">"Comandos: /estado  /tomar &lt;obj&gt;  /soltar &lt;obj&gt;  /hp ±n  /guardar  /salir\n"</span>)
+    <div class="bloque-titulo">🔁 B6 — Bucle y Comandos Manuales (Frontend)</div>
+    <div class="bloque-desc">Forzamos el primer turno para que el juego no arranque en silencio. Además, les dejo los comandos básicos listos, <strong>¡y un espacio para que agreguen los suyos!</strong></div>
+    <div class="code-block"><span class="kw">print</span>(<span class="str">"🎮 INICIANDO AVENTURA..."</span>)
 
 <span class="cmt"># --- FORZAR EL PRIMER MENSAJE DE LA IA ---</span>
-<span class="kw">print</span>(<span class="str">"⏳ Cargando el mundo..."</span>)
-historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"Empezar la partida. Describí dónde estoy y dame las 3 primeras opciones."</span>})
-respuesta_inicial = consultar_ia(historial, <span class="nm">0.8</span>)
+historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"Empezar la partida. Describí dónde estoy y dame opciones."</span>})
+respuesta_inicial = consultar_ia(historial, <span class="nm">0.7</span>)
 historial.append({<span class="str">"role"</span>: <span class="str">"assistant"</span>, <span class="str">"content"</span>: respuesta_inicial})
 <span class="kw">print</span>(f<span class="str">"\n🌲 {respuesta_inicial}\n"</span>)
 <span class="cmt"># -----------------------------------------</span>
@@ -397,30 +327,31 @@ historial.append({<span class="str">"role"</span>: <span class="str">"assistant"
 
     <span class="kw">if</span> accion.lower() == <span class="str">"/estado"</span>:
         inv = <span class="str">", "</span>.join(jugador[<span class="str">"inventario"</span>]) <span class="kw">or</span> <span class="str">"vacío"</span>
-        <span class="kw">print</span>(f<span class="str">"\n📋 {jugador['nombre']} | HP:{jugador['hp']} | 📍{jugador['ubicacion']} | 🎒{inv}\n"</span>)
+        <span class="kw">print</span>(f<span class="str">"\n📋 Vida:{jugador['hp']} | 🎒 {inv}\n"</span>)
         <span class="kw">continue</span>
 
+    <span class="cmt"># Comando para agregar a la lista del inventario</span>
     <span class="kw">if</span> accion.lower().startswith(<span class="str">"/tomar "</span>):
         jugador[<span class="str">"inventario"</span>].append(accion[<span class="nm">7</span>:].strip()); <span class="kw">print</span>(<span class="str">"🎒 Agregado\n"</span>); <span class="kw">continue</span>
 
-    <span class="kw">if</span> accion.lower().startswith(<span class="str">"/soltar "</span>):
-        obj=accion[<span class="nm">8</span>:].strip()
-        <span class="kw">if</span> obj <span class="kw">in</span> jugador[<span class="str">"inventario"</span>]: jugador[<span class="str">"inventario"</span>].remove(obj); <span class="kw">print</span>(<span class="str">"🗑️ Quitado\n"</span>)
-        <span class="kw">continue</span>
-
+    <span class="cmt"># Comando numérico para la vida</span>
     <span class="kw">if</span> accion.lower().startswith(<span class="str">"/hp "</span>):
         <span class="kw">try</span>:
             jugador[<span class="str">"hp"</span>]=<span class="kw">max</span>(<span class="nm">0</span>,<span class="kw">min</span>(<span class="nm">100</span>,jugador[<span class="str">"hp"</span>]+<span class="kw">int</span>(accion[<span class="nm">4</span>:]))); <span class="kw">print</span>(f<span class="str">"❤️ HP:{jugador['hp']}\n"</span>)
         <span class="kw">except</span>: <span class="kw">print</span>(<span class="str">"Usá /hp +20 o /hp -30\n"</span>)
-        <span class="kw">continue</span></div>
+        <span class="kw">continue</span>
+        
+    <span class="cmt"># [TU TURNO] Podés agregar otros comandos acá, como /magia o /soltar,</span>
+    <span class="cmt"># copiando la misma lógica de los IFs de arriba. ¡No te olvides del continue!</span></div>
   </div>
 
-  <div class="bloque b-fijo">
-    <div class="bloque-titulo">💬 B7 — El turno normal</div>
-    <div class="bloque-desc">El mismo flujo de la Puerta 3 del TP2, pero inyectando el estado del jugador de manera oculta antes de la acción.</div>
-    <div class="code-block">    <span class="cm"># ── Turno normal ────────────────────────</span>
-    mensaje_turno = f<span class="str">"""[Estado: HP={jugador['hp']}, ubicación="{jugador['ubicacion']}", inventario={jugador['inventario']}]
-Acción: {accion}"""</span>
+  <div class="bloque b-mod">
+    <div class="bloque-titulo">💬 B7 — El Turno Normal (Inyección de Estado)</div>
+    <div class="bloque-desc">Este es el bloque que se ejecuta si no usaste ningún comando especial.</div>
+    <div class="code-block">    <span class="cm"># ── GRUPOS DE 2: Textos Simples ────────────────────────</span>
+    <span class="cm"># Ocultamos tus datos en el mensaje para que la IA sepa cómo estás de salud e inventario.</span>
+    mensaje_turno = f<span class="str">"""[Estado actual: HP={jugador['hp']}, inventario={jugador['inventario']}]
+Acción del jugador: {accion}"""</span>
     
     historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: mensaje_turno})
     narracion = consultar_ia(historial, <span class="nm">0.8</span>)
@@ -428,12 +359,30 @@ Acción: {accion}"""</span>
 
     <span class="kw">print</span>(f<span class="str">"\n🌲 {narracion}\n"</span>)</div>
   </div>
+
+  <div class="bloque b-nuevo">
+    <div class="bloque-titulo">🏆 Desafío JSON: Solo Grupos de 3</div>
+    <div class="bloque-desc">Si eligieron este desafío, su <code>System Prompt</code> (Bloque 5) tiene que ser tan estricto que la IA devuelva <strong>solamente</strong> datos crudos, sin charla ni decoraciones. Si logran eso, pueden <strong>reemplazar el print final del bloque anterior</strong> por este lector automático:</div>
+    <div class="code-block">    <span class="cm"># ── GRUPOS DE 3: Convertir el texto de la IA en Diccionario ───</span>
+    <span class="kw">try</span>:
+        <span class="cmt"># Intentamos convertir el texto puro a un diccionario real de Python</span>
+        datos = json.loads(narracion) 
+        
+        <span class="cmt"># Actualizamos la vida automáticamente basándonos en lo que decidió la IA</span>
+        jugador[<span class="str">"hp"</span>] = jugador[<span class="str">"hp"</span>] + datos[<span class="str">"hp_delta"</span>] 
+        
+        <span class="cmt"># Imprimimos solo la parte de la historia, no mostramos el JSON crudo</span>
+        <span class="kw">print</span>(f<span class="str">"\n🌲 {datos['narrativa']}\n"</span>) 
+    <span class="kw">except</span> Exception <span class="kw">as</span> e:
+        <span class="kw">print</span>(<span class="str">"\n⚠️ Error de Prompt: La IA no devolvió un JSON perfecto."</span>)
+        <span class="kw">print</span>(<span class="str">"Respuesta cruda de la IA:"</span>, narracion)</div>
+  </div>
 </div>
 
 <!-- ══ 6: ASISTENTE ══════════════════════════════════════════════════════ -->
 <div class="card c-asistente">
   <h2><span class="badge" style="background:var(--rpg)">🤖</span> ASISTENTE DE APOYO</h2>
-  <p style="margin-bottom:14px;">Preguntale sobre cualquier bloque, el System Prompt, el JSON o la diferencia entre los dos niveles.</p>
+  <p style="margin-bottom:14px;">Preguntale sobre cómo mejorar tu guion, cómo agregar nuevos comandos <code>/</code>, o cómo hacer el Prompt más estricto para el desafío JSON.</p>
   <div class="key-row">
     <input type="password" id="asist-key" placeholder="Tu API Key de Groq">
     <button class="btn-rpg" onclick="activar()">Activar</button>
@@ -441,7 +390,7 @@ Acción: {accion}"""</span>
   <div id="asist-chat">
     <div id="asist-msgs">
       <div style="align-self:flex-start;background:#2D2D2D;color:#CE9AF5;padding:11px 15px;border-radius:10px;font-size:17px;max-width:90%;line-height:1.5;">
-        Hola! Soy el asistente de la Clase 13. Puedo ayudarte con el esqueleto, el System Prompt de tu narrador o cómo funcionan los comandos de estado.
+        ¡Hola! Soy el asistente de la Clase 13. Puedo ayudarte con el guion, los comandos manuales o el desafío de obligar a la IA a responder en JSON (grupos de 3).
       </div>
     </div>
     <div class="asist-inp">
@@ -454,7 +403,7 @@ Acción: {accion}"""</span>
 </div>
 <script>
 var KEY='',HIST=[];
-var SYS='Sos asistente de la Clase 13 del Taller de IA, CTP Antonio Martín Marte, Ushuaia. Español argentino con vos. Máximo 3-4 oraciones. Nunca das código completo — mostrás fragmentos y hacés preguntas.\n\nCONTEXTO:\nEl proyecto es un RPG narrativo interactivo. La IA actúa como Dungeon Master.\nEl jugador actualiza el estado con comandos manuales (/tomar, /soltar, /hp).\nEl estado se inyecta oculto en cada turno: [Estado: HP=..., ubicacion=..., inventario=...] + la acción del jugador.\nEl /guardar va ANTES de llamar a la IA (error frecuente del TP2).\nAntes del while True, forzamos el primer turno mandando un mensaje automático para que la IA describa el contexto inicial.';
+var SYS='Sos asistente de la Clase 13 del Taller de IA, CTP Antonio Martín Marte, Ushuaia. Español argentino con vos. Máximo 3-4 oraciones. Nunca das código completo — mostrás fragmentos y hacés preguntas.\n\nCONTEXTO:\nEl foco es crear el GUION del RPG interactivo y luego programarlo.\nGrupos de 2: la IA devuelve solo texto de narración, el jugador actualiza el estado con comandos manuales (/tomar, /soltar, /hp). Pueden expandir agregando nuevos comandos si quieren.\nGrupos de 3 (Desafío JSON): El reto es el Prompt Engineering. Su System Prompt debe forzar a la IA a devolver UNICAMENTE un objeto JSON válido para que Python lo lea con json.loads() y actualice el HP automáticamente. Si la IA manda texto extra, falla.\nEl estado se inyecta oculto en cada turno: [Estado actual: HP=..., inventario=...] + la acción.\nAntes del while True, forzamos el primer turno mandando un mensaje automático para que la IA describa el contexto inicial.';
 
 function activar(){
   var k=document.getElementById('asist-key').value.trim();
@@ -470,7 +419,7 @@ async function enviar(){
   add(msg,'user');HIST.push({role:'user',content:msg});
   var p=add('...','pens');
   try{
-    var r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',
+    var r=await fetch('[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)',{method:'POST',
       headers:{'Authorization':'Bearer '+KEY,'Content-Type':'application/json'},
       body:JSON.stringify({model:'llama-3.3-70b-versatile',temperature:0.4,messages:HIST})});
     var d=await r.json();var resp=d.choices[0].message.content;
