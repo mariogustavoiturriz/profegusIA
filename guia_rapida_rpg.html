@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía Rápida: Tu Aventura RPG</title>
+<style>
+  :root {
+    --rpg: #5C2070;
+    --rpg-bg: #F8F3FF;
+    --nav: #1A2C3A;
+    --bco: #FFFFFF;
+    --txt: #2C3E50;
+    --acc: #00949A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    background: #EEF3F7; 
+    color: var(--txt); 
+    line-height: 1.6; 
+    font-size: 19px; 
+    padding: 20px; 
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+  header { 
+    background: var(--nav); 
+    color: var(--bco); 
+    padding: 30px; 
+    border-radius: 12px 12px 0 0; 
+    border-bottom: 6px solid var(--rpg);
+    text-align: center;
+  }
+  header h1 { font-size: 32px; text-transform: uppercase; margin-bottom: 10px; }
+  header p { font-size: 20px; color: #cbd5e1; }
+  
+  .paso-card { 
+    background: var(--bco); 
+    padding: 30px; 
+    border-radius: 12px; 
+    margin-top: 20px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border-left: 6px solid var(--rpg);
+  }
+  
+  .paso-num { 
+    display: inline-block; 
+    background: var(--rpg); 
+    color: white; 
+    width: 35px; 
+    height: 35px; 
+    text-align: center; 
+    line-height: 35px; 
+    border-radius: 50%; 
+    font-weight: bold; 
+    margin-right: 10px;
+  }
+  
+  h2 { color: var(--nav); font-size: 24px; margin-bottom: 15px; display: flex; align-items: center; }
+  
+  .codigo { 
+    background: #1E1E1E; 
+    color: #D4D4D4; 
+    padding: 20px; 
+    border-radius: 8px; 
+    font-family: Consolas, monospace; 
+    font-size: 17px; 
+    overflow-x: auto; 
+    margin-top: 15px;
+    border: 1px solid #000;
+  }
+  
+  .amarillo { color: #FFEB3B; font-weight: bold; }
+  .verde { color: #A5D6A7; }
+  .celeste { color: #81D4FA; }
+  
+  .tip {
+    background: #E0F7FA;
+    border-left: 4px solid #0288D1;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 0 8px 8px 0;
+    font-size: 18px;
+  }
+  .tip strong { color: #0277BD; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>⚔️ Guía Rápida: Proyecto RPG</h1>
+    <p>Pasos simples para transformar tu Chatbot en un Narrador de Aventuras</p>
+  </header>
+
+  <div class="paso-card">
+    <h2><span class="paso-num">1</span> La Idea del Juego</h2>
+    <p>Antes de tocar el código, necesitás tener claro en tu cabeza (o anotado en tu carpeta):</p>
+    <ul style="margin-left: 30px; margin-top: 10px; font-weight: bold;">
+      <li>¿Dónde pasa la historia? (Ej: Una base espacial, un bosque oscuro, Ushuaia en el 2050).</li>
+      <li>¿Cómo se llama tu personaje?</li>
+      <li>¿Cuál es tu objetivo principal?</li>
+    </ul>
+  </div>
+
+  <div class="paso-card">
+    <h2><span class="paso-num">2</span> El Diccionario del Jugador</h2>
+    <p>Acá armamos la "ficha" de tu personaje en Python. Esto va <strong>afuera</strong> del bucle <code>while</code>, justo debajo de donde ponés tu API Key.</p>
+    <div class="codigo">
+jugador = {
+    <span class="celeste">"nombre"</span>: <span class="amarillo">"Tu Nombre"</span>,
+    <span class="celeste">"hp"</span>: <span class="amarillo">100</span>,
+    <span class="celeste">"inventario"</span>: []
+}
+    </div>
+    <div class="tip">
+      <strong>💡 Tip:</strong> El HP (Hit Points) es tu vida. El inventario empieza vacío (es una lista `[]`), pero podés agregarle una <code>"linterna"</code> o un <code>"mapa"</code> inicial si querés.
+    </div>
+  </div>
+
+  <div class="paso-card">
+    <h2><span class="paso-num">3</span> El System Prompt Mágico</h2>
+    <p>Esta es la parte más importante. Le decimos a la IA que ya no es un asistente, sino un <strong>Game Master</strong>. ¡Copiá estas reglas y agregales tu propio mundo!</p>
+    <div class="codigo">
+reglas_ia = <span class="verde">"""
+Sos el Narrador de una aventura de supervivencia ambientada en <span class="amarillo">[TU MUNDO ACÁ]</span>.
+
+REGLAS INQUEBRANTABLES:
+1. Describí la escena en 2 o 3 oraciones (no seas aburrido ni largo).
+2. NUNCA decidas por el jugador. Solo contale qué pasa a su alrededor.
+3. Al final de tu respuesta, dale SIEMPRE 3 opciones claras (A, B, C).
+4. Terminá preguntando: '¿Qué vas a hacer?'
+"""</span>
+
+historial.append({<span class="celeste">"role"</span>: <span class="verde">"system"</span>, <span class="celeste">"content"</span>: reglas_ia})
+    </div>
+  </div>
+
+  <div class="paso-card">
+    <h2><span class="paso-num">4</span> El Turno Inyectado (Adentro del Bucle)</h2>
+    <p>Adentro del <code>while True</code>, en lugar de mandarle a la IA solo lo que escribís, le vamos a mandar <strong>oculto</strong> tu estado actual (tu vida y tu mochila) para que sepa si estás lastimado o si tenés algo útil.</p>
+    <div class="codigo">
+<span class="cmt"># Cuando el usuario elige su acción (Puerta 3)</span>
+
+mensaje_turno = f<span class="verde">"""[Estado: HP={jugador[<span class="celeste">'hp'</span>]} | Mochila={jugador[<span class="celeste">'inventario'</span>]}]
+Acción del jugador: {accion}"""</span>
+
+historial.append({<span class="celeste">"role"</span>: <span class="verde">"user"</span>, <span class="celeste">"content"</span>: mensaje_turno})
+
+<span class="cmt"># ... Y llamás a la IA como siempre ...</span>
+    </div>
+  </div>
+
+  <div class="paso-card">
+    <h2><span class="paso-num">🚀</span> ¿Listo? ¡A probar!</h2>
+    <p>Ejecutá tu código. Si la IA te responde tomando decisiones por vos o haciendo textos de 20 renglones, significa que tu System Prompt (Paso 3) necesita reglas más estrictas. <strong>¡Ajustalo y volvé a probar!</strong></p>
+  </div>
+
+</div>
+
+</body>
+</html>
