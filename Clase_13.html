@@ -26,16 +26,14 @@
   .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
   .c-repaso{border-left-color:#4A6080;background:#F4F7FA;}
   .c-concepto{border-left-color:var(--teal);}
-  .c-nuevo{border-left-color:var(--json);background:var(--json-bg);}
+  .c-importante{border-left-color:#E65100;background:#FFF3E0;}
   .c-niveles{border-left-color:var(--amb);background:#FFFBF5;}
   .c-hoy{border-left-color:var(--grn);background:var(--g2-bg);}
   .c-esqueleto{border-left-color:var(--vio);background:#FAFCFF;}
   .c-asistente{border-left-color:var(--rpg);background:var(--rpg-bg);}
   h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
   .badge{background:var(--nav);color:var(--bco);padding:5px 12px;border-radius:6px;font-size:17px;font-weight:bold;}
-  .badge-new{background:var(--json);color:#fff;padding:4px 10px;border-radius:6px;font-size:14px;font-weight:bold;margin-left:8px;vertical-align:middle;}
-  h3{color:var(--nav);font-size:20px;margin-top:20px;margin-bottom:10px;}
-
+  
   .errores-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px;}
   .error-card{background:var(--rojo-bg);border:1px solid #FFCDD2;border-left:5px solid var(--rojo);border-radius:var(--r);padding:18px;}
   .error-card h4{color:var(--rojo);font-size:18px;margin-bottom:8px;}
@@ -47,17 +45,7 @@
   .tabla-comp tr:nth-child(even) td{background:var(--gris);}
   .acento{color:var(--rpg);font-weight:bold;}
 
-  /* Corrección visual: Una sola columna para que no se aplaste en resoluciones medianas */
-  .json-comp{display:grid;grid-template-columns:1fr;gap:16px;margin-top:16px;}
   .niveles-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:16px;}
-  
-  .jbox{border-radius:var(--r);padding:18px;border:2px solid;}
-  .jbox.antes{border-color:var(--bd);background:var(--gris);}
-  .jbox.despues{border-color:var(--json);background:var(--json-bg);}
-  .jbox h4{font-size:18px;margin-bottom:10px;}
-  .jbox.antes h4{color:#555;}
-  .jbox.despues h4{color:var(--json);}
-
   .nivel-card{border-radius:var(--r);padding:22px;border:2px solid;}
   .n2{border-color:var(--g2);background:var(--g2-bg);}
   .n3{border-color:var(--g3);background:var(--g3-bg);}
@@ -84,11 +72,12 @@
   .i-teal{background:var(--gris);border-color:var(--teal);}
   .i-rpg{background:var(--rpg-bg);border-color:var(--rpg);}
   .i-grn{background:var(--g2-bg);border-color:var(--g2);}
-  .i-json{background:var(--json-bg);border-color:var(--json);}
   .i-amb{background:#FFF8EE;border-color:var(--amb);}
   .info strong{display:block;margin-bottom:6px;font-size:19px;}
-  .alerta{background:#FFF3CD;border:2px solid var(--amb);border-radius:8px;padding:14px 18px;margin:15px 0;font-size:18px;}
-  .alerta strong{color:#E65100;display:block;margin-bottom:5px;}
+  
+  .checklist{list-style:none; padding-left:0; margin-top:15px;}
+  .checklist li{position:relative; padding-left:35px; margin-bottom:15px; font-size:19px;}
+  .checklist li::before{content:'✅'; position:absolute; left:0; top:2px; font-size:22px;}
 
   /* Bloques esqueleto */
   .bloque-leyenda{display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap;}
@@ -130,14 +119,13 @@
 </head>
 <body>
 <header>
-  <h1>CLASE 13 — AVENTURA NARRADA CON IA <span style="font-size:18px;opacity:.7;font-weight:normal;">+ Extracción de datos</span></h1>
+  <h1>CLASE 13 — AVENTURA NARRADA CON IA</h1>
   <p>Taller de IA Aplicada · 7°1° · CTP Antonio Martín Marte · Viernes 29/05 · 80 minutos</p>
 </header>
 
 <div class="container">
 <a href="index.html" class="back-btn">⬅ Volver al Índice</a>
 
-<!-- ══ 0: REPASO ══════════════════════════════════════════════════════════ -->
 <div class="card c-repaso">
   <h2><span class="badge" style="background:#4A6080">0</span> REPASO RÁPIDO — ERRORES DEL TP2</h2>
   <div class="errores-grid">
@@ -160,20 +148,25 @@
   </div>
 </div>
 
-<!-- ══ 1: EL GUION (DISEÑO) ════════════════════════════════════════════════ -->
-<div class="card c-concepto">
-  <h2><span class="badge">1</span> EL GUION: DISEÑÁ TU MUNDO (Fase Creativa)</h2>
-  <p>Antes de escribir una sola línea de código en Python, tenemos que diseñar nuestro juego de rol. Tómense 10 minutos para anotar en sus carpetas o en un documento:</p>
-  <ul style="margin-top: 10px; font-size: 18px;">
-    <li><strong>El Escenario:</strong> ¿Dónde estamos? (Ej: Una nave espacial abandonada, un bosque oscuro, Ushuaia en el año 2050).</li>
-    <li><strong>El Tono:</strong> ¿Es de terror, de comedia, épico?</li>
-    <li><strong>El Objetivo:</strong> ¿Qué tiene que lograr el jugador para ganar?</li>
-    <li><strong>El Inventario Inicial:</strong> ¿Con qué objetos arranca el personaje?</li>
+<div class="card c-importante">
+  <h2 style="color: #E65100;"><span class="badge" style="background:#E65100">1</span> EL GUION: EL CORAZÓN DEL JUEGO (Entregable)</h2>
+  
+  <div class="info" style="background:#FFCC80; border-color:#E65100; color:#333; margin-bottom:20px;">
+    <strong>⏱️ TIEMPO MÁXIMO: 40 MINUTOS</strong><br>
+    Lo más importante de la clase de hoy no es el código, es el <strong>System Prompt</strong>. Tienen exactamente 40 minutos para redactarlo en un documento de texto y entregarlo como tarea en el Classroom. <strong>Sin entregar esto, no se pasa a la programación.</strong>
+  </div>
+
+  <p>Su guion será el cerebro del Narrador. Para estar aprobado y listo para programar, <strong>debe cumplir obligatoriamente estos 5 requisitos</strong>:</p>
+  
+  <ul class="checklist">
+    <li><strong>Definición del Mundo y Tono:</strong> Dónde estamos (ej. nave espacial, bosque, Ushuaia en el 2050) y qué tono tiene la historia (misterio, terror, comedia).</li>
+    <li><strong>Rol Estricto:</strong> La IA debe saber que es un "Dungeon Master" o Narrador del juego, no un asistente que responde preguntas sueltas.</li>
+    <li><strong>Límite de Extensión:</strong> Tiene que tener la orden inquebrantable de narrar usando un <strong>máximo de 2 o 3 oraciones</strong> por turno.</li>
+    <li><strong>Prohibición de Agencia:</strong> Instrucción clarísima: la IA <strong>NUNCA</strong> puede tomar decisiones, realizar acciones ni pensar por el jugador.</li>
+    <li><strong>Estructura de Cierre:</strong> Debe estar obligada a terminar CADA mensaje ofreciendo siempre <strong>3 opciones claras (A, B y C)</strong> y preguntando al final "¿Qué vas a hacer?".</li>
   </ul>
-  <p style="margin-top: 10px;">¡Esta información va a ser el corazón de su <code>System Prompt</code>!</p>
 </div>
 
-<!-- ══ 2: DEL CHATBOT AL NARRADOR ════════════════════════════════════════ -->
 <div class="card c-concepto">
   <h2><span class="badge">2</span> DEL CHATBOT AL NARRADOR</h2>
   <p>En el TP2 la IA era <strong>pasiva</strong>: esperaba la pregunta y respondía. Hoy la IA es <strong>activa</strong>: guía la historia, narra consecuencias y ofrece opciones.</p>
@@ -182,12 +175,11 @@
     <tbody>
       <tr><td><strong>Rol de la IA</strong></td><td>Pasivo — espera preguntas</td><td class="acento">Activo — guía la historia</td></tr>
       <tr><td><strong>Interacción</strong></td><td>Pregunta / Respuesta</td><td class="acento">Acción / Consecuencia + 3 opciones</td></tr>
-      <tr><td><strong>Output</strong></td><td>Solo texto</td><td class="acento">Texto (Grupos de 2) / JSON (Grupos de 3)</td></tr>
+      <tr><td><strong>Estado</strong></td><td>Solo el historial</td><td class="acento">Historial + diccionario (HP, inventario)</td></tr>
     </tbody>
   </table>
 </div>
 
-<!-- ══ 3: LOS GRUPOS Y LOS NIVELES ════════════════════════════════════════ -->
 <div class="card c-niveles">
   <h2><span class="badge" style="background:var(--amb)">3</span> LOS GRUPOS Y LOS NIVELES</h2>
   <div class="niveles-grid">
@@ -198,33 +190,32 @@
       <ul>
         <li>Diccionario con HP, inventario, ubicación.</li>
         <li>Usan comandos manuales: <code>/estado</code>, <code>/tomar</code>, <code>/hp</code>, etc.</li>
-        <li><strong>Pueden crear nuevos comandos</strong> usando <code>if accion.startswith("..."):</code></li>
+        <li><strong>Libertad creativa:</strong> Pueden inventar nuevos comandos usando <code>if accion.startswith("..."):</code></li>
       </ul>
     </div>
     <div class="nivel-card n3">
       <span class="tag">Grupos de 3</span>
       <h4>🧠 Desafío de Prompting: Formato Estricto (JSON)</h4>
-      <p style="font-size:17px;margin-bottom:12px;">En lugar de usar expresiones regulares complejas, el desafío es <strong>obligar a la IA</strong> a devolver ÚNICAMENTE un formato de datos (JSON) usando instrucciones muy estrictas en el Prompt.</p>
+      <p style="font-size:17px;margin-bottom:12px;">El desafío es <strong>obligar a la IA</strong> a devolver ÚNICAMENTE un formato de datos (JSON) usando instrucciones muy estrictas en el Prompt.</p>
       <ul>
         <li>Sin usar comandos manuales de <code>/tomar</code> o <code>/hp</code>.</li>
         <li>El código lee el JSON con <code>json.loads()</code> y actualiza el diccionario automáticamente.</li>
-        <li><strong>El reto:</strong> Si la IA responde con texto normal ("¡Claro! Acá tenés la respuesta..."), el programa fallará. ¡Deben domar al modelo con reglas inquebrantables!</li>
+        <li><strong>El reto:</strong> Si la IA responde con texto normal ("¡Claro! Acá tenés..."), el programa fallará. ¡Deben domar al modelo!</li>
       </ul>
     </div>
   </div>
 </div>
 
-<!-- ══ 4: HOJA DE RUTA ═══════════════════════════════════════════════════ -->
 <div class="card c-hoy">
   <h2><span class="badge" style="background:var(--grn)">4</span> QUÉ HACEMOS HOY Y LA SEMANA QUE VIENE</h2>
   <div class="ruta-grid">
     <div class="ruta-card r-hoy">
       <div class="cuando">🟢 Hoy — Vie 29/05</div>
-      <p>Fase creativa (el guion), armado del System Prompt y primera prueba del esqueleto. (Mientras los demás rinden el Recuperatorio TP2).</p>
+      <p>Entregar el Guion en Classroom (max 40m). Armar el System Prompt y probar comandos de estado. (Mientras otros recuperan el TP2).</p>
     </div>
     <div class="ruta-card r-finde">
       <div class="cuando">⚪ Fin de semana largo</div>
-      <p>Lunes 01/06 feriado. Opcional: pulir el diseño y probar agregar comandos manuales de estado propios.</p>
+      <p>Lunes 01/06 feriado. Opcional: pulir el diseño y agregar comandos manuales propios.</p>
     </div>
     <div class="ruta-card r-prox">
       <div class="cuando">🟣 Vie 05/06</div>
@@ -233,10 +224,9 @@
   </div>
 </div>
 
-<!-- ══ 5: ESQUELETO ══════════════════════════════════════════════════════ -->
 <div class="card c-esqueleto">
   <h2><span class="badge" style="background:var(--vio)">5</span> EL ESQUELETO — BLOQUE A BLOQUE</h2>
-  <p>Abrí un Colab nuevo. Copiá cada bloque en orden. Azul = fijo. Rojo = completás vos. Verde = Desafío JSON.</p>
+  <p>Una vez entregado el Guion en Classroom, abrí un Colab nuevo. Copiá cada bloque en orden. Azul = fijo. Rojo = completás vos. Verde = Desafío JSON.</p>
 
   <div class="bloque-leyenda">
     <div class="ley"><div class="ley-dot ley-azul"></div> AZUL — Fijo, copialo igual</div>
@@ -273,7 +263,7 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 
   <div class="bloque b-mod">
     <div class="bloque-titulo">🗂️ B4 — Estado del jugador (El Diccionario)</div>
-    <div class="bloque-desc">Acá volcamos parte de la creatividad del Paso 1. Completá con los valores iniciales.</div>
+    <div class="bloque-desc">Acá definimos la ficha técnica inicial. Completá con los valores con los que arranca el personaje.</div>
     <div class="code-block">jugador = {
     <span class="dk">"nombre"</span>:    <span class="str">"Tu Nombre"</span>,
     <span class="dk">"hp"</span>:        <span class="nm">100</span>,
@@ -284,15 +274,9 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 
   <div class="bloque b-mod">
     <div class="bloque-titulo">🎭 B5 — System Prompt del Narrador</div>
-    <div class="bloque-desc">Acá va el guion. Definís el tono, el mundo y las reglas inquebrantables de tu aventura.</div>
+    <div class="bloque-desc">Copiá acá exactamente el guion que entregaste en el Classroom asegurándote de que cumpla las 5 reglas.</div>
     <div class="code-block">game_master = <span class="str">"""
-Sos el narrador de una aventura en [Tú Mundo].
-Tu tono es [épico / misterioso / etc].
-
-REGLAS INQUEBRANTABLES:
-1. Describí la escena de forma inmersiva.
-2. Nunca decidís por el jugador. No asumas que corrió o atacó.
-3. Al final de CADA respuesta ofrecés 3 opciones A / B / C.
+<span class="cmt">[PEGAR AQUÍ EL GUION QUE ENTREGARON EN CLASSROOM]</span>
 
 [GRUPO DE 3: AGREGAR INSTRUCCIONES ESTRICTAS DE RESPONDER SOLO EN FORMATO JSON AQUÍ]
 """</span>
@@ -300,20 +284,24 @@ REGLAS INQUEBRANTABLES:
 historial = [{<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: game_master}]</div>
   </div>
 
-  <!-- NUEVA CAJA DE HERRAMIENTAS -->
   <div class="info i-teal" style="margin-top: 30px;">
     <strong>🛠️ CAJA DE HERRAMIENTAS: 3 TRUCOS NUEVOS PARA TEXTOS</strong>
-    <p style="margin-bottom: 10px; font-size: 18px;">Antes de armar el motor del juego (el <code>while True</code>), les presento tres herramientas nuevas que vamos a usar para que los comandos manuales del jugador funcionen perfecto, sin tener que escribir 100 líneas de código:</p>
+    <p style="margin-bottom: 10px; font-size: 18px;">Antes de armar el motor del juego (el <code>while True</code>), les presento tres herramientas que vamos a usar para que los comandos manuales funcionen perfecto:</p>
     <ul style="margin-top:0; margin-bottom:0; line-height: 1.8; font-size: 18px;">
-      <li><code>.strip()</code>: Ya lo vimos de pasada en el TP2. Sirve para "limpiar" los espacios en blanco que el usuario pone sin querer al principio o al final de su mensaje. (Ej: <code>"  salir  "</code> se convierte en <code>"salir"</code>).</li>
-      <li><code>.startswith("texto")</code>: En vez de preguntar si el mensaje es <i>exactamente igual</i> (usando <code>==</code>), esta función pregunta si el texto <i>"empieza con..."</i>. Es clave para comandos compuestos como <code>"/tomar espada"</code> o <code>"/hp -20"</code>: el código detecta la primera parte y luego recorta el resto.</li>
-      <li><code>", ".join(lista)</code>: Transforma una lista de Python (como nuestro inventario) en un texto lindo para leer. Si tu lista es <code>["llave", "mapa"]</code>, al usar esto se imprime en pantalla como <code>"llave, mapa"</code>.</li>
+      <li><code>.strip()</code>: "Limpia" los espacios en blanco que el usuario pone sin querer al principio o al final de su mensaje.</li>
+      <li><code>.startswith("texto")</code>: Pregunta si el mensaje <i>"empieza con..."</i>. Es clave para comandos compuestos como <code>"/tomar espada"</code>.</li>
+      <li><code>", ".join(lista)</code>: Transforma una lista de Python (ej. nuestro inventario) en un texto lindo para leer: <code>"llave, mapa"</code>.</li>
     </ul>
+  </div>
+  
+  <div class="info i-amb" style="margin-top: 20px;">
+    <strong>⚠️ EL PROBLEMA DEL PRIMER TURNO (Deadlock)</strong>
+    <p style="margin-bottom:0; font-size: 18px;">¿Qué pasa si arrancamos el bucle pidiendo un <code>input()</code>? El juego se queda esperando que vos escribas algo, ¡pero vos estás esperando que el Narrador te describa dónde estás y te dé las opciones! Para evitar este "callejón sin salida" (deadlock), justo antes de entrar al <code>while True</code> le vamos a mandar a la IA un <strong>mensaje automático oculto</strong> ("Empezar la partida...") para que rompa el hielo y arranque la historia.</p>
   </div>
 
   <div class="bloque b-fijo">
     <div class="bloque-titulo">🔁 B6 — El Motor del Juego (Parte 1: Comandos Especiales)</div>
-    <div class="bloque-desc">Acá abrimos la puerta al bucle infinito (<code>while True</code>). Vas a ver que usamos las herramientas nuevas para atrapar las acciones del jugador. Forzamos el primer turno antes del bucle para que el juego no arranque en silencio.</div>
+    <div class="bloque-desc">Forzamos el primer turno (como explicamos arriba) y luego abrimos la puerta al bucle infinito (<code>while True</code>). Vas a ver un espacio marcado para inventar tus propios comandos de estado.</div>
     <div class="code-block"><span class="kw">print</span>(<span class="str">"🎮 INICIANDO AVENTURA..."</span>)
 
 <span class="cmt"># --- FORZAR EL PRIMER MENSAJE DE LA IA ---</span>
@@ -352,13 +340,13 @@ historial.append({<span class="str">"role"</span>: <span class="str">"assistant"
         <span class="kw">except</span>: <span class="kw">print</span>(<span class="str">"Usá /hp +20 o /hp -30\n"</span>)
         <span class="kw">continue</span>
         
-    <span class="cmt"># [TU TURNO] Podés agregar otros comandos acá, como /magia o /soltar,</span>
+    <span class="cmt"># [TU TURNO] Podés inventar otros comandos acá, como /magia o /soltar,</span>
     <span class="cmt"># copiando la misma lógica de los IFs de arriba. ¡No te olvides del continue!</span></div>
   </div>
 
   <div class="bloque b-mod">
     <div class="bloque-titulo">💬 B7 — El Turno Normal (Parte 2: Inyección de Estado)</div>
-    <div class="bloque-desc">¡ATENCIÓN ACÁ! Este bloque <strong>no va separado</strong>. Es la continuación directa del bloque B6. Tiene que ir <strong>adentro</strong> del <code>while True</code>, justo debajo de los comandos de arriba y respetando su misma sangría. Este es el bloque que se ejecuta si el usuario eligió jugar y no usó ningún comando especial.</div>
+    <div class="bloque-desc">¡ATENCIÓN ACÁ! Este bloque <strong>no va separado</strong>. Es la continuación directa del bloque B6. Tiene que ir <strong>adentro</strong> del <code>while True</code>, justo debajo de los comandos y respetando su misma sangría. Es el camino normal si el usuario no usó comandos especiales.</div>
     <div class="code-block">    <span class="cmt"># ---- CONTINUACIÓN DEL WHILE TRUE ----</span>
     <span class="cmt"># ── GRUPOS DE 2: Textos Simples ────────────────────────</span>
     <span class="cmt"># Ocultamos tus datos en el mensaje para que la IA sepa cómo estás de salud e inventario.</span>
@@ -374,7 +362,7 @@ Acción del jugador: {accion}"""</span>
 
   <div class="bloque b-nuevo">
     <div class="bloque-titulo">🏆 Desafío JSON: Solo Grupos de 3</div>
-    <div class="bloque-desc">Si eligieron este desafío, su <code>System Prompt</code> (Bloque 5) tiene que ser tan estricto que la IA devuelva <strong>solamente</strong> datos crudos, sin charla ni decoraciones. Si logran eso, pueden <strong>reemplazar el print final del bloque B7</strong> por este lector automático que sigue adentro del <code>while</code>:</div>
+    <div class="bloque-desc">Si eligieron este desafío, su <code>System Prompt</code> (Bloque 5) tiene que ser tan estricto que la IA devuelva <strong>solamente</strong> datos crudos, sin charla. Si logran eso, pueden <strong>reemplazar el print final del bloque B7</strong> por este lector automático que sigue adentro del <code>while</code>:</div>
     <div class="code-block">    <span class="cmt"># ---- CONTINUACIÓN DEL WHILE TRUE ----</span>
     <span class="cmt"># ── GRUPOS DE 3: Convertir el texto de la IA en Diccionario ───</span>
     <span class="kw">try</span>:
@@ -392,7 +380,6 @@ Acción del jugador: {accion}"""</span>
   </div>
 </div>
 
-<!-- ══ 6: ASISTENTE ══════════════════════════════════════════════════════ -->
 <div class="card c-asistente">
   <h2><span class="badge" style="background:var(--rpg)">🤖</span> ASISTENTE DE APOYO</h2>
   <p style="margin-bottom:14px;">Preguntale sobre cómo mejorar tu guion, cómo agregar nuevos comandos <code>/</code>, o cómo hacer el Prompt más estricto para el desafío JSON.</p>
@@ -416,7 +403,7 @@ Acción del jugador: {accion}"""</span>
 </div>
 <script>
 var KEY='',HIST=[];
-var SYS='Sos asistente de la Clase 13 del Taller de IA, CTP Antonio Martín Marte, Ushuaia. Español argentino con vos. Máximo 3-4 oraciones. Nunca das código completo — mostrás fragmentos y hacés preguntas.\n\nCONTEXTO:\nEl foco es crear el GUION del RPG interactivo y luego programarlo.\nGrupos de 2: la IA devuelve solo texto de narración, el jugador actualiza el estado con comandos manuales (/tomar, /soltar, /hp). Pueden expandir agregando nuevos comandos si quieren.\nGrupos de 3 (Desafío JSON): El reto es el Prompt Engineering. Su System Prompt debe forzar a la IA a devolver UNICAMENTE un objeto JSON válido para que Python lo lea con json.loads() y actualice el HP automáticamente. Si la IA manda texto extra, falla.\nEl estado se inyecta oculto en cada turno: [Estado actual: HP=..., inventario=...] + la acción.\nAntes del while True, forzamos el primer turno mandando un mensaje automático para que la IA describa el contexto inicial.';
+var SYS='Sos asistente de la Clase 13 del Taller de IA, CTP Antonio Martín Marte, Ushuaia. Español argentino con vos. Máximo 3-4 oraciones. Nunca das código completo — mostrás fragmentos y hacés preguntas.\n\nCONTEXTO:\nEl foco es crear el GUION del RPG interactivo (máx 40 min de diseño). Debe tener mundo claro, la IA nunca decide por el jugador, narrar breve, y dar 3 opciones siempre.\nGrupos de 2: la IA devuelve solo narración, el jugador usa comandos manuales (/tomar, /hp). Pueden expandir agregando nuevos comandos si quieren.\nGrupos de 3 (Desafío JSON): El reto es el Prompt Engineering. El System Prompt debe forzar a la IA a devolver UNICAMENTE un objeto JSON válido para que Python lo lea con json.loads() y actualice el HP automáticamente. Si la IA manda texto extra, falla.\nEl estado se inyecta oculto en cada turno.\nAntes del while True, forzamos el primer turno para que la IA describa el contexto inicial.';
 
 function activar(){
   var k=document.getElementById('asist-key').value.trim();
