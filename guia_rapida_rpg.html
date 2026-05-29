@@ -73,6 +73,7 @@
   .amarillo { color: #FFEB3B; font-weight: bold; }
   .verde { color: #A5D6A7; }
   .celeste { color: #81D4FA; }
+  .cmt { color: #6A9955; font-style: italic; }
   
   .tip {
     background: #E0F7FA;
@@ -110,7 +111,8 @@
 jugador = {
     <span class="celeste">"nombre"</span>: <span class="amarillo">"Tu Nombre"</span>,
     <span class="celeste">"hp"</span>: <span class="amarillo">100</span>,
-    <span class="celeste">"inventario"</span>: []
+    <span class="celeste">"inventario"</span>: [],
+    <span class="celeste">"ubicacion"</span>: <span class="amarillo">"Punto de partida"</span>
 }
     </div>
     <div class="tip">
@@ -137,10 +139,57 @@ historial.append({<span class="celeste">"role"</span>: <span class="verde">"syst
   </div>
 
   <div class="paso-card">
-    <h2><span class="paso-num">4</span> El Turno Inyectado (Adentro del Bucle)</h2>
-    <p>Adentro del <code>while True</code>, en lugar de mandarle a la IA solo lo que escribís, le vamos a mandar <strong>oculto</strong> tu estado actual (tu vida y tu mochila) para que sepa si estás lastimado o si tenés algo útil.</p>
+    <h2><span class="paso-num">4</span> El Arranque (¡Forzar a la IA!)</h2>
+    <p>Para evitar que el juego arranque en silencio y se quede esperando eternamente, vamos a <strong>obligar a la IA a que hable primero</strong> para darte la bienvenida y mostrarte las opciones iniciales. ¡Esto va justo arriba del <code>while True</code>!</p>
     <div class="codigo">
-<span class="cmt"># Cuando el usuario elige su acción (Puerta 3)</span>
+<span class="cmt"># --- FORZAR EL PRIMER MENSAJE DE LA IA ---</span>
+print(<span class="verde">"⏳ Cargando el mundo..."</span>)
+historial.append({<span class="celeste">"role"</span>: <span class="verde">"user"</span>, <span class="celeste">"content"</span>: <span class="amarillo">"Empezar la partida. Describí dónde estoy y dame las 3 primeras opciones."</span>})
+
+respuesta_inicial = consultar_ia(historial, 0.8)
+historial.append({<span class="celeste">"role"</span>: <span class="verde">"assistant"</span>, <span class="celeste">"content"</span>: respuesta_inicial})
+
+print(f<span class="verde">"\n🌲 {respuesta_inicial}\n"</span>)
+<span class="cmt"># -----------------------------------------</span>
+    </div>
+  </div>
+
+  <div class="paso-card" style="border-left-color: #00949A; background: #F0FAFA;">
+    <h2 style="color: #00949A;"><span class="paso-num" style="background: #00949A;">5</span> Los Comandos Manuales</h2>
+    <p>Como la IA solo te narra la historia, <strong>vos</strong> sos el encargado de actualizar tu vida y tu inventario. Adentro de tu <code>while True</code>, agregá estas "puertas" mágicas para manejar tu estado a mano:</p>
+    <div class="codigo">
+    <span class="cmt"># Comando para ver cómo estás:</span>
+    if accion.lower() == <span class="verde">"/estado"</span>:
+        print(f<span class="verde">"\n❤️ Vida: {jugador['hp']} | 🎒 Mochila: {jugador['inventario']}\n"</span>)
+        <span class="celeste">continue</span>
+
+    <span class="cmt"># Comando para agarrar objetos (Ej: /tomar espada):</span>
+    if accion.lower().startswith(<span class="verde">"/tomar "</span>):
+        objeto = accion[7:].strip()
+        jugador[<span class="celeste">"inventario"</span>].append(objeto)
+        print(f<span class="verde">"🎒 '{objeto}' guardado en la mochila.\n"</span>)
+        <span class="celeste">continue</span>
+
+    <span class="cmt"># Comando para curarte o lastimarte (Ej: /hp -20):</span>
+    if accion.lower().startswith(<span class="verde">"/hp "</span>):
+        try:
+            cambio = int(accion[4:])
+            jugador[<span class="celeste">"hp"</span>] = jugador[<span class="celeste">"hp"</span>] + cambio
+            print(f<span class="verde">"❤️ Vida actual: {jugador['hp']}\n"</span>)
+        except:
+            print(<span class="verde">"Usá el formato: /hp +20 o /hp -30\n"</span>)
+        <span class="celeste">continue</span>
+    </div>
+    <div class="tip" style="border-color: #00949A; background: #E0F2F1;">
+      <strong>⚠️ No te olvides del continue:</strong> Es crucial para que el código vuelva al principio del bucle y no le mande estos comandos ocultos a la IA.
+    </div>
+  </div>
+
+  <div class="paso-card">
+    <h2><span class="paso-num">6</span> El Turno Inyectado (Adentro del Bucle)</h2>
+    <p>Adentro del <code>while True</code>, en lugar de mandarle a la IA solo lo que escribís, le vamos a mandar <strong>oculto</strong> tu estado actual (tu vida y tu mochila) para que sepa si estás lastimado o si tenés algo útil para usar en la historia.</p>
+    <div class="codigo">
+<span class="cmt"># Cuando el usuario elige su acción (Puerta 3 - Charla normal)</span>
 
 mensaje_turno = f<span class="verde">"""[Estado: HP={jugador[<span class="celeste">'hp'</span>]} | Mochila={jugador[<span class="celeste">'inventario'</span>]}]
 Acción del jugador: {accion}"""</span>
@@ -151,9 +200,9 @@ historial.append({<span class="celeste">"role"</span>: <span class="verde">"user
     </div>
   </div>
 
-  <div class="paso-card">
-    <h2><span class="paso-num">🚀</span> ¿Listo? ¡A probar!</h2>
-    <p>Ejecutá tu código. Si la IA te responde tomando decisiones por vos o haciendo textos de 20 renglones, significa que tu System Prompt (Paso 3) necesita reglas más estrictas. <strong>¡Ajustalo y volvé a probar!</strong></p>
+  <div class="paso-card" style="background: #2C3E50; color: white;">
+    <h2 style="color: white;"><span class="paso-num" style="background: #E91E63;">🚀</span> ¿Listo? ¡A probar!</h2>
+    <p style="color: #cbd5e1;">Ejecutá tu código. Si la IA te responde tomando decisiones por vos o haciendo textos larguísimos, significa que tu System Prompt (Paso 3) necesita reglas más estrictas. <strong>¡Ajustalo y volvé a probar!</strong></p>
   </div>
 
 </div>
