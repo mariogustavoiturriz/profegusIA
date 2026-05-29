@@ -129,7 +129,7 @@
 </head>
 <body>
 <header>
-  <h1>CLASE 13 — AVENTURA NARRADA CON IA <span style="font-size:18px;opacity:.7;font-weight:normal;">+ Extracción de datos en JSON</span></h1>
+  <h1>CLASE 13 — AVENTURA NARRADA CON IA</h1>
   <p>Taller de IA Aplicada · 7°1° · CTP Antonio Martín Marte · Viernes 22/05 · 80 minutos</p>
 </header>
 
@@ -272,15 +272,15 @@ match = re.search(<span class="str">r'```json\s*(.*?)\s*```'</span>, narracion, 
       <span class="tag">Grupos de 3</span>
       <h4>🧠 Estado + JSON (Molde de datos)</h4>
       <p style="font-size:17px;margin-bottom:12px;">La IA devuelve texto + JSON. El código lee el JSON y actualiza el diccionario automáticamente.</p>
-      <ul>
-        <li>Mismo diccionario que grupos de 2</li>
-        <li>Sin <code>/tomar</code> <code>/soltar</code> <code>/hp</code> — los reemplaza la lectura automática</li>
-        <li>System Prompt: narrador + 3 opciones + bloque JSON obligatorio</li>
-        <li><strong>Conceptos nuevos:</strong> <code>json.loads()</code> (para convertir el JSON a diccionario), <code>re.search()</code> (para buscar el texto), <code>try/except</code> para validar</li>
-      </ul>
+      <table class="tabla-comp">
+        <thead><tr><th>Elemento</th><th>TP2 — Chatbot</th><th>Clase 13 — Aventura</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Rol de la IA</strong></td><td>Pasivo — espera preguntas</td><td class="acento">Activo — guía la historia</td></tr>
+          <tr><td><strong>Interacción</strong></td><td>Pregunta / Respuesta</td><td class="acento">Acción / Consecuencia + 3 opciones</td></tr>
+          <tr><td><strong>Estado</strong></td><td>Solo el historial</td><td class="acento">Historial + diccionario de HP e inventario</td></tr>
+        </tbody>
+      </table>
     </div>
-  </div>
-</div>
 
 <!-- ══ 4: HOJA DE RUTA ═══════════════════════════════════════════════════ -->
 <div class="card c-hoy">
@@ -292,7 +292,7 @@ match = re.search(<span class="str">r'```json\s*(.*?)\s*```'</span>, narracion, 
     </div>
     <div class="ruta-card r-finde">
       <div class="cuando">⚪ Fin de semana</div>
-      <p>Lunes feriado. Opcional: pulir el diseño. Grupos de 3: pensar cómo instruir al narrador para que devuelva el formato JSON siempre.</p>
+      <p>Lunes feriado. Opcional: pulir el diseño y probar comandos manuales de estado.</p>
     </div>
     <div class="ruta-card r-prox">
       <div class="cuando">🟣 Vie 29/05</div>
@@ -313,15 +313,12 @@ match = re.search(<span class="str">r'```json\s*(.*?)\s*```'</span>, narracion, 
   <div class="bloque-leyenda">
     <div class="ley"><div class="ley-dot ley-azul"></div> AZUL — Fijo, copialo igual</div>
     <div class="ley"><div class="ley-dot ley-rojo"></div> ROJO — Vos lo completás</div>
-    <div class="ley"><div class="ley-dot ley-verde"></div> VERDE — Concepto nuevo (Tramo 3)</div>
   </div>
 
   <div class="bloque b-fijo">
     <div class="bloque-titulo">📦 B1 — Librerías</div>
-    <div class="bloque-desc">Igual que siempre más <code>json</code> y <code>re</code> para grupos de 3.</div>
-    <div class="code-block"><span class="kw">import</span> requests
-<span class="kw">import</span> json   <span class="cm"># para convertir la respuesta JSON del narrador a un diccionario (grupos de 3)</span>
-<span class="kw">import</span> re     <span class="cm"># para extraer el bloque JSON del texto (grupos de 3)</span></div>
+    <div class="bloque-desc">Igual que siempre en la arquitectura base.</div>
+    <div class="code-block"><span class="kw">import</span> requests</div>
   </div>
 
   <div class="bloque b-mod">
@@ -357,21 +354,15 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 
   <div class="bloque b-mod">
     <div class="bloque-titulo">🎭 B5 — System Prompt del narrador</div>
-    <div class="bloque-desc">Definís el tono, el mundo y las reglas. <strong>Grupos de 3:</strong> agregar la instrucción del bloque JSON al final.</div>
+    <div class="bloque-desc">Definís el tono, el mundo y las reglas inquebrantables de tu aventura.</div>
     <div class="code-block">game_master = <span class="str">"""
 Sos el narrador de una aventura en <span class="completar">[describí el mundo]</span>.
 Tu tono es <span class="completar">[épico / misterioso / de terror]</span>.
 
-- Describís cada escena en 2-3 oraciones.
-- Nunca decidís por el jugador.
-- Al final de CADA respuesta ofrecés 3 opciones A / B / C.
-
-<span class="cm"># SOLO GRUPOS DE 3 — agregar esto:</span>
-Además, al final de CADA respuesta incluí un bloque JSON con los cambios de estado:
-```json
-{"hp_delta": 0, "agregar": [], "quitar": []}
-```
-Si el jugador pierde 20 HP y toma un objeto: {"hp_delta": -20, "agregar": ["objeto"], "quitar": []}
+REGLAS INQUEBRANTABLES:
+1. Describí la escena en 2 o 3 oraciones.
+2. Nunca decidís por el jugador. No asumas que corrió o atacó.
+3. Al final de CADA respuesta ofrecés 3 opciones A / B / C.
 """</span>
 
 historial = [{<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: game_master}]</div>
@@ -424,36 +415,18 @@ historial.append({<span class="str">"role"</span>: <span class="str">"assistant"
         <span class="kw">continue</span></div>
   </div>
 
-  <div class="bloque b-nuevo">
-    <div class="bloque-titulo">💬 B7 — El turno normal <span style="font-size:14px;font-weight:normal;">← Grupos de 2: igual que TP2 / Grupos de 3: procesamiento del JSON</span></div>
-    <div class="bloque-desc">Acá está la diferencia entre los dos niveles. Grupos de 2: mismo flujo del TP2. Grupos de 3: procesamiento del JSON para actualizar el estado automáticamente.</div>
-    <div class="code-block">    <span class="cm"># ── Turno normal (mismo para los dos niveles) ────────────────────────</span>
+  <div class="bloque b-fijo">
+    <div class="bloque-titulo">💬 B7 — El turno normal</div>
+    <div class="bloque-desc">El mismo flujo de la Puerta 3 del TP2, pero inyectando el estado del jugador de manera oculta antes de la acción.</div>
+    <div class="code-block">    <span class="cm"># ── Turno normal ────────────────────────</span>
     mensaje_turno = f<span class="str">"""[Estado: HP={jugador['hp']}, ubicación="{jugador['ubicacion']}", inventario={jugador['inventario']}]
 Acción: {accion}"""</span>
+    
     historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: mensaje_turno})
     narracion = consultar_ia(historial, <span class="nm">0.8</span>)
     historial.append({<span class="str">"role"</span>: <span class="str">"assistant"</span>, <span class="str">"content"</span>: narracion})
 
-    <span class="cm"># ── GRUPOS DE 2: mostrar la narración y listo ────────────────────────</span>
-    <span class="kw">print</span>(f<span class="str">"\n🌲 {narracion}\n"</span>)
-
-    <span class="cm"># ── GRUPOS DE 3: extraer JSON y actualizar el estado ─────────────────</span>
-    <span class="cm"># Reemplazá el print de arriba por este bloque:</span>
-    <span class="cm">#</span>
-    <span class="cm"># match = re.search(r'```json\s*(.*?)\s*```', narracion, re.DOTALL)</span>
-    <span class="cm"># if match:</span>
-    <span class="cm">#     try:</span>
-    <span class="cm">#         cambios = json.loads(match.group(1))</span>
-    <span class="cm">#         jugador["hp"] = max(0, jugador["hp"] + cambios.get("hp_delta", 0))</span>
-    <span class="cm">#         for obj in cambios.get("agregar", []): jugador["inventario"].append(obj)</span>
-    <span class="cm">#         for obj in cambios.get("quitar", []):</span>
-    <span class="cm">#             if obj in jugador["inventario"]: jugador["inventario"].remove(obj)</span>
-    <span class="cm">#         texto = re.sub(r'```json.*?```', '', narracion, flags=re.DOTALL).strip()</span>
-    <span class="cm">#         print(f"\n🌲 {texto}\n")</span>
-    <span class="cm">#     except:</span>
-    <span class="cm">#         print(f"\n🌲 {narracion}\n")</span>
-    <span class="cm"># else:</span>
-    <span class="cm">#     print(f"\n🌲 {narracion}\n")</span></div>
+    <span class="kw">print</span>(f<span class="str">"\n🌲 {narracion}\n"</span>)</div>
   </div>
 </div>
 
@@ -468,7 +441,7 @@ Acción: {accion}"""</span>
   <div id="asist-chat">
     <div id="asist-msgs">
       <div style="align-self:flex-start;background:#2D2D2D;color:#CE9AF5;padding:11px 15px;border-radius:10px;font-size:17px;max-width:90%;line-height:1.5;">
-        Hola! Soy el asistente de la Clase 13. Puedo ayudarte con el esqueleto, el System Prompt, la lectura del JSON (grupos de 3) o la diferencia entre los niveles.
+        Hola! Soy el asistente de la Clase 13. Puedo ayudarte con el esqueleto, el System Prompt de tu narrador o cómo funcionan los comandos de estado.
       </div>
     </div>
     <div class="asist-inp">
@@ -481,7 +454,7 @@ Acción: {accion}"""</span>
 </div>
 <script>
 var KEY='',HIST=[];
-var SYS='Sos asistente de la Clase 13 del Taller de IA, CTP Antonio Martín Marte, Ushuaia. Español argentino con vos. Máximo 3-4 oraciones. Nunca das código completo — mostrás fragmentos y hacés preguntas.\n\nCONTEXTO:\nConcepto nuevo: usar un molde (output schema) — la IA devuelve texto + bloque JSON con los cambios de estado del juego.\nGrupos de 2: la IA devuelve solo texto, el jugador actualiza el estado con comandos manuales (/tomar, /soltar, /hp).\nGrupos de 3: el system prompt instruye al narrador a incluir siempre un bloque JSON al final. El código lo extrae con re.search() y lo convierte a diccionario con json.loads(). Si falla la lectura, el juego sigue igual (try/except).\nEl JSON tiene: {"hp_delta": N, "agregar": ["obj"], "quitar": ["obj"]}\nEl estado se inyecta en cada turno: [Estado: HP=..., ubicacion=..., inventario=...] + la acción del jugador.\nEl /guardar va ANTES de llamar a la IA (error frecuente del TP2).\nAntes del while True, forzamos el primer turno mandando un mensaje automático para que la IA describa el contexto inicial.';
+var SYS='Sos asistente de la Clase 13 del Taller de IA, CTP Antonio Martín Marte, Ushuaia. Español argentino con vos. Máximo 3-4 oraciones. Nunca das código completo — mostrás fragmentos y hacés preguntas.\n\nCONTEXTO:\nEl proyecto es un RPG narrativo interactivo. La IA actúa como Dungeon Master.\nEl jugador actualiza el estado con comandos manuales (/tomar, /soltar, /hp).\nEl estado se inyecta oculto en cada turno: [Estado: HP=..., ubicacion=..., inventario=...] + la acción del jugador.\nEl /guardar va ANTES de llamar a la IA (error frecuente del TP2).\nAntes del while True, forzamos el primer turno mandando un mensaje automático para que la IA describa el contexto inicial.';
 
 function activar(){
   var k=document.getElementById('asist-key').value.trim();
