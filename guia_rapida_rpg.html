@@ -84,6 +84,17 @@
     font-size: 18px;
   }
   .tip strong { color: #0277BD; }
+
+  .herramientas {
+    background: #FFF3E0;
+    border-left: 5px solid #F57C00;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+  .herramientas h3 { color: #E65100; margin-bottom: 10px; }
+  .herramientas ul { margin-left: 25px; line-height: 1.8; }
+  .herramientas code { background: #FFE0B2; padding: 2px 6px; border-radius: 4px; color: #E65100; font-weight: bold; }
 </style>
 </head>
 <body>
@@ -95,7 +106,7 @@
   </header>
 
   <div class="paso-card">
-    <h2><span class="paso-num">1</span> La Idea del Juego</h2>
+    <h2><span class="paso-num">1</span> El Guion del Juego</h2>
     <p>Antes de tocar el código, necesitás tener claro en tu cabeza (o anotado en tu carpeta):</p>
     <ul style="margin-left: 30px; margin-top: 10px; font-weight: bold;">
       <li>¿Dónde pasa la historia? (Ej: Una base espacial, un bosque oscuro, Ushuaia en el 2050).</li>
@@ -116,7 +127,7 @@ jugador = {
 }
     </div>
     <div class="tip">
-      <strong>💡 Tip:</strong> El HP (Hit Points) es tu vida. El inventario empieza vacío (es una lista `[]`), pero podés agregarle una <code>"linterna"</code> o un <code>"mapa"</code> inicial si querés.
+      <strong>💡 Tip:</strong> El HP (Hit Points) es tu vida. El inventario empieza vacío (es una lista <code>[]</code>), pero podés agregarle una <code>"linterna"</code> o un <code>"mapa"</code> inicial si querés.
     </div>
   </div>
 
@@ -144,7 +155,7 @@ historial.append({<span class="celeste">"role"</span>: <span class="verde">"syst
     <div class="codigo">
 <span class="cmt"># --- FORZAR EL PRIMER MENSAJE DE LA IA ---</span>
 print(<span class="verde">"⏳ Cargando el mundo..."</span>)
-historial.append({<span class="celeste">"role"</span>: <span class="verde">"user"</span>, <span class="celeste">"content"</span>: <span class="amarillo">"Empezar la partida. Describí dónde estoy y dame las 3 primeras opciones."</span>})
+historial.append({<span class="celeste">"role"</span>: <span class="verde">"user"</span>, <span class="celeste">"content"</span>: <span class="amarillo">"Empezar la partida. Describí dónde estoy y dame opciones."</span>})
 
 respuesta_inicial = consultar_ia(historial, 0.8)
 historial.append({<span class="celeste">"role"</span>: <span class="verde">"assistant"</span>, <span class="celeste">"content"</span>: respuesta_inicial})
@@ -154,13 +165,24 @@ print(f<span class="verde">"\n🌲 {respuesta_inicial}\n"</span>)
     </div>
   </div>
 
+  <div class="herramientas">
+    <h3>🛠️ Caja de Herramientas (Leé esto antes del Paso 5)</h3>
+    <p>Para que los comandos manuales del próximo paso funcionen, vamos a usar 3 trucos nuevos de Python. Son muy simples:</p>
+    <ul>
+      <li><code>.strip()</code>: Sirve para "limpiar" los espacios en blanco que ponemos sin querer. (Ej: <code>"  salir  "</code> se convierte automáticamente en <code>"salir"</code>).</li>
+      <li><code>.startswith("texto")</code>: En vez de preguntar si el mensaje es <i>exactamente igual</i>, pregunta si el texto <i>"empieza con..."</i>. Es clave para comandos largos como <code>"/tomar espada"</code>: detectamos que empieza con "/tomar " y recortamos el resto.</li>
+      <li><code>", ".join(lista)</code>: Agarra nuestra lista del inventario (ej: <code>["llave", "mapa"]</code>) y la convierte en un texto lindo para mostrar en pantalla: <code>"llave, mapa"</code>.</li>
+    </ul>
+  </div>
+
   <div class="paso-card" style="border-left-color: #00949A; background: #F0FAFA;">
     <h2 style="color: #00949A;"><span class="paso-num" style="background: #00949A;">5</span> Los Comandos Manuales</h2>
     <p>Como la IA solo te narra la historia, <strong>vos</strong> sos el encargado de actualizar tu vida y tu inventario. Adentro de tu <code>while True</code>, agregá estas "puertas" mágicas para manejar tu estado a mano:</p>
     <div class="codigo">
     <span class="cmt"># Comando para ver cómo estás:</span>
     if accion.lower() == <span class="verde">"/estado"</span>:
-        print(f<span class="verde">"\n❤️ Vida: {jugador['hp']} | 🎒 Mochila: {jugador['inventario']}\n"</span>)
+        inv = <span class="verde">", "</span>.join(jugador[<span class="celeste">"inventario"</span>]) or <span class="verde">"vacío"</span>
+        print(f<span class="verde">"\n❤️ Vida: {jugador['hp']} | 🎒 Mochila: {inv}\n"</span>)
         <span class="celeste">continue</span>
 
     <span class="cmt"># Comando para agarrar objetos (Ej: /tomar espada):</span>
@@ -179,17 +201,20 @@ print(f<span class="verde">"\n🌲 {respuesta_inicial}\n"</span>)
         except:
             print(<span class="verde">"Usá el formato: /hp +20 o /hp -30\n"</span>)
         <span class="celeste">continue</span>
+
+    <span class="cmt"># [TU TURNO] Podés inventar nuevos comandos acá. Por ejemplo: /magia, /soltar.</span>
+    <span class="cmt"># Copiá la misma estructura de los IFs de arriba. ¡No te olvides del continue!</span>
     </div>
     <div class="tip" style="border-color: #00949A; background: #E0F2F1;">
-      <strong>⚠️ No te olvides del continue:</strong> Es crucial para que el código vuelva al principio del bucle y no le mande estos comandos ocultos a la IA.
+      <strong>⚠️ El continue es obligatorio:</strong> Le dice al programa que vuelva arriba a pedir otro comando y no le mande estos mensajes ocultos a la IA.
     </div>
   </div>
 
   <div class="paso-card">
-    <h2><span class="paso-num">6</span> El Turno Inyectado (Adentro del Bucle)</h2>
-    <p>Adentro del <code>while True</code>, en lugar de mandarle a la IA solo lo que escribís, le vamos a mandar <strong>oculto</strong> tu estado actual (tu vida y tu mochila) para que sepa si estás lastimado o si tenés algo útil para usar en la historia.</p>
+    <h2><span class="paso-num">6</span> El Turno Inyectado (El Camino Normal)</h2>
+    <p>Adentro del <code>while True</code>, justo debajo de tus comandos, va este bloque. En lugar de mandarle a la IA solo lo que escribís, le vamos a mandar <strong>oculto</strong> tu estado actual para que sepa si estás lastimado o si tenés algo útil para usar en la historia.</p>
     <div class="codigo">
-<span class="cmt"># Cuando el usuario elige su acción (Puerta 3 - Charla normal)</span>
+<span class="cmt"># Cuando el usuario elige su acción (El juego normal)</span>
 
 mensaje_turno = f<span class="verde">"""[Estado: HP={jugador[<span class="celeste">'hp'</span>]} | Mochila={jugador[<span class="celeste">'inventario'</span>]}]
 Acción del jugador: {accion}"""</span>
