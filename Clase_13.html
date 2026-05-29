@@ -129,7 +129,7 @@
 </head>
 <body>
 <header>
-  <h1>CLASE 13 — AVENTURA NARRADA CON IA <span style="font-size:18px;opacity:.7;font-weight:normal;">+ JSON como output schema</span></h1>
+  <h1>CLASE 13 — AVENTURA NARRADA CON IA <span style="font-size:18px;opacity:.7;font-weight:normal;">+ Extracción de datos en JSON</span></h1>
   <p>Taller de IA Aplicada · 7°1° · CTP Antonio Martín Marte · Viernes 22/05 · 80 minutos</p>
 </header>
 
@@ -177,11 +177,11 @@
 <div class="card c-nuevo">
   <h2><span class="badge" style="background:var(--json)">2</span> CONCEPTO NUEVO <span class="badge-new">★ TRAMO 3</span> — LA IA COMO EXTRACTOR DE DATOS</h2>
 
-  <p>Hasta ahora la IA siempre devolvió texto libre. Hoy aprendemos a pedirle que devuelva <strong>texto + datos estructurados en formato JSON</strong> al mismo tiempo. Esto se llama <em>output schema</em> — definir de antemano qué forma tiene que tener la respuesta.</p>
+  <p>Hasta ahora la IA siempre devolvió texto libre. Hoy aprendemos a pedirle que devuelva <strong>texto + datos estructurados en formato JSON</strong> al mismo tiempo. Esto significa definir un <strong>molde o formato estricto</strong>: decirle de antemano qué forma exacta tiene que tener la respuesta.</p>
 
   <h3>¿Por qué necesitamos esto en el juego?</h3>
-  <p>Cuando la IA narra "el dragón te quita 30 HP y encontraste una llave", el diccionario <code>jugador</code> no cambia solo. Alguien tiene que actualizar el HP y el inventario.</p>
-  <p style="margin-top:10px;">En grupos de 2 eso lo hace el jugador a mano con <code>/hp -30</code> y <code>/tomar llave</code>. En grupos de 3 se lo pedimos <strong>a la IA directamente</strong>: que incluya un bloque JSON en cada respuesta con los cambios, y el código lo parsea.</p>
+  <p>Cuando la IA narra "el dragón te quita 30 HP y encontraste una llave", el diccionario <code>jugador</code> no cambia solo. Alguien tiene que actualizar los puntos de vida y el inventario.</p>
+  <p style="margin-top:10px;">En grupos de 2 eso lo hace el jugador a mano tipeando comandos como <code>/hp -30</code> y <code>/tomar llave</code>. En grupos de 3 se lo pedimos <strong>a la IA directamente</strong>: le decimos que incluya un bloque JSON en cada respuesta con los cambios, y el código lo procesa automáticamente.</p>
 
   <div class="json-comp">
     <div class="jbox antes">
@@ -206,11 +206,11 @@ A) Huir B) Usar la llave C) Atacar
 <span class="jk">```json
 {"hp_delta": -30, "agregar": ["llave"], "quitar": []}
 ```</span>"</div>
-      <p style="margin-top:10px;font-size:17px;">Texto + JSON. El código extrae el JSON y actualiza el diccionario solo.</p>
+      <p style="margin-top:10px;font-size:17px;">Texto + JSON. El código saca los datos del JSON y actualiza el diccionario solo.</p>
     </div>
   </div>
 
-  <h3>¿Cómo se instruye al narrador?</h3>
+  <h3>¿Cómo se le da esta instrucción al narrador?</h3>
   <p>Se agrega una regla en el System Prompt. El narrador tiene que incluir ese bloque JSON <strong>siempre</strong>, aunque no haya cambios:</p>
   <div class="code-block" style="border-radius:8px;margin-top:10px;font-size:17px;"># En el system prompt del narrador (grupos de 3):
 <span class="str">"""
@@ -224,7 +224,7 @@ hp_delta es la variación de HP (negativo si pierde, 0 si no cambia).
 Si no hay cambios usá: {"hp_delta": 0, "agregar": [], "quitar": []}
 """</span></div>
 
-  <h3>¿Cómo lo parsea el código?</h3>
+  <h3>¿Cómo procesa estos datos el código?</h3>
   <p>Después de recibir la respuesta del narrador, el código busca el bloque JSON, lo extrae y lo aplica al diccionario:</p>
   <div class="code-block" style="border-radius:8px;margin-top:10px;font-size:17px;"><span class="kw">import</span> json, re
 
@@ -249,7 +249,7 @@ match = re.search(<span class="str">r'```json\s*(.*?)\s*```'</span>, narracion, 
 
   <div class="info i-json" style="margin-top:15px;">
     <strong>⚠️ La IA no siempre devuelve JSON válido</strong>
-    A veces el modelo se olvida del bloque JSON, lo formatea mal o lo incluye dentro del texto. Por eso el <code>try/except</code> es obligatorio: si el parseo falla, el juego sigue igual — solo no se actualiza el estado automáticamente. Eso es exactamente lo que veremos en C15: validación de outputs.
+    A veces el modelo se olvida del bloque JSON, le da un formato incorrecto o lo incluye mezclado dentro del texto. Por eso el <code>try/except</code> es obligatorio: si la lectura de esos datos falla, el juego sigue igual — solo que no se actualiza el estado automáticamente. Eso es exactamente lo que veremos en la Clase 15: validación estricta de formatos.
   </div>
 </div>
 
@@ -265,18 +265,18 @@ match = re.search(<span class="str">r'```json\s*(.*?)\s*```'</span>, narracion, 
         <li>Diccionario con HP, inventario, ubicación</li>
         <li><code>/estado</code> <code>/tomar</code> <code>/soltar</code> <code>/hp ±n</code> <code>/guardar</code></li>
         <li>System Prompt: narrador + 3 opciones por turno</li>
-        <li>Sin JSON, sin parseo</li>
+        <li>Sin JSON, sin procesar datos automáticamente</li>
       </ul>
     </div>
     <div class="nivel-card n3">
       <span class="tag">Grupos de 3</span>
-      <h4>🧠 Estado + JSON output schema</h4>
-      <p style="font-size:17px;margin-bottom:12px;">La IA devuelve texto + JSON. El código parsea el JSON y actualiza el diccionario automáticamente.</p>
+      <h4>🧠 Estado + JSON (Molde de datos)</h4>
+      <p style="font-size:17px;margin-bottom:12px;">La IA devuelve texto + JSON. El código lee el JSON y actualiza el diccionario automáticamente.</p>
       <ul>
         <li>Mismo diccionario que grupos de 2</li>
-        <li>Sin <code>/tomar</code> <code>/soltar</code> <code>/hp</code> — los reemplaza el parseo</li>
+        <li>Sin <code>/tomar</code> <code>/soltar</code> <code>/hp</code> — los reemplaza la lectura automática</li>
         <li>System Prompt: narrador + 3 opciones + bloque JSON obligatorio</li>
-        <li><strong>Concepto nuevo:</strong> <code>json.loads()</code>, <code>re.search()</code>, <code>try/except</code> para validar</li>
+        <li><strong>Conceptos nuevos:</strong> <code>json.loads()</code> (para convertir el JSON a diccionario), <code>re.search()</code> (para buscar el texto), <code>try/except</code> para validar</li>
       </ul>
     </div>
   </div>
@@ -292,11 +292,11 @@ match = re.search(<span class="str">r'```json\s*(.*?)\s*```'</span>, narracion, 
     </div>
     <div class="ruta-card r-finde">
       <div class="cuando">⚪ Fin de semana</div>
-      <p>Lunes feriado. Opcional: pulir el diseño. Grupos de 3: pensar cómo instruir al narrador para que devuelva JSON siempre.</p>
+      <p>Lunes feriado. Opcional: pulir el diseño. Grupos de 3: pensar cómo instruir al narrador para que devuelva el formato JSON siempre.</p>
     </div>
     <div class="ruta-card r-prox">
       <div class="cuando">🟣 Vie 29/05</div>
-      <p><strong>Recuperatorio TP2</strong> + pipeline de extracción: el log de la partida se exporta como CSV de eventos.</p>
+      <p><strong>Recuperatorio TP2</strong> + flujo de datos: el log de la partida se exporta como CSV de eventos.</p>
     </div>
   </div>
   <div class="info i-grn" style="margin-top:20px;">
@@ -320,7 +320,7 @@ match = re.search(<span class="str">r'```json\s*(.*?)\s*```'</span>, narracion, 
     <div class="bloque-titulo">📦 B1 — Librerías</div>
     <div class="bloque-desc">Igual que siempre más <code>json</code> y <code>re</code> para grupos de 3.</div>
     <div class="code-block"><span class="kw">import</span> requests
-<span class="kw">import</span> json   <span class="cm"># para parsear la respuesta JSON del narrador (grupos de 3)</span>
+<span class="kw">import</span> json   <span class="cm"># para convertir la respuesta JSON del narrador a un diccionario (grupos de 3)</span>
 <span class="kw">import</span> re     <span class="cm"># para extraer el bloque JSON del texto (grupos de 3)</span></div>
   </div>
 
@@ -425,8 +425,8 @@ historial.append({<span class="str">"role"</span>: <span class="str">"assistant"
   </div>
 
   <div class="bloque b-nuevo">
-    <div class="bloque-titulo">💬 B7 — El turno normal <span style="font-size:14px;font-weight:normal;">← Grupos de 2: igual que TP2 / Grupos de 3: parseo JSON</span></div>
-    <div class="bloque-desc">Acá está la diferencia entre los dos niveles. Grupos de 2: mismo flujo del TP2. Grupos de 3: parseo del JSON para actualizar el estado automáticamente.</div>
+    <div class="bloque-titulo">💬 B7 — El turno normal <span style="font-size:14px;font-weight:normal;">← Grupos de 2: igual que TP2 / Grupos de 3: procesamiento del JSON</span></div>
+    <div class="bloque-desc">Acá está la diferencia entre los dos niveles. Grupos de 2: mismo flujo del TP2. Grupos de 3: procesamiento del JSON para actualizar el estado automáticamente.</div>
     <div class="code-block">    <span class="cm"># ── Turno normal (mismo para los dos niveles) ────────────────────────</span>
     mensaje_turno = f<span class="str">"""[Estado: HP={jugador['hp']}, ubicación="{jugador['ubicacion']}", inventario={jugador['inventario']}]
 Acción: {accion}"""</span>
@@ -468,7 +468,7 @@ Acción: {accion}"""</span>
   <div id="asist-chat">
     <div id="asist-msgs">
       <div style="align-self:flex-start;background:#2D2D2D;color:#CE9AF5;padding:11px 15px;border-radius:10px;font-size:17px;max-width:90%;line-height:1.5;">
-        Hola! Soy el asistente de la Clase 13. Puedo ayudarte con el esqueleto, el System Prompt, el parseo JSON (grupos de 3) o la diferencia entre los niveles.
+        Hola! Soy el asistente de la Clase 13. Puedo ayudarte con el esqueleto, el System Prompt, la lectura del JSON (grupos de 3) o la diferencia entre los niveles.
       </div>
     </div>
     <div class="asist-inp">
@@ -481,7 +481,7 @@ Acción: {accion}"""</span>
 </div>
 <script>
 var KEY='',HIST=[];
-var SYS='Sos asistente de la Clase 13 del Taller de IA, CTP Antonio Martín Marte, Ushuaia. Español argentino con vos. Máximo 3-4 oraciones. Nunca das código completo — mostrás fragmentos y hacés preguntas.\n\nCONTEXTO:\nConcepto nuevo: output schema — la IA devuelve texto + bloque JSON con los cambios de estado del juego.\nGrupos de 2: la IA devuelve solo texto, el jugador actualiza el estado con comandos manuales (/tomar, /soltar, /hp).\nGrupos de 3: el system prompt instruye al narrador a incluir siempre un bloque JSON al final. El código lo extrae con re.search() y lo parsea con json.loads(). Si falla el parseo, el juego sigue igual (try/except).\nEl JSON tiene: {"hp_delta": N, "agregar": ["obj"], "quitar": ["obj"]}\nEl estado se inyecta en cada turno: [Estado: HP=..., ubicacion=..., inventario=...] + la acción del jugador.\nEl /guardar va ANTES de llamar a la IA (error frecuente del TP2).\nAntes del while True, forzamos el primer turno mandando un mensaje automático para que la IA describa el contexto inicial.';
+var SYS='Sos asistente de la Clase 13 del Taller de IA, CTP Antonio Martín Marte, Ushuaia. Español argentino con vos. Máximo 3-4 oraciones. Nunca das código completo — mostrás fragmentos y hacés preguntas.\n\nCONTEXTO:\nConcepto nuevo: usar un molde (output schema) — la IA devuelve texto + bloque JSON con los cambios de estado del juego.\nGrupos de 2: la IA devuelve solo texto, el jugador actualiza el estado con comandos manuales (/tomar, /soltar, /hp).\nGrupos de 3: el system prompt instruye al narrador a incluir siempre un bloque JSON al final. El código lo extrae con re.search() y lo convierte a diccionario con json.loads(). Si falla la lectura, el juego sigue igual (try/except).\nEl JSON tiene: {"hp_delta": N, "agregar": ["obj"], "quitar": ["obj"]}\nEl estado se inyecta en cada turno: [Estado: HP=..., ubicacion=..., inventario=...] + la acción del jugador.\nEl /guardar va ANTES de llamar a la IA (error frecuente del TP2).\nAntes del while True, forzamos el primer turno mandando un mensaje automático para que la IA describa el contexto inicial.';
 
 function activar(){
   var k=document.getElementById('asist-key').value.trim();
