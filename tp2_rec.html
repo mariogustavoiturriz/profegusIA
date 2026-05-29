@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller de IA · Recuperatorio TP2</title>
+<style>
+  :root{
+    --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
+    --vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;
+    --bco:#FFFFFF;--code-bg:#1E1E1E;--r:12px;
+    --rpg:#5C2070;--rpg-bg:#F8F3FF;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;
+    --azul:#1565C0;--azul-bg:#E3F2FD;
+    --colab:#F9AB00;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:18px;padding:15px 0 50px;}
+  header{background:var(--nav);color:var(--bco);padding:25px 20px;border-bottom:5px solid var(--rojo);border-radius:8px 8px 0 0;}
+  header h1{font-size:26px;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
+  header p{font-size:17px;opacity:.9;}
+  .container{width:95%;max-width:1400px;margin:0 auto;padding:0 15px;}
+  .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  
+  /* Colores de tarjetas */
+  .c-alerta{border-left-color:var(--rojo);background:#FFEBEE;}
+  .c-repaso{border-left-color:#4A6080;background:#F4F7FA;}
+  .c-concepto{border-left-color:var(--teal);}
+  .c-esqueleto{border-left-color:var(--vio);background:#FAFCFF;}
+  .c-entrega{border-left-color:var(--grn);background:#EFF8EE;}
+  
+  h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
+  h3{color:var(--nav);font-size:19px;margin:20px 0 10px;}
+  .badge{background:var(--nav);color:var(--bco);padding:5px 12px;border-radius:6px;font-size:17px;font-weight:bold;}
+
+  /* Errores */
+  .errores-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px;}
+  .error-card{background:var(--rojo-bg);border:1px solid #FFCDD2;border-left:5px solid var(--rojo);border-radius:var(--r);padding:18px;}
+  .error-card h4{color:var(--rojo);font-size:18px;margin-bottom:8px;}
+  .error-card p{font-size:16px;line-height:1.6;}
+
+  /* Info boxes */
+  .info{padding:16px 20px;border-radius:var(--r);margin:14px 0;border-left:5px solid;font-size:17px;line-height:1.7;}
+  .i-teal{background:var(--gris);border-color:var(--teal);}
+  .i-amb{background:#FFF8EE;border-color:var(--amb);}
+  .info strong{display:block;margin-bottom:6px;font-size:18px;}
+
+  /* Bloques */
+  .bloque-leyenda{display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap;}
+  .ley{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:bold;}
+  .ley-dot{width:18px;height:18px;border-radius:4px;flex-shrink:0;}
+  .ley-azul{background:var(--azul);}
+  .ley-rojo{background:var(--rojo);}
+
+  .bloque{border:2px solid;border-radius:var(--r);margin-bottom:24px;overflow:hidden;}
+  .bloque-titulo{padding:11px 16px;font-weight:bold;font-size:18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .bloque-desc{padding:14px 16px;font-size:16px;line-height:1.65;border-top:1px solid;background:#fff;}
+  .b-fijo{border-color:var(--azul);}
+  .b-fijo .bloque-titulo{background:#BBDEFB;color:var(--azul);border-bottom:1px solid var(--azul);}
+  .b-fijo .bloque-desc{background:var(--azul-bg);border-color:#BBDEFB;}
+  .b-mod{border-color:var(--rojo);}
+  .b-mod .bloque-titulo{background:#FFCDD2;color:var(--rojo);border-bottom:1px solid var(--rojo);}
+  .b-mod .bloque-desc{background:var(--rojo-bg);border-color:#FFCDD2;}
+
+  /* Código */
+  .code-container{position:relative;}
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas','Courier New',monospace;padding:18px 20px;font-size:16px;overflow-x:auto;white-space:pre;line-height:1.65;margin:0;}
+  .btn-copiar{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);padding:4px 10px;border-radius:4px;cursor:pointer;font-size:13px;font-weight:bold;transition:all 0.2s;}
+  .btn-copiar:hover{background:rgba(255,255,255,0.3);}
+  .kw{color:#569CD6;}.str{color:#CE9178;}.cm{color:#6A9955;font-style:italic;}
+  .completar{color:#FFEB3B;font-weight:bold;}
+
+  /* Etiqueta Oculta para Copiar */
+  .tag-oculto {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  /* Preguntas */
+  .pregunta-box{background:#fff;border-radius:8px;padding:20px;margin-bottom:15px;border:2px solid var(--bd);box-shadow:0 2px 5px rgba(0,0,0,0.05);}
+  .pregunta-box h4{color:var(--nav);margin-bottom:8px;font-size:18px;}
+  .pregunta-box p{font-size:17px;line-height:1.6;}
+
+  @media(max-width:768px){.errores-grid{grid-template-columns:1fr;}.code-block{font-size:14px;}}
+</style>
+</head>
+<body>
+<div class="container">
+<a href="index.html" style="display:inline-block; margin-top:20px; text-decoration:none; color:var(--nav); font-weight:bold; border: 2px solid var(--bd); padding: 8px 16px; border-radius: 8px; background: white;">⬅ Volver al Índice</a>
+
+<header style="margin-top:20px;">
+  <h1>TRABAJO PRÁCTICO N° 2 — RECUPERATORIO</h1>
+  <p>Taller de IA Aplicada · 7° Año · CTP "Antonio Martín Marte" · Evaluación Individual</p>
+</header>
+
+<!-- ══ 1: OBJETIVO ══════════════════════════════════════════════════ -->
+<div class="card c-alerta">
+  <h2><span class="badge" style="background:var(--rojo)">!</span> LA MISIÓN DE HOY</h2>
+  <p>El objetivo de este recuperatorio es demostrar que dominás la <strong>Arquitectura Base 2.1</strong>. Hoy no hacemos el RPG, volvemos al Chatbot Asistente original, pero asegurándonos de que entendés qué pieza de código va en cada lugar para que el sistema funcione a la perfección.</p>
+</div>
+
+<!-- ══ 2: REPASO DE ERRORES ═══════════════════════════════════════════════════════ -->
+<div class="card c-repaso">
+  <h2><span class="badge" style="background:#4A6080">2</span> LOS 3 ERRORES A EVITAR HOY</h2>
+  <p>En las entregas anteriores, la mayoría de los desaprobados cayeron en uno de estos tres errores críticos. ¡Asegurate de no repetirlos!</p>
+  <div class="errores-grid">
+    <div class="error-card">
+      <h4>🔥 Fuga de tokens (/guardar)</h4>
+      <p>El comando <code>/guardar</code> debe ir <strong>antes</strong> de llamar a la función de la IA. Y no te olvides del <code>continue</code> al final de ese bloque para que la IA no intente responder a la palabra "/guardar".</p>
+    </div>
+    <div class="error-card">
+      <h4>👻 Variables Fantasma</h4>
+      <p>Si pedís el <code>personaje</code> con un <code>input()</code>, tenés que asegurarte de inyectar esa variable adentro de las reglas del <code>System Prompt</code> usando una <code>f-string</code>.</p>
+    </div>
+    <div class="error-card">
+      <h4>⟹ Problemas de Sangría</h4>
+      <p>Las líneas donde anotás el mensaje del usuario y llamás a la IA deben estar alineadas con el <code>while True</code>, <strong>totalmente afuera</strong> de los bloques <code>if</code> de salida y guardado.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 3: ROMPECABEZAS ════════════════════════════════════════════════════ -->
+<div class="card c-esqueleto">
+  <h2><span class="badge" style="background:var(--vio)">3</span> EL ROMPECABEZAS LÓGICO</h2>
+  <p style="margin-bottom:15px;">Abrí un <strong>Colab Nuevo</strong> y nombralo <code>TP2_Recuperatorio_TuApellido.ipynb</code>. A diferencia del TP original, los fragmentos de código están <strong>desordenados y agujereados</strong>. Tu desafío es copiarlos en una sola celda <strong>en el orden correcto</strong>. Al copiar, el sistema adjuntará automáticamente unas <strong>etiquetas de control</strong> ocultas para certificar la originalidad de tu trabajo. Completá lo que falta para que el programa corra sin errores.</p>
+
+  <div class="bloque-leyenda">
+    <div class="ley"><div class="ley-dot ley-rojo"></div> ROJO — Todos los bloques requieren tu intervención. Pensá antes de pegar.</div>
+  </div>
+
+  <!-- FRAGMENTO ALFA -->
+  <div class="bloque b-mod">
+    <div class="bloque-titulo"><span>🧩 Fragmento ALFA</span><button class="btn-copiar" onclick="copiar('b1')">Copiar</button></div>
+    <div class="bloque-desc">Parece que este bloque pertenece al comando especial de guardado. Debe ubicarse con precisión dentro del flujo.</div>
+    <div class="code-container"><div id="b1" class="code-block"><span class="tag-oculto">    # ETIQUETA_DE_CONTROL: RECUP_ALFA_847
+</span>    <span class="cm"># Comando Guardar</span>
+    <span class="kw">if</span> consulta.lower() == <span class="str">"/guardar"</span>:
+        <span class="cm"># [COMPLETAR AQUI EL BUCLE Y EL MODO PARA GUARDAR EL ARCHIVO 'recuperatorio.txt']</span>
+        <span class="cm"># Usa 'with open...'</span>
+        
+        <span class="kw">print</span>(<span class="str">"¡Archivo guardado con éxito!"</span>)
+        <span class="cm"><span class="completar">[COMPLETAR INSTRUCCIÓN FALTANTE AQUI PARA REINICIAR EL BUCLE]</span></span></div></div>
+  </div>
+
+  <!-- FRAGMENTO BETA -->
+  <div class="bloque b-mod">
+    <div class="bloque-titulo"><span>🧩 Fragmento BETA</span><button class="btn-copiar" onclick="copiar('b2')">Copiar</button></div>
+    <div class="bloque-desc">Define el punto de partida y la personalidad. ¿Debería ir antes o después del bucle infinito?</div>
+    <div class="code-container"><div id="b2" class="code-block"><span class="tag-oculto"># ETIQUETA_DE_CONTROL: RECUP_BETA_391
+</span><span class="kw">print</span>(<span class="str">"--- INICIANDO ASISTENTE V2.1 ---"</span>)
+historial = []
+
+personaje = <span class="kw">input</span>(<span class="str">"¿Quién querés que sea la IA?: "</span>)
+temp = <span class="kw">float</span>(<span class="kw">input</span>(<span class="str">"Nivel de creatividad (0.0 a 1.0): "</span>))
+
+<span class="cm"># [COMPLETAR] Armá la variable reglas_ia inyectando la variable {personaje}</span>
+reglas_ia = f<span class="str">"Sos <span class="completar">[COMPLETAR]</span>"</span>
+
+<span class="cm"><span class="completar">[COMPLETAR AQUI LA INSTRUCCIÓN PARA METER LAS REGLAS EN EL HISTORIAL COMO 'SYSTEM']</span></span></div></div>
+  </div>
+
+  <!-- FRAGMENTO GAMMA -->
+  <div class="bloque b-mod">
+    <div class="bloque-titulo"><span>🧩 Fragmento GAMMA</span><button class="btn-copiar" onclick="copiar('b3')">Copiar</button></div>
+    <div class="bloque-desc">El cerebro de la aplicación. Necesitas recordar la estructura del Payload y cómo hacer el request.</div>
+    <div class="code-container"><div id="b3" class="code-block"><span class="tag-oculto"># ETIQUETA_DE_CONTROL: RECUP_GAMMA_522
+</span><span class="cm"># LA COCINA (Backend): Nunca usa print, solo return.</span>
+<span class="kw">def</span> consultar_ia(mensajes, temperatura):
+    payload = {
+        <span class="cm"><span class="completar">[COMPLETAR LOS 3 ELEMENTOS DEL DICCIONARIO AQUI: model, temperature y messages]</span></span>
+    }
+    <span class="kw">try</span>:
+        <span class="cm"><span class="completar">[COMPLETAR LA LLAMADA requests.post Y LA CONVERSIÓN A .json() AQUI]</span></span>
+        
+        <span class="kw">return</span> <span class="cm"><span class="completar">[COMPLETAR AQUI EL RECORRIDO DEL DICCIONARIO PARA DEVOLVER EL CONTENIDO DE LA IA]</span></span>
+    <span class="kw">except</span> Exception <span class="kw">as</span> e:
+        <span class="kw">return</span> f<span class="str">"Error de conexión: {e}"</span></div></div>
+  </div>
+
+  <!-- FRAGMENTO DELTA -->
+  <div class="bloque b-mod">
+    <div class="bloque-titulo"><span>🧩 Fragmento DELTA</span><button class="btn-copiar" onclick="copiar('b4')">Copiar</button></div>
+    <div class="bloque-desc">El arranque de nuestro motor. Revisa con cuidado las sangrías de los fragmentos que pegues debajo de él.</div>
+    <div class="code-container"><div id="b4" class="code-block"><span class="tag-oculto"># ETIQUETA_DE_CONTROL: RECUP_DELTA_910
+</span><span class="kw">while True</span>:
+    consulta = <span class="kw">input</span>(<span class="str">"Vos: "</span>).strip()
+
+    <span class="cm"># Puerta 1: Salir</span>
+    <span class="kw">if</span> consulta.lower() == <span class="str">"salir"</span>:
+        <span class="kw">print</span>(<span class="str">"Apagando sistema..."</span>)
+        <span class="kw">break</span></div></div>
+  </div>
+
+  <!-- FRAGMENTO EPSILON -->
+  <div class="bloque b-mod">
+    <div class="bloque-titulo"><span>🧩 Fragmento EPSILON</span><button class="btn-copiar" onclick="copiar('b5')">Copiar</button></div>
+    <div class="bloque-desc">Es la conversación normal. Se asume que no quiso salir ni guardar.</div>
+    <div class="code-container"><div id="b5" class="code-block"><span class="tag-oculto">    # ETIQUETA_DE_CONTROL: RECUP_EPSILON_104
+</span>    <span class="cm"># Puerta 3: Charla normal</span>
+    <span class="cm"><span class="completar">[COMPLETAR EL APPEND DEL USUARIO AL HISTORIAL AQUI]</span></span>
+    
+    <span class="cm"># Llamada al Chef</span>
+    respuesta = consultar_ia(<span class="completar">[COMPLETAR CON LOS 2 PARÁMETROS CORRECTOS]</span>)
+    
+    <span class="cm"># Imprimir en pantalla</span>
+    <span class="kw">print</span>(f<span class="str">"IA: {respuesta}\n"</span>)
+    
+    <span class="cm"><span class="completar">[COMPLETAR EL APPEND DE LA IA AL HISTORIAL AQUI]</span></span></div></div>
+  </div>
+
+  <!-- FRAGMENTO ZETA -->
+  <div class="bloque b-mod">
+    <div class="bloque-titulo"><span>🧩 Fragmento ZETA</span><button class="btn-copiar" onclick="copiar('b6')">Copiar</button></div>
+    <div class="bloque-desc">Las herramientas fundamentales. Sin esto, nada de arriba funcionaría.</div>
+    <div class="code-container"><div id="b6" class="code-block"><span class="tag-oculto"># ETIQUETA_DE_CONTROL: RECUP_ZETA_773
+</span><span class="kw">import</span> requests
+
+API_KEY = <span class="str">"<span class="completar">[COMPLETAR: PEGA_TU_CLAVE_AQUI]</span>"</span>
+URL = <span class="str">"https://api.groq.com/openai/v1/chat/completions"</span>
+headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer {API_KEY}"</span>, <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>}</div></div>
+  </div>
+
+</div>
+
+<!-- ══ 4: PRUEBAS ══════════════════════════════════════════════════════ -->
+<div class="card c-entrega">
+  <h2><span class="badge" style="background:var(--grn)">4</span> PRUEBAS Y ENTREGA</h2>
+  <p style="margin-bottom:15px;">Antes de entregar, ejecutá tu código completo (asegurate de haber armado bien el rompecabezas) y hacele estas 3 pruebas de control de calidad:</p>
+  
+  <div class="pregunta-box">
+    <h4>🧪 Prueba 1: Identidad</h4>
+    <p>Preguntale: <em>"¿Quién sos y qué hacés?"</em>. Si responde como un asistente genérico, tu Fragmento BETA o tu lógica de historial está fallando.</p>
+  </div>
+  <div class="pregunta-box">
+    <h4>🧠 Prueba 2: Memoria</h4>
+    <p>Decile <em>"Me llamo [Tu Nombre]"</em>. Hacé 2 preguntas más sobre cualquier tema. Luego preguntale <em>"¿Te acordás cómo me llamo?"</em>. Si no se acuerda, te olvidaste de los <code>append</code> en el Fragmento EPSILON o tu función GAMMA no está recibiendo el historial correcto.</p>
+  </div>
+  <div class="pregunta-box">
+    <h4>💾 Prueba 3: Auditoría</h4>
+    <p>Escribí <code>/guardar</code>. Revisá la barra lateral izquierda de Colab (ícono de carpeta). Tiene que aparecer <code>recuperatorio.txt</code> con toda la charla bien formateada. Si se colgó la IA o el historial se borró, ubicaste mal el Fragmento ALFA.</p>
+  </div>
+
+  <div class="info i-teal" style="margin-top:20px;">
+    <strong>📤 QUÉ ENTREGAR EN CLASSROOM:</strong>
+    <ol style="margin-left: 20px; line-height: 1.8; margin-top: 10px;">
+        <li>El link a tu Google Colab (Asegurate que diga "Cualquier usuario con el enlace puede LEER").</li>
+        <li>El archivo descargado <code>recuperatorio.txt</code> que demuestra que tu comando de guardado funciona perfecto.</li>
+    </ol>
+  </div>
+</div>
+
+</div>
+
+<script>
+function copiar(id){
+  var el=document.getElementById(id);
+  var t=document.createElement('textarea');
+  t.value=el.textContent||el.innerText;
+  t.style.position='fixed';document.body.appendChild(t);t.select();
+  try{
+    document.execCommand('copy');
+    var btn=event.target;var orig=btn.innerText;
+    btn.innerText='¡Copiado!';btn.style.background='var(--teal)';
+    setTimeout(function(){btn.innerText=orig;btn.style.background='';},1500);
+  }catch(err){}finally{document.body.removeChild(t);}
+}
+</script>
+</body>
+</html>
