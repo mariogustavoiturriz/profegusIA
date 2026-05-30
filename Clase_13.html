@@ -120,7 +120,7 @@
 <body>
 <header>
   <h1>CLASE 13 — AVENTURA NARRADA CON IA</h1>
-  <p>Taller de IA Aplicada · 7°1° · CTP Antonio Martín Marte · Viernes 29/05 · 80 minutos</p>
+  <p>Taller de IA Aplicada · 7°1° · CTP Antonio Martín Marte · Viernes 05/06 · 80 minutos</p>
 </header>
 
 <div class="container">
@@ -143,8 +143,8 @@
     </div>
   </div>
   <div class="info i-teal" style="margin-top:20px;">
-    <strong>💡 Para los que rinden hoy:</strong>
-    Mientras nosotros empezamos a armar la historia, tus compañeros están rindiendo el Recuperatorio del TP2 corrigiendo estos tres puntos clave.
+    <strong>💡 Ojo con estos errores en el proyecto:</strong>
+    Los mismos problemas pueden aparecer hoy. Tené presentes estos tres puntos cuando armes el código del RPG.
   </div>
 </div>
 
@@ -165,7 +165,14 @@
     <li><strong>Prohibición de Agencia:</strong> Instrucción clarísima: la IA <strong>NUNCA</strong> puede tomar decisiones, realizar acciones ni pensar por el jugador.</li>
     <li><strong>Estructura de Cierre:</strong> Debe estar obligada a terminar CADA mensaje ofreciendo siempre <strong>3 opciones claras (A, B y C)</strong> y preguntando al final "¿Qué vas a hacer?".</li>
   </ul>
-</div>
+
+  <div class="info" style="background:#E8F5E9; border-color:#2E7D32; color:#1B5E20; margin-top:20px;">
+    <strong>✍️ Ejemplo de un guion aprobado (para orientarse)</strong>
+    <p style="font-size:17px;line-height:1.8;margin-top:6px;">
+      <em>"Sos el Narrador de una aventura de exploración en una estación abandonada en el Polo Sur, año 2085. Describís el entorno con un tono de suspenso y misterio. Sos un Dungeon Master: no sos un asistente y no respondés preguntas fuera del juego. En cada turno describís en máximo 3 oraciones lo que ve y siente el jugador, y siempre terminás ofreciendo exactamente 3 opciones (A, B y C) y preguntando '¿Qué hacés?'. Jamás tomás decisiones por el jugador ni avanzás la historia sin esperar su respuesta."</em>
+    </p>
+  </div>
+
 
 <div class="card c-concepto">
   <h2><span class="badge">2</span> DEL CHATBOT AL NARRADOR</h2>
@@ -210,16 +217,16 @@
   <h2><span class="badge" style="background:var(--grn)">4</span> QUÉ HACEMOS HOY Y LA SEMANA QUE VIENE</h2>
   <div class="ruta-grid">
     <div class="ruta-card r-hoy">
-      <div class="cuando">🟢 Hoy — Vie 29/05</div>
-      <p>Entregar el Guion en Classroom (max 40m). Armar el System Prompt y probar comandos de estado. (Mientras otros recuperan el TP2).</p>
+      <div class="cuando">🟢 Hoy — Vie 05/06</div>
+      <p>Entregar el Guion en Classroom (max 40m). Armar el System Prompt y probar los comandos de estado.</p>
     </div>
     <div class="ruta-card r-finde">
-      <div class="cuando">⚪ Fin de semana largo</div>
-      <p>Lunes 01/06 feriado. Opcional: pulir el diseño y agregar comandos manuales propios.</p>
+      <div class="cuando">⚪ Fin de semana</div>
+      <p>Opcional: pulir el diseño y agregar comandos manuales propios al código.</p>
     </div>
     <div class="ruta-card r-prox">
-      <div class="cuando">🟣 Vie 05/06</div>
-      <p>Cierre de la aventura narrativa e integración de los estudiantes que recuperaron el TP2.</p>
+      <div class="cuando">🟣 Lun 08/06</div>
+      <p>Continuamos el desarrollo del proyecto. Cierre del primer cuatrimestre el Lun 15/06.</p>
     </div>
   </div>
 </div>
@@ -295,8 +302,8 @@ historial = [{<span class="str">"role"</span>: <span class="str">"system"</span>
   </div>
   
   <div class="info i-amb" style="margin-top: 20px;">
-    <strong>⚠️ EL PROBLEMA DEL PRIMER TURNO (Deadlock)</strong>
-    <p style="margin-bottom:0; font-size: 18px;">¿Qué pasa si arrancamos el bucle pidiendo un <code>input()</code>? El juego se queda esperando que vos escribas algo, ¡pero vos estás esperando que el Narrador te describa dónde estás y te dé las opciones! Para evitar este "callejón sin salida" (deadlock), justo antes de entrar al <code>while True</code> le vamos a mandar a la IA un <strong>mensaje automático oculto</strong> ("Empezar la partida...") para que rompa el hielo y arranque la historia.</p>
+    <strong>⚠️ EL PROBLEMA DEL PRIMER TURNO</strong>
+    <p style="margin-bottom:0; font-size: 18px;">Si arrancamos el bucle pidiendo un <code>input()</code>, el juego queda esperando que vos escribas algo... ¡pero vos estás esperando que el Narrador te cuente dónde estás! La pantalla queda en blanco y ninguno de los dos arranca. Para evitar ese bloqueo, justo antes del <code>while True</code> le mandamos automáticamente el mensaje <code>"Empezar la partida..."</code> para que la IA describa el escenario inicial y arranque la historia antes de preguntarte nada.</p>
   </div>
 
   <div class="bloque b-fijo">
@@ -312,7 +319,7 @@ historial.append({<span class="str">"role"</span>: <span class="str">"assistant"
 <span class="cmt"># -----------------------------------------</span>
 
 <span class="kw">while True</span>:
-    accion = <span class="kw">input</span>(<span class="str">"¿Qué hacés? > "</span>).strip()
+    accion = <span class="kw">input</span>(<span class="str">"¿Qué hacés? > "</span>).strip()  <span class="cm"># .strip() elimina espacios accidentales al inicio/final</span>
 
     <span class="kw">if</span> accion.lower() == <span class="str">"salir"</span>: <span class="kw">break</span>
 
@@ -331,7 +338,12 @@ historial.append({<span class="str">"role"</span>: <span class="str">"assistant"
 
     <span class="cmt"># Comando para agregar a la lista del inventario usando startswith</span>
     <span class="kw">if</span> accion.lower().startswith(<span class="str">"/tomar "</span>):
-        jugador[<span class="str">"inventario"</span>].append(accion[<span class="nm">7</span>:].strip()); <span class="kw">print</span>(<span class="str">"🎒 Agregado\n"</span>); <span class="kw">continue</span>
+        objeto = accion[<span class="nm">7</span>:].strip()
+        <span class="kw">if</span> objeto:
+            jugador[<span class="str">"inventario"</span>].append(objeto); <span class="kw">print</span>(<span class="str">"🎒 Agregado\n"</span>)
+        <span class="kw">else</span>:
+            <span class="kw">print</span>(<span class="str">"¿Qué querés tomar? Escribí /tomar [objeto]\n"</span>)
+        <span class="kw">continue</span>
 
     <span class="cmt"># Comando numérico para la vida</span>
     <span class="kw">if</span> accion.lower().startswith(<span class="str">"/hp "</span>):
@@ -344,9 +356,9 @@ historial.append({<span class="str">"role"</span>: <span class="str">"assistant"
     <span class="cmt"># copiando la misma lógica de los IFs de arriba. ¡No te olvides del continue!</span></div>
   </div>
 
-  <div class="bloque b-mod">
-    <div class="bloque-titulo">💬 B7 — El Turno Normal (Parte 2: Inyección de Estado)</div>
-    <div class="bloque-desc">¡ATENCIÓN ACÁ! Este bloque <strong>no va separado</strong>. Es la continuación directa del bloque B6. Tiene que ir <strong>adentro</strong> del <code>while True</code>, justo debajo de los comandos y respetando su misma sangría. Es el camino normal si el usuario no usó comandos especiales.</div>
+  <div class="bloque b-mod" style="border-top: 4px dashed var(--rojo); margin-top: -10px;">
+    <div class="bloque-titulo" style="background:#FFCDD2;">⬆️ B7 — Continuación de B6 (mismo bloque, misma sangría)</div>
+    <div class="bloque-desc" style="background:#FFEBEE;"><strong>⚠️ Este bloque no va en una celda separada.</strong> Es la continuación directa del código de B6 — tiene que ir pegado abajo, adentro del mismo <code>while True</code> y con la misma sangría de 4 espacios. Es el camino que toma el programa cuando el usuario <em>no</em> usó ningún comando especial.</div>
     <div class="code-block">    <span class="cmt"># ---- CONTINUACIÓN DEL WHILE TRUE ----</span>
     <span class="cmt"># ── GRUPOS DE 2: Textos Simples ────────────────────────</span>
     <span class="cmt"># Ocultamos tus datos en el mensaje para que la IA sepa cómo estás de salud e inventario.</span>
@@ -362,15 +374,21 @@ Acción del jugador: {accion}"""</span>
 
   <div class="bloque b-nuevo">
     <div class="bloque-titulo">🏆 Desafío JSON: Solo Grupos de 3</div>
-    <div class="bloque-desc">Si eligieron este desafío, su <code>System Prompt</code> (Bloque 5) tiene que ser tan estricto que la IA devuelva <strong>solamente</strong> datos crudos, sin charla. Si logran eso, pueden <strong>reemplazar el print final del bloque B7</strong> por este lector automático que sigue adentro del <code>while</code>:</div>
+    <div class="bloque-desc">Si eligieron este desafío, su <code>System Prompt</code> (Bloque 5) tiene que ser tan estricto que la IA devuelva <strong>solamente</strong> datos crudos, sin charla. Si logran eso, pueden <strong>reemplazar el print final del bloque B7</strong> por este lector automático que sigue adentro del <code>while</code>:
+    <br><br>
+    <strong>⚠️ Trampa frecuente:</strong> Los modelos a veces agregan <code>```json</code> al principio aunque se les pida que no lo hagan. Si ven el error "Error de Prompt" aun con un guion correcto, ese es el motivo — refuercen la instrucción en el system prompt agregando: <em>"Respondé ÚNICAMENTE con el objeto JSON, sin comillas de código, sin texto antes ni después."</em>
+    <br><br>
+    <strong>Estructura JSON que debe devolver la IA:</strong><br>
+    <code>{"narrativa": "texto de la historia", "hp_delta": 0, "opciones": ["A: ...", "B: ...", "C: ..."]}</code>
+    </div>
     <div class="code-block">    <span class="cmt"># ---- CONTINUACIÓN DEL WHILE TRUE ----</span>
     <span class="cmt"># ── GRUPOS DE 3: Convertir el texto de la IA en Diccionario ───</span>
     <span class="kw">try</span>:
         <span class="cmt"># Intentamos convertir el texto puro a un diccionario real de Python</span>
         datos = json.loads(narracion) 
         
-        <span class="cmt"># Actualizamos la vida automáticamente basándonos en lo que decidió la IA</span>
-        jugador[<span class="str">"hp"</span>] = jugador[<span class="str">"hp"</span>] + datos[<span class="str">"hp_delta"</span>] 
+        <span class="cmt"># Actualizamos la vida automáticamente (clamp entre 0 y 100 para que no quede negativo)</span>
+        jugador[<span class="str">"hp"</span>] = <span class="kw">max</span>(<span class="nm">0</span>, <span class="kw">min</span>(<span class="nm">100</span>, jugador[<span class="str">"hp"</span>] + datos[<span class="str">"hp_delta"</span>]))
         
         <span class="cmt"># Imprimimos solo la parte de la historia, no mostramos el JSON crudo</span>
         <span class="kw">print</span>(f<span class="str">"\n🌲 {datos['narrativa']}\n"</span>) 
