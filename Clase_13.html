@@ -110,6 +110,17 @@
   .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
   .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
 
+  /* Formulario de guion */
+  .campo-guion{display:flex;flex-direction:column;gap:6px;}
+  .cg-label{font-weight:bold;color:var(--nav);font-size:18px;line-height:1.4;}
+  .cg-input{padding:11px 14px;border:2px solid var(--bd);border-radius:8px;font-size:17px;font-family:inherit;outline:none;transition:.15s;}
+  .cg-input:focus{border-color:#E65100;}
+  .cg-textarea{padding:11px 14px;border:2px solid var(--bd);border-radius:8px;font-size:17px;font-family:inherit;outline:none;min-height:80px;resize:vertical;line-height:1.5;transition:.15s;}
+  .cg-textarea:focus{border-color:#E65100;}
+  .cg-radio{display:flex;align-items:center;gap:6px;background:var(--gris);border:2px solid var(--bd);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:17px;transition:.15s;}
+  .cg-radio:hover{border-color:#E65100;background:#FFF3E0;}
+  .cg-radio input[type=radio]{width:18px;height:18px;cursor:pointer;}
+
   code{background:#E8E6FF;color:var(--vio);padding:2px 5px;border-radius:4px;font-family:'Consolas',monospace;font-size:17px;}
   @media(max-width:768px){.errores-grid,.niveles-grid,.ruta-grid{grid-template-columns:1fr;}}
 </style>
@@ -147,24 +158,74 @@
   <h2 style="color:#E65100;"><span class="badge" style="background:#E65100">1</span> EL GUION — 30 MINUTOS MÁXIMO</h2>
 
   <div class="info" style="background:#FFCC80;border-color:#E65100;color:#333;">
-    <strong>⏱️ Sin guion entregado en Classroom, no se abre el Colab.</strong>
-    El viernes ya armaron los grupos. Hoy: ajustan o escriben el guion y lo entregan. 30 min máximo.
+    <strong>⏱️ 30 minutos máximo — sin formulario completado, no se abre el Colab.</strong>
+    Respondan las 7 preguntas de abajo. Con esas respuestas el sistema arma el guion automáticamente. Lo copian, lo revisan y lo entregan en Classroom.
   </div>
 
-  <p style="margin-top:14px;">El guion tiene que cumplir estas 5 reglas:</p>
-  <ul class="req-list">
-    <li><strong>Mundo y tono:</strong> Dónde transcurre y cómo suena el narrador.</li>
-    <li><strong>Rol de DM:</strong> La IA es un Dungeon Master, no un asistente que responde preguntas.</li>
-    <li><strong>Extensión:</strong> Máximo 2–3 oraciones por turno.</li>
-    <li><strong>Sin agencia:</strong> La IA NUNCA decide por el jugador.</li>
-    <li><strong>Cierre:</strong> Cada respuesta termina con 3 opciones (A, B, C) y "¿Qué hacés?".</li>
-  </ul>
+  <!-- FORMULARIO -->
+  <div style="margin-top:16px;display:grid;gap:12px;" id="form-guion">
 
-  <div class="info i-grn" style="margin-top:14px;">
-    <strong>✍️ Ejemplo aprobado</strong>
-    "Sos el Narrador de una aventura en una estación abandonada en el Polo Sur, año 2085. Tono: suspenso. Sos un DM, no respondés preguntas fuera del juego. Máximo 3 oraciones por turno. Siempre terminás con A, B, C y '¿Qué hacés?'. Jamás decidís por el jugador."
+    <div class="campo-guion">
+      <label class="cg-label">1. ¿Cómo se llama el lugar donde transcurre la aventura?</label>
+      <input type="text" class="cg-input" id="g1" >
+    </div>
+
+    <div class="campo-guion">
+      <label class="cg-label">2. ¿Qué hay de peligroso o misterioso en ese lugar? (nombrá 2 cosas concretas)</label>
+      <input type="text" class="cg-input" id="g2" >
+    </div>
+
+    <div class="campo-guion">
+      <label class="cg-label">3. ¿Cómo se llama el personaje que juega el usuario? ¿Con qué objeto empieza?</label>
+      <input type="text" class="cg-input" id="g3" >
+    </div>
+
+    <div class="campo-guion">
+      <label class="cg-label">4. Describí la primera escena en 2 oraciones. ¿Dónde está el jugador exactamente? ¿Qué ve?</label>
+      <textarea class="cg-textarea" id="g4" ></textarea>
+    </div>
+
+    <div class="campo-guion">
+      <label class="cg-label">5. ¿Qué tono tiene el narrador?</label>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;">
+        <label class="cg-radio"><input type="radio" name="tono" value="suspenso y oscuro"> 😨 Suspenso y oscuro</label>
+        <label class="cg-radio"><input type="radio" name="tono" value="épico y heroico"> ⚔️ Épico y heroico</label>
+        <label class="cg-radio"><input type="radio" name="tono" value="misterioso y lento"> 🌫️ Misterioso y lento</label>
+        <label class="cg-radio"><input type="radio" name="tono" value="cómico y absurdo"> 😂 Cómico y absurdo</label>
+        <label class="cg-radio"><input type="radio" name="tono" value="otro"> ✏️ Otro: <input type="text" id="tono-otro" style="border:none;border-bottom:1px solid var(--bd);outline:none;font-size:16px;width:120px;margin-left:4px;" ></label>
+      </div>
+    </div>
+
+    <div class="campo-guion">
+      <label class="cg-label">6. ¿Qué tiene prohibido hacer o decir el narrador? (al menos 1 regla propia del grupo)</label>
+      <input type="text" class="cg-input" id="g6" >
+    </div>
+
+    <div class="campo-guion">
+      <label class="cg-label">7. ¿Qué tres opciones (A, B, C) tiene el jugador en la primera escena?</label>
+      <input type="text" class="cg-input" id="g7a" placeholder="A:">
+      <input type="text" class="cg-input" id="g7b" style="margin-top:6px;" placeholder="B:">
+      <input type="text" class="cg-input" id="g7c" style="margin-top:6px;" placeholder="C:">
+    </div>
+
+  </div>
+
+  <button onclick="generarGuion()" style="margin-top:16px;width:100%;background:#E65100;color:#fff;border:none;padding:14px;border-radius:8px;font-size:18px;font-weight:bold;cursor:pointer;">
+    ⚙️ GENERAR GUION AUTOMÁTICAMENTE
+  </button>
+
+  <div id="guion-resultado" style="display:none;margin-top:16px;">
+    <div style="background:#1E1E1E;border-radius:var(--r);padding:18px 20px;position:relative;">
+      <button onclick="copiarGuion()" style="position:absolute;top:10px;right:10px;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);color:#fff;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:14px;font-weight:bold;">Copiar</button>
+      <pre id="guion-texto" style="color:#D4D4D4;font-family:'Consolas',monospace;font-size:15px;white-space:pre-wrap;line-height:1.6;margin:0;padding-right:80px;"></pre>
+    </div>
+    <div class="info i-grn" style="margin-top:12px;">
+      <strong>✅ Revisá antes de entregar</strong>
+      Leé el guion completo. Si algo no suena bien con tu mundo, editalo a mano antes de copiarlo a Classroom. El guion es tuyo — el formulario solo te ayuda a estructurarlo.
+    </div>
   </div>
 </div>
+
 
 <!-- BLOQUE 2 — NIVELES -->
 <div class="card c-niveles">
@@ -368,6 +429,61 @@ Acción: {accion}"""</span>
 
 </div>
 <script>
+function generarGuion() {
+  var lugar   = document.getElementById('g1').value.trim();
+  var peligro = document.getElementById('g2').value.trim();
+  var personaje = document.getElementById('g3').value.trim();
+  var escena  = document.getElementById('g4').value.trim();
+  var tonoRadio = document.querySelector('input[name="tono"]:checked');
+  var tono = tonoRadio ? (tonoRadio.value === 'otro' ? document.getElementById('tono-otro').value.trim() : tonoRadio.value) : '';
+  var prohibicion = document.getElementById('g6').value.trim();
+  var opA = document.getElementById('g7a').value.trim();
+  var opB = document.getElementById('g7b').value.trim();
+  var opC = document.getElementById('g7c').value.trim();
+
+  var faltantes = [];
+  if(!lugar)     faltantes.push('1 (nombre del lugar)');
+  if(!peligro)   faltantes.push('2 (peligros o misterios)');
+  if(!personaje) faltantes.push('3 (personaje y objeto)');
+  if(!escena)    faltantes.push('4 (primera escena)');
+  if(!tono)      faltantes.push('5 (tono del narrador)');
+  if(!prohibicion) faltantes.push('6 (regla propia)');
+  if(!opA||!opB||!opC) faltantes.push('7 (las tres opciones A, B y C)');
+
+  if(faltantes.length > 0) {
+    alert('Falta completar: Pregunta ' + faltantes.join(', Pregunta ') + '.\n\nCompletá todo el formulario antes de generar el guion.');
+    return;
+  }
+
+  var guion = 'Sos el Narrador de una aventura de exploración en ' + lugar + '. ' +
+    'El lugar es peligroso y misterioso: ' + peligro + '. ' +
+    'El tono de tu narración es ' + tono + '.\n\n' +
+    'El jugador se llama ' + personaje + '.\n\n' +
+    'La primera escena es: ' + escena + '\n' +
+    'Las primeras opciones son:\nA: ' + opA + '\nB: ' + opB + '\nC: ' + opC + '\n\n' +
+    'REGLAS INQUEBRANTABLES:\n' +
+    '- Solo narrás la historia. Si el jugador te hace una pregunta fuera del juego, la ignorás y volvés a la aventura.\n' +
+    '- Cada respuesta tiene MÁXIMO 3 oraciones.\n' +
+    '- NUNCA tomás decisiones por el jugador ni avanzás la historia sin que elija primero.\n' +
+    '- ' + prohibicion + '\n' +
+    '- Cada respuesta termina SIEMPRE con exactamente 3 opciones (A, B y C) y la pregunta "¿Qué hacés?"';
+
+  document.getElementById('guion-texto').textContent = guion;
+  document.getElementById('guion-resultado').style.display = 'block';
+  document.getElementById('guion-resultado').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function copiarGuion() {
+  var txt = document.getElementById('guion-texto').textContent;
+  navigator.clipboard.writeText(txt).then(function() {
+    var btn = document.querySelector('#guion-resultado button');
+    var orig = btn.textContent;
+    btn.textContent = '¡Copiado!';
+    btn.style.background = 'var(--teal)';
+    setTimeout(function(){ btn.textContent = orig; btn.style.background = 'rgba(255,255,255,.15)'; }, 2000);
+  });
+}
+
 var KEY='',HIST=[];
 var SYS='Sos asistente de la Clase 13, Taller de IA, CTP Antonio Martín Marte, Ushuaia. Español argentino con vos. Máximo 3 oraciones. Nunca das código completo. El proyecto es un RPG con Groq API. Grupos de 2 usan comandos manuales (/estado, /tomar, /hp). Grupos de 3 usan json.loads() para leer la respuesta de la IA como JSON. Si la IA agrega backticks, hay que limpiarlos antes del json.loads(). El estado del jugador se inyecta oculto en cada turno dentro del mensaje del usuario.';
 function activar(){
