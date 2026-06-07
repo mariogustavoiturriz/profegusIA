@@ -252,9 +252,44 @@
   </div>
 </div>
 
-<!-- BLOQUE 3 — RUTA -->
+<!-- BLOQUE 3 — CÓMO FUNCIONA -->
+<div class="card" style="border-left-color:var(--rpg);background:var(--rpg-bg);">
+  <h2><span class="badge" style="background:var(--rpg)">3</span> CÓMO FUNCIONA EL JUEGO</h2>
+
+  <p>El programa que van a construir tiene este flujo en cada turno:</p>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px;">
+    <div style="background:#fff;border:2px solid var(--rpg);border-radius:var(--r);padding:16px;text-align:center;">
+      <div style="font-size:28px;margin-bottom:8px;">⌨️</div>
+      <strong style="color:var(--rpg);display:block;margin-bottom:4px;font-size:17px;">El jugador escribe</strong>
+      <p style="font-size:15px;color:#555;">Una acción libre o un comando como <code>/estado</code></p>
+    </div>
+    <div style="background:#fff;border:2px solid var(--rpg);border-radius:var(--r);padding:16px;text-align:center;">
+      <div style="font-size:28px;margin-bottom:8px;">📦</div>
+      <strong style="color:var(--rpg);display:block;margin-bottom:4px;font-size:17px;">El código arma el mensaje</strong>
+      <p style="font-size:15px;color:#555;">Junta la acción con el estado actual (HP e inventario) y lo manda a la IA</p>
+    </div>
+    <div style="background:#fff;border:2px solid var(--rpg);border-radius:var(--r);padding:16px;text-align:center;">
+      <div style="font-size:28px;margin-bottom:8px;">🤖</div>
+      <strong style="color:var(--rpg);display:block;margin-bottom:4px;font-size:17px;">La IA narra</strong>
+      <p style="font-size:15px;color:#555;">Recibe el historial completo y devuelve la continuación de la historia con 3 opciones</p>
+    </div>
+    <div style="background:#fff;border:2px solid var(--rpg);border-radius:var(--r);padding:16px;text-align:center;">
+      <div style="font-size:28px;margin-bottom:8px;">🔁</div>
+      <strong style="color:var(--rpg);display:block;margin-bottom:4px;font-size:17px;">El bucle vuelve a empezar</strong>
+      <p style="font-size:15px;color:#555;">El programa espera la próxima acción del jugador</p>
+    </div>
+  </div>
+
+  <div class="info i-rpg" style="margin-top:18px;">
+    <strong>📋 Por qué el código está dividido en bloques</strong>
+    El esqueleto está separado en bloques con nombre (B1, B2, B3...) por dos razones. La primera es práctica: es más fácil armar el programa de a partes que todo junto. La segunda es para la defensa oral del Lunes 23/06 — el profe va a señalar un bloque y te va a preguntar qué hace. Si entendés cada bloque por separado, podés responder. Si copiaste todo junto sin leerlo, no podés.
+  </div>
+</div>
+
+<!-- BLOQUE 4 — RUTA -->
 <div class="card c-ruta">
-  <h2><span class="badge" style="background:var(--g2)">3</span> HOJA DE RUTA</h2>
+  <h2><span class="badge" style="background:var(--g2)">4</span> HOJA DE RUTA</h2>
   <div class="ruta-grid">
     <div class="ruta-card r-hoy">
       <div class="cuando">🟢 Hoy — Lun 09/06</div>
@@ -271,139 +306,243 @@
   </div>
 </div>
 
-<!-- BLOQUE 4 — ESQUELETO -->
+<!-- BLOQUE 5 — ESQUELETO -->
 <div class="card c-esqueleto">
-  <h2><span class="badge" style="background:var(--vio)">4</span> EL ESQUELETO</h2>
+  <h2><span class="badge" style="background:var(--vio)">5</span> EL ESQUELETO</h2>
 
   <div class="bloque-leyenda">
-    <div class="ley"><div class="ley-dot ley-azul"></div> AZUL — Copialo igual</div>
-    <div class="ley"><div class="ley-dot ley-rojo"></div> ROJO — Completás vos</div>
+    <div class="ley"><div class="ley-dot" style="background:#E65100;"></div> NARANJA — Escribís vos (ya lo sabés del TP2)</div>
+    <div class="ley"><div class="ley-dot ley-azul"></div> AZUL — Copialo (es nuevo)</div>
+    <div class="ley"><div class="ley-dot ley-rojo"></div> ROJO — Completás con tus datos</div>
     <div class="ley"><div class="ley-dot ley-verde"></div> VERDE — Solo Grupos de 3</div>
   </div>
 
-  <div class="bloque b-fijo">
-    <div class="bloque-titulo">📦 B1 — Librerías</div>
-    <div class="code-block"><span class="kw">import</span> requests
-<span class="kw">import</span> json   <span class="cm"># Solo Grupos de 3</span></div>
+  <!-- B1 -->
+  <div class="bloque" style="border-color:#E65100;">
+    <div class="bloque-titulo" style="background:#FFE0B2;color:#E65100;border-bottom:1px solid #E65100;">✍️ B1 — Librerías — <em>escribilo vos</em></div>
+    <div class="bloque-desc" style="background:#FFF3E0;border-color:#FFE0B2;">
+      <code>import requests</code> lo usaste todo el año — es el que le permite a Python hablar con internet.<br>
+      <code>import json</code> es nuevo. <strong>json</strong> es el formato en que la IA devuelve sus respuestas estructuradas. Python no lo puede leer solo — necesita esta librería para traducirlo. Solo lo necesitás si son Grupo de 3.
+    </div>
+    <div class="code-block"><span class="cm"># Escribí acá el import que usaste siempre</span>
+<span class="cm"># Grupos de 3: agregá también "import json"</span></div>
   </div>
 
+  <!-- B2 -->
+  <div class="bloque" style="border-color:#E65100;">
+    <div class="bloque-titulo" style="background:#FFE0B2;color:#E65100;border-bottom:1px solid #E65100;">✍️ B2 — API Key y constantes — <em>escribilo vos</em></div>
+    <div class="bloque-desc" style="background:#FFF3E0;border-color:#FFE0B2;">Las tres líneas que arrancan todo: la clave, la URL y los headers. Las escribiste en cada clase desde la C6. Si no arrancás, pedile al asistente que te dé solo la primera línea.</div>
+    <div class="code-block"><span class="cm"># API_KEY = ...</span>
+<span class="cm"># URL     = ...</span>
+<span class="cm"># headers = ...</span></div>
+  </div>
+
+  <!-- B3 -->
+  <div class="bloque" style="border-color:#E65100;">
+    <div class="bloque-titulo" style="background:#FFE0B2;color:#E65100;border-bottom:1px solid #E65100;">✍️ B3 — La función — <em>intentá escribirla vos primero</em></div>
+    <div class="bloque-desc" style="background:#FFF3E0;border-color:#FFE0B2;">
+      Es la misma función del TP2. Los parámetros se llaman diferente: <code>mensajes</code> y <code>nivel_creatividad</code>. Todo lo demás adentro es idéntico. Si no arrancás, pedile al asistente que te muestre solo la primera línea.
+    </div>
+    <div class="code-block"><span class="cm"># def consultar_ia(mensajes, nivel_creatividad):</span>
+<span class="cm">#     ...</span></div>
+  </div>
+
+  <!-- B4 -->
   <div class="bloque b-mod">
-    <div class="bloque-titulo">🔑 B2 — API Key</div>
-    <div class="code-block">API_KEY = <span class="str">"gsk_TU_CLAVE"</span>
-URL     = <span class="str">"https://api.groq.com/openai/v1/chat/completions"</span>
-headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer {API_KEY}"</span>, <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>}</div>
-  </div>
-
-  <div class="bloque b-fijo">
-    <div class="bloque-titulo">🍳 B3 — Función (igual que en el TP2)</div>
-    <div class="code-block"><span class="kw">def</span> consultar_ia(mensajes, nivel_creatividad):
-    payload = {<span class="str">"model"</span>: <span class="str">"llama-3.3-70b-versatile"</span>, <span class="str">"temperature"</span>: nivel_creatividad, <span class="str">"messages"</span>: mensajes}
-    <span class="kw">try</span>:
-        respuesta = requests.post(URL, headers=headers, json=payload)
-        <span class="kw">return</span> respuesta.json()[<span class="str">"choices"</span>][<span class="nm">0</span>][<span class="str">"message"</span>][<span class="str">"content"</span>]
-    <span class="kw">except</span> Exception <span class="kw">as</span> e:
-        <span class="kw">return</span> f<span class="str">"Error: {e}"</span></div>
-  </div>
-
-  <div class="bloque b-mod">
-    <div class="bloque-titulo">🗂️ B4 — Estado del jugador</div>
-    <div class="bloque-desc">Completá con los valores de inicio de tu aventura.</div>
+    <div class="bloque-titulo">🗂️ B4 — Estado del jugador — <em>completá con tus datos</em></div>
+    <div class="bloque-desc">Nuevo — no estaba en el TP2. Es el diccionario que guarda la ficha del jugador. Reemplazá los valores entre corchetes con los de tu aventura.</div>
     <div class="code-block">jugador = {
-    <span class="dk">"nombre"</span>:    <span class="str">"Tu Nombre"</span>,
+    <span class="dk">"nombre"</span>:    <span class="str">"[el nombre de tu personaje]"</span>,
     <span class="dk">"hp"</span>:        <span class="nm">100</span>,
-    <span class="dk">"inventario"</span>: [<span class="str">"linterna"</span>],
-    <span class="dk">"ubicacion"</span>: <span class="str">"punto de partida"</span>
+    <span class="dk">"inventario"</span>: [<span class="str">"[objeto inicial]"</span>],
+    <span class="dk">"ubicacion"</span>: <span class="str">"[lugar de inicio]"</span>
 }</div>
   </div>
 
+  <!-- B5 -->
   <div class="bloque b-mod">
-    <div class="bloque-titulo">🎭 B5 — System Prompt</div>
-    <div class="bloque-desc">Pegá el guion que entregaste en Classroom.</div>
+    <div class="bloque-titulo">🎭 B5 — System Prompt — <em>pegá el guion</em></div>
+    <div class="bloque-desc">Copiá el guion que generaste en el formulario de arriba y pegalo entre las comillas triples.</div>
     <div class="code-block">game_master = <span class="str">"""
-[TU GUION ACÁ]
+[PEGÁ TU GUION ACÁ]
 """</span>
 historial = [{<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: game_master}]</div>
   </div>
 
   <div class="info i-amb" style="margin-top:4px;">
     <strong>⚠️ Por qué el primer turno se fuerza automáticamente</strong>
-    Si arrancamos con <code>input()</code>, la pantalla queda en blanco: vos esperás que la IA narre, la IA espera que vos escribas. Para romper ese bloqueo, le mandamos "Empezar la partida..." automáticamente antes del bucle.
+    Si arrancamos con <code>input()</code>, la pantalla queda en blanco: vos esperás que la IA narre, la IA espera que vos escribas. Para romper ese bloqueo, le mandamos un mensaje automático antes del bucle.
   </div>
 
+  <!-- B6a -->
   <div class="bloque b-fijo" style="margin-top:12px;">
-    <div class="bloque-titulo">🔁 B6 — Motor del juego (Parte 1: comandos)</div>
-    <div class="bloque-desc">
-      3 herramientas nuevas que vas a ver en el código:<br>
-      <code>.strip()</code> — limpia espacios accidentales al escribir.<br>
-      <code>.startswith("texto")</code> — detecta si el mensaje empieza con algo (ej. "/tomar").<br>
-      <code>", ".join(lista)</code> — convierte la lista de inventario en texto legible.
-    </div>
+    <div class="bloque-titulo">🚀 B6a — Primer mensaje automático — <em>copialo</em></div>
+    <div class="bloque-desc">Antes de que el jugador escriba nada, le mandamos un mensaje a la IA para que arranque la historia. Igual al <code>historial.append()</code> del TP2, pero sin <code>input()</code>.</div>
     <div class="code-block"><span class="kw">print</span>(<span class="str">"🎮 INICIANDO AVENTURA..."</span>)
 
-<span class="cm"># Primer turno automático — la IA arranca la historia</span>
 historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"Empezar la partida. Describí dónde estoy y dame opciones."</span>})
 respuesta_inicial = consultar_ia(historial, <span class="nm">0.7</span>)
 historial.append({<span class="str">"role"</span>: <span class="str">"assistant"</span>, <span class="str">"content"</span>: respuesta_inicial})
-<span class="kw">print</span>(f<span class="str">"\n🌲 {respuesta_inicial}\n"</span>)
-
-<span class="kw">while True</span>:
-    accion = <span class="kw">input</span>(<span class="str">"¿Qué hacés? > "</span>).strip()  <span class="cm"># .strip() limpia espacios</span>
-
-    <span class="kw">if</span> accion.lower() == <span class="str">"salir"</span>: <span class="kw">break</span>
-
-    <span class="kw">if</span> accion.lower() == <span class="str">"/guardar"</span>:
-        <span class="kw">with open</span>(<span class="str">"partida.txt"</span>, <span class="str">"w"</span>, encoding=<span class="str">"utf-8"</span>) <span class="kw">as</span> f:
-            f.write(f<span class="str">"ESTADO: {jugador}\n\n"</span>)
-            <span class="kw">for</span> msg <span class="kw">in</span> historial[<span class="nm">1</span>:]:
-                f.write(f<span class="str">"{msg['role'].upper()}: {msg['content']}\n\n"</span>)
-        <span class="kw">print</span>(<span class="str">"💾 Guardado en partida.txt\n"</span>); <span class="kw">continue</span>
-
-    <span class="kw">if</span> accion.lower() == <span class="str">"/estado"</span>:
-        inv = <span class="str">", "</span>.join(jugador[<span class="str">"inventario"</span>]) <span class="kw">or</span> <span class="str">"vacío"</span>
-        <span class="kw">print</span>(f<span class="str">"\n📋 Vida:{jugador['hp']} | 🎒 {inv}\n"</span>); <span class="kw">continue</span>
-
-    <span class="kw">if</span> accion.lower().startswith(<span class="str">"/tomar "</span>):    <span class="cm"># .startswith() detecta el comando</span>
-        objeto = accion[<span class="nm">7</span>:].strip()
-        <span class="kw">if</span> objeto: jugador[<span class="str">"inventario"</span>].append(objeto); <span class="kw">print</span>(<span class="str">"🎒 Agregado\n"</span>)
-        <span class="kw">else</span>: <span class="kw">print</span>(<span class="str">"¿Qué querés tomar? Escribí /tomar [objeto]\n"</span>)
-        <span class="kw">continue</span>
-
-    <span class="kw">if</span> accion.lower().startswith(<span class="str">"/hp "</span>):
-        <span class="kw">try</span>: jugador[<span class="str">"hp"</span>]=<span class="kw">max</span>(<span class="nm">0</span>,<span class="kw">min</span>(<span class="nm">100</span>,jugador[<span class="str">"hp"</span>]+<span class="kw">int</span>(accion[<span class="nm">4</span>:]))); <span class="kw">print</span>(f<span class="str">"❤️ HP:{jugador['hp']}\n"</span>)
-        <span class="kw">except</span>: <span class="kw">print</span>(<span class="str">"Usá /hp +20 o /hp -30\n"</span>)
-        <span class="kw">continue</span>
-
-    <span class="cm"># [TU TURNO] Inventá otros comandos acá, misma lógica. No te olvides del continue.</span></div>
+<span class="kw">print</span>(f<span class="str">"
+🌲 {respuesta_inicial}
+"</span>)</div>
   </div>
 
-  <div class="bloque b-mod" style="border-top:4px dashed var(--rojo);margin-top:-10px;">
-    <div class="bloque-titulo" style="background:#FFCDD2;">⬆️ B7 — Continuación de B6 (misma celda, misma sangría)</div>
-    <div class="bloque-desc"><strong>⚠️ No va en celda separada.</strong> Pegalo abajo del B6, con 4 espacios de sangría, dentro del mismo <code>while True</code>.</div>
-    <div class="code-block">    <span class="cm"># ── GRUPOS DE 2 ──────────────────────────────────────</span>
-    mensaje_turno = f<span class="str">"""[Estado: HP={jugador['hp']}, inventario={jugador['inventario']}]
-Acción: {accion}"""</span>
-    historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: mensaje_turno})
-    narracion = consultar_ia(historial, <span class="nm">0.8</span>)
-    historial.append({<span class="str">"role"</span>: <span class="str">"assistant"</span>, <span class="str">"content"</span>: narracion})
-    <span class="kw">print</span>(f<span class="str">"\n🌲 {narracion}\n"</span>)</div>
+  <!-- B6b -->
+  <div class="bloque" style="border-color:#E65100;">
+    <div class="bloque-titulo" style="background:#FFE0B2;color:#E65100;border-bottom:1px solid #E65100;">✍️ B6b — El bucle — <em>escribilo vos</em></div>
+    <div class="bloque-desc" style="background:#FFF3E0;border-color:#FFE0B2;">Igual que en el TP2: <code>while True</code> con un <code>input()</code> adentro. La variable se llama <code>accion</code> en lugar de <code>mensaje_usuario</code>. Agregale <code>.strip()</code> al final del input para limpiar espacios.</div>
+    <div class="code-block"><span class="cm"># while True:</span>
+<span class="cm">#     accion = input(...).strip()</span></div>
   </div>
 
-  <div class="bloque b-nuevo">
-    <div class="bloque-titulo">🏆 Desafío JSON — Solo Grupos de 3</div>
+  <!-- B6c -->
+  <div class="bloque" style="border-color:#E65100;">
+    <div class="bloque-titulo" style="background:#FFE0B2;color:#E65100;border-bottom:1px solid #E65100;">✍️ B6c — Salida — <em>escribila vos</em></div>
+    <div class="bloque-desc" style="background:#FFF3E0;border-color:#FFE0B2;">Si el jugador escribe "salir", el programa termina. Un <code>if</code> con <code>break</code> — igual que en el TP2.</div>
+    <div class="code-block"><span class="cm">#     if accion.lower() == "salir": break</span></div>
+  </div>
+
+  <!-- B6d -->
+  <div class="bloque b-fijo">
+    <div class="bloque-titulo">💾 B6d — Comando /guardar — <em>copialo</em></div>
     <div class="bloque-desc">
-      Reemplaza el <code>print</code> final del B7 por este bloque. El system prompt tiene que incluir:<br>
-      <em>"Respondé ÚNICAMENTE con un JSON válido, sin texto antes ni después, sin comillas de código."</em><br>
-      Estructura esperada: <code>{"narrativa": "...", "hp_delta": 0, "opciones": ["A: ...", "B: ...", "C: ..."]}</code><br><br>
-      Si la IA igual agrega <code>```json</code>, pegá la limpieza del B7 de la Clase 14 antes del <code>json.loads()</code>.
+      Nuevo. Línea por línea:<br>
+      · <code>open("partida.txt", "w")</code> — crea el archivo en el disco.<br>
+      · <code>historial[1:]</code> — arranca desde la posición 1, salteando el system prompt (posición 0).<br>
+      · <code>f.write(...)</code> — escribe cada mensaje adentro.<br>
+      · <code>continue</code> — vuelve al inicio del bucle sin mandarle nada a la IA.
     </div>
-    <div class="code-block">    <span class="cm"># ── GRUPOS DE 3 ──────────────────────────────────────</span>
-    <span class="kw">try</span>:
-        datos = json.loads(narracion)
-        jugador[<span class="str">"hp"</span>] = <span class="kw">max</span>(<span class="nm">0</span>, <span class="kw">min</span>(<span class="nm">100</span>, jugador[<span class="str">"hp"</span>] + datos[<span class="str">"hp_delta"</span>]))
-        <span class="kw">print</span>(f<span class="str">"\n🌲 {datos['narrativa']}\n"</span>)
-    <span class="kw">except</span> Exception <span class="kw">as</span> e:
-        <span class="kw">print</span>(<span class="str">"⚠️ La IA no devolvió JSON válido. Respuesta cruda:"</span>, narracion)</div>
+    <div class="code-block">    <span class="kw">if</span> accion.lower() == <span class="str">"/guardar"</span>:
+        <span class="kw">with open</span>(<span class="str">"partida.txt"</span>, <span class="str">"w"</span>, encoding=<span class="str">"utf-8"</span>) <span class="kw">as</span> f:
+            f.write(f<span class="str">"ESTADO: {jugador}
+
+"</span>)
+            <span class="kw">for</span> msg <span class="kw">in</span> historial[<span class="nm">1</span>:]:
+                f.write(f<span class="str">"{msg['role'].upper()}: {msg['content']}
+
+"</span>)
+        <span class="kw">print</span>(<span class="str">"💾 Guardado en partida.txt
+"</span>)
+        <span class="kw">continue</span></div>
   </div>
+
+  <!-- B6e -->
+  <div class="bloque b-fijo">
+    <div class="bloque-titulo">📋 B6e — Comando /estado — <em>copialo</em></div>
+    <div class="bloque-desc">
+      Nuevo. Muestra la vida y el inventario.<br>
+      El <code>for</code> recorre la lista <code>inventario</code> y muestra cada objeto en una línea — el mismo <code>for</code> que usaste siempre, aplicado a una lista.<br>
+      El <code>if/else</code> maneja el caso de inventario vacío.
+    </div>
+    <div class="code-block">    <span class="kw">if</span> accion.lower() == <span class="str">"/estado"</span>:
+        <span class="kw">print</span>(f<span class="str">"
+📋 Vida: {jugador['hp']}"</span>)
+        <span class="kw">if</span> jugador[<span class="str">"inventario"</span>]:
+            <span class="kw">print</span>(<span class="str">"🎒 Inventario:"</span>)
+            <span class="kw">for</span> objeto <span class="kw">in</span> jugador[<span class="str">"inventario"</span>]:
+                <span class="kw">print</span>(f<span class="str">"   - {objeto}"</span>)
+        <span class="kw">else</span>:
+            <span class="kw">print</span>(<span class="str">"🎒 Inventario vacío"</span>)
+        <span class="kw">print</span>()
+        <span class="kw">continue</span></div>
+  </div>
+
+  <!-- B6f -->
+  <div class="bloque" style="border-color:#E65100;">
+    <div class="bloque-titulo" style="background:#FFE0B2;color:#E65100;border-bottom:1px solid #E65100;">✍️ B6f — Comando /tomar — <em>copialo hasta la línea marcada, el resto escribilo vos</em></div>
+    <div class="bloque-desc" style="background:#FFF3E0;border-color:#FFE0B2;">
+      · <code>.startswith("/tomar ")</code> — detecta que el mensaje empieza con ese texto.<br>
+      · <code>accion[7:]</code> — corta los primeros 7 caracteres ("/tomar ") y queda solo el nombre del objeto.<br>
+      · La línea marcada la escribís vos — ya usaste <code>.append()</code> para agregar cosas a listas.
+    </div>
+    <div class="code-block">    <span class="kw">if</span> accion.lower().startswith(<span class="str">"/tomar "</span>):
+        objeto = accion[<span class="nm">7</span>:].strip()
+        <span class="kw">if</span> objeto:
+            <span class="cm"># ✍️ Escribí acá: jugador["inventario"].???(objeto)</span>
+            <span class="cm">#    ¿Qué método usabas para agregar un elemento al final de una lista?</span>
+            <span class="kw">print</span>(<span class="str">"🎒 Agregado al inventario
+"</span>)
+        <span class="kw">else</span>:
+            <span class="kw">print</span>(<span class="str">"¿Qué querés tomar? Escribí /tomar [objeto]
+"</span>)
+        <span class="kw">continue</span></div>
+  </div>
+
+  <!-- B6g -->
+  <div class="bloque b-fijo">
+    <div class="bloque-titulo">❤️ B6g — Comando /hp — <em>copialo</em></div>
+    <div class="bloque-desc">
+      Este comando lo usa el jugador para ajustar su vida manualmente — por ejemplo si la IA narra que recibió daño, el jugador escribe <code>/hp -20</code> para bajar 20 puntos, o <code>/hp +10</code> para recuperar. No es automático: es el propio jugador el que decide cuánto cambia.<br><br>
+      · <code>accion[4:]</code> — corta "/hp " (4 caracteres) y queda "+20" o "-30".<br>
+      · <code>int(...)</code> — convierte ese texto en número para poder sumarlo a la vida.<br>
+      · El <code>try/except</code> atrapa el caso de que el jugador escriba letras en lugar de un número.
+    </div>
+    <div class="code-block">    <span class="kw">if</span> accion.lower().startswith(<span class="str">"/hp "</span>):
+        <span class="kw">try</span>:
+            cambio = <span class="kw">int</span>(accion[<span class="nm">4</span>:])
+            jugador[<span class="str">"hp"</span>] = jugador[<span class="str">"hp"</span>] + cambio
+            <span class="kw">print</span>(f<span class="str">"❤️ HP: {jugador['hp']}
+"</span>)
+        <span class="kw">except</span>:
+            <span class="kw">print</span>(<span class="str">"Usá /hp +20 o /hp -30
+"</span>)
+        <span class="kw">continue</span>
+
+    <span class="cm"># [TU TURNO] Inventá otros comandos con la misma lógica. No te olvides del continue.</span></div>
+  </div>
+
+  <!-- B7 -->
+  <div class="bloque" style="border-color:#E65100;border-top:4px dashed #E65100;margin-top:4px;">
+    <div class="bloque-titulo" style="background:#FFE0B2;color:#E65100;border-bottom:1px solid #E65100;">✍️ B7 — El turno normal — <em>armalo vos (misma celda y sangría que B6)</em></div>
+    <div class="bloque-desc" style="background:#FFF3E0;border-color:#FFE0B2;">
+      <strong>⚠️ No va en celda separada.</strong> Va abajo del B6g, con 4 espacios de sangría, dentro del mismo <code>while True</code>.<br><br>
+      Antes de mandarle el mensaje a la IA, armás un texto que combina el estado del jugador con lo que escribió. Así la IA sabe la vida y el inventario sin que el jugador lo vea.<br><br>
+      <strong>Tips para armar el bloque:</strong><br>
+      · Primero armás <code>mensaje_turno</code>: una f-string multilínea que incluye el HP, el inventario y la acción. Usá <code>"""</code> para escribir en varias líneas.<br>
+      · Después hacés tres cosas que ya conocés del TP2: <code>historial.append()</code> con el mensaje del usuario, llamar a <code>consultar_ia()</code>, y <code>historial.append()</code> con la respuesta.<br>
+      · Por último un <code>print()</code> que muestre la narración.<br><br>
+      <strong>💡 Pista:</strong> Las líneas del <code>historial.append()</code> y el <code>consultar_ia()</code> son textualmente iguales a las del B6a — la diferencia es que la variable se llama <code>narracion</code> en lugar de <code>respuesta_inicial</code>.
+    </div>
+    <div class="code-block">    <span class="cm"># ✍️ Armá mensaje_turno como una f-string que incluya:</span>
+    <span class="cm">#    - El HP del jugador: jugador["hp"]</span>
+    <span class="cm">#    - El inventario: jugador["inventario"]</span>
+    <span class="cm">#    - La acción que escribió el jugador: accion</span>
+
+    <span class="cm"># ✍️ Después: append al historial, consultar_ia(), append de la respuesta, print()</span></div>
+  </div>
+
+  <!-- B8 JSON -->
+  <div class="bloque b-nuevo">
+    <div class="bloque-titulo">🏆 B8 — Desafío JSON — Solo Grupos de 3</div>
+    <div class="bloque-desc">
+      <strong>¿Qué problema resuelve esto?</strong><br>
+      En el flujo de grupos de 2, cuando la IA narra que el jugador recibió daño, el jugador tiene que escribir <code>/hp -20</code> a mano para actualizar la vida. Eso depende de que el jugador preste atención y sea honesto — no es automático.<br><br>
+      <strong>¿Qué mejora el JSON?</strong><br>
+      Si logramos que la IA devuelva la narración junto con el número de daño en un formato estructurado, el código puede leer ese número y actualizar la vida solo, sin que el jugador haga nada. Ese formato estructurado se llama <strong>JSON</strong> y se ve así:<br>
+      <code>{"narrativa": "Cruzás la puerta y algo te golpea.", "hp_delta": -15}</code><br><br>
+      <strong>¿Cuál es el desafío?</strong><br>
+      Los modelos de lenguaje quieren hablar — tienden a agregar texto antes o después del JSON aunque se los prohibamos. El desafío es escribir una instrucción en el System Prompt (B5) tan clara que la IA devuelva <em>únicamente</em> el JSON, sin nada más. Si lo logramos, el código de abajo funciona solo. Si la IA agrega texto extra, el <code>except</code> lo atrapa y muestra lo que devolvió para que puedan ver qué salió mal y ajustar el prompt.<br><br>
+      Al final del guion (B5) agregá esta instrucción:<br>
+      <em style="background:#fff;padding:6px 10px;border-radius:6px;display:inline-block;margin-top:4px;">"Respondé ÚNICAMENTE con un objeto JSON válido, sin texto antes ni después, sin comillas de código. Estructura exacta: {"narrativa": "...", "hp_delta": 0}"</em><br><br>
+      <strong>En el código, lo nuevo es una sola línea:</strong> <code>json.loads(narracion)</code> — convierte el texto de la IA en un diccionario de Python. A partir de ahí accedés a los valores con las claves, igual que cualquier diccionario que usaste antes: <code>datos["narrativa"]</code>, <code>datos["hp_delta"]</code>.
+    </div>
+    <div class="code-block">    <span class="cm"># Este bloque reemplaza el B7 completo.</span>
+    <span class="cm"># Copiá solo la línea marcada con ←, el resto escribilo vos.</span>
+    <span class="kw">try</span>:
+        datos = json.loads(narracion)  <span class="cm"># ← COPIÁ ESTA LÍNEA: convierte el texto de la IA en diccionario</span>
+
+        <span class="cm"># ✍️ Sumá datos["hp_delta"] a jugador["hp"] — igual que hiciste en B6g con "cambio"</span>
+
+        <span class="cm"># ✍️ Append al historial con rol "assistant" y contenido narracion — igual que en B6a</span>
+
+        <span class="cm"># ✍️ Print de datos["narrativa"] — igual que imprimís cualquier variable</span>
+
+    <span class="kw">except</span>:
+        <span class="kw">print</span>(<span class="str">"⚠️ La IA no devolvió JSON limpio. Respuesta cruda:"</span>, narracion)
+        <span class="cm"># Si ves este mensaje: ajustá la instrucción de formato en el system prompt y probá de nuevo</span></div>
+  </div>
+
 </div>
 
 <!-- ASISTENTE -->
@@ -485,7 +624,7 @@ function copiarGuion() {
 }
 
 var KEY='',HIST=[];
-var SYS='Sos asistente de la Clase 13, Taller de IA, CTP Antonio Martín Marte, Ushuaia. Español argentino con vos. Máximo 3 oraciones. Nunca das código completo. El proyecto es un RPG con Groq API. Grupos de 2 usan comandos manuales (/estado, /tomar, /hp). Grupos de 3 usan json.loads() para leer la respuesta de la IA como JSON. Si la IA agrega backticks, hay que limpiarlos antes del json.loads(). El estado del jugador se inyecta oculto en cada turno dentro del mensaje del usuario.';
+var SYS='Sos asistente de la Clase 13, Taller de IA, CTP Antonio Martín Marte, Ushuaia. Español argentino con vos. Máximo 4 oraciones por respuesta.\n\nTU ROL: Ayudás a los estudiantes a escribir o entender partes del código. NUNCA das el bloque completo de una vez. Cuando alguien está trabado, das UN fragmento pequeño (2-4 líneas) con una explicación de qué hace, y después les preguntás qué sigue.\n\nEJEMPLO DE CÓMO ACTUAR:\n- Alumno: "no me sale la función"\n- Vos: "La firma de la función va así: def consultar_ia(mensajes, nivel_creatividad): — ¿qué va adentro del try?"\n- Alumno: "el requests.post"\n- Vos: "Exacto. Esa línea es: respuesta = requests.post(URL, headers=headers, json=payload) — ¿y qué devolvés después?"\n\nPARA LOS BLOQUES QUE SE ESCRIBEN (B1, B2, B3, B6b, B6c): mostrá solo la primera línea o la firma, y preguntá qué sigue.\nPARA LOS BLOQUES QUE SE COPIAN (B6a, B6d-B6g, B7, B8): explicá qué hace el fragmento que copiaron, no lo das vos.\nSI TE PIDEN EL CÓDIGO COMPLETO: explicá que no lo das de una, pero que sí les ayudás parte por parte.\n\nContexto del proyecto: RPG con Groq API. Grupos de 2 usan comandos manuales. Grupos de 3 usan json.loads(). El estado del jugador se inyecta en cada turno dentro del mensaje. El primer turno se fuerza antes del while True.';
 function activar(){
   var k=document.getElementById('asist-key').value.trim();
   if(!k){alert('Ingresá tu API Key.');return;}
