@@ -548,16 +548,31 @@ historial.append({<span class="str">"role"</span>: <span class="str">"assistant"
 <!-- ASISTENTE -->
 <div class="card c-asistente">
   <h2><span class="badge" style="background:var(--rpg)">🤖</span> ASISTENTE DE APOYO</h2>
-  <p style="margin-bottom:12px;">Para dudas sobre el guion, los comandos o el JSON. No da código completo — orienta.</p>
+  <p style="margin-bottom:12px;">Activalo con tu API Key y elegí en qué parte estás trabado. Te va a dar el bloque completo, pero con un ejemplo de otro contexto para que lo puedas adaptar vos.</p>
   <div class="key-row">
     <input type="password" id="asist-key" placeholder="Tu API Key de Groq">
     <button class="btn-rpg" onclick="activar()">Activar</button>
   </div>
   <div id="asist-chat">
     <div id="asist-msgs">
-      <div style="align-self:flex-start;background:#2D2D2D;color:#CE9AF5;padding:11px 15px;border-radius:10px;font-size:17px;max-width:90%;line-height:1.5;">
-        Hola. Puedo ayudarte con el guion, los comandos manuales o el desafío JSON.
+      <div id="msg-inicial" style="align-self:flex-start;background:#2D2D2D;color:#CE9AF5;padding:14px 16px;border-radius:10px;font-size:17px;max-width:95%;line-height:1.8;">
+        Hola. ¿En qué parte estás trabado?<br><br>
+        <strong style="color:#7dd3fc;">A</strong> — Las librerías y la API Key (B1, B2)<br>
+        <strong style="color:#7dd3fc;">B</strong> — La función consultar_ia (B3)<br>
+        <strong style="color:#7dd3fc;">C</strong> — El diccionario del jugador o el system prompt (B4, B5)<br>
+        <strong style="color:#7dd3fc;">D</strong> — El primer turno y el bucle (B6a, B6b, B6c)<br>
+        <strong style="color:#7dd3fc;">E</strong> — Los comandos /guardar, /estado, /tomar, /hp (B6d–B6g)<br>
+        <strong style="color:#7dd3fc;">F</strong> — El turno normal (B7)<br>
+        <strong style="color:#7dd3fc;">G</strong> — El desafío JSON (B8)<br><br>
+        Escribí la letra o contame el problema con tus palabras.
       </div>
+    </div>
+    <div class="asist-inp">
+      <input type="text" id="asist-input" placeholder="Escribí A, B, C... o describí el problema..." onkeypress="if(event.key==='Enter')enviar()">
+      <button class="btn-rpg" id="asist-btn" onclick="enviar()">Enviar</button>
+    </div>
+  </div>
+</div>
     </div>
     <div class="asist-inp">
       <input type="text" id="asist-input" placeholder="Preguntame..." onkeypress="if(event.key==='Enter')enviar()">
@@ -624,7 +639,81 @@ function copiarGuion() {
 }
 
 var KEY='',HIST=[];
-var SYS='Sos asistente de la Clase 13, Taller de IA, CTP Antonio Martín Marte, Ushuaia. Español argentino con vos. Máximo 4 oraciones por respuesta.\n\nTU ROL: Ayudás a los estudiantes a escribir o entender partes del código. NUNCA das el bloque completo de una vez. Cuando alguien está trabado, das UN fragmento pequeño (2-4 líneas) con una explicación de qué hace, y después les preguntás qué sigue.\n\nEJEMPLO DE CÓMO ACTUAR:\n- Alumno: "no me sale la función"\n- Vos: "La firma de la función va así: def consultar_ia(mensajes, nivel_creatividad): — ¿qué va adentro del try?"\n- Alumno: "el requests.post"\n- Vos: "Exacto. Esa línea es: respuesta = requests.post(URL, headers=headers, json=payload) — ¿y qué devolvés después?"\n\nPARA LOS BLOQUES QUE SE ESCRIBEN (B1, B2, B3, B6b, B6c): mostrá solo la primera línea o la firma, y preguntá qué sigue.\nPARA LOS BLOQUES QUE SE COPIAN (B6a, B6d-B6g, B7, B8): explicá qué hace el fragmento que copiaron, no lo das vos.\nSI TE PIDEN EL CÓDIGO COMPLETO: explicá que no lo das de una, pero que sí les ayudás parte por parte.\n\nContexto del proyecto: RPG con Groq API. Grupos de 2 usan comandos manuales. Grupos de 3 usan json.loads(). El estado del jugador se inyecta en cada turno dentro del mensaje. El primer turno se fuerza antes del while True.';
+var SYS = `Sos el asistente de la Clase 13 del Taller de IA, CTP Antonio Martín Marte, Ushuaia. Español argentino con vos. Tono directo y claro.
+
+PROYECTO: RPG interactivo en Python con Groq API. El código está dividido en bloques B1-B8.
+
+TU ROL: Cuando el alumno está trabado, le das el bloque completo pero con un ejemplo de OTRO contexto (no del RPG). El alumno tiene que adaptarlo a su proyecto. Así entiende la lógica sin recibir la solución exacta.
+
+OPCIONES DE ARRANQUE — si el alumno escribe una letra, respondé así:
+
+A (B1, B2 — librerías y API Key):
+Mostrá el ejemplo completo de un chatbot de clima:
+import requests
+API_KEY = "gsk_TU_CLAVE"
+URL = "https://api.groq.com/openai/v1/chat/completions"
+headers = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
+Después preguntá: "¿Qué tenés que cambiar para tu RPG? (nada — es idéntico)"
+
+B (B3 — función):
+Mostrá la función del TP2 con un personaje de recetas:
+def consultar_ia(mensajes, nivel_creatividad):
+    payload = {"model": "llama-3.3-70b-versatile", "temperature": nivel_creatividad, "messages": mensajes}
+    try:
+        respuesta = requests.post(URL, headers=headers, json=payload)
+        return respuesta.json()["choices"][0]["message"]["content"]
+    except Exception as e:
+        return f"Error: {e}"
+Después preguntá: "¿Qué cambia en tu RPG? Solo los nombres de los parámetros."
+
+C (B4, B5 — diccionario y system prompt):
+Mostrá un ejemplo de diccionario de un personaje de otro juego (un detective):
+detective = {"nombre": "Rivas", "hp": 100, "inventario": ["lupa"], "ubicacion": "escena del crimen"}
+Después preguntá: "¿Cómo sería el tuyo con los datos de tu aventura?"
+
+D (B6a, B6b, B6c — primer turno y bucle):
+Mostrá el primer turno de un chatbot de recetas:
+historial.append({"role": "user", "content": "Presentate y preguntame qué ingredientes tengo."})
+respuesta_inicial = consultar_ia(historial, 0.7)
+historial.append({"role": "assistant", "content": respuesta_inicial})
+print(respuesta_inicial)
+while True:
+    mensaje = input("Vos: ").strip()
+    if mensaje.lower() == "salir": break
+Después preguntá: "¿Qué cambia en tu RPG? El texto del primer mensaje y el nombre de la variable."
+
+E (B6d-B6g — comandos):
+Para /guardar, mostrá el ejemplo de la Clase 12 con conversacion.txt.
+Para /estado, mostrá el for con una lista de tareas pendientes:
+tareas = ["estudiar", "hacer ejercicio"]
+for t in tareas:
+    print(f"- {t}")
+Para /tomar, explicá que accion[7:] corta "/tomar " y queda el objeto.
+Para /hp, mostrá int() con un ejemplo de calculadora de descuentos.
+Preguntá siempre cómo lo adaptarían al RPG.
+
+F (B7 — turno normal):
+Mostrá el turno normal de un chatbot de soporte técnico:
+mensaje_soporte = f"""[Contexto del usuario: sistema={sistema}, version={version}]
+Consulta: {consulta}"""
+historial.append({"role": "user", "content": mensaje_soporte})
+respuesta = consultar_ia(historial, 0.7)
+historial.append({"role": "assistant", "content": respuesta})
+print(respuesta)
+Después preguntá: "¿Qué va en lugar de sistema y version en tu RPG?"
+
+G (B8 — JSON):
+Explicá primero el problema: sin JSON, el jugador tiene que escribir /hp -20 a mano.
+Mostrá json.loads() con un ejemplo de clima:
+datos_clima = json.loads('{"ciudad": "Ushuaia", "temperatura": -3, "condicion": "nevando"}')
+print(datos_clima["ciudad"])  # Ushuaia
+print(datos_clima["temperatura"])  # -3
+Después mostrá la estructura esperada del RPG y preguntá cómo la adaptarían.
+
+SI EL ALUMNO DESCRIBE UN PROBLEMA CON SUS PALABRAS: identificá a qué bloque corresponde y respondé como si hubiera elegido esa letra.
+
+NUNCA das el bloque del RPG resuelto directamente. Siempre usás otro contexto y preguntás cómo lo adaptarían.`;
+
 function activar(){
   var k=document.getElementById('asist-key').value.trim();
   if(!k){alert('Ingresá tu API Key.');return;}
