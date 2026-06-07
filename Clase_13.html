@@ -140,7 +140,7 @@
   <div class="errores-grid">
     <div class="error-card">
       <h4>🔥 /guardar dentro del bucle</h4>
-      <p>Va <strong>antes</strong> de llamar a la IA, no después. Si va después, mandaste tokens de más.</p>
+      <p>Va <strong>antes</strong> de llamar a la IA, no después. Si va después, le mandás el mensaje del usuario a la IA innecesariamente y gastás créditos de API.</p>
     </div>
     <div class="error-card">
       <h4>👻 Variables que no se usan</h4>
@@ -499,7 +499,7 @@ historial.append({<span class="str">"role"</span>: <span class="str">"assistant"
       <strong>⚠️ No va en celda separada.</strong> Va abajo del B6g, con 4 espacios de sangría, dentro del mismo <code>while True</code>.<br><br>
       Antes de mandarle el mensaje a la IA, armás un texto que combina el estado del jugador con lo que escribió. Así la IA sabe la vida y el inventario sin que el jugador lo vea.<br><br>
       <strong>Tips para armar el bloque:</strong><br>
-      · Primero armás <code>mensaje_turno</code>: una f-string multilínea que incluye el HP, el inventario y la acción. Usá <code>"""</code> para escribir en varias líneas.<br>
+      · Primero armás <code>mensaje_turno</code>: un texto con variables adentro (como los que usaste siempre con <code>f"..."</code>) que incluye el HP, el inventario y la acción. Usá <code>"""</code> para escribirlo en varias líneas.<br>
       · Después hacés tres cosas que ya conocés del TP2: <code>historial.append()</code> con el mensaje del usuario, llamar a <code>consultar_ia()</code>, y <code>historial.append()</code> con la respuesta.<br>
       · Por último un <code>print()</code> que muestre la narración.<br><br>
       <strong>💡 Pista:</strong> Las líneas del <code>historial.append()</code> y el <code>consultar_ia()</code> son textualmente iguales a las del B6a — la diferencia es que la variable se llama <code>narracion</code> en lugar de <code>respuesta_inicial</code>.
