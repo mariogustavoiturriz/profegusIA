@@ -520,19 +520,19 @@ historial.append({<span class="str">"role"</span>: <span class="str">"assistant"
       En el flujo de grupos de 2, cuando la IA narra que el jugador recibió daño, el jugador tiene que escribir <code>/hp -20</code> a mano para actualizar la vida. Eso depende de que el jugador preste atención y sea honesto — no es automático.<br><br>
       <strong>¿Qué mejora el JSON?</strong><br>
       Si logramos que la IA devuelva la narración junto con el número de daño en un formato estructurado, el código puede leer ese número y actualizar la vida solo, sin que el jugador haga nada. Ese formato estructurado se llama <strong>JSON</strong> y se ve así:<br>
-      <code>{"narrativa": "Cruzás la puerta y algo te golpea.", "hp_delta": -15}</code><br><br>
+      <code>{"narrativa": "Cruzás la puerta y algo te golpea.", "hp_cambio": -15}</code><br><br>
       <strong>¿Cuál es el desafío?</strong><br>
       Los modelos de lenguaje quieren hablar — tienden a agregar texto antes o después del JSON aunque se los prohibamos. El desafío es escribir una instrucción en el System Prompt (B5) tan clara que la IA devuelva <em>únicamente</em> el JSON, sin nada más. Si lo logramos, el código de abajo funciona solo. Si la IA agrega texto extra, el <code>except</code> lo atrapa y muestra lo que devolvió para que puedan ver qué salió mal y ajustar el prompt.<br><br>
       Al final del guion (B5) agregá esta instrucción:<br>
-      <em style="background:#fff;padding:6px 10px;border-radius:6px;display:inline-block;margin-top:4px;">"Respondé ÚNICAMENTE con un objeto JSON válido, sin texto antes ni después, sin comillas de código. Estructura exacta: {"narrativa": "...", "hp_delta": 0}"</em><br><br>
-      <strong>En el código, lo nuevo es una sola línea:</strong> <code>json.loads(narracion)</code> — convierte el texto de la IA en un diccionario de Python. A partir de ahí accedés a los valores con las claves, igual que cualquier diccionario que usaste antes: <code>datos["narrativa"]</code>, <code>datos["hp_delta"]</code>.
+      <em style="background:#fff;padding:6px 10px;border-radius:6px;display:inline-block;margin-top:4px;">"Respondé ÚNICAMENTE con un objeto JSON válido, sin texto antes ni después, sin comillas de código. Estructura exacta: {"narrativa": "...", "hp_cambio": 0}"</em><br><br>
+      <strong>En el código, lo nuevo es una sola línea:</strong> <code>json.loads(narracion)</code> — convierte el texto de la IA en un diccionario de Python. A partir de ahí accedés a los valores con las claves, igual que cualquier diccionario que usaste antes: <code>datos["narrativa"]</code>, <code>datos["hp_cambio"]</code>.
     </div>
     <div class="code-block">    <span class="cm"># Este bloque reemplaza el B7 completo.</span>
     <span class="cm"># Copiá solo la línea marcada con ←, el resto escribilo vos.</span>
     <span class="kw">try</span>:
         datos = json.loads(narracion)  <span class="cm"># ← COPIÁ ESTA LÍNEA: convierte el texto de la IA en diccionario</span>
 
-        <span class="cm"># ✍️ Sumá datos["hp_delta"] a jugador["hp"] — igual que hiciste en B6g con "cambio"</span>
+        <span class="cm"># ✍️ Sumá datos["hp_cambio"] a jugador["hp"] — igual que hiciste en B6g con "cambio"</span>
 
         <span class="cm"># ✍️ Append al historial con rol "assistant" y contenido narracion — igual que en B6a</span>
 
