@@ -76,6 +76,221 @@
   <div class="grid">
 
     <a href="Clase_13.html" class="card c-futura"
+       data-unlock="2026-06-09T09:45:00-03:00"
+       data-label="Abrir Clase">
+      <span class="badge-date">Lunes 09 de Junio</span>
+      <h2>Clase 13: Proyecto RPG — Aventura Narrada con IA</h2>
+      <p>Diseñamos el guion del Narrador y arrancamos el esqueleto del juego. Comandos manuales para grupos de 2, desafío JSON para grupos de 3.</p>
+      <div class="btn">Abrir Clase</div>
+    </a>
+
+  </div>
+
+  <!-- ══════════════ UNIDAD 3 ══════════════ -->
+  <h2 class="section-title">Unidad 3 — NLP y Sistemas Expertos</h2>
+  <div class="grid">
+
+    <a href="tp2.html" class="card c-pasada">
+      <span class="badge-date">Lunes 18 de Mayo</span>
+      <h2 style="color: var(--rojo);">Trabajo Práctico N° 2</h2>
+      <p>Evaluación integradora. System prompt, memoria de historial y exportación a disco.</p>
+      <div class="btn">Repasar TP2</div>
+    </a>
+
+    <a href="Clase_12.html" class="card c-pasada">
+      <span class="badge-date">Lunes 11 de Mayo</span>
+      <h2>Clase 12: Arquitectura 2.1 y Exportación</h2>
+      <p>Uso de la función open() para exportar el historial. División técnica de Backend y Frontend.</p>
+      <div class="btn">Repasar Clase</div>
+    </a>
+
+    <a href="guia_tp2.html" class="card c-pasada">
+      <span class="badge-date">Miércoles 13 de Mayo</span>
+      <h2>Repaso Visual: Tu Chatbot (TP2)</h2>
+      <p>Pestaña interactiva para repasar el bucle While, la inyección del System Prompt y el guardado local.</p>
+      <div class="btn">Repasar Guía</div>
+    </a>
+
+    <a href="Clase_11.html" class="card c-pasada">
+      <span class="badge-date">Viernes 08 de Mayo</span>
+      <h2>Clase 11: El System Prompt y la Memoria</h2>
+      <p>Darle personalidad a la IA. Modificando el historial con el rol 'system' para definir reglas inquebrantables.</p>
+      <div class="btn">Repasar Clase</div>
+    </a>
+
+    <a href="Clase_10.html" class="card c-pasada">
+      <span class="badge-date">Lunes 04 de Mayo</span>
+      <h2>Clase 10: La IA que Recuerda</h2>
+      <p>El problema del estado y la solución: construir el historial de la conversación usando listas en Python.</p>
+      <div class="btn">Repasar Clase</div>
+    </a>
+
+  </div>
+
+  <!-- ══════════════ UNIDADES 1 Y 2 ══════════════ -->
+  <h2 class="section-title">Unidades 1 y 2 (Anteriores)</h2>
+  <div class="grid">
+
+    <a href="clase_9.html" class="card c-pasada">
+      <span class="badge-date">Lunes 27 de Abril</span>
+      <h2>Clase 9: Defensa y Ciberseguridad</h2>
+      <p>Defensa Técnica del TP1 y simulador de Inyección de Prompts (Jailbreak) en la sala de espera.</p>
+      <div class="btn">Repasar Clase</div>
+    </a>
+
+    <a href="desafio_extra.html" class="card c-extra">
+      <span class="badge-date">&gt;_ Lunes 27 · Fase 2</span>
+      <h2>&gt;_ DESAFÍO EXTRA:<br>AHORA DEFENDÉ</h2>
+      <p>Pasaste de atacante a defensor. Diseñá tu propio sistema de seguridad y ponelo a prueba contra un compañero.</p>
+      <div class="btn">&gt;_ REPASAR_DESAFÍO</div>
+    </a>
+
+    <a href="clase_8.html" class="card c-pasada">
+      <span class="badge-date">Lunes 20 de Abril</span>
+      <h2>Clase 8: Frontend y Agencia IA</h2>
+      <p>Terminamos la Fase 2 del TP1 y creamos el Branding (identidad visual) de nuestro Chatbot interactivo.</p>
+      <div class="btn">Repasar Clase</div>
+    </a>
+
+    <a href="clase_7.html" class="card c-pasada" style="border-top-color: var(--tp);">
+      <span class="badge-date" style="color: var(--tp);">Viernes 17 de Abril</span>
+      <h2>Clase 7: TP1 (Fase 1)</h2>
+      <p>Desarrollo del Backend. Armado del motor de conexión, funciones y prompt dinámico para el Chatbot.</p>
+      <div class="btn" style="background: #FAF5FF; color: var(--tp); border: 2px solid var(--tp);">Repasar TP1</div>
+    </a>
+
+    <a href="clase_6.html" class="card c-pasada">
+      <span class="badge-date">Lunes 13 de Abril</span>
+      <h2>Anatomía de la Inferencia</h2>
+      <p>Análisis de la respuesta de la IA, consumo de créditos y el parámetro Temperature.</p>
+      <div class="btn">Repasar Clase</div>
+    </a>
+
+    <a href="clase_5.html" class="card c-pasada">
+      <span class="badge-date">Viernes 10 de Abril</span>
+      <h2>La Primera Llamada Real</h2>
+      <p>Generación de API Key, estructura de Headers y conexión a Groq.</p>
+      <div class="btn">Repasar Clase</div>
+    </a>
+
+  </div>
+</div>
+
+<script>
+  let modoProfe = false;
+
+  function lockClassesWithTime() {
+    if (modoProfe) return;
+    const now = new Date();
+    document.querySelectorAll('.card[data-unlock]').forEach(card => {
+      const unlockTime = new Date(card.getAttribute('data-unlock'));
+      const btn   = card.querySelector('.btn');
+      const label = card.getAttribute('data-label') || 'Abrir';
+      const href  = card.getAttribute('data-href-orig') || card.getAttribute('href');
+      if (!card.getAttribute('data-href-orig') && href && href !== '#') {
+        card.setAttribute('data-href-orig', href);
+      }
+      if (now < unlockTime) {
+        card.classList.add('card-locked');
+        card.removeAttribute('href');
+        btn.classList.add('locked');
+        const d  = String(unlockTime.getDate()).padStart(2,'0');
+        const m  = String(unlockTime.getMonth()+1).padStart(2,'0');
+        const h  = String(unlockTime.getHours()).padStart(2,'0');
+        const mn = String(unlockTime.getMinutes()).padStart(2,'0');
+        btn.textContent = `🔒 Se habilita el ${d}/${m} a las ${h}:${mn}`;
+        card.classList.remove('c-actual','c-tp-nuevo');
+        card.classList.add('c-futura');
+      } else {
+        card.classList.remove('card-locked');
+        const orig = card.getAttribute('data-href-orig');
+        if (orig) card.setAttribute('href', orig);
+        btn.classList.remove('locked');
+        btn.innerHTML = label;
+        card.classList.remove('c-futura');
+        if (label === 'Abrir Evaluación') card.classList.add('c-tp-nuevo');
+        else card.classList.add('c-actual');
+      }
+    });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'u') {
+      modoProfe = !modoProfe;
+      if (modoProfe) {
+        document.querySelectorAll('.card[data-unlock]').forEach(card => {
+          const btn   = card.querySelector('.btn');
+          const orig  = card.getAttribute('data-href-orig');
+          const label = card.getAttribute('data-label');
+          card.classList.remove('card-locked');
+          if (orig) card.setAttribute('href', orig);
+          btn.classList.remove('locked');
+          btn.innerHTML = '🔓 Desbloqueada (Modo Profe)';
+          btn.style.background = '#8E24AA';
+          btn.style.color = 'white';
+          btn.style.borderColor = '#8E24AA';
+          card.classList.remove('c-futura');
+          if (label === 'Abrir Evaluación') card.classList.add('c-tp-nuevo');
+          else card.classList.add('c-actual');
+        });
+      } else {
+        document.querySelectorAll('.card[data-unlock] .btn').forEach(btn => {
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.style.borderColor = '';
+        });
+        lockClassesWithTime();
+      }
+    }
+  });
+
+  window.onload = lockClassesWithTime;
+  setInterval(lockClassesWithTime, 30000);
+</script>
+</body>
+</html>
+  .c-extra:hover { box-shadow: 0 8px 28px rgba(0,255,65,0.3); }
+  .c-extra h2 { color: #00FF41; font-family: 'Courier New', monospace; line-height: 1.4; }
+  .c-extra p  { color: #00AA2A; font-family: 'Courier New', monospace; font-size: 15px; }
+  .c-extra .badge-date { color: #00882A; font-family: 'Courier New', monospace; }
+
+  .badge-date { font-size: 14px; font-weight: bold; margin-bottom: 10px; display: block; text-transform: uppercase; color: #666; }
+  .c-actual .badge-date   { color: var(--teal); }
+  .c-futura .badge-date   { color: var(--amb); }
+  .c-tp-nuevo .badge-date { color: var(--rojo); }
+
+  .card h2 { font-size: 22px; color: var(--nav); margin-bottom: 10px; line-height: 1.3; }
+  .card p  { font-size: 16px; color: #555; flex-grow: 1; margin-bottom: 20px; }
+
+  .btn { display: block; text-align: center; padding: 12px; border-radius: 8px; font-weight: bold; text-decoration: none; transition: 0.3s; color: white; }
+  .c-pasada .btn   { background: #4A6080; }
+  .c-pasada .btn:hover { background: #2C3E50; }
+  .c-actual .btn   { background: var(--teal); }
+  .c-actual .btn:hover { background: #007B80; }
+  .c-futura .btn   { background: var(--amb); }
+  .c-tp-nuevo .btn { background: var(--rojo); }
+  .c-tp-nuevo .btn:hover { background: #B71C1C; }
+  .c-extra .btn    { background: transparent; color: #00FF41; border: 2px solid #00FF41; font-family: 'Courier New', monospace; box-shadow: 0 0 8px rgba(0,255,65,0.2); }
+  .c-extra .btn:hover { background: #00FF41; color: #000; box-shadow: 0 0 18px rgba(0,255,65,0.5); }
+
+  .locked { background: #E0E0E0 !important; color: #888 !important; border: 1px solid #ccc !important; cursor: not-allowed; box-shadow: none !important; }
+  .card-locked { pointer-events: none; opacity: 0.8; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Taller de IA</h1>
+  <p>7° Año TIC | CTP Antonio Martín Marte</p>
+</header>
+
+<div class="container">
+
+  <!-- ══════════════ PRÓXIMAS CLASES ══════════════ -->
+  <h2 class="section-title">Próxima Clase</h2>
+  <div class="grid">
+
+    <a href="Clase_13.html" class="card c-futura"
        data-unlock="2026-06-09T10:35:00-03:00"
        data-label="Abrir Clase">
       <span class="badge-date">Lunes 09 de Junio</span>
