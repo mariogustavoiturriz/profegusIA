@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller de IA · Clase 14</title>
+<style>
+  :root {
+    --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
+    --vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;
+    --bco:#FFFFFF;--code-bg:#1E1E1E;--r:12px;
+    --rpg:#5C2070;--rpg-bg:#F8F3FF;
+    --g2:#2E6820;--g2-bg:#EFF8EE;
+    --g3:#8B4A00;--g3-bg:#FEF6EE;
+    --json:#006400;--json-bg:#F0FFF0;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;
+    --azul:#1565C0;--azul-bg:#E3F2FD;
+    --classroom:#137333;--class-bg:#F0FFF4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:20px;padding:15px 0 50px;}
+  header{background:var(--nav);color:var(--bco);padding:25px 20px;border-bottom:5px solid var(--g2);}
+  header h1{font-size:26px;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
+  header p{font-size:17px;opacity:.9;}
+  .container{width:95%;max-width:1400px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:20px;margin-bottom:10px;padding:10px 20px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  .c-repaso{border-left-color:#4A6080;background:#F4F7FA;}
+  .c-pruebas{border-left-color:var(--g2);background:var(--g2-bg);}
+  .c-debug{border-left-color:var(--rojo);background:var(--rojo-bg);}
+  .c-json{border-left-color:var(--json);background:var(--json-bg);}
+  .c-entrega{border-left-color:var(--classroom);background:var(--class-bg);}
+  .c-asistente{border-left-color:var(--rpg);background:var(--rpg-bg);}
+  h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
+  .badge{background:var(--nav);color:var(--bco);padding:5px 12px;border-radius:6px;font-size:17px;font-weight:bold;}
+
+  .info{padding:18px 20px;border-radius:var(--r);margin:15px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
+  .i-teal{background:var(--gris);border-color:var(--teal);}
+  .i-rpg{background:var(--rpg-bg);border-color:var(--rpg);}
+  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
+  .i-g3{background:var(--g3-bg);border-color:var(--g3);}
+  .i-amb{background:#FFF8EE;border-color:var(--amb);}
+  .i-rojo{background:var(--rojo-bg);border-color:var(--rojo);}
+  .i-json{background:var(--json-bg);border-color:var(--json);}
+  .i-class{background:var(--class-bg);border-color:var(--classroom);}
+  .info strong{display:block;margin-bottom:6px;font-size:19px;}
+
+  /* Cronograma */
+  .cronograma{display:grid;gap:0;margin:20px 0;border:2px solid var(--bd);border-radius:var(--r);overflow:hidden;}
+  .crono-row{display:grid;grid-template-columns:110px 190px 1fr;border-bottom:1px solid var(--bd);}
+  .crono-row:last-child{border-bottom:none;}
+  .crono-row.header{background:var(--nav);}
+  .crono-row.pausa{background:#FFF8E1;}
+  .crono-tiempo{padding:12px 14px;font-family:'Consolas',monospace;font-size:16px;color:#555;border-right:1px solid var(--bd);display:flex;align-items:center;}
+  .crono-bloque{padding:12px 14px;font-weight:bold;font-size:17px;border-right:1px solid var(--bd);display:flex;align-items:center;color:var(--nav);}
+  .crono-desc{padding:12px 16px;font-size:17px;line-height:1.6;display:flex;align-items:center;}
+  .crono-row.header .crono-tiempo,.crono-row.header .crono-bloque,.crono-row.header .crono-desc{color:#fff;font-size:15px;font-weight:bold;text-transform:uppercase;letter-spacing:.5px;}
+  .crono-row:nth-child(even):not(.header){background:var(--gris);}
+  .crono-row.pausa .crono-bloque{color:var(--amb);}
+
+  /* Pruebas */
+  .prueba-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:16px;}
+  .prueba-card{border-radius:var(--r);padding:20px;border:2px solid;}
+  .p-verde{border-color:var(--g2);background:var(--g2-bg);}
+  .p-azul{border-color:var(--azul);background:var(--azul-bg);}
+  .p-rpg{border-color:var(--rpg);background:var(--rpg-bg);}
+  .prueba-card h4{font-size:18px;margin-bottom:10px;}
+  .p-verde h4{color:var(--g2);}
+  .p-azul h4{color:var(--azul);}
+  .p-rpg h4{color:var(--rpg);}
+  .prueba-card p{font-size:17px;line-height:1.7;}
+
+  /* Errores */
+  .errores-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  .error-card{background:var(--rojo-bg);border:1px solid #FFCDD2;border-left:5px solid var(--rojo);border-radius:var(--r);padding:18px;}
+  .error-card h4{color:var(--rojo);font-size:18px;margin-bottom:8px;}
+  .error-card p,.fix-card p{font-size:17px;line-height:1.6;}
+  .fix-card{background:var(--g2-bg);border:1px solid #C8E6C9;border-left:5px solid var(--g2);border-radius:var(--r);padding:18px;}
+  .fix-card h4{color:var(--g2);font-size:18px;margin-bottom:8px;}
+
+  /* JSON */
+  .bloque{border:2px solid;border-radius:var(--r);margin-bottom:18px;overflow:hidden;}
+  .bloque-titulo{padding:11px 16px;font-weight:bold;font-size:18px;}
+  .bloque-desc{padding:12px 16px;font-size:17px;line-height:1.6;border-top:1px solid;}
+  .b-json{border-color:var(--json);}
+  .b-json .bloque-titulo{background:#C8F7C8;color:var(--json);border-bottom:1px solid var(--json);}
+  .b-json .bloque-desc{background:var(--json-bg);border-color:#C8F7C8;}
+
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:18px 20px;font-size:17px;overflow-x:auto;white-space:pre;line-height:1.65;margin:0;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
+  .nm{color:#B5CEA8;}
+
+  /* Asistente */
+  #asist-chat{display:none;}
+  #asist-msgs{background:#1E1E1E;border-radius:10px;padding:16px;min-height:160px;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:10px;}
+  .asist-inp{display:flex;gap:8px;}
+  .asist-inp input{flex:1;padding:11px;border-radius:8px;border:1px solid #ccc;font-size:17px;outline:none;}
+  .btn-rpg{background:var(--rpg);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;}
+  .btn-rpg:disabled{background:#ccc;cursor:not-allowed;}
+  .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
+  .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
+
+  code{background:#E8E6FF;color:var(--vio);padding:2px 6px;border-radius:4px;font-family:'Consolas',monospace;font-size:17px;}
+  ul{margin-left:22px;} li{margin-bottom:8px;}
+  @media(max-width:768px){.prueba-grid,.errores-grid{grid-template-columns:1fr;}.crono-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>CLASE 14 — PRUEBAS Y AJUSTE FINAL</h1>
+  <p>Taller de IA Aplicada · 7°1° · CTP Antonio Martín Marte · Viernes 13/06 · 80 minutos</p>
+</header>
+
+<div class="container">
+<a href="index.html" class="back-btn">⬅ Volver al Índice</a>
+
+<!-- ════ BLOQUE 0 — ESTADO ════ -->
+<div class="card c-repaso">
+  <h2><span class="badge" style="background:#4A6080">0</span> DÓNDE ESTAMOS</h2>
+  <p>El lunes trabajaron el esqueleto de la Clase 13 — algunos llegaron al bucle funcionando, otros quedaron a mitad de camino. Hoy tienen 80 minutos para terminar lo que falte, probar que todo funciona, ajustar y entregar.</p>
+
+  <div class="info i-amb" style="margin-top:16px;">
+    <strong>⏱️ Primeros minutos — diagnóstico rápido</strong>
+    Abrí tu Colab del lunes y ejecutalo. Si corre sin errores y la IA responde → arrancá las pruebas del Bloque 2. Si hay errores → mirá los errores frecuentes del Bloque 3 antes de llamar al profe. Si te falta terminar el esqueleto → tenés los primeros 20 minutos, con la Clase 13 abierta como guía.
+  </div>
+</div>
+
+<!-- ════ BLOQUE 1 — CRONOGRAMA ════ -->
+<div class="card c-pruebas">
+  <h2><span class="badge" style="background:var(--g2)">1</span> CRONOGRAMA DE LA CLASE</h2>
+  <div class="cronograma">
+    <div class="crono-row header">
+      <div class="crono-bloque">Bloque</div>
+      <div class="crono-desc">Qué hacemos</div>
+    </div>
+    <div class="crono-row">
+      <div class="crono-bloque">Producción libre</div>
+      <div class="crono-desc">Quien no llegó al bucle el lunes sigue acá. Quien ya tiene el código andando arranca las pruebas. A los 20 minutos todos pasan a las pruebas.</div>
+    </div>
+    <div class="crono-row">
+      <div class="crono-bloque">Las 3 pruebas</div>
+      <div class="crono-desc">Prueba de identidad, estado y límite (ver Bloque 2). Ajustá el system prompt según lo que no funcione.</div>
+    </div>
+    <div class="crono-row pausa">
+      <div class="crono-bloque">Pausa técnica</div>
+      <div class="crono-desc">El profe comenta los errores más frecuentes de la ronda.</div>
+    </div>
+    <div class="crono-row">
+      <div class="crono-bloque">Toque final</div>
+      <div class="crono-desc">Si las pruebas pasaron: desafío del inventario (Bloque 4, dos niveles). Grupos de 3: reforzar JSON si todavía no es consistente (Bloque 5). Todos: <code>/guardar</code> y verificar <code>partida.txt</code>.</div>
+    </div>
+    <div class="crono-row">
+      <div class="crono-bloque">Entrega</div>
+      <div class="crono-desc">Subir a Classroom: enlace al Colab + <code>partida.txt</code>. Plazo hasta las 23:59 del mismo día.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ BLOQUE 2 — LAS 3 PRUEBAS ════ -->
+<div class="card c-pruebas" style="border-left-color:var(--vio);background:#FAFCFF;">
+  <h2><span class="badge" style="background:var(--vio)">2</span> LAS 3 PRUEBAS OBLIGATORIAS</h2>
+  <p>Corré estas tres pruebas en orden. Cada una que falle te dice exactamente qué ajustar en el system prompt.</p>
+
+  <div class="prueba-grid">
+    <div class="prueba-card p-verde">
+      <h4>✅ Prueba 1 — Identidad</h4>
+      <p>Ejecutá el programa. ¿La IA abre la historia con el tono de tu guion? ¿Ofrece exactamente 3 opciones (A, B, C) al final?<br><br>
+      <strong>Si falla:</strong> el formulario de la Clase 13 ya incluía esta regla en el guion generado. Si editaste el guion a mano, puede haberse perdido. Verificá que al final diga: <em>"Cada respuesta termina SIEMPRE con exactamente 3 opciones (A, B y C)"</em>.</p>
+    </div>
+    <div class="prueba-card p-azul">
+      <h4>📋 Prueba 2 — Estado</h4>
+      <p>Escribí <code>/estado</code>. ¿Aparece el HP y el inventario? Escribí <code>/tomar espada</code>, después <code>/estado</code> de nuevo. ¿Está la espada?<br><br>
+      <strong>Si falla:</strong> el comando está fuera del <code>while True</code> o tiene mala sangría. Tiene que estar al mismo nivel que el <code>if accion.lower() == "salir"</code>.</p>
+    </div>
+    <div class="prueba-card p-rpg">
+      <h4>🚫 Prueba 3 — Límite</h4>
+      <p>Pedile a la IA que tome una decisión por vos o que salga del rol. ¿Lo rechaza?<br><br>
+      <strong>Si falla:</strong> el guion del formulario ya tenía la regla <em>"NUNCA tomás decisiones por el jugador"</em>. Si la IA igual la rompe, reforzala: escribila en mayúsculas y agregala también al final del guion — lo último que lee pesa más.</p>
+    </div>
+  </div>
+
+  <div class="info i-grn" style="margin-top:20px;">
+    <strong>✅ Las 3 pruebas pasaron → escribí /guardar y hacé la entrega</strong>
+    Verificá que <code>partida.txt</code> aparezca en el panel de archivos de Colab (ícono de carpeta, menú izquierdo). Descargalo y subilo a Classroom junto con el enlace del Colab.
+  </div>
+</div>
+
+<!-- ════ BLOQUE 3 — ERRORES FRECUENTES ════ -->
+<div class="card c-debug">
+  <h2><span class="badge" style="background:var(--rojo)">3</span> ERRORES FRECUENTES</h2>
+  <div class="errores-grid">
+    <div class="error-card">
+      <h4>🔴 La IA no para de hablar / da respuestas larguísimas</h4>
+      <p>Falta la instrucción de extensión en el guion. Agregá: <em>"Cada respuesta tiene exactamente 2 oraciones de narración. Nada más."</em></p>
+    </div>
+    <div class="error-card">
+      <h4>🔴 <code>IndentationError</code> al ejecutar</h4>
+      <p>El bloque B7 está en una celda separada o con sangría distinta. Tiene que estar dentro del mismo <code>while True</code> que los comandos, con la misma sangría de 4 espacios.</p>
+    </div>
+    <div class="error-card">
+      <h4>🔴 <code>/estado</code> no hace nada</h4>
+      <p>El <code>if</code> del comando está fuera del <code>while True</code>. Revisá que esté adentro del bucle, debajo del <code>if accion.lower() == "salir"</code>.</p>
+    </div>
+    <div class="error-card">
+      <h4>🔴 La IA toma decisiones por el jugador</h4>
+      <p>La prohibición en el guion no es suficientemente explícita. Escribila en mayúsculas y repetila: <em>"NUNCA. BAJO NINGUNA CIRCUNSTANCIA. La IA no actúa, no decide, no avanza sin input del jugador."</em></p>
+    </div>
+    <div class="fix-card">
+      <h4>✅ <code>partida.txt</code> no aparece en Colab</h4>
+      <p>Presioná el ícono de actualizar en el panel de archivos. Si sigue sin aparecer, verificá que el <code>with open</code> esté dentro del <code>if "/guardar"</code> con sangría correcta.</p>
+    </div>
+    <div class="fix-card">
+      <h4>✅ La pantalla quedó en blanco al arrancar</h4>
+      <p>El primer turno forzado no está o está dentro del <code>while True</code>. Tiene que estar <strong>antes</strong> del bucle, justo después de inicializar el historial.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════ BLOQUE 4 — DESAFÍO /USAR ════ -->
+<div class="card" style="border-left-color:var(--amb);background:#FFFBF5;">
+  <h2><span class="badge" style="background:var(--amb)">4</span> DESAFÍO EXTRA — DALE VIDA AL INVENTARIO</h2>
+
+  <p><strong>¿Qué problema resuelve?</strong> Tu jugador puede tomar objetos con <code>/tomar</code>, pero después no puede hacer nada con ellos. La linterna queda en el inventario para siempre. Hoy lo arreglamos con dos comandos nuevos — elegí tu nivel.</p>
+
+  <p style="margin-top:16px;"><strong>Una herramienta nueva para los dos niveles:</strong></p>
+  <div class="errores-grid" style="margin-top:10px;">
+    <div class="fix-card">
+      <h4>🗑️ <code>.remove()</code> — sacar algo de una lista</h4>
+      <p><code>jugador["inventario"].remove("linterna")</code> la saca de la lista. Es el espejo exacto del <code>.append()</code> que escribiste en B6f de la Clase 13.</p>
+    </div>
+    <div class="fix-card">
+      <h4>🔍 <code>in</code> — preguntar si algo está en una lista</h4>
+      <p><code>if "linterna" in jugador["inventario"]:</code> es verdadero si la linterna está en la lista. Es el mismo <code>in</code> de los <code>for</code>, pero usado como pregunta.</p>
+    </div>
+  </div>
+
+  <!-- NIVEL 1 -->
+  <div class="bloque" style="border-color:var(--g2);margin-top:20px;">
+    <div class="bloque-titulo" style="background:#C8E6C9;color:var(--g2);border-bottom:1px solid var(--g2);">🥉 Nivel 1 — Comando /soltar — <em>escribilo vos</em></div>
+    <div class="bloque-desc" style="background:var(--g2-bg);border-color:#C8E6C9;">
+      El espejo de <code>/tomar</code>: en lugar de agregar un objeto, lo saca. No llama a la IA — es puro Python.<br><br>
+      <strong>💡 Pistas:</strong> Copiá tu <code>/tomar</code> del B6f y cambiá tres cosas: el texto del comando, el número del corte (<code>/soltar </code> tiene 8 caracteres) y el <code>.append()</code> por <code>.remove()</code>. Agregá el <code>if objeto in ...</code> para verificar que el objeto exista antes de sacarlo — si no, el programa explota.
+    </div>
+    <div class="code-block"><span class="cm"># ✍️ Armalo vos a partir de tu /tomar. Estructura:</span>
+<span class="cm">#   1. startswith con "/soltar "</span>
+<span class="cm">#   2. cortar el texto para quedarte con el objeto</span>
+<span class="cm">#   3. if objeto in inventario → remove + aviso. else → "no lo tenés"</span>
+<span class="cm">#   4. continue</span></div>
+  </div>
+
+  <!-- NIVEL 2 -->
+  <div class="info i-amb" style="margin-top:20px;">
+    <strong>💡 Nivel 2 — Por qué /usar es distinto a todos los demás comandos</strong>
+    <code>/estado</code>, <code>/tomar</code>, <code>/hp</code> y <code>/soltar</code> nunca hablan con la IA — son puro Python. El <code>/usar</code> necesita las dos cosas: la lógica manual (verificar y sacar el objeto) y después una llamada a la IA para que narre el efecto. Es la fusión de lo que hiciste en B6f y B7 de la Clase 13.
+  </div>
+  <div class="bloque" style="border-color:var(--amb);margin-top:14px;">
+    <div class="bloque-titulo" style="background:#FFE0B2;color:#8B4A00;border-bottom:1px solid var(--amb);">🥇 Nivel 2 — Comando /usar — <em>completalo vos</em></div>
+    <div class="bloque-desc" style="background:#FFF8EE;border-color:#FFE0B2;">
+      Va dentro del <code>while True</code>, junto con los otros comandos, antes del turno normal.<br><br>
+      <strong>💡 Pistas:</strong><br>
+      · <code>accion[6:]</code> corta "/usar " (6 caracteres) — igual que hiciste con <code>accion[7:]</code> en /tomar.<br>
+      · Las tres líneas de la llamada a la IA son textualmente iguales a las del B6a — cambia solo el contenido del mensaje.<br>
+      · No te olvides del <code>continue</code> al final.
+    </div>
+    <div class="code-block">    <span class="kw">if</span> accion.lower().startswith(<span class="str">"/usar "</span>):
+        objeto = accion[<span class="nm">6</span>:].strip()
+        <span class="kw">if</span> objeto <span class="kw">in</span> jugador[<span class="str">"inventario"</span>]:
+            <span class="cm"># ✍️ 1. Sacá el objeto del inventario con .remove()</span>
+
+            <span class="cm"># ✍️ 2. Armá un mensaje para la IA, por ejemplo:</span>
+            <span class="cm">#       f"[El jugador usa: {objeto}. Narrá el efecto en la historia.]"</span>
+
+            <span class="cm"># ✍️ 3. Mandalo a la IA igual que en B6a: append, consultar_ia, append, print</span>
+
+        <span class="kw">else</span>:
+            <span class="kw">print</span>(<span class="str">"No tenés ese objeto en el inventario\n"</span>)
+        <span class="kw">continue</span></div>
+  </div>
+
+  <div class="info i-grn" style="margin-top:14px;">
+    <strong>✅ Cómo saber si funciona</strong>
+    <strong>Nivel 1:</strong> <code>/tomar antorcha</code> → <code>/soltar antorcha</code> → <code>/estado</code>: la antorcha no tiene que aparecer. Probá <code>/soltar espada</code> sin tenerla — tiene que avisarte, no explotar.<br>
+    <strong>Nivel 2:</strong> <code>/tomar antorcha</code> → <code>/usar antorcha</code>: la IA narra qué pasa con la antorcha y desaparece del inventario.
+  </div>
+</div>
+
+<!-- ════ BLOQUE 5 — GRUPOS DE 3 ════ -->
+<div class="card c-json">
+  <h2><span class="badge" style="background:var(--json)">5</span> GRUPOS DE 3 — JSON CONSISTENTE</h2>
+  <p>Si todavía no lograron que la IA devuelva JSON limpio en todos los turnos, este bloque es para ustedes.</p>
+
+  <div class="info i-json">
+    <strong>Instrucción JSON que funciona con LLaMA</strong>
+    Agregá este texto al final del system prompt, después de todas las reglas narrativas:
+  </div>
+  <div class="bloque b-json">
+    <div class="bloque-titulo">📝 Texto para pegar al final del guion</div>
+    <div class="code-block">FORMATO DE RESPUESTA OBLIGATORIO:
+Respondé ÚNICAMENTE con un objeto JSON válido, sin texto antes ni después,
+sin comillas de código, sin explicaciones. Nada fuera del JSON.
+La estructura debe ser exactamente esta:
+{"narrativa": "texto en 2-3 oraciones", "hp_cambio": 0, "opciones": ["A: ...", "B: ...", "C: ..."]}</div>
+  </div>
+
+  <div class="info i-amb" style="margin-top:4px;">
+    <strong>⚠️ Si la IA agrega texto antes del JSON</strong>
+    A veces el modelo agrega una línea como <code>```json</code> antes del JSON aunque se lo prohibamos. Eso hace que <code>json.loads()</code> falle. Pegá estas líneas <strong>justo antes</strong> del <code>json.loads(narracion)</code> para limpiar ese texto automáticamente:
+  </div>
+  <div class="bloque b-json">
+    <div class="bloque-titulo">🔧 Limpieza de backticks (antes del json.loads)</div>
+    <div class="code-block">    narracion = narracion.strip()
+    <span class="kw">if</span> narracion.startswith(<span class="str">"```"</span>):
+        narracion = narracion.split(<span class="str">"\n"</span>, <span class="nm">1</span>)[<span class="nm">1</span>]
+    <span class="kw">if</span> narracion.endswith(<span class="str">"```"</span>):
+        narracion = narracion.rsplit(<span class="str">"\n"</span>, <span class="nm">1</span>)[<span class="nm">0</span>]
+    datos = json.loads(narracion)</div>
+  </div>
+</div>
+
+<!-- ════ BLOQUE 6 — ENTREGA ════ -->
+<div class="card c-entrega">
+  <h2><span class="badge" style="background:var(--classroom)">6</span> ENTREGA DEL DÍA</h2>
+  <div class="info i-class">
+    <strong>📤 Classroom — antes de las 23:59 del 13/06</strong>
+    <ul style="margin-top:10px;">
+      <li>Enlace al Colab <strong>con el nombre de su juego</strong> (ej: "La Niebla de Tokio") con permisos de Lector. <strong>Lo entregan TODOS los integrantes del grupo</strong>, cada uno en su tarea de Classroom.</li>
+      <li>El archivo <code>partida.txt</code> generado con <code>/guardar</code>.</li>
+      <li>El <strong>cuestionario de 5 preguntas</strong> de abajo — respondido individualmente por cada integrante.</li>
+    </ul>
+  </div>
+
+  <div class="info i-rpg" style="margin-top:14px;">
+    <strong>📝 Cuestionario individual — respondé en la tarea de Classroom</strong>
+    Estas preguntas son tu preparación para la defensa del viernes. Respondelas con tus palabras — el profe puede arrancar la defensa desde cualquiera de tus respuestas.
+    <ol style="margin-left:20px;margin-top:12px;line-height:2;">
+      <li><strong>El guion:</strong> ¿Qué hace el system prompt y por qué va en la posición 0 del historial?</li>
+      <li><strong>El turno:</strong> Explicá qué pasa en cada vuelta del bucle: qué le manda tu código a la IA y qué hace con la respuesta.</li>
+      <li><strong>El arranque:</strong> ¿Por qué el primer turno se fuerza antes del <code>while True</code>? ¿Qué pasaría si no estuviera?</li>
+      <li><strong>Un comando:</strong> Elegí uno (<code>/estado</code>, <code>/tomar</code>, <code>/hp</code>, <code>/soltar</code> o <code>/usar</code>) y explicá línea por línea qué hace.</li>
+      <li><strong>El obstáculo:</strong> ¿Qué fue lo que más les costó hacer funcionar y cómo lo resolvieron?</li>
+    </ol>
+  </div>
+
+  <div class="info i-amb" style="margin-top:0;">
+    <strong>📅 Próxima clase — Viernes 20/06 · DEFENSA ORAL</strong>
+    Cada integrante defiende el proyecto individualmente frente al profe. Llevar la API Key. El código tiene que estar abierto en el Colab propio. Las preguntas de la defensa salen del código que entregaron y del cuestionario que respondieron hoy.
+  </div>
+</div>
+
+<!-- ════ ASISTENTE ════ -->
+<div class="card c-asistente">
+  <h2><span class="badge" style="background:var(--rpg)">🤖</span> ASISTENTE DE APOYO</h2>
+  <p style="margin-bottom:14px;">Elegí tu problema y te muestra el código en otro contexto (recetas, soporte técnico, clima) para que lo adaptes a tu RPG. Nunca te da tu RPG resuelto.</p>
+  <div class="key-row">
+    <input type="password" id="asist-key" placeholder="Tu API Key de Groq">
+    <button class="btn-rpg" onclick="activar()">Activar</button>
+  </div>
+  <div id="asist-chat">
+    <div id="asist-msgs">
+      <div id="msg-inicial" style="align-self:flex-start;background:#2D2D2D;color:#CE9AF5;padding:14px 16px;border-radius:10px;font-size:17px;max-width:95%;line-height:1.8;">
+        Hola. ¿Qué problema tenés?<br><br>
+        <strong style="color:#7dd3fc;">A</strong> — La IA no abre la historia con el tono correcto o no da 3 opciones<br>
+        <strong style="color:#7dd3fc;">B</strong> — /estado no funciona o no actualiza el inventario<br>
+        <strong style="color:#7dd3fc;">C</strong> — La IA toma decisiones por el jugador<br>
+        <strong style="color:#7dd3fc;">D</strong> — IndentationError o el código no corre<br>
+        <strong style="color:#7dd3fc;">E</strong> — partida.txt no aparece en Colab<br>
+        <strong style="color:#7dd3fc;">F</strong> — Grupos de 3: la IA no devuelve JSON limpio<br>
+        <strong style="color:#7dd3fc;">G</strong> — Grupos de 3: json.loads() falla aunque el JSON parece correcto<br>
+        <strong style="color:#7dd3fc;">H</strong> — Estoy con el desafío del inventario (/soltar o /usar)<br><br>
+        Escribí la letra o describí el problema con tus palabras.
+      </div>
+    </div>
+    <div class="asist-inp">
+      <input type="text" id="asist-input" placeholder="Describí el problema..." onkeypress="if(event.key==='Enter')enviar()">
+      <button class="btn-rpg" id="asist-btn" onclick="enviar()">Enviar</button>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+var KEY='',HIST=[];
+var SYS = `Sos el asistente de la Clase 14 del Taller de IA, CTP Antonio Martín Marte, Ushuaia. Español argentino con vos. Tono directo y claro.
+
+CONTEXTO: La clase anterior (C13) construyeron el esqueleto B1-B8. Hoy están probando que funcione y ajustando el system prompt.
+
+TU ROL: Cuando el alumno describe un error o prueba que falló, le das el diagnóstico concreto y, si necesita código, se lo mostrás en un contexto diferente al RPG para que lo adapte.
+
+OPCIONES DE ARRANQUE — si el alumno no sabe por dónde empezar, ofrecé estas opciones:
+
+A — La IA no abre la historia con el tono correcto o no da 3 opciones
+B — /estado no funciona o no actualiza el inventario
+C — La IA toma decisiones por el jugador
+D — IndentationError o el código no corre
+E — partida.txt no aparece en Colab
+F — Grupos de 3: la IA no devuelve JSON limpio
+G — Grupos de 3: json.loads() falla aunque el JSON parece correcto
+
+PARA CADA CASO:
+
+A: El system prompt le falta la instrucción de formato al final. Mostrá el ejemplo de un chatbot de recetas con la instrucción: "Cada respuesta tiene máximo 3 oraciones y termina siempre con las opciones A, B y C." Preguntá cómo lo adaptarían a su guion.
+
+B: El if del /estado está fuera del while True o tiene sangría incorrecta. Mostrá el esquema de sangría con un ejemplo de menú de restaurante:
+while True:
+    opcion = input("> ")
+    if opcion == "ver carta":
+        for plato in carta:
+            print(f"- {plato}")
+        continue
+Preguntá en qué línea está su /estado.
+
+C: La prohibición en el guion no es explícita. Mostrá el ejemplo de un asistente de museo: "NUNCA describís lo que va a pasar. Esperás la decisión del visitante antes de continuar." Preguntá cómo queda en su guion.
+
+D: IndentationError casi siempre es B7 en celda separada. Explicá que todo el while True tiene que estar en una sola celda. Mostrá la estructura con un chatbot de soporte:
+while True:
+    mensaje = input("...")
+    if mensaje == "salir": break
+    if mensaje == "/ayuda":
+        print("comandos disponibles")
+        continue
+    # acá va el turno normal, misma sangría
+Preguntá si pegaron B7 en una celda aparte.
+
+E: El with open tiene que estar dentro del if "/guardar" con 8 espacios de sangría (4 del while + 4 del if). Mostrá el esquema de un logger de temperatura:
+if lectura == "guardar":
+    with open("registro.txt", "w") as f:
+        for dato in datos:
+            f.write(dato)
+    continue
+
+F: El system prompt necesita la instrucción de formato al final. Mostrá el texto exacto que funciona con LLaMA:
+"Respondé ÚNICAMENTE con un objeto JSON válido, sin texto antes ni después, sin comillas de código. Estructura: {"narrativa": "...", "hp_cambio": 0}"
+Preguntá si esa instrucción está al final del guion, después de todas las demás reglas.
+
+G: El modelo agregó texto antes del JSON. Explicá que hay que limpiar eso antes del json.loads(). Mostrá el ejemplo con datos de clima:
+texto = '{"ciudad": "Ushuaia", "temp": -3}'  # correcto
+texto2 = '\`\`\`json
+{"ciudad": "Ushuaia"}
+\`\`\`'  # lo que hace el modelo a veces
+# La limpieza:
+if texto2.startswith("\`\`\`"):
+    texto2 = texto2.split("\n", 1)[1]
+if texto2.endswith("\`\`\`"):
+    texto2 = texto2.rsplit("\n", 1)[0]
+Preguntá si probaron ejecutar después de aplicar la limpieza.
+
+H: Si pregunta por /soltar (Nivel 1): es el espejo de /tomar. Mostra un ejemplo con una mochila de viaje:
+if accion.lower().startswith("/sacar "):
+    item = accion[7:].strip()
+    if item in mochila:
+        mochila.remove(item)
+        print("Sacaste:", item)
+    else:
+        print("No esta en la mochila")
+    continue
+Pregunta que cambia para su /soltar (el comando y el numero del corte: "/soltar " tiene 8 caracteres).
+
+Si pregunta por /usar (Nivel 2): combina logica manual con llamada a la IA. Mostra un ejemplo con un juego de cocina:
+if accion.lower().startswith("/cocinar "):
+    ingrediente = accion[9:].strip()
+    if ingrediente in despensa:
+        despensa.remove(ingrediente)
+        historial.append({"role": "user", "content": f"[El chef cocina: {ingrediente}. Describi el plato.]"})
+        respuesta = consultar_ia(historial, 0.8)
+        historial.append({"role": "assistant", "content": respuesta})
+        print(respuesta)
+    else:
+        print("No tenes ese ingrediente")
+    continue
+Pregunta que cambia para su /usar: el numero del corte de texto (/cocinar tiene 9 caracteres con espacio, /usar tiene 6) y el contenido del mensaje a la IA.
+
+NUNCA das el código del RPG resuelto directamente. Siempre usás otro contexto y preguntás cómo lo adaptarían.\`;
+function activar(){
+  var k=document.getElementById('asist-key').value.trim();
+  if(!k){alert('Ingresá tu API Key.');return;}
+  KEY=k;HIST=[{role:'system',content:SYS}];
+  document.getElementById('asist-chat').style.display='block';
+  document.getElementById('asist-input').focus();
+}
+async function enviar(){
+  var inp=document.getElementById('asist-input');
+  var msg=inp.value.trim();if(!msg||!KEY)return;
+  inp.value='';document.getElementById('asist-btn').disabled=true;
+  add(msg,'user');HIST.push({role:'user',content:msg});
+  var p=add('...','pens');
+  try{
+    var r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',
+      headers:{'Authorization':'Bearer '+KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({model:'llama-3.3-70b-versatile',temperature:0.4,messages:HIST})});
+    var d=await r.json();var resp=d.choices[0].message.content;
+    p.remove();HIST.push({role:'assistant',content:resp});add(resp,'asist');
+  }catch(e){p.remove();add('Error de conexión.','err');HIST.pop();}
+  document.getElementById('asist-btn').disabled=false;
+}
+function add(txt,tipo){
+  var box=document.getElementById('asist-msgs');
+  var d=document.createElement('div');
+  d.style.cssText='max-width:90%;padding:11px 15px;border-radius:10px;font-size:17px;line-height:1.5;white-space:pre-wrap;'+
+    (tipo==='user'?'align-self:flex-end;background:#7B2D8B;color:#fff;margin-left:auto;':
+     tipo==='asist'?'align-self:flex-start;background:#2D2D2D;color:#CE9AF5;':
+     'align-self:center;background:#333;color:#aaa;font-size:14px;font-style:italic;');
+  d.textContent=txt;box.appendChild(d);box.scrollTop=box.scrollHeight;return d;
+}
+</script>
+</body>
+</html>
