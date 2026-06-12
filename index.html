@@ -3,176 +3,250 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taller de IA · CTP Antonio Martín Marte</title>
+<title>Taller de IA | Índice de Clases</title>
 <style>
   :root {
     --nav: #1A2C3A; --teal: #00949A; --amb: #D4873A; 
     --vio: #3D5A99; --gris: #F3F6F9; --bd: #C5D2DC; --txt: #2C3E50;
     --bco: #FFFFFF; --r: 12px; --tp: #8E24AA; --rojo: #C62828;
+    --rpg: #5C2070;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-  body { background: #EEF3F7; color: var(--txt); line-height: 1.6; font-size: 18px; padding-bottom: 50px; }
-  header { background: var(--nav); color: var(--bco); padding: 40px 20px; text-align: center; border-bottom: 5px solid var(--amb); }
-  header h1 { font-size: 34px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
-  header p { opacity: 0.9; font-size: 20px; }
+  
+  body { 
+    background: #EEF3F7; 
+    color: var(--txt); 
+    line-height: 1.6; 
+    padding-bottom: 60px; 
+    font-size: 20px; 
+  }
+  
+  header { 
+    background: var(--nav); 
+    color: var(--bco); 
+    padding: 40px 20px; 
+    text-align: center;
+    border-bottom: 6px solid var(--rpg); 
+  }
+  header h1 { font-size: 34px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+  header p { font-size: 22px; opacity: 0.9; max-width: 600px; margin: 0 auto; font-weight: bold; color: #FFF8E1; }
   
   .container { width: 95%; max-width: 1200px; margin: 40px auto; }
-  .section-title { font-size: 26px; color: var(--nav); margin: 40px 0 20px 0; padding-bottom: 10px; border-bottom: 3px solid var(--bd); text-transform: uppercase; }
   
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
-
-  .card {
-    background: var(--bco); border-radius: var(--r); padding: 25px;
-    box-shadow: 0 4px 12px rgba(0,0,0,.08); border-top: 6px solid var(--bd);
-    display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s;
-    text-decoration: none; color: inherit;
+  .section-title {
+    font-size: 28px;
+    color: var(--nav);
+    margin: 40px 0 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--bd);
+    text-transform: uppercase;
   }
-  .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,.1); }
 
-  .c-pasada   { border-top-color: #4A6080; background: #FAFBFC; }
-  .c-actual   { border-top-color: var(--teal); background: #F0FAFA; }
-  .c-futura   { border-top-color: var(--amb); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+  }
+  
+  .card { 
+    background: var(--bco); 
+    border-radius: var(--r); 
+    padding: 30px; 
+    box-shadow: 0 6px 15px rgba(0,0,0,.1); 
+    border-top: 8px solid var(--bd);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,.15);
+  }
+  
+  /* Estados de las tarjetas */
+  .c-pasada { border-top-color: #4A6080; background: #FAFBFC; }
+  .c-actual { border-top-color: var(--teal); background: #F0FAFA; }
+  .c-futura { border-top-color: var(--amb); }
   .c-tp-nuevo { border-top-color: var(--rojo); background: #FFEBEE; }
-  .c-extra    { border-top-color: #00FF41; background: #060D0A; color: #00FF41; box-shadow: 0 4px 20px rgba(0,255,65,0.15); }
-  .c-extra:hover { box-shadow: 0 8px 28px rgba(0,255,65,0.3); }
-  .c-extra h2 { color: #00FF41; font-family: 'Courier New', monospace; line-height: 1.4; }
-  .c-extra p  { color: #00AA2A; font-family: 'Courier New', monospace; font-size: 15px; }
-  .c-extra .badge-date { color: #00882A; font-family: 'Courier New', monospace; }
-
-  .badge-date { font-size: 14px; font-weight: bold; margin-bottom: 10px; display: block; text-transform: uppercase; color: #666; }
-  .c-actual .badge-date   { color: var(--teal); }
-  .c-futura .badge-date   { color: var(--amb); }
+  .c-rpg { border-top-color: var(--rpg); background: #F8F3FF; }
+  
+  .badge-date { 
+    font-size: 16px; 
+    font-weight: bold; 
+    color: #666; 
+    text-transform: uppercase; 
+    margin-bottom: 10px;
+    display: block;
+    letter-spacing: 1px;
+  }
+  
+  .c-actual .badge-date { color: var(--teal); }
+  .c-futura .badge-date { color: var(--amb); }
   .c-tp-nuevo .badge-date { color: var(--rojo); }
-
-  .card h2 { font-size: 22px; color: var(--nav); margin-bottom: 10px; line-height: 1.3; }
-  .card p  { font-size: 16px; color: #555; flex-grow: 1; margin-bottom: 20px; }
-
-  .btn { display: block; text-align: center; padding: 12px; border-radius: 8px; font-weight: bold; text-decoration: none; transition: 0.3s; color: white; }
-  .c-pasada .btn   { background: #4A6080; }
+  .c-rpg .badge-date { color: var(--rpg); }
+  
+  .card h2 { 
+    color: var(--nav); 
+    font-size: 26px; 
+    margin-bottom: 15px; 
+    line-height: 1.3;
+  }
+  
+  .card p { 
+    font-size: 20px; 
+    color: #444; 
+    flex-grow: 1;
+    margin-bottom: 25px;
+  }
+  
+  .btn {
+    display: block;
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+    transition: background 0.3s;
+    color: white;
+  }
+  
+  .c-pasada .btn { background: #4A6080; }
   .c-pasada .btn:hover { background: #2C3E50; }
-  .c-actual .btn   { background: var(--teal); }
+  
+  .c-actual .btn { background: var(--teal); }
   .c-actual .btn:hover { background: #007B80; }
-  .c-futura .btn   { background: var(--amb); }
+  
+  .c-futura .btn { background: var(--amb); }
+  
   .c-tp-nuevo .btn { background: var(--rojo); }
   .c-tp-nuevo .btn:hover { background: #B71C1C; }
-  .c-extra .btn    { background: transparent; color: #00FF41; border: 2px solid #00FF41; font-family: 'Courier New', monospace; box-shadow: 0 0 8px rgba(0,255,65,0.2); }
-  .c-extra .btn:hover { background: #00FF41; color: #000; box-shadow: 0 0 18px rgba(0,255,65,0.5); }
 
+  .c-rpg .btn { background: var(--rpg); }
+  .c-rpg .btn:hover { background: #4A1A5A; }
+  
+  /* Botón bloqueado */
   .locked { background: #E0E0E0 !important; color: #888 !important; border: 1px solid #ccc !important; cursor: not-allowed; box-shadow: none !important; }
   .card-locked { pointer-events: none; opacity: 0.8; }
+
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+    header h1 { font-size: 28px; }
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Taller de IA</h1>
-  <p>7° Año TIC | CTP Antonio Martín Marte</p>
+  <h1>Taller de IA Aplicada</h1>
+  <p>7°1° · CTP Antonio Martín Marte</p>
 </header>
 
 <div class="container">
-
-  <!-- ══════════════ PRÓXIMAS CLASES ══════════════ -->
-  <h2 class="section-title">Próxima Clase</h2>
+  <h2 class="section-title">Proyecto Final: Aventura RPG</h2>
   <div class="grid">
-
-    <a href="Clase_13.html" class="card c-futura"
-       data-unlock="2026-06-08T09:45:00-03:00"
-       data-label="Abrir Clase">
-      <span class="badge-date">Lunes 09 de Junio</span>
-      <h2>Clase 13: Proyecto RPG — Aventura Narrada con IA</h2>
-      <p>Diseñamos el guion del Narrador y arrancamos el esqueleto del juego. Comandos manuales para grupos de 2, desafío JSON para grupos de 3.</p>
+    <!-- CLASE 14 -->
+    <a href="clase_14.html" class="card c-futura" 
+       data-unlock="2026-06-13T09:45:00-03:00" 
+       data-label="Abrir Clase 14">
+      <span class="badge-date">Viernes 13 de Junio</span>
+      <h2>Clase 14: Pruebas y Ajuste Final</h2>
+      <p>Depuración, desafío del inventario, JSON estricto y entrega del proyecto.</p>
       <div class="btn">Abrir Clase</div>
     </a>
 
+    <!-- CLASE 13 -->
+    <a href="clase_13.html" class="card c-rpg">
+      <span class="badge-date">Lunes 09 de Junio</span>
+      <h2>Clase 13: Aventura Narrada con IA</h2>
+      <p>Diseño del System Prompt y armado del motor principal (bucle) de nuestro juego.</p>
+      <div class="btn">Repasar Clase</div>
+    </a>
   </div>
 
-  <!-- ══════════════ UNIDAD 3 ══════════════ -->
-  <h2 class="section-title">Unidad 3 — NLP y Sistemas Expertos</h2>
+  <h2 class="section-title">Unidad 3: NLP y Sistemas Expertos</h2>
   <div class="grid">
-
-    <a href="tp2.html" class="card c-pasada">
-      <span class="badge-date">Lunes 18 de Mayo</span>
+    <!-- TP2 -->
+    <a href="tp2.html" class="card c-pasada" style="border-top-color: var(--rojo);">
+      <span class="badge-date" style="color: var(--rojo);">Viernes 15 de Mayo</span>
       <h2 style="color: var(--rojo);">Trabajo Práctico N° 2</h2>
-      <p>Evaluación integradora. System prompt, memoria de historial y exportación a disco.</p>
-      <div class="btn">Repasar TP2</div>
+      <p>Evaluación integradora de la Unidad 3. Simulador de System Prompt, Misiones y Exportación.</p>
+      <div class="btn" style="background: #FFEBEE; color: var(--rojo); border: 2px solid var(--rojo);">Repasar TP2</div>
     </a>
 
-    <a href="Clase_12.html" class="card c-pasada">
+    <!-- CLASE 12 -->
+    <a href="clase_12.html" class="card c-pasada">
       <span class="badge-date">Lunes 11 de Mayo</span>
-      <h2>Clase 12: Arquitectura 2.1 y Exportación</h2>
-      <p>Uso de la función open() para exportar el historial. División técnica de Backend y Frontend.</p>
+      <h2>Clase 12: Memoria Guardada</h2>
+      <p>Jugamos con la "IA Misteriosa" y exportamos la conversación con archivos de texto.</p>
       <div class="btn">Repasar Clase</div>
     </a>
 
-    <a href="guia_tp2.html" class="card c-pasada">
-      <span class="badge-date">Miércoles 13 de Mayo</span>
-      <h2>Repaso Visual: Tu Chatbot (TP2)</h2>
-      <p>Pestaña interactiva para repasar el bucle While, la inyección del System Prompt y el guardado local.</p>
-      <div class="btn">Repasar Guía</div>
-    </a>
-
-    <a href="Clase_11.html" class="card c-pasada">
+    <a href="clase_11.html" class="card c-pasada">
       <span class="badge-date">Viernes 08 de Mayo</span>
-      <h2>Clase 11: El System Prompt y la Memoria</h2>
-      <p>Darle personalidad a la IA. Modificando el historial con el rol 'system' para definir reglas inquebrantables.</p>
+      <h2>Clase 11: System Prompt</h2>
+      <p>Creadora de personalidades. Usamos el Simulador Especial para darle reglas a tu propia IA.</p>
       <div class="btn">Repasar Clase</div>
     </a>
 
-    <a href="Clase_10.html" class="card c-pasada">
+    <a href="clase_10.html" class="card c-pasada">
       <span class="badge-date">Lunes 04 de Mayo</span>
-      <h2>Clase 10: La IA que Recuerda</h2>
-      <p>El problema del estado y la solución: construir el historial de la conversación usando listas en Python.</p>
+      <h2>Clase 10: La IA que recuerda</h2>
+      <p>El problema de la memoria y cómo solucionarlo usando listas para guardar el historial completo.</p>
       <div class="btn">Repasar Clase</div>
     </a>
-
   </div>
 
-  <!-- ══════════════ UNIDADES 1 Y 2 ══════════════ -->
-  <h2 class="section-title">Unidades 1 y 2 (Anteriores)</h2>
+  <h2 class="section-title">Unidades Anteriores</h2>
   <div class="grid">
-
-    <a href="clase_9.html" class="card c-pasada">
-      <span class="badge-date">Lunes 27 de Abril</span>
-      <h2>Clase 9: Defensa y Ciberseguridad</h2>
-      <p>Defensa Técnica del TP1 y simulador de Inyección de Prompts (Jailbreak) en la sala de espera.</p>
-      <div class="btn">Repasar Clase</div>
-    </a>
-
-    <a href="desafio_extra.html" class="card c-extra">
-      <span class="badge-date">&gt;_ Lunes 27 · Fase 2</span>
-      <h2>&gt;_ DESAFÍO EXTRA:<br>AHORA DEFENDÉ</h2>
-      <p>Pasaste de atacante a defensor. Diseñá tu propio sistema de seguridad y ponelo a prueba contra un compañero.</p>
-      <div class="btn">&gt;_ REPASAR_DESAFÍO</div>
-    </a>
-
-    <a href="clase_8.html" class="card c-pasada">
+    <!-- CLASE 8 -->
+    <a href="tp1_fase2.html" class="card c-pasada">
       <span class="badge-date">Lunes 20 de Abril</span>
-      <h2>Clase 8: Frontend y Agencia IA</h2>
-      <p>Terminamos la Fase 2 del TP1 y creamos el Branding (identidad visual) de nuestro Chatbot interactivo.</p>
+      <h2>Fase 2: Control de Calidad</h2>
+      <p>Evaluamos el trabajo de los compañeros haciendo el Test de Estrés como Testers Profesionales.</p>
       <div class="btn">Repasar Clase</div>
     </a>
 
-    <a href="clase_7.html" class="card c-pasada" style="border-top-color: var(--tp);">
+    <!-- CLASE 7 -->
+    <a href="Clase_7_tp1.html" class="card c-pasada" style="border-top-color: var(--tp);">
       <span class="badge-date" style="color: var(--tp);">Viernes 17 de Abril</span>
-      <h2>Clase 7: TP1 (Fase 1)</h2>
-      <p>Desarrollo del Backend. Armado del motor de conexión, funciones y prompt dinámico para el Chatbot.</p>
+      <h2>Trabajo Práctico N° 1</h2>
+      <p>Integramos todo. Analizamos el código de conexión, los inputs y los comentarios del programa.</p>
       <div class="btn" style="background: #FAF5FF; color: var(--tp); border: 2px solid var(--tp);">Repasar TP1</div>
     </a>
-
+    
+    <!-- CLASE 6 -->
     <a href="clase_6.html" class="card c-pasada">
       <span class="badge-date">Lunes 13 de Abril</span>
-      <h2>Anatomía de la Inferencia</h2>
-      <p>Análisis de la respuesta de la IA, consumo de créditos y el parámetro Temperature.</p>
+      <h2>El JSON y la Temperature</h2>
+      <p>Aprendimos a ver los tokens que gasta la IA y a controlar qué tan creativa es al responder.</p>
       <div class="btn">Repasar Clase</div>
     </a>
 
+    <!-- CLASE 5 -->
     <a href="clase_5.html" class="card c-pasada">
       <span class="badge-date">Viernes 10 de Abril</span>
-      <h2>La Primera Llamada Real</h2>
-      <p>Generación de API Key, estructura de Headers y conexión a Groq.</p>
+      <h2>La Primera Llamada</h2>
+      <p>Cómo conectar Python con el cerebro de la Inteligencia Artificial usando una API Key de Groq.</p>
       <div class="btn">Repasar Clase</div>
     </a>
 
+    <!-- CLASES VIEJAS (Bloqueadas visualmente) -->
+    <a href="#" class="card c-pasada card-locked" style="opacity: 0.6;">
+      <span class="badge-date">Marzo</span>
+      <h2>Fundamentos de Python</h2>
+      <p>F-Strings, Try/Except, Listas y Diccionarios.</p>
+      <div class="btn locked">Unidad Archivada</div>
+    </a>
+
+    <a href="#" class="card c-pasada card-locked" style="opacity: 0.6;">
+      <span class="badge-date">Marzo</span>
+      <h2>Introducción a la IA</h2>
+      <p>Agentes Inteligentes y Teachable Machine.</p>
+      <div class="btn locked">Unidad Archivada</div>
+    </a>
   </div>
 </div>
 
@@ -180,64 +254,87 @@
   let modoProfe = false;
 
   function lockClassesWithTime() {
-    if (modoProfe) return;
+    if (modoProfe) return; /* Si el profe desbloqueó todo, ignoramos la hora */
     const now = new Date();
+    
     document.querySelectorAll('.card[data-unlock]').forEach(card => {
       const unlockTime = new Date(card.getAttribute('data-unlock'));
-      const btn   = card.querySelector('.btn');
-      const label = card.getAttribute('data-label') || 'Abrir';
-      const href  = card.getAttribute('data-href-orig') || card.getAttribute('href');
+      const btn        = card.querySelector('.btn');
+      const label      = card.getAttribute('data-label') || 'Abrir';
+      const href       = card.getAttribute('data-href-orig') || card.getAttribute('href');
+
+      /* Guardar href original la primera vez */
       if (!card.getAttribute('data-href-orig') && href && href !== '#') {
         card.setAttribute('data-href-orig', href);
       }
+
       if (now < unlockTime) {
+        /* Aún no es la hora, bloqueamos */
         card.classList.add('card-locked');
         card.removeAttribute('href');
         btn.classList.add('locked');
-        const d  = String(unlockTime.getDate()).padStart(2,'0');
-        const m  = String(unlockTime.getMonth()+1).padStart(2,'0');
-        const h  = String(unlockTime.getHours()).padStart(2,'0');
+        const d = String(unlockTime.getDate()).padStart(2,'0');
+        const m = String(unlockTime.getMonth()+1).padStart(2,'0');
+        const h = String(unlockTime.getHours()).padStart(2,'0');
         const mn = String(unlockTime.getMinutes()).padStart(2,'0');
         btn.textContent = `🔒 Se habilita el ${d}/${m} a las ${h}:${mn}`;
-        card.classList.remove('c-actual','c-tp-nuevo');
+        
+        /* Volvemos a color de clase futura */
+        card.classList.remove('c-actual');
+        card.classList.remove('c-tp-nuevo');
         card.classList.add('c-futura');
       } else {
+        /* Ya es la hora, desbloqueamos */
         card.classList.remove('card-locked');
         const orig = card.getAttribute('data-href-orig');
         if (orig) card.setAttribute('href', orig);
         btn.classList.remove('locked');
         btn.innerHTML = label;
+        
+        /* Ponemos el color específico */
         card.classList.remove('c-futura');
-        if (label === 'Abrir Evaluación') card.classList.add('c-tp-nuevo');
-        else card.classList.add('c-actual');
+        if (label === 'Abrir Evaluación') {
+          card.classList.add('c-tp-nuevo');
+        } else {
+          card.classList.add('c-actual');
+        }
       }
     });
   }
 
+  /* Atajo de teclado oculto: Ctrl + Shift + U */
   document.addEventListener('keydown', function(e) {
     if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'u') {
-      modoProfe = !modoProfe;
+      modoProfe = !modoProfe; /* Activar o desactivar */
+      
       if (modoProfe) {
         document.querySelectorAll('.card[data-unlock]').forEach(card => {
-          const btn   = card.querySelector('.btn');
-          const orig  = card.getAttribute('data-href-orig');
+          const btn = card.querySelector('.btn');
+          const orig = card.getAttribute('data-href-orig');
           const label = card.getAttribute('data-label');
+          
           card.classList.remove('card-locked');
           if (orig) card.setAttribute('href', orig);
+          
           btn.classList.remove('locked');
           btn.innerHTML = '🔓 Desbloqueada (Modo Profe)';
-          btn.style.background = '#8E24AA';
+          btn.style.background = '#8E24AA'; /* Violeta para indicar que forzaste el acceso */
           btn.style.color = 'white';
           btn.style.borderColor = '#8E24AA';
+          
           card.classList.remove('c-futura');
-          if (label === 'Abrir Evaluación') card.classList.add('c-tp-nuevo');
-          else card.classList.add('c-actual');
+          if (label === 'Abrir Evaluación') {
+            card.classList.add('c-tp-nuevo');
+          } else {
+            card.classList.add('c-actual');
+          }
         });
       } else {
+        /* Si vuelve a tocar el atajo, le sacamos los estilos en línea y volvemos a evaluar el reloj */
         document.querySelectorAll('.card[data-unlock] .btn').forEach(btn => {
-          btn.style.background = '';
-          btn.style.color = '';
-          btn.style.borderColor = '';
+            btn.style.background = '';
+            btn.style.color = '';
+            btn.style.borderColor = '';
         });
         lockClassesWithTime();
       }
@@ -245,222 +342,7 @@
   });
 
   window.onload = lockClassesWithTime;
-  setInterval(lockClassesWithTime, 30000);
-</script>
-</body>
-</html>
-  .c-extra:hover { box-shadow: 0 8px 28px rgba(0,255,65,0.3); }
-  .c-extra h2 { color: #00FF41; font-family: 'Courier New', monospace; line-height: 1.4; }
-  .c-extra p  { color: #00AA2A; font-family: 'Courier New', monospace; font-size: 15px; }
-  .c-extra .badge-date { color: #00882A; font-family: 'Courier New', monospace; }
-
-  .badge-date { font-size: 14px; font-weight: bold; margin-bottom: 10px; display: block; text-transform: uppercase; color: #666; }
-  .c-actual .badge-date   { color: var(--teal); }
-  .c-futura .badge-date   { color: var(--amb); }
-  .c-tp-nuevo .badge-date { color: var(--rojo); }
-
-  .card h2 { font-size: 22px; color: var(--nav); margin-bottom: 10px; line-height: 1.3; }
-  .card p  { font-size: 16px; color: #555; flex-grow: 1; margin-bottom: 20px; }
-
-  .btn { display: block; text-align: center; padding: 12px; border-radius: 8px; font-weight: bold; text-decoration: none; transition: 0.3s; color: white; }
-  .c-pasada .btn   { background: #4A6080; }
-  .c-pasada .btn:hover { background: #2C3E50; }
-  .c-actual .btn   { background: var(--teal); }
-  .c-actual .btn:hover { background: #007B80; }
-  .c-futura .btn   { background: var(--amb); }
-  .c-tp-nuevo .btn { background: var(--rojo); }
-  .c-tp-nuevo .btn:hover { background: #B71C1C; }
-  .c-extra .btn    { background: transparent; color: #00FF41; border: 2px solid #00FF41; font-family: 'Courier New', monospace; box-shadow: 0 0 8px rgba(0,255,65,0.2); }
-  .c-extra .btn:hover { background: #00FF41; color: #000; box-shadow: 0 0 18px rgba(0,255,65,0.5); }
-
-  .locked { background: #E0E0E0 !important; color: #888 !important; border: 1px solid #ccc !important; cursor: not-allowed; box-shadow: none !important; }
-  .card-locked { pointer-events: none; opacity: 0.8; }
-</style>
-</head>
-<body>
-
-<header>
-  <h1>Taller de IA</h1>
-  <p>7° Año TIC | CTP Antonio Martín Marte</p>
-</header>
-
-<div class="container">
-
-  <!-- ══════════════ PRÓXIMAS CLASES ══════════════ -->
-  <h2 class="section-title">Próxima Clase</h2>
-  <div class="grid">
-
-    <a href="Clase_13.html" class="card c-futura"
-       data-unlock="2026-06-09T10:35:00-03:00"
-       data-label="Abrir Clase">
-      <span class="badge-date">Lunes 09 de Junio</span>
-      <h2>Clase 13: Proyecto RPG — Aventura Narrada con IA</h2>
-      <p>Diseñamos el guion del Narrador y arrancamos el esqueleto del juego. Comandos manuales para grupos de 2, desafío JSON para grupos de 3.</p>
-      <div class="btn">Abrir Clase</div>
-    </a>
-
-  </div>
-
-  <!-- ══════════════ UNIDAD 3 ══════════════ -->
-  <h2 class="section-title">Unidad 3 — NLP y Sistemas Expertos</h2>
-  <div class="grid">
-
-    <a href="tp2.html" class="card c-pasada">
-      <span class="badge-date">Lunes 18 de Mayo</span>
-      <h2 style="color: var(--rojo);">Trabajo Práctico N° 2</h2>
-      <p>Evaluación integradora. System prompt, memoria de historial y exportación a disco.</p>
-      <div class="btn">Repasar TP2</div>
-    </a>
-
-    <a href="Clase_12.html" class="card c-pasada">
-      <span class="badge-date">Lunes 11 de Mayo</span>
-      <h2>Clase 12: Arquitectura 2.1 y Exportación</h2>
-      <p>Uso de la función open() para exportar el historial. División técnica de Backend y Frontend.</p>
-      <div class="btn">Repasar Clase</div>
-    </a>
-
-    <a href="guia_tp2.html" class="card c-pasada">
-      <span class="badge-date">Miércoles 13 de Mayo</span>
-      <h2>Repaso Visual: Tu Chatbot (TP2)</h2>
-      <p>Pestaña interactiva para repasar el bucle While, la inyección del System Prompt y el guardado local.</p>
-      <div class="btn">Repasar Guía</div>
-    </a>
-
-    <a href="Clase_11.html" class="card c-pasada">
-      <span class="badge-date">Viernes 08 de Mayo</span>
-      <h2>Clase 11: El System Prompt y la Memoria</h2>
-      <p>Darle personalidad a la IA. Modificando el historial con el rol 'system' para definir reglas inquebrantables.</p>
-      <div class="btn">Repasar Clase</div>
-    </a>
-
-    <a href="Clase_10.html" class="card c-pasada">
-      <span class="badge-date">Lunes 04 de Mayo</span>
-      <h2>Clase 10: La IA que Recuerda</h2>
-      <p>El problema del estado y la solución: construir el historial de la conversación usando listas en Python.</p>
-      <div class="btn">Repasar Clase</div>
-    </a>
-
-  </div>
-
-  <!-- ══════════════ UNIDADES 1 Y 2 ══════════════ -->
-  <h2 class="section-title">Unidades 1 y 2 (Anteriores)</h2>
-  <div class="grid">
-
-    <a href="clase_9.html" class="card c-pasada">
-      <span class="badge-date">Lunes 27 de Abril</span>
-      <h2>Clase 9: Defensa y Ciberseguridad</h2>
-      <p>Defensa Técnica del TP1 y simulador de Inyección de Prompts (Jailbreak) en la sala de espera.</p>
-      <div class="btn">Repasar Clase</div>
-    </a>
-
-    <a href="desafio_extra.html" class="card c-extra">
-      <span class="badge-date">&gt;_ Lunes 27 · Fase 2</span>
-      <h2>&gt;_ DESAFÍO EXTRA:<br>AHORA DEFENDÉ</h2>
-      <p>Pasaste de atacante a defensor. Diseñá tu propio sistema de seguridad y ponelo a prueba contra un compañero.</p>
-      <div class="btn">&gt;_ REPASAR_DESAFÍO</div>
-    </a>
-
-    <a href="clase_8.html" class="card c-pasada">
-      <span class="badge-date">Lunes 20 de Abril</span>
-      <h2>Clase 8: Frontend y Agencia IA</h2>
-      <p>Terminamos la Fase 2 del TP1 y creamos el Branding (identidad visual) de nuestro Chatbot interactivo.</p>
-      <div class="btn">Repasar Clase</div>
-    </a>
-
-    <a href="clase_7.html" class="card c-pasada" style="border-top-color: var(--tp);">
-      <span class="badge-date" style="color: var(--tp);">Viernes 17 de Abril</span>
-      <h2>Clase 7: TP1 (Fase 1)</h2>
-      <p>Desarrollo del Backend. Armado del motor de conexión, funciones y prompt dinámico para el Chatbot.</p>
-      <div class="btn" style="background: #FAF5FF; color: var(--tp); border: 2px solid var(--tp);">Repasar TP1</div>
-    </a>
-
-    <a href="clase_6.html" class="card c-pasada">
-      <span class="badge-date">Lunes 13 de Abril</span>
-      <h2>Anatomía de la Inferencia</h2>
-      <p>Análisis de la respuesta de la IA, consumo de créditos y el parámetro Temperature.</p>
-      <div class="btn">Repasar Clase</div>
-    </a>
-
-    <a href="clase_5.html" class="card c-pasada">
-      <span class="badge-date">Viernes 10 de Abril</span>
-      <h2>La Primera Llamada Real</h2>
-      <p>Generación de API Key, estructura de Headers y conexión a Groq.</p>
-      <div class="btn">Repasar Clase</div>
-    </a>
-
-  </div>
-</div>
-
-<script>
-  let modoProfe = false;
-
-  function lockClassesWithTime() {
-    if (modoProfe) return;
-    const now = new Date();
-    document.querySelectorAll('.card[data-unlock]').forEach(card => {
-      const unlockTime = new Date(card.getAttribute('data-unlock'));
-      const btn   = card.querySelector('.btn');
-      const label = card.getAttribute('data-label') || 'Abrir';
-      const href  = card.getAttribute('data-href-orig') || card.getAttribute('href');
-      if (!card.getAttribute('data-href-orig') && href && href !== '#') {
-        card.setAttribute('data-href-orig', href);
-      }
-      if (now < unlockTime) {
-        card.classList.add('card-locked');
-        card.removeAttribute('href');
-        btn.classList.add('locked');
-        const d  = String(unlockTime.getDate()).padStart(2,'0');
-        const m  = String(unlockTime.getMonth()+1).padStart(2,'0');
-        const h  = String(unlockTime.getHours()).padStart(2,'0');
-        const mn = String(unlockTime.getMinutes()).padStart(2,'0');
-        btn.textContent = `🔒 Se habilita el ${d}/${m} a las ${h}:${mn}`;
-        card.classList.remove('c-actual','c-tp-nuevo');
-        card.classList.add('c-futura');
-      } else {
-        card.classList.remove('card-locked');
-        const orig = card.getAttribute('data-href-orig');
-        if (orig) card.setAttribute('href', orig);
-        btn.classList.remove('locked');
-        btn.innerHTML = label;
-        card.classList.remove('c-futura');
-        if (label === 'Abrir Evaluación') card.classList.add('c-tp-nuevo');
-        else card.classList.add('c-actual');
-      }
-    });
-  }
-
-  document.addEventListener('keydown', function(e) {
-    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'u') {
-      modoProfe = !modoProfe;
-      if (modoProfe) {
-        document.querySelectorAll('.card[data-unlock]').forEach(card => {
-          const btn   = card.querySelector('.btn');
-          const orig  = card.getAttribute('data-href-orig');
-          const label = card.getAttribute('data-label');
-          card.classList.remove('card-locked');
-          if (orig) card.setAttribute('href', orig);
-          btn.classList.remove('locked');
-          btn.innerHTML = '🔓 Desbloqueada (Modo Profe)';
-          btn.style.background = '#8E24AA';
-          btn.style.color = 'white';
-          btn.style.borderColor = '#8E24AA';
-          card.classList.remove('c-futura');
-          if (label === 'Abrir Evaluación') card.classList.add('c-tp-nuevo');
-          else card.classList.add('c-actual');
-        });
-      } else {
-        document.querySelectorAll('.card[data-unlock] .btn').forEach(btn => {
-          btn.style.background = '';
-          btn.style.color = '';
-          btn.style.borderColor = '';
-        });
-        lockClassesWithTime();
-      }
-    }
-  });
-
-  window.onload = lockClassesWithTime;
-  setInterval(lockClassesWithTime, 30000);
+  setInterval(lockClassesWithTime, 30000); /* Chequea cada 30 segundos */
 </script>
 </body>
 </html>
