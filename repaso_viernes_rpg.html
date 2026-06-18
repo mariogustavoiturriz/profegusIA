@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Repaso Defensa Oral — Proyecto RPG</title>
+<style>
+  :root{
+    --nav:#1A2C3A;--teal:#00949A;--vio:#3D5A99;--g2:#2E6820;
+    --amb:#D4873A;--rpg:#5C2070;--bd:#C5D2DC;--gris:#F3F6F9;
+    --txt:#2C3E50;--r:10px;--rojo:#C62828;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);font-size:17px;line-height:1.6;padding-bottom:60px;}
+
+  /* ── SCORE BAR ── */
+  .score-bar{background:var(--nav);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:10;}
+  .score-bar h1{font-size:17px;text-transform:uppercase;letter-spacing:1px;flex:1;}
+  .score-display{font-size:20px;font-weight:bold;font-family:'Consolas',monospace;background:rgba(255,255,255,.15);padding:6px 16px;border-radius:8px;}
+  .btn-reset{background:transparent;border:2px solid rgba(255,255,255,.4);color:#fff;padding:6px 14px;border-radius:8px;font-size:14px;font-weight:bold;cursor:pointer;}
+  .btn-reset:hover{background:rgba(255,255,255,.15);}
+
+  /* ── CONTAINER ── */
+  .container{width:94%;max-width:820px;margin:0 auto;padding-top:28px;}
+
+  /* ── SECCIÓN ── */
+  .seccion{margin-bottom:28px;}
+  .sec-titulo{padding:12px 20px;border-radius:var(--r) var(--r) 0 0;font-size:15px;font-weight:bold;text-transform:uppercase;letter-spacing:.5px;color:#fff;display:flex;justify-content:space-between;align-items:center;}
+  .s-cod {background:var(--vio);}
+  .s-dis {background:var(--g2);}
+  .s-json{background:var(--rpg);}
+  .sec-score{font-family:'Consolas',monospace;font-size:14px;background:rgba(255,255,255,.2);padding:3px 10px;border-radius:12px;}
+
+  /* ── TARJETA PREGUNTA ── */
+  .qa-card{background:#fff;border:2px solid var(--bd);border-top:none;padding:20px 22px;}
+  .qa-card:last-child{border-radius:0 0 var(--r) var(--r);}
+  .qa-header{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px;}
+  .qa-num{font-weight:bold;font-size:17px;color:#aaa;min-width:28px;padding-top:2px;}
+  .qa-num.cod{color:var(--vio);}
+  .qa-num.dis{color:var(--g2);}
+  .qa-num.json{color:var(--rpg);}
+  .qa-texto{font-size:17px;line-height:1.65;}
+
+  /* ── OPCIONES ── */
+  .opts{display:flex;flex-direction:column;gap:8px;padding-left:40px;}
+  .opt-btn{text-align:left;padding:11px 16px;border-radius:8px;border:2px solid var(--bd);background:var(--gris);font-size:16px;line-height:1.55;cursor:pointer;font-family:inherit;color:var(--txt);transition:.15s;}
+  .opt-btn:hover:not(:disabled){border-color:var(--vio);background:#F0EFFF;}
+  .opt-btn:disabled{cursor:default;}
+  .opt-btn.correcta{border-color:#2E7D32;background:#E8F5E9;color:#1B5E20;font-weight:bold;}
+  .opt-btn.incorrecta{border-color:var(--rojo);background:#FFEBEE;color:var(--rojo);}
+  .opt-btn.neutra:disabled{opacity:.55;}
+
+  /* ── FEEDBACK ── */
+  .feedback{margin-top:12px;margin-left:40px;font-size:15px;font-weight:bold;padding:8px 14px;border-radius:8px;}
+  .feedback.ok {background:#E8F5E9;color:#1B5E20;}
+  .feedback.no {background:#FFEBEE;color:var(--rojo);}
+
+  /* ── NOTA JSON ── */
+  .nota-json{background:#F8F3FF;border:2px solid var(--rpg);border-top:none;border-radius:0 0 var(--r) var(--r);padding:12px 20px;font-size:15px;color:var(--rpg);}
+
+  /* ── RESULTADO FINAL ── */
+  .resultado-final{background:#fff;border:3px solid var(--nav);border-radius:var(--r);padding:28px;text-align:center;margin:24px 0;display:none;}
+  .resultado-final h2{color:var(--nav);font-size:22px;margin-bottom:12px;}
+  .resultado-final .nota-grande{font-size:52px;font-weight:bold;font-family:'Consolas',monospace;margin:10px 0;}
+  .resultado-final p{font-size:17px;color:#555;margin-bottom:16px;}
+  .btn-reintentar{background:var(--nav);color:#fff;border:none;padding:12px 28px;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;}
+
+  code{background:#E8E6FF;color:var(--vio);padding:2px 6px;border-radius:4px;font-family:'Consolas',monospace;font-size:15px;}
+</style>
+</head>
+<body>
+
+<div class="score-bar">
+  <h1>🎮 Repaso Defensa Oral</h1>
+  <div class="score-display" id="score-global">0 / 20</div>
+  <button class="btn-reset" onclick="resetAll()">↺ Reiniciar</button>
+</div>
+
+<div class="container">
+  <div id="resultado-final" class="resultado-final"></div>
+  <div id="quiz-container"></div>
+</div>
+
+<script>
+var SECCIONES = [
+{
+  titulo: "Comprensión del código",
+  cls: "cod", nCls: "cod",
+  preguntas: [
+    {
+      q: "¿Por qué el system prompt va en la posición 0 del historial? ¿Qué pasaría si lo pusieran dentro del <code>while True</code>?",
+      opts: [
+        "Porque la posición 0 es donde van las instrucciones permanentes — es lo primero que lee la IA en cada llamada. Si estuviera dentro del <code>while True</code>, cada turno agregaría una copia nueva al historial, haciéndolo crecer sin control y confundiendo a la IA.",
+        "Porque la IA procesa el historial de atrás hacia adelante, y la posición 0 es la última — la de mayor peso. Dentro del <code>while True</code> se ejecutaría igual, pero el historial se borraría al final de cada turno para evitar duplicados.",
+        "Porque consultar_ia() extrae automáticamente la posición 0 antes de armar el payload, evitando que se cuente como parte del historial visible. Si estuviera dentro del <code>while True</code>, la función lo ignoraría y el guion no llegaría a la IA.",
+        "Porque la API requiere que el primer mensaje sea del rol 'user', y el system prompt en posición 0 actúa como prefijo invisible. Dentro del <code>while True</code> se convertiría en un mensaje de usuario más y la IA lo leería como acción del jugador."
+      ],
+      ok: 0
+    },
+    {
+      q: "¿Qué hace <code>.strip()</code> al final del <code>input()</code>? ¿Qué problema evita?",
+      opts: [
+        "Convierte todo el texto a mayúsculas para comparar sin importar cómo lo escriba el jugador. Sin <code>.strip()</code>, los comandos solo funcionarían si el jugador los escribe exactamente como están en el código, incluyendo el uso de mayúsculas y minúsculas.",
+        "Elimina los espacios en blanco al principio y al final del texto — para que <code>'  /estado  '</code> y <code>'/estado'</code> sean lo mismo. Sin <code>.strip()</code>, un espacio accidental haría que el <code>if</code> no reconociera el comando y lo mandaría a la IA como acción del jugador.",
+        "Divide el texto en una lista de palabras y devuelve la primera, que es el comando. Sin <code>.strip()</code>, el programa no podría distinguir entre el nombre del comando y los argumentos que el jugador escribe después de él.",
+        "Verifica que el texto no esté vacío y lanza un error controlado si lo está. Sin <code>.strip()</code>, el <code>while True</code> se detendría cada vez que el jugador presionara Enter sin escribir nada, cerrando el programa inesperadamente."
+      ],
+      ok: 1
+    },
+    {
+      q: "¿Por qué <code>consultar_ia()</code> termina con <code>return</code> y no con <code>print</code>? ¿Qué pasaría si pusieran <code>print</code> adentro?",
+      opts: [
+        "Porque <code>print</code> no puede usar el resultado de una llamada a la API — solo muestra texto fijo o variables ya cargadas. Con <code>print</code> adentro, la respuesta se mostraría correctamente pero <code>consultar_ia()</code> devolvería <code>None</code> y el historial quedaría incompleto.",
+        "Porque la API de Groq solo acepta funciones que terminan con <code>return</code> — si termina con <code>print</code>, la llamada falla con un error de protocolo. Con <code>print</code> adentro, el modelo devolvería siempre la misma respuesta sin importar el historial.",
+        "Con <code>return</code>, el resultado queda en una variable que el programa puede usar — guardarlo en el historial, mostrarlo con formato, usarlo después. Con <code>print</code> adentro, se mostraría en pantalla pero no podría guardarse en el historial ni procesarse.",
+        "Porque <code>print</code> dentro de una función libera la memoria del resultado inmediatamente, causando un error cuando el historial supera los 10 mensajes. Con <code>return</code>, el programa gestiona la memoria de forma eficiente durante toda la partida."
+      ],
+      ok: 2
+    },
+    {
+      q: "¿Qué tiene que pasar para que el <code>while True</code> termine? ¿Cuántas formas de salida tiene el programa?",
+      opts: [
+        "El <code>while True</code> termina automáticamente cuando el historial supera los 100 mensajes, para evitar partidas demasiado largas. En el programa hay solo una forma natural de salida, aunque un error no controlado también puede cerrarlo.",
+        "El <code>while True</code> termina cuando la IA devuelve el texto especial <code>'FIN_PARTIDA'</code>, que el programa detecta y usa para ejecutar un <code>break</code>. Podría haber más de una salida si el jugador llega a un HP menor o igual a cero.",
+        "El <code>while True</code> termina cuando el código ejecuta un <code>break</code>. En el programa hay al menos una salida: cuando el jugador escribe 'salir'. Si implementaron más comandos con <code>break</code> o hay una excepción no atrapada, también puede terminar.",
+        "El <code>while True</code> termina cuando <code>consultar_ia()</code> devuelve <code>None</code>, indicando que la conexión a la API falló. La única salida intencional es cuando el jugador escribe 'salir', pero cualquier error sin <code>try/except</code> también lo cierra."
+      ],
+      ok: 2
+    },
+    {
+      q: "¿Qué pasa si sacan el <code>continue</code> del comando <code>/estado</code>?",
+      opts: [
+        "El programa mostraría el estado dos veces en pantalla — una por el <code>if</code> y otra porque el turno normal también ejecuta el <code>print</code> del inventario. Sin <code>continue</code>, todos los comandos mostrarían sus resultados duplicados.",
+        "Python lanzaría un <code>SyntaxError</code> porque <code>continue</code> es obligatorio al final de cualquier bloque <code>if</code> dentro de un <code>while True</code>. Sin él, el intérprete no puede saber dónde termina el comando y dónde empieza el siguiente.",
+        "El comando <code>/estado</code> dejaría de funcionar y Python ignoraría esa rama del <code>if</code>. Sin <code>continue</code>, el compilador detecta código inalcanzable después del bloque y deshabilita el comando completo.",
+        "Después de mostrar el estado, el código seguiría ejecutándose y llegaría al bloque del turno normal, mandando '<code>/estado</code>' a la IA como si fuera una acción del jugador. La IA intentaría narrar algo sobre ver el estado en la historia."
+      ],
+      ok: 3
+    },
+    {
+      q: "¿Por qué en <code>/guardar</code> se usa <code>historial[1:]</code> y no <code>historial</code>? ¿Qué hay en la posición 0?",
+      opts: [
+        "Para no guardar el system prompt (posición 0) — solo interesa guardar los mensajes reales de la partida. Si usaran <code>historial</code> completo, el archivo empezaría con todo el guion mezclado con la conversación, haciéndolo difícil de leer.",
+        "Porque Python no puede escribir el primer elemento de una lista en un archivo de texto — solo puede escribir desde la posición 1 en adelante. Si usaran <code>historial</code>, el programa lanzaría un <code>IndexError</code> al intentar guardar.",
+        "Para que el archivo <code>partida.txt</code> ocupe menos espacio — el system prompt es el texto más largo del historial y omitirlo reduce el tamaño a la mitad. Si usaran <code>historial</code> completo, el archivo superaría el límite de Colab.",
+        "Porque la API de Groq marca los mensajes en posición 0 como confidenciales y no permite guardarlos en archivos locales. Si usaran <code>historial</code> completo, el programa lanzaría un <code>PermissionError</code> al intentar escribir."
+      ],
+      ok: 0
+    },
+    {
+      q: "¿Qué hace <code>accion[7:]</code> en el comando <code>/tomar</code>? Si hicieron <code>/soltar</code>, ¿por qué el número cambia?",
+      opts: [
+        "<code>accion[7:]</code> toma los últimos 7 caracteres del texto — por ejemplo de <code>'/tomar linterna'</code> devuelve <code>'erna'</code>. Para <code>/soltar</code> el número cambia porque el objeto a soltar siempre se escribe antes del comando.",
+        "<code>accion[7:]</code> verifica que el texto tenga más de 7 caracteres y devuelve <code>True</code> o <code>False</code> — es la condición que permite saber si el jugador escribió un objeto después del comando. Para <code>/soltar</code> el umbral cambia porque el comando es más corto.",
+        "<code>accion[7:]</code> corta los primeros 7 caracteres (<code>'/tomar '</code>) y devuelve el resto — el nombre del objeto. Para <code>/soltar</code> el número es 8 porque <code>'/soltar '</code> tiene 8 caracteres, y cortando 8 queda solo el objeto.",
+        "<code>accion[7:]</code> divide el texto en dos partes iguales y devuelve la segunda — el nombre del objeto siempre queda en la mitad derecha. Para <code>/soltar</code> el número cambia porque el comando tiene distinta longitud y altera el punto de división."
+      ],
+      ok: 2
+    },
+    {
+      q: "¿Qué hace el <code>try/except</code> en el comando <code>/hp</code>? ¿Cuándo entraría al <code>except</code>?",
+      opts: [
+        "El <code>except</code> se activa siempre que el jugador use el comando <code>/hp</code> — registra el cambio de vida en un log interno antes de procesarlo. Sin <code>try/except</code>, el programa actualizaría el HP pero no guardaría historial de los cambios.",
+        "El <code>except</code> entra cuando el jugador escribe letras en lugar de un número — <code>int()</code> no puede convertirlas y sin <code>try/except</code> el programa explotaría con un <code>ValueError</code>. Con él, el programa muestra el mensaje de ayuda y sigue corriendo.",
+        "El <code>except</code> se activa cuando el HP del jugador llega a 0, capturando el error que genera Python al intentar calcular el porcentaje de vida restante. Sin <code>try/except</code>, el juego terminaría abruptamente cuando el personaje muere.",
+        "El <code>except</code> verifica que la conexión a internet esté activa antes de procesar el cambio de HP. Si hay un error de red, muestra el mensaje de ayuda en lugar de colgar el programa. Sin él, el comando <code>/hp</code> bloquearía el juego si hay problemas de conexión."
+      ],
+      ok: 1
+    },
+    {
+      q: "¿Qué hace <code>.lower()</code> en <code>accion.lower() == '/estado'</code>? ¿Por qué es importante?",
+      opts: [
+        "Elimina los espacios en blanco del texto antes de comparar, de la misma forma que <code>.strip()</code> pero actuando también sobre los espacios del medio. Sin <code>.lower()</code>, los comandos con espacios adicionales en el nombre no funcionarían correctamente.",
+        "Convierte el texto a minúsculas para que <code>'/ESTADO'</code>, <code>'/Estado'</code> y <code>'/estado'</code> activen el mismo comando. Sin <code>.lower()</code>, el jugador tendría que escribir el comando exactamente en minúsculas o el programa no lo reconocería.",
+        "Verifica que el texto sea una cadena válida y no un número o un <code>None</code> — si el jugador cierra el input de forma inesperada, <code>.lower()</code> captura el error antes de que llegue al <code>if</code>, evitando un <code>AttributeError</code>.",
+        "Convierte el texto a una secuencia de códigos en minúsculas para que la comparación sea más rápida. Sin <code>.lower()</code>, Python compararía carácter por carácter en formato Unicode, haciendo el programa notablemente más lento con textos largos."
+      ],
+      ok: 1
+    },
+    {
+      q: "¿Por qué <code>consultar_ia()</code> recibe el historial completo en cada llamada y no solo el último mensaje?",
+      opts: [
+        "Porque la API de Groq cobra menos créditos cuando recibe el historial completo de una vez — es una optimización del servidor para conversaciones largas que reduce el costo a la mitad respecto de mandar mensajes individuales.",
+        "Porque Python no puede pasar un elemento suelto de una lista a una función sin hacer una copia profunda — mandar el historial completo evita un bug donde la función modifica accidentalmente el original.",
+        "Para que <code>consultar_ia()</code> pueda calcular automáticamente cuántos mensajes han pasado y ajustar la temperatura según la longitud de la partida — con más mensajes, la creatividad baja para mantener la coherencia narrativa.",
+        "Porque la IA no tiene memoria propia — si solo recibiera el último mensaje, olvidaría todo lo que pasó antes y no podría narrar con coherencia. Necesita el historial completo para saber qué ocurrió en turnos anteriores."
+      ],
+      ok: 3
+    },
+    {
+      q: "¿Qué pasaría si en <code>/tomar</code> no se verificara que el objeto no está vacío antes del <code>.append()</code>?",
+      opts: [
+        "Python lanzaría un <code>ValueError</code> porque <code>.append()</code> no acepta strings vacías como argumento — requiere que el objeto tenga al menos un carácter. Sin la verificación, el programa explotaría cada vez que el jugador escribe <code>'/tomar'</code> sin objeto.",
+        "El comando <code>/tomar</code> dejaría de funcionar completamente — Python interpreta un <code>.append()</code> con string vacía como una señal de que la lista está llena y bloquea todas las escrituras siguientes al inventario.",
+        "Si el jugador escribe <code>'/tomar'</code> sin nombre, el inventario agregaría una cadena vacía <code>''</code> y el <code>/estado</code> mostraría un ítem en blanco. El jugador tendría un objeto invisible en el inventario.",
+        "La IA recibiría el inventario con un elemento vacío y lo interpretaría como un objeto mágico sin nombre, narrando que el jugador cargó algo desconocido y creando efectos de juego que nadie programó."
+      ],
+      ok: 2
+    },
+    {
+      q: "¿Cuál de estas líneas es la que hace que la IA 'recuerde' su propia respuesta en el siguiente turno?",
+      opts: [
+        "<code>narracion = consultar_ia(historial, 0.8)</code> — esta línea conecta con la API y trae la respuesta. Sin ella la IA no respondería nada y el historial quedaría igual que antes del turno, perdiendo el intercambio.",
+        "<code>print(f'\n🌲 {narracion}\n')</code> — esta línea muestra la respuesta en pantalla y al mismo tiempo la registra en el buffer de salida que Python usa como historial interno de la sesión.",
+        "<code>historial.append({'role': 'assistant', 'content': narracion})</code> — esta línea agrega la respuesta de la IA al historial. Sin ella, la IA recibiría en el siguiente turno un historial sin su propia respuesta y olvidaría lo que acaba de narrar.",
+        "<code>jugador['hp'] = jugador['hp'] + cambio</code> — esta línea actualiza el estado del jugador que se manda oculto en cada turno, permitiéndole a la IA saber la vida actual y adaptar la narración al estado del personaje."
+      ],
+      ok: 2
+    }
+  ]
+},
+{
+  titulo: "Decisiones de diseño",
+  cls: "dis", nCls: "dis",
+  preguntas: [
+    {
+      q: "¿Por qué el HP y el inventario se mandan ocultos dentro del mensaje a la IA en cada turno?",
+      opts: [
+        "Para que el jugador no pueda ver qué información tiene la IA en cada momento — si la viera, podría manipular las reglas. Sin este mecanismo, la IA podría ignorar el inventario y narrar que el jugador usa objetos que no tiene.",
+        "Porque la API de Groq tiene un límite de caracteres por mensaje, y meter el estado en el mensaje del usuario ocupa menos que repetirlo en el system prompt cada turno. Sin esto, muchas partidas largas fallarían por superar el límite.",
+        "Porque el estado cambia durante la partida — si solo estuviera en el system prompt, la IA siempre vería el estado inicial y no sabría que el jugador tomó un objeto o perdió vida. Incluyéndolo en cada turno, la IA trabaja con datos actualizados.",
+        "Para que <code>consultar_ia()</code> pueda extraer el estado del mensaje sin necesitar parámetros adicionales — es una forma de pasar datos sin modificar la firma de la función. Sin esto, habría que cambiar la función para cada partida distinta."
+      ],
+      ok: 2
+    },
+    {
+      q: "¿Qué regla del guion fue más difícil de que la IA respete? ¿Qué cambiaron?",
+      opts: [
+        "Siempre es la temperatura — hay que bajarla a 0.1 para que la IA respete cualquier regla del guion. Con temperatura alta, el modelo es demasiado creativo y omite las restricciones más específicas del narrador.",
+        "Depende del grupo. Lo importante es nombrar una regla concreta y explicar qué cambio hicieron — por ejemplo escribirla en mayúsculas o repetirla al final del guion, donde las instrucciones tienen más peso para el modelo.",
+        "El guion nunca falla si está bien escrito — si la IA no respeta una regla es siempre un bug del código, donde falta un <code>if</code> que valide la respuesta antes de agregarla al historial.",
+        "Las reglas del guion no se pueden cambiar una vez que el programa corre — el system prompt queda fijo en la posición 0 y solo se puede modificar reiniciando el programa desde cero."
+      ],
+      ok: 1
+    },
+    {
+      q: "Si la IA toma una decisión por el jugador, ¿es un bug del código o del system prompt? ¿Cómo lo resolverían?",
+      opts: [
+        "Del código — hay que agregar un <code>if</code> después de <code>consultar_ia()</code> que analice la respuesta y la descarte si contiene texto que indique una decisión. Si no pasa la validación, el programa le pide otra respuesta a la IA automáticamente.",
+        "Del historial — hay que limpiarlo y empezar la partida de cero cuando la IA se desvía. Con el historial acumulado, la IA aprende de sus propias respuestas anteriores y refuerza el comportamiento incorrecto en cada turno siguiente.",
+        "Del system prompt — el código solo arma y manda el mensaje, no controla lo que responde la IA. La solución está en el guion: agregar la prohibición de forma más explícita y repetirla al final, donde tiene más peso para el modelo.",
+        "De la temperatura — con 0.8 el modelo es demasiado libre y toma decisiones creativas. Bajando la temperatura a 0.3 o menos, la IA se vuelve más literal y respeta las restricciones del narrador sin improvisar."
+      ],
+      ok: 2
+    },
+    {
+      q: "¿Por qué el primer turno se fuerza antes del <code>while True</code>? ¿Qué pasaría si no estuviera?",
+      opts: [
+        "Para que el system prompt se cargue correctamente antes del primer <code>input()</code> — sin este turno, Python ejecuta el <code>while True</code> antes de procesar el historial y el guion no llega a la IA en el primer mensaje.",
+        "Porque la API de Groq no acepta llamadas desde dentro de un <code>while True</code> — la primera llamada siempre tiene que hacerse antes del bucle para inicializar la sesión con el modelo correctamente.",
+        "Sin él el historial quedaría con un solo elemento y Python lanzaría un <code>IndexError</code> al intentar acceder a <code>historial[1]</code> en el comando <code>/guardar</code> antes de que haya mensajes reales de la partida.",
+        "Sin él habría un bloqueo: el jugador espera que la IA describa la escena inicial y la IA espera que el jugador escriba algo primero. Nadie arranca. El primer turno forzado rompe ese bloqueo mandando el mensaje de inicio automáticamente."
+      ],
+      ok: 3
+    },
+    {
+      q: "¿Qué cambiaría en la narración si la temperatura fuera 0.1 en lugar de 0.8?",
+      opts: [
+        "El programa haría llamadas más rápidas a la API porque 0.1 le indica al servidor que procese el texto con menor resolución, reduciendo el tiempo de respuesta a la mitad. Con 0.8, cada llamada tarda más porque el modelo evalúa más opciones.",
+        "La IA respondería siempre en inglés porque 0.1 es el valor por defecto del modelo para texto en español — con valores mayores el modelo activa el soporte multilingüe completo y responde en el idioma del historial.",
+        "La narración sería más predecible y repetitiva — dos partidas con la misma acción darían casi el mismo texto. Con 0.8, el modelo elige palabras y giros de forma más libre, haciendo cada partida diferente.",
+        "La IA ignoraría el system prompt porque 0.1 activa el modo instrucción estricta del modelo, donde solo responde a comandos directos del usuario y filtra las instrucciones del rol 'system' del historial."
+      ],
+      ok: 2
+    }
+  ]
+},
+{
+  titulo: "Solo Grupos de 3 — Desafío JSON",
+  cls: "json", nCls: "json",
+  preguntas: [
+    {
+      q: "¿Qué hace <code>json.loads()</code>? ¿Qué tipo de dato devuelve?",
+      opts: [
+        "Guarda un diccionario de Python en formato JSON dentro del historial para que la IA pueda leerlo en el siguiente turno. Se usa en lugar de <code>str()</code> porque produce un formato que la IA interpreta más fácilmente en sus respuestas.",
+        "Verifica que el texto recibido tenga estructura JSON válida y devuelve <code>True</code> si es correcto o <code>False</code> si tiene errores. Se usa antes de acceder a <code>datos['narrativa']</code> para evitar un <code>KeyError</code> si la IA no devolvió el campo esperado.",
+        "Convierte un texto con formato JSON en un diccionario de Python, con el que podés acceder a los datos con claves como <code>datos['narrativa']</code> o <code>datos['hp_cambio']</code>. Sin él, todo sería texto y no podríamos separar la narrativa del número de daño.",
+        "Conecta el programa con la API en modo JSON, indicando al servidor que las respuestas deben venir estructuradas como objetos. Se activa automáticamente con <code>import json</code> al inicio y valida el formato en cada llamada a <code>consultar_ia()</code>."
+      ],
+      ok: 2
+    },
+    {
+      q: "¿Por qué <code>json.loads()</code> falla cuando la IA agrega texto antes del JSON? ¿Cómo lo resolvieron?",
+      opts: [
+        "Porque <code>json.loads()</code> tiene un límite de 200 caracteres por llamada, y el texto extra hace que se supere ese límite. Se resuelve cortando la respuesta con <code>narracion[:200]</code> antes del <code>json.loads()</code>.",
+        "Porque espera que el texto empiece y termine exactamente con el JSON — cualquier texto extra hace que falle. Se resuelve detectando y eliminando las líneas de <code>```json</code> y <code>```</code> que el modelo agrega antes del <code>json.loads()</code>.",
+        "Porque Python no puede procesar strings que mezclan JSON con texto plano en la misma variable — son tipos incompatibles. Se resuelve dividiendo la respuesta con <code>split()</code> antes de llamar a <code>json.loads()</code>.",
+        "Porque la API codifica los caracteres especiales del JSON en base64 cuando hay texto extra alrededor, y <code>json.loads()</code> no puede decodificar ese formato. Se resuelve usando <code>base64.decode(narracion)</code> antes del <code>json.loads()</code>."
+      ],
+      ok: 1
+    },
+    {
+      q: "¿Qué instrucción hay que agregar al system prompt para que la IA devuelva solo JSON? ¿Por qué tiene que ir al final?",
+      opts: [
+        "<code>import json</code> — tiene que ir al final del guion para que el módulo se cargue después de que el historial esté inicializado. Si va al principio del archivo Python, el import no tiene efecto sobre el system prompt.",
+        "Una instrucción explícita como 'Respondé ÚNICAMENTE con un JSON válido, sin texto extra'. Va al final porque los modelos dan más peso a lo que leen último — es lo que procesan justo antes de generar la respuesta.",
+        "Una variable global <code>JSON_MODE = True</code> que activa el modo de salida estructurada en la API. Va al final del archivo Python porque Python la evalúa antes de hacer la primera llamada a <code>consultar_ia()</code>.",
+        "No hace falta agregar nada al system prompt — alcanza con agregar <code>response_format={'type': 'json_object'}</code> dentro del payload de <code>consultar_ia()</code>, que le indica directamente a la API que espera JSON."
+      ],
+      ok: 1
+    }
+  ]
+}
+];
+
+// ── Estado global ──
+var respuestas = {};
+var shuffleState = {};
+var totalRespondidas = 0;
+var totalCorrectas = 0;
+var totalPreguntas = 0;
+
+SECCIONES.forEach(function(s){ totalPreguntas += s.preguntas.length; });
+
+function shuffle(arr){
+  var a = arr.slice();
+  for(var i = a.length-1; i>0; i--){
+    var j = Math.floor(Math.random()*(i+1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+
+function render(){
+  var container = document.getElementById('quiz-container');
+  container.innerHTML = '';
+  var numGlobal = 1;
+
+  SECCIONES.forEach(function(sec, si){
+    var div = document.createElement('div');
+    div.className = 'seccion';
+
+    var header = '<div class="sec-titulo s-' + sec.cls + '">' +
+      '<span>' + sec.titulo + '</span>' +
+      '<span class="sec-score" id="sec-score-' + si + '">0 / ' + sec.preguntas.length + '</span>' +
+    '</div>';
+
+    var cards = '';
+    sec.preguntas.forEach(function(p, pi){
+      var id = si + '_' + pi;
+      // Shuffle opciones para esta pregunta
+      var indexed = p.opts.map(function(opt,i){ return {opt:opt,orig:i}; });
+      var shuffled = shuffle(indexed);
+      var newOk = 0;
+      shuffled.forEach(function(item,i){ if(item.orig===p.ok) newOk=i; });
+      shuffleState[id] = { opts: shuffled.map(function(s){ return s.opt; }), ok: newOk };
+
+      var optsHTML = '';
+      shuffleState[id].opts.forEach(function(opt, oi){
+        optsHTML += '<button class="opt-btn" id="opt_' + id + '_' + oi + '" onclick="elegir(' + si + ',' + pi + ',' + oi + ')">' +
+          opt + '</button>';
+      });
+      cards += '<div class="qa-card" id="card_' + id + '">' +
+        '<div class="qa-header">' +
+          '<div class="qa-num ' + sec.nCls + '">' + numGlobal + '</div>' +
+          '<div class="qa-texto">' + p.q + '</div>' +
+        '</div>' +
+        '<div class="opts">' + optsHTML + '</div>' +
+        '<div class="feedback" id="fb_' + id + '" style="display:none"></div>' +
+      '</div>';
+      numGlobal++;
+    });
+
+    var notaJson = si === 2 ? '<div class="nota-json">Grupos A, B y E recibirán una pregunta de esta sección.</div>' : '';
+    div.innerHTML = header + cards + notaJson;
+    container.appendChild(div);
+  });
+}
+
+function elegir(si, pi, oi){
+  var id = si + '_' + pi;
+  if(respuestas[id] !== undefined) return; // ya respondió
+
+  var p = SECCIONES[si].preguntas[pi];
+  var state = shuffleState[id];
+  var correcto = oi === state.ok;
+  respuestas[id] = correcto;
+  totalRespondidas++;
+  if(correcto) totalCorrectas++;
+
+  // Colorear opciones
+  state.opts.forEach(function(_, i){
+    var btn = document.getElementById('opt_' + id + '_' + i);
+    btn.disabled = true;
+    if(i === state.ok)  btn.className = 'opt-btn correcta';
+    else if(i === oi)   btn.className = 'opt-btn incorrecta';
+    else                btn.className = 'opt-btn neutra';
+  });
+
+  // Feedback
+  var fb = document.getElementById('fb_' + id);
+  fb.style.display = 'block';
+  if(correcto){
+    fb.className = 'feedback ok';
+    fb.textContent = '✅ Correcto';
+  } else {
+    fb.className = 'feedback no';
+    fb.textContent = '❌ Incorrecto — la respuesta correcta está marcada en verde.';
+  }
+
+  // Actualizar scores
+  actualizarScore(si);
+  actualizarGlobal();
+
+  // Mostrar resultado final si terminó todo
+  if(totalRespondidas === totalPreguntas){
+    mostrarFinal();
+  }
+}
+
+function actualizarScore(si){
+  var sec = SECCIONES[si];
+  var correctas = 0;
+  sec.preguntas.forEach(function(_, pi){
+    var id = si + '_' + pi;
+    if(respuestas[id] === true) correctas++;
+  });
+  var el = document.getElementById('sec-score-' + si);
+  if(el) el.textContent = correctas + ' / ' + sec.preguntas.length;
+}
+
+function actualizarGlobal(){
+  var el = document.getElementById('score-global');
+  if(el) el.textContent = totalCorrectas + ' / ' + totalPreguntas;
+}
+
+function mostrarFinal(){
+  var pct = Math.round(totalCorrectas / totalPreguntas * 100);
+  var msg = pct >= 80 ? '¡Estás listo para la defensa! 💪' :
+            pct >= 60 ? 'Bien encaminado — repasá las que marcaron en rojo.' :
+                        'Repasá las secciones donde te fue menos bien antes del viernes.';
+  var color = pct >= 80 ? '#1B5E20' : pct >= 60 ? '#E65100' : '#C62828';
+
+  var rf = document.getElementById('resultado-final');
+  rf.style.display = 'block';
+  rf.innerHTML = '<h2>Resultado del repaso</h2>' +
+    '<div class="nota-grande" style="color:' + color + '">' + totalCorrectas + ' / ' + totalPreguntas + '</div>' +
+    '<p>' + msg + '</p>' +
+    '<button class="btn-reintentar" onclick="resetAll()">↺ Volver a intentar</button>';
+  rf.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function resetAll(){
+  respuestas = {};
+  shuffleState = {};
+  totalRespondidas = 0;
+  totalCorrectas = 0;
+  document.getElementById('resultado-final').style.display = 'none';
+  actualizarGlobal();
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+render();
+</script>
+</body>
+</html>
