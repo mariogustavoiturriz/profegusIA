@@ -221,9 +221,16 @@ function renderQ(key){
   var c=document.getElementById('qz-'+key);if(!c)return;
   QS[key].forEach(function(q,qi){
     var d=document.createElement('div');d.className='q-item';
-    d.innerHTML='<div class="q-texto">'+(qi+1)+'. '+q.q+'</div><div class="q-opts">'
-      +q.opts.map(function(o,oi){return '<button class="q-btn" onclick="resp(''+key+'','+qi+','+oi+','+q.ok+',this)">'+o+'</button>';}).join('')
-      +'</div><div class="q-fb" id="fb-'+key+'-'+qi+'" style="display:none"></div>';
+    var optsHtml='';
+    q.opts.forEach(function(o,oi){
+      optsHtml+='<button class="q-btn" data-key="'+key+'" data-qi="'+qi+'" data-oi="'+oi+'" data-ok="'+q.ok+'">'+o+'</button>';
+    });
+    d.innerHTML='<div class="q-texto">'+(qi+1)+'. '+q.q+'</div><div class="q-opts">'+optsHtml+'</div><div class="q-fb" id="fb-'+key+'-'+qi+'" style="display:none"></div>';
+    d.querySelectorAll('.q-btn').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        resp(this.dataset.key,+this.dataset.qi,+this.dataset.oi,+this.dataset.ok,this);
+      });
+    });
     c.appendChild(d);
   });
 }
