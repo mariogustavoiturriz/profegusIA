@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desafío — Martín Huide Lovisolo</title>
+<style>
+
+  :root{
+    --nav:#1A2C3A;--teal:#00949A;--g2:#2E6820;--g2-bg:#EFF8EE;
+    --amb:#D4873A;--abg:#FFF8EE;--vio:#3D5A99;--viobg:#F0EFFF;
+    --bd:#C5D2DC;--gris:#F3F6F9;--txt:#2C3E50;--bco:#FFFFFF;--r:10px;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;--azul:#1565C0;--azul-bg:#E3F2FD;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:19px;padding:15px 0 50px;}
+  header{background:var(--nav);color:#fff;padding:22px 20px;border-bottom:5px solid var(--amb);}
+  header h1{font-size:22px;margin-bottom:4px;text-transform:uppercase;}
+  header p{font-size:16px;opacity:.9;}
+  .container{width:95%;max-width:1100px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:18px;margin-bottom:16px;padding:9px 18px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  /* Tabs */
+  .tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:0;}
+  .tab{padding:9px 14px;background:#fff;border:2px solid var(--bd);border-radius:var(--r) var(--r) 0 0;cursor:pointer;font-weight:bold;font-size:15px;color:#888;white-space:nowrap;}
+  .tab.activo{background:var(--nav);color:#fff;border-color:var(--nav);}
+  .panel{display:none;background:#fff;border:2px solid var(--bd);border-top:none;border-radius:0 0 var(--r) var(--r);padding:24px;}
+  .panel.activo{display:block;}
+  .est-titulo{font-size:20px;font-weight:bold;color:var(--nav);margin-bottom:4px;}
+  .est-sub{font-size:15px;color:#666;margin-bottom:16px;}
+  .tarea{background:#F3E5F5;border-left:4px solid #7B1FA2;padding:12px 15px;border-radius:6px;margin-bottom:12px;font-size:17px;line-height:1.6;}
+  .tarea strong{color:#7B1FA2;display:block;margin-bottom:4px;}
+  .pistas{background:var(--azul-bg);border-left:4px solid var(--azul);padding:12px 15px;border-radius:6px;margin-bottom:12px;font-size:17px;line-height:1.8;}
+  .pistas strong{color:var(--azul);display:block;margin-bottom:4px;}
+  code{background:#E8E6FF;color:var(--vio);padding:1px 5px;border-radius:4px;font-family:'Consolas',monospace;font-size:16px;}
+  .quiz-sec{margin-top:20px;border-top:2px solid var(--gris);padding-top:16px;}
+  .qt{font-size:17px;font-weight:bold;color:var(--nav);margin-bottom:4px;}
+  .qa{font-size:14px;color:#888;font-style:italic;margin-bottom:12px;}
+  .q-item{border:2px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;}
+  .q-texto{font-size:16px;font-weight:bold;color:var(--nav);margin-bottom:8px;line-height:1.4;}
+  .q-opts{display:flex;flex-direction:column;gap:6px;}
+  .q-btn{text-align:left;padding:8px 12px;border-radius:7px;border:2px solid var(--bd);background:var(--gris);font-size:15px;line-height:1.4;cursor:pointer;font-family:inherit;}
+  .q-btn:hover:not(:disabled){border-color:var(--vio);background:var(--viobg);}
+  .q-btn:disabled{cursor:default;}
+  .q-btn.ok{border-color:var(--g2);background:var(--g2-bg);color:var(--g2);font-weight:bold;}
+  .q-btn.mal{border-color:var(--rojo);background:var(--rojo-bg);color:var(--rojo);}
+  .q-btn.nd:disabled{opacity:.45;}
+  .q-fb{font-size:13px;font-weight:bold;padding:6px 9px;border-radius:6px;margin-top:6px;display:none;}
+  .q-fb.ok{background:var(--g2-bg);color:var(--g2);}
+  .q-fb.mal{background:var(--rojo-bg);color:var(--rojo);}
+
+</style>
+</head>
+<body>
+<header style="background:var(--nav);color:#fff;padding:22px 20px;border-bottom:5px solid var(--amb);">
+  <h1 style="font-size:22px;text-transform:uppercase;margin-bottom:4px;">DESAFÍO — MARTÍN HUIDE LOVISOLO</h1>
+  <p style="font-size:16px;opacity:.85;">Taller de IA Aplicada · CTP Antonio Martín Marte</p>
+</header>
+<div style="width:95%;max-width:860px;margin:0 auto;padding:0 15px;">
+<a href="index.html" style="display:inline-block;margin-top:16px;margin-bottom:16px;padding:9px 18px;background:#fff;color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);">⬅ Índice</a>
+
+<div style="background:var(--amb);color:#fff;border-radius:var(--r);padding:16px 20px;margin-bottom:20px;">
+  <div style="font-size:20px;font-weight:bold;margin-bottom:3px;">HUIDE LOVISOLO, Martín Javier</div>
+  <div style="font-size:15px;opacity:.85;">Desafío: completar el comando /usar</div>
+</div>
+
+<div style="background:#fff;border-radius:var(--r);padding:24px;margin-bottom:18px;box-shadow:0 3px 10px rgba(0,0,0,.08);border-left:6px solid var(--amb);">
+  <div class="tarea">
+    <strong>📋 Tu tarea</strong>
+    Tu comando <code>/usar</code> existe pero no elimina el objeto del inventario después de usarlo. Completá la lógica: verificar que el objeto esté en el inventario, sacarlo, y avisarle a la IA que se usó para que narre el efecto.
+  </div>
+  <div class="pistas">
+    <strong>💡 Pistas</strong>
+    · Para verificar si el objeto está en la lista: <code>if objeto in jugador["inventario"]</code><br>
+    · Para sacarlo: <code>jugador["inventario"].remove(objeto)</code> — es el espejo exacto de <code>.append()</code>.<br>
+    · Después de sacarlo, usá el mismo patrón del turno normal para que la IA narre el efecto: historial.append del mensaje → consultar_ia → historial.append de la respuesta → print.
+  </div>
+  <div class="check">
+    <strong>🧪 Cómo probarlo</strong>
+    Usá <code>/tomar comida</code> y después <code>/usar comida</code>. Verificá con <code>/estado</code> que la comida ya no está. Probá también <code>/usar</code> con un objeto que no tenés — tiene que avisarte sin explotar.
+  </div>
+</div>
+
+<div style="background:#fff;border-radius:var(--r);padding:24px;box-shadow:0 3px 10px rgba(0,0,0,.08);border-left:6px solid var(--g2);">
+  <div style="font-size:17px;font-weight:bold;color:var(--nav);margin-bottom:4px;">Preguntas de defensa <span style="font-size:14px;color:#888;font-weight:normal;" id="sc-martin"></span></div>
+  <div style="font-size:15px;color:#666;font-style:italic;margin-bottom:12px;">⚠️ 2 o 3 de estas preguntas van a ser parte de tu defensa.</div>
+  <div id="qz-martin"></div>
+</div>
+</div>
+
+<script>
+var QS={
+  martin:[
+    {q:"¿Qué hace .remove() en la lista del inventario?",
+     opts:["Vacía toda la lista","Elimina la primera ocurrencia del elemento especificado — es el espejo de .append()","Elimina todos los elementos que coincidan","Devuelve el elemento eliminado sin modificar la lista"],ok:1},
+    {q:"¿Por qué hay que verificar que el objeto esté en el inventario antes de usar .remove()?",
+     opts:["No hace falta verificar, .remove() no falla nunca","Si intentás .remove() de un objeto que no está en la lista, Python lanza un ValueError y el programa explota","La verificación es solo para debug","Para que sea más rápido"],ok:1},
+    {q:"¿Cuál es el operador para verificar si un objeto está en la lista?",
+     opts:["== (igualdad)","in — devuelve True si el elemento está en la lista, False si no","has() — método de lista","exists()"],ok:1},
+    {q:"¿Por qué después de sacar el objeto le avisás a la IA que se usó?",
+     opts:["No hace falta, la IA sabe el inventario sola","La IA recibe el estado del inventario en el mensaje_turno — si sacamos el objeto sin contarle, el jugador podría verse usando algo que ya no existe sin narración","Para guardar el archivo automáticamente","Para que el historial no crezca demasiado"],ok:1},
+    {q:"Después de verificar y sacar el objeto, ¿qué patrón usás para que la IA narre el efecto?",
+     opts:["Solo un print del objeto","El mismo patrón del turno normal: historial.append del mensaje → consultar_ia → historial.append de la respuesta → print","Solo necesitás el consultar_ia","Un print directo sin pasar por el historial"],ok:1}
+  ]
+};
+function renderQ(key){
+  var c=document.getElementById('qz-'+key);if(!c)return;
+  QS[key].forEach(function(q,qi){
+    var d=document.createElement('div');d.className='q-item';
+    d.innerHTML='<div class="q-texto">'+(qi+1)+'. '+q.q+'</div><div class="q-opts">'
+      +q.opts.map(function(o,oi){return '<button class="q-btn" onclick="resp(\'' +key+'\','+qi+','+oi+','+q.ok+',this)">'+o+'</button>';}).join('')
+      +'</div><div class="q-fb" id="fb-'+key+'-'+qi+'" style="display:none"></div>';
+    c.appendChild(d);
+  });
+}
+function resp(key,qi,oi,ok,btn){
+  var item=btn.closest('.q-item');if(item.querySelector('.q-btn.ok'))return;
+  item.querySelectorAll('.q-btn').forEach(function(b,i){
+    b.disabled=true;
+    if(i===ok)b.className='q-btn ok';
+    else if(b===btn)b.className='q-btn mal';
+    else b.className='q-btn nd';
+  });
+  var fb=document.getElementById('fb-'+key+'-'+qi);
+  fb.style.display='block';fb.className='q-fb '+(oi===ok?'ok':'mal');
+  fb.textContent=oi===ok?'✅ Correcto':'❌ Incorrecto.';
+  document.getElementById('sc-'+key).textContent=
+    document.getElementById('qz-'+key).querySelectorAll('.q-btn.ok').length+'/'+QS[key].length;
+}
+renderQ('martin');
+</script>
+</body>
+</html>

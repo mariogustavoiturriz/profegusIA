@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desafío — Grupo B</title>
+<style>
+  :root{
+    --nav:#1A2C3A;--teal:#00949A;--g2:#2E6820;--g2-bg:#EFF8EE;
+    --amb:#D4873A;--abg:#FFF8EE;--vio:#3D5A99;--viobg:#F0EFFF;
+    --bd:#C5D2DC;--gris:#F3F6F9;--txt:#2C3E50;--bco:#FFFFFF;
+    --code-bg:#1E1E1E;--r:10px;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;
+    --azul:#1565C0;--azul-bg:#E3F2FD;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:19px;padding:15px 0 50px;}
+  header{background:var(--nav);color:#fff;padding:22px 20px;border-bottom:5px solid var(--teal);}
+  header h1{font-size:22px;margin-bottom:4px;text-transform:uppercase;}
+  header p{font-size:16px;opacity:.9;}
+  .container{width:95%;max-width:1100px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:18px;margin-bottom:8px;padding:9px 18px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .grupo-sep{background:var(--nav);color:#fff;padding:12px 18px;border-radius:var(--r) var(--r) 0 0;font-size:17px;font-weight:bold;text-transform:uppercase;letter-spacing:.5px;margin-top:24px;}
+  .grupo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;background:#fff;border:2px solid var(--bd);border-top:none;border-radius:0 0 var(--r) var(--r);padding:18px;}
+  .est-card{border-radius:var(--r);border:2px solid;overflow:hidden;}
+  .est-header{padding:12px 15px;color:#fff;font-weight:bold;font-size:17px;}
+  .est-body{padding:14px 15px;font-size:16px;line-height:1.6;background:#fff;}
+  /* Grupo B */
+  .gb-liam   .est-header{background:#4A6080;}
+  .gb-carolyn .est-header{background:var(--teal);}
+  .gb-paola  .est-header{background:#006064;}
+  .gb-liam{border-color:#4A6080;} .gb-carolyn{border-color:var(--teal);} .gb-paola{border-color:#006064;}
+  /* Grupo E */
+  .ge-maximo .est-header{background:var(--g2);}
+  .ge-xiomara .est-header{background:#4CAF50;}
+  .ge-alexis .est-header{background:#388E3C;}
+  .ge-maximo{border-color:var(--g2);} .ge-xiomara{border-color:#4CAF50;} .ge-alexis{border-color:#388E3C;}
+
+  .pista-list{margin-top:10px;display:flex;flex-direction:column;gap:6px;}
+  .pista-item{background:var(--gris);border-left:3px solid var(--azul);padding:8px 10px;border-radius:4px;font-size:15px;line-height:1.5;}
+  .tarea{background:#F3E5F5;border-left:4px solid #7B1FA2;padding:10px 12px;border-radius:6px;margin-bottom:10px;font-size:16px;line-height:1.5;}
+  .tarea strong{color:#7B1FA2;display:block;margin-bottom:4px;font-size:16px;}
+  code{background:#E8E6FF;color:var(--vio);padding:1px 5px;border-radius:4px;font-family:'Consolas',monospace;font-size:15px;}
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:12px 14px;font-size:15px;overflow-x:auto;white-space:pre;line-height:1.6;border-radius:6px;margin-top:8px;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
+  /* Quiz mini */
+  .mini-quiz{margin-top:14px;border-top:2px solid var(--gris);padding-top:12px;}
+  .mq-title{font-size:15px;font-weight:bold;color:var(--nav);margin-bottom:8px;}
+  .mq-aviso{font-size:13px;color:#888;font-style:italic;margin-bottom:10px;}
+  .mq-item{margin-bottom:10px;}
+  .mq-q{font-size:15px;font-weight:bold;color:var(--nav);margin-bottom:6px;line-height:1.4;}
+  .mq-btn{display:block;width:100%;text-align:left;padding:7px 10px;border-radius:6px;border:2px solid var(--bd);background:var(--gris);font-size:14px;cursor:pointer;font-family:inherit;margin-bottom:4px;line-height:1.4;}
+  .mq-btn:hover:not(:disabled){border-color:var(--vio);background:var(--viobg);}
+  .mq-btn:disabled{cursor:default;}
+  .mq-btn.ok{border-color:var(--g2);background:var(--g2-bg);color:var(--g2);font-weight:bold;}
+  .mq-btn.mal{border-color:var(--rojo);background:var(--rojo-bg);color:var(--rojo);}
+  .mq-btn.nd:disabled{opacity:.45;}
+  .mq-fb{font-size:13px;font-weight:bold;padding:5px 8px;border-radius:6px;margin-top:4px;display:none;}
+  .mq-fb.ok{background:var(--g2-bg);color:var(--g2);}
+  .mq-fb.mal{background:var(--rojo-bg);color:var(--rojo);}
+  @media(max-width:768px){.grupo-grid{grid-template-columns:1fr;}}
+
+  .tabs{display:flex;gap:5px;margin-top:16px;}
+  .tab{flex:1;padding:11px 8px;background:#fff;border:2px solid var(--bd);border-radius:var(--r) var(--r) 0 0;cursor:pointer;font-weight:bold;font-size:16px;text-align:center;color:#888;}
+  .tab-liam.activo   {background:#4A6080;color:#fff;border-color:#4A6080;}
+  .tab-carolyn.activo{background:var(--teal);color:#fff;border-color:var(--teal);}
+  .tab-paola.activo  {background:#006064;color:#fff;border-color:#006064;}
+  .panel{display:none;background:#fff;border:2px solid var(--bd);border-top:none;border-radius:0 0 var(--r) var(--r);padding:24px;}
+  .panel.activo{display:block;}
+  .tarea{background:#F3E5F5;border-left:4px solid #7B1FA2;padding:12px 15px;border-radius:6px;margin-bottom:12px;font-size:18px;line-height:1.6;}
+  .tarea strong{color:#7B1FA2;display:block;margin-bottom:4px;}
+  .pistas{background:var(--azul-bg);border-left:4px solid var(--azul);padding:12px 15px;border-radius:6px;margin-bottom:12px;font-size:18px;line-height:1.8;}
+  .pistas strong{color:var(--azul);display:block;margin-bottom:4px;}
+  .check{background:var(--g2-bg);border-left:4px solid var(--g2);padding:12px 15px;border-radius:6px;margin-bottom:16px;font-size:18px;line-height:1.7;}
+  .check strong{color:var(--g2);display:block;margin-bottom:4px;}
+  .quiz-aviso{font-size:15px;color:#666;font-style:italic;margin-bottom:12px;}
+  .q-item{border:2px solid var(--bd);border-radius:var(--r);padding:13px 15px;margin-bottom:10px;}
+  .q-texto{font-size:17px;font-weight:bold;color:var(--nav);margin-bottom:8px;line-height:1.4;}
+  .q-opts{display:flex;flex-direction:column;gap:6px;}
+  .q-btn{text-align:left;padding:8px 12px;border-radius:7px;border:2px solid var(--bd);background:var(--gris);font-size:16px;line-height:1.4;cursor:pointer;font-family:inherit;}
+  .q-btn:hover:not(:disabled){border-color:var(--vio);background:var(--viobg);}
+  .q-btn:disabled{cursor:default;}
+  .q-btn.ok{border-color:var(--g2);background:var(--g2-bg);color:var(--g2);font-weight:bold;}
+  .q-btn.mal{border-color:var(--rojo);background:var(--rojo-bg);color:var(--rojo);}
+  .q-btn.nd:disabled{opacity:.45;}
+  .q-fb{font-size:14px;font-weight:bold;padding:6px 9px;border-radius:6px;margin-top:5px;display:none;}
+  .q-fb.ok{background:var(--g2-bg);color:var(--g2);}
+  .q-fb.mal{background:var(--rojo-bg);color:var(--rojo);}
+</style>
+</head>
+<body>
+<header style="background:var(--nav);color:#fff;padding:22px 20px;border-bottom:5px solid var(--teal);">
+  <h1 style="font-size:22px;text-transform:uppercase;margin-bottom:4px;">DESAFÍO — GRUPO B</h1>
+  <p style="font-size:16px;opacity:.85;">BRITOS · COPA CABRERA · RAMIREZ GARRO · CTP Antonio Martín Marte</p>
+</header>
+<div style="width:95%;max-width:900px;margin:0 auto;padding:0 15px;">
+<a href="index.html" style="display:inline-block;margin-top:16px;margin-bottom:4px;padding:9px 18px;background:#fff;color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);">⬅ Índice</a>
+<div class="tabs">
+  <div class="tab tab-liam activo"    onclick="show('liam')">BRITOS, Liam</div>
+  <div class="tab tab-carolyn"        onclick="show('carolyn')">COPA CABRERA, Carolyn</div>
+  <div class="tab tab-paola"          onclick="show('paola')">RAMIREZ GARRO, Paola</div>
+</div>
+
+<!-- LIAM -->
+<div class="panel activo" id="p-liam">
+  <div class="tarea">
+    <strong>📋 Tu tarea</strong>
+    Escribí la función <code>consultar_ia()</code> desde cero en un Colab nuevo. Tiene que recibir los mensajes y la temperatura, y devolver la respuesta de la IA. Probá que funciona con un mensaje simple.
+  </div>
+  <div class="pistas">
+    <strong>💡 Pistas</strong>
+    · La función recibe dos parámetros: los mensajes (el historial) y la temperatura. Con esos datos armás el payload y llamás a <code>requests.post()</code>.<br>
+    · Terminá con <code>return</code>, no con <code>print</code> — así el resultado queda en una variable que el programa puede usar después.<br>
+    · Usá <code>try/except</code>: si algo falla, devolvé un string con el mensaje de error en lugar de que el programa explote.<br>
+    · La respuesta tiene esta estructura: <code>respuesta.json()["choices"][0]["message"]["content"]</code>
+  </div>
+  <div class="check">
+    <strong>🧪 Cómo probarlo</strong>
+    Creá una lista con un solo mensaje: <code>[{"role": "user", "content": "Decí exactamente: la función funciona"}]</code> y llamá a tu función. Tiene que devolver esa frase.
+  </div>
+  <div style="border-top:2px solid var(--gris);padding-top:14px;">
+    <div style="font-size:17px;font-weight:bold;color:var(--nav);margin-bottom:4px;">Preguntas de defensa <span style="font-size:14px;color:#888;font-weight:normal;" id="sc-liam"></span></div>
+    <div class="quiz-aviso">⚠️ 2 o 3 de estas van a ser preguntadas.</div>
+    <div id="qz-liam"></div>
+  </div>
+</div>
+
+<!-- CAROLYN -->
+<div class="panel" id="p-carolyn">
+  <div class="tarea">
+    <strong>📋 Tu tarea</strong>
+    En tu código la IA repetía siempre la misma respuesta. El problema está en el <code>historial.append()</code> del assistant dentro del bucle: estás guardando la respuesta inicial en lugar de la del turno actual. Encontrá la línea y corregila.
+  </div>
+  <div class="pistas">
+    <strong>💡 Pistas</strong>
+    · Buscá en tu código la línea que dice <code>historial.append({"role": "assistant", "content": narracion_inicial})</code> dentro del <code>while True</code>.<br>
+    · <code>narracion_inicial</code> es la respuesta del primer turno. Lo que querés guardar en cada vuelta es la respuesta de ese turno, que está en otra variable.<br>
+    · Después de corregir, jugá 3 turnos y verificá que cada respuesta es diferente y coherente con lo que pasó antes.
+  </div>
+  <div class="check">
+    <strong>🧪 Cómo probarlo</strong>
+    Jugá 4 turnos seguidos. Si cada respuesta de la IA es distinta y tiene en cuenta lo que dijiste antes, el historial funciona bien.
+  </div>
+  <div style="border-top:2px solid var(--gris);padding-top:14px;">
+    <div style="font-size:17px;font-weight:bold;color:var(--nav);margin-bottom:4px;">Preguntas de defensa <span style="font-size:14px;color:#888;font-weight:normal;" id="sc-carolyn"></span></div>
+    <div class="quiz-aviso">⚠️ 2 o 3 de estas van a ser preguntadas.</div>
+    <div id="qz-carolyn"></div>
+  </div>
+</div>
+
+<!-- PAOLA -->
+<div class="panel" id="p-paola">
+  <div class="tarea">
+    <strong>📋 Tu tarea</strong>
+    Igual que Carolyn: corregí el bug del historial (variable incorrecta en el append del assistant). Además, agregá una línea al final de cada turno que muestre cuántos mensajes tiene el historial — así verificás que está creciendo bien.
+  </div>
+  <div class="pistas">
+    <strong>💡 Pistas</strong>
+    · El fix es el mismo: cambiar la variable incorrecta en el append del assistant por la que guarda la respuesta del turno actual.<br>
+    · Para verificar el crecimiento: <code>print(f"[Historial: {len(historial)} mensajes]")</code> al final del turno, antes del próximo <code>input()</code>.<br>
+    · El historial debería tener 1 (system) + 2 por turno. Después de 3 turnos: 7 mensajes.
+  </div>
+  <div class="check">
+    <strong>🧪 Cómo probarlo</strong>
+    Mirá el número que imprime el debug. Si después de 3 turnos dice "7 mensajes", está bien. Si se queda en 3, el append del assistant no funciona.
+  </div>
+  <div style="border-top:2px solid var(--gris);padding-top:14px;">
+    <div style="font-size:17px;font-weight:bold;color:var(--nav);margin-bottom:4px;">Preguntas de defensa <span style="font-size:14px;color:#888;font-weight:normal;" id="sc-paola"></span></div>
+    <div class="quiz-aviso">⚠️ 2 o 3 de estas van a ser preguntadas.</div>
+    <div id="qz-paola"></div>
+  </div>
+</div>
+</div>
+
+<script>
+function show(id){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('activo');});
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('activo');});
+  document.getElementById('p-'+id).classList.add('activo');
+  document.querySelector('.tab-'+id).classList.add('activo');
+}
+var QS={
+  liam:[
+    {q:"¿Por qué la función termina con return y no con print?",
+     opts:["Porque print no funciona dentro de funciones","Con return el resultado queda en una variable que el programa puede usar después — guardarlo en el historial, mostrarlo con formato. Con print se mostraría pero no podría usarse","Porque la API exige return","Para que sea más rápida"],ok:1},
+    {q:"¿Qué hace el try/except en la función?",
+     opts:["Prueba que la API Key sea correcta","Atrapa errores de conexión o de API para que el programa no explote — devuelve un string con el error en lugar de un crash","Verifica que el historial no esté vacío","Hace la conexión más rápida"],ok:1},
+    {q:"¿Qué hay en respuesta.json()["choices"][0]["message"]["content"]?",
+     opts:["La API Key","El número de tokens usados","El texto que respondió la IA","El nombre del modelo"],ok:2},
+    {q:"¿Qué parámetros recibe tu función?",
+     opts:["Solo la API Key","Los mensajes (historial) y la temperatura — con esos armás el payload y llamás a la API","El texto del usuario y la URL","El modelo y el sistema"],ok:1},
+    {q:"¿Cómo probaste que la función devuelve la respuesta correctamente?",
+     opts:["Copié el código sin probarlo","Armé una lista con un mensaje simple y verifiqué que devolvió una respuesta coherente de la IA","Esperé a que el profe lo revisara","Probé directamente con el historial completo del RPG"],ok:1}
+  ],
+  carolyn:[
+    {q:"¿Cuál era la variable incorrecta y cuál debería ser?",
+     opts:["narracion_inicial es correcta porque guarda la primera respuesta","Había que usar la variable que guarda la respuesta del turno actual, no narracion_inicial que siempre apunta al primer turno","No había error en la variable","La variable correcta es respuesta_inicial"],ok:1},
+    {q:"¿Qué efecto tenía ese bug en el juego?",
+     opts:["El juego no arrancaba","La IA repetía siempre la misma narración porque el historial guardaba el primer turno como contexto de todos los turnos siguientes","Las respuestas eran lentas","El inventario no funcionaba"],ok:1},
+    {q:"¿Por qué hay dos historial.append() en cada turno?",
+     opts:["Es redundante, alcanza con uno","Uno guarda el mensaje del usuario y otro la respuesta de la IA — ambos son necesarios para que la IA tenga el contexto completo en el siguiente turno","Uno es para el sistema y el otro para el usuario","El segundo es solo para debug"],ok:1},
+    {q:"¿Cómo verificaste que el fix funcionó?",
+     opts:["Confié en que el código se veía bien","Jugué 3 o 4 turnos y comprobé que cada respuesta era distinta y coherente con lo que pasó antes","Probé solo una vez","Pregunté a un compañero"],ok:1},
+    {q:"¿Qué pasa si olvidás hacer el append del assistant después de una respuesta?",
+     opts:["Nada, la IA recuerda igual","La IA recibiría en el siguiente turno un historial sin su propia respuesta — olvidaría lo que acaba de narrar y la historia pierde coherencia","El programa lanza un error","El historial se limpia automáticamente"],ok:1}
+  ],
+  paola:[
+    {q:"¿Cuál era la variable incorrecta en tu append del assistant?",
+     opts:["narracion_inicial en lugar de la variable que guarda la respuesta del turno actual","respuesta en lugar de narracion","historial en lugar de narracion","No había error"],ok:0},
+    {q:"¿Cuántos mensajes debería tener el historial después de 3 turnos completos?",
+     opts:["3 mensajes","4 mensajes","6 mensajes","7 mensajes: 1 system + 3 del usuario + 3 del assistant"],ok:3},
+    {q:"¿Para qué sirve el print de debug con len(historial)?",
+     opts:["Para mostrar el historial completo","Para verificar que el historial crece correctamente — si el número no aumenta de a 2 por turno, hay un bug en los append","Para mejorar la performance","Para que el jugador sepa cuántos créditos gastó"],ok:1},
+    {q:"¿Por qué hay dos append por turno y no uno?",
+     opts:["Uno para el sistema y otro para el jugador","Uno guarda lo que escribió el jugador y otro la respuesta de la IA — ambos son necesarios para que la IA tenga el contexto completo en el siguiente turno","Es redundante, alcanza con uno","El segundo es para el archivo partida.txt"],ok:1},
+    {q:"Si el debug muestra '3 mensajes' después del primer turno en lugar de 3, ¿qué significa?",
+     opts:["Está bien, 3 mensajes es correcto para el primer turno","Falta el append del assistant — solo se guardó el system prompt y el mensaje del usuario, pero no la respuesta de la IA","El system prompt está duplicado","El programa guarda mensajes de a uno por error"],ok:1}
+  ]
+};
+function renderQ(key){
+  var c=document.getElementById('qz-'+key);if(!c)return;
+  QS[key].forEach(function(q,qi){
+    var d=document.createElement('div');d.className='q-item';
+    d.innerHTML='<div class="q-texto">'+(qi+1)+'. '+q.q+'</div><div class="q-opts">'
+      +q.opts.map(function(o,oi){return '<button class="q-btn" onclick="resp(''+key+'','+qi+','+oi+','+q.ok+',this)">'+o+'</button>';}).join('')
+      +'</div><div class="q-fb" id="fb-'+key+'-'+qi+'" style="display:none"></div>';
+    c.appendChild(d);
+  });
+}
+function resp(key,qi,oi,ok,btn){
+  var item=btn.closest('.q-item');if(item.querySelector('.q-btn.ok'))return;
+  item.querySelectorAll('.q-btn').forEach(function(b,i){
+    b.disabled=true;
+    if(i===ok)b.className='q-btn ok';
+    else if(b===btn)b.className='q-btn mal';
+    else b.className='q-btn nd';
+  });
+  var fb=document.getElementById('fb-'+key+'-'+qi);
+  fb.style.display='block';fb.className='q-fb '+(oi===ok?'ok':'mal');
+  fb.textContent=oi===ok?'✅ Correcto':'❌ Incorrecto.';
+  document.getElementById('sc-'+key).textContent=
+    document.getElementById('qz-'+key).querySelectorAll('.q-btn.ok').length+'/'+QS[key].length;
+}
+['liam','carolyn','paola'].forEach(renderQ);
+</script>
+</body>
+</html>

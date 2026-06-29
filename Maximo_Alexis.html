@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desafíos — Máximo y Alexis</title>
+<style>
+  :root{
+    --nav:#1A2C3A;--g2:#2E6820;--g2-bg:#EFF8EE;--vio:#3D5A99;--viobg:#F0EFFF;
+    --bd:#C5D2DC;--gris:#F3F6F9;--txt:#2C3E50;--bco:#FFFFFF;--r:10px;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;--azul:#1565C0;--azul-bg:#E3F2FD;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:19px;padding:15px 0 50px;}
+  header{background:var(--nav);color:#fff;padding:22px 20px;border-bottom:5px solid var(--g2);}
+  header h1{font-size:22px;margin-bottom:4px;text-transform:uppercase;}
+  header p{font-size:16px;opacity:.85;}
+  .container{width:95%;max-width:860px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:16px;margin-bottom:14px;padding:9px 18px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .tabs{display:flex;gap:5px;margin-top:16px;}
+  .tab{flex:1;padding:11px;background:#fff;border:2px solid var(--bd);border-radius:var(--r) var(--r) 0 0;cursor:pointer;font-weight:bold;font-size:17px;text-align:center;color:#888;}
+  .tab-maximo.activo{background:#2E6820;color:#fff;border-color:#2E6820;}
+  .tab-alexis.activo{background:#388E3C;color:#fff;border-color:#388E3C;}
+  .panel{display:none;background:#fff;border:2px solid var(--bd);border-top:none;border-radius:0 0 var(--r) var(--r);padding:24px;}
+  .panel.activo{display:block;}
+  .info{padding:12px 16px;border-radius:var(--r);margin:10px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
+  .i-t{border-color:#2E6820;background:var(--g2-bg);} .i-t strong{color:#2E6820;display:block;margin-bottom:4px;}
+  .i-p{border-color:var(--azul);background:var(--azul-bg);} .i-p strong{color:var(--azul);display:block;margin-bottom:4px;}
+  .i-g{border-color:var(--g2);background:var(--g2-bg);} .i-g strong{color:var(--g2);display:block;margin-bottom:4px;}
+  code{background:#E8E6FF;color:var(--vio);padding:2px 5px;border-radius:4px;font-family:'Consolas',monospace;font-size:16px;}
+  .quiz-aviso{font-size:15px;color:#666;font-style:italic;margin-bottom:12px;}
+  .q-item{border:2px solid var(--bd);border-radius:var(--r);padding:12px 14px;margin-bottom:10px;}
+  .q-texto{font-size:16px;font-weight:bold;color:var(--nav);margin-bottom:7px;line-height:1.4;}
+  .q-opts{display:flex;flex-direction:column;gap:5px;}
+  .q-btn{text-align:left;padding:8px 11px;border-radius:7px;border:2px solid var(--bd);background:var(--gris);font-size:15px;line-height:1.4;cursor:pointer;font-family:inherit;}
+  .q-btn:hover:not(:disabled){border-color:var(--g2);background:var(--g2-bg);}
+  .q-btn:disabled{cursor:default;}
+  .q-btn.ok{border-color:var(--g2);background:var(--g2-bg);color:var(--g2);font-weight:bold;}
+  .q-btn.mal{border-color:var(--rojo);background:var(--rojo-bg);color:var(--rojo);}
+  .q-btn.nd:disabled{opacity:.45;}
+  .q-fb{font-size:13px;font-weight:bold;padding:6px 9px;border-radius:6px;margin-top:4px;display:none;}
+  .q-fb.ok{background:var(--g2-bg);color:var(--g2);} .q-fb.mal{background:var(--rojo-bg);color:var(--rojo);}
+</style>
+</head>
+<body>
+<header>
+  <h1>DESAFÍOS — MÁXIMO · ALEXIS</h1>
+  <p>Taller de IA Aplicada · CTP Antonio Martín Marte</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">⬅ Índice</a>
+<div class="tabs">
+  <div class="tab tab-maximo activo" onclick="show('maximo')">PADILLA RAMÍREZ, Máximo</div>
+  <div class="tab tab-alexis"        onclick="show('alexis')">ROMERO, Alexis</div>
+</div>
+
+<!-- MÁXIMO -->
+<div class="panel activo" id="p-maximo">
+  <div class="info i-t">
+    <strong>📋 Tu tarea — Comando /resumen</strong>
+    Cuando el jugador escribe <code>/resumen</code>, la IA responde con una sola oración que resume todo lo que pasó en la aventura hasta ese momento.
+  </div>
+  <div class="info i-p">
+    <strong>💡 Pistas</strong>
+    · No uses <code>historial.append()</code> — eso modifica el historial permanente. Creá una lista temporal: <code>consulta = historial + [tu mensaje]</code> y usala solo para esa llamada.<br>
+    · El mensaje tiene que pedir explícitamente "en una sola oración".<br>
+    · Usá temperatura baja (0.3 a 0.5) para que la respuesta sea concisa.<br>
+    · Va dentro del <code>while True</code>, junto a los otros comandos, con <code>continue</code> al final.
+  </div>
+  <div class="info i-g">
+    <strong>🧪 Cómo probarlo</strong>
+    Jugá 5 turnos y escribí <code>/resumen</code>. La respuesta tiene que ser una sola oración coherente con lo que pasó.
+  </div>
+  <div style="border-top:2px solid var(--gris);padding-top:16px;margin-top:16px;">
+    <div style="font-size:17px;font-weight:bold;color:var(--nav);margin-bottom:4px;">Preguntas de defensa <span style="font-size:14px;color:#888;font-weight:normal;" id="sc-maximo"></span></div>
+    <div class="quiz-aviso">⚠️ 2 o 3 de estas van a ser preguntadas.</div>
+    <div id="qz-maximo"></div>
+  </div>
+</div>
+
+<!-- ALEXIS -->
+<div class="panel" id="p-alexis">
+  <div class="info i-t">
+    <strong>📋 Tu tarea — Historial y system prompt funcionando</strong>
+    Armá el historial y el system prompt en tu Colab. Hacé dos intercambios manuales (sin bucle todavía) para demostrar que la IA recuerda el primer mensaje cuando respondés el segundo.
+  </div>
+  <div class="info i-p">
+    <strong>💡 Pistas</strong>
+    · El historial empieza así: <code>historial = [{"role": "system", "content": "..."}]</code><br>
+    · Para cada turno: <code>historial.append()</code> del usuario → <code>consultar_ia()</code> → <code>historial.append()</code> del assistant → <code>print()</code><br>
+    · Para probar la memoria: en el segundo mensaje preguntale algo relacionado con lo que respondió en el primero. Si recuerda, funciona.
+  </div>
+  <div class="info i-g">
+    <strong>🧪 Cómo probarlo</strong>
+    Primera pregunta: "¿Cuál es tu nombre?" Segunda: "¿Y cuánto hace que tenés ese nombre?" Si la segunda respuesta tiene coherencia con la primera, el historial funciona.
+  </div>
+  <div style="border-top:2px solid var(--gris);padding-top:16px;margin-top:16px;">
+    <div style="font-size:17px;font-weight:bold;color:var(--nav);margin-bottom:4px;">Preguntas de defensa <span style="font-size:14px;color:#888;font-weight:normal;" id="sc-alexis"></span></div>
+    <div class="quiz-aviso">⚠️ 2 o 3 de estas van a ser preguntadas.</div>
+    <div id="qz-alexis"></div>
+  </div>
+</div>
+</div>
+
+<script>
+function show(id){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('activo');});
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('activo');});
+  document.getElementById('p-'+id).classList.add('activo');
+  document.querySelector('.tab-'+id).classList.add('activo');
+}
+var QS={
+  maximo:[
+    {q:"¿Por qué creás una lista temporal en lugar de usar historial.append()?",
+     opts:["Porque append() no funciona con mensajes de texto","Si usás append(), el mensaje de resumen queda en el historial para siempre y la IA lo lee en todos los turnos siguientes","Las listas temporales son más rápidas","La API requiere listas separadas"],ok:1},
+    {q:"¿Por qué usás temperatura baja para el /resumen?",
+     opts:["La temperatura no afecta la longitud de la respuesta","Una temperatura baja produce respuestas más predecibles y concisas — queremos un resumen corto, no una narración creativa extensa","Temperatura alta da resúmenes más cortos","La temperatura solo importa en el turno normal"],ok:1},
+    {q:"¿Dónde va el bloque del /resumen y qué necesita al final?",
+     opts:["Al final del programa","Dentro del while True, junto a los otros comandos, con continue al final para no caer en el turno normal","En una función separada","Al inicio del while True"],ok:1},
+    {q:"Si el jugador escribe /resumen antes de haber jugado algún turno, ¿qué espera que responda la IA?",
+     opts:["Un error del programa","Algo como 'La aventura acaba de comenzar, no hay nada que resumir aún' — la IA lee el historial que solo tiene el system prompt","La misma respuesta que en el primer turno normal","El programa cierra solo"],ok:1},
+    {q:"¿Qué muestra /resumen que /estado no puede mostrar?",
+     opts:["Lo mismo que /estado pero en otro formato","Una síntesis narrativa de lo que pasó — /estado muestra datos del diccionario, /resumen pide a la IA que interprete el historial completo","Los créditos de API usados","El inventario en formato de lista"],ok:1}
+  ],
+  alexis:[
+    {q:"¿Por qué el system prompt va en la posición 0 del historial?",
+     opts:["Por convención, pero podría ir en cualquier posición","Es lo primero que lee la IA en cada llamada — son las instrucciones permanentes. En otra posición llegarían mezcladas con la conversación","Para que Python lo encuentre más rápido","La API lo busca específicamente en la posición 0"],ok:1},
+    {q:"¿Qué pasa si olvidás hacer el append del assistant?",
+     opts:["Nada importante","La IA no tiene registro de lo que acaba de decir — en el siguiente turno olvidará su propia respuesta y perderá coherencia","El programa cierra automáticamente","El historial se reinicia solo"],ok:1},
+    {q:"¿Cuántos mensajes tiene el historial después de 2 intercambios completos?",
+     opts:["2 mensajes","4 mensajes","5 mensajes: 1 system + 2 del usuario + 2 del assistant","3 mensajes"],ok:2},
+    {q:"¿Cómo probaste que la IA realmente recuerda el primer intercambio en el segundo?",
+     opts:["Confié en que el código era correcto","En el segundo turno pregunté algo que solo tiene sentido si la IA recuerda la primera respuesta — si respondió con coherencia, funciona","Corrí el código sin verificar","Pregunté lo mismo en ambos turnos"],ok:1},
+    {q:"¿Qué tiene el role 'system' que lo diferencia de 'user' y 'assistant'?",
+     opts:["Nada, son equivalentes","El rol system son las instrucciones permanentes — le dicen a la IA quién es y cómo comportarse. Los otros roles son los turnos reales de la conversación","El rol system solo puede tener texto corto","Lo escribe automáticamente la API"],ok:1}
+  ]
+};
+function renderQ(key){
+  var c=document.getElementById('qz-'+key);
+  if(!c) return;
+  QS[key].forEach(function(q,qi){
+    var d=document.createElement('div');d.className='q-item';
+    d.innerHTML='<div class="q-texto">'+(qi+1)+'. '+q.q+'</div><div class="q-opts">'
+      +q.opts.map(function(o,oi){return '<button class="q-btn" onclick="resp(\''+key+'\','+qi+','+oi+','+q.ok+',this)">'+o+'</button>';}).join('')
+      +'</div><div class="q-fb" id="fb-'+key+'-'+qi+'" style="display:none"></div>';
+    c.appendChild(d);
+  });
+}
+function resp(key,qi,oi,ok,btn){
+  var item=btn.closest('.q-item');
+  if(item.querySelector('.q-btn.ok')) return;
+  item.querySelectorAll('.q-btn').forEach(function(b,i){
+    b.disabled=true;
+    if(i===ok) b.className='q-btn ok';
+    else if(b===btn) b.className='q-btn mal';
+    else b.className='q-btn nd';
+  });
+  var fb=document.getElementById('fb-'+key+'-'+qi);
+  fb.style.display='block'; fb.className='q-fb '+(oi===ok?'ok':'mal');
+  fb.textContent=oi===ok?'✅ Correcto':'❌ Incorrecto.';
+  var cnt=document.getElementById('qz-'+key).querySelectorAll('.q-btn.ok').length;
+  document.getElementById('sc-'+key).textContent=cnt+'/'+QS[key].length;
+}
+['maximo','alexis'].forEach(renderQ);
+</script>
+</body>
+</html>

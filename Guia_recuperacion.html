@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Recuperación — Taller de IA</title>
+<style>
+  :root{
+    --nav:#1A2C3A;--teal:#00949A;--g2:#2E6820;--g2-bg:#EFF8EE;
+    --amb:#D4873A;--abg:#FFF8EE;--vio:#3D5A99;--viobg:#F0EFFF;
+    --bd:#C5D2DC;--gris:#F3F6F9;--txt:#2C3E50;--bco:#FFFFFF;
+    --code-bg:#1E1E1E;--r:12px;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;
+    --azul:#1565C0;--azul-bg:#E3F2FD;
+    --classroom:#137333;--class-bg:#F0FFF4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:19px;padding:15px 0 50px;}
+  header{background:var(--nav);color:#fff;padding:25px 20px;border-bottom:5px solid var(--classroom);}
+  header h1{font-size:24px;margin-bottom:5px;text-transform:uppercase;}
+  header p{font-size:17px;opacity:.9;}
+  .container{width:95%;max-width:1200px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:20px;margin-bottom:10px;padding:10px 20px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  /* Tabs de sesión */
+  .session-tabs{display:flex;gap:6px;margin-top:18px;}
+  .s-tab{flex:1;padding:12px;background:#fff;border:2px solid var(--bd);border-radius:var(--r) var(--r) 0 0;cursor:pointer;font-weight:bold;font-size:17px;text-align:center;color:#888;transition:.15s;}
+  .s-tab.activo{background:var(--nav);color:#fff;border-color:var(--nav);}
+  .s-panel{display:none;background:#fff;border:2px solid var(--bd);border-top:none;border-radius:0 0 var(--r) var(--r);padding:28px;}
+  .s-panel.activo{display:block;}
+  /* Bloques */
+  .bloque{border:2px solid;border-radius:var(--r);margin-bottom:14px;overflow:hidden;}
+  .bloque-titulo{padding:10px 16px;font-weight:bold;font-size:18px;}
+  .bloque-desc{padding:10px 16px;font-size:16px;line-height:1.55;border-top:1px solid rgba(0,0,0,.1);}
+  .b-azul{border-color:var(--azul);}
+  .b-azul .bloque-titulo{background:#BBDEFB;color:var(--azul);}
+  .b-azul .bloque-desc{background:var(--azul-bg);}
+  .b-grn{border-color:var(--g2);}
+  .b-grn .bloque-titulo{background:#C8E6C9;color:var(--g2);}
+  .b-grn .bloque-desc{background:var(--g2-bg);}
+  .b-amb{border-color:var(--amb);}
+  .b-amb .bloque-titulo{background:#FFE0B2;color:#8B5E00;}
+  .b-amb .bloque-desc{background:var(--abg);}
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:16px 18px;font-size:16px;overflow-x:auto;white-space:pre;line-height:1.65;margin:0;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
+  .dk{color:#9CDCFE;} .nm{color:#B5CEA8;}
+  .info{padding:14px 18px;border-radius:var(--r);margin:12px 0;border-left:5px solid;font-size:17px;line-height:1.65;}
+  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
+  .i-azul{background:var(--azul-bg);border-color:var(--azul);}
+  .i-class{background:var(--class-bg);border-color:var(--classroom);}
+  .info strong{display:block;margin-bottom:4px;font-size:18px;}
+  code{background:#E8E6FF;color:var(--vio);padding:2px 5px;border-radius:4px;font-family:'Consolas',monospace;font-size:16px;}
+  h3{color:var(--nav);font-size:19px;margin:20px 0 10px;}
+  /* Quiz */
+  .quiz-section{margin-top:28px;border-top:3px solid var(--gris);padding-top:20px;}
+  .quiz-title{font-size:20px;font-weight:bold;color:var(--nav);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .q-item{background:#fff;border:2px solid var(--bd);border-radius:var(--r);padding:18px 20px;margin-bottom:14px;}
+  .q-texto{font-size:18px;font-weight:bold;color:var(--nav);margin-bottom:12px;line-height:1.5;}
+  .q-opts{display:flex;flex-direction:column;gap:8px;}
+  .q-btn{text-align:left;padding:10px 14px;border-radius:8px;border:2px solid var(--bd);background:var(--gris);font-size:16px;line-height:1.5;cursor:pointer;font-family:inherit;color:var(--txt);transition:.15s;}
+  .q-btn:hover:not(:disabled){border-color:var(--vio);background:var(--viobg);}
+  .q-btn:disabled{cursor:default;}
+  .q-btn.ok {border-color:var(--g2);background:var(--g2-bg);color:var(--g2);font-weight:bold;}
+  .q-btn.mal{border-color:var(--rojo);background:var(--rojo-bg);color:var(--rojo);}
+  .q-btn.gris:disabled{opacity:.5;}
+  .q-fb{margin-top:10px;font-size:15px;font-weight:bold;padding:8px 12px;border-radius:8px;}
+  .q-fb.ok {background:var(--g2-bg);color:var(--g2);}
+  .q-fb.mal{background:var(--rojo-bg);color:var(--rojo);}
+  .quiz-score{text-align:center;padding:16px;background:var(--nav);color:#fff;border-radius:var(--r);font-size:18px;font-weight:bold;display:none;margin-top:14px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>📚 GUÍA DE RECUPERACIÓN — TALLER DE IA</h1>
+  <p>3 sesiones para poner el chatbot a funcionar · CTP Antonio Martín Marte</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">⬅ Volver al Índice</a>
+
+<div class="info i-azul" style="margin-top:18px;">
+  <strong>📌 Antes de arrancar</strong>
+  Esta guía tiene 3 sesiones. Trabajás en orden — no saltes a la siguiente hasta terminar la anterior. Al final de cada sesión hay un cuestionario de repaso. Cuando el chatbot funcione, el profe lo revisa.
+</div>
+
+<div class="session-tabs">
+  <div class="s-tab activo" onclick="showSession(1)">Sesión 1 — La función</div>
+  <div class="s-tab" onclick="showSession(2)">Sesión 2 — Historial y sistema</div>
+  <div class="s-tab" onclick="showSession(3)">Sesión 3 — El chatbot completo</div>
+</div>
+
+<!-- ══════ SESIÓN 1 ══════ -->
+<div class="s-panel activo" id="s1">
+  <h3>🎯 Meta: Hacer que Python hable con la IA por primera vez</h3>
+  <p style="margin-bottom:16px;">Vas a construir la función que conecta tu código con Groq. Al final de esta sesión, tu programa manda un mensaje y recibe una respuesta.</p>
+
+  <div class="bloque b-azul">
+    <div class="bloque-titulo">📦 Paso 1 — Abrí un Colab nuevo y escribí el import</div>
+    <div class="bloque-desc"><code>requests</code> es la librería que le permite a Python hablar con servicios externos por internet. La usás para mandar el mensaje a la API de Groq.</div>
+    <div class="code-block"><span class="kw">import</span> requests</div>
+  </div>
+
+  <div class="bloque b-azul">
+    <div class="bloque-titulo">🔑 Paso 2 — Tu API Key y los datos de conexión</div>
+    <div class="bloque-desc">Reemplazá <code>"gsk_TU_CLAVE"</code> con tu API Key real de Groq. La URL y los headers siempre son iguales para todos.</div>
+    <div class="code-block">API_KEY = <span class="str">"gsk_TU_CLAVE"</span>
+URL     = <span class="str">"https://api.groq.com/openai/v1/chat/completions"</span>
+headers = {
+    <span class="str">"Authorization"</span>: f<span class="str">"Bearer {API_KEY}"</span>,
+    <span class="str">"Content-Type"</span>:  <span class="str">"application/json"</span>
+}</div>
+  </div>
+
+  <div class="bloque b-grn">
+    <div class="bloque-titulo">⚙️ Paso 3 — La función que habla con la IA</div>
+    <div class="bloque-desc">Esta función recibe una lista de mensajes, los manda a Groq, y devuelve lo que respondió la IA. El <code>try/except</code> atrapa los errores para que el programa no explote.</div>
+    <div class="code-block"><span class="kw">def</span> consultar_ia(mensajes, nivel_creatividad):
+    payload = {
+        <span class="str">"model"</span>:       <span class="str">"llama-3.3-70b-versatile"</span>,
+        <span class="str">"temperature"</span>: nivel_creatividad,
+        <span class="str">"messages"</span>:    mensajes
+    }
+    <span class="kw">try</span>:
+        respuesta = requests.post(URL, headers=headers, json=payload)
+        <span class="kw">return</span> respuesta.json()[<span class="str">"choices"</span>][<span class="nm">0</span>][<span class="str">"message"</span>][<span class="str">"content"</span>]
+    <span class="kw">except</span> Exception <span class="kw">as</span> e:
+        <span class="kw">return</span> f<span class="str">"Error: {e}"</span></div>
+  </div>
+
+  <div class="bloque b-grn">
+    <div class="bloque-titulo">✅ Paso 4 — Probá que funciona</div>
+    <div class="bloque-desc">Copiá este bloque en una celda nueva y ejecutalo. Si recibís una respuesta de la IA, la función está lista.</div>
+    <div class="code-block">prueba = [{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"Decí exactamente: 'La función funciona'"</span>}]
+resultado = consultar_ia(prueba, <span class="nm">0.1</span>)
+<span class="kw">print</span>(resultado)</div>
+  </div>
+
+  <div class="info i-class" style="margin-top:4px;">
+    <strong>📤 Checkpoint — antes de seguir a la Sesión 2</strong>
+    Tu función tiene que devolver una respuesta de la IA. Si aparece un error, revisá la API Key. Si dice "La función funciona" (o algo parecido), pasás a la Sesión 2.
+  </div>
+
+  <!-- QUIZ 1 -->
+  <div class="quiz-section">
+    <div class="quiz-title">🧠 Repaso — Sesión 1 <span style="font-size:15px;color:#888;font-weight:normal;" id="score-s1"></span></div>
+    <div id="quiz-s1"></div>
+  </div>
+</div>
+
+<!-- ══════ SESIÓN 2 ══════ -->
+<div class="s-panel" id="s2">
+  <h3>🎯 Meta: La IA recuerda la conversación y tiene personalidad</h3>
+  <p style="margin-bottom:16px;">Vas a agregar el historial (para que recuerde) y el system prompt (para darle personalidad). Al final, vas a tener un chatbot con identidad propia.</p>
+
+  <div class="bloque b-azul">
+    <div class="bloque-titulo">📋 Paso 1 — El historial es una lista de mensajes</div>
+    <div class="bloque-desc">El historial guarda toda la conversación. La IA lo lee completo en cada llamada — así "recuerda" lo que pasó antes. La posición 0 siempre es el system prompt.</div>
+    <div class="code-block"><span class="cm"># Elegí un tema para tu chatbot</span>
+system_prompt = <span class="str">"""Sos un asistente de recetas amigable y práctico.
+Solo hablás de cocina. Si te preguntan otra cosa, respondés que tu especialidad es la cocina.
+Tus respuestas son cortas y claras."""</span>
+
+historial = [{<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: system_prompt}]</div>
+  </div>
+
+  <div class="bloque b-azul">
+    <div class="bloque-titulo">🔄 Paso 2 — Un turno de conversación</div>
+    <div class="bloque-desc">Para cada mensaje: primero lo agregás al historial, después llamás a la IA, después guardás la respuesta. Este orden es importante.</div>
+    <div class="code-block"><span class="cm"># 1. Agregar el mensaje del usuario</span>
+historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"¿Cómo hago una tortilla de papas?"</span>})
+
+<span class="cm"># 2. Llamar a la IA</span>
+respuesta = consultar_ia(historial, <span class="nm">0.7</span>)
+
+<span class="cm"># 3. Guardar la respuesta de la IA en el historial</span>
+historial.append({<span class="str">"role"</span>: <span class="str">"assistant"</span>, <span class="str">"content"</span>: respuesta})
+
+<span class="cm"># 4. Mostrar la respuesta</span>
+<span class="kw">print</span>(respuesta)</div>
+  </div>
+
+  <div class="bloque b-grn">
+    <div class="bloque-titulo">✅ Paso 3 — Probá la memoria</div>
+    <div class="bloque-desc">Hacé dos preguntas encadenadas. Si en la segunda respuesta la IA recuerda la primera, el historial funciona.</div>
+    <div class="code-block"><span class="cm"># Primer mensaje</span>
+historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"¿Cuántos huevos lleva la tortilla?"</span>})
+resp1 = consultar_ia(historial, <span class="nm">0.7</span>)
+historial.append({<span class="str">"role"</span>: <span class="str">"assistant"</span>, <span class="str">"content"</span>: resp1})
+<span class="kw">print</span>(<span class="str">"IA:"</span>, resp1)
+
+<span class="cm"># Segundo mensaje (prueba de memoria)</span>
+historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"¿Y si quiero una versión más grande?"</span>})
+resp2 = consultar_ia(historial, <span class="nm">0.7</span>)
+historial.append({<span class="str">"role"</span>: <span class="str">"assistant"</span>, <span class="str">"content"</span>: resp2})
+<span class="kw">print</span>(<span class="str">"IA:"</span>, resp2)</div>
+  </div>
+
+  <div class="info i-class" style="margin-top:4px;">
+    <strong>📤 Checkpoint — antes de seguir a la Sesión 3</strong>
+    La IA tiene que responder preguntas de cocina (o el tema que elegiste) y en la segunda respuesta tiene que referirse a la primera. Si no lo hace, revisá que estés haciendo el <code>append</code> del assistant después de cada respuesta.
+  </div>
+
+  <!-- QUIZ 2 -->
+  <div class="quiz-section">
+    <div class="quiz-title">🧠 Repaso — Sesión 2 <span style="font-size:15px;color:#888;font-weight:normal;" id="score-s2"></span></div>
+    <div id="quiz-s2"></div>
+  </div>
+</div>
+
+<!-- ══════ SESIÓN 3 ══════ -->
+<div class="s-panel" id="s3">
+  <h3>🎯 Meta: El chatbot corre en un bucle y guarda la conversación</h3>
+  <p style="margin-bottom:16px;">Vas a juntar todo lo anterior en un programa que funciona como un chat real: el usuario escribe, la IA responde, y se puede guardar la conversación.</p>
+
+  <div class="bloque b-azul">
+    <div class="bloque-titulo">🔁 Paso 1 — El bucle while True</div>
+    <div class="bloque-desc"><code>while True</code> repite para siempre. <code>input()</code> espera que el usuario escriba. <code>.strip()</code> limpia los espacios. <code>break</code> es la única forma de salir.</div>
+    <div class="code-block"><span class="kw">print</span>(<span class="str">"¡Chatbot listo! Escribí 'salir' para terminar.\n"</span>)
+
+<span class="kw">while True</span>:
+    mensaje = <span class="kw">input</span>(<span class="str">"Vos: "</span>).strip()
+
+    <span class="kw">if</span> mensaje.lower() == <span class="str">"salir"</span>:
+        <span class="kw">print</span>(<span class="str">"Hasta la próxima."</span>)
+        <span class="kw">break</span>
+
+    <span class="cm"># Agregar mensaje al historial</span>
+    historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: mensaje})
+
+    <span class="cm"># Llamar a la IA</span>
+    respuesta = consultar_ia(historial, <span class="nm">0.7</span>)
+
+    <span class="cm"># Guardar la respuesta de la IA</span>
+    historial.append({<span class="str">"role"</span>: <span class="str">"assistant"</span>, <span class="str">"content"</span>: respuesta})
+
+    <span class="cm"># Mostrar la respuesta</span>
+    <span class="kw">print</span>(f<span class="str">"IA: {respuesta}\n"</span>)</div>
+  </div>
+
+  <div class="bloque b-grn">
+    <div class="bloque-titulo">💾 Paso 2 — Guardar la conversación en un archivo</div>
+    <div class="bloque-desc">Agregá este bloque antes del <code>break</code> de "salir", o como comando <code>/guardar</code>. <code>historial[1:]</code> saltea el system prompt y guarda solo la conversación.</div>
+    <div class="code-block">    <span class="kw">if</span> mensaje.lower() == <span class="str">"/guardar"</span>:
+        <span class="kw">with open</span>(<span class="str">"conversacion.txt"</span>, <span class="str">"w"</span>, encoding=<span class="str">"utf-8"</span>) <span class="kw">as</span> f:
+            <span class="kw">for</span> msg <span class="kw">in</span> historial[<span class="nm">1</span>:]:
+                f.write(f<span class="str">"{msg['role'].upper()}: {msg['content']}\n\n"</span>)
+        <span class="kw">print</span>(<span class="str">"💾 Conversación guardada en conversacion.txt\n"</span>)
+        <span class="kw">continue</span></div>
+  </div>
+
+  <div class="info i-class" style="margin-top:4px;">
+    <strong>📤 Entrega final</strong>
+    Compartí el link de tu Colab con permisos de Lector en Classroom. El chatbot tiene que: arrancar, responder según el tema que elegiste, recordar lo que dijiste antes, y guardar cuando escribís <code>/guardar</code>.
+  </div>
+
+  <!-- QUIZ 3 -->
+  <div class="quiz-section">
+    <div class="quiz-title">🧠 Repaso — Sesión 3 <span style="font-size:15px;color:#888;font-weight:normal;" id="score-s3"></span></div>
+    <div id="quiz-s3"></div>
+  </div>
+</div>
+</div>
+
+<script>
+// ── Sesiones ──────────────────────────────────────────────────────────────────
+function showSession(n){
+  [1,2,3].forEach(function(i){
+    document.getElementById('s'+i).classList.toggle('activo', i===n);
+    document.querySelectorAll('.s-tab')[i-1].classList.toggle('activo', i===n);
+  });
+}
+
+// ── Quiz data ─────────────────────────────────────────────────────────────────
+var QUIZZES = {
+  s1: [
+    {q:"¿Para qué sirve la librería requests?",
+     opts:["Para hacer cálculos matemáticos en Python","Para que Python pueda comunicarse con servicios externos por internet","Para leer y escribir archivos en el disco","Para convertir texto a números automáticamente"],ok:1},
+    {q:"¿Por qué consultar_ia() termina con return y no con print?",
+     opts:["Porque print no funciona dentro de funciones","Porque con return el resultado queda en una variable que el programa puede usar después. Con print se mostraría en pantalla pero no podría guardarse en el historial","Porque la API de Groq solo acepta return","Para que el programa sea más rápido"],ok:1},
+    {q:"¿Qué hay dentro de respuesta.json()[\"choices\"][0][\"message\"][\"content\"]?",
+     opts:["La API Key de Groq","El número de tokens usados","El texto que respondió la IA","El nombre del modelo que se usó"],ok:2},
+    {q:"¿Para qué sirve el try/except en la función?",
+     opts:["Para hacer que la función sea más rápida","Para que el programa no explote cuando hay un error de conexión o de API","Para verificar que la API Key sea correcta antes de mandar el mensaje","Para guardar automáticamente la respuesta en un archivo"],ok:1},
+    {q:"¿Qué tiene que tener la variable headers para que la API te autorice?",
+     opts:["Solo el Content-Type","La API Key en el campo Authorization y el Content-Type como application/json","El nombre del modelo y la temperatura","El historial completo de la conversación"],ok:1}
+  ],
+  s2: [
+    {q:"¿Qué es el historial y qué tipo de dato es en Python?",
+     opts:["Es un string que guarda todos los mensajes en texto plano","Es una lista de diccionarios, donde cada diccionario tiene el rol y el contenido de un mensaje","Es un diccionario con las claves 'usuario' y 'ia'","Es un archivo de texto que se guarda en disco automáticamente"],ok:1},
+    {q:"¿Por qué el system prompt va en la posición 0 del historial?",
+     opts:["Porque Python procesa las listas de atrás para adelante","Porque es lo primero que lee la IA en cada llamada — son las instrucciones permanentes","Para que ocupe menos memoria que si estuviera en otra posición","Porque la API de Groq busca el system prompt exactamente en esa posición"],ok:1},
+    {q:"¿Qué pasa si no hacemos el append del assistant después de cada respuesta?",
+     opts:["El programa cierra automáticamente","La IA recibirá en el siguiente turno un historial sin su propia respuesta y olvidará lo que acaba de decir","La respuesta se guarda igual en el archivo","No pasa nada, la IA recuerda sus respuestas internamente"],ok:1},
+    {q:"¿Cuántos mensajes hay en el historial después de 3 intercambios (preguntas y respuestas)?",
+     opts:["3 mensajes","6 mensajes","7 mensajes (3 del usuario + 3 del asistente + 1 system prompt)","4 mensajes"],ok:2},
+    {q:"Si querés que el chatbot sea un asistente de películas, ¿qué cambiás en el código?",
+     opts:["La URL de la API","El texto del system_prompt — le explicás el nuevo rol y sus límites","La temperatura del consultar_ia()","El nombre de la variable historial"],ok:1}
+  ],
+  s3: [
+    {q:"¿Qué tiene que pasar para que el while True termine?",
+     opts:["Que pasen 10 minutos sin que el usuario escriba nada","Que el código ejecute un break","Que la IA devuelva un mensaje de error","Que el historial supere los 20 mensajes"],ok:1},
+    {q:"¿Qué hace .strip() en mensaje = input(...).strip()?",
+     opts:["Convierte el texto a minúsculas","Elimina los espacios en blanco al principio y al final del texto","Divide el texto en palabras","Verifica que el texto no esté vacío"],ok:1},
+    {q:"¿Por qué usamos historial[1:] cuando guardamos el archivo y no historial?",
+     opts:["Para que el archivo sea más pequeño","Para saltear el system prompt (posición 0) y guardar solo la conversación real","Porque Python no puede guardar el primer elemento de una lista","Para evitar que se guarden los mensajes de error"],ok:1},
+    {q:"¿Qué diferencia hay entre break y continue dentro del while True?",
+     opts:["No hay diferencia, hacen lo mismo","break termina el bucle para siempre. continue vuelve al inicio del bucle para el próximo turno","break vuelve al inicio del bucle. continue termina el programa","Ambos terminan el programa pero de formas distintas"],ok:1},
+    {q:"¿En qué orden van las 3 operaciones del historial en cada turno?",
+     opts:["consultar_ia → append usuario → append assistant","append usuario → append assistant → consultar_ia","append usuario → consultar_ia → append assistant","consultar_ia → append assistant → append usuario"],ok:2}
+  ]
+};
+
+// ── Render quizzes ────────────────────────────────────────────────────────────
+function renderQuiz(sKey){
+  var container = document.getElementById('quiz-'+sKey);
+  var correctas = 0, respondidas = 0;
+  QUIZZES[sKey].forEach(function(q, qi){
+    var div = document.createElement('div');
+    div.className = 'q-item';
+    var optsHTML = q.opts.map(function(opt, oi){
+      return '<button class="q-btn" onclick="responder(\''+sKey+'\','+qi+','+oi+','+q.ok+',this)">'+ opt +'</button>';
+    }).join('');
+    div.innerHTML = '<div class="q-texto">'+(qi+1)+'. '+q.q+'</div><div class="q-opts">'+optsHTML+'</div><div class="q-fb" id="fb-'+sKey+'-'+qi+'" style="display:none"></div>';
+    container.appendChild(div);
+  });
+}
+
+function responder(sKey, qi, oi, ok, btn){
+  var item = btn.closest('.q-item');
+  if(item.querySelector('.q-btn.ok')) return;
+  var btns = item.querySelectorAll('.q-btn');
+  btns.forEach(function(b,i){
+    b.disabled = true;
+    if(i===ok) b.className='q-btn ok';
+    else if(b===btn) b.className='q-btn mal';
+    else b.className='q-btn gris';
+  });
+  var fb = document.getElementById('fb-'+sKey+'-'+qi);
+  fb.style.display='block';
+  var correcto = oi===ok;
+  fb.className = 'q-fb '+(correcto?'ok':'mal');
+  fb.textContent = correcto ? '✅ Correcto' : '❌ Incorrecto — la correcta está en verde.';
+  // Score
+  var total = QUIZZES[sKey].length;
+  var okCount = document.getElementById('quiz-'+sKey).querySelectorAll('.q-btn.ok').length;
+  document.getElementById('score-'+sKey).textContent = okCount+' / '+total;
+}
+
+['s1','s2','s3'].forEach(renderQuiz);
+</script>
+</body>
+</html>

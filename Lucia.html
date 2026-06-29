@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desafío — Lucía Quispe</title>
+<style>
+
+  :root{
+    --nav:#1A2C3A;--g2:#2E6820;--g2-bg:#EFF8EE;--vio:#3D5A99;--viobg:#F0EFFF;
+    --bd:#C5D2DC;--gris:#F3F6F9;--txt:#2C3E50;--bco:#FFFFFF;--r:10px;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;--azul:#1565C0;--azul-bg:#E3F2FD;
+    --mil:#6A1B9A;--mil-bg:#F3E5F5;
+    --luc:#1565C0;--luc-bg:#E3F2FD;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:19px;padding:15px 0 50px;}
+  header{background:var(--nav);color:#fff;padding:22px 20px;border-bottom:5px solid var(--mil);}
+  header h1{font-size:22px;margin-bottom:4px;text-transform:uppercase;}
+  header p{font-size:16px;opacity:.85;}
+  .container{width:95%;max-width:860px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:16px;margin-bottom:14px;padding:9px 18px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .tabs{display:flex;gap:5px;margin-top:16px;}
+  .tab{flex:1;padding:11px;background:#fff;border:2px solid var(--bd);border-radius:var(--r) var(--r) 0 0;cursor:pointer;font-weight:bold;font-size:17px;text-align:center;color:#888;}
+  .tab-milena.activo{background:var(--mil);color:#fff;border-color:var(--mil);}
+  .tab-lucia.activo{background:var(--luc);color:#fff;border-color:var(--luc);}
+  .panel{display:none;background:#fff;border:2px solid var(--bd);border-top:none;border-radius:0 0 var(--r) var(--r);padding:24px;}
+  .panel.activo{display:block;}
+  .info{padding:12px 16px;border-radius:var(--r);margin:10px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
+  .i-m{border-color:var(--mil);background:var(--mil-bg);} .i-m strong{color:var(--mil);display:block;margin-bottom:4px;}
+  .i-l{border-color:var(--luc);background:var(--luc-bg);} .i-l strong{color:var(--luc);display:block;margin-bottom:4px;}
+  .i-p{border-color:var(--azul);background:var(--azul-bg);} .i-p strong{color:var(--azul);display:block;margin-bottom:4px;}
+  .i-g{border-color:var(--g2);background:var(--g2-bg);} .i-g strong{color:var(--g2);display:block;margin-bottom:4px;}
+  code{background:#E8E6FF;color:var(--vio);padding:2px 5px;border-radius:4px;font-family:'Consolas',monospace;font-size:16px;}
+  .quiz-aviso{font-size:15px;color:#666;font-style:italic;margin-bottom:12px;}
+  .q-item{border:2px solid var(--bd);border-radius:var(--r);padding:12px 14px;margin-bottom:10px;}
+  .q-texto{font-size:16px;font-weight:bold;color:var(--nav);margin-bottom:7px;line-height:1.4;}
+  .q-opts{display:flex;flex-direction:column;gap:5px;}
+  .q-btn{text-align:left;padding:8px 11px;border-radius:7px;border:2px solid var(--bd);background:var(--gris);font-size:15px;line-height:1.4;cursor:pointer;font-family:inherit;}
+  .q-btn:hover:not(:disabled){border-color:var(--vio);background:var(--viobg);}
+  .q-btn:disabled{cursor:default;}
+  .q-btn.ok{border-color:var(--g2);background:var(--g2-bg);color:var(--g2);font-weight:bold;}
+  .q-btn.mal{border-color:var(--rojo);background:var(--rojo-bg);color:var(--rojo);}
+  .q-btn.nd:disabled{opacity:.45;}
+  .q-fb{font-size:13px;font-weight:bold;padding:6px 9px;border-radius:6px;margin-top:4px;display:none;}
+  .q-fb.ok{background:var(--g2-bg);color:var(--g2);} .q-fb.mal{background:var(--rojo-bg);color:var(--rojo);}
+
+</style>
+</head>
+<body>
+<header style="border-bottom-color:var(--luc);">
+  <h1>DESAFÍO — LUCÍA QUISPE</h1>
+  <p>Taller de IA Aplicada · CTP Antonio Martín Marte</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">⬅ Índice</a>
+
+<div style="background:var(--luc);color:#fff;border-radius:var(--r);padding:16px 20px;margin-top:18px;margin-bottom:20px;">
+  <div style="font-size:20px;font-weight:bold;margin-bottom:3px;">QUISPE, Angela Lucía</div>
+  <div style="font-size:15px;opacity:.85;">Desafío: completar /tomar y el append del historial</div>
+</div>
+
+<div style="background:var(--bco);border-radius:var(--r);padding:24px;margin-bottom:18px;box-shadow:0 3px 10px rgba(0,0,0,.08);border-left:6px solid var(--luc);">
+  <div class="info i-l">
+    <strong>📋 Tu tarea</strong>
+    Dos cosas que quedaron incompletas: el <code>/tomar</code> sin el <code>.append()</code> al inventario, y el <code>historial.append()</code> del assistant que falta en el turno normal. Sin eso, el inventario no crece y la IA olvida lo que narró.
+  </div>
+  <div class="info i-p">
+    <strong>💡 Pistas</strong>
+    · Para <code>/tomar</code>: después de extraer el objeto, necesitás <code>jugador["inventario"].???(objeto)</code>. ¿Qué método agrega un elemento al final de una lista?<br>
+    · Para el historial: después de llamar a <code>consultar_ia()</code> y guardar la respuesta, hacés <code>historial.append({"role": "assistant", "content": nombre_variable})</code>.<br>
+    · Sin el segundo append, la IA olvida lo que acaba de narrar en el siguiente turno.
+  </div>
+  <div class="info i-g">
+    <strong>🧪 Cómo probarlo</strong>
+    Probá <code>/tomar linterna</code> y verificá con <code>/estado</code> que aparece. Para el historial: jugá 3 turnos y verificá que las respuestas son coherentes entre sí.
+  </div>
+</div>
+
+<div style="background:var(--bco);border-radius:var(--r);padding:24px;box-shadow:0 3px 10px rgba(0,0,0,.08);border-left:6px solid var(--g2);">
+  <div style="font-size:17px;font-weight:bold;color:var(--nav);margin-bottom:4px;">Preguntas de defensa <span style="font-size:14px;color:#888;font-weight:normal;" id="sc-lucia"></span></div>
+  <div class="quiz-aviso">⚠️ 2 o 3 de estas preguntas van a ser parte de tu defensa.</div>
+  <div id="qz-lucia"></div>
+</div>
+</div>
+<script>
+
+function show(id){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('activo');});
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('activo');});
+  document.getElementById('p-'+id).classList.add('activo');
+  document.querySelector('.tab-'+id).classList.add('activo');
+}
+var QS={
+  milena:[
+    {q:"¿Qué tres datos incluís en el mensaje_turno y por qué?",
+     opts:["Solo la acción del jugador, lo demás la IA lo sabe sola","El HP, el inventario y la acción del jugador — así la IA sabe el estado actual en cada turno, no solo al inicio del juego","El HP, el nombre y la ubicación","Solo el HP porque es el dato más importante"],ok:1},
+    {q:"¿Por qué el jugador no ve el estado en pantalla aunque va en el mensaje?",
+     opts:["Porque Python lo oculta automáticamente","El estado va dentro del mensaje que le mandamos a la API — el jugador solo ve lo que imprimimos con print(). El mensaje_turno no se imprime, solo se manda","Porque está encriptado","Por limitaciones de la terminal"],ok:1},
+    {q:"¿Cuál es el orden correcto de las 4 operaciones del B7?",
+     opts:["consultar_ia → append usuario → print → append assistant","append usuario → consultar_ia → append assistant → print","append assistant → consultar_ia → append usuario → print","print → consultar_ia → ambos append"],ok:1},
+    {q:"¿Cómo verificaste que el HP que recibe la IA es el actual y no el inicial?",
+     opts:["Confié en que el código era correcto","Usé /hp para bajar el HP y en el siguiente turno verifiqué que la IA narra al personaje débil o herido","Miré el código sin ejecutarlo","El HP siempre es el mismo, no cambia"],ok:1},
+    {q:"¿Qué pasa si no incluís el inventario en el mensaje_turno?",
+     opts:["Nada, la IA lo ignora igual","La IA no sabe qué objetos tiene el jugador — puede narrar que usa algo que no tiene o ignorar objetos que sí tiene","El programa lanza un error","El inventario se muestra solo en /estado"],ok:1}
+  ],
+  lucia:[
+    {q:"¿Qué método usás para agregar el objeto al inventario?",
+     opts:["insert() — agrega al principio","append() — agrega al final de la lista","add() — agrega sin duplicados","extend() — agrega una lista entera"],ok:1},
+    {q:"¿Por qué hay que hacer append del assistant después de cada respuesta de la IA?",
+     opts:["Es opcional, la IA recuerda sola","Sin ese append, la IA no tiene registro de lo que acaba de narrar — en el siguiente turno lo olvidará y la historia pierde coherencia","El append guarda el archivo automáticamente","Es solo para debug"],ok:1},
+    {q:"¿Cuántos append hay en un turno completo?",
+     opts:["Uno solo","Dos: uno del usuario (antes de consultar_ia) y uno del assistant (después)","Tres: usuario, assistant y sistema","No hay append, la API lo maneja sola"],ok:1},
+    {q:"¿Qué pasa si el jugador escribe /tomar sin poner el nombre de un objeto?",
+     opts:["Se agrega una cadena vacía al inventario","El código tiene que detectar que objeto está vacío y mostrar un mensaje de ayuda en lugar de agregar nada","El programa explota con un error","No pasa nada"],ok:1},
+    {q:"¿Cómo probaste que el historial funciona y la IA recuerda?",
+     opts:["Confié en que el código compiló bien","Jugué 3 turnos y verifiqué que las respuestas son coherentes entre sí — si la IA menciona algo que pasó antes, el historial funciona","Solo corrí el código una vez","Pregunté lo mismo en todos los turnos"],ok:1}
+  ]
+};
+function renderQ(key){
+  var c=document.getElementById('qz-'+key);
+  if(!c) return;
+  QS[key].forEach(function(q,qi){
+    var d=document.createElement('div');d.className='q-item';
+    d.innerHTML='<div class="q-texto">'+(qi+1)+'. '+q.q+'</div><div class="q-opts">'
+      +q.opts.map(function(o,oi){return '<button class="q-btn" onclick="resp(\''+key+'\','+qi+','+oi+','+q.ok+',this)">'+o+'</button>';}).join('')
+      +'</div><div class="q-fb" id="fb-'+key+'-'+qi+'" style="display:none"></div>';
+    c.appendChild(d);
+  });
+}
+function resp(key,qi,oi,ok,btn){
+  var item=btn.closest('.q-item');
+  if(item.querySelector('.q-btn.ok')) return;
+  item.querySelectorAll('.q-btn').forEach(function(b,i){
+    b.disabled=true;
+    if(i===ok) b.className='q-btn ok';
+    else if(b===btn) b.className='q-btn mal';
+    else b.className='q-btn nd';
+  });
+  var fb=document.getElementById('fb-'+key+'-'+qi);
+  fb.style.display='block'; fb.className='q-fb '+(oi===ok?'ok':'mal');
+  fb.textContent=oi===ok?'✅ Correcto':'❌ Incorrecto.';
+  var cnt=document.getElementById('qz-'+key).querySelectorAll('.q-btn.ok').length;
+  document.getElementById('sc-'+key).textContent=cnt+'/'+QS[key].length;
+}
+['milena','lucia'].forEach(renderQ);
+
+// render solo el estudiante de esta página
+renderQ('lucia');
+</script>
+</body>
+</html>

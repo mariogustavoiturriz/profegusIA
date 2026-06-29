@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desafío de Mejora — RPG</title>
+<style>
+  :root{
+    --nav:#1A2C3A;--teal:#00949A;--g2:#2E6820;--g2-bg:#EFF8EE;
+    --amb:#D4873A;--abg:#FFF8EE;--vio:#3D5A99;--viobg:#F0EFFF;
+    --bd:#C5D2DC;--gris:#F3F6F9;--txt:#2C3E50;--bco:#FFFFFF;
+    --code-bg:#1E1E1E;--r:10px;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;
+    --azul:#1565C0;--azul-bg:#E3F2FD;
+    --oro:#B8860B;--orobg:#FFFDE7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:19px;padding:15px 0 50px;}
+  header{background:var(--nav);color:#fff;padding:22px 20px;border-bottom:5px solid var(--oro);}
+  header h1{font-size:22px;margin-bottom:4px;text-transform:uppercase;}
+  header p{font-size:16px;opacity:.9;}
+  .container{width:95%;max-width:1100px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:18px;margin-bottom:8px;padding:9px 18px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+
+  /* Tabs */
+  .tabs{display:flex;gap:5px;margin-top:18px;flex-wrap:wrap;}
+  .tab{flex:1;min-width:120px;padding:11px 10px;background:#fff;border:2px solid var(--bd);border-radius:var(--r) var(--r) 0 0;cursor:pointer;font-weight:bold;font-size:16px;text-align:center;color:#888;transition:.15s;}
+  .tab.activo{color:#fff;border-color:transparent;}
+  .tab-orion.activo  {background:#5C2070;}
+  .tab-tomas.activo  {background:var(--azul);}
+  .tab-juanpablo.activo{background:var(--g2);}
+  .panel{display:none;background:#fff;border:2px solid var(--bd);border-top:none;border-radius:0 0 var(--r) var(--r);padding:26px;}
+  .panel.activo{display:block;}
+
+  /* Contenido */
+  .alumno-header{padding:14px 18px;border-radius:var(--r);margin-bottom:18px;color:#fff;}
+  .alumno-header h2{font-size:20px;margin-bottom:3px;}
+  .alumno-header p{font-size:15px;opacity:.85;}
+  .ah-orion   {background:#5C2070;}
+  .ah-tomas   {background:var(--azul);}
+  .ah-juanpablo{background:var(--g2);}
+
+  .info{padding:13px 17px;border-radius:var(--r);margin:10px 0;border-left:5px solid;font-size:18px;line-height:1.65;}
+  .i-tarea{background:#F3E5F5;border-color:#7B1FA2;}
+  .i-tarea strong{color:#7B1FA2;display:block;margin-bottom:4px;}
+  .i-pistas{background:var(--azul-bg);border-color:var(--azul);}
+  .i-pistas strong{color:var(--azul);display:block;margin-bottom:4px;}
+  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
+  .i-grn strong{color:var(--g2);display:block;margin-bottom:4px;}
+  .i-amb{background:var(--abg);border-color:var(--amb);}
+  .i-amb strong{color:var(--amb);display:block;margin-bottom:4px;}
+
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:14px 16px;font-size:16px;overflow-x:auto;white-space:pre;line-height:1.65;border-radius:6px;margin:8px 0;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
+  .dk{color:#9CDCFE;} .nm{color:#B5CEA8;}
+  code{background:#E8E6FF;color:var(--vio);padding:2px 5px;border-radius:4px;font-family:'Consolas',monospace;font-size:16px;}
+
+  /* Quiz */
+  .quiz-sec{margin-top:24px;border-top:3px solid var(--gris);padding-top:18px;}
+  .quiz-titulo{font-size:18px;font-weight:bold;color:var(--nav);margin-bottom:6px;}
+  .quiz-aviso{font-size:15px;color:#666;margin-bottom:14px;font-style:italic;}
+  .q-item{border:2px solid var(--bd);border-radius:var(--r);padding:16px 18px;margin-bottom:12px;}
+  .q-texto{font-size:17px;font-weight:bold;color:var(--nav);margin-bottom:10px;line-height:1.5;}
+  .q-opts{display:flex;flex-direction:column;gap:7px;}
+  .q-btn{text-align:left;padding:9px 13px;border-radius:8px;border:2px solid var(--bd);background:var(--gris);font-size:16px;line-height:1.5;cursor:pointer;font-family:inherit;transition:.12s;}
+  .q-btn:hover:not(:disabled){border-color:var(--vio);background:var(--viobg);}
+  .q-btn:disabled{cursor:default;}
+  .q-btn.ok {border-color:var(--g2);background:var(--g2-bg);color:var(--g2);font-weight:bold;}
+  .q-btn.mal{border-color:var(--rojo);background:var(--rojo-bg);color:var(--rojo);}
+  .q-btn.nd:disabled{opacity:.5;}
+  .q-fb{margin-top:8px;font-size:14px;font-weight:bold;padding:7px 11px;border-radius:7px;}
+  .q-fb.ok{background:var(--g2-bg);color:var(--g2);}
+  .q-fb.mal{background:var(--rojo-bg);color:var(--rojo);}
+  .score-badge{font-size:14px;font-weight:normal;color:#888;margin-left:10px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏆 DESAFÍO DE MEJORA — PROYECTO RPG</h1>
+  <p>Taller de IA Aplicada · Aprobados · CTP Antonio Martín Marte</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">⬅ Índice</a>
+
+<div class="tabs">
+  <div class="tab tab-orion activo"   onclick="show('orion')">Orion</div>
+  <div class="tab tab-tomas"          onclick="show('tomas')">Tomás</div>
+  <div class="tab tab-juanpablo"      onclick="show('juanpablo')">Juan Pablo</div>
+</div>
+
+<!-- ══ ORION ══ -->
+<div class="panel activo" id="p-orion">
+  <div class="alumno-header ah-orion">
+    <h2>BARRIONUEVO, Orion Nazareno</h2>
+    <p>Desafío: /tomar solo acepta objetos de la escena</p>
+  </div>
+
+  <div class="info i-tarea">
+    <strong>🎯 El problema</strong>
+    El jugador puede escribir <code>/tomar dragón</code> aunque la IA nunca mencionó ningún dragón. El inventario se llena de cosas que no existen en la historia.
+  </div>
+
+  <div class="info i-tarea">
+    <strong>📋 Tu tarea</strong>
+    Modificá el bloque <code>/tomar</code> para que, antes de agregar el objeto al inventario, verifique si ese objeto fue mencionado en la última narración de la IA. Si no está, lo rechaza con un mensaje.
+  </div>
+
+  <div class="info i-pistas">
+    <strong>💡 Pistas (sin código)</strong>
+    · Para encontrar el último mensaje de la IA, recorrés el historial al revés con <code>reversed()</code> y buscás el primero que tenga <code>role == "assistant"</code>.<br>
+    · Para verificar si una palabra está dentro de un texto más largo, usás el operador <code>in</code>: <code>"linterna" in texto</code> devuelve True o False.<br>
+    · Convertí tanto el objeto como la narración a minúsculas con <code>.lower()</code> antes de comparar, para que no importe si el jugador escribe "Linterna" o "linterna".
+  </div>
+
+  <div class="info" style="background:#F3E5F5;border-color:#7B1FA2;">
+    <strong style="color:#7B1FA2;">⚠️ Caso borde a resolver</strong>
+    ¿Qué pasa si el jugador escribe <code>/tomar</code> al inicio, antes de que la IA narre la primera escena? ¿El historial tiene algún mensaje de assistant todavía? Pensá cómo manejarlo.
+  </div>
+
+  <!-- QUIZ ORION -->
+  <div class="quiz-sec">
+    <div class="quiz-titulo">Preguntas de defensa <span class="score-badge" id="sc-orion"></span></div>
+    <div class="quiz-aviso">⚠️ 2 o 3 de estas preguntas van a ser parte de tu defensa. Asegurate de poder responderlas después de implementar el fix.</div>
+    <div id="qz-orion"></div>
+  </div>
+</div>
+
+<!-- ══ TOMÁS ══ -->
+<div class="panel" id="p-tomas">
+  <div class="alumno-header ah-tomas">
+    <h2>RODRIGUEZ, Tomás Maximiliano</h2>
+    <p>Desafío: el juego ahora puede terminar</p>
+  </div>
+
+  <div class="info i-tarea">
+    <strong>🎯 El problema</strong>
+    La narrativa sigue y sigue sin condición de cierre. No hay nada en el código que diga "acá termina la historia".
+  </div>
+
+  <div class="info i-tarea">
+    <strong>📋 Tu tarea</strong>
+    Agregá dos condiciones de cierre: que el HP llegue a 0, o que se superen 20 turnos. En cualquier caso, el programa le manda un mensaje a la IA para que narre el final y después termina el juego con <code>break</code>.
+  </div>
+
+  <div class="info i-pistas">
+    <strong>💡 Pistas (sin código)</strong>
+    · Necesitás una variable <code>turno = 0</code> que vive fuera del bucle (igual que el diccionario jugador) y suma 1 en cada vuelta.<br>
+    · Las condiciones van <strong>después</strong> del turno normal (después del último <code>print</code> del B7).<br>
+    · Cuando se cumple la condición, antes de hacer <code>break</code>, llamás a <code>consultar_ia()</code> una vez más con un mensaje especial para que la IA narre el final. Ese mensaje puede ser algo como <code>"[El jugador cayó. Narrá el final en 3 oraciones.]"</code>
+  </div>
+
+  <!-- QUIZ TOMÁS -->
+  <div class="quiz-sec">
+    <div class="quiz-titulo">Preguntas de defensa <span class="score-badge" id="sc-tomas"></span></div>
+    <div class="quiz-aviso">⚠️ 2 o 3 de estas preguntas van a ser parte de tu defensa.</div>
+    <div id="qz-tomas"></div>
+  </div>
+</div>
+
+<!-- ══ JUAN PABLO ══ -->
+<div class="panel" id="p-juanpablo">
+  <div class="alumno-header ah-juanpablo">
+    <h2>SIFUENTE, Juan Pablo</h2>
+    <p>Desafío: finales distintos según el HP final</p>
+  </div>
+
+  <div class="info i-grn">
+    <strong>📌 Esto depende del fix de Tomás</strong>
+    Tu desafío se construye encima de la condición de fin que implementó Tomás. Coordinense: primero tiene que estar el cierre básico funcionando, después vos lo mejorás.
+  </div>
+
+  <div class="info i-tarea">
+    <strong>📋 Tu tarea</strong>
+    En lugar de un mensaje genérico de final, el programa tiene que elegir qué mensaje mandarle a la IA según el HP con el que llegó el jugador. Más HP = final más épico. HP 0 = final trágico.
+  </div>
+
+  <div class="info i-pistas">
+    <strong>💡 Pistas (sin código)</strong>
+    · Vas a necesitar un <code>if / elif / elif / else</code> que evalúe el HP antes del break y asigne un texto distinto a una variable <code>prompt_final</code>.<br>
+    · Definí 4 rangos: derrota (HP ≤ 0), supervivencia ajustada (HP < 40), victoria parcial (HP < 70), victoria total (HP ≥ 70).<br>
+    · El mensaje que le mandás a la IA cambia según el rango. El emoji del print también puede cambiar para que sea más visual.
+  </div>
+
+  <!-- QUIZ JUAN PABLO -->
+  <div class="quiz-sec">
+    <div class="quiz-titulo">Preguntas de defensa <span class="score-badge" id="sc-juanpablo"></span></div>
+    <div class="quiz-aviso">⚠️ 2 o 3 de estas preguntas van a ser parte de tu defensa.</div>
+    <div id="qz-juanpablo"></div>
+  </div>
+</div>
+</div>
+
+<script>
+function show(id){
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('activo'); });
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('activo'); });
+  document.getElementById('p-'+id).classList.add('activo');
+  document.querySelector('.tab-'+id).classList.add('activo');
+}
+
+var QS = {
+  orion:[
+    {q:"¿Por qué no alcanza con usar historial[-1] para buscar la última narración? ¿Cuándo puede fallar?",
+     opts:["historial[-1] siempre tiene el último mensaje del assistant","historial[-1] puede ser el mensaje del usuario si el jugador acaba de escribir — reversed() garantiza buscar el primer mensaje del assistant sin importar la posición","historial[-1] no existe en Python","reversed() es más rápido que acceder por índice"],ok:1},
+    {q:"¿Qué hace el operador in en la línea objeto.lower() in ultima_narracion?",
+     opts:["Busca la posición exacta donde está el objeto en el texto","Devuelve True si el objeto aparece en algún lugar del texto, False si no aparece","Cuenta cuántas veces aparece el objeto en el texto","Elimina el objeto del texto y devuelve lo que quedó"],ok:1},
+    {q:"¿Por qué convertís ambos textos a minúsculas antes de comparar?",
+     opts:["Porque Python solo puede comparar strings en minúsculas","Para que 'Linterna' y 'linterna' sean tratados como lo mismo — sin .lower(), 'linterna' in 'La Linterna brilla' daría False","Porque .lower() hace la comparación más rápida","Para que el inventario guarde los objetos siempre en minúsculas"],ok:1},
+    {q:"¿Qué debería mostrar el programa si el jugador escribe /tomar al inicio antes de que la IA narre algo?",
+     opts:["Agrega el objeto igual, porque el historial técnicamente existe","Explota con un error IndexError porque el historial está vacío","Un mensaje de rechazo, porque ultima_narracion quedaría vacía y el objeto no puede estar en un texto vacío","No hace nada y espera que el jugador vuelva a intentarlo"],ok:2},
+    {q:"¿Dónde en el código va el nuevo bloque del /tomar? ¿Antes o después del turno normal?",
+     opts:["Después del turno normal, porque primero necesita la narración de la IA","Antes del turno normal, junto a los otros comandos como /estado y /guardar","Al inicio del programa, antes del while True","No importa el orden dentro del while True"],ok:1}
+  ],
+  tomas:[
+    {q:"¿Por qué la variable turno tiene que ir fuera del while True y no dentro?",
+     opts:["Porque Python no acepta variables numéricas dentro de bucles","Si estuviera dentro del while True, se reiniciaría a 0 en cada vuelta — siempre quedaría en 1","Porque turno es una constante y las constantes van afuera","Para que la variable sea accesible desde otras funciones del programa"],ok:1},
+    {q:"¿Por qué hay que llamar a consultar_ia() una vez más justo antes del break?",
+     opts:["Para guardar la conversación automáticamente","Porque el break no funciona sin una llamada previa a la API","Para que la IA narre el final de la historia — sin esa llamada el juego termina abruptamente sin cierre narrativo","Para verificar que la conexión a internet sigue activa"],ok:2},
+    {q:"Si el HP llega a 0 exactamente en el turno 20, ¿cuál condición se verifica primero? ¿Importa el orden?",
+     opts:["No importa, Python evalúa ambas al mismo tiempo","Sí importa — el que está primero en el código se verifica primero. Si HP ≤ 0 está antes, ese if se ejecuta y nunca llega al de turno >= 20","Python siempre evalúa las condiciones de menor a mayor valor","El while True evalúa ambas condiciones antes de ejecutar cualquiera"],ok:1},
+    {q:"¿Qué mensaje le mandás a la IA para que narre el final? ¿Por qué va entre corchetes?",
+     opts:["Los corchetes son obligatorios en Python para strings con instrucciones","Es una convención del proyecto: los mensajes entre corchetes le indican a la IA que es una instrucción del sistema, no una acción del jugador","Los corchetes hacen que el mensaje sea más corto","Es el formato que acepta la API de Groq para mensajes finales"],ok:1},
+    {q:"¿Cuántos turnos elegiste como límite y por qué ese número?",
+     opts:["Tiene que ser exactamente 20, es el estándar de la industria","El número lo elegís vos según lo que querés para tu juego — más turnos = partidas más largas, menos = más intensas","El límite lo define el modelo de IA automáticamente","No hay que definir límite, el juego termina solo"],ok:1}
+  ],
+  juanpablo:[
+    {q:"¿Cuáles son los 4 rangos de HP que usaste y qué final corresponde a cada uno?",
+     opts:["Solo hay 2 finales posibles: ganar o perder","4 rangos: HP ≤ 0 (derrota), HP entre 1 y 39 (supervivencia ajustada), HP entre 40 y 69 (victoria parcial), HP ≥ 70 (victoria total) — aunque los umbrales exactos los definís vos","Los rangos los define la IA automáticamente según el guion","Solo se necesitan rangos si el juego tiene más de 50 turnos"],ok:1},
+    {q:"Si el HP es exactamente 40, ¿cuál elif toma el código?",
+     opts:["El elif de HP < 40 (supervivencia ajustada)","El elif de HP < 70 (victoria parcial), porque 40 no cumple HP < 40 pero sí cumple HP < 70","El else (victoria total)","El if de HP ≤ 0"],ok:1},
+    {q:"¿Por qué el prompt_final que le mandás a la IA cambia según el HP? ¿Qué diferencia hace en la práctica?",
+     opts:["No hace diferencia, la IA siempre narra lo mismo","Porque le estás dando instrucciones distintas sobre qué tipo de final narrar — la IA usa ese mensaje para decidir el tono y los eventos del cierre","Porque la API cobra distinto según el tipo de mensaje","Para que el código sea más largo y parezca más completo"],ok:1},
+    {q:"¿Cómo probaste que los 4 finales distintos funcionan? ¿Qué hiciste para forzar cada uno?",
+     opts:["No hace falta probarlo, si el código compila es correcto","Usé /hp para llevar el HP a cada rango manualmente y verifiqué que la IA narrara el final correspondiente","Jugué el juego hasta que se activó cada final solo","Solo probé el final de derrota porque es el más común"],ok:1},
+    {q:"¿Qué cambiaría si en lugar de 4 finales usaras solo 2 (victoria o derrota)?",
+     opts:["El código sería idéntico, no hay diferencia práctica","El código sería más simple (un if/else en lugar de if/elif/elif/else) y la experiencia del jugador sería menos rica — todos los que sobreviven verían el mismo final sin importar cuánta vida les queda","El código no funcionaría con solo 2 opciones","La IA no puede narrar con menos de 4 opciones"],ok:1}
+  ]
+};
+
+function renderQuiz(key){
+  var container = document.getElementById('qz-'+key);
+  QS[key].forEach(function(q,qi){
+    var div = document.createElement('div');
+    div.className = 'q-item';
+    div.innerHTML = '<div class="q-texto">'+(qi+1)+'. '+q.q+'</div><div class="q-opts">'
+      +q.opts.map(function(opt,oi){
+        return '<button class="q-btn" onclick="resp(\''+key+'\','+qi+','+oi+','+q.ok+',this)">'+opt+'</button>';
+      }).join('')+'</div><div class="q-fb" id="fb-'+key+'-'+qi+'" style="display:none"></div>';
+    container.appendChild(div);
+  });
+}
+function resp(key,qi,oi,ok,btn){
+  var item = btn.closest('.q-item');
+  if(item.querySelector('.q-btn.ok')) return;
+  item.querySelectorAll('.q-btn').forEach(function(b,i){
+    b.disabled=true;
+    if(i===ok) b.className='q-btn ok';
+    else if(b===btn) b.className='q-btn mal';
+    else b.className='q-btn nd';
+  });
+  var fb=document.getElementById('fb-'+key+'-'+qi);
+  fb.style.display='block'; fb.className='q-fb '+(oi===ok?'ok':'mal');
+  fb.textContent=oi===ok?'✅ Correcto':'❌ Incorrecto — la correcta está en verde.';
+  var cnt=document.getElementById('qz-'+key).querySelectorAll('.q-btn.ok').length;
+  document.getElementById('sc-'+key).textContent=cnt+' / '+QS[key].length;
+}
+['orion','tomas','juanpablo'].forEach(renderQuiz);
+</script>
+</body>
+</html>

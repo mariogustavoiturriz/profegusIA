@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desafío — Morena Vallejos</title>
+<style>
+  :root{
+    --nav:#1A2C3A;--g2:#2E6820;--g2-bg:#EFF8EE;--amb:#D4873A;--abg:#FFF8EE;
+    --vio:#3D5A99;--viobg:#F0EFFF;--bd:#C5D2DC;--gris:#F3F6F9;--txt:#2C3E50;
+    --bco:#FFFFFF;--code-bg:#1E1E1E;--r:10px;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;--azul:#1565C0;--azul-bg:#E3F2FD;
+    --mora:#6A1B9A;--mora-bg:#F3E5F5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:19px;padding:15px 0 50px;}
+  header{background:var(--nav);color:#fff;padding:22px 20px;border-bottom:5px solid var(--mora);}
+  header h1{font-size:22px;margin-bottom:4px;text-transform:uppercase;}
+  header p{font-size:16px;opacity:.85;}
+  .container{width:95%;max-width:900px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:16px;margin-bottom:14px;padding:9px 18px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .card{background:var(--bco);border-radius:var(--r);padding:24px;margin-bottom:20px;box-shadow:0 3px 10px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  .c-nombre{border-left-color:var(--mora);background:var(--mora-bg);}
+  .c-tarea {border-left-color:var(--azul);}
+  .c-hambre{border-left-color:var(--amb);background:var(--abg);}
+  .c-quiz  {border-left-color:var(--g2);}
+  h2{color:var(--nav);font-size:20px;margin-bottom:12px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:8px;}
+  .info{padding:12px 16px;border-radius:var(--r);margin:10px 0;border-left:5px solid;font-size:18px;line-height:1.65;}
+  .i-tarea{background:var(--mora-bg);border-color:var(--mora);}
+  .i-tarea strong{color:var(--mora);display:block;margin-bottom:4px;}
+  .i-pistas{background:var(--azul-bg);border-color:var(--azul);}
+  .i-pistas strong{color:var(--azul);display:block;margin-bottom:4px;}
+  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
+  .i-grn strong{color:var(--g2);display:block;margin-bottom:4px;}
+  .num-badge{display:inline-block;background:var(--mora);color:#fff;border-radius:50%;width:28px;height:28px;text-align:center;line-height:28px;font-weight:bold;font-size:16px;margin-right:8px;}
+  code{background:#E8E6FF;color:var(--vio);padding:2px 5px;border-radius:4px;font-family:'Consolas',monospace;font-size:16px;}
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:14px 16px;font-size:16px;overflow-x:auto;white-space:pre;line-height:1.65;border-radius:6px;margin:8px 0;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
+  .dk{color:#9CDCFE;} .nm{color:#B5CEA8;}
+  /* Quiz */
+  .quiz-aviso{font-size:15px;color:#666;font-style:italic;margin-bottom:14px;}
+  .q-item{border:2px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;}
+  .q-texto{font-size:17px;font-weight:bold;color:var(--nav);margin-bottom:8px;line-height:1.4;}
+  .q-opts{display:flex;flex-direction:column;gap:6px;}
+  .q-btn{text-align:left;padding:9px 13px;border-radius:8px;border:2px solid var(--bd);background:var(--gris);font-size:16px;line-height:1.5;cursor:pointer;font-family:inherit;}
+  .q-btn:hover:not(:disabled){border-color:var(--mora);background:var(--mora-bg);}
+  .q-btn:disabled{cursor:default;}
+  .q-btn.ok{border-color:var(--g2);background:var(--g2-bg);color:var(--g2);font-weight:bold;}
+  .q-btn.mal{border-color:var(--rojo);background:var(--rojo-bg);color:var(--rojo);}
+  .q-btn.nd:disabled{opacity:.45;}
+  .q-fb{font-size:14px;font-weight:bold;padding:7px 10px;border-radius:7px;margin-top:6px;display:none;}
+  .q-fb.ok{background:var(--g2-bg);color:var(--g2);}
+  .q-fb.mal{background:var(--rojo-bg);color:var(--rojo);}
+  .score-txt{font-size:15px;color:#888;font-weight:normal;margin-left:10px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>DESAFÍO DE MEJORA — MORENA VALLEJOS</h1>
+  <p>Taller de IA Aplicada · CTP Antonio Martín Marte</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">⬅ Índice</a>
+
+<div class="card c-nombre">
+  <h2>VALLEJOS, Morena Rocio</h2>
+  <p>Tres mejoras para tu RPG: que el juego pueda terminar, que el tiempo tenga consecuencias, y el comando /resumen.</p>
+</div>
+
+<!-- TAREA 1: FIN DEL JUEGO -->
+<div class="card">
+  <h2><span class="num-badge">1</span> El juego ahora puede terminar</h2>
+  <div class="info i-tarea">
+    <strong>🎯 El problema</strong>
+    La narrativa sigue y sigue sin condición de cierre. Tu RPG no tiene manera de terminar — el jugador puede jugar para siempre.
+  </div>
+  <div class="info i-tarea">
+    <strong>📋 Tu tarea</strong>
+    Agregá dos condiciones de cierre: que el HP llegue a 0, o que se superen 15 turnos. En cualquier caso, la IA narra el final y el programa termina.
+  </div>
+  <div class="info i-pistas">
+    <strong>💡 Pistas</strong>
+    · Necesitás una variable <code>turno = 0</code> fuera del bucle (junto al diccionario jugador) que sume 1 en cada vuelta del <code>while True</code>.<br>
+    · Las condiciones van <strong>después</strong> del turno normal — después del último <code>print</code>.<br>
+    · Antes del <code>break</code>, llamás a <code>consultar_ia()</code> una vez más con un mensaje especial para que la IA narre el final. Por ejemplo: <code>"[El jugador llegó al límite. Narrá el final en 3 oraciones.]"</code>
+  </div>
+</div>
+
+<!-- TAREA 2: HAMBRE -->
+<div class="card c-hambre">
+  <h2><span class="num-badge">2</span> El tiempo tiene consecuencias</h2>
+  <div class="info" style="background:#FFF3E0;border-color:var(--amb);">
+    <strong style="color:var(--amb);">🍴 El problema del HP manual</strong>
+    Si el jugador nunca escribe <code>/hp -20</code>, el HP nunca baja — el juego no tiene stakes reales. Nadie va a morir voluntariamente.
+  </div>
+  <div class="info i-tarea">
+    <strong style="color:var(--mora);">📋 Tu tarea</strong>
+    Cada 3 turnos, el programa baja automáticamente 1 punto de HP sin que el jugador haga nada. Esto representa el desgaste físico, el hambre, o el paso del tiempo en tu mundo.
+  </div>
+  <div class="info i-pistas">
+    <strong>💡 Pistas</strong>
+    · Usás el operador <code>%</code> (módulo) que da el resto de una división: <code>turno % 3 == 0</code> es verdadero exactamente en los turnos 3, 6, 9, 12...<br>
+    · Esta verificación va después del <code>turno += 1</code> y antes de las condiciones de fin.<br>
+    · Si bajás el HP acá, la condición de HP ≤ 0 del punto 1 eventualmente se va a activar sola.
+  </div>
+  <div class="info i-grn">
+    <strong>🧪 Cómo probar que funciona</strong>
+    Jugá 9 turnos sin usar ningún comando. El HP debería bajar 3 veces (en los turnos 3, 6 y 9). Usá <code>/estado</code> después de cada turno para verificar.
+  </div>
+</div>
+
+<!-- TAREA 3: /RESUMEN -->
+<div class="card">
+  <h2><span class="num-badge">3</span> Comando /resumen</h2>
+  <div class="info i-tarea">
+    <strong style="color:var(--mora);">📋 Tu tarea</strong>
+    Cuando el jugador escribe <code>/resumen</code>, la IA responde con <strong>una sola oración</strong> que resume todo lo que pasó en la aventura hasta ese momento.
+  </div>
+  <div class="info i-pistas">
+    <strong>💡 Pistas</strong>
+    · No modifiques el historial permanente con <code>append()</code>. En cambio, creá una lista temporal: <code>consulta = historial + [tu mensaje]</code> y usala solo para esa llamada.<br>
+    · El mensaje que le pedís a la IA tiene que pedir explícitamente "en una sola oración".<br>
+    · Va dentro del <code>while True</code>, junto a los otros comandos, con <code>continue</code> al final.
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="card c-quiz">
+  <h2>Preguntas de defensa <span class="score-txt" id="score-m"></span></h2>
+  <div class="quiz-aviso">⚠️ 2 o 3 de estas preguntas van a ser parte de tu defensa.</div>
+  <div id="quiz-m"></div>
+</div>
+</div>
+
+<script>
+var QS=[
+  {q:"¿Por qué la variable turno tiene que ir fuera del while True y no dentro?",
+   opts:["Porque Python no acepta variables numéricas dentro de bucles","Si estuviera dentro, se reiniciaría a 0 en cada vuelta — siempre quedaría en 1 y nunca avanzaría","Para que sea accesible desde otras partes del programa","Es solo una convención, podría ir adentro igual"],ok:1},
+  {q:"¿Qué hace el operador % (módulo)? ¿Por qué usás turno % 3 == 0?",
+   opts:["Divide turno por 3 y da el resultado entero","Da el resto de la división — turno % 3 == 0 es verdadero exactamente cuando turno es múltiplo de 3 (3, 6, 9...), lo que garantiza que el descuento ocurra cada 3 turnos","Verifica que turno sea mayor a 3","Convierte turno a un número entre 0 y 3"],ok:1},
+  {q:"¿Cuánto HP perdería el jugador después de 9 turnos solo por desgaste?",
+   opts:["1 punto","3 puntos (una vez en el turno 3, otra en el 6, otra en el 9)","9 puntos (uno por turno)","0 puntos, el desgaste es opcional"],ok:1},
+  {q:"¿Por qué creás una lista temporal para /resumen en lugar de usar historial.append()?",
+   opts:["Porque append() no funciona con listas que ya tienen elementos","Si usás append(), el mensaje de resumen queda guardado para siempre en el historial y la IA lo lee en todos los turnos siguientes como si fuera una acción real del jugador","Las listas temporales son más rápidas","La API requiere listas separadas para cada tipo de consulta"],ok:1},
+  {q:"¿Qué diferencia hay entre los dos break del punto 1? ¿Cuándo se activa cada uno?",
+   opts:["Son idénticos, da lo mismo cuál se active","El primero se activa cuando el HP llega a 0 o menos (el jugador cayó), el segundo cuando se superaron 15 turnos (el tiempo se agotó). El que está primero en el código se verifica primero","Solo hay un break en el código","Los break los activa la IA automáticamente"],ok:1}
+];
+var c=document.getElementById('quiz-m');
+QS.forEach(function(q,qi){
+  var d=document.createElement('div');d.className='q-item';
+  d.innerHTML='<div class="q-texto">'+(qi+1)+'. '+q.q+'</div><div class="q-opts">'
+    +q.opts.map(function(o,oi){return '<button class="q-btn" onclick="resp('+qi+','+oi+','+q.ok+',this)">'+o+'</button>';}).join('')
+    +'</div><div class="q-fb" id="fb-'+qi+'" style="display:none"></div>';
+  c.appendChild(d);
+});
+function resp(qi,oi,ok,btn){
+  var item=btn.closest('.q-item');
+  if(item.querySelector('.q-btn.ok')) return;
+  item.querySelectorAll('.q-btn').forEach(function(b,i){
+    b.disabled=true;
+    if(i===ok) b.className='q-btn ok';
+    else if(b===btn) b.className='q-btn mal';
+    else b.className='q-btn nd';
+  });
+  var fb=document.getElementById('fb-'+qi);
+  fb.style.display='block'; fb.className='q-fb '+(oi===ok?'ok':'mal');
+  fb.textContent=oi===ok?'✅ Correcto':'❌ Incorrecto — la correcta está en verde.';
+  document.getElementById('score-m').textContent=
+    document.querySelectorAll('.q-btn.ok').length+' / '+QS.length;
+}
+</script>
+</body>
+</html>
