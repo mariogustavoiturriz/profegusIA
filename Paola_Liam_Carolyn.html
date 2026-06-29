@@ -112,7 +112,7 @@
     · La función recibe dos parámetros: los mensajes (el historial) y la temperatura. Con esos datos armás el payload y llamás a <code>requests.post()</code>.<br>
     · Terminá con <code>return</code>, no con <code>print</code> — así el resultado queda en una variable que el programa puede usar después.<br>
     · Usá <code>try/except</code>: si algo falla, devolvé un string con el mensaje de error en lugar de que el programa explote.<br>
-    · La respuesta tiene esta estructura: <code>respuesta.json()["choices"][0]["message"]["content"]</code>
+    · La respuesta tiene esta estructura: <code>respuesta.json(), específicamente en choices[0].message.content</code>
   </div>
   <div class="check">
     <strong>🧪 Cómo probarlo</strong>
@@ -185,7 +185,7 @@ var QS={
      opts:["Porque print no funciona dentro de funciones","Con return el resultado queda en una variable que el programa puede usar después — guardarlo en el historial, mostrarlo con formato. Con print se mostraría pero no podría usarse","Porque la API exige return","Para que sea más rápida"],ok:1},
     {q:"¿Qué hace el try/except en la función?",
      opts:["Prueba que la API Key sea correcta","Atrapa errores de conexión o de API para que el programa no explote — devuelve un string con el error en lugar de un crash","Verifica que el historial no esté vacío","Hace la conexión más rápida"],ok:1},
-    {q:"¿Qué hay en respuesta.json()["choices"][0]["message"]["content"]?",
+    {q:"¿Qué hay en respuesta.json() → choices → 0 → message → content?",
      opts:["La API Key","El número de tokens usados","El texto que respondió la IA","El nombre del modelo"],ok:2},
     {q:"¿Qué parámetros recibe tu función?",
      opts:["Solo la API Key","Los mensajes (historial) y la temperatura — con esos armás el payload y llamás a la API","El texto del usuario y la URL","El modelo y el sistema"],ok:1},
