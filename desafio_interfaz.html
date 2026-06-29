@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desafío Extra — Interfaz Visual</title>
+<style>
+  :root{
+    --nav:#1A2C3A;--g2:#2E6820;--g2-bg:#EFF8EE;--vio:#3D5A99;--viobg:#F0EFFF;
+    --bd:#C5D2DC;--gris:#F3F6F9;--txt:#2C3E50;--bco:#FFFFFF;--code-bg:#1E1E1E;--r:10px;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;--azul:#1565C0;--azul-bg:#E3F2FD;
+    --oro:#B8860B;--orobg:#FFFDE7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.65;font-size:19px;padding:15px 0 60px;}
+  header{background:var(--nav);color:#fff;padding:22px 20px;border-bottom:5px solid var(--oro);}
+  header h1{font-size:22px;text-transform:uppercase;margin-bottom:4px;}
+  header p{font-size:16px;opacity:.85;}
+  .container{width:95%;max-width:900px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:16px;margin-bottom:14px;padding:9px 18px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .card{background:#fff;border-radius:var(--r);padding:26px;margin-bottom:20px;box-shadow:0 3px 10px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  .c-intro{border-left-color:var(--oro);}
+  .c-base {border-left-color:var(--azul);}
+  .c-paso {border-left-color:var(--g2);}
+  .c-quiz {border-left-color:var(--vio);}
+  h2{color:var(--nav);font-size:20px;margin-bottom:12px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:8px;display:flex;align-items:center;gap:10px;}
+  .badge{background:var(--nav);color:#fff;padding:4px 12px;border-radius:6px;font-size:16px;}
+  .info{padding:12px 16px;border-radius:var(--r);margin:10px 0;border-left:5px solid;font-size:17px;line-height:1.7;}
+  .i-oro {background:var(--orobg);border-color:var(--oro);} .i-oro strong{color:var(--oro);display:block;margin-bottom:4px;}
+  .i-azul{background:var(--azul-bg);border-color:var(--azul);} .i-azul strong{color:var(--azul);display:block;margin-bottom:4px;}
+  .i-grn {background:var(--g2-bg);border-color:var(--g2);} .i-grn strong{color:var(--g2);display:block;margin-bottom:4px;}
+
+  /* Preview */
+  .preview{background:#1A1A2E;border-radius:var(--r);padding:18px;margin:14px 0;}
+  .prev-label{color:#666;font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+  .hp-wrap{background:#333;border-radius:8px;height:20px;margin-bottom:6px;overflow:hidden;}
+  .hp-fill{height:20px;border-radius:8px;}
+  .hp-txt{color:#fff;font-size:14px;margin-bottom:12px;}
+  .burbuja-ia{background:#1B3A2D;border-left:4px solid #4CAF50;padding:10px 14px;border-radius:6px;color:#A5D6A7;font-size:15px;margin-bottom:8px;}
+  .burbuja-j{background:#0D1B3E;border-left:4px solid #5C6BC0;padding:10px 14px;border-radius:6px;color:#C5CAE9;font-size:15px;margin-bottom:8px;text-align:right;}
+  .inv-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px;}
+  .chip{background:#4A148C;color:#CE93D8;padding:3px 10px;border-radius:20px;font-size:13px;}
+
+  /* Code */
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:14px 16px;font-size:16px;overflow-x:auto;white-space:pre;line-height:1.7;border-radius:6px;margin:10px 0;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
+  .fn{color:#DCDCAA;} .nm{color:#B5CEA8;}
+  code{background:#E8E6FF;color:var(--vio);padding:2px 5px;border-radius:4px;font-family:'Consolas',monospace;font-size:16px;}
+
+  /* Comparación */
+  .comp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;}
+  .comp-col{border-radius:var(--r);overflow:hidden;}
+  .comp-title{padding:8px 14px;font-size:14px;font-weight:bold;text-transform:uppercase;}
+  .comp-antes .comp-title{background:#444;color:#aaa;}
+  .comp-antes .code-block{margin:0;border-radius:0;}
+  .comp-despues .comp-title{background:#1B3A2D;color:#4CAF50;}
+  .comp-despues .code-block{margin:0;border-radius:0;}
+
+  /* Quiz */
+  .quiz-aviso{font-size:15px;color:#666;font-style:italic;margin-bottom:12px;}
+  .q-item{border:2px solid var(--bd);border-radius:var(--r);padding:13px 15px;margin-bottom:10px;}
+  .q-texto{font-size:17px;font-weight:bold;color:var(--nav);margin-bottom:8px;line-height:1.4;}
+  .q-opts{display:flex;flex-direction:column;gap:6px;}
+  .q-btn{text-align:left;padding:8px 12px;border-radius:7px;border:2px solid var(--bd);background:var(--gris);font-size:16px;line-height:1.45;cursor:pointer;font-family:inherit;}
+  .q-btn:hover:not(:disabled){border-color:var(--vio);background:var(--viobg);}
+  .q-btn:disabled{cursor:default;}
+  .q-btn.ok{border-color:var(--g2);background:var(--g2-bg);color:var(--g2);font-weight:bold;}
+  .q-btn.mal{border-color:var(--rojo);background:var(--rojo-bg);color:var(--rojo);}
+  .q-btn.nd:disabled{opacity:.45;}
+  .q-fb{font-size:14px;font-weight:bold;padding:6px 9px;border-radius:6px;margin-top:5px;display:none;}
+  .q-fb.ok{background:var(--g2-bg);color:var(--g2);}
+  .q-fb.mal{background:var(--rojo-bg);color:var(--rojo);}
+  @media(max-width:600px){.comp{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎮 DESAFÍO EXTRA — INTERFAZ VISUAL</h1>
+  <p>Taller de IA Aplicada · Para los que se animen · CTP Antonio Martín Marte</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">⬅ Índice</a>
+
+<!-- INTRO -->
+<div class="card c-intro">
+  <h2>¿QUÉ CAMBIA Y QUÉ NO?</h2>
+  <div class="info i-oro">
+    <strong>La lógica del juego no cambia nada.</strong>
+    El <code>while True</code>, el historial, los comandos, <code>consultar_ia()</code> — todo igual. Lo único que cambia es cómo se <em>muestra</em> la información: en lugar de <code>print()</code> usás <code>display(HTML(...))</code>.
+  </div>
+
+  <div class="preview">
+    <div class="prev-label">Resultado final</div>
+    <div class="hp-wrap"><div class="hp-fill" style="width:65%;background:#FFC107;"></div></div>
+    <div class="hp-txt">⚔️ HP: 65 / 100</div>
+    <div class="inv-chips">
+      <span class="chip">🗡 espada</span>
+      <span class="chip">🔦 linterna</span>
+    </div>
+    <div style="margin-bottom:8px;"></div>
+    <div class="burbuja-j">B) Uso la linterna</div>
+    <div class="burbuja-ia">🌲 La luz ciega a la criatura. Aprovechás para escapar por el pasillo norte.<br>A) Correr &nbsp; B) Esconderte &nbsp; C) Atacar</div>
+  </div>
+</div>
+
+<!-- EL CONCEPTO BASE -->
+<div class="card c-base">
+  <h2><span class="badge" style="background:var(--azul);">📌</span> UN SOLO CONCEPTO NUEVO</h2>
+  <p><code>display(HTML("..."))</code> muestra HTML con colores y estilos en la celda de Colab — como si fuera una página web. Solo necesitás este import al principio del programa:</p>
+
+  <div class="code-block"><span class="kw">from</span> IPython.display <span class="kw">import</span> display, HTML</div>
+
+  <p style="margin-top:12px;">La diferencia entre <code>print()</code> y <code>display(HTML())</code>:</p>
+
+  <div class="comp">
+    <div class="comp-col comp-antes">
+      <div class="comp-title">print — texto plano</div>
+      <div class="code-block"><span class="kw">print</span>(<span class="str">"HP: 65"</span>)</div>
+    </div>
+    <div class="comp-col comp-despues">
+      <div class="comp-title">display(HTML) — con color</div>
+      <div class="code-block">display(HTML(<span class="str">"&lt;b style='color:orange'&gt;HP: 65&lt;/b&gt;"</span>))</div>
+    </div>
+  </div>
+
+  <div class="info i-azul">
+    <strong>¿Y el HTML? ¿Necesito saber mucho?</strong>
+    Solo tres cosas: <code>style="background:color"</code> para el fondo, <code>style="color:color"</code> para el texto, y <code>style="padding:10px"</code> para el espacio interno. Con eso alcanza para todo lo que vamos a hacer.
+  </div>
+</div>
+
+
+<!-- EXPLICACIÓN HTML -->
+<div class="card" style="border-left:6px solid #7B1FA2;">
+  <h2><span class="badge" style="background:#7B1FA2;">📖</span> EL HTML QUE VAMOS A USAR — PASO A PASO</h2>
+  <p>El HTML dentro de las f-strings tiene solo 5 piezas. Ninguna es complicada. Acá las explicamos de a una.</p>
+
+  <!-- 1. DIV -->
+  <div class="info" style="background:#F3E5F5;border-color:#7B1FA2;margin-top:16px;">
+    <strong style="color:#7B1FA2;">1. &lt;div&gt; — una caja</strong>
+    Un <code>&lt;div&gt;</code> es simplemente una caja. Todo lo que ponés adentro queda agrupado. Con el atributo <code>style</code> le das color, forma y tamaño. Probalo con cualquier texto.
+  </div>
+  <div class="code-block"><span class="cm"># Probalo — cambiá "Hola mundo" por lo que quieras</span>
+display(HTML(<span class="str">"&lt;div&gt; Hola mundo &lt;/div&gt;"</span>))</div>
+
+  <!-- 2. BACKGROUND -->
+  <div class="info" style="background:#F3E5F5;border-color:#7B1FA2;">
+    <strong style="color:#7B1FA2;">2. background — color de fondo</strong>
+    Pinta el fondo de la caja. El color va en inglés (<code>black</code>, <code>green</code>, <code>navy</code>) o en código hex (<code>#FF0000</code> = rojo). Buscá "color picker hex" en Google para elegir el tuyo.
+  </div>
+  <div class="code-block"><span class="cm"># Cambiá EL_COLOR por un color en inglés o código hex</span>
+display(HTML(<span class="str">"&lt;div style='background:EL_COLOR'&gt; Hola mundo &lt;/div&gt;"</span>))
+
+<span class="cm"># ↑ style='...' va DENTRO de la etiqueta, separado con dos puntos del valor</span></div>
+
+  <!-- 3. COLOR -->
+  <div class="info" style="background:#F3E5F5;border-color:#7B1FA2;">
+    <strong style="color:#7B1FA2;">3. color — color del texto</strong>
+    Cambia el color de las letras. Si el fondo es oscuro, el texto tiene que ser claro — si no, no se lee.
+  </div>
+  <div class="code-block"><span class="cm"># Cambiá FONDO y COLOR_TEXTO por los colores que elijas</span>
+display(HTML(<span class="str">"&lt;div style='background:FONDO; color:COLOR_TEXTO'&gt; Hola mundo &lt;/div&gt;"</span>))
+
+<span class="cm"># ↑ dos propiedades → las separás con punto y coma ;</span></div>
+
+  <!-- 4. PADDING -->
+  <div class="info" style="background:#F3E5F5;border-color:#7B1FA2;">
+    <strong style="color:#7B1FA2;">4. padding — espacio interno</strong>
+    El espacio entre el borde de la caja y el texto. Sin padding el texto queda pegado al borde. Se mide en píxeles (<code>px</code>). Probá con 8px, 12px, 20px y fijate la diferencia.
+  </div>
+  <div class="code-block"><span class="cm"># Cambiá N por el número de píxeles que quieras</span>
+display(HTML(<span class="str">"&lt;div style='background:FONDO; color:COLOR_TEXTO; padding:Npx'&gt; Hola mundo &lt;/div&gt;"</span>))</div>
+
+  <!-- 5. BORDER-RADIUS -->
+  <div class="info" style="background:#F3E5F5;border-color:#7B1FA2;">
+    <strong style="color:#7B1FA2;">5. border-radius — bordes redondeados</strong>
+    Redondea las esquinas. Con 4px casi no se nota. Con 12px se nota bastante. Con 50% se convierte en círculo. Probá distintos valores.
+  </div>
+  <div class="code-block"><span class="cm"># Cambiá N por el redondeo que te guste</span>
+display(HTML(<span class="str">"&lt;div style='background:FONDO; color:COLOR_TEXTO; padding:Npx; border-radius:Npx'&gt; Hola mundo &lt;/div&gt;"</span>))</div>
+
+  <!-- 6. BORDER-LEFT -->
+  <div class="info" style="background:#F3E5F5;border-color:#7B1FA2;">
+    <strong style="color:#7B1FA2;">6. border-left — línea del lado izquierdo</strong>
+    Dibuja una línea de color en el borde izquierdo. El formato es siempre: <code>GROSOR solid COLOR</code>. El grosor típico es 4px. El color lo elegís vos.
+  </div>
+  <div class="code-block"><span class="cm"># Cambiá COLOR_LINEA por el color que quieras para la línea</span>
+display(HTML(<span class="str">"&lt;div style='background:FONDO; color:COLOR_TEXTO; padding:Npx; border-radius:Npx; border-left:4px solid COLOR_LINEA'&gt; Hola mundo &lt;/div&gt;"</span>))
+
+<span class="cm"># ↑ con esas 5 propiedades ya tenés el estilo completo de una burbuja</span></div>
+
+  <!-- BARRA DE HP -->
+  <div class="info" style="background:#F3E5F5;border-color:#7B1FA2;">
+    <strong style="color:#7B1FA2;">7. width:% — ancho en porcentaje (solo para la barra de HP)</strong>
+    Con <code>width:65%</code> la caja ocupa el 65% del espacio disponible. La barra de HP usa dos div anidados: el de afuera es el fondo gris (siempre 100%), el de adentro es el color que cambia según el HP.
+  </div>
+  <div class="code-block"><span class="cm"># Cambiá COLOR_VIDA y el porcentaje por los que correspondan</span>
+display(HTML(<span class="str">"""
+&lt;div style='background:FONDO_BARRA; border-radius:Npx; height:20px;'&gt;
+  &lt;div style='background:COLOR_VIDA; width:PORCENTAJE%; height:20px; border-radius:Npx;'&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+"""</span>))
+
+<span class="cm"># ↑ div de afuera: el fondo gris que ocupa todo el ancho</span>
+<span class="cm"># ↑ div de adentro: el color de vida, ocupa solo el % que corresponde al HP</span></div>
+
+  <div class="info i-grn" style="margin-top:6px;">
+    <strong>✅ Eso es todo el HTML que necesitás</strong>
+    background, color, padding, border-radius, border-left, width. Con esas 6 propiedades armás la barra de HP, las burbujas y el inventario.
+  </div>
+</div>
+
+<!-- PASO 1 -->
+<div class="card c-paso">
+  <h2><span class="badge">1</span> BARRA DE HP</h2>
+  <p>Creás una función que mostrás en lugar del <code>print</code> del <code>/estado</code>. La barra cambia de color según el HP.</p>
+
+  <div class="code-block"><span class="kw">def</span> <span class="fn">mostrar_hp</span>(jugador):
+    hp  = jugador[<span class="str">"hp"</span>]
+    pct = <span class="fn">max</span>(<span class="nm">0</span>, hp)  <span class="cm"># que no sea negativo</span>
+
+    <span class="cm"># Color según vida</span>
+    <span class="kw">if</span>   hp > <span class="nm">60</span>: color = <span class="str">"#4CAF50"</span>   <span class="cm"># verde</span>
+    <span class="kw">elif</span> hp > <span class="nm">30</span>: color = <span class="str">"#FFC107"</span>   <span class="cm"># amarillo</span>
+    <span class="kw">else</span>:          color = <span class="str">"#F44336"</span>   <span class="cm"># rojo</span>
+
+    <span class="cm"># Inventario como chips</span>
+    chips = <span class="str">""</span>
+    <span class="kw">for</span> obj <span class="kw">in</span> jugador[<span class="str">"inventario"</span>]:
+        chips += f<span class="str">' &lt;span style="background:#4A148C;color:#CE93D8;padding:2px 8px;border-radius:12px;"&gt;{obj}&lt;/span&gt;'</span>
+
+    display(HTML(f<span class="str">"""
+    &lt;div style="background:#1A1A2E;padding:14px;border-radius:8px;"&gt;
+      &lt;div style="background:#444;border-radius:6px;height:18px;"&gt;
+        &lt;div style="background:{color};width:{pct}%;height:18px;border-radius:6px;"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;p style="color:white;margin:6px 0;"&gt;⚔️ HP: {hp}/100&lt;/p&gt;
+      &lt;p style="color:white;"&gt;🎒 {chips if chips else 'vacío'}&lt;/p&gt;
+    &lt;/div&gt;
+    """</span>))</div>
+
+  <div class="info i-grn">
+    <strong>Dónde usarla</strong>
+    Reemplazá el <code>print</code> de tu comando <code>/estado</code> por <code>mostrar_hp(jugador)</code>. También llamala al final de cada turno para que el jugador siempre vea el estado actualizado.
+  </div>
+</div>
+
+<!-- PASO 2 -->
+<div class="card c-paso">
+  <h2><span class="badge">2</span> BURBUJAS DE CHAT</h2>
+  <p>Dos funciones simples — una para la narración de la IA, otra para la acción del jugador. Reemplazan al <code>print(narracion)</code> del B7.</p>
+
+  <div class="code-block"><span class="kw">def</span> <span class="fn">burbuja_ia</span>(texto):
+    display(HTML(f<span class="str">"""
+    &lt;div style="background:#1E3A2F;border-left:4px solid #4CAF50;
+                padding:12px;border-radius:6px;color:#A5D6A7;margin:6px 0;"&gt;
+      🌲 {texto}
+    &lt;/div&gt;
+    """</span>))
+
+<span class="kw">def</span> <span class="fn">burbuja_jugador</span>(texto):
+    display(HTML(f<span class="str">"""
+    &lt;div style="background:#0D1B3E;border-left:4px solid #5C6BC0;
+                padding:12px;border-radius:6px;color:#C5CAE9;margin:6px 0;"&gt;
+      🗡 {texto}
+    &lt;/div&gt;
+    """</span>))</div>
+
+  <div class="comp" style="margin-top:14px;">
+    <div class="comp-col comp-antes">
+      <div class="comp-title">Antes</div>
+      <div class="code-block"><span class="kw">print</span>(f<span class="str">"\n🌲 {narracion}\n"</span>)</div>
+    </div>
+    <div class="comp-col comp-despues">
+      <div class="comp-title">Después</div>
+      <div class="code-block">burbuja_jugador(accion)
+burbuja_ia(narracion)</div>
+    </div>
+  </div>
+</div>
+
+<!-- PASO 3: DÓNDE VA TODO -->
+<div class="card c-paso">
+  <h2><span class="badge">3</span> CÓMO QUEDA EL B7</h2>
+  <p>El turno normal queda casi igual — solo cambian los <code>print()</code> por las funciones visuales.</p>
+
+  <div class="code-block">    <span class="cm"># B7 — Turno normal (los cambios están marcados)</span>
+    turno += <span class="nm">1</span>
+
+    mensaje_turno = f<span class="str">"[HP={jugador['hp']}, inv={jugador['inventario']}]\nAcción: {accion}"</span>
+    historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: mensaje_turno})
+
+    narracion = consultar_ia(historial, <span class="nm">0.8</span>)
+    historial.append({<span class="str">"role"</span>: <span class="str">"assistant"</span>, <span class="str">"content"</span>: narracion})
+
+    burbuja_jugador(accion)   <span class="cm"># ← antes era: print(accion)</span>
+    burbuja_ia(narracion)     <span class="cm"># ← antes era: print(narracion)</span>
+    mostrar_hp(jugador)       <span class="cm"># ← nuevo: estado visual después de cada turno</span>
+
+    <span class="cm"># Condiciones de fin — igual que antes</span>
+    <span class="kw">if</span> jugador[<span class="str">"hp"</span>] <= <span class="nm">0</span> <span class="kw">or</span> turno >= <span class="nm">20</span>:
+        <span class="cm"># ...</span></div>
+
+  <div class="info i-grn">
+    <strong>✅ El while True y el input() no cambian</strong>
+    Todo lo demás — los comandos, el historial, <code>consultar_ia()</code>, el <code>break</code> — queda exactamente igual. Solo reemplazás los <code>print()</code> por las tres funciones nuevas.
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="card c-quiz">
+  <h2>Preguntas de defensa <span style="font-size:14px;color:#888;font-weight:normal;" id="sc"></span></h2>
+  <div class="quiz-aviso">⚠️ 2 o 3 de estas preguntas van a ser parte de tu defensa si implementaste la interfaz.</div>
+  <div id="quiz"></div>
+</div>
+
+</div>
+<script>
+var QS=[
+  {q:"¿Qué hace display(HTML('...')) que print() no puede hacer?",
+   opts:[
+     "Ejecuta el código más rápido que print()",
+     "Renderiza HTML con colores, tamaños y estilos visuales directamente en la celda de Colab — print() solo muestra texto plano",
+     "Envía el texto a la API de Groq automáticamente",
+     "Guarda el texto en un archivo HTML en el disco"
+   ],ok:1},
+  {q:"¿Por qué la barra de HP usa width:{pct}% en el CSS?",
+   opts:[
+     "Porque es obligatorio en HTML poner el ancho en porcentaje",
+     "Para que el ancho de la barra sea proporcional al HP — si el HP es 65, la barra ocupa el 65% del espacio disponible",
+     "Porque los píxeles no funcionan en Colab",
+     "Para que la barra siempre ocupe el 100% del ancho"
+   ],ok:1},
+  {q:"¿Qué estructura del código NO cambia al agregar la interfaz visual?",
+   opts:[
+     "Los print() del turno normal",
+     "La forma en que se muestra el /estado",
+     "El while True, el input(), el historial, consultar_ia() y toda la lógica del juego",
+     "El import al principio del programa"
+   ],ok:2},
+  {q:"¿Por qué llamás a mostrar_hp(jugador) al final de cada turno y no solo en /estado?",
+   opts:[
+     "Porque /estado deja de funcionar con la interfaz visual",
+     "Para que el jugador siempre vea el estado actualizado después de cada acción, sin necesitar escribir /estado manualmente",
+     "Porque mostrar_hp() también actualiza el historial",
+     "Es opcional, no cambia nada hacerlo o no"
+   ],ok:1},
+  {q:"¿Qué es una f-string y para qué la usás dentro del HTML?",
+   opts:[
+     "Es un tipo especial de variable en Python",
+     "Es una función que formatea strings automáticamente",
+     "Es un string que empieza con f'' y permite insertar variables con {variable} directamente dentro del texto — usás f-string para meter el HP, el color y el inventario dentro del HTML",
+     "Es lo mismo que str() pero más rápida"
+   ],ok:2}
+];
+var c=document.getElementById('quiz');
+QS.forEach(function(q,qi){
+  var d=document.createElement('div');d.className='q-item';
+  d.innerHTML='<div class="q-texto">'+(qi+1)+'. '+q.q+'</div><div class="q-opts">'
+    +q.opts.map(function(o,oi){
+      return '<button class="q-btn" onclick="resp('+qi+','+oi+','+q.ok+',this)">'+o+'</button>';
+    }).join('')+'</div><div class="q-fb" id="fb-'+qi+'" style="display:none"></div>';
+  c.appendChild(d);
+});
+function resp(qi,oi,ok,btn){
+  var item=btn.closest('.q-item');if(item.querySelector('.q-btn.ok'))return;
+  item.querySelectorAll('.q-btn').forEach(function(b,i){
+    b.disabled=true;
+    if(i===ok)b.className='q-btn ok';
+    else if(b===btn)b.className='q-btn mal';
+    else b.className='q-btn nd';
+  });
+  var fb=document.getElementById('fb-'+qi);
+  fb.style.display='block';fb.className='q-fb '+(oi===ok?'ok':'mal');
+  fb.textContent=oi===ok?'✅ Correcto':'❌ Incorrecto — la correcta está en verde.';
+  document.getElementById('sc').textContent=
+    document.querySelectorAll('.q-btn.ok').length+'/'+QS.length;
+}
+</script>
+</body>
+</html>
