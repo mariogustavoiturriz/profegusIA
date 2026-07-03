@@ -60,7 +60,7 @@
 <body>
 <header>
   <h1>DESAFÍO — MORENA VALLEJOS</h1>
-  <p>Taller de IA Aplicada · Bosque Ancestral · CTP Antonio Martín Marte</p>
+  <p>Taller de IA Aplicada · Hanafuda · CTP Antonio Martín Marte</p>
 </header>
 <div class="container">
 <a href="index.html" class="back-btn">⬅ Índice</a>
@@ -68,10 +68,10 @@
 <!-- ESTADO ACTUAL -->
 <div class="card" style="border-left:6px solid var(--mora);">
   <h2>LO QUE YA TIENE TU JUEGO ✓</h2>
-  <p>Terminaste hoy con: fin del juego (HP ≤ 0 o turno ≥ 15), desgaste automático cada 3 turnos y <code>/resumen</code>. El juego de Pipo ahora termina — pero siempre termina igual.</p>
+  <p>Terminaste hoy con: fin del juego (HP ≤ 0 o turno ≥ 15), desgaste automático cada 3 turnos y <code>/resumen</code>. El juego de Shinji ahora termina — pero siempre termina igual.</p>
   <div class="info i-mora" style="margin-top:12px;">
     <strong>🎯 El problema</strong>
-    Sea cual sea el HP con el que llegó Pipo al final, la IA narra siempre lo mismo. No hay diferencia entre llegar con 80 HP (Pipo héroe del bosque) o con 1 HP (Pipo sobrevivió de milagro).
+    Sea cual sea el HP con el que llegó Shinji al final, la IA narra siempre lo mismo. No hay diferencia entre llegar con 80 HP (Shinji el cazador invicto) o con 1 HP (Shinji sobrevivió de milagro).
   </div>
 </div>
 
@@ -81,26 +81,26 @@
 
   <div class="info i-azul">
     <strong>📋 Tu tarea</strong>
-    Reemplazá el final genérico de tu juego por cuatro finales distintos según el HP con el que llegó Pipo. Cada final le manda a la IA un prompt diferente para que narre un desenlace acorde.
+    Reemplazá el final genérico de tu juego por cuatro finales distintos según el HP con el que llegó Shinji. Cada final le manda a la IA un prompt diferente para que narre un desenlace acorde.
   </div>
 
-  <p style="margin:14px 0 10px;font-weight:bold;color:var(--nav);">Los cuatro finales del Bosque Ancestral:</p>
+  <p style="margin:14px 0 10px;font-weight:bold;color:var(--nav);">Los cuatro finales del Hanafuda:</p>
   <div class="finales-grid">
     <div class="final-card fc-tragico">
       <div class="fc-titulo">💀 Final Trágico — HP ≤ 0</div>
-      Pipo cayó en el bosque. El hada malvada ganó. Narrá la derrota en 3 oraciones con tono oscuro y dramático.
+      Shinji cayó ante los demonios. Tokio quedó en la oscuridad. Narrá la derrota en 3 oraciones, tono oscuro y épico.
     </div>
     <div class="final-card fc-amargo">
       <div class="fc-titulo">😔 Final Agridulce — HP 1 a 30</div>
-      Pipo sobrevivió pero quedó muy lastimado. Lo logró, pero a un precio alto. Tono cansado, triste pero esperanzador.
+      Shinji sobrevivió pero quedó muy lastimado. Lo logró, pero a un precio alto. Tono cansado, triste pero esperanzador.
     </div>
     <div class="final-card fc-victoria">
       <div class="fc-titulo">🌿 Final Victoria — HP 31 a 70</div>
-      Pipo completó la misión con esfuerzo. El bosque respira aliviado. Tono satisfecho pero no épico.
+      Shinji derrotó al demonio con esfuerzo. Tokio respira aliviada. Tono satisfecho pero no épico.
     </div>
     <div class="final-card fc-heroe">
       <div class="fc-titulo">🌟 Final Héroe — HP 71 a 100</div>
-      Pipo salió ileso y triunfante. El bosque lo corona como héroe. Narración épica y festiva, tono cómico/glorioso.
+      Shinji salió ileso y victorioso. Tokio lo recuerda como leyenda. Narración épica y festiva, tono dramático/glorioso.
     </div>
   </div>
 
@@ -111,13 +111,13 @@
 
   <div class="code-block"><span class="cm"># Donde tenés la condición de fin, reemplazá el final genérico:</span>
 <span class="kw">if</span> jugador[<span class="str">"hp"</span>] <= <span class="nm">0</span>:
-    prompt_final = <span class="str">"[Final trágico. Pipo cayó. Narrá la derrota en 3 oraciones, tono oscuro.]"</span>
+    prompt_final = <span class="str">"[Final trágico. Shinji cayó ante los demonios de Tokio. Narrá la derrota en 3 oraciones, tono oscuro.]"</span>
 <span class="kw">elif</span> jugador[<span class="str">"hp"</span>] <= <span class="nm">30</span>:
-    prompt_final = <span class="str">"[Final agridulce. Pipo sobrevivió pero muy lastimado. Tono cansado y triste.]"</span>
+    prompt_final = <span class="str">"[Final agridulce. Shinji sobrevivió pero muy lastimado. Tono cansado y triste.]"</span>
 <span class="kw">elif</span> jugador[<span class="str">"hp"</span>] <= <span class="nm">70</span>:
-    prompt_final = <span class="str">"[Final victoria. Pipo completó la misión con esfuerzo. Tono satisfecho.]"</span>
+    prompt_final = <span class="str">"[Final victoria. Shinji completó la misión con esfuerzo. Tono satisfecho.]"</span>
 <span class="kw">else</span>:
-    prompt_final = <span class="str">"[Final héroe épico. Pipo salió ileso y triunfante. Tono cómico y glorioso.]"</span>
+    prompt_final = <span class="str">"[Final héroe épico. Shinji salió ileso y triunfante. Tono cómico y glorioso.]"</span>
 
 <span class="cm"># Mandarlo a la IA y mostrar el final (igual que el turno normal):</span>
 historial.append({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: prompt_final})
@@ -130,7 +130,7 @@ narracion_final = consultar_ia(historial, <span class="nm">0.9</span>)
     Probá los cuatro finales manualmente con <code>/hp</code>:<br>
     · <code>/hp -100</code> → tiene que activar el final trágico<br>
     · <code>/hp -80</code> (desde 100) → HP queda en 20 → final agridulce<br>
-    · No toques el HP → jugá 15 turnos → HP depende del desgaste → qué final activa?
+    · No toques el HP → jugá 15 turnos → HP depende del desgaste — ¿qué final activa Shinji? → qué final activa?
   </div>
 </div>
 
@@ -181,7 +181,7 @@ var QS=[
      "Porque sin el append la función no acepta el mensaje",
      "Para que el final quede guardado en el archivo partida.txt"
    ],ok:1},
-  {q:"Si Pipo termina la partida con HP = 71, ¿qué final activa?",
+  {q:"Si Shinji termina la partida con HP = 71, ¿qué final activa?",
    opts:[
      "Final victoria (hp <= 70)",
      "Final agridulce (hp <= 30)",
