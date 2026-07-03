@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desafío — Morena Vallejos</title>
+<style>
+  :root{
+    --nav:#1A2C3A;--g2:#2E6820;--g2-bg:#EFF8EE;--vio:#3D5A99;--viobg:#F0EFFF;
+    --bd:#C5D2DC;--gris:#F3F6F9;--txt:#2C3E50;--bco:#FFFFFF;--code-bg:#1E1E1E;--r:10px;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;--azul:#1565C0;--azul-bg:#E3F2FD;
+    --mora:#6A1B9A;--mora-bg:#F3E5F5;--amb:#D4873A;--abg:#FFF8EE;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.65;font-size:19px;padding:15px 0 50px;}
+  header{background:var(--nav);color:#fff;padding:22px 20px;border-bottom:5px solid var(--mora);}
+  header h1{font-size:22px;margin-bottom:4px;text-transform:uppercase;}
+  header p{font-size:16px;opacity:.85;}
+  .container{width:95%;max-width:900px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:16px;margin-bottom:14px;padding:9px 18px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .card{background:var(--bco);border-radius:var(--r);padding:26px;margin-bottom:20px;box-shadow:0 3px 10px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  h2{color:var(--nav);font-size:20px;margin-bottom:12px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:8px;display:flex;align-items:center;gap:10px;}
+  .badge{color:#fff;padding:4px 12px;border-radius:6px;font-size:16px;font-weight:bold;}
+  .info{padding:12px 16px;border-radius:var(--r);margin:10px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
+  .i-mora{background:var(--mora-bg);border-color:var(--mora);} .i-mora strong{color:var(--mora);display:block;margin-bottom:4px;}
+  .i-azul{background:var(--azul-bg);border-color:var(--azul);} .i-azul strong{color:var(--azul);display:block;margin-bottom:4px;}
+  .i-grn {background:var(--g2-bg);border-color:var(--g2);} .i-grn strong{color:var(--g2);display:block;margin-bottom:4px;}
+  .i-amb {background:var(--abg);border-color:var(--amb);}  .i-amb strong{color:var(--amb);display:block;margin-bottom:4px;}
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:14px 16px;font-size:16px;overflow-x:auto;white-space:pre;line-height:1.7;border-radius:6px;margin:10px 0;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;} .nm{color:#B5CEA8;}
+  code{background:#E8E6FF;color:var(--vio);padding:2px 5px;border-radius:4px;font-family:'Consolas',monospace;font-size:16px;}
+  /* Quiz */
+  .quiz-aviso{font-size:15px;color:#666;font-style:italic;margin-bottom:12px;}
+  .q-item{border:2px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;}
+  .q-texto{font-size:17px;font-weight:bold;color:var(--nav);margin-bottom:8px;line-height:1.4;}
+  .q-opts{display:flex;flex-direction:column;gap:7px;}
+  .q-btn{text-align:left;padding:9px 13px;border-radius:8px;border:2px solid var(--bd);background:var(--gris);font-size:16px;line-height:1.5;cursor:pointer;font-family:inherit;}
+  .q-btn:hover:not(:disabled){border-color:var(--mora);background:var(--mora-bg);}
+  .q-btn:disabled{cursor:default;}
+  .q-btn.ok{border-color:var(--g2);background:var(--g2-bg);color:var(--g2);font-weight:bold;}
+  .q-btn.mal{border-color:var(--rojo);background:var(--rojo-bg);color:var(--rojo);}
+  .q-btn.nd:disabled{opacity:.45;}
+  .q-fb{font-size:14px;font-weight:bold;padding:7px 10px;border-radius:7px;margin-top:6px;display:none;}
+  .q-fb.ok{background:var(--g2-bg);color:var(--g2);}
+  .q-fb.mal{background:var(--rojo-bg);color:var(--rojo);}
+</style>
+</head>
+<body>
+<header>
+  <h1>DESAFÍO — MORENA VALLEJOS</h1>
+  <p>Taller de IA Aplicada · Bosque Ancestral · CTP Antonio Martín Marte</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">⬅ Índice</a>
+
+<!-- ESTADO ACTUAL -->
+<div class="card" style="border-left:6px solid var(--mora);">
+  <h2>LO QUE YA TENÉS ✓</h2>
+  <p>Tu juego ya tiene: <code>/guardar</code>, <code>/estado</code>, <code>/tomar</code>, <code>/hp</code>, contador de turnos y condición de fin del juego. Pipo puede agarrar objetos pero <strong>no puede hacer nada con ellos</strong>.</p>
+  <div class="info i-mora" style="margin-top:12px;">
+    <strong>🎯 Hoy agregás dos comandos que completan el inventario</strong>
+    <code>/soltar</code> — sacar un objeto del inventario sin efecto narrativo.<br>
+    <code>/usar</code> — consumir un objeto y pedirle a la IA que narre qué pasó.
+  </div>
+</div>
+
+<!-- TAREA 1: /SOLTAR -->
+<div class="card">
+  <h2><span class="badge" style="background:var(--azul)">1</span> COMANDO /SOLTAR</h2>
+  <div class="info i-azul">
+    <strong>📋 Tu tarea</strong>
+    El espejo exacto de <code>/tomar</code>: en lugar de agregar con <code>.append()</code>, sacás con <code>.remove()</code>. Verificás que el objeto esté en el inventario antes de sacarlo. No llama a la IA.
+  </div>
+  <div class="info i-azul">
+    <strong>💡 Pistas</strong>
+    · Copiá tu bloque de <code>/tomar</code> y modificá tres cosas: el nombre del comando, el número del corte (<code>/soltar </code> tiene 8 caracteres), y <code>.append()</code> por <code>.remove()</code>.<br>
+    · Antes del <code>.remove()</code>: verificar con <code>if objeto in jugador["inventario"]</code>. Sin esa verificación, si el objeto no existe Python explota.<br>
+    · No olvides el <code>continue</code> al final.
+  </div>
+  <div class="info i-grn">
+    <strong>🧪 Cómo probar</strong>
+    <code>/tomar linterna</code> → <code>/estado</code> → <code>/soltar linterna</code> → <code>/estado</code>. La linterna tiene que desaparecer. Probá también <code>/soltar algo_que_no_tenés</code> — tiene que avisar sin explotar.
+  </div>
+</div>
+
+<!-- TAREA 2: /USAR -->
+<div class="card">
+  <h2><span class="badge" style="background:var(--mora)">2</span> COMANDO /USAR</h2>
+  <div class="info i-mora">
+    <strong>📋 Tu tarea</strong>
+    Como <code>/soltar</code> pero con un paso extra: después de sacar el objeto, le mandás a la IA un mensaje para que narre qué pasó cuando Pipo lo usó. La IA narra el efecto en la historia.
+  </div>
+  <div class="info i-azul">
+    <strong>💡 Diferencia con /soltar</strong>
+    Después del <code>.remove()</code>, en lugar de solo un <code>print()</code>, usás el patrón completo del turno normal:<br>
+    <code>historial.append()</code> del mensaje → <code>consultar_ia()</code> → <code>historial.append()</code> de la respuesta → <code>print()</code><br>
+    El mensaje que le mandás a la IA puede ser algo como:<br>
+    <code>f"[El jugador usa: {objeto}. Narrá el efecto en la historia en 2 oraciones.]"</code>
+  </div>
+  <div class="info i-grn">
+    <strong>🧪 Cómo probar</strong>
+    <code>/tomar antorcha</code> → <code>/usar antorcha</code>. La IA tiene que narrar algo (que la antorcha ilumina el camino, que alejó a las hadas, etc.). Verificá con <code>/estado</code> que la antorcha ya no está.
+  </div>
+</div>
+
+<!-- TAREA 3: OPCIONAL -->
+<div class="card" style="border-left:6px solid var(--amb);">
+  <h2><span class="badge" style="background:var(--amb)">3</span> EXTRA — DESGASTE POR TURNO</h2>
+  <div class="info i-amb">
+    <strong>📋 Opcional si terminás las dos tareas anteriores</strong>
+    Cada 3 turnos, Pipo pierde 1 punto de vida automáticamente (el charco de lodo lo está afectando, el hechizo de la hada sigue activo, etc.). Usá el operador <code>%</code> que ya conocés de tu código actual.
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="card" style="border-left:6px solid var(--g2);">
+  <h2>Preguntas de defensa <span style="font-size:14px;color:#888;font-weight:normal;" id="sc"></span></h2>
+  <div class="quiz-aviso">⚠️ 2 o 3 de estas preguntas van a ser parte de tu defensa.</div>
+  <div id="quiz"></div>
+</div>
+</div>
+
+<script>
+var QS=[
+  {q:"¿Por qué hay que verificar que el objeto esté en el inventario antes de usar .remove()?",
+   opts:["Es solo una buena práctica, no es obligatorio","Si intentás .remove() de algo que no está en la lista, Python lanza un ValueError y el programa explota — la verificación evita ese crash","Para que .remove() sea más rápido","Porque .remove() solo acepta strings en minúsculas"],ok:1},
+  {q:"¿Cuántos caracteres tiene '/soltar ' (con el espacio incluido)?",
+   opts:["6 caracteres","7 caracteres","8 caracteres","9 caracteres"],ok:2},
+  {q:"¿Por qué /usar necesita llamar a consultar_ia() y /soltar no?",
+   opts:["No hay diferencia, los dos deberían llamar a la IA","Porque /usar consume el objeto y tiene un efecto narrativo en la historia — la IA narra qué pasó. /soltar simplemente saca el objeto sin que pase nada dramático en la historia","Porque .remove() solo funciona con consultar_ia()","Por limitaciones de la API de Groq"],ok:1},
+  {q:"¿Qué pasa si el jugador escribe /usar sin nombre de objeto?",
+   opts:["Python lanza un error automáticamente","El código tiene que detectar que objeto está vacío y mostrar un mensaje de ayuda, igual que ya hacés en /tomar","El programa se cierra solo","No pasa nada, .remove() maneja el caso vacío"],ok:1},
+  {q:"¿Por qué el /usar usa el mismo patrón de historial que el turno normal?",
+   opts:["Porque es obligatorio para todos los comandos","Para que la IA reciba el contexto de la conversación y pueda narrar coherentemente el efecto del objeto dentro de la historia que viene contando","Porque de otra forma la respuesta se pierde","Para que el historial crezca más rápido"],ok:1}
+];
+var c=document.getElementById('quiz');
+QS.forEach(function(q,qi){
+  var d=document.createElement('div');d.className='q-item';
+  var opts='';
+  q.opts.forEach(function(o,oi){
+    opts+='<button class="q-btn" data-qi="'+qi+'" data-oi="'+oi+'" data-ok="'+q.ok+'">'+o+'</button>';
+  });
+  d.innerHTML='<div class="q-texto">'+(qi+1)+'. '+q.q+'</div><div class="q-opts">'+opts+'</div><div class="q-fb" id="fb-'+qi+'" style="display:none"></div>';
+  d.querySelectorAll('.q-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var qi=+this.dataset.qi,oi=+this.dataset.oi,ok=+this.dataset.ok;
+      var item=this.closest('.q-item');
+      if(item.querySelector('.q-btn.ok'))return;
+      item.querySelectorAll('.q-btn').forEach(function(b,i){
+        b.disabled=true;
+        if(i===ok)b.className='q-btn ok';
+        else if(b===this)b.className='q-btn mal';
+        else b.className='q-btn nd';
+      }.bind(this));
+      var fb=document.getElementById('fb-'+qi);
+      fb.style.display='block';fb.className='q-fb '+(oi===ok?'ok':'mal');
+      fb.textContent=oi===ok?'✅ Correcto':'❌ Incorrecto — la correcta está en verde.';
+      document.getElementById('sc').textContent=
+        document.querySelectorAll('.q-btn.ok').length+'/'+QS.length;
+    });
+  });
+  c.appendChild(d);
+});
+</script>
+</body>
+</html>

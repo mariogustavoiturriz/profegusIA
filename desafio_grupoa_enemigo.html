@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desafío — El Enemigo Pelea de Vuelta</title>
+<style>
+  :root{
+    --nav:#1A2C3A;--g2:#2E6820;--g2-bg:#EFF8EE;--vio:#3D5A99;--viobg:#F0EFFF;
+    --bd:#C5D2DC;--gris:#F3F6F9;--txt:#2C3E50;--bco:#FFFFFF;--code-bg:#1E1E1E;--r:10px;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;--azul:#1565C0;--azul-bg:#E3F2FD;
+    --oro:#B8860B;--orobg:#FFFDE7;--neon:#00E5FF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.65;font-size:19px;padding:15px 0 60px;}
+  header{background:var(--nav);color:#fff;padding:22px 20px;border-bottom:5px solid var(--rojo);}
+  header h1{font-size:22px;text-transform:uppercase;margin-bottom:4px;}
+  header p{font-size:16px;opacity:.85;}
+  .container{width:95%;max-width:960px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:16px;margin-bottom:14px;padding:9px 18px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .card{background:#fff;border-radius:var(--r);padding:26px;margin-bottom:20px;box-shadow:0 3px 10px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  .c-intro{border-left-color:var(--rojo);}
+  .c-json {border-left-color:var(--azul);background:var(--azul-bg);}
+  .c-code {border-left-color:var(--g2);}
+  .c-disp {border-left-color:var(--oro);background:var(--orobg);}
+  .c-quiz {border-left-color:var(--vio);}
+  h2{color:var(--nav);font-size:21px;margin-bottom:12px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:8px;display:flex;align-items:center;gap:10px;}
+  .badge{background:var(--nav);color:#fff;padding:4px 12px;border-radius:6px;font-size:16px;}
+  .info{padding:12px 16px;border-radius:var(--r);margin:10px 0;border-left:5px solid;font-size:17px;line-height:1.7;}
+  .i-rojo{background:var(--rojo-bg);border-color:var(--rojo);} .i-rojo strong{color:var(--rojo);display:block;margin-bottom:4px;}
+  .i-azul{background:var(--azul-bg);border-color:var(--azul);} .i-azul strong{color:var(--azul);display:block;margin-bottom:4px;}
+  .i-grn {background:var(--g2-bg);border-color:var(--g2);} .i-grn strong{color:var(--g2);display:block;margin-bottom:4px;}
+  .i-oro {background:var(--orobg);border-color:var(--oro);} .i-oro strong{color:var(--oro);display:block;margin-bottom:4px;}
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:15px 18px;font-size:16px;overflow-x:auto;white-space:pre;line-height:1.7;border-radius:6px;margin:10px 0;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
+  .fn{color:#DCDCAA;} .nm{color:#B5CEA8;} .dk{color:#9CDCFE;}
+  code{background:#E8E6FF;color:var(--vio);padding:2px 5px;border-radius:4px;font-family:'Consolas',monospace;font-size:16px;}
+  /* Diagrama de flujo */
+  .flujo{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:center;margin:16px 0;}
+  .flujo-box{background:var(--nav);color:#fff;padding:10px 14px;border-radius:8px;font-size:15px;text-align:center;line-height:1.4;}
+  .flujo-arrow{color:var(--rojo);font-size:24px;font-weight:bold;text-align:center;padding:0 6px;}
+  .flujo-box.nuevo{background:var(--rojo);}
+  /* Quiz */
+  .quiz-aviso{font-size:15px;color:#666;font-style:italic;margin-bottom:12px;}
+  .q-item{border:2px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;}
+  .q-texto{font-size:17px;font-weight:bold;color:var(--nav);margin-bottom:8px;line-height:1.4;}
+  .q-opts{display:flex;flex-direction:column;gap:7px;}
+  .q-btn{text-align:left;padding:9px 13px;border-radius:8px;border:2px solid var(--bd);background:var(--gris);font-size:16px;line-height:1.5;cursor:pointer;font-family:inherit;}
+  .q-btn:hover:not(:disabled){border-color:var(--rojo);background:var(--rojo-bg);}
+  .q-btn:disabled{cursor:default;}
+  .q-btn.ok{border-color:var(--g2);background:var(--g2-bg);color:var(--g2);font-weight:bold;}
+  .q-btn.mal{border-color:var(--rojo);background:var(--rojo-bg);color:var(--rojo);}
+  .q-btn.nd:disabled{opacity:.45;}
+  .q-fb{font-size:14px;font-weight:bold;padding:7px 10px;border-radius:7px;margin-top:6px;display:none;}
+  .q-fb.ok{background:var(--g2-bg);color:var(--g2);}
+  .q-fb.mal{background:var(--rojo-bg);color:var(--rojo);}
+</style>
+</head>
+<body>
+<header>
+  <h1>⚔️ EL ENEMIGO PELEA DE VUELTA</h1>
+  <p>Desafío extra · Orion · Tomás · Juan Pablo · CTP Antonio Martín Marte</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">⬅ Índice</a>
+
+<!-- INTRO -->
+<div class="card c-intro">
+  <h2>¿QUÉ FALTA EN SU JUEGO?</h2>
+  <p>Tienen JSON, HP del jugador, objetos disponibles, finales ramificados. Lo que todavía no tienen: el <strong>enemigo también tiene HP rastreable</strong>. Cuando el jugador ataca, la IA narra el daño — pero ese daño no está en ninguna variable. No hay forma de saber si el guardia noxiano está por caer o si aguanta 10 turnos más.</p>
+
+  <div class="info i-rojo" style="margin-top:14px;">
+    <strong>Lo que queremos lograr</strong>
+    Que el juego tenga un dict <code>enemigo_activo</code> igual que tiene <code>jugador</code>. El HP del enemigo baja con cada ataque. Cuando llega a 0: el enemigo cae, el juego lo registra y la narrativa cambia. Combate real con consecuencias mecánicas.
+  </div>
+
+  <div class="flujo" style="margin-top:16px;">
+    <div class="flujo-box">JSON devuelve<br><code style="color:#9CDCFE;">enemigo.hp_cambio</code></div>
+    <div class="flujo-arrow">→</div>
+    <div class="flujo-box nuevo">Python actualiza<br><code style="color:#fff;">enemigo_activo["hp"]</code></div>
+    <div class="flujo-arrow">→</div>
+    <div class="flujo-box">¿HP ≤ 0?<br>Enemigo derrotado</div>
+  </div>
+</div>
+
+<!-- PASO 1: JSON -->
+<div class="card c-json">
+  <h2><span class="badge" style="background:var(--azul)">1</span> ACTUALIZAR EL SYSTEM PROMPT</h2>
+  <p>El JSON que devuelve la IA tiene que incluir una clave nueva: <code>enemigo</code>. Agregá esto al final de tu system prompt, junto a las instrucciones de las otras claves.</p>
+
+  <div class="info i-azul">
+    <strong>💡 Lo que tiene que decir el system prompt</strong>
+    La instrucción tiene que aclarar: cuándo incluir la clave, qué estructura tiene, y qué significa cada valor. El <code>hp_cambio</code> del enemigo es negativo cuando recibe daño.
+  </div>
+
+  <div class="code-block"><span class="cm"># Agregá esto a tu system prompt (dentro de las instrucciones JSON):</span>
+<span class="str">"""
+...tus instrucciones actuales...
+
+Sobre el enemigo:
+- Cuando haya un enemigo activo en combate, incluí la clave "enemigo":
+  {"nombre": "nombre del enemigo", "hp_cambio": N}
+  donde hp_cambio es el daño que recibió el enemigo en este turno.
+  Si el jugador no atacó o no hay enemigo, "enemigo" debe ser null.
+"""</span></div>
+
+  <div class="info i-azul">
+    <strong>✍️ Tu trabajo</strong>
+    Adaptá el texto al tono y mundo de tu juego. "Guardia noxiano" en Runaterra suena diferente a "bestia mutante" en otro juego. La instrucción funciona igual — el nombre del enemigo lo decide la IA según la narrativa.
+  </div>
+</div>
+
+<!-- PASO 2: ESTADO -->
+<div class="card c-code">
+  <h2><span class="badge" style="background:var(--g2)">2</span> NUEVO DICT EN EL B4</h2>
+  <p>Junto al dict <code>jugador</code>, agregá el dict del enemigo. Empieza vacío — la IA lo activa cuando el combate empieza.</p>
+
+  <div class="code-block"><span class="cm"># B4 — junto a tu jugador = {...}</span>
+enemigo_activo = {
+    <span class="dk">"nombre"</span>: <span class="str">""</span>,
+    <span class="dk">"hp"</span>:     <span class="nm">0</span>,
+    <span class="dk">"activo"</span>: <span class="kw">False</span>
+}</div>
+
+  <div class="info i-grn">
+    <strong>💡 Por qué la clave "activo"</strong>
+    Cuando <code>activo</code> es <code>False</code>, el programa sabe que no hay enemigo en combate y no muestra la barra de vida del enemigo. Cuando la IA introduce un enemigo, el código lo activa y le asigna HP. Esto permite tener múltiples enemigos a lo largo del juego.
+  </div>
+</div>
+
+<!-- PASO 3: PROCESAMIENTO -->
+<div class="card c-code">
+  <h2><span class="badge" style="background:var(--g2)">3</span> PROCESAR EL ENEMIGO EN EL BUCLE</h2>
+  <p>Después del bloque donde ya procesás <code>hp_cambio</code> del jugador, agregá el procesamiento del enemigo. Va en el mismo bloque try/except del JSON.</p>
+
+  <div class="info i-azul">
+    <strong>💡 Lógica del procesamiento</strong>
+    · Si <code>datos["enemigo"]</code> no es null → hay un enemigo en este turno.<br>
+    · Si el enemigo no estaba activo → es uno nuevo, asignale HP inicial (podés pedirle a la IA que incluya <code>hp_inicial</code> también).<br>
+    · Sumá el <code>hp_cambio</code> al HP del enemigo.<br>
+    · Si el HP llegó a 0 o menos → el enemigo cae, marcá <code>activo = False</code>.
+  </div>
+
+  <div class="code-block">        <span class="cm"># ✍️ Después de procesar datos["hp_cambio"] del jugador:</span>
+
+        datos_enemigo = datos.get(<span class="str">"enemigo"</span>)
+        <span class="kw">if</span> datos_enemigo:
+            <span class="cm"># Si es un enemigo nuevo, inicializarlo</span>
+            <span class="kw">if not</span> enemigo_activo[<span class="str">"activo"</span>]:
+                enemigo_activo[<span class="str">"nombre"</span>] = datos_enemigo[<span class="str">"nombre"</span>]
+                enemigo_activo[<span class="str">"hp"</span>]     = <span class="nm">80</span>   <span class="cm"># ✍️ definí vos el HP inicial del enemigo</span>
+                enemigo_activo[<span class="str">"activo"</span>] = <span class="kw">True</span>
+                <span class="kw">print</span>(f<span class="str">"⚔️ ¡Nuevo enemigo! {enemigo_activo['nombre']} — HP: {enemigo_activo['hp']}"</span>)
+
+            <span class="cm"># ✍️ Aplicar el daño recibido por el enemigo</span>
+            enemigo_activo[<span class="str">"hp"</span>] += datos_enemigo[<span class="str">"hp_cambio"</span>]
+
+            <span class="cm"># ✍️ Verificar si el enemigo cayó</span>
+            <span class="kw">if</span> enemigo_activo[<span class="str">"hp"</span>] <= <span class="nm">0</span>:
+                <span class="kw">print</span>(f<span class="str">"💀 ¡{enemigo_activo['nombre']} fue derrotado!"</span>)
+                enemigo_activo[<span class="str">"activo"</span>] = <span class="kw">False</span>
+                enemigo_activo[<span class="str">"hp"</span>]     = <span class="nm">0</span>
+            <span class="kw">else</span>:
+                <span class="kw">print</span>(f<span class="str">"⚔️ {enemigo_activo['nombre']} — HP restante: {enemigo_activo['hp']}"</span>)</div>
+</div>
+
+<!-- PASO 4: DISPLAY -->
+<div class="card c-disp">
+  <h2><span class="badge" style="background:var(--oro)">4</span> MOSTRAR EL ENEMIGO EN LA INTERFAZ</h2>
+  <p>Ya tienen barra de HP para el jugador. Agreguen una para el enemigo que solo aparece cuando <code>activo == True</code>. Va en la función que ya tienen de display.</p>
+
+  <div class="code-block">    <span class="cm"># ✍️ Dentro de tu función de mostrar estado, después de la barra del jugador:</span>
+    <span class="kw">if</span> enemigo_activo[<span class="str">"activo"</span>]:
+        pct_enemigo = <span class="fn">max</span>(<span class="nm">0</span>, enemigo_activo[<span class="str">"hp"</span>])
+        display(HTML(f<span class="str">"""
+        &lt;div style='background:#3A0000;padding:10px;border-radius:8px;margin-top:8px;'&gt;
+          &lt;div style='background:#555;border-radius:6px;height:16px;'&gt;
+            &lt;div style='background:#C62828;width:{pct_enemigo}%;height:16px;border-radius:6px;'&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;p style='color:#EF9A9A;font-size:14px;margin-top:4px;'&gt;
+            ⚔️ {enemigo_activo['nombre']} — HP: {enemigo_activo['hp']}
+          &lt;/p&gt;
+        &lt;/div&gt;
+        """</span>))</div>
+
+  <div class="info i-oro">
+    <strong>🧪 Cómo probar que funciona</strong>
+    Jugá hasta encontrar un enemigo. Atacalo varios turnos y verificá que el HP del enemigo baja. Cuando llegue a 0, tiene que desaparecer la barra y aparecer el mensaje de derrota. Probá también que cuando no hay enemigo activo, la barra no aparece.
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="card c-quiz">
+  <h2>Preguntas de defensa <span style="font-size:14px;color:#888;font-weight:normal;" id="sc"></span></h2>
+  <div class="quiz-aviso">⚠️ 2 o 3 de estas van a ser preguntadas en la defensa.</div>
+  <div id="quiz"></div>
+</div>
+
+</div>
+<script>
+var QS=[
+  {q:"¿Por qué el dict enemigo_activo vive fuera del while True y no dentro?",
+   opts:[
+     "Porque Python no acepta dicts dentro de bucles",
+     "Si estuviera dentro, se reiniciaría en cada turno — el enemigo recuperaría todo el HP en cada vuelta del bucle y nunca podría ser derrotado",
+     "Para que sea accesible desde otras funciones del programa",
+     "Es solo una convención, podría ir adentro igual"
+   ],ok:1},
+  {q:"¿Por qué la clave 'enemigo' puede ser null en el JSON? ¿Cuándo lo es?",
+   opts:[
+     "Nunca puede ser null — si la IA no lo incluye es un error",
+     "Es null cuando el jugador no está en combate — no tiene sentido enviar datos de enemigo si no hay ninguno activo en esa escena",
+     "Es null solo cuando el enemigo está derrotado",
+     "Es null cuando el hp_cambio del enemigo es 0"
+   ],ok:1},
+  {q:"¿Qué pasa si no verificás if datos_enemigo antes de procesar el HP del enemigo?",
+   opts:[
+     "Nada, el código funciona igual",
+     "Si 'enemigo' es null, intentar hacer datos_enemigo['hp_cambio'] lanza un TypeError y el programa explota",
+     "El HP del enemigo se reinicia a 0 automáticamente",
+     "La IA deja de responder con JSON válido"
+   ],ok:1},
+  {q:"¿Por qué la barra del enemigo solo se muestra cuando activo == True?",
+   opts:[
+     "Para ahorrar tiempo de renderizado",
+     "Si se mostrara siempre, aparecería una barra vacía en cada turno aunque no haya ningún enemigo — contaminaría la interfaz con información falsa",
+     "Porque display() falla con dicts vacíos",
+     "Es estética — funciona igual si siempre se muestra"
+   ],ok:1},
+  {q:"¿Cómo sabría la IA el HP actual del enemigo para decidir cuánto daño hacer? ¿Lo mandan en el mensaje del turno?",
+   opts:[
+     "La IA lo recuerda sola del turno anterior",
+     "No hace falta mandárselo — la IA inventa los valores",
+     "Sí, hay que incluir el HP actual del enemigo en el mensaje_turno igual que se manda el HP del jugador, para que la IA narre de forma coherente con el estado real del combate",
+     "El HP del enemigo no importa para la narración"
+   ],ok:2}
+];
+var c=document.getElementById('quiz');
+QS.forEach(function(q,qi){
+  var d=document.createElement('div');d.className='q-item';
+  var opts='';
+  q.opts.forEach(function(o,oi){
+    opts+='<button class="q-btn" data-qi="'+qi+'" data-oi="'+oi+'" data-ok="'+q.ok+'">'+o+'</button>';
+  });
+  d.innerHTML='<div class="q-texto">'+(qi+1)+'. '+q.q+'</div><div class="q-opts">'+opts+'</div><div class="q-fb" id="fb-'+qi+'" style="display:none"></div>';
+  d.querySelectorAll('.q-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var qi=+this.dataset.qi,oi=+this.dataset.oi,ok=+this.dataset.ok;
+      var item=this.closest('.q-item');
+      if(item.querySelector('.q-btn.ok'))return;
+      item.querySelectorAll('.q-btn').forEach(function(b,i){
+        b.disabled=true;
+        if(i===ok)b.className='q-btn ok';
+        else if(b===this)b.className='q-btn mal';
+        else b.className='q-btn nd';
+      }.bind(this));
+      var fb=document.getElementById('fb-'+qi);
+      fb.style.display='block';fb.className='q-fb '+(oi===ok?'ok':'mal');
+      fb.textContent=oi===ok?'✅ Correcto':'❌ Incorrecto — la correcta está en verde.';
+      document.getElementById('sc').textContent=
+        document.querySelectorAll('.q-btn.ok').length+'/'+QS.length;
+    });
+  });
+  c.appendChild(d);
+});
+</script>
+</body>
+</html>

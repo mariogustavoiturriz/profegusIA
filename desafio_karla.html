@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desafío — Karla Orquera</title>
+<style>
+  :root{
+    --nav:#1A2C3A;--g2:#2E6820;--g2-bg:#EFF8EE;--vio:#3D5A99;--viobg:#F0EFFF;
+    --bd:#C5D2DC;--gris:#F3F6F9;--txt:#2C3E50;--bco:#FFFFFF;--code-bg:#1E1E1E;--r:10px;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;--azul:#1565C0;--azul-bg:#E3F2FD;
+    --karla:#00695C;--karla-bg:#E0F2F1;--amb:#D4873A;--abg:#FFF8EE;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.65;font-size:19px;padding:15px 0 50px;}
+  header{background:var(--nav);color:#fff;padding:22px 20px;border-bottom:5px solid var(--karla);}
+  header h1{font-size:22px;margin-bottom:4px;text-transform:uppercase;}
+  header p{font-size:16px;opacity:.85;}
+  .container{width:95%;max-width:900px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:16px;margin-bottom:14px;padding:9px 18px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .card{background:var(--bco);border-radius:var(--r);padding:26px;margin-bottom:20px;box-shadow:0 3px 10px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  h2{color:var(--nav);font-size:20px;margin-bottom:12px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:8px;display:flex;align-items:center;gap:10px;}
+  .badge{color:#fff;padding:4px 12px;border-radius:6px;font-size:16px;font-weight:bold;}
+  .info{padding:12px 16px;border-radius:var(--r);margin:10px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
+  .i-karla{background:var(--karla-bg);border-color:var(--karla);} .i-karla strong{color:var(--karla);display:block;margin-bottom:4px;}
+  .i-azul {background:var(--azul-bg);border-color:var(--azul);} .i-azul strong{color:var(--azul);display:block;margin-bottom:4px;}
+  .i-grn  {background:var(--g2-bg);border-color:var(--g2);}   .i-grn strong{color:var(--g2);display:block;margin-bottom:4px;}
+  .i-rojo {background:var(--rojo-bg);border-color:var(--rojo);} .i-rojo strong{color:var(--rojo);display:block;margin-bottom:4px;}
+  .i-amb  {background:var(--abg);border-color:var(--amb);}    .i-amb strong{color:var(--amb);display:block;margin-bottom:4px;}
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:14px 16px;font-size:16px;overflow-x:auto;white-space:pre;line-height:1.7;border-radius:6px;margin:10px 0;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;} .nm{color:#B5CEA8;}
+  .bug-line{background:rgba(255,68,68,.15);border-left:3px solid var(--rojo);padding-left:6px;}
+  code{background:#E8E6FF;color:var(--vio);padding:2px 5px;border-radius:4px;font-family:'Consolas',monospace;font-size:16px;}
+  /* Quiz */
+  .quiz-aviso{font-size:15px;color:#666;font-style:italic;margin-bottom:12px;}
+  .q-item{border:2px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;}
+  .q-texto{font-size:17px;font-weight:bold;color:var(--nav);margin-bottom:8px;line-height:1.4;}
+  .q-opts{display:flex;flex-direction:column;gap:7px;}
+  .q-btn{text-align:left;padding:9px 13px;border-radius:8px;border:2px solid var(--bd);background:var(--gris);font-size:16px;line-height:1.5;cursor:pointer;font-family:inherit;}
+  .q-btn:hover:not(:disabled){border-color:var(--karla);background:var(--karla-bg);}
+  .q-btn:disabled{cursor:default;}
+  .q-btn.ok{border-color:var(--g2);background:var(--g2-bg);color:var(--g2);font-weight:bold;}
+  .q-btn.mal{border-color:var(--rojo);background:var(--rojo-bg);color:var(--rojo);}
+  .q-btn.nd:disabled{opacity:.45;}
+  .q-fb{font-size:14px;font-weight:bold;padding:7px 10px;border-radius:7px;margin-top:6px;display:none;}
+  .q-fb.ok{background:var(--g2-bg);color:var(--g2);}
+  .q-fb.mal{background:var(--rojo-bg);color:var(--rojo);}
+</style>
+</head>
+<body>
+<header>
+  <h1>DESAFÍO — KARLA ORQUERA</h1>
+  <p>Taller de IA Aplicada · Ushuaia Apocalipsis · CTP Antonio Martín Marte</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">⬅ Índice</a>
+
+<!-- ESTADO ACTUAL -->
+<div class="card" style="border-left:6px solid var(--karla);">
+  <h2>LO QUE YA TENÉS ✓</h2>
+  <p>Tu juego tiene todos los comandos: <code>/guardar</code>, <code>/estado</code>, <code>/tomar</code>, <code>/soltar</code>, <code>/usar</code> y <code>/hp</code>. El <code>/usar</code> consume el objeto y llama a la IA — eso es avanzado.</p>
+  <div class="info i-rojo" style="margin-top:12px;">
+    <strong>🐛 Un bug y dos features que faltan</strong>
+    1. <strong>Bug en /soltar</strong>: cuando el objeto SÍ está y se saca exitosamente, el código cae al siguiente bloque.<br>
+    2. <strong>El juego no termina</strong>: Malena puede jugar para siempre.<br>
+    3. <strong>El HP nunca baja solo</strong>: sin <code>/hp -N</code> manual, la toxicidad no tiene efecto.
+  </div>
+</div>
+
+<!-- TAREA 1: BUG /SOLTAR -->
+<div class="card">
+  <h2><span class="badge" style="background:var(--rojo)">1</span> CORREGIR EL BUG DE /SOLTAR</h2>
+
+  <div class="info i-rojo">
+    <strong>🐛 El problema</strong>
+    Cuando el objeto está en el inventario y se saca con <code>.remove()</code>, falta el <code>continue</code> al final de ese bloque. Sin él, el código sigue ejecutando y llega al bloque de <code>/usar</code> en el mismo turno.
+  </div>
+
+  <div class="code-block"><span class="kw">if</span> accion.lower().startswith(<span class="str">"/soltar "</span>):
+    objeto = accion[<span class="nm">8</span>:].strip()
+    <span class="kw">if</span> objeto <span class="kw">in</span> jugador[<span class="str">"inventario"</span>]:
+        jugador[<span class="str">"inventario"</span>].remove(objeto)
+        <span class="kw">print</span>(f<span class="str">"🗑️ Has dejado caer: {objeto}"</span>)
+        <span class="cm"># ← ACÁ falta una línea</span>
+    <span class="kw">else</span>:
+        <span class="kw">print</span>(f<span class="str">"❌ No tenés '{objeto}' en tu inventario."</span>)
+        <span class="kw">continue</span></div>
+
+  <div class="info i-azul">
+    <strong>💡 La línea que falta</strong>
+    Mirá el <code>else</code>: tiene <code>continue</code> para que cuando el objeto no existe, el bucle vuelva al inicio. Pero cuando el objeto SÍ se saca, no hay nada — el código cae al siguiente <code>if</code>. ¿Qué línea le falta al bloque del <code>if</code>?
+  </div>
+
+  <div class="info i-grn">
+    <strong>🧪 Cómo verificar que lo arreglaste</strong>
+    <code>/tomar linterna</code> → <code>/soltar linterna</code>. Tiene que mostrar "Has dejado caer: linterna" y volver a pedir acción <strong>sin que la IA narre nada</strong>. Si la IA narra algo, el bug todavía está.
+  </div>
+</div>
+
+<!-- TAREA 2: FIN DEL JUEGO -->
+<div class="card">
+  <h2><span class="badge" style="background:var(--karla)">2</span> EL JUEGO AHORA TERMINA</h2>
+
+  <div class="info i-karla">
+    <strong>📋 Tu tarea</strong>
+    Agregá dos condiciones de fin: HP ≤ 0 (Malena colapsó por la toxicidad) o turno ≥ 20 (el agua contaminada terminó con ella). En cualquier caso, la IA narra el final y el programa termina.
+  </div>
+
+  <div class="info i-azul">
+    <strong>💡 Pistas</strong>
+    · <code>turno = 0</code> va fuera del <code>while True</code>, junto al diccionario <code>jugador</code>.<br>
+    · <code>turno += 1</code> va al inicio de cada vuelta del bucle.<br>
+    · Las dos condiciones van <strong>después del turno normal</strong> (después del último <code>print</code>).<br>
+    · Antes del <code>break</code>, llamás a <code>consultar_ia()</code> con un mensaje especial para que la IA narre el desenlace de Ushuaia.
+  </div>
+
+  <div class="info i-grn">
+    <strong>🧪 Cómo probarlo</strong>
+    Usá <code>/hp -100</code> → el juego tiene que narrar el final y cerrarse. Después jugá 20 turnos sin morir → también tiene que terminar.
+  </div>
+</div>
+
+<!-- TAREA 3: DESGASTE -->
+<div class="card">
+  <h2><span class="badge" style="background:var(--amb)">3</span> DESGASTE POR LA TOXICIDAD</h2>
+
+  <div class="info i-amb">
+    <strong>📋 Tu tarea</strong>
+    Cada 3 turnos, el HP de Malena baja 2 puntos automáticamente — el agua contaminada de Ushuaia tiene efecto aunque no la toquen. Usá el operador <code>%</code> (resto de la división).
+  </div>
+
+  <div class="info i-azul">
+    <strong>💡 Pistas</strong>
+    · <code>turno % 3 == 0</code> es verdadero exactamente en los turnos 3, 6, 9, 12...<br>
+    · Esta verificación va después del <code>turno += 1</code> y antes de las condiciones de fin.<br>
+    · Si bajás el HP acá, la condición de HP ≤ 0 del punto 2 eventualmente se activa sola.
+  </div>
+
+  <div class="info i-grn">
+    <strong>🧪 Cómo probarlo</strong>
+    Jugá 9 turnos sin usar <code>/hp</code>. El HP tiene que haber bajado 6 puntos (2 por cada múltiplo de 3). Verificá con <code>/estado</code> después de cada turno.
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="card" style="border-left:6px solid var(--g2);">
+  <h2>Preguntas de defensa <span style="font-size:14px;color:#888;font-weight:normal;" id="sc"></span></h2>
+  <div class="quiz-aviso">⚠️ 2 o 3 de estas preguntas van a ser parte de tu defensa.</div>
+  <div id="quiz"></div>
+</div>
+
+</div>
+<script>
+var QS=[
+  {q:"¿Por qué el /soltar fallaba? ¿Qué hacía el código después de sacar el objeto?",
+   opts:["No fallaba, funcionaba correctamente","Sin el continue, después de sacar el objeto el código seguía ejecutando hacia abajo y llegaba al bloque de /usar, ejecutando dos comandos en un solo turno","Python borraba el objeto dos veces","El .remove() necesita el continue para funcionar"],ok:1},
+  {q:"¿Por qué la variable turno tiene que ir fuera del while True?",
+   opts:["Por una convención del lenguaje","Si estuviera dentro, se reiniciaría a 0 en cada vuelta — siempre quedaría en 1 y nunca llegaría a 20","Para que sea accesible desde las funciones","No importa dónde va"],ok:1},
+  {q:"¿Qué hace turno % 3 == 0?",
+   opts:["Divide turno por 3 y verifica si es mayor a 0","Da el resto de la división de turno por 3 — es True exactamente cuando turno es múltiplo de 3 (turnos 3, 6, 9...)","Verifica si turno es par","Compara turno con el número 3"],ok:1},
+  {q:"Si el HP llega a 0 exactamente en el turno 20, ¿cuál condición se activa primero?",
+   opts:["Las dos al mismo tiempo","La que está primero en el código — si el check de HP va antes del de turno, se activa la condición de derrota","Siempre el de turno","Ninguna, necesitan activarse juntas"],ok:1},
+  {q:"¿Por qué el desgaste automático hace el juego más interesante?",
+   opts:["No cambia nada","Porque obliga al jugador a tomar decisiones con urgencia — el HP baja aunque no haga nada mal, lo que hace que cada turno cuente y el juego tenga consecuencias reales","Porque hace el juego más difícil de programar","Porque la IA narra mejor con HP bajo"],ok:1}
+];
+var c=document.getElementById('quiz');
+QS.forEach(function(q,qi){
+  var d=document.createElement('div');d.className='q-item';
+  var opts='';
+  q.opts.forEach(function(o,oi){
+    opts+='<button class="q-btn" data-qi="'+qi+'" data-oi="'+oi+'" data-ok="'+q.ok+'">'+o+'</button>';
+  });
+  d.innerHTML='<div class="q-texto">'+(qi+1)+'. '+q.q+'</div><div class="q-opts">'+opts+'</div><div class="q-fb" id="fb-'+qi+'" style="display:none"></div>';
+  d.querySelectorAll('.q-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var qi=+this.dataset.qi,oi=+this.dataset.oi,ok=+this.dataset.ok;
+      var item=this.closest('.q-item');
+      if(item.querySelector('.q-btn.ok'))return;
+      item.querySelectorAll('.q-btn').forEach(function(b,i){
+        b.disabled=true;
+        if(i===ok)b.className='q-btn ok';
+        else if(b===this)b.className='q-btn mal';
+        else b.className='q-btn nd';
+      }.bind(this));
+      var fb=document.getElementById('fb-'+qi);
+      fb.style.display='block';fb.className='q-fb '+(oi===ok?'ok':'mal');
+      fb.textContent=oi===ok?'✅ Correcto':'❌ Incorrecto — la correcta está en verde.';
+      document.getElementById('sc').textContent=
+        document.querySelectorAll('.q-btn.ok').length+'/'+QS.length;
+    });
+  });
+  c.appendChild(d);
+});
+</script>
+</body>
+</html>
