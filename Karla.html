@@ -3,110 +3,221 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Desafío — Karla Orquera</title>
+<title>Desafío — Karla Orquera · Combate</title>
 <style>
   :root{
     --nav:#1A2C3A;--g2:#2E6820;--g2-bg:#EFF8EE;--vio:#3D5A99;--viobg:#F0EFFF;
     --bd:#C5D2DC;--gris:#F3F6F9;--txt:#2C3E50;--bco:#FFFFFF;--code-bg:#1E1E1E;--r:10px;
     --rojo:#C62828;--rojo-bg:#FFEBEE;--azul:#1565C0;--azul-bg:#E3F2FD;
-    --karla:#00838F;--karla-bg:#E0F7FA;
+    --karla:#00695C;--karla-bg:#E0F2F1;--amb:#D4873A;--abg:#FFF8EE;--oro:#B8860B;--orobg:#FFFDE7;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:19px;padding:15px 0 50px;}
-  header{background:var(--nav);color:#fff;padding:22px 20px;border-bottom:5px solid var(--karla);}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.65;font-size:19px;padding:15px 0 50px;}
+  header{background:var(--nav);color:#fff;padding:22px 20px;border-bottom:5px solid var(--rojo);}
   header h1{font-size:22px;margin-bottom:4px;text-transform:uppercase;}
   header p{font-size:16px;opacity:.85;}
-  .container{width:95%;max-width:860px;margin:0 auto;padding:0 15px;}
+  .container{width:95%;max-width:900px;margin:0 auto;padding:0 15px;}
   .back-btn{display:inline-block;margin-top:16px;margin-bottom:14px;padding:9px 18px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
-  .card{background:var(--bco);border-radius:var(--r);padding:24px;margin-bottom:18px;box-shadow:0 3px 10px rgba(0,0,0,.08);border-left:6px solid var(--karla);}
-  h2{color:var(--nav);font-size:20px;margin-bottom:12px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:8px;}
+  .card{background:var(--bco);border-radius:var(--r);padding:26px;margin-bottom:20px;box-shadow:0 3px 10px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  h2{color:var(--nav);font-size:20px;margin-bottom:12px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:8px;display:flex;align-items:center;gap:10px;}
+  .badge{color:#fff;padding:4px 12px;border-radius:6px;font-size:16px;font-weight:bold;}
   .info{padding:12px 16px;border-radius:var(--r);margin:10px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
-  .i-k{background:var(--karla-bg);border-color:var(--karla);} .i-k strong{color:var(--karla);display:block;margin-bottom:4px;}
-  .i-p{background:var(--azul-bg);border-color:var(--azul);} .i-p strong{color:var(--azul);display:block;margin-bottom:4px;}
-  .i-g{background:var(--g2-bg);border-color:var(--g2);} .i-g strong{color:var(--g2);display:block;margin-bottom:4px;}
+  .i-karla{background:var(--karla-bg);border-color:var(--karla);} .i-karla strong{color:var(--karla);display:block;margin-bottom:4px;}
+  .i-azul {background:var(--azul-bg);border-color:var(--azul);} .i-azul strong{color:var(--azul);display:block;margin-bottom:4px;}
+  .i-grn  {background:var(--g2-bg);border-color:var(--g2);}   .i-grn strong{color:var(--g2);display:block;margin-bottom:4px;}
+  .i-rojo {background:var(--rojo-bg);border-color:var(--rojo);} .i-rojo strong{color:var(--rojo);display:block;margin-bottom:4px;}
+  .i-amb  {background:var(--abg);border-color:var(--amb);}    .i-amb strong{color:var(--amb);display:block;margin-bottom:4px;}
+  .i-oro  {background:var(--orobg);border-color:var(--oro);}  .i-oro strong{color:var(--oro);display:block;margin-bottom:4px;}
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:14px 16px;font-size:16px;overflow-x:auto;white-space:pre;line-height:1.7;border-radius:6px;margin:10px 0;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;} .nm{color:#B5CEA8;} .fn{color:#DCDCAA;} .dk{color:#9CDCFE;}
   code{background:#E8E6FF;color:var(--vio);padding:2px 5px;border-radius:4px;font-family:'Consolas',monospace;font-size:16px;}
-  .quiz-aviso{font-size:15px;color:#666;font-style:italic;margin-bottom:14px;}
-  .q-item{border:2px solid var(--bd);border-radius:var(--r);padding:13px 15px;margin-bottom:10px;}
+  .flujo{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:center;margin:16px 0;}
+  .flujo-box{background:var(--nav);color:#fff;padding:10px 14px;border-radius:8px;font-size:14px;text-align:center;line-height:1.4;}
+  .flujo-arrow{color:var(--rojo);font-size:24px;font-weight:bold;text-align:center;padding:0 6px;}
+  .flujo-box.nuevo{background:var(--rojo);}
+  /* Quiz */
+  .quiz-aviso{font-size:15px;color:#666;font-style:italic;margin-bottom:12px;}
+  .q-item{border:2px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;}
   .q-texto{font-size:17px;font-weight:bold;color:var(--nav);margin-bottom:8px;line-height:1.4;}
-  .q-opts{display:flex;flex-direction:column;gap:6px;}
-  .q-btn{text-align:left;padding:8px 12px;border-radius:7px;border:2px solid var(--bd);background:var(--gris);font-size:16px;line-height:1.4;cursor:pointer;font-family:inherit;}
+  .q-opts{display:flex;flex-direction:column;gap:7px;}
+  .q-btn{text-align:left;padding:9px 13px;border-radius:8px;border:2px solid var(--bd);background:var(--gris);font-size:16px;line-height:1.5;cursor:pointer;font-family:inherit;}
   .q-btn:hover:not(:disabled){border-color:var(--karla);background:var(--karla-bg);}
   .q-btn:disabled{cursor:default;}
   .q-btn.ok{border-color:var(--g2);background:var(--g2-bg);color:var(--g2);font-weight:bold;}
   .q-btn.mal{border-color:var(--rojo);background:var(--rojo-bg);color:var(--rojo);}
   .q-btn.nd:disabled{opacity:.45;}
-  .q-fb{font-size:14px;font-weight:bold;padding:6px 9px;border-radius:6px;margin-top:5px;display:none;}
-  .q-fb.ok{background:var(--g2-bg);color:var(--g2);} .q-fb.mal{background:var(--rojo-bg);color:var(--rojo);}
+  .q-fb{font-size:14px;font-weight:bold;padding:7px 10px;border-radius:7px;margin-top:6px;display:none;}
+  .q-fb.ok{background:var(--g2-bg);color:var(--g2);}
+  .q-fb.mal{background:var(--rojo-bg);color:var(--rojo);}
 </style>
 </head>
 <body>
 <header>
-  <h1>DESAFÍO — KARLA ORQUERA</h1>
-  <p>Taller de IA Aplicada · CTP Antonio Martín Marte</p>
+  <h1>⚔️ DESAFÍO — KARLA ORQUERA · SISTEMA DE COMBATE</h1>
+  <p>Taller de IA Aplicada · Ushuaia Apocalipsis · CTP Antonio Martín Marte</p>
 </header>
 <div class="container">
 <a href="index.html" class="back-btn">⬅ Índice</a>
 
-<div class="card">
-  <h2>ORQUERA, Karla Valentina — Objetos que no se consumen</h2>
-  <div class="info i-k">
-    <strong>📋 Tu tarea</strong>
-    Tu <code>/usar</code> ya funciona con <code>.remove()</code>. Mejoralo: algunos objetos (como un mapa o una linterna) no deberían desaparecer al usarse. Otros sí (una poción, una antorcha). Implementá esa diferencia.
+<!-- ESTADO ACTUAL -->
+<div class="card" style="border-left:6px solid var(--karla);">
+  <h2>LO QUE YA TENÉS ✓</h2>
+  <p>Tu Ushuaia Apocalipsis con Malena ya tiene: todos los comandos (<code>/tomar</code>, <code>/usar</code>, <code>/soltar</code>, <code>/estado</code>, <code>/guardar</code>, <code>/hp</code>), el <strong>fin del juego</strong> (HP ≤ 0 o turno ≥ 20) y el <strong>desgaste automático</strong> cada 3 turnos. Está sólido.</p>
+  <div class="info i-rojo" style="margin-top:12px;">
+    <strong>⚔️ Lo que le falta: enemigos con vida propia</strong>
+    Ahora mismo, cuando Malena se enfrenta a algo (un saqueador, una criatura del agua tóxica), la IA narra la pelea — pero <strong>el enemigo no tiene HP en ninguna variable</strong>. No hay forma de saber si está por caer o si aguanta 10 golpes más. Vas a construir un sistema de combate real.
   </div>
-  <div class="info i-p">
-    <strong>💡 Pistas</strong>
-    · Creá una lista fuera del bucle con los objetos que son permanentes: por ejemplo <code>permanentes = ["mapa", "linterna"]</code>.<br>
-    · Antes del <code>.remove()</code>, verificá si el objeto está en esa lista. Si está → no lo sacás. Si no está → lo sacás normalmente.<br>
-    · El operador <code>not in</code> te da exactamente esa condición: <code>if objeto not in permanentes</code>
-  </div>
-  <div class="info i-g">
-    <strong>🧪 Cómo probarlo</strong>
-    Usá <code>/tomar mapa</code>, después <code>/usar mapa</code> varias veces. El mapa nunca debería desaparecer del <code>/estado</code>. Probá con un objeto no permanente — ese sí tiene que desaparecer.
+  <div class="flujo" style="margin-top:16px;">
+    <div class="flujo-box">La IA devuelve<br><code style="color:#9CDCFE;">enemigo.hp_cambio</code></div>
+    <div class="flujo-arrow">→</div>
+    <div class="flujo-box nuevo">Python actualiza<br><code style="color:#fff;">enemigo["hp"]</code></div>
+    <div class="flujo-arrow">→</div>
+    <div class="flujo-box">¿HP ≤ 0?<br>Enemigo derrotado</div>
   </div>
 </div>
 
+<!-- TAREA 1: DICT DEL ENEMIGO -->
 <div class="card">
-  <h2>Preguntas de defensa <span style="font-size:14px;color:#888;font-weight:normal;" id="sc-k"></span></h2>
+  <h2><span class="badge" style="background:var(--karla)">1</span> EL DICT DEL ENEMIGO</h2>
+  <p>Igual que tenés <code>jugador = {...}</code> con el HP de Malena, ahora creás un dict para el enemigo. Va <strong>fuera del <code>while True</code></strong>, junto al de Malena.</p>
+  <div class="code-block"># Junto a tu jugador = {...} — FUERA del while
+enemigo = {
+    <span class="dk">"nombre"</span>: <span class="str">""</span>,
+    <span class="dk">"hp"</span>:     <span class="nm">0</span>,
+    <span class="dk">"activo"</span>: <span class="kw">False</span>
+}</div>
+  <div class="info i-azul">
+    <strong>💡 Por qué la clave "activo"</strong>
+    Cuando <code>activo</code> es <code>False</code>, no hay pelea: el programa no muestra la barra de vida del enemigo. Cuando aparece un enemigo, se pone en <code>True</code>. Así podés tener varios enemigos distintos a lo largo del juego.
+  </div>
+  <div class="info i-rojo">
+    <strong>⚠️ Importante: ¿por qué va FUERA del bucle?</strong>
+    Si lo ponés adentro del <code>while True</code>, se reiniciaría en cada turno — el enemigo recuperaría todo su HP en cada vuelta y sería inmortal. Es la misma razón por la que tu variable <code>turno</code> va afuera.
+  </div>
+</div>
+
+<!-- TAREA 2: SYSTEM PROMPT -->
+<div class="card">
+  <h2><span class="badge" style="background:var(--azul)">2</span> AVISARLE A LA IA</h2>
+  <p>La IA tiene que decirte, en su respuesta JSON, cuánto daño recibió el enemigo. Agregá esto a tu system prompt, junto a las instrucciones de las otras claves.</p>
+  <div class="code-block"><span class="cm"># Agregá a tu system prompt:</span>
+<span class="str">"""
+...tus instrucciones actuales...
+
+Sobre combate:
+- Si Malena se enfrenta a un enemigo, incluí la clave "enemigo":
+  {"nombre": "nombre del enemigo", "hp_cambio": N}
+  donde hp_cambio es el daño que recibió el enemigo este turno (negativo).
+- Si no hay pelea, "enemigo" debe ser null.
+"""</span></div>
+  <div class="info i-azul">
+    <strong>✍️ Adaptalo a tu mundo</strong>
+    En tu Ushuaia post-apocalíptica el enemigo puede ser "saqueador del puerto", "criatura del agua tóxica", "perro salvaje". El nombre lo decide la IA según la historia — vos solo definís la estructura.
+  </div>
+</div>
+
+<!-- TAREA 3: PROCESAR EL COMBATE -->
+<div class="card">
+  <h2><span class="badge" style="background:var(--g2)">3</span> PROCESAR EL DAÑO AL ENEMIGO</h2>
+  <p>Donde ya procesás el <code>hp_cambio</code> de Malena (en tu bloque del JSON), agregás justo después el procesamiento del enemigo.</p>
+  <div class="code-block">        <span class="cm"># ✍️ Después de procesar el hp_cambio de Malena:</span>
+
+        datos_enemigo = datos.get(<span class="str">"enemigo"</span>)
+        <span class="kw">if</span> datos_enemigo:
+            <span class="cm"># Si es un enemigo nuevo, lo activamos con HP inicial</span>
+            <span class="kw">if not</span> enemigo[<span class="str">"activo"</span>]:
+                enemigo[<span class="str">"nombre"</span>] = datos_enemigo[<span class="str">"nombre"</span>]
+                enemigo[<span class="str">"hp"</span>]     = <span class="nm">60</span>   <span class="cm"># ✍️ definí vos el HP inicial</span>
+                enemigo[<span class="str">"activo"</span>] = <span class="kw">True</span>
+                <span class="kw">print</span>(f<span class="str">"⚔️ ¡{enemigo['nombre']} aparece! HP: {enemigo['hp']}"</span>)
+
+            <span class="cm"># ✍️ Aplicar el daño</span>
+            enemigo[<span class="str">"hp"</span>] += datos_enemigo[<span class="str">"hp_cambio"</span>]
+
+            <span class="cm"># ✍️ ¿Cayó?</span>
+            <span class="kw">if</span> enemigo[<span class="str">"hp"</span>] <= <span class="nm">0</span>:
+                <span class="kw">print</span>(f<span class="str">"💀 ¡{enemigo['nombre']} fue derrotado!"</span>)
+                enemigo[<span class="str">"activo"</span>] = <span class="kw">False</span>
+                enemigo[<span class="str">"hp"</span>]     = <span class="nm">0</span>
+            <span class="kw">else</span>:
+                <span class="kw">print</span>(f<span class="str">"⚔️ {enemigo['nombre']} — HP: {enemigo['hp']}"</span>)</div>
+  <div class="info i-rojo">
+    <strong>🐛 Ojo con el TypeError</strong>
+    Si no ponés <code>if datos_enemigo:</code> y la clave es <code>null</code>, al intentar <code>datos_enemigo["hp_cambio"]</code> el programa explota con un <code>TypeError</code>. La verificación es obligatoria.
+  </div>
+</div>
+
+<!-- TAREA 4: MOSTRAR AL ENEMIGO -->
+<div class="card">
+  <h2><span class="badge" style="background:var(--oro)">4</span> MOSTRAR LA BARRA DEL ENEMIGO</h2>
+  <p>Ya mostrás el HP de Malena. Agregá la del enemigo, que <strong>solo aparece si <code>activo == True</code></strong>.</p>
+  <div class="code-block">    <span class="cm"># ✍️ Después de mostrar el HP de Malena:</span>
+    <span class="kw">if</span> enemigo[<span class="str">"activo"</span>]:
+        <span class="kw">print</span>(f<span class="str">"⚔️ {enemigo['nombre']}: {enemigo['hp']} HP"</span>)</div>
+  <div class="info i-oro">
+    <strong>🧪 Cómo probar todo el combate</strong>
+    Jugá hasta que aparezca un enemigo (algo como "atacá al saqueador"). Verificá que aparece la barra con su HP. Atacalo varios turnos → el HP baja. Cuando llega a 0 → mensaje de derrota y la barra desaparece. Cuando no hay pelea → no aparece nada.
+  </div>
+</div>
+
+<!-- EXTRA -->
+<div class="card" style="border-left:6px solid var(--amb);">
+  <h2><span class="badge" style="background:var(--amb)">★</span> SI TE SOBRA TIEMPO</h2>
+  <div class="info i-amb">
+    <strong>El enemigo también pega</strong>
+    Que la IA devuelva además cuánto daño le hizo el enemigo a Malena en ese turno (dentro del <code>hp_cambio</code> de ella, o una clave nueva). Así el combate es de ida y vuelta: Malena puede morir peleando. Conecta directo con tu condición de fin del juego (HP ≤ 0).
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="card" style="border-left:6px solid var(--g2);">
+  <h2>Preguntas de defensa <span style="font-size:14px;color:#888;font-weight:normal;" id="sc"></span></h2>
   <div class="quiz-aviso">⚠️ 2 o 3 de estas preguntas van a ser parte de tu defensa.</div>
-  <div id="quiz-k"></div>
-</div>
+  <div id="quiz"></div>
 </div>
 
+</div>
 <script>
 var QS=[
-  {q:"¿Qué hace not in en la condición if objeto not in permanentes?",
-   opts:["Verifica que el objeto no exista en el juego","Devuelve True si el objeto NO está en la lista de permanentes — es decir, si es consumible y sí se elimina","Elimina el objeto de la lista","Devuelve False siempre"],ok:1},
-  {q:"¿Por qué la lista permanentes va fuera del while True y no dentro?",
-   opts:["Porque Python no acepta listas dentro de bucles","Si estuviera dentro, se recrearía en cada turno — todos los objetos vuelven a ser permanentes cada vuelta del bucle","Es solo una convención","Para que sea más fácil de leer"],ok:1},
-  {q:"¿Qué pasa si el jugador intenta usar un objeto permanente como el mapa?",
-   opts:["El programa lanza un error ValueError","La IA narra el efecto de usar el mapa pero el .remove() no se ejecuta — el mapa sigue en el inventario después","El mapa desaparece igual","El comando /usar no responde nada"],ok:1},
-  {q:"¿Cómo verificaste que el fix funciona para ambos casos?",
-   opts:["Confié en que el código se veía correcto","Probé con un objeto permanente (no desaparece) y con uno consumible (desaparece), y verifiqué con /estado en ambos casos","Solo probé el objeto permanente","Esperé a que el profe lo revisara"],ok:1},
-  {q:"¿Qué efecto tiene esta mejora en la experiencia del jugador?",
-   opts:["Ninguno, es solo un cambio técnico","Ciertos objetos se vuelven recursos reutilizables — el jugador puede planear mejor porque sabe que herramientas clave no desaparecen con cada uso","Los objetos permanentes tienen más HP","La IA narra distinto para cada tipo de objeto"],ok:1}
+  {q:"¿Por qué el dict enemigo tiene que vivir FUERA del while True?",
+   opts:["Por una convención del lenguaje","Si estuviera adentro, se reiniciaría en cada turno — el enemigo recuperaría todo su HP en cada vuelta y sería imposible derrotarlo","Para que las funciones lo puedan usar","No importa dónde va"],ok:1},
+  {q:"¿Para qué sirve la clave 'activo' del enemigo?",
+   opts:["Para nada, es decorativa","Le dice al programa si hay una pelea en curso — controla si se muestra la barra del enemigo y si es un enemigo nuevo o uno que ya estaba peleando","Guarda el nombre del enemigo","Cuenta los turnos de combate"],ok:1},
+  {q:"¿Qué pasa si NO ponés if datos_enemigo antes de usar datos_enemigo['hp_cambio']?",
+   opts:["Nada, funciona igual","Si 'enemigo' viene null (no hay pelea), intentar datos_enemigo['hp_cambio'] lanza un TypeError y el juego se rompe","El HP del enemigo se pone en 0 solo","La IA deja de mandar JSON"],ok:1},
+  {q:"¿Por qué la barra del enemigo solo se muestra cuando activo == True?",
+   opts:["Para que el juego corra más rápido","Si se mostrara siempre, aparecería una barra vacía en cada turno aunque Malena no esté peleando — mostraría información falsa","Porque print() falla si el HP es 0","Es lo mismo mostrarla siempre"],ok:1},
+  {q:"Tu juego ya tiene el fin por HP ≤ 0 de Malena. Si agregás que el enemigo también le pega a Malena, ¿qué pasa?",
+   opts:["Hay que programar un fin del juego nuevo","Nada, son sistemas separados","Se conecta solo con lo que ya tenés — si el enemigo baja el HP de Malena a 0, tu condición de fin existente se activa y el juego termina en derrota","El desgaste automático deja de funcionar"],ok:2}
 ];
-var c=document.getElementById('quiz-k');
+var c=document.getElementById('quiz');
 QS.forEach(function(q,qi){
   var d=document.createElement('div');d.className='q-item';
-  d.innerHTML='<div class="q-texto">'+(qi+1)+'. '+q.q+'</div><div class="q-opts">'
-    +q.opts.map(function(o,oi){return '<button class="q-btn" onclick="resp('+qi+','+oi+','+q.ok+',this)">'+o+'</button>';}).join('')
-    +'</div><div class="q-fb" id="fb-'+qi+'" style="display:none"></div>';
+  var opts='';
+  q.opts.forEach(function(o,oi){
+    opts+='<button class="q-btn" data-qi="'+qi+'" data-oi="'+oi+'" data-ok="'+q.ok+'">'+o+'</button>';
+  });
+  d.innerHTML='<div class="q-texto">'+(qi+1)+'. '+q.q+'</div><div class="q-opts">'+opts+'</div><div class="q-fb" id="fb-'+qi+'" style="display:none"></div>';
+  d.querySelectorAll('.q-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var qi=+this.dataset.qi,oi=+this.dataset.oi,ok=+this.dataset.ok;
+      var item=this.closest('.q-item');
+      if(item.querySelector('.q-btn.ok'))return;
+      item.querySelectorAll('.q-btn').forEach(function(b,i){
+        b.disabled=true;
+        if(i===ok)b.className='q-btn ok';
+        else if(b===this)b.className='q-btn mal';
+        else b.className='q-btn nd';
+      }.bind(this));
+      var fb=document.getElementById('fb-'+qi);
+      fb.style.display='block';fb.className='q-fb '+(oi===ok?'ok':'mal');
+      fb.textContent=oi===ok?'✅ Correcto':'❌ Incorrecto — la correcta está en verde.';
+      document.getElementById('sc').textContent=
+        document.querySelectorAll('.q-btn.ok').length+'/'+QS.length;
+    });
+  });
   c.appendChild(d);
 });
-function resp(qi,oi,ok,btn){
-  var item=btn.closest('.q-item');
-  if(item.querySelector('.q-btn.ok')) return;
-  item.querySelectorAll('.q-btn').forEach(function(b,i){
-    b.disabled=true;
-    if(i===ok) b.className='q-btn ok';
-    else if(b===btn) b.className='q-btn mal';
-    else b.className='q-btn nd';
-  });
-  var fb=document.getElementById('fb-'+qi);
-  fb.style.display='block'; fb.className='q-fb '+(oi===ok?'ok':'mal');
-  fb.textContent=oi===ok?'✅ Correcto':'❌ Incorrecto.';
-  document.getElementById('sc-k').textContent=document.querySelectorAll('.q-btn.ok').length+'/'+QS.length;
-}
 </script>
 </body>
 </html>
