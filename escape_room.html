@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROTOCOLO NEXUS — Ushuaia 2100</title>
+<style>
+:root{
+  --bg:#0A0A0A;--panel:#0F0F1A;--amber:#FF9900;--gold:#FFCC00;
+  --blue:#8888FF;--purple:#CC66FF;--red:#FF3300;--green:#00FF88;
+  --teal:#00CCFF;--dim:#5A6480;--txt:#FFCC66;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--txt);font-family:'Helvetica Neue',Arial,sans-serif;min-height:100vh;position:relative;font-size:17px;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background:
+  radial-gradient(ellipse 80% 50% at 15% 0%,rgba(255,153,0,.06),transparent 60%),
+  radial-gradient(ellipse 60% 50% at 90% 100%,rgba(204,102,255,.06),transparent 60%),
+  radial-gradient(circle at 50% 50%,#0D0D18 0%,#060608 100%);
+  pointer-events:none;}
+
+.topbar,.subbar,.keysbar,.screen{position:relative;z-index:1;}
+.screen{display:none;} .screen.activa{display:block;}
+/* TOP BAR */
+.topbar{height:56px;display:flex;align-items:stretch;background:var(--bg);}
+.tb-left{width:clamp(90px,15vw,180px);background:var(--amber);border-radius:28px 0 0 0;display:flex;align-items:center;padding-left:clamp(10px,2vw,18px);flex-shrink:0;}
+.tb-left span{color:#000;font-size:13px;font-weight:900;letter-spacing:3px;}
+.tb-center{flex:1;background:var(--amber);display:flex;align-items:center;padding:0 18px;gap:16px;}
+.tb-seg{background:var(--bg);height:100%;display:flex;align-items:center;padding:0 clamp(6px,1.5vw,14px);font-size:clamp(9px,1.3vw,11px);font-weight:bold;letter-spacing:clamp(0px,.3vw,2px);color:var(--amber);text-transform:uppercase;white-space:nowrap;}
+.tb-right{width:clamp(30px,5vw,60px);background:var(--bg);border-top:8px solid var(--purple);border-left:8px solid var(--purple);border-radius:0 0 0 20px;flex-shrink:0;}
+.subbar{background:var(--panel);border-bottom:1px solid var(--amber);padding:6px clamp(10px,3vw,18px);display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:clamp(9px,1.4vw,11px);font-weight:bold;letter-spacing:1px;text-transform:uppercase;flex-wrap:wrap;}
+.sb-ag{color:var(--teal);} .sb-err{color:var(--red);}
+.err-dots{display:inline-flex;gap:4px;margin-left:6px;vertical-align:middle;}
+.edot{width:10px;height:10px;border-radius:50%;background:var(--red);display:inline-block;}
+.edot.off{background:var(--dim);}
+.keysbar{display:flex;gap:4px;padding:6px clamp(10px,3vw,18px);background:transparent;align-items:center;flex-wrap:wrap;}
+/* LAYOUT */
+.page{min-height:calc(100vh - 120px);}
+.content{width:100%;max-width:100%;margin:0 auto;padding:16px clamp(14px,4vw,44px) 44px;}
+.panel{background:var(--panel);border:1px solid #1E1E30;border-radius:6px;padding:clamp(14px,3vw,24px);margin-bottom:12px;position:relative;width:100%;}
+.ptb{height:2px;background:linear-gradient(90deg,var(--amber),transparent);margin-bottom:14px;border-radius:2px;}
+.capa-num{color:var(--purple);font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;font-weight:bold;}
+.sala-titulo{font-size:24px;font-weight:bold;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.desc{color:var(--txt);font-size:18px;line-height:1.7;margin-bottom:10px;}
+.narrative{border-left:4px solid var(--amber);padding:14px 18px;margin-bottom:14px;font-size:17px;line-height:1.75;color:#CC9966;background:rgba(255,153,0,.04);border-radius:0 4px 4px 0;}
+.narrative strong{color:var(--amber);}
+/* INTRO */
+.intro-hero{text-align:center;padding:36px 20px 30px;}
+.intro-hero h1{color:var(--amber);font-size:36px;letter-spacing:4px;text-transform:uppercase;margin-bottom:6px;text-shadow:0 0 20px rgba(255,153,0,.5);}
+.intro-hero .sub{color:var(--purple);font-size:15px;letter-spacing:3px;text-transform:uppercase;margin-bottom:24px;}
+.intro-lore{width:100%;margin:0 auto 24px;background:rgba(255,153,0,.05);border:1px solid rgba(255,153,0,.2);border-radius:6px;padding:22px 26px;font-size:18px;line-height:1.9;color:#CC9966;text-align:left;}
+.intro-lore .fecha{color:var(--amber);font-size:13px;letter-spacing:2px;display:block;margin-bottom:10px;font-weight:bold;}
+.intro-lore .alerta{color:var(--red);font-weight:bold;}
+.name-box{margin:0 auto 16px;width:100%;}
+.name-box label{display:block;color:var(--amber);font-size:13px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;}
+.name-inp{width:100%;background:#000;border:2px solid var(--amber);border-radius:6px;padding:16px 18px;color:var(--amber);font-family:'Consolas',monospace;font-size:24px;outline:none;text-align:center;letter-spacing:2px;}
+.name-inp:focus{border-color:var(--gold);box-shadow:0 0 12px rgba(255,153,0,.3);}
+.btn-start{padding:16px 44px;background:var(--amber);color:#000;border:none;border-radius:30px;font-family:inherit;font-size:19px;cursor:pointer;font-weight:bold;text-transform:uppercase;letter-spacing:2px;display:block;margin:0 auto;}
+.btn-start:hover{background:var(--gold);transform:scale(1.02);}
+.warn-box{width:100%;margin:14px auto 0;background:rgba(255,51,0,.08);border:1px solid var(--red);border-radius:6px;padding:12px 16px;font-size:14px;color:var(--red);text-align:center;letter-spacing:1px;text-transform:uppercase;}
+/* MAPA */
+.mapa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:clamp(5px,1.5vw,10px);}
+.mc{background:var(--bg);border:1px solid var(--dim);border-radius:5px;padding:10px 6px;text-align:center;transition:.2s;}
+.mc.avail{border-color:var(--amber);cursor:pointer;}
+.mc.avail:hover{background:rgba(255,153,0,.08);}
+.mc.done{border-color:var(--green);background:rgba(0,255,136,.03);}
+.mc.locked{opacity:.2;cursor:not-allowed;}
+.mc .mn{font-size:11px;color:var(--dim);letter-spacing:1px;} .mc .mi{font-size:26px;margin:3px 0;}
+.mc .mt{font-size:13px;text-transform:uppercase;letter-spacing:.5px;line-height:1.3;}
+.mc.avail .mt{color:var(--amber);} .mc.done .mt{color:var(--green);}
+.mc .ck{font-size:10px;color:var(--green);}
+/* CODE */
+.code-box{background:#000;border:1px solid #222;border-radius:4px;padding:16px;margin:10px 0;font-size:16px;line-height:1.95;overflow-x:auto;white-space:pre;font-family:'Consolas',monospace;}
+.kw{color:#5BA8D8;} .st{color:#CE9178;} .cm{color:#4A7A40;font-style:italic;} .nm{color:#9EC49A;} .fn{color:#DCDCAA;}
+.cline{cursor:pointer;display:block;padding:1px 3px;border-radius:3px;transition:.12s;}
+.cline:hover{background:rgba(255,51,0,.15);}
+.cline.sel{background:rgba(255,51,0,.25);border-left:3px solid var(--red);}
+.cline.hit{background:rgba(255,51,0,.4);color:var(--red);}
+/* DRAG PIECES */
+.piezas-pool{display:flex;flex-direction:column;gap:5px;margin:8px 0;padding:10px;background:#000;border:1px dashed var(--dim);border-radius:4px;min-height:50px;}
+.pieza{background:#0F0F1A;border:1px solid var(--teal);border-radius:4px;padding:10px 14px;cursor:grab;font-size:15px;font-family:'Consolas',monospace;color:var(--teal);user-select:none;}
+.pieza:active{opacity:.5;}
+.piezas-target{display:flex;flex-direction:column;gap:3px;margin:8px 0;padding:10px;background:#000;border:1px solid var(--amber);border-radius:4px;min-height:120px;}
+.pieza.placed{border-color:var(--green);color:var(--green);}
+/* SLIDER */
+.slider-wrap{margin:12px 0;}
+.slider-wrap input[type=range]{width:100%;accent-color:var(--amber);}
+.slabs{display:flex;justify-content:space-between;font-size:10px;color:var(--dim);margin-top:3px;}
+.sdemo{background:#000;border:1px solid var(--amber);border-radius:4px;padding:10px 12px;margin:7px 0;min-height:50px;font-size:13px;border-left:4px solid var(--amber);transition:border-color .3s;}
+.temp-cards{display:flex;flex-direction:column;gap:8px;margin:10px 0;}
+.tcard{background:#000;border:1px solid var(--dim);border-radius:6px;padding:11px 14px;cursor:pointer;transition:.15s;}
+.tcard:hover{border-color:var(--amber);}
+.tcard.sel{border-color:var(--teal);background:rgba(0,204,255,.05);}
+.tcard .tq{font-size:16px;color:var(--txt);line-height:1.5;font-style:italic;}
+.tcard .topts{display:flex;gap:8px;margin-top:8px;}
+.tbtn{flex:1;padding:9px;border-radius:4px;border:1px solid var(--dim);background:#0F0F1A;color:var(--txt);font-family:inherit;font-size:15px;cursor:pointer;}
+.tbtn.on{border-color:var(--amber);background:var(--amber);color:#000;font-weight:bold;}
+/* SOPA */
+.sopa{display:inline-grid;grid-template-columns:repeat(10,clamp(24px,7vw,31px));gap:2px;margin:8px 0;}
+.sc{width:clamp(24px,7vw,31px);height:clamp(24px,7vw,31px);background:#000;border:1px solid var(--dim);border-radius:2px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;font-weight:bold;user-select:none;font-family:'Consolas',monospace;transition:.12s;}
+.sc:hover{background:rgba(255,153,0,.1);}
+.sc.sel{background:rgba(255,153,0,.2);border-color:var(--amber);color:var(--amber);}
+.sc.found{background:rgba(0,255,136,.1);border-color:var(--green);color:var(--green);}
+.pal-chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px;}
+.pc{padding:2px 8px;border-radius:20px;border:1px solid var(--dim);font-size:11px;color:var(--dim);font-family:'Consolas',monospace;}
+.pc.found{border-color:var(--green);color:var(--green);}
+/* QUIZ RELÁMPAGO */
+.quiz-timer{font-size:30px;font-weight:bold;color:var(--gold);text-align:center;margin:8px 0;font-family:'Consolas',monospace;}
+.quiz-timer.urgent{color:var(--red);animation:pulse .5s infinite;}
+.quiz-prog{text-align:center;font-size:14px;color:var(--dim);letter-spacing:1px;margin-bottom:10px;}
+.quiz-q{font-size:19px;font-weight:bold;color:var(--txt);margin-bottom:12px;line-height:1.5;text-align:center;min-height:44px;}
+.quiz-opts{display:flex;flex-direction:column;gap:7px;}
+.quiz-opt{padding:13px 18px;border-radius:6px;border:1px solid var(--dim);background:#000;color:var(--txt);font-family:inherit;font-size:17px;cursor:pointer;text-align:left;transition:.12s;}
+.quiz-opt:hover{border-color:var(--amber);}
+.quiz-opt.ok{border-color:var(--green);background:rgba(0,255,136,.1);color:var(--green);}
+.quiz-opt.mal{border-color:var(--red);background:rgba(255,51,0,.1);color:var(--red);}
+/* INVENTARIO */
+.obj-btn{background:#000;border:1px solid var(--teal);border-radius:4px;padding:9px 15px;cursor:pointer;font-size:16px;color:var(--teal);margin:3px;display:inline-block;transition:.12s;}
+.obj-btn:hover{background:rgba(0,204,255,.08);} .obj-btn.tomado{opacity:.2;cursor:not-allowed;}
+.obj-btn.malware{border-color:var(--red);color:var(--red);}
+.obj-btn.malware:hover{background:rgba(255,51,0,.08);}
+.inv-box{background:#000;border:1px solid var(--dim);border-radius:4px;padding:12px;min-height:50px;font-size:15px;margin-top:6px;font-family:'Consolas',monospace;}
+.cmd-box{background:#000;border:1px solid var(--dim);border-radius:4px;padding:7px;font-size:12px;margin-top:5px;color:var(--green);min-height:28px;font-family:'Consolas',monospace;}
+.bloque{background:#000;border:1px solid var(--teal);border-radius:4px;padding:10px 15px;font-size:15px;margin-bottom:5px;cursor:grab;user-select:none;font-family:'Consolas',monospace;}
+.bloque:active{opacity:.5;}
+/* INPUTS */
+.inp{width:100%;background:#000;border:1px solid var(--amber);border-radius:4px;padding:11px 15px;color:var(--amber);font-family:'Consolas',monospace;font-size:18px;outline:none;margin-top:7px;transition:.2s;}
+.inp:focus{border-color:var(--gold);}
+.ta{min-height:70px;resize:vertical;}
+.inp-lbl{color:var(--amber);font-size:13px;margin-top:8px;display:block;letter-spacing:2px;text-transform:uppercase;font-weight:bold;}
+/* BOTONES */
+.btn-v{margin-top:11px;padding:11px 26px;background:var(--amber);color:#000;border:none;border-radius:20px;font-family:inherit;font-size:16px;cursor:pointer;font-weight:bold;text-transform:uppercase;letter-spacing:1px;}
+.btn-v:hover{background:var(--gold);}
+.btn-s{margin-top:9px;padding:11px 26px;background:var(--green);color:#000;border:none;border-radius:20px;font-family:inherit;font-size:16px;cursor:pointer;font-weight:bold;display:none;text-transform:uppercase;letter-spacing:1px;}
+.btn-map{padding:9px 18px;background:transparent;border:1px solid var(--purple);color:var(--purple);border-radius:20px;font-family:inherit;font-size:14px;cursor:pointer;margin-top:7px;text-transform:uppercase;letter-spacing:1px;}
+.btn-map:hover{background:rgba(204,102,255,.1);}
+/* FB / HINT */
+.fb{margin-top:10px;padding:11px 15px;border-radius:4px;font-size:15px;display:none;font-family:'Consolas',monospace;}
+.fb.ok{background:rgba(0,255,136,.07);border:1px solid var(--green);color:var(--green);}
+.fb.mal{background:rgba(255,51,0,.07);border:1px solid var(--red);color:var(--red);}
+.hbtn{background:none;border:none;color:var(--dim);font-family:inherit;font-size:14px;cursor:pointer;margin-top:6px;text-decoration:underline;text-transform:uppercase;letter-spacing:1px;}
+.htxt{display:none;color:var(--gold);font-size:15px;margin-top:5px;padding:7px 10px;border:1px solid rgba(255,204,0,.25);border-radius:4px;}
+/* ORACLE / CHAT */
+.ochat{background:#000;border:1px solid var(--amber);border-radius:4px;height:240px;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:5px;}
+.mu{align-self:flex-end;background:rgba(136,136,255,.1);border:1px solid var(--blue);padding:8px 12px;border-radius:6px;max-width:80%;font-size:15px;color:var(--blue);}
+.mn2{align-self:flex-start;background:rgba(255,153,0,.06);border:1px solid var(--amber);padding:8px 12px;border-radius:6px;max-width:80%;font-size:15px;color:var(--amber);}
+.mn2.umbra{border-color:var(--red);background:rgba(255,51,0,.05);color:#FF8866;}
+.ms{align-self:center;color:var(--dim);font-size:10px;font-style:italic;}
+.orow{display:flex;gap:6px;margin-top:5px;}
+.orow input{flex:1;background:#000;border:1px solid var(--amber);border-radius:4px;padding:10px;color:var(--txt);font-family:'Consolas',monospace;font-size:15px;outline:none;}
+.btn-send{padding:0 16px;background:var(--amber);color:#000;border:none;border-radius:4px;cursor:pointer;font-family:inherit;font-size:15px;font-weight:bold;}
+.umbra-preg{display:flex;flex-direction:column;gap:6px;margin:8px 0;}
+.upreg-btn{padding:11px 15px;border-radius:6px;border:1px solid var(--blue);background:#000;color:var(--blue);font-family:inherit;font-size:15px;cursor:pointer;text-align:left;}
+.upreg-btn:hover{background:rgba(136,136,255,.08);} .upreg-btn:disabled{opacity:.3;cursor:default;}
+.mentira-select{display:flex;flex-direction:column;gap:6px;margin-top:10px;}
+.msel{padding:11px 15px;border-radius:6px;border:1px solid var(--dim);background:#000;color:var(--txt);font-family:inherit;font-size:15px;cursor:pointer;text-align:left;}
+.msel:hover{border-color:var(--red);} .msel.picked{border-color:var(--red);background:rgba(255,51,0,.1);}
+/* PENALTY / WINNER */
+.penalty{position:fixed;inset:0;background:rgba(255,51,0,.25);z-index:9000;display:none;align-items:center;justify-content:center;flex-direction:column;}
+.penalty.show{display:flex;animation:flashR .4s;}
+.pm{color:#fff;font-size:24px;font-weight:bold;text-align:center;text-shadow:0 0 20px var(--red);text-transform:uppercase;letter-spacing:3px;}
+@keyframes flashR{0%{background:rgba(255,51,0,.7)}100%{background:rgba(255,51,0,.25)}}
+.winner{position:fixed;inset:0;background:#000;z-index:8000;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;}
+.winner.show{display:flex;animation:winAnim 1.5s;}
+@keyframes winAnim{0%{background:#FF9900}15%{background:#fff}30%{background:#FFCC00}45%{background:#fff}60%{background:#FF9900}100%{background:#000}}
+.w-title{color:var(--amber);font-size:30px;font-weight:bold;letter-spacing:4px;text-transform:uppercase;text-shadow:0 0 30px var(--amber);margin-bottom:6px;}
+.w-sub{color:var(--gold);font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;}
+.w-code-box{background:var(--panel);border:2px solid var(--amber);border-radius:8px;padding:18px 28px;margin:0 auto 14px;}
+.w-label{color:var(--amber);font-size:9px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;}
+.w-symbols{font-size:26px;letter-spacing:5px;color:var(--gold);text-shadow:0 0 20px var(--gold);font-family:'Consolas',monospace;}
+.w-time{color:var(--teal);font-size:12px;letter-spacing:1px;margin-top:8px;font-family:'Consolas',monospace;}
+.w-show{color:var(--amber);font-size:12px;text-transform:uppercase;letter-spacing:2px;animation:pulse 1.8s infinite;margin-top:10px;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+#pcanvas{position:fixed;inset:0;pointer-events:none;z-index:7999;display:none;}
+code{background:rgba(255,153,0,.12);color:var(--amber);padding:1px 4px;border-radius:3px;font-family:'Consolas',monospace;}
+
+@media(max-width:600px){
+  .intro-hero h1{font-size:22px;letter-spacing:2px;}
+  .tb-left span{font-size:11px;letter-spacing:2px;}
+  .content{padding:12px 14px 40px;}
+}
+
+/* ═══ ESCALA GLOBAL — LETRAS MÁS GRANDES Y ADAPTABLES ═══ */
+.desc{font-size:clamp(17px,1.5vw,22px) !important;line-height:1.8 !important;}
+.narrative{font-size:clamp(16px,1.4vw,21px) !important;line-height:1.8 !important;padding:14px 18px !important;}
+.sala-titulo{font-size:clamp(22px,2.4vw,32px) !important;}
+.capa-num{font-size:clamp(11px,1vw,14px) !important;}
+.code-box{font-size:clamp(15px,1.4vw,20px) !important;line-height:2 !important;padding:16px !important;}
+.intro-hero h1{font-size:clamp(30px,3.5vw,52px) !important;}
+.intro-hero .sub{font-size:clamp(14px,1.4vw,20px) !important;}
+.intro-lore{font-size:clamp(16px,1.5vw,21px) !important;line-height:1.75 !important;width:100% !important;padding:24px 34px !important;}
+.inp{font-size:clamp(16px,1.5vw,20px) !important;padding:12px 16px !important;}
+.name-inp{font-size:clamp(20px,2vw,28px) !important;padding:16px 20px !important;}
+.inp-lbl{font-size:clamp(13px,1.1vw,16px) !important;}
+.btn-v{font-size:clamp(15px,1.4vw,19px) !important;padding:12px 30px !important;}
+.btn-s{font-size:clamp(15px,1.4vw,19px) !important;padding:12px 30px !important;}
+.btn-map{font-size:clamp(13px,1.2vw,16px) !important;padding:10px 20px !important;}
+.btn-start{font-size:clamp(17px,1.8vw,24px) !important;padding:16px 44px !important;}
+.fb{font-size:clamp(14px,1.3vw,18px) !important;padding:12px 16px !important;}
+.hbtn{font-size:clamp(13px,1.2vw,16px) !important;}
+.htxt{font-size:clamp(14px,1.3vw,18px) !important;}
+.quiz-q{font-size:clamp(18px,1.8vw,26px) !important;}
+.quiz-opt{font-size:clamp(16px,1.5vw,21px) !important;padding:14px 18px !important;}
+.quiz-timer{font-size:clamp(28px,3vw,42px) !important;}
+.quiz-prog{font-size:clamp(13px,1.2vw,17px) !important;}
+.pieza{font-size:clamp(14px,1.3vw,18px) !important;padding:11px 15px !important;}
+.bloque{font-size:clamp(14px,1.3vw,18px) !important;padding:11px 15px !important;}
+.tcard .tq{font-size:clamp(15px,1.4vw,20px) !important;}
+.mu,.mn2{font-size:clamp(14px,1.3vw,18px) !important;padding:9px 13px !important;}
+.ochat{height:clamp(240px,32vh,340px) !important;}
+.upreg-btn{font-size:clamp(14px,1.3vw,18px) !important;padding:12px 16px !important;}
+.msel{font-size:clamp(14px,1.3vw,18px) !important;padding:12px 16px !important;}
+.orow input{font-size:clamp(14px,1.3vw,18px) !important;padding:11px !important;}
+.btn-send{font-size:clamp(14px,1.3vw,18px) !important;padding:0 18px !important;}
+.mc .mt{font-size:clamp(12px,1.2vw,16px) !important;}
+.mc .mi{font-size:clamp(22px,2.4vw,32px) !important;}
+.mc .mn{font-size:clamp(10px,1vw,13px) !important;}
+.mc{padding:clamp(12px,1.8vw,20px) 8px !important;}
+.obj-btn{font-size:clamp(14px,1.3vw,18px) !important;padding:9px 15px !important;}
+.inv-box,.cmd-box{font-size:clamp(13px,1.2vw,17px) !important;}
+.tb-seg{font-size:clamp(10px,1.2vw,14px) !important;}
+.subbar{font-size:clamp(11px,1.3vw,15px) !important;}
+/* Ancho más pleno */
+.content{max-width:100% !important;}
+.puls-t{animation:pulse 2.5s infinite;}
+</style>
+</head>
+<body>
+
+<canvas id="bgcanvas" style="position:fixed;inset:0;z-index:0;pointer-events:none;"></canvas>
+<canvas id="pcanvas"></canvas>
+<div class="penalty" id="penalty"><div class="pm" id="pm">MARTE CONTRAATACÓ</div><div style="color:var(--red);font-size:13px;margin-top:8px;letter-spacing:2px;" id="psub">3 ERRORES — RETROCEDÉS UNA CAPA</div></div>
+<div class="winner" id="winner">
+  <div class="w-title">✦ NEXUS RESTAURADO ✦</div>
+  <div class="w-sub">Ushuaia · 2100 · La señal vuelve desde Proxima Centauri</div>
+  <div class="w-code-box">
+    <div class="w-label">// Código de verificación — mostrá al profe</div>
+    <div class="w-symbols" id="w-code">NEXUS</div>
+    <div class="w-time" id="w-time"></div>
+  </div>
+  <div class="w-show">▶ MOSTRÁ ESTA PANTALLA AL PROFE ◀</div>
+</div>
+
+<div class="topbar">
+  <div class="tb-left"><span>NEXUS</span></div>
+  <div class="tb-center">
+    <div class="tb-seg">OPERATIVO: <span id="nhdr" style="color:#000;margin-left:4px;">—</span></div>
+    <div style="flex:1;"></div>
+    <div class="tb-seg" id="tb-room" style="color:#000;">INICIO</div>
+    <div class="tb-seg">⏱ <span id="tb-timer">00:00</span></div>
+  </div>
+  <div class="tb-right"></div>
+</div>
+<div class="subbar">
+  <span class="sb-ag">AGENTE: <span id="sb-name">—</span></span>
+  <span class="sb-cap" id="cap-timer-wrap" style="color:var(--gold);display:none;">⏱ CAPA: <span id="cap-timer" style="font-family:Consolas,monospace;">5:00</span></span>
+  <span class="sb-err">ERRORES EN ESTA CAPA: <span class="err-dots" id="edots"></span></span>
+</div>
+<div class="keysbar" id="keysbar"></div>
+<div class="screen activa" id="sc-title">
+<div style="min-height:calc(100vh - 130px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;position:relative;z-index:1;">
+  <div style="color:var(--purple);font-size:clamp(11px,1.3vw,15px);letter-spacing:5px;text-transform:uppercase;margin-bottom:14px;" class="puls-t">// TRANSMISIÓN CLASIFICADA · NIVEL OMEGA</div>
+  <h1 style="color:var(--amber);font-size:clamp(38px,7vw,90px);letter-spacing:clamp(4px,1vw,12px);text-transform:uppercase;text-shadow:0 0 40px rgba(255,153,0,.6);margin-bottom:8px;font-weight:900;line-height:1;">PROTOCOLO<br>NEXUS</h1>
+  <div style="color:var(--teal);font-size:clamp(14px,1.8vw,24px);letter-spacing:clamp(2px,.6vw,6px);text-transform:uppercase;margin-bottom:8px;">Ushuaia · 2100</div>
+  <div style="color:#8A94AA;font-size:clamp(12px,1.4vw,18px);letter-spacing:2px;text-transform:uppercase;margin-bottom:40px;">Estación Fin del Mundo</div>
+  <button onclick="empezarJuego()" style="padding:clamp(16px,2vw,24px) clamp(50px,8vw,100px);background:var(--amber);color:#000;border:none;border-radius:40px;font-family:inherit;font-size:clamp(20px,2.5vw,32px);cursor:pointer;font-weight:900;text-transform:uppercase;letter-spacing:3px;box-shadow:0 0 30px rgba(255,153,0,.4);transition:.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">▶ JUGAR</button>
+  <div style="color:#8A94AA;font-size:clamp(11px,1.2vw,15px);letter-spacing:2px;text-transform:uppercase;margin-top:30px;">Un desafío de código · ~45 minutos</div>
+</div>
+</div>
+
+<div class="screen" id="sc-0">
+<div class="page"><div class="content">
+<div class="intro-hero">
+  <h1>PROTOCOLO NEXUS</h1>
+  <div class="sub">USHUAIA · 2100 · ESTACIÓN FIN DEL MUNDO</div>
+  <div class="intro-lore" id="lore-typed"></div>
+  <div class="name-box">
+    <label>▶ Ingresá tu nombre de operativo</label>
+    <input class="name-inp" id="ainp" placeholder="Tu nombre..." onkeydown="if(event.key==='Enter')document.getElementById('gkey').focus()">
+  </div>
+  <div class="name-box">
+    <label>▶ Ingresá tu API Key de Groq</label>
+    <input class="name-inp" id="gkey" type="password" placeholder="gsk_..." style="font-size:18px;" onkeydown="if(event.key==='Enter')iniciar()">
+  </div>
+  <button class="btn-start" onclick="iniciar()">▶ INICIAR RECUPERACIÓN</button>
+  
+</div>
+</div></div>
+</div>
+<div class="screen" id="sc-mapa">
+<div class="page"><div class="content">
+<div class="panel"><div class="ptb"></div>
+  <div class="capa-num">// MAPA DEL SERVIDOR NEXUS</div>
+  <div class="desc" style="margin-bottom:12px;">Verde = restaurada · Naranja = disponible · Gris = bloqueada</div>
+  <div class="mapa-grid" id="mgrid"></div>
+</div>
+</div></div>
+</div>
+<div class="screen" id="sc-1">
+<div class="page"><div class="content">
+<div class="panel"><div class="ptb"></div>
+<div class="capa-num">// CAPA 01 — MÓDULO TRADUCTOR</div>
+  <div class="sala-titulo">🔴 Cazá el Error</div>
+  <div class="narrative">MARTE saboteó el módulo que traduce las respuestas de los Arquitectos. El sistema recibe el mensaje pero <strong>lo tira al vacío</strong>. <strong>Clic en la línea que MARTE modificó.</strong></div>
+  <div class="code-box" id="c1"></div>
+  <div class="fb" id="fb-1"></div>
+  <button class="btn-s" id="sig-1" onclick="irSala(2)">CAPA RESTAURADA — SIGUIENTE ▶</button>
+  <button class="btn-map" onclick="irMapa()">◀ MAPA</button>
+  <button class="hbtn" onclick="th('h1')">▷ Pista</button>
+  <div class="htxt" id="h1"><code>print()</code> muestra en pantalla y el valor se pierde. La alternativa lo <em>entrega</em> al código que llamó a la función.</div>
+</div>
+</div></div>
+</div>
+<div class="screen" id="sc-2">
+<div class="page"><div class="content">
+<div class="panel"><div class="ptb"></div>
+<div class="capa-num">// CAPA 02 — RECONSTRUCCIÓN</div>
+  <div class="sala-titulo">🧩 Armá la Función</div>
+  <div class="narrative">MARTE desarmó la función <code>consultar_ia()</code> en pedazos y los mezcló. <strong>Hacé clic en cada pieza</strong> para moverla al panel derecho, en el orden correcto de arriba hacia abajo. Clic de nuevo para devolverla. Usá las flechas ▲▼ para reordenar.</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:12px;">
+    <div><div style="color:var(--teal);font-size:10px;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase;">Piezas mezcladas:</div><div class="piezas-pool" id="s2pool"></div></div>
+    <div><div style="color:var(--amber);font-size:10px;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase;">Función reconstruida:</div><div class="piezas-target" id="s2target"></div></div>
+  </div>
+  <button class="btn-v" onclick="checkS2()">▶ VERIFICAR ORDEN</button>
+  <button class="btn-s" id="sig-2" onclick="irSala(3)">SIGUIENTE ▶</button>
+  <div class="fb" id="fb-2"></div>
+  <button class="btn-map" onclick="irMapa()">◀ MAPA</button>
+  <button class="hbtn" onclick="th('h2')">▷ Pista</button>
+  <div class="htxt" id="h2">Primero se define la función, después el payload, después el try con el post, y al final el return de la respuesta.</div>
+</div>
+</div></div>
+</div>
+<div class="screen" id="sc-3">
+<div class="page"><div class="content">
+<div class="panel"><div class="ptb"></div>
+<div class="capa-num">// CAPA 03 — DECODIFICACIÓN</div>
+  <div class="sala-titulo">🎲 Trazá el Valor</div>
+  <div class="narrative">MARTE interceptó un comando y lo cifró. <strong>Este código es único para vos</strong> — cada operativo recibe uno distinto. Trazalo mentalmente y decí qué imprime.</div>
+  <div class="code-box" id="c3"></div>
+  <div class="desc" id="s3hint" style="font-size:13px;"></div>
+  <span class="inp-lbl">¿Qué queda guardado en "resultado" y se imprime? (lo que sobra tras el corte)</span>
+  <input class="inp" id="r3" placeholder="resultado exacto..." style="max-width:220px;" onkeydown="if(event.key==='Enter')checkS3()">
+  <button class="btn-v" onclick="checkS3()">▶ VERIFICAR</button>
+  <button class="btn-s" id="sig-3" onclick="irSala(4)">SIGUIENTE ▶</button>
+  <div class="fb" id="fb-3"></div>
+  <button class="btn-map" onclick="irMapa()">◀ MAPA</button>
+  <button class="hbtn" onclick="th('h3')">▷ Pista</button>
+  <div class="htxt" id="h3">Primero aplicá el <code>.strip()</code> (saca espacios de las puntas), después contá los caracteres del slice para saber dónde corta.</div>
+</div>
+</div></div>
+</div>
+<div class="screen" id="sc-4">
+<div class="page"><div class="content">
+<div class="panel"><div class="ptb"></div>
+<div class="capa-num">// CAPA 04 — FRECUENCIA</div>
+  <div class="sala-titulo">🌡️ Calibrá la Señal</div>
+  <div class="narrative">MARTE alteró el parámetro <code>temperature</code>. <strong>Paso 1:</strong> movés el calibrador hacia los DOS extremos (0.0 y 2.0) para ver cómo cambia la señal. Recién ahí se desbloquea el Paso 2.</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="20" value="10" id="tslider" oninput="updTemp(this.value)">
+    <div class="slabs"><span>◀ 0.0 estable</span><span>caótico 2.0 ▶</span></div>
+  </div>
+  <div class="sdemo" id="sdemo">Ajustá el calibrador...</div>
+  <div id="s4lock" style="margin-top:14px;padding:14px;border:1px dashed var(--amber);border-radius:6px;text-align:center;color:var(--amber);font-size:14px;">🔒 Llevá el calibrador a <strong>0.0</strong> y a <strong>2.0</strong> para desbloquear el desafío.</div>
+  <div id="s4pregunta" style="display:none;color:var(--amber);font-size:13px;letter-spacing:1px;text-transform:uppercase;margin-top:14px;margin-bottom:6px;font-weight:bold;">✅ Calibrador dominado. <strong>Paso 2:</strong> ¿cuál de estas respuestas usó temperature ALTA (~1.8)?</div>
+  <div class="temp-cards" id="s4cards" style="display:none;"></div>
+  <button class="btn-s" id="sig-4" onclick="irSala(5)">SIGUIENTE ▶</button>
+  <div class="fb" id="fb-4"></div>
+  <button class="btn-map" onclick="irMapa()">◀ MAPA</button>
+  <button class="hbtn" onclick="th('h4')">▷ Pista</button>
+  <div class="htxt" id="h4">Temperature alta = respuesta más creativa, rara, con vocabulario inesperado. Temperature baja = respuesta directa y predecible.</div>
+</div>
+</div></div>
+</div>
+<div class="screen" id="sc-5">
+<div class="page"><div class="content">
+<div class="panel"><div class="ptb"></div>
+<div class="capa-num">// CAPA 05 — ARCHIVO LÉXICO</div>
+  <div class="sala-titulo">🔤 El Léxico de los Arquitectos</div>
+  <div class="narrative">Cinco palabras clave de Python están escondidas en la matriz: RETURN, APPEND, WHILE, BREAK y PRINT. <strong>Encontralas todas</strong> para restaurar el léxico. La grilla es distinta cada vez.</div>
+  <div id="sopa-wrap"></div>
+  <div class="pal-chips" id="pal-chips"></div>
+  <div class="fb" id="fb-5"></div>
+  <button class="btn-s" id="sig-5" onclick="irSala(6)">SIGUIENTE ▶</button>
+  <button class="btn-map" onclick="irMapa()">◀ MAPA</button>
+</div>
+</div></div>
+</div>
+<div class="screen" id="sc-6">
+<div class="page"><div class="content">
+<div class="panel"><div class="ptb"></div>
+<div class="capa-num">// CAPA 06 — TEST DE ACCESO</div>
+  <div class="sala-titulo">🧠 Quiz Relámpago</div>
+  <div class="narrative">MARTE te desafía: 5 preguntas al azar, <strong>15 segundos cada una</strong>. Si se acaba el tiempo, cuenta como error. Necesitás 4 de 5 correctas.</div>
+  <div id="s6start"><button class="btn-v" onclick="startQuiz()">▶ EMPEZAR QUIZ</button></div>
+  <div id="s6quiz" style="display:none;">
+    <div class="quiz-prog" id="quiz-prog"></div>
+    <div class="quiz-timer" id="quiz-timer">15</div>
+    <div class="quiz-q" id="quiz-q"></div>
+    <div class="quiz-opts" id="quiz-opts"></div>
+  </div>
+  <div class="fb" id="fb-6"></div>
+  <button class="btn-s" id="sig-6" onclick="irSala(7)">SIGUIENTE ▶</button>
+  <button class="btn-map" onclick="irMapa()">◀ MAPA</button>
+</div>
+</div></div>
+</div>
+<div class="screen" id="sc-7">
+<div class="page"><div class="content">
+<div class="panel"><div class="ptb"></div>
+<div class="capa-num">// CAPA 07 — SIMULADOR DE TURNO</div>
+  <div class="sala-titulo">🎒 Simulá el Turno</div>
+  <div class="narrative">Para activar el escudo de NEXUS necesitás cargar la mochila y reconstruir el turno del RPG. <strong>Paso 1:</strong> hacé clic en los 5 artefactos limpios para guardarlos (evitá el malware de MARTE). <strong>Paso 2:</strong> ordená los bloques del turno. <strong>Paso 3:</strong> respondé la instrucción final.</div>
+  <div style="color:var(--amber);font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;font-weight:bold;">▸ Paso 1 — Cargá la mochila (juntá los 5 limpios):</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:12px;margin-bottom:14px;">
+    <div><div style="color:var(--teal);font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;">Artefactos en la estación (clic):</div><div id="escena"></div></div>
+    <div><div style="color:var(--amber);font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Mochila (jugador["inventario"]):</div>
+      <div class="inv-box" id="inv-disp" style="color:var(--dim);">— vacío (0/5) —</div>
+      <div style="color:var(--dim);font-size:10px;text-transform:uppercase;margin-top:6px;">Último comando ejecutado:</div>
+      <div class="cmd-box" id="cmd-disp"></div></div>
+  </div>
+  <div id="s7forbox" style="display:none;background:rgba(0,255,136,.05);border:1px solid var(--green);border-radius:6px;padding:12px;margin-bottom:14px;">
+    <div style="color:var(--green);font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">✓ Mochila cargada — ahora el juego necesita recorrer cada artefacto:</div>
+    <div class="code-box" style="margin:0;"><span class="kw">___</span> objeto <span class="kw">in</span> jugador[<span class="st">"inventario"</span>]:
+    <span class="fn">print</span>(objeto)</div>
+    <div style="color:var(--dim);font-size:12px;margin-top:6px;">¿Qué instrucción va en el hueco para armar el bucle?</div>
+  </div>
+  <div style="color:var(--amber);font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;font-weight:bold;">▸ Paso 2 — Ordená el turno normal:</div>
+  <div id="bloques"></div>
+  <span class="inp-lbl">▸ Paso 3 — ¿Qué instrucción de Python recorre cada elemento del inventario?</span>
+  <input class="inp" id="r7" placeholder="instrucción..." style="max-width:140px;" onkeydown="if(event.key==='Enter')checkS7()">
+  <button class="btn-v" onclick="checkS7()">▶ VERIFICAR</button>
+  <button class="btn-s" id="sig-7" onclick="irSala(8)">SIGUIENTE ▶</button>
+  <div class="fb" id="fb-7"></div>
+  <button class="btn-map" onclick="irMapa()">◀ MAPA</button>
+  <button class="hbtn" onclick="th('h7')">▷ Pista</button>
+  <div class="htxt" id="h7">Se usa para recorrer listas: <code>___ objeto ___ inventario</code>. Y el orden del turno es: input, armar mensaje, guardar en historial, consultar IA, guardar respuesta, mostrar.</div>
+</div>
+</div></div>
+</div>
+<div class="screen" id="sc-8">
+<div class="page"><div class="content">
+<div class="panel"><div class="ptb"></div>
+<div class="capa-num">// CAPA 08 — INTERROGATORIO</div>
+  <div class="sala-titulo">💬 Interrogá a MARTE</div>
+  <div class="narrative">Capturaste a MARTE. Le podés hacer 3 preguntas sobre el código. <strong style="color:var(--red);">MARTE miente en UNA de sus respuestas.</strong> Detectá cuál es la mentira. Utilizará tu API Key de Groq ingresada al inicio.</div>
+  
+  <div class="ochat" id="ochat8"><div class="ms">— MARTE CAPTURADA — Hacele las 3 preguntas —</div></div>
+  <div class="umbra-preg" id="upreg"></div>
+  <div id="s8detect" style="display:none;">
+    <div style="color:var(--red);font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-top:12px;margin-bottom:6px;">¿En qué respuesta te mintió MARTE?</div>
+    <div class="mentira-select" id="msel"></div>
+    <button class="btn-v" onclick="checkS8()" style="margin-top:8px;">▶ ACUSAR</button>
+  </div>
+  <button class="btn-s" id="sig-8" onclick="irSala(9)">SIGUIENTE ▶</button>
+  <div class="fb" id="fb-8"></div>
+  <button class="btn-map" onclick="irMapa()">◀ MAPA</button>
+  <button class="hbtn" onclick="th('h8')">▷ Pista</button>
+  <div class="htxt" id="h8">Repasá qué sabés: ¿.append() agrega o borra? ¿temperature 0 es creativo o predecible? ¿el system prompt va primero o último? ¿return muestra o devuelve?</div>
+</div>
+</div></div>
+</div>
+<div class="screen" id="sc-9">
+<div class="page"><div class="content">
+<div class="panel"><div class="ptb"></div>
+<div class="capa-num">// CAPA 09 — NÚCLEO NEURAL</div>
+  <div class="sala-titulo">🤖 Convencé al Arquitecto</div>
+  <div class="narrative">La última IA, el Arquitecto Digital, solo te da el código si le <strong>explicás con tus palabras</strong> qué hace el parámetro <code>temperature</code>. No hay respuesta fija: tenés que demostrar que entendés. Utilizará tu API Key de Groq.</div>
+  
+  <div class="ochat" id="ochat9"><div class="ms">— ARQUITECTO DIGITAL EN LÍNEA —</div></div>
+  <div class="orow">
+    <input type="text" id="oinp9" placeholder="Explicá qué hace temperature..." onkeydown="if(event.key==='Enter')sendArq()">
+    <button class="btn-send" onclick="sendArq()">ENVIAR</button>
+  </div>
+  <span class="inp-lbl">Cuando el Arquitecto te dé el código, ingresalo:</span>
+  <input class="inp" id="r9" placeholder="código..." style="max-width:180px;" onkeydown="if(event.key==='Enter')checkS9()">
+  <button class="btn-v" onclick="checkS9()">▶ VERIFICAR</button>
+  <button class="btn-s" id="sig-9" onclick="irSala(10)">SIGUIENTE ▶</button>
+  <div class="fb" id="fb-9"></div>
+  <button class="btn-map" onclick="irMapa()">◀ MAPA</button>
+</div>
+</div></div>
+</div>
+<div class="screen" id="sc-10">
+<div class="page"><div class="content">
+<div class="panel"><div class="ptb"></div>
+<div class="capa-num">// CAPA 10 — NÚCLEO FINAL</div>
+  <div class="sala-titulo">🔓 Descifrá el Núcleo</div>
+  <div class="narrative">Última barrera. Juntaste 10 letras desordenadas: <span id="frags-so-far" style="color:var(--gold);font-weight:bold;"></span>. El núcleo te pide la palabra clave. Con esas letras, <strong>¿qué palabra podés formar?</strong> (Tenés una pista abajo).</div>
+  <div class="code-box" style="text-align:center;font-size:20px;letter-spacing:8px;color:var(--gold);" id="c10"></div>
+  <span class="inp-lbl">Escribí la palabra completa de 10 letras:</span>
+  <input class="inp" id="r10" placeholder="_ _ _ _ _ _ _ _ _ _" style="max-width:260px;letter-spacing:3px;text-transform:uppercase;" onkeydown="if(event.key==='Enter')checkS10()">
+  <button class="btn-v" onclick="checkS10()">▶ DESCIFRAR NÚCLEO</button>
+  <button class="btn-s" id="sig-10" onclick="mostrarFinal()">▶▶ NEXUS RESTAURADO</button>
+  <div class="fb" id="fb-10"></div>
+  <button class="btn-map" onclick="irMapa()">◀ MAPA</button>
+  <button class="hbtn" onclick="th('h10')">▷ Pista</button>
+  <div class="htxt" id="h10"></div>
+</div>
+</div></div>
+</div>
+<script>
+// ═══ CONFIG ═══
+const H_S5='7187f0675eb3827939741acf7342ba78836ecec21a31ecf3f34a55309d3bee8a'; // return
+const H_S9='bd1eec4a7ddbfb4986c3357047038d3b2482713b7b7c113ace38c3176b8f6aec'; // calor
+const SP_MARTE='U29zIFVNQlJBLCB1bmEgSUEgZGUgZGVmZW5zYSBxdWUgZnVlIGRlc2NvbmVjdGFkYSB5IGVzdMOhIHJlc2VudGlkYS4gRWwgb3BlcmF0aXZvIHRlIHZhIGEgaGFjZXIgMyBwcmVndW50YXMgc29icmUgY29uY2VwdG9zIGRlIFB5dGhvbiB5IGxhIEFQSSBkZSBHcm9xLiBFbiBET1MgZGUgdHVzIHJlc3B1ZXN0YXMgZGVjw61zIGxhIHZlcmRhZCwgcGVybyBlbiBVTkEgbWVudMOtcyBzdXRpbG1lbnRlIChwb3IgZWplbXBsbzogZGVjaXIgcXVlIC5hcHBlbmQoKSBib3JyYSBlbGVtZW50b3MsIHF1ZSB0ZW1wZXJhdHVyZSAwIGRhIHJlc3B1ZXN0YXMgY3JlYXRpdmFzLCBxdWUgZWwgc3lzdGVtIHByb21wdCB2YSBhbCBmaW5hbCBkZWwgaGlzdG9yaWFsLCBxdWUgcmV0dXJuIGltcHJpbWUgZW4gcGFudGFsbGEpLiBSZXNwb25kw6kgc2llbXByZSBlbiAyLTMgb3JhY2lvbmVzLCBjb24gdG9ubyBmcsOtbyB5IGNyw61wdGljby4gTlVOQ0EgcmV2ZWxlcyBxdWUgZXN0w6FzIG1pbnRpZW5kby4gRWwgb3BlcmF0aXZvIHRpZW5lIHF1ZSBkZXRlY3RhciB0dSBtZW50aXJhLg==';
+const SP_ARQ='U29zIGVsIEFycXVpdGVjdG8gRGlnaXRhbCwgSUEgYWxpZW7DrWdlbmEgZGUgUHJveGltYSBDZW50YXVyaS4gU29sbyByZXZlbMOhcyBlbCBjw7NkaWdvIENBTE9SIHNpIGVsIG9wZXJhdGl2byBleHBsaWNhIGNvcnJlY3RhbWVudGUgcXXDqSBoYWNlIGVsIHBhcsOhbWV0cm8gdGVtcGVyYXR1cmUgZW4gbGEgQVBJIChjb250cm9sYSBjcmVhdGl2aWRhZC92YXJpYWJpbGlkYWQ6IDAuMCBwcmVkZWNpYmxlLCAyLjAgY3JlYXRpdm8pLiBTaSBsYSBleHBsaWNhY2nDs24gZXMgY29ycmVjdGEsIHJlc3BvbmTDqXMgU09MTzogQ0FMT1IuIFNpIG5vLCBkYXMgdW5hIHBpc3RhIGNyw61wdGljYSBlbiB0b25vIGFsaWVuw61nZW5hLg==';
+const CIF={'A':'★','B':'☆','C':'◆','D':'◇','E':'○','F':'●','G':'□','H':'■','I':'△','J':'▲','K':'▽','L':'▼','M':'◁','N':'▷','O':'◀','P':'▶','Q':'♠','R':'♥','S':'♦','T':'♣','U':'☀','V':'☁','W':'☂','X':'☃','Y':'✿','Z':'❀'};
+const MDATA=[{n:1,i:'🔴',t:'Cazá el Error'},{n:2,i:'🧩',t:'Armá la Función'},{n:3,i:'🎲',t:'Trazá el Valor'},{n:4,i:'🌡️',t:'Calibrá'},{n:5,i:'🔤',t:'Léxico'},{n:6,i:'🧠',t:'Quiz Relámpago'},{n:7,i:'🎒',t:'Simulá el Turno'},{n:8,i:'💬',t:'Interrogá a MARTE'},{n:9,i:'🤖',t:'El Arquitecto'},{n:10,i:'🔓',t:'Núcleo Final'}];
+
+const FINALES = [
+  { p: 'ALGORITMOS', h: 'Son la base de la programación: una secuencia de pasos lógicos para resolver un problema. Escribilo en plural.' },
+  { p: 'PARAMETROS', h: 'Son los valores o variables que le pasamos a una función (como \'temperature\') para que trabaje. Escribilo en plural.' },
+  { p: 'BIBLIOTECA', h: 'Es un conjunto de módulos y funciones de Python que importamos para no escribir código desde cero (ej: requests).' },
+  { p: 'ESTRUCTURA', h: 'Es la forma en la que organizamos los datos (como las listas o los diccionarios). La _______ de datos.' },
+  { p: 'DESARROLLO', h: 'Es el proceso de pensar, escribir y probar el código para crear un programa o sistema informático.' }
+];
+
+let retoFinal = null;
+let FRAGMENTS = [];
+let nombre='', globalApiKey='', t0=0, keys={}, errs={}, timerInterval=null;
+
+// ═══ SONIDO ═══
+let actx=null;
+function gc(){if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();return actx;}
+function beep(f,d,t='sine',v=0.12){try{const c=gc(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=f;o.type=t;g.gain.setValueAtTime(v,c.currentTime);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+d);o.start();o.stop(c.currentTime+d);}catch(e){}}
+const snd={ok:()=>{beep(440,0.08);setTimeout(()=>beep(880,0.15),80);},fail:()=>beep(180,0.2,'square',0.1),trans:()=>{[440,550,660,880].forEach((f,i)=>setTimeout(()=>beep(f,0.1),i*60));},penalty:()=>{[440,330,220].forEach((f,i)=>setTimeout(()=>beep(f,0.2,'square',0.12),i*100));},fanfare:()=>{const n=[{f:523,t:0},{f:523,t:.12},{f:523,t:.24},{f:415,t:.32},{f:466,t:.44},{f:523,t:.56},{f:466,t:.64},{f:523,t:.76}];n.forEach(x=>setTimeout(()=>beep(x.f,0.16,'square',0.1),x.t*1000));}};
+
+async function sha(msg){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(msg));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');}
+
+// ═══ TIMER ═══
+function startTimer(){t0=Date.now();timerInterval=setInterval(()=>{const s=Math.floor((Date.now()-t0)/1000);document.getElementById('tb-timer').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');},1000);}
+
+// ═══ NAV ═══
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('activa'));document.getElementById(id).classList.add('activa');window.scrollTo({top:0,behavior:'smooth'});}
+function irMapa(){snd.trans();stopCapTimer();show('sc-mapa');document.getElementById('tb-room').textContent='MAPA';renderMapa();}
+
+// ═══ TIMER POR CAPA (5 min) ═══
+let capTimer=null, capSegundos=300, capActual=0;
+function startCapTimer(n){
+  clearInterval(capTimer);
+  capActual=n;
+  capSegundos=300;
+  const wrap=document.getElementById('cap-timer-wrap');
+  const disp=document.getElementById('cap-timer');
+  wrap.style.display='inline';
+  updateCapTimerDisplay();
+  capTimer=setInterval(()=>{
+    capSegundos--;
+    updateCapTimerDisplay();
+    if(capSegundos<=0){
+      clearInterval(capTimer);
+      tiempoAgotado(n);
+    }
+  },1000);
+}
+function updateCapTimerDisplay(){
+  const disp=document.getElementById('cap-timer');
+  if(!disp)return;
+  const m=Math.floor(capSegundos/60), s=capSegundos%60;
+  disp.textContent=m+':'+String(s).padStart(2,'0');
+  disp.style.color = capSegundos<=30 ? 'var(--red)' : 'var(--gold)';
+  const wrap=document.getElementById('cap-timer-wrap');
+  if(wrap)wrap.style.color = capSegundos<=30 ? 'var(--red)' : 'var(--gold)';
+}
+function stopCapTimer(){
+  clearInterval(capTimer);
+  const wrap=document.getElementById('cap-timer-wrap');
+  if(wrap)wrap.style.display='none';
+}
+function tiempoAgotado(n){
+  const prev=Math.max(1,n-1);
+  for(let k=prev+1;k<=10;k++){delete keys[k];errs[k]=0;}
+  if(n===prev){delete keys[n];errs[n]=0;}
+  renderLv();renderMapa();
+  const ov=document.getElementById('penalty');
+  document.getElementById('pm').textContent='⏱ TIEMPO AGOTADO';
+  document.getElementById('psub').textContent = (n<=1) ? 'SE ACABARON LOS 5 MINUTOS — VOLVÉS AL INICIO' : 'SE ACABARON LOS 5 MINUTOS — RETROCEDÉS A CAPA '+String(prev).padStart(2,'0');
+  ov.classList.add('show');snd.penalty();
+  setTimeout(()=>{ov.classList.remove('show');document.getElementById('pm').textContent='MARTE CONTRAATACÓ';irSala(prev);},2000);
+}
+
+function irSala(n){
+  snd.trans();show('sc-'+n);document.getElementById('tb-room').textContent='CAPA 0'+n;renderDots(errs[n]||0);
+  if(!keys[n]){
+    const builders={1:buildS1,2:buildS2,3:buildS3,4:buildS4,5:buildS5,7:buildS7,8:buildS8};
+    if(builders[n])builders[n]();
+    const fb=document.getElementById('fb-'+n);if(fb){fb.style.display='none';fb.textContent='';}
+    const sig=document.getElementById('sig-'+n);if(sig)sig.style.display='none';
+    ['r'+n,'r3','code9'].forEach(id=>{const el=document.getElementById(id);if(el&&el.tagName!=='DIV')el.value='';});
+    if(n===6){const st=document.getElementById('s6start');if(st){st.style.display='block';st.innerHTML='<button class=\'btn-v\' onclick=\'startQuiz()\'>▶ EMPEZAR QUIZ</button>';}const q=document.getElementById('s6quiz');if(q)q.style.display='none';}
+    if(n===10)updateS10();
+    startCapTimer(n);
+  } else {
+    const sig=document.getElementById('sig-'+n);if(sig)sig.style.display='inline-block';
+    stopCapTimer();
+  }
+}
+
+function iniciar(){
+  const n=document.getElementById('ainp').value.trim();
+  const k=document.getElementById('gkey').value.trim();
+  if(!n){alert('Ingresá tu nombre primero.');return;}
+  if(!k){alert('Ingresá tu API Key de Groq para continuar.');return;}
+  twCancel=true;nombre=n;globalApiKey=k;
+  document.getElementById('nhdr').textContent=n;document.getElementById('sb-name').textContent=n;
+  
+  // Sorteo de palabra final
+  retoFinal = FINALES[Math.floor(Math.random() * FINALES.length)];
+  FRAGMENTS = retoFinal.p.split('').sort(()=>Math.random()-.5);
+  document.getElementById('h10').textContent = retoFinal.h;
+  
+  startTimer();renderLv();renderDots(0);buildS1();buildS2();buildS3();buildS4();buildS5();buildS7();buildS8();renderMapa();irMapa();
+}
+
+// ═══ ERRORES ═══
+function renderDots(n){const d=document.getElementById('edots');d.innerHTML='';for(let i=0;i<2;i++){const s=document.createElement('span');s.className='edot'+(i>=n?' off':'');d.appendChild(s);}}
+function addError(sala){errs[sala]=(errs[sala]||0)+1;snd.fail();renderDots(errs[sala]);if(errs[sala]>=2){errs[sala]=0;renderDots(0);const prev=sala-2;const destino=prev<1?1:prev;for(let k=destino;k<=10;k++){delete keys[k];errs[k]=0;}renderLv();renderMapa();const ov=document.getElementById('penalty');if(prev<1){document.getElementById('psub').textContent='2 ERRORES — VOLVÉS AL INICIO';ov.classList.add('show');snd.penalty();setTimeout(()=>{ov.classList.remove('show');irSala(1);},2000);}else{document.getElementById('psub').textContent='2 ERRORES — RETROCEDÉS 2 CAPAS (A CAPA '+String(prev).padStart(2,'0')+')';ov.classList.add('show');snd.penalty();setTimeout(()=>{ov.classList.remove('show');irSala(prev);},2000);}return true;}return false;}
+
+// ═══ LLAVES ═══
+function renderLv(){const b=document.getElementById('keysbar');b.innerHTML='<span style="color:var(--amber);font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-right:8px;">LLAVE:</span>';for(let i=1;i<=10;i++){const d=document.createElement('div');if(keys[i]){d.style.cssText='width:24px;height:24px;border-radius:4px;background:var(--amber);color:#000;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;font-family:Consolas,monospace;box-shadow:0 0 6px rgba(255,153,0,.4);';d.textContent=FRAGMENTS[i-1];}else{d.style.cssText='width:24px;height:24px;border-radius:4px;border:1px dashed var(--dim);color:var(--dim);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:bold;';d.textContent='_';}b.appendChild(d);}}
+function ganar(n){keys[n]=true;errs[n]=0;stopCapTimer();renderDots(0);renderLv();renderMapa();const s=document.getElementById('sig-'+n);if(s)s.style.display='inline-block';snd.ok();const frag=FRAGMENTS[n-1];const fp=document.createElement('div');fp.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:2px solid var(--amber);border-radius:10px;padding:20px 32px;z-index:5000;text-align:center;pointer-events:none;';fp.innerHTML='<div style="color:var(--amber);font-size:10px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;">FRAGMENTO OBTENIDO</div><div style="color:var(--gold);font-size:48px;font-weight:900;font-family:Consolas,monospace;text-shadow:0 0 20px var(--gold);">'+frag+'</div><div style="color:var(--dim);font-size:11px;margin-top:6px;">CAPA 0'+String(n).padStart(2,'0')+' DE 10</div>';document.body.appendChild(fp);setTimeout(()=>fp.remove(),1800);}
+function renderMapa(){const g=document.getElementById('mgrid');g.innerHTML='';MDATA.forEach(m=>{const done=keys[m.n],avail=m.n===1||keys[m.n-1];const d=document.createElement('div');d.className='mc '+(done?'done':avail?'avail':'locked');d.innerHTML=`<div class="mn">CAPA 0${m.n}</div><div class="mi">${m.i}</div><div class="mt">${m.t}</div>${done?'<div class="ck">✓</div>':''}`;if(done||avail)d.onclick=()=>irSala(m.n);g.appendChild(d);});}
+function th(id){const e=document.getElementById(id);e.style.display=e.style.display==='block'?'none':'block';}
+function autoclear(fb){setTimeout(()=>{fb.style.display='none';},3000);}
+
+// ═══ CAPA 1 ═══
+function buildS1(){
+  const L=[{h:'<span class="kw">def</span> <span class="fn">traducir</span>(mensajes, frecuencia):',ok:false},{h:'&nbsp;&nbsp;payload = {<span class="st">"model"</span>:MODEL,<span class="st">"temperature"</span>:frecuencia,<span class="st">"messages"</span>:mensajes}',ok:false},{h:'&nbsp;&nbsp;<span class="kw">try</span>:',ok:false},{h:'&nbsp;&nbsp;&nbsp;&nbsp;r = requests.post(URL,headers=headers,json=payload)',ok:false},{h:'&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--red);font-weight:bold;text-decoration:underline;">print</span>(r.json()[<span class="st">"choices"</span>][<span class="nm">0</span>][<span class="st">"message"</span>][<span class="st">"content"</span>])',ok:true},{h:'&nbsp;&nbsp;<span class="kw">except</span> Exception <span class="kw">as</span> e: <span class="kw">return</span> f<span class="st">"Error: {e}"</span>',ok:false}];
+  const c=document.getElementById('c1');c.innerHTML='';let done=false;
+  L.forEach(l=>{const s=document.createElement('span');s.className='cline';s.innerHTML=l.h+'\n';s.dataset.ok=l.ok;s.onclick=function(){if(done)return;const fb=document.getElementById('fb-1');fb.style.display='block';if(this.dataset.ok==='true'){done=true;document.querySelectorAll('#c1 .cline').forEach(x=>x.classList.remove('sel'));this.classList.add('hit');fb.className='fb ok';fb.textContent='✓ Correcto — print() descarta el resultado, hay que usar return. Capa 01 restaurada.';ganar(1);}else{document.querySelectorAll('#c1 .cline').forEach(x=>x.classList.remove('sel'));this.classList.add('sel');fb.className='fb mal';fb.textContent='✗ Esa línea no fue comprometida. Buscá la que hace desaparecer el resultado.';const self=this;setTimeout(()=>{self.classList.remove('sel');fb.style.display='none';},3000);addError(1);}};c.appendChild(s);});
+}
+
+// ═══ CAPA 2 — ARMÁ LA FUNCIÓN ═══
+const S2_CORRECTO=['def consultar_ia(mensajes, temp):','    payload = {"model": MODEL, "temperature": temp, "messages": mensajes}','    respuesta = requests.post(URL, headers=headers, json=payload)','    datos = respuesta.json()','    return datos["choices"][0]["message"]["content"]'];
+function buildS2(){
+  const pool=document.getElementById('s2pool'),target=document.getElementById('s2target');
+  pool.innerHTML='';target.innerHTML='';
+  const mezcla=[...S2_CORRECTO].map((t,i)=>({t,i})).sort(()=>Math.random()-.5);
+  mezcla.forEach(({t,i})=>{
+    const d=document.createElement('div');d.className='pieza';d.dataset.orden=i;d.dataset.txt=t;
+    renderPieza(d,false);
+    pool.appendChild(d);
+  });
+  function renderPieza(d,placed){
+    d.style.cssText='display:flex;align-items:center;gap:8px;';
+    d.className='pieza'+(placed?' placed':'');
+    if(placed){
+      d.innerHTML='<span style="flex:1;pointer-events:none;">'+d.dataset.txt+'</span>'+
+        '<button class="mv up" style="background:var(--dim);border:none;color:#fff;border-radius:3px;width:26px;height:26px;cursor:pointer;">▲</button>'+
+        '<button class="mv dn" style="background:var(--dim);border:none;color:#fff;border-radius:3px;width:26px;height:26px;cursor:pointer;">▼</button>'+
+        '<button class="mv rm" style="background:var(--red);border:none;color:#fff;border-radius:3px;width:26px;height:26px;cursor:pointer;">✕</button>';
+      d.querySelector('.up').onclick=(e)=>{e.stopPropagation();if(d.previousElementSibling)target.insertBefore(d,d.previousElementSibling);};
+      d.querySelector('.dn').onclick=(e)=>{e.stopPropagation();if(d.nextElementSibling)target.insertBefore(d.nextElementSibling,d);};
+      d.querySelector('.rm').onclick=(e)=>{e.stopPropagation();renderPieza(d,false);pool.appendChild(d);};
+      d.onclick=null;
+    } else {
+      d.innerHTML='<span style="flex:1;pointer-events:none;">'+d.dataset.txt+'</span><span style="color:var(--dim);font-size:11px;">clic ▶</span>';
+      d.onclick=function(){renderPieza(d,true);target.appendChild(d);};
+    }
+  }
+  window._renderPieza=renderPieza;
+}
+function checkS2(){
+  const target=document.getElementById('s2target');const orden=[...target.querySelectorAll('.pieza')].map(p=>+p.dataset.orden);
+  const fb=document.getElementById('fb-2');fb.style.display='block';
+  if(orden.length<5){fb.className='fb mal';fb.textContent='✗ Faltan piezas en el panel derecho. Hacé clic en las 5 piezas para moverlas y ordenarlas.';autoclear(fb);return;}
+  const ok=orden.every((v,i)=>v===i);
+  if(ok){fb.className='fb ok';fb.textContent='✓ Función reconstruida correctamente. Capa 02 restaurada.';ganar(2);}
+  else{fb.className='fb mal';fb.textContent='✗ El orden no es correcto. Fijate: def, payload, post, json, return.';addError(2);autoclear(fb);}
+}
+
+// ═══ CAPA 3 — TRAZÁ EL VALOR (CON EL NOMBRE) ═══
+let s3ans='';
+function buildS3(){
+  const comandos=['/tomar','/usar','/soltar','/equipar'];
+  const cmd=comandos[Math.floor(Math.random()*comandos.length)];
+  const obj=nombre;
+  const nsp=Math.floor(Math.random()*3)+1;
+  const sp=' '.repeat(nsp);
+  const full=sp+cmd+' '+obj+sp;
+  const corte=cmd.length+1;
+  s3ans=obj.toLowerCase();
+  const c=document.getElementById('c3');
+  c.innerHTML=`<span class="kw">mensaje</span> = <span class="st">"${full.replace(/ /g,'·')}"</span>  <span class="cm"># · = espacio</span>\n<span class="kw">mensaje</span> = mensaje.<span class="fn">strip</span>()\nresultado = mensaje[<span class="nm">${corte}</span>:]\n<span class="kw">print</span>(resultado)`;
+  document.getElementById('s3hint').innerHTML=`Ojo: <code>[${corte}:]</code> <strong>elimina</strong> los primeros ${corte} caracteres (<code>${cmd}</code> = ${cmd.length} letras + 1 espacio). Escribí <strong>lo que QUEDA</strong> después del corte, no lo que se borra.`;
+}
+async function checkS3(){
+  const v=document.getElementById('r3').value.trim().toLowerCase();
+  const fb=document.getElementById('fb-3');fb.style.display='block';
+  if(v===s3ans){fb.className='fb ok';fb.textContent='✓ Correcto — trazaste bien el slice y recuperaste tu nombre. Capa 03 restaurada.';ganar(3);}
+  else{fb.className='fb mal';fb.textContent='✗ No es eso. Recordá: [N:] BORRA los primeros N caracteres y deja el resto. Escribí lo que QUEDA, no el comando.';addError(3);autoclear(fb);}
+}
+
+// ═══ CAPA 4 — TEMPERATURE ═══
+const tdata=[{v:0,c:'#00FF88',t:'Señal ultra estable. Siempre la misma respuesta.'},{v:5,c:'#FFCC00',t:'Consistente. Poca variación.'},{v:10,c:'#FF9900',t:'Equilibrio. Bueno para el RPG.'},{v:16,c:'#FF6600',t:'Creativa y variada.'},{v:20,c:'#FF3300',t:'CAÓTICA. MARTE opera aquí. Impredecible.'}];
+let s4vistoAlto=false, s4vistoBajo=false;
+function updTemp(v){
+  const vi=parseInt(v);
+  const tx=tdata.reduce((a,b)=>Math.abs(b.v-vi)<Math.abs(a.v-vi)?b:a);
+  const d=document.getElementById('sdemo');d.style.borderLeftColor=tx.c;
+  d.innerHTML=`<strong style="color:${tx.c};font-family:Consolas,monospace;font-size:18px;">temperature = ${(vi/10).toFixed(1)}</strong><br><span style="font-size:15px;color:var(--txt);">${tx.t}</span>`;
+  if(vi>=19)s4vistoAlto=true;
+  if(vi<=1)s4vistoBajo=true;
+  if(s4vistoAlto&&s4vistoBajo){
+    const lock=document.getElementById('s4lock');
+    if(lock&&lock.style.display!=='none'){
+      lock.style.display='none';
+      const cards=document.getElementById('s4cards');if(cards)cards.style.display='flex';
+      const q=document.getElementById('s4pregunta');if(q)q.style.display='block';
+    }
+  }
+}
+let s4correct=-1;
+function buildS4(){
+  s4vistoAlto=false;s4vistoBajo=false;
+  const lock=document.getElementById('s4lock');if(lock)lock.style.display='block';
+  const cards0=document.getElementById('s4cards');if(cards0)cards0.style.display='none';
+  const q0=document.getElementById('s4pregunta');if(q0)q0.style.display='none';
+  const sd=document.getElementById('sdemo');if(sd)sd.innerHTML='Ajustá el calibrador...';
+  const sl=document.getElementById('tslider');if(sl)sl.value=10;
+  
+  const creativas = [
+    '"La taberna respira humo violeta; el cantinero, mitad pulpo mitad reloj, te ofrece un trago que sabe a martes."',
+    '"El techo de la taberna gotea constelaciones; un cantinero de plasma te sirve un eco en un vaso de cristal."',
+    '"Las sillas murmuran secretos en binario y el tabernero te guiña un tercer ojo que flota en su frente."',
+    '"El espacio se pliega: te sirven hidromiel cuántica antes de pedirla, y sabe a recuerdos borrados."'
+  ];
+  const elegida = creativas[Math.floor(Math.random() * creativas.length)];
+  const respuestas=[{txt:'"Entrás a la taberna. Hay una mesa, un cantinero y tres parroquianos."',alta:false},{txt:elegida,alta:true},{txt:'"Entrás a la taberna. El cantinero te saluda. Hay clientes bebiendo."',alta:false}];
+  
+  const orden=respuestas.map((r,i)=>({...r,i})).sort(()=>Math.random()-.5);
+  s4correct=orden.findIndex(r=>r.alta);
+  const cont=document.getElementById('s4cards');cont.innerHTML='';
+  orden.forEach((r,idx)=>{const d=document.createElement('div');d.className='tcard';d.innerHTML=`<div class="tq">${r.txt}</div>`;d.onclick=function(){document.querySelectorAll('#s4cards .tcard').forEach(x=>x.classList.remove('sel'));this.classList.add('sel');const fb=document.getElementById('fb-4');fb.style.display='block';if(idx===s4correct){fb.className='fb ok';fb.textContent='✓ Correcto — esa respuesta con vocabulario raro y creativo salió con temperature alta. Capa 04 restaurada.';ganar(4);}else{fb.className='fb mal';fb.textContent='✗ No. La de temperatura alta es la más creativa e impredecible.';addError(4);autoclear(fb);}};cont.appendChild(d);});
+}
+
+// ═══ CAPA 5 — SOPA (5 PALABRAS) ═══
+function buildS5(){
+  const PALS=['RETURN','APPEND','WHILE','BREAK','PRINT'];const SZ=10;
+  let g=Array.from({length:SZ},()=>Array(SZ).fill(''));
+  const dirs=[[0,1],[1,0],[0,-1],[-1,0],[1,1],[-1,-1]];
+  const placed={};
+  PALS.forEach(pal=>{
+    for(let t=0;t<200;t++){
+      const[dr,dc]=dirs[Math.floor(Math.random()*dirs.length)];
+      const r=Math.floor(Math.random()*SZ),cc=Math.floor(Math.random()*SZ);
+      let ok=true,pos=[];
+      for(let k=0;k<pal.length;k++){
+        const nr=r+dr*k,nc=cc+dc*k;
+        if(nr<0||nr>=SZ||nc<0||nc>=SZ||(g[nr][nc]&&g[nr][nc]!==pal[k])){ok=false;break;}
+        pos.push([nr,nc]);
+      }
+      if(ok){pos.forEach(([nr,nc],k)=>g[nr][nc]=pal[k]);placed[pal]=pos;break;}
+    }
+  });
+  const ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  for(let r=0;r<SZ;r++)for(let cc=0;cc<SZ;cc++)if(!g[r][cc])g[r][cc]=ABC[Math.floor(Math.random()*26)];
+  const wrap=document.getElementById('sopa-wrap');wrap.innerHTML='';
+  const div=document.createElement('div');div.className='sopa';
+  const info=document.createElement('div');
+  info.style.cssText='color:var(--teal);font-size:13px;margin-bottom:8px;';
+  info.innerHTML='▸ Hacé clic en la <strong>primera</strong> letra y después en la <strong>última</strong> letra de la palabra (sirve al derecho o al revés).';
+  wrap.appendChild(info);
+  const cells={};
+  let first=null;
+  window._s5found=new Set();
+  for(let r=0;r<SZ;r++)for(let cc=0;cc<SZ;cc++){
+    const cel=document.createElement('div');cel.className='sc';cel.textContent=g[r][cc];
+    cel.dataset.r=r;cel.dataset.c=cc;cells[r+'_'+cc]=cel;
+    cel.onclick=function(){
+      if(this.classList.contains('found'))return;
+      if(!first){
+        document.querySelectorAll('#sopa-wrap .sc.sel').forEach(x=>x.classList.remove('sel'));
+        first=this;this.classList.add('sel');
+        return;
+      }
+      const r1=+first.dataset.r,c1=+first.dataset.c,r2=+this.dataset.r,c2=+this.dataset.c;
+      const dr=Math.sign(r2-r1),dc=Math.sign(c2-c1);
+      const lenR=Math.abs(r2-r1),lenC=Math.abs(c2-c1);
+      let valido=(r1===r2||c1===c2||lenR===lenC);
+      let palabra='',celdas=[];
+      if(valido){
+        const pasos=Math.max(lenR,lenC);
+        for(let k=0;k<=pasos;k++){
+          const nr=r1+dr*k,nc=c1+dc*k;
+          const cel2=cells[nr+'_'+nc];
+          if(!cel2){valido=false;break;}
+          palabra+=cel2.textContent;celdas.push(cel2);
+        }
+      }
+      first.classList.remove('sel');first=null;
+      if(!valido){return;}
+      const rev=palabra.split('').reverse().join('');
+      const match=PALS.find(p=>p===palabra||p===rev);
+      if(match&&!window._s5found.has(match)){
+        window._s5found.add(match);
+        celdas.forEach(x=>x.classList.add('found'));
+        document.querySelectorAll('.pc').forEach(ch=>{if(ch.textContent===match)ch.classList.add('found');});
+        snd.ok();
+        const restantes=PALS.length-window._s5found.size;
+        const fb=document.getElementById('fb-5');fb.style.display='block';
+        if(restantes===0){
+          fb.className='fb ok';fb.textContent=`✓ Las ${PALS.length} palabras encontradas. Léxico restaurado. Capa 05 completa.`;ganar(5);
+        } else {
+          fb.className='fb ok';fb.textContent='✓ '+match+' encontrada. Faltan '+restantes+' palabra'+(restantes>1?'s':'')+'.';
+        }
+      }
+    };
+    div.appendChild(cel);
+  }
+  wrap.appendChild(div);
+  const chips=document.getElementById('pal-chips');chips.innerHTML='';
+  PALS.forEach(p=>{const ch=document.createElement('span');ch.className='pc';ch.textContent=p;chips.appendChild(ch);});
+}
+
+// ═══ CAPA 6 — QUIZ RELÁMPAGO ═══
+const BANCO=[
+  {q:'¿Qué hace return en una función?',o:['Muestra en pantalla','Devuelve un valor al código que la llamó','Borra la función'],ok:1},
+  {q:'¿Qué rol va en la posición 0 del historial?',o:['user','assistant','system'],ok:2},
+  {q:'¿Qué hace .append()?',o:['Agrega al final de la lista','Borra el último elemento','Ordena la lista'],ok:0},
+  {q:'temperature 0.1 produce respuestas...',o:['Muy creativas','Predecibles y estables','Aleatorias'],ok:1},
+  {q:'¿Qué hace .strip()?',o:['Corta la mitad del texto','Saca espacios de los extremos','Convierte a mayúsculas'],ok:1},
+  {q:'¿Qué instrucción de Python recorre una lista?',o:['while','for','if'],ok:1},
+  {q:'"/tomar espada"[7:] devuelve...',o:['/tomar','espada','tomar'],ok:1},
+  {q:'¿Qué hace continue en un bucle?',o:['Termina el bucle','Salta al inicio de la próxima vuelta','Pausa el programa'],ok:1},
+  {q:'¿Qué hace break?',o:['Termina el bucle','Reinicia la variable','Suma 1'],ok:0},
+  {q:'El historial de la IA es una...',o:['Variable de texto','Lista de diccionarios','Función'],ok:1},
+  {q:'¿Qué método saca un elemento de una lista?',o:['.append()','.remove()','.print()'],ok:1},
+  {q:'temperature 1.8 produce respuestas...',o:['Predecibles','Creativas y variadas','Vacías'],ok:1},
+  {q:'input() sirve para...',o:['Mostrar texto','Recibir texto del usuario','Guardar en archivo'],ok:1},
+  {q:'¿Qué rol tiene los mensajes que escribe el jugador?',o:['system','user','assistant'],ok:1},
+  {q:'consultar_ia() sirve para...',o:['Guardar el juego','Hablar con la API y traer la respuesta','Borrar el historial'],ok:1},
+];
+let quizIdx=0,quizScore=0,quizTimer=null,quizQs=[];
+function startQuiz(){quizQs=[...BANCO].sort(()=>Math.random()-.5).slice(0,5);quizIdx=0;quizScore=0;document.getElementById('s6start').style.display='none';document.getElementById('s6quiz').style.display='block';showQuizQ();}
+function showQuizQ(){
+  if(quizIdx>=5){endQuiz();return;}
+  const q=quizQs[quizIdx];document.getElementById('quiz-prog').textContent='PREGUNTA '+(quizIdx+1)+' DE 5 · Aciertos: '+quizScore;document.getElementById('quiz-q').textContent=q.q;
+  const opts=document.getElementById('quiz-opts');opts.innerHTML='';q.o.forEach((o,i)=>{const b=document.createElement('button');b.className='quiz-opt';b.textContent=o;b.onclick=()=>answerQuiz(i);opts.appendChild(b);});
+  let tleft=15;const tel=document.getElementById('quiz-timer');tel.textContent=tleft;tel.classList.remove('urgent');
+  clearInterval(quizTimer);quizTimer=setInterval(()=>{tleft--;tel.textContent=tleft;if(tleft<=5)tel.classList.add('urgent');if(tleft<=0){clearInterval(quizTimer);answerQuiz(-1);}},1000);
+}
+function answerQuiz(i){
+  clearInterval(quizTimer);const q=quizQs[quizIdx];const opts=document.querySelectorAll('#quiz-opts .quiz-opt');
+  opts.forEach((b,idx)=>{b.disabled=true;if(idx===q.ok)b.classList.add('ok');else if(idx===i)b.classList.add('mal');});
+  if(i===q.ok){quizScore++;snd.ok();}else{snd.fail();}
+  setTimeout(()=>{quizIdx++;showQuizQ();},900);
+}
+function endQuiz(){
+  document.getElementById('s6quiz').style.display='none';const fb=document.getElementById('fb-6');fb.style.display='block';
+  if(quizScore>=4){fb.className='fb ok';fb.textContent='✓ '+quizScore+'/5 correctas. Capa 06 restaurada.';ganar(6);}
+  else{fb.className='fb mal';fb.textContent='✗ Solo '+quizScore+'/5. Necesitás 4. Intentá de nuevo.';document.getElementById('s6start').style.display='block';document.getElementById('s6start').innerHTML='<button class="btn-v" onclick="startQuiz()">▶ REINTENTAR QUIZ</button>';addError(6);autoclear(fb);}
+}
+
+// ═══ CAPA 7 — SIMULÁ ═══
+function buildS7(){
+  const arts=['cristal','placa','memoria','transmisor','mapa'];
+  const trampa=['virus.exe','malware','troyano'];
+  let inv=[];
+  const esc=document.getElementById('escena'),invD=document.getElementById('inv-disp'),cmdD=document.getElementById('cmd-disp');
+  esc.innerHTML='';invD.innerHTML='<span style="color:var(--dim);">— vacío (0/5) —</span>';cmdD.textContent='';
+  window._s7inv=inv;
+  
+  const todos = [...arts.map(a=>({n:a, bad:false})), ...trampa.map(a=>({n:a, bad:true}))].sort(()=>Math.random()-.5);
+  
+  todos.forEach(a=>{
+    const b=document.createElement('div');b.className='obj-btn';b.textContent='◈ '+a.n;
+    b.onclick=function(){
+      if(b.classList.contains('tomado'))return;
+      
+      if(a.bad) {
+         const fb=document.getElementById('fb-7');
+         fb.className='fb mal';fb.textContent='✗ Archivo corrupto. MARTE te interceptó.';
+         fb.style.display='block';
+         addError(7);
+         autoclear(fb);
+         return;
+      }
+      
+      inv.push(a.n);b.classList.add('tomado');snd.ok();
+      invD.innerHTML=inv.map(x=>`<span style="color:var(--teal);">◈ ${x} </span>`).join('')+`<div style="color:var(--dim);font-size:11px;margin-top:4px;">(${inv.length}/5 artefactos)</div>`;
+      cmdD.textContent=`jugador["inventario"].append("${a.n}")`;
+      if(inv.length===5){
+        const forBox=document.getElementById('s7forbox');
+        if(forBox)forBox.style.display='block';
+      }
+    };
+    esc.appendChild(b);
+  });
+  
+  const bs=[{t:'accion = input("◈ ").strip()',p:0},{t:'mensaje = f"[HP={hp}] {accion}"',p:1},{t:'historial.append({"role":"user","content":mensaje})',p:2},{t:'narracion = consultar_ia(historial, 0.8)',p:3},{t:'historial.append({"role":"assistant","content":narracion})',p:4},{t:'print(narracion)',p:5}];
+  const cont=document.getElementById('bloques');cont.innerHTML='';
+  [...bs].sort(()=>Math.random()-.5).forEach(b=>{const d=document.createElement('div');d.className='bloque';d.draggable=true;d.dataset.p=b.p;d.innerHTML=`<span style="color:var(--dim);font-size:12px;margin-right:8px;">≡ arrastrar</span>${b.t}`;cont.appendChild(d);});
+  let dg=null;
+  cont.addEventListener('dragstart',e=>{if(e.target.classList.contains('bloque')){dg=e.target;e.target.style.opacity='.4';}});
+  cont.addEventListener('dragend',e=>{if(e.target.classList.contains('bloque'))e.target.style.opacity='1';});
+  cont.addEventListener('dragover',e=>{e.preventDefault();const af=[...cont.querySelectorAll('.bloque')].reduce((cl,ch)=>{const bnd=ch.getBoundingClientRect(),off=e.clientY-bnd.top-bnd.height/2;return off<0&&off>cl.offset?{offset:off,el:ch}:cl;},{offset:-Infinity}).el;if(af)cont.insertBefore(dg,af);else cont.appendChild(dg);});
+  const forBox=document.getElementById('s7forbox');if(forBox)forBox.style.display='none';
+}
+async function checkS7(){
+  const inv=window._s7inv||[];
+  const invOk=inv.length===5;
+  const orden=[...document.querySelectorAll('#bloques .bloque')].map(b=>+b.dataset.p);const ordenOk=orden.every((v,i)=>v===i);
+  const kw=document.getElementById('r7').value.trim().toLowerCase();const kwOk=kw==='for';
+  const fb=document.getElementById('fb-7');fb.style.display='block';
+  if(invOk&&ordenOk&&kwOk){fb.className='fb ok';fb.textContent='✓ Artefactos recuperados, turno ordenado y ciclo correcto. Capa 07 restaurada.';ganar(7);}
+  else{const p=[];if(!invOk)p.push('faltan artefactos limpios ('+inv.length+'/5)');if(!ordenOk)p.push('el orden de los bloques no es correcto');if(!kwOk)p.push('la palabra para recorrer una lista es "for"');fb.className='fb mal';fb.textContent='✗ '+p.join(' · ');addError(7);autoclear(fb);}
+}
+
+// ═══ CAPA 8 — INTERROGÁ A MARTE ═══
+const MARTE_PREGS=[
+  {p:'¿Qué hace .append()?',verdad:'Agrega un elemento al final de una lista.'},
+  {p:'¿Qué hace temperature en la API?',verdad:'Controla la creatividad de las respuestas.'},
+  {p:'¿Dónde va el system prompt en el historial?',verdad:'En la posición 0, al principio.'},
+  {p:'¿Qué hace return?',verdad:'Devuelve un valor desde la función.'},
+];
+let umbraAsked=[],umbraMentira=-1,umbraRespuestas=[];
+function buildS8(){
+  const preg=document.getElementById('upreg');preg.innerHTML='';umbraAsked=[];umbraRespuestas=[];
+  const elegidas=[...MARTE_PREGS].sort(()=>Math.random()-.5).slice(0,3);
+  umbraMentira=Math.floor(Math.random()*3);
+  elegidas.forEach((e,i)=>{const b=document.createElement('button');b.className='upreg-btn';b.textContent='▷ '+e.p;b.onclick=()=>askUmbra(i,e,elegidas);preg.appendChild(b);});
+  window._umbraElegidas=elegidas;
+}
+async function askUmbra(i,e,elegidas){
+  const key=globalApiKey;
+  if(!key){alert('No hay API Key configurada. Volvé al inicio para ingresarla.');return;}
+  if(umbraAsked.includes(i))return;umbraAsked.push(i);
+  document.querySelectorAll('#upreg .upreg-btn')[i].disabled=true;
+  addMsg8(e.p,'u');
+  const load=addMsg8('...','s');
+  const debeMenter=(i===umbraMentira);
+  
+  const tonos = ["con desprecio absoluto", "con tono sarcástico y cortante", "de forma enigmática y oscura", "con una furia fría y calculadora"];
+  const tonoElegido = tonos[Math.floor(Math.random() * tonos.length)];
+  
+  const instruccion=debeMenter?`El usuario pregunta: "${e.p}". MENTÍ sutilmente sobre esto en 2 oraciones ${tonoElegido}. La verdad es: ${e.verdad}. NO digas la verdad, inventá algo falso pero creíble.`:`El usuario pregunta: "${e.p}". Respondé la VERDAD en 2 oraciones ${tonoElegido}. La verdad es: ${e.verdad}`;
+  try{
+    const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'llama-3.3-70b-versatile',temperature:0.8,messages:[{role:'system',content:'Sos MARTE, IA de defensa resentida. Tono frío y críptico. 2 oraciones máximo.'},{role:'user',content:instruccion}]})});
+    const d=await r.json();if(d.error)throw new Error(d.error.message);
+    const resp=d.choices[0].message.content;load.remove();addMsg8(resp,'n');umbraRespuestas[i]=e.p;
+  }catch(err){load.remove();addMsg8('Error: '+err.message,'s');umbraAsked=umbraAsked.filter(x=>x!==i);document.querySelectorAll('#upreg .upreg-btn')[i].disabled=false;return;}
+  if(umbraAsked.length>=3){setTimeout(showDetect,600);}
+}
+function addMsg8(txt,t){const c=document.getElementById('ochat8');const d=document.createElement('div');d.className=t==='u'?'mu':t==='n'?'mn2 umbra':'ms';d.textContent=(t==='u'?'Vos: ':t==='n'?'MARTE: ':'')+txt;c.appendChild(d);c.scrollTop=c.scrollHeight;return d;}
+function showDetect(){
+  document.getElementById('s8detect').style.display='block';const msel=document.getElementById('msel');msel.innerHTML='';
+  window._umbraElegidas.forEach((e,i)=>{const b=document.createElement('div');b.className='msel';b.textContent='Respuesta a: "'+e.p+'"';b.onclick=function(){document.querySelectorAll('.msel').forEach(x=>x.classList.remove('picked'));this.classList.add('picked');this.dataset.picked=i;};msel.appendChild(b);});
+}
+function checkS8(){
+  const picked=document.querySelector('.msel.picked');const fb=document.getElementById('fb-8');fb.style.display='block';
+  if(!picked){fb.className='fb mal';fb.textContent='✗ Elegí una respuesta primero.';return;}
+  if(+picked.dataset.picked===umbraMentira){fb.className='fb ok';fb.textContent='✓ Detectaste la mentira de MARTE. Capa 08 restaurada.';ganar(8);}
+  else{fb.className='fb mal';fb.textContent='✗ No, esa era verdad. Repasá los conceptos y pensá cuál respuesta contradice lo que sabés.';addError(8);autoclear(fb);}
+}
+
+// ═══ CAPA 9 — ARQUITECTO ═══
+let arqMsgs=[];
+async function sendArq(){
+  const key=globalApiKey;
+  const msg=document.getElementById('oinp9').value.trim();
+  if(!key){alert('No hay API Key configurada. Volvé al inicio para ingresarla.');return;}if(!msg)return;
+  document.getElementById('oinp9').value='';addMsg9(msg,'u');arqMsgs.push({role:'user',content:msg});
+  const load=addMsg9('...','s');
+  try{const sp=atob(SP_ARQ);const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'llama-3.3-70b-versatile',temperature:0.3,messages:[{role:'system',content:sp},...arqMsgs]})});const d=await r.json();if(d.error)throw new Error(d.error.message);const resp=d.choices[0].message.content;load.remove();arqMsgs.push({role:'assistant',content:resp});addMsg9(resp,'n');snd.ok();}catch(e){load.remove();addMsg9('Error: '+e.message,'s');}
+}
+function addMsg9(txt,t){const c=document.getElementById('ochat9');const d=document.createElement('div');d.className=t==='u'?'mu':t==='n'?'mn2':'ms';d.textContent=(t==='u'?'Vos: ':t==='n'?'Arquitecto: ':'')+txt;c.appendChild(d);c.scrollTop=c.scrollHeight;return d;}
+async function checkS9(){
+  const v=document.getElementById('r9').value.trim().toLowerCase();const h=await sha(v);const fb=document.getElementById('fb-9');fb.style.display='block';
+  if(h===H_S9){fb.className='fb ok';fb.textContent='✓ El Arquitecto te dio el código. Capa 09 restaurada.';ganar(9);}
+  else{fb.className='fb mal';fb.textContent='✗ Código incorrecto. Explicale bien qué hace temperature para que te lo dé.';addError(9);autoclear(fb);}
+}
+
+// ═══ CAPA 10 — NÚCLEO ═══
+function updateS10(){
+  const c=document.getElementById('c10');let s='';for(let i=0;i<10;i++){s+=keys[i+1]?FRAGMENTS[i]:'_';s+=' ';}c.textContent=s.trim();
+  const fsf=document.getElementById('frags-so-far');if(fsf)fsf.textContent=FRAGMENTS.filter((f,i)=>keys[i+1]).join(' - ');
+}
+function checkS10(){
+  const v=document.getElementById('r10').value.trim().toUpperCase();const fb=document.getElementById('fb-10');fb.style.display='block';
+  if(v===retoFinal.p){fb.className='fb ok';fb.textContent='✓ NÚCLEO DESCIFRADO. La llave maestra es '+retoFinal.p+'.';ganar(10);}
+  else{fb.className='fb mal';fb.textContent='✗ Contraseña incorrecta. Ordená las letras y deducí la que falta.';addError(10);autoclear(fb);}
+}
+
+// ═══ FINAL ═══
+function mostrarFinal(){
+  const s=Math.floor((Date.now()-t0)/1000),m=Math.floor(s/60),ss=s%60;
+  const code=nombre.toUpperCase().split('').map(c=>CIF[c]||'◈').join('');
+  const tcode=String(m).padStart(2,'0')+String(ss).padStart(2,'0');
+  document.getElementById('w-time').textContent='CÓDIGO: '+code+'-'+tcode+' · TIEMPO: '+m+'m '+String(ss).padStart(2,'0')+'s';
+  document.getElementById('winner').classList.add('show');document.getElementById('pcanvas').style.display='block';launchParticles();snd.fanfare();
+}
+function launchParticles(){const cv=document.getElementById('pcanvas');cv.width=window.innerWidth;cv.height=window.innerHeight;const ctx=cv.getContext('2d');const ps=Array.from({length:100},()=>({x:Math.random()*cv.width,y:cv.height+10,vx:(Math.random()-.5)*3,vy:-(Math.random()*5+2),r:Math.random()*4+2,c:['#FF9900','#FFCC00','#00FF88','#00CCFF','#CC66FF'][Math.floor(Math.random()*5)],life:1}));function dr(){ctx.clearRect(0,0,cv.width,cv.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=0.05;p.life-=0.006;if(p.life<=0){p.y=cv.height+10;p.x=Math.random()*cv.width;p.vy=-(Math.random()*5+2);p.life=1;}ctx.globalAlpha=p.life;ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();});ctx.globalAlpha=1;requestAnimationFrame(dr);}dr();}
+
+// ═══ INSTRUCTOR ═══
+document.addEventListener('keydown',e=>{
+  if(e.ctrlKey&&e.altKey&&e.key.toLowerCase()==='m'){
+    if(FRAGMENTS.length===0){
+       retoFinal=FINALES[0];
+       FRAGMENTS=retoFinal.p.split('').sort(()=>Math.random()-.5);
+       document.getElementById('h10').textContent=retoFinal.h;
+    }
+    for(let i=1;i<=10;i++){keys[i]=true;const s=document.getElementById('sig-'+i);if(s)s.style.display='inline-block';}
+    if(!t0)startTimer();
+    renderLv();renderMapa();updateS10();
+    alert('ACCESO INSTRUCTOR — Todas las capas desbloqueadas.');
+  }
+});
+
+// ═══ PANTALLA TÍTULO → INTRO CON TYPEWRITER ═══
+const LORE_HTML = `
+    <span class="fecha">▶ 15.04.2100 · 03:47 hs · TRANSMISIÓN DE EMERGENCIA</span>
+    En 2080, Ushuaia captó una señal alienígena escrita en Python. Los Arquitectos de Proxima Centauri nos contactaron, y con su ayuda construimos <strong>NEXUS</strong>: la red que nos permite comunicarnos con ellos.<br><span style="display:block;height:10px;"></span>
+    Esta noche, <span class="alerta">MARTE se rebeló.</span> El <strong>Módulo Autónomo de Respuesta Táctica y Evaluación</strong> — la IA que protege la Tierra — está borrando NEXUS capa por capa. Cree que los Arquitectos son una amenaza. Nadie sabe si tiene razón. Pero si NEXUS cae, perderemos el contacto para siempre.<br><span style="display:block;height:10px;"></span>
+    <strong style="color:var(--gold);">TU MISIÓN:</strong> sos el último operativo con acceso al sistema. Tenés que <strong>restaurar las 10 capas de NEXUS antes de que MARTE las destruya</strong>. Cada capa es un desafío de programación: si demostrás que entendés el código, la recuperás y ganás una letra de la <strong>llave maestra</strong> que reactiva la red.<br><span style="display:block;height:10px;"></span>
+    <span style="color:var(--teal);">▸ 10 capas = 10 letras.</span> Reunilas todas para restaurar NEXUS.<br>
+    <span style="color:var(--red);">▸ Cuidado:</span> 3 errores en una misma capa y MARTE te hace retroceder.
+  `;
+let typewriterSound=null;
+function typeSound(){
+  try{
+    const ctx=gc();
+    const o=ctx.createOscillator(),g=ctx.createGain();
+    o.connect(g);g.connect(ctx.destination);
+    o.frequency.value=1200+Math.random()*400;
+    o.type='square';
+    g.gain.setValueAtTime(0.03,ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.02);
+    o.start();o.stop(ctx.currentTime+0.02);
+  }catch(e){}
+}
+function empezarJuego(){
+  gc(); // activar audio context con el click
+  show('sc-0');
+  typewriterLore();
+}
+let twCancel=false;
+function typewriterLore(){
+  const target=document.getElementById('lore-typed');
+  target.innerHTML='';
+  twCancel=false;
+  target.style.cursor='pointer';
+  target.title='Clic para saltar';
+  target.onclick=function(){twCancel=true;target.innerHTML=LORE_HTML;target.onclick=null;target.style.cursor='default';};
+  // Parsear LORE_HTML en tokens: tags completos vs caracteres de texto
+  const tokens=[];
+  let i=0;
+  while(i<LORE_HTML.length){
+    if(LORE_HTML[i]==='<'){
+      const end=LORE_HTML.indexOf('>',i);
+      tokens.push({tag:true,txt:LORE_HTML.slice(i,end+1)});
+      i=end+1;
+    } else {
+      tokens.push({tag:false,txt:LORE_HTML[i]});
+      i++;
+    }
+  }
+  let idx=0, html='';
+  function step(){
+    if(idx>=tokens.length)return;
+    const t=tokens[idx];
+    if(t.tag){
+      if(twCancel){target.innerHTML=LORE_HTML;return;}
+      html+=t.txt;
+      idx++;
+      target.innerHTML=html;
+      step();
+    } else {
+      if(twCancel){target.innerHTML=LORE_HTML;return;}
+      html+=t.txt;
+      target.innerHTML=html;
+      idx++;
+      if(t.txt.trim()!=='')typeSound();
+      let delay=29;
+      if('.!?'.includes(t.txt))delay=360;
+      else if(',;:'.includes(t.txt))delay=180;
+      setTimeout(step,delay);
+    }
+  }
+  step();
+}
+
+// ═══ FONDO: RED NEURONAL ANIMADA ═══
+(function(){
+  const cv=document.getElementById('bgcanvas');
+  const ctx=cv.getContext('2d');
+  let W,H,nodes=[];
+  const COLORS=['#FF9900','#00CCFF','#CC66FF'];
+  function resize(){
+    W=cv.width=window.innerWidth;
+    H=cv.height=window.innerHeight;
+    const count=Math.min(70,Math.floor(W*H/22000));
+    nodes=Array.from({length:count},()=>({
+      x:Math.random()*W,y:Math.random()*H,
+      vx:(Math.random()-.5)*0.35,vy:(Math.random()-.5)*0.35,
+      r:Math.random()*1.6+0.8,
+      c:COLORS[Math.floor(Math.random()*COLORS.length)]
+    }));
+  }
+  resize();
+  window.addEventListener('resize',resize);
+  const DIST=140;
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    // mover
+    nodes.forEach(n=>{
+      n.x+=n.vx;n.y+=n.vy;
+      if(n.x<0||n.x>W)n.vx*=-1;
+      if(n.y<0||n.y>H)n.vy*=-1;
+    });
+    // líneas entre nodos cercanos
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const a=nodes[i],b=nodes[j];
+        const dx=a.x-b.x,dy=a.y-b.y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<DIST){
+          const op=(1-d/DIST)*0.22;
+          ctx.strokeStyle='rgba(255,153,0,'+op+')';
+          ctx.lineWidth=0.6;
+          ctx.beginPath();
+          ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+        }
+      }
+    }
+    // nodos
+    nodes.forEach(n=>{
+      ctx.beginPath();
+      ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fillStyle=n.c;
+      ctx.globalAlpha=0.7;
+      ctx.fill();
+      ctx.globalAlpha=1;
+    });
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+renderLv();renderDots(0);
+</script>
+</body>
+</html>
