@@ -3,522 +3,467 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taller de IA &middot; Clase 0 (2C) &middot; Repaso general</title>
+<title>Guía de Repaso — Taller de IA</title>
 <style>
   :root{
-    --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
-    --vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;
-    --bco:#FFFFFF;--code-bg:#1E1E1E;--r:12px;
+    --nav:#1A2C3A;--bd:#C5D2DC;--txt:#2C3E50;--bco:#FFF;--gris:#F3F6F9;--r:12px;
     --p1:#1F6E5C;--p1-bg:#E8F4F0;
-    --g2:#2E6820;--g2-bg:#EFF8EE;
-    --json:#006400;--json-bg:#F0FFF0;
-    --rojo:#C62828;--rojo-bg:#FFEBEE;
     --azul:#1565C0;--azul-bg:#E3F2FD;
-    --classroom:#137333;--class-bg:#F0FFF4;
-    --rpg:#5C2070;--rpg-bg:#F8F3FF;
-    --plan:#2A4A7F;--plan-bg:#E5ECF6;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;
+    --amb:#B8720A;--amb-bg:#FFF8EE;
+    --vio:#5C2070;--vio-bg:#F8F3FF;
+    --ok:#137333;--ok-bg:#F0FFF4;
+    --code-bg:#1E1E1E;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:20px;padding:15px 0 50px;}
-  header{background:var(--nav);color:var(--bco);padding:25px 20px;border-bottom:5px solid var(--vio);}
-  header h1{font-size:26px;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
+  body{font-family:'Segoe UI',Tahoma,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.65;font-size:19px;padding:0 0 60px;}
+  header{background:var(--nav);color:#fff;padding:28px 20px;border-bottom:5px solid var(--p1);}
+  header h1{font-size:27px;margin-bottom:6px;}
   header p{font-size:17px;opacity:.9;}
-  .container{width:95%;max-width:1400px;margin:0 auto;padding:0 15px;}
-  .back-btn{display:inline-block;margin-top:20px;margin-bottom:10px;padding:10px 20px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
-  .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
-  .c-p1{border-left-color:var(--p1);background:var(--p1-bg);}
-  .c-plan{border-left-color:var(--plan);background:var(--plan-bg);}
-  .c-info{border-left-color:var(--vio);background:#FAFCFF;}
-  .c-json{border-left-color:var(--json);background:var(--json-bg);}
-  .c-rojo{border-left-color:var(--rojo);background:var(--rojo-bg);}
-  .c-entrega{border-left-color:var(--classroom);background:var(--class-bg);}
-  .c-asistente{border-left-color:var(--rpg);background:var(--rpg-bg);}
-  .c-avanzado{border-left-color:var(--amb);background:#FFFBF5;}
-  h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
-  .badge{background:var(--nav);color:var(--bco);padding:5px 12px;border-radius:6px;font-size:17px;font-weight:bold;}
-  .info{padding:18px 20px;border-radius:var(--r);margin:15px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
-  .i-p1{background:var(--p1-bg);border-color:var(--p1);}
-  .i-plan{background:var(--plan-bg);border-color:var(--plan);}
-  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
-  .i-amb{background:#FFF8EE;border-color:var(--amb);}
-  .i-azul{background:var(--azul-bg);border-color:var(--azul);}
-  .i-rojo{background:var(--rojo-bg);border-color:var(--rojo);}
-  .i-json{background:var(--json-bg);border-color:var(--json);}
-  .info strong{display:block;margin-bottom:6px;font-size:19px;}
-  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:18px 20px;font-size:17px;overflow-x:auto;white-space:pre;line-height:1.65;margin:14px 0;border-radius:8px;}
-  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
-  .nm{color:#B5CEA8;} .fn{color:#DCDCAA;} .dk{color:#9CDCFE;}
-  code{background:#E8E6FF;color:var(--vio);padding:2px 6px;border-radius:4px;font-family:'Consolas',monospace;font-size:17px;}
-  ul{margin-left:22px;} li{margin-bottom:8px;}
+  .container{width:95%;max-width:1050px;margin:0 auto;padding:0 12px;}
+  .card{background:#fff;border-radius:var(--r);padding:26px;margin:22px 0;box-shadow:0 3px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  .c-intro{border-left-color:var(--vio);background:var(--vio-bg);}
+  .c-sesion{border-left-color:var(--p1);padding:0;overflow:hidden;}
+  .c-final{border-left-color:var(--ok);background:var(--ok-bg);}
+  .ses-head{background:var(--nav);color:#fff;padding:18px 26px;}
+  .ses-head h2{font-size:23px;margin-bottom:4px;}
+  .ses-head .meta{font-size:16px;opacity:.92;}
+  .ses-body{padding:24px 26px;}
+  .meta-box{background:var(--azul-bg);border-left:5px solid var(--azul);border-radius:8px;padding:14px 18px;margin-bottom:18px;font-size:18px;}
+  .paso{border:2px solid var(--bd);border-radius:10px;margin-bottom:18px;overflow:hidden;}
+  .paso-head{background:var(--gris);padding:12px 18px;font-weight:bold;font-size:19px;color:var(--nav);}
+  .paso-body{padding:16px 18px;}
+  .cod{background:var(--code-bg);color:#D4D4D4;font-family:Consolas,monospace;padding:16px 18px;
+       border-radius:8px;font-size:16px;white-space:pre;overflow-x:auto;line-height:1.7;margin:12px 0;}
+  .cm{color:#6A9955;} .kw{color:#569CD6;} .str{color:#CE9178;} .fn{color:#DCDCAA;} .nm{color:#B5CEA8;} .dk{color:#9CDCFE;}
+  .esperado{background:var(--ok-bg);border-left:5px solid var(--ok);border-radius:8px;padding:13px 17px;margin-top:12px;font-size:17px;}
+  .esperado::before{content:"\2705  QU\00C9 TIENE QUE PASAR";display:block;font-size:12px;font-weight:bold;letter-spacing:1px;color:var(--ok);margin-bottom:5px;}
+  .sifalla{background:var(--rojo-bg);border-left:5px solid var(--rojo);border-radius:8px;padding:13px 17px;margin-top:10px;font-size:17px;}
+  .sifalla::before{content:"\26A0\FE0F  SI TE DA ERROR";display:block;font-size:12px;font-weight:bold;letter-spacing:1px;color:var(--rojo);margin-bottom:5px;}
+  .tip{background:var(--amb-bg);border-left:5px solid var(--amb);border-radius:8px;padding:13px 17px;margin-top:10px;font-size:17px;}
+  .checkpoint{background:var(--vio-bg);border:2px dashed var(--vio);border-radius:10px;padding:18px 22px;margin-top:20px;}
+  .checkpoint strong{color:var(--vio);display:block;margin-bottom:8px;font-size:19px;}
+  .chk{background:#fff;border:2px solid var(--bd);border-radius:8px;padding:12px 16px;margin:8px 0;cursor:pointer;font-size:18px;user-select:none;}
+  .chk:hover{border-color:var(--p1);}
+  .chk.hecho{background:var(--p1-bg);border-color:var(--p1);}
+  .chk .caja{margin-right:10px;font-size:21px;}
+  code{background:#E8E6FF;color:#3D5A99;padding:1px 6px;border-radius:4px;font-family:Consolas,monospace;font-size:17px;}
+  table{width:100%;border-collapse:collapse;font-size:17px;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;}
+  th,td{border:1px solid var(--bd);padding:11px 14px;text-align:left;vertical-align:top;}
+  th{background:var(--nav);color:#fff;font-size:15px;text-transform:uppercase;}
+  ul{margin-left:22px;} li{margin-bottom:6px;}
   ol{margin-left:22px;} ol li{margin-bottom:8px;}
-  table{width:100%;border-collapse:collapse;font-size:17px;margin:16px 0;background:#fff;border-radius:8px;overflow:hidden;}
-  th,td{border:1px solid var(--bd);padding:12px 14px;text-align:left;}
-  th{background:var(--nav);color:#fff;font-size:15px;text-transform:uppercase;letter-spacing:.5px;}
-  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
-  .trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;}
-  .mini{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:16px;font-size:16px;line-height:1.6;}
-  .mini strong{color:var(--p1);display:block;margin-bottom:4px;font-size:17px;}
-  .check{list-style:none;margin-left:0;}
-  .check li{padding-left:34px;position:relative;margin-bottom:12px;font-size:18px;}
-  .check li::before{content:"\25A2";position:absolute;left:0;font-size:24px;color:var(--p1);}
-  #asist-chat{display:none;}
-  #asist-msgs{background:#1E1E1E;border-radius:10px;padding:16px;min-height:160px;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:10px;}
-  .asist-inp{display:flex;gap:8px;}
-  .asist-inp input{flex:1;padding:11px;border-radius:8px;border:1px solid #ccc;font-size:17px;outline:none;}
-  .btn-rpg{background:var(--rpg);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;}
-  .btn-rpg:disabled{background:#ccc;cursor:not-allowed;}
-  .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
-  .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
-  @media(max-width:768px){.duo,.trio{grid-template-columns:1fr;}}
+  .prog{background:#fff;border-radius:var(--r);padding:18px 24px;margin:20px 0;box-shadow:0 3px 10px rgba(0,0,0,.07);border-left:6px solid var(--amb);}
+  @media print{body{background:#fff;font-size:12pt;}.card{box-shadow:none;border:1px solid #999;break-inside:avoid;}}
 </style>
 </head>
 <body>
 <header>
-  <h1>CLASE 0 (2C) — REPASO GENERAL: CÓMO FUNCIONA TU APLICACIÓN CON IA</h1>
-  <p>Taller de IA &middot; 7&deg; TIC &middot; CTP Antonio Mart&iacute;n Marte &middot; Lunes 3/8 · 120 minutos</p>
+  <h1>📚 GUÍA DE REPASO — EL CHATBOT</h1>
+  <p>Material opcional · Para prepararte si tenés que recuperar · 7° TIC · CTP Antonio Martín Marte</p>
 </header>
 <div class="container">
-<a href="index.html" class="back-btn">&#11013; Volver al &Iacute;ndice</a>
 
-<style>
-  .q-op{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);
-        border-radius:10px;padding:14px 18px;margin-bottom:10px;font-size:18px;cursor:pointer;
-        font-family:inherit;color:var(--txt);line-height:1.5;}
-  .q-op:hover:enabled{border-color:var(--p1);background:#F7FBFA;}
-  .q-op:disabled{cursor:default;opacity:.95;}
-  .btn-next{background:var(--p1);color:#fff;border:none;padding:12px 22px;border-radius:8px;
-            font-size:18px;font-weight:bold;cursor:pointer;margin-top:6px;font-family:inherit;}
-  .arq{display:grid;grid-template-columns:1fr 110px 1fr;align-items:center;gap:0;margin:20px 0;}
-  .arq-lado{border:3px solid;border-radius:14px;padding:20px;text-align:center;}
-  .arq-front{border-color:var(--azul);background:var(--azul-bg);}
-  .arq-back{border-color:#C8461E;background:#FBEAE2;}
-  .arq-lado h4{font-size:20px;margin-bottom:8px;}
-  .arq-lado .ico{font-size:40px;display:block;margin-bottom:8px;}
-  .arq-lado ul{text-align:left;font-size:16px;margin-left:18px;margin-top:10px;}
-  .arq-medio{text-align:center;}
-  .arq-flecha{font-size:15px;font-weight:bold;padding:10px 4px;border-radius:8px;margin:8px 0;line-height:1.3;}
-  .f-ida{background:var(--azul);color:#fff;}
-  .f-vuelta{background:#C8461E;color:#fff;}
-  .capa{background:#fff;border:2px solid var(--bd);border-left:6px solid var(--vio);
-        border-radius:10px;padding:14px 18px;margin:10px 0;font-size:17px;line-height:1.6;}
-  .capa strong{color:var(--vio);font-size:18px;}
-  .json-box{background:#F0FFF0;border:2px solid #006400;border-radius:10px;padding:16px;
-            font-family:Consolas,monospace;font-size:16px;white-space:pre;overflow-x:auto;line-height:1.7;}
-  @media(max-width:768px){.arq{grid-template-columns:1fr;}.arq-medio{padding:14px 0;}}
-</style>
-
-<div class="card c-info">
-  <h2><span class="badge" style="background:var(--vio)">0</span> POR QUÉ ESTA CLASE</h2>
-  <p>En el primer cuatrimestre construiste un RPG que conversa con una IA. Funcionaba. Pero hoy vamos a la pregunta de fondo: <strong>¿qué pasa realmente cuando apretás Enter?</strong></p>
-  <p style="margin-top:10px;">Entender el camino completo — tu Colab, el pedido que viaja, el modelo que responde, el JSON que vuelve — es lo que te permite <strong>arreglar lo que falla y construir cosas nuevas</strong>. Sin eso, programás de memoria.</p>
-  <div class="info i-azul" style="margin-top:14px;">
-    <strong>💡 Lo que repasás hoy es la base del proyecto nuevo</strong>
-    El Extractor que arranca el 10/8 usa exactamente la misma arquitectura. Cambia <em>qué</em> le pedís al modelo, no <em>cómo</em> se lo pedís.
+<div class="card c-intro">
+  <h2 style="font-size:23px;margin-bottom:12px;">Cómo usar esta guía</h2>
+  <p>Esta guía te lleva <strong>paso a paso</strong> desde cero hasta tener tu chatbot funcionando. No hace falta que tengas nada de antes.</p>
+  <ul style="margin-top:12px;">
+    <li><strong>Trabajás en orden.</strong> No saltes a la sesión siguiente hasta terminar la anterior.</li>
+    <li><strong>Cada paso tiene tres partes:</strong> qué escribir, qué tiene que pasar, y qué hacer si te da error.</li>
+    <li><strong>Al final de cada sesión hay un checkpoint.</strong> Si no lo pasás, no sigas: volvé sobre los pasos de esa sesión.</li>
+    <li><strong>Escribí el código, no lo copies y pegues.</strong> Escribirlo es lo que hace que lo entiendas.</li>
+  </ul>
+  <div class="meta-box" style="margin-top:16px;">
+    <strong>📌 Esta guía es opcional</strong><br>
+    No es la recuperación ni se entrega. Es un <strong>material de repaso</strong> para que llegues preparado a la instancia de recuperación, que va a ser <strong>más adelante</strong> (el profe te avisa la fecha).<br>
+    También te sirve aunque no tengas que recuperar: todo lo que está acá se reusa en el proyecto nuevo del segundo cuatrimestre.
   </div>
 </div>
 
-<div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">1</span> DÓNDE ESTÁ LA IA REALMENTE</h2>
-  <p>La confusión más común es creer que la IA "está" en tu Colab. No está. Tu programa tiene <strong>dos lados</strong>, y viven en computadoras distintas:</p>
-
-  <div class="arq">
-    <div class="arq-lado arq-front">
-      <span class="ico">💻</span>
-      <h4>FRONTEND (cliente)</h4>
-      <p style="font-size:16px;">Tu Colab · tu código</p>
-      <ul>
-        <li>Pide la acción al jugador</li>
-        <li>Guarda el <code>historial</code></li>
-        <li>Arma el pedido (payload)</li>
-        <li>Muestra la respuesta</li>
-      </ul>
-    </div>
-    <div class="arq-medio">
-      <div class="arq-flecha f-ida">▶ PEDIDO<br>(JSON)</div>
-      <div style="font-size:13px;color:#666;">internet</div>
-      <div class="arq-flecha f-vuelta">◀ RESPUESTA<br>(JSON)</div>
-    </div>
-    <div class="arq-lado arq-back">
-      <span class="ico">🖥️</span>
-      <h4>BACKEND (servidor de Groq)</h4>
-      <p style="font-size:16px;">Máquinas de Groq, en otro país</p>
-      <ul>
-        <li>Verifica tu API Key</li>
-        <li>Corre el modelo <code>gpt-oss-120b</code></li>
-        <li>Genera la respuesta</li>
-        <li>La devuelve en JSON</li>
-      </ul>
-    </div>
+<!-- ══════ ANTES DE EMPEZAR ══════ -->
+<div class="card c-sesion" style="border-left-color:var(--amb);">
+  <div class="ses-head" style="background:#7A4B00;">
+    <h2>Antes de empezar — Tu API Key</h2>
+    <div class="meta">10 minutos · Se hace una sola vez</div>
   </div>
+  <div class="ses-body">
+    <p>Sin la API Key nada funciona: es la credencial que te habilita a usar la IA. Si ya tenés una que funciona, salteá esto.</p>
 
-  <div class="info i-p1">
-    <strong>Tres consecuencias de esto</strong>
-    <ul style="margin-top:8px;">
-      <li><strong>Sin internet no hay IA.</strong> El modelo no está en tu máquina: es demasiado grande para tu compu.</li>
-      <li><strong>Necesitás una API Key.</strong> Es tu credencial para que el servidor te atienda.</li>
-      <li><strong>El servidor no te recuerda.</strong> Cada pedido es independiente — por eso mandás el historial entero cada vez.</li>
-    </ul>
+    <div class="paso">
+      <div class="paso-head">Paso 1 — Conseguir la clave</div>
+      <div class="paso-body">
+        <ol>
+          <li>Entrá a <code>console.groq.com</code> y creá una cuenta (es gratis).</li>
+          <li>Buscá la sección <strong>API Keys</strong>.</li>
+          <li>Tocá <strong>Create API Key</strong>, ponele un nombre cualquiera.</li>
+          <li><strong>Copiala y guardala</strong> en un archivo tuyo. Solo se muestra una vez.</li>
+        </ol>
+        <div class="esperado">Tenés un texto largo que empieza con <code>gsk_</code> guardado en algún lado tuyo.</div>
+        <div class="tip"><strong>Importante:</strong> la clave es personal. No la compartas ni la subas a ningún lado público.</div>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">2</span> EL MODELO: <code>openai/gpt-oss-120b</code></h2>
-  <p>Ese nombre que copiaste sin pensar dice cuatro cosas:</p>
-  <div class="capa"><strong>openai</strong> — Quién lo desarrolló. Groq no fabrica el modelo: presta las máquinas donde corre.</div>
-  <div class="capa"><strong>gpt</strong> — El tipo de arquitectura con la que está construido, la misma familia de tecnología que usan casi todos los modelos de lenguaje actuales.</div>
-  <div class="capa"><strong>oss</strong> — <em>Open source</em>: sus pesos son abiertos y cualquiera puede descargarlo o servirlo. Por eso Groq puede ofrecerlo en su plataforma.</div>
-  <div class="capa"><strong>120b</strong> — <strong>120 mil millones de parámetros</strong>: los números internos que el modelo ajustó durante su entrenamiento. Ahí está "lo que sabe".</div>
-
-  <div class="info i-azul">
-    <strong>🔄 Los modelos se dan de baja: esto pasó de verdad, hace unos días</strong>
-    Hasta hace poco este taller usaba <code>llama-3.3-70b-versatile</code>. Groq anunció que <strong>deja de funcionar el 16 de agosto</strong>: después de esa fecha, cualquier programa que lo pida recibe un error. Por eso migramos a <code>openai/gpt-oss-120b</code>.<br><br>
-    Esto es parte normal del oficio: los modelos se actualizan y se retiran, y quien programa con IA tiene que estar atento. La buena noticia es que <strong>el cambio fue una línea</strong>: como el resto del código no depende del modelo, se reemplaza el nombre y todo lo demás sigue igual. Cuando programás bien, cambiar de motor no te obliga a rehacer el auto.
+<!-- ══════ SESIÓN 1 ══════ -->
+<div class="card c-sesion">
+  <div class="ses-head">
+    <h2>Sesión 1 — La función que habla con la IA</h2>
+    <div class="meta">🎯 Meta: que tu programa mande un mensaje y reciba una respuesta</div>
   </div>
+  <div class="ses-body">
 
-  <div class="info i-amb">
-    <strong>⚠️ Qué hace un LLM (y qué NO hace)</strong>
-    Un modelo de lenguaje <strong>predice el texto más probable</strong>, pedacito por pedacito. No busca en internet, no consulta una base de datos con la verdad, y no razona como una persona. Cuando le falta un dato, igual completa con algo <em>verosímil</em>: eso es una <strong>alucinación</strong>, y no es un error del programa — es cómo funciona.
-  </div>
-  <div class="info i-azul">
-    <strong>Por eso el proyecto nuevo se llama Extractor y no "Adivinador"</strong>
-    Vas a pedirle que saque datos que <strong>están escritos en el texto</strong>, y después vas a <strong>verificar</strong> que no haya inventado nada. Ese control es una de las partes que se evalúan.
-  </div>
-</div>
+    <div class="paso">
+      <div class="paso-head">Paso 1 — Colab nuevo y la librería</div>
+      <div class="paso-body">
+        <p>Abrí un Colab nuevo (<code>colab.research.google.com</code> → Archivo → Nuevo notebook). En la primera celda escribí:</p>
+        <div class="cod"><span class="kw">import</span> requests</div>
+        <p style="font-size:17px;margin-top:8px;"><code>requests</code> es la librería que le permite a Python mandar mensajes por internet. Es la que va a llevar tu mensaje hasta la IA.</p>
+        <div class="esperado">Ejecutás la celda (Shift + Enter) y no pasa nada visible. Eso está bien: si no hay error, funcionó.</div>
+      </div>
+    </div>
 
-<div class="card c-json">
-  <h2><span class="badge" style="background:var(--json)">3</span> JSON: EL IDIOMA DEL VIAJE</h2>
-  <p>Tu Colab habla Python; el servidor no sabe Python. Para entenderse usan un formato neutro que entienden los dos: <strong>JSON</strong>. Todo lo que va y lo que viene tiene esta forma.</p>
-
-  <p style="margin-top:16px;font-size:19px;"><strong>➡️ Lo que SALE de tu programa (el <code>payload</code>):</strong></p>
-  <div class="json-box">{
-  "model": "openai/gpt-oss-120b",   <span style="color:#6A9955;">&lt;- qué modelo querés</span>
-  "temperature": 0.7,                   <span style="color:#6A9955;">&lt;- cuánto puede variar</span>
-  "messages": [                         <span style="color:#6A9955;">&lt;- TODA la conversación</span>
-      {"role": "system",    "content": "Sos el Narrador..."},
-      {"role": "user",      "content": "abro la puerta"},
-      {"role": "assistant", "content": "La puerta cruje..."}
-  ]
+    <div class="paso">
+      <div class="paso-head">Paso 2 — Los datos de conexión</div>
+      <div class="paso-body">
+        <p>En una celda nueva, estas tres líneas. Reemplazá <code>gsk_TU_CLAVE</code> por tu clave real:</p>
+        <div class="cod">API_KEY = <span class="str">"gsk_TU_CLAVE"</span>
+URL     = <span class="str">"https://api.groq.com/openai/v1/chat/completions"</span>
+headers = {
+    <span class="str">"Authorization"</span>: f<span class="str">"Bearer {API_KEY}"</span>,
+    <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>
 }</div>
+        <p style="font-size:17px;"><strong>Pensalo como una carta.</strong> Lo que le vas a preguntar a la IA es la carta. Estas tres líneas son el sobre: el cartero nunca abre la carta, le alcanza con leer el sobre para saber qué hacer con ella.</p>
 
-  <p style="margin-top:18px;font-size:19px;"><strong>⬅️ Lo que VUELVE del servidor:</strong></p>
-  <div class="json-box">{
-  "choices": [                          <span style="color:#6A9955;">&lt;- lista de respuestas</span>
+        <p style="font-size:17px;margin-top:12px;"><strong><code>API_KEY</code></strong> — Tu credencial personal, la que sacaste al principio. Groq recibe millones de pedidos por día y necesita saber de qué cuenta viene cada uno.</p>
+
+        <p style="font-size:17px;margin-top:10px;"><strong><code>URL</code></strong> — La dirección exacta adonde llega tu pedido. Se le dice <em>endpoint</em>: es la puerta del servidor a la que le tocás el timbre. Fijate que termina en <code>/chat/completions</code>, porque le estás pidiendo que complete una conversación. Groq tiene otras puertas para otras cosas (transcribir audio, por ejemplo).</p>
+
+        <p style="font-size:17px;margin-top:10px;"><strong><code>headers</code></strong> — Los datos escritos en el sobre. Son dos, y responden dos preguntas distintas:</p>
+        <ul style="font-size:17px;margin-top:8px;">
+          <li><code>"Authorization"</code> → <strong>¿quién manda esto?</strong> Acá va tu clave. La palabra <strong>Bearer</strong> significa "portador" y es un estándar de la web: le avisa al servidor qué tipo de credencial viene a continuación, como decir "acá va una llave" antes de dar la llave. Lo vas a encontrar igual en casi cualquier API que uses en tu vida.</li>
+          <li><code>"Content-Type"</code> → <strong>¿en qué idioma está escrito?</strong> <code>application/json</code> le avisa que lo que mandás viene en formato JSON. Sin eso, el servidor recibe un montón de caracteres y no sabe si leerlos como JSON, como texto suelto o como un formulario.</li>
+        </ul>
+
+        <p style="font-size:17px;margin-top:10px;">La <strong>f-string</strong> del Authorization hace lo de siempre: reemplaza <code>{API_KEY}</code> por el contenido de la variable. Si tu clave es <code>gsk_abc123</code>, lo que realmente viaja es el texto <code>Bearer gsk_abc123</code>. Se hace así, y no escribiendo la clave ahí directo, para tenerla en un solo lugar: si la cambiás, la cambiás arriba y listo.</p>
+
+        <div class="tip"><strong>Para leer errores más adelante:</strong> si el sobre está mal, la carta ni se abre. Un error <strong>401</strong> significa "no te conozco" (revisá la clave). Un <strong>400</strong> significa "no te entiendo" (revisá el formato). Cuando te dé 401, no revises tu pregunta: revisá la API Key.</div>
+        <div class="esperado">Ejecutás y no hay error. Si te aparece algo sobre comillas, revisá que no hayas borrado ninguna.</div>
+      </div>
+    </div>
+
+    <div class="paso">
+      <div class="paso-head">Paso 3 — La función</div>
+      <div class="paso-body">
+        <p>Esta es la pieza central. Recibe los mensajes, los manda, y devuelve lo que contestó la IA:</p>
+        <div class="cod"><span class="kw">def</span> <span class="fn">consultar_ia</span>(mensajes, nivel_creatividad):
+    payload = {
+        <span class="str">"model"</span>: <span class="str">"openai/gpt-oss-120b"</span>,
+        <span class="str">"temperature"</span>: nivel_creatividad,
+        <span class="str">"messages"</span>: mensajes
+    }
+    <span class="kw">try</span>:
+        respuesta = requests.<span class="fn">post</span>(URL, headers=headers, json=payload)
+        <span class="kw">return</span> respuesta.<span class="fn">json</span>()[<span class="str">"choices"</span>][<span class="nm">0</span>][<span class="str">"message"</span>][<span class="str">"content"</span>]
+    <span class="kw">except</span> <span class="fn">Exception</span> <span class="kw">as</span> e:
+        <span class="kw">return</span> f<span class="str">"Error: {e}"</span></div>
+        <p style="font-size:17px;">Son pocas líneas pero pasan muchas cosas. Vamos una por una.</p>
+
+        <p style="font-size:17px;margin-top:12px;"><strong>1. Los dos parámetros.</strong> <code>mensajes</code> es lo que le querés preguntar a la IA (más adelante va a ser el historial completo). <code>nivel_creatividad</code> es un número que vos elegís y que viaja como <code>temperature</code>.</p>
+
+        <p style="font-size:17px;margin-top:12px;"><strong>2. El <code>payload</code> es el paquete que viaja.</strong> Es un diccionario con tres cosas, y cada una tiene su razón de ser:</p>
+        <ul style="font-size:17px;margin-top:8px;">
+          <li><code>"model"</code> → <strong>qué modelo querés que responda.</strong> Groq ofrece varios, con distintos tamaños y velocidades. Si no lo aclarás, no sabe cuál usar.</li>
+          <li><code>"temperature"</code> → <strong>cuánto se puede arriesgar el modelo.</strong> Va <strong>de 0 a 2</strong>, y si no la ponés, la API usa 1. Cerca de <strong>0</strong> elige casi siempre la palabra más probable: respuestas estables y predecibles. Más arriba se arriesga: respuestas variadas y creativas. Cerca de <strong>2</strong> se vuelve tan aleatoria que puede perder el hilo. Para un chatbot conversacional 0.7 anda bien; para sacar datos exactos de un texto conviene bajarla mucho.</li>
+          <li><code>"messages"</code> → <strong>la conversación.</strong> Acá va lo que recibiste en el parámetro <code>mensajes</code>.</li>
+        </ul>
+
+        <p style="font-size:17px;margin-top:12px;"><strong>3. <code>requests.post(...)</code> es el viaje de ida.</strong> Ahí sale tu pedido a internet. Se usa <code>post</code> (y no <code>get</code>) porque le estás <em>mandando</em> datos, no solo pidiendo algo. Le pasás las tres cosas que necesita: adónde va (<code>URL</code>), el sobre (<code>headers</code>) y el contenido (<code>json=payload</code>). En esa línea tu programa se queda esperando hasta que el servidor conteste.</p>
+
+        <p style="font-size:17px;margin-top:12px;"><strong>4. La línea de los corchetes desarma la respuesta.</strong> Acá está la parte que más confunde, así que vale la pena entenderla bien. El servidor <strong>no te devuelve el texto pelado</strong>: te devuelve un JSON con un montón de información alrededor, más o menos así:</p>
+        <div class="cod">{
+  <span class="dk">"choices"</span>: [
       {
-        "message": {
-            "role": "assistant",
-            "content": "Detrás de la puerta hay..."   <span style="color:#6A9955;">&lt;- EL TEXTO</span>
+        <span class="dk">"message"</span>: {
+            <span class="dk">"role"</span>: <span class="str">"assistant"</span>,
+            <span class="dk">"content"</span>: <span class="str">"Acá está lo que te contestó la IA"</span>
         }
       }
   ],
-  "usage": {"total_tokens": 512}        <span style="color:#6A9955;">&lt;- cuánto consumiste</span>
+  <span class="dk">"usage"</span>: { <span class="dk">"total_tokens"</span>: <span class="nm">512</span> }
 }</div>
+        <p style="font-size:17px;">Es una caja con cajas adentro. Para llegar al texto hay que ir abriendo una por una, y eso es exactamente lo que hace cada corchete:</p>
+        <ul style="font-size:17px;margin-top:8px;">
+          <li><code>respuesta.json()</code> → convierte todo lo que llegó en un diccionario de Python.</li>
+          <li><code>["choices"]</code> → entra a la lista de respuestas. Se llama así porque la API permite pedir varias opciones distintas a la vez.</li>
+          <li><code>[0]</code> → agarra la primera de esa lista. Como pediste una sola, es la única que hay.</li>
+          <li><code>["message"]</code> → entra al mensaje.</li>
+          <li><code>["content"]</code> → y acá sí, el texto que buscabas.</li>
+        </ul>
+        <p style="font-size:17px;margin-top:8px;">El <code>return</code> devuelve ese texto. Es importante que sea <code>return</code> y no <code>print</code>: con <code>return</code> el resultado queda guardado en una variable y lo podés seguir usando (agregarlo al historial, darle formato). Con <code>print</code> se muestra en pantalla y se pierde.</p>
 
-  <div class="info i-json">
-    <strong>Por eso hay que "cavar" hasta el texto</strong>
-    El servidor no devuelve la frase pelada: devuelve una caja con cajas adentro. Cada corchete abre una:<br><br>
-    <code>respuesta.json()</code> → todo el JSON<br>
-    <code>["choices"]</code> → la lista de respuestas<br>
-    <code>[0]</code> → la primera<br>
-    <code>["message"]</code> → el mensaje<br>
-    <code>["content"]</code> → <strong>el texto que buscabas</strong>
+        <p style="font-size:17px;margin-top:12px;"><strong>5. El <code>try/except</code> es la red de seguridad.</strong> Muchas cosas pueden salir mal en ese viaje: se corta internet, la clave está vencida, el servidor está caído. Sin el <code>try</code>, cualquiera de esas rompe el programa y se corta todo. Con él, Python intenta lo que está adentro del <code>try</code>, y si falla salta al <code>except</code>, que devuelve un mensaje contando qué pasó. Tu programa sigue vivo y vos te enterás del problema.</p>
+
+        <div class="tip"><strong>Lo importante:</strong> estas líneas son <em>toda</em> la conexión con la inteligencia artificial. Todo el resto de tu chatbot — el bucle, los comandos, el historial — es Python común y corriente. La IA entra por acá.</div>
+        <div class="esperado">Ejecutás y no pasa nada visible. Definir una función no la ejecuta: eso viene en el paso siguiente.</div>
+      </div>
+    </div>
+
+    <div class="paso">
+      <div class="paso-head">Paso 4 — Probala</div>
+      <div class="paso-body">
+        <div class="cod">prueba = [{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"Decí exactamente: La función funciona"</span>}]
+
+resultado = <span class="fn">consultar_ia</span>(prueba, <span class="nm">0.5</span>)
+<span class="fn">print</span>(resultado)</div>
+        <div class="esperado">La IA responde algo parecido a "La función funciona". Si ves eso, tenés la conexión lista. 🎉</div>
+        <div class="sifalla">
+          <strong>Error 401 o "invalid api key":</strong> la clave está mal copiada. Fijate que no falte ningún carácter ni sobre un espacio.<br>
+          <strong>"name 'requests' is not defined":</strong> no ejecutaste la celda del Paso 1. Ejecutá las celdas de arriba en orden.<br>
+          <strong>"name 'consultar_ia' is not defined":</strong> no ejecutaste la celda del Paso 3.<br>
+          <strong>Tarda mucho y falla:</strong> revisá la conexión a internet. Sin internet no hay IA: el modelo no está en tu compu.
+        </div>
+      </div>
+    </div>
+
+    <div class="checkpoint">
+      <strong>🚦 Checkpoint 1 — antes de seguir</strong>
+      Tu función tiene que devolver una respuesta de la IA. Si te aparece un error, no avances: revisá la clave y que hayas ejecutado todas las celdas en orden.
+      <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Ejecuté el Paso 4 y la IA me respondió</div>
+    </div>
   </div>
 </div>
 
-<div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">4</span> DISECCIÓN DE TUS BLOQUES B2 Y B3</h2>
-  <p>Estas son las líneas que venís escribiendo desde la Clase 6. Ahora las leemos entendiendo qué hace cada una:</p>
+<!-- ══════ SESIÓN 2 ══════ -->
+<div class="card c-sesion">
+  <div class="ses-head">
+    <h2>Sesión 2 — Memoria y personalidad</h2>
+    <div class="meta">🎯 Meta: que la IA recuerde la conversación y tenga un rol</div>
+  </div>
+  <div class="ses-body">
 
-  <div class="code-block"><span class="cm"># ===== B2 — LA CONFIGURACIÓN =====</span>
-API_KEY = <span class="str">"gsk_TU_CLAVE"</span>
-<span class="cm"># ^ Tu credencial. Identifica QUIÉN hace el pedido. No se comparte nunca.</span>
+    <div class="paso">
+      <div class="paso-head">Paso 1 — El historial y el system prompt</div>
+      <div class="paso-body">
+        <p>El <strong>historial</strong> es una lista donde se guarda toda la conversación. La IA lo lee completo cada vez: así "recuerda".</p>
+        <p>El primer mensaje del historial es especial: el <strong>system prompt</strong>, que define quién es la IA y cómo se comporta.</p>
+        <div class="cod"><span class="cm"># Elegí el tema de tu chatbot y escribí sus reglas</span>
+sistema = <span class="str">"""Sos un asistente de recetas amigable y práctico.
+Solo hablás de cocina. Si te preguntan otra cosa,
+respondés que tu especialidad es la cocina.
+Tus respuestas son cortas y claras."""</span>
 
-URL = <span class="str">"https://api.groq.com/openai/v1/chat/completions"</span>
-<span class="cm"># ^ La dirección exacta del backend: el "endpoint".</span>
-<span class="cm">#   Es la puerta del servidor a la que le tocás el timbre.</span>
+historial = [{<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: sistema}]</div>
+        <div class="tip">Podés cambiar el tema: un asistente de deportes, de música, de videojuegos. Lo que quieras, pero escribí <strong>reglas claras</strong>.</div>
+        <div class="esperado">Ejecutás y no hay error. Tu historial ahora tiene un elemento adentro.</div>
+      </div>
+    </div>
 
-headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer {API_KEY}"</span>,
-           <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>}
-<span class="cm"># ^ Los datos del sobre: QUIÉN sos (Authorization)</span>
-<span class="cm">#   y EN QUÉ IDIOMA le hablás (Content-Type: json).</span>
+    <div class="paso">
+      <div class="paso-head">Paso 2 — Un turno de conversación</div>
+      <div class="paso-body">
+        <p>Un turno son siempre estos tres movimientos, <strong>en este orden</strong>:</p>
+        <div class="cod"><span class="cm"># 1. Guardar lo que dice la persona</span>
+historial.<span class="fn">append</span>({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"¿Cómo hago una tortilla de papas?"</span>})
 
+<span class="cm"># 2. Consultar a la IA mandándole TODO el historial</span>
+respuesta = <span class="fn">consultar_ia</span>(historial, <span class="nm">0.7</span>)
 
-<span class="cm"># ===== B3 — LA FUNCIÓN QUE HACE EL VIAJE =====</span>
-<span class="kw">def</span> <span class="fn">consultar_ia</span>(mensajes, nivel_creatividad):
+<span class="cm"># 3. Guardar lo que respondió la IA</span>
+historial.<span class="fn">append</span>({<span class="str">"role"</span>: <span class="str">"assistant"</span>, <span class="str">"content"</span>: respuesta})
 
-    payload = {<span class="str">"model"</span>: <span class="str">"openai/gpt-oss-120b"</span>,
-               <span class="str">"temperature"</span>: nivel_creatividad,
-               <span class="str">"messages"</span>: mensajes}
-    <span class="cm"># ^ EL PEDIDO en JSON: qué modelo, cuánta variación,</span>
-    <span class="cm">#   y toda la conversación hasta ahora.</span>
+<span class="fn">print</span>(respuesta)</div>
+        <div class="esperado">La IA te responde una receta, siguiendo las reglas que le pusiste en el system prompt.</div>
+        <div class="sifalla">
+          <strong>Responde cualquier cosa, ignora las reglas:</strong> fijate que el system prompt esté en la posición 0 del historial y que le estés pasando <code>historial</code> a la función, no el mensaje suelto.
+        </div>
+      </div>
+    </div>
 
-    <span class="kw">try</span>:
-        respuesta = requests.<span class="fn">post</span>(URL, headers=headers, json=payload)
-        <span class="cm"># ^ EL VIAJE DE IDA. post = "te mando datos".</span>
-        <span class="cm">#   Acá tu programa se queda esperando la respuesta.</span>
+    <div class="paso">
+      <div class="paso-head">Paso 3 — Comprobá que recuerda</div>
+      <div class="paso-body">
+        <p>Esta es la prueba de que el historial funciona. Repetí el Paso 2 pero con una pregunta que dependa de lo anterior:</p>
+        <div class="cod">historial.<span class="fn">append</span>({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"¿Y cuánto tarda?"</span>})
+respuesta = <span class="fn">consultar_ia</span>(historial, <span class="nm">0.7</span>)
+historial.<span class="fn">append</span>({<span class="str">"role"</span>: <span class="str">"assistant"</span>, <span class="str">"content"</span>: respuesta})
+<span class="fn">print</span>(respuesta)</div>
+        <div class="esperado">La IA entiende que "¿y cuánto tarda?" se refiere a <strong>la tortilla</strong>, aunque no la nombraste. Eso pasa porque le mandaste el historial completo.</div>
+        <div class="sifalla">
+          <strong>Pregunta "¿cuánto tarda qué?":</strong> no estás acumulando en el historial. Revisá que uses <code>historial.append(...)</code> y no <code>historial = [...]</code>, que lo pisa todo.
+        </div>
+      </div>
+    </div>
 
-        <span class="kw">return</span> respuesta.<span class="fn">json</span>()[<span class="str">"choices"</span>][<span class="nm">0</span>][<span class="str">"message"</span>][<span class="str">"content"</span>]
-        <span class="cm"># ^ LA VUELTA, desarmada caja por caja hasta llegar al texto.</span>
-
-    <span class="kw">except</span> <span class="fn">Exception</span> <span class="kw">as</span> e:
-        <span class="kw">return</span> f<span class="str">"Error: {e}"</span>
-        <span class="cm"># ^ Si se cae internet o la clave está mal, avisa en vez de romperse.</span></div>
-
-  <div class="info i-p1">
-    <strong>Estas líneas son TODA la conexión con la inteligencia artificial</strong>
-    El resto de tu RPG (el bucle, los comandos, el diccionario del jugador) es Python común. <strong>La IA entra por acá.</strong> Y en el proyecto nuevo este bloque se reusa casi sin tocar.
+    <div class="checkpoint">
+      <strong>🚦 Checkpoint 2 — antes de seguir</strong>
+      <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Mi chatbot respeta las reglas del system prompt</div>
+      <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Entiende una segunda pregunta que depende de la primera</div>
+    </div>
   </div>
 </div>
 
-<div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">5</span> LOS ROLES Y EL CONTEXTO</h2>
-  <p>Dentro de <code>messages</code>, cada mensaje tiene un <strong>rol</strong>. No son decorativos: le dicen al modelo cómo interpretar cada texto.</p>
-  <div class="trio">
-    <div class="mini"><strong>system</strong>La <strong>configuración</strong>: quién es y cómo se comporta. Tu guion del Narrador. Va en la posición 0, una sola vez.</div>
-    <div class="mini"><strong>user</strong>Lo que escribe la persona. En tu RPG, la acción del jugador.</div>
-    <div class="mini"><strong>assistant</strong>Lo que respondió la IA antes. Se guarda para que el modelo sepa qué dijo.</div>
+<!-- ══════ SESIÓN 3 ══════ -->
+<div class="card c-sesion">
+  <div class="ses-head">
+    <h2>Sesión 3 — El chatbot completo</h2>
+    <div class="meta">🎯 Meta: que funcione solo, en un bucle, hasta que quieras salir</div>
   </div>
+  <div class="ses-body">
 
-  <div class="info i-rojo">
-    <strong>🧠 La memoria la ponés vos, no el servidor</strong>
-    El servidor <strong>no guarda nada</strong> entre un pedido y el siguiente: se dice que la API es <em>sin estado</em>. La conversación existe solo porque tu programa la va acumulando en <code>historial</code> y la manda entera cada vez. Si no la mandás, el modelo arranca de cero como si nunca hubieran hablado.
-  </div>
+    <div class="paso">
+      <div class="paso-head">Paso 1 — El bucle</div>
+      <div class="paso-body">
+        <p>Hasta ahora escribías las preguntas a mano en el código. Ahora el programa las pide solo, una y otra vez:</p>
+        <div class="cod"><span class="kw">while</span> <span class="kw">True</span>:
+    mensaje = <span class="fn">input</span>(<span class="str">"Vos: "</span>).<span class="fn">strip</span>()
 
-  <div class="duo">
-    <div class="mini"><strong>🌡️ Temperatura</strong>Cuánto se arriesga el modelo. <strong>Baja</strong> (0.0–0.3): predecible y estable → ideal para <strong>extraer datos</strong>. <strong>Alta</strong> (0.7–1.0): variada y creativa → lo que usabas para narrar tu aventura.</div>
-    <div class="mini"><strong>🔢 Tokens</strong>El modelo parte el texto en pedacitos (tokens) y predice el siguiente. Hay un <strong>límite por pedido</strong>: si el historial crece mucho, no entra. Por eso a veces hay que recortarlo.</div>
+    <span class="kw">if</span> mensaje.<span class="fn">lower</span>() == <span class="str">"salir"</span>:
+        <span class="fn">print</span>(<span class="str">"¡Chau!"</span>)
+        <span class="kw">break</span>
+
+    historial.<span class="fn">append</span>({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: mensaje})
+    respuesta = <span class="fn">consultar_ia</span>(historial, <span class="nm">0.7</span>)
+    historial.<span class="fn">append</span>({<span class="str">"role"</span>: <span class="str">"assistant"</span>, <span class="str">"content"</span>: respuesta})
+    <span class="fn">print</span>(<span class="str">"IA:"</span>, respuesta)</div>
+        <p style="font-size:17px;"><code>while True</code> se repite para siempre; el <code>break</code> es la única forma de cortarlo. El <code>.strip()</code> saca los espacios de más, y el <code>.lower()</code> hace que "Salir" o "SALIR" también funcionen.</p>
+        <div class="esperado">Aparece el cuadro para escribir. Charlás con tu chatbot, y cuando escribís "salir", termina.</div>
+        <div class="sifalla">
+          <strong>No para nunca:</strong> falta el <code>break</code>, o la comparación no coincide (fijate que tenga el <code>.lower()</code>).<br>
+          <strong>Se cortó y quedó colgado:</strong> tocá el botón de detener de la celda y volvé a ejecutar.
+        </div>
+      </div>
+    </div>
+
+    <div class="paso">
+      <div class="paso-head">Paso 2 — Un comando propio</div>
+      <div class="paso-body">
+        <p>Un comando es una palabra que el programa atiende <strong>sin</strong> mandársela a la IA. Agregá esto adentro del bucle, justo después del <code>if</code> de salir:</p>
+        <div class="cod">    <span class="kw">if</span> mensaje.<span class="fn">lower</span>() == <span class="str">"/turnos"</span>:
+        <span class="fn">print</span>(f<span class="str">"Mensajes en el historial: {len(historial)}"</span>)
+        <span class="kw">continue</span></div>
+        <p style="font-size:17px;">El <code>continue</code> es clave: vuelve al principio del bucle sin gastar un turno con la IA. Sin él, el programa seguiría de largo y le mandaría "/turnos" a la IA como si fuera una pregunta.</p>
+        <div class="esperado">Escribís <code>/turnos</code> y te dice cuántos mensajes hay, sin llamar a la IA.</div>
+        <div class="sifalla">
+          <strong>Le manda "/turnos" a la IA igual:</strong> falta el <code>continue</code>, o el <code>if</code> quedó mal indentado (tiene que estar adentro del <code>while</code>).
+        </div>
+      </div>
+    </div>
+
+    <div class="paso">
+      <div class="paso-head">Paso 3 — La prueba final</div>
+      <div class="paso-body">
+        <p>Antes de entregar, probá esto en orden:</p>
+        <ol>
+          <li>Entorno → <strong>Reiniciar y ejecutar todo</strong>.</li>
+          <li>Hacé una pregunta de tu tema. Tiene que responder.</li>
+          <li>Hacé una segunda pregunta que dependa de la primera. Tiene que entenderla.</li>
+          <li>Preguntale algo <strong>fuera</strong> de su tema. Tiene que negarse, como dice el system prompt.</li>
+          <li>Escribí <code>/turnos</code>. Tiene que responder sin llamar a la IA.</li>
+          <li>Escribí <code>salir</code>. Tiene que terminar.</li>
+        </ol>
+        <div class="esperado">Los seis pasos funcionan sin errores, arrancando desde cero. Ahí está terminado. 🎉</div>
+      </div>
+    </div>
+
+    <div class="checkpoint">
+      <strong>🚦 Checkpoint 3 — listo para entregar</strong>
+      <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Corre completo con Reiniciar y ejecutar todo</div>
+      <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Responde y recuerda la conversación</div>
+      <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Respeta su tema y rechaza lo que está fuera</div>
+      <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Tiene el comando /turnos y la salida con "salir"</div>
+    </div>
   </div>
 </div>
 
-<div class="card c-avanzado">
-  <h2><span class="badge" style="background:var(--amb)">6</span> ACTIVIDAD INDIVIDUAL — AUTODIAGNÓSTICO</h2>
-  <p>Diez preguntas sobre cómo funciona tu aplicación con IA. <strong>Se hace solo, sin ayuda y sin mirar el Colab.</strong> No lleva nota: sirve para saber qué repasar. Al final te dice exactamente qué temas mirar de nuevo.</p>
-  <div id="quiz-box" style="margin-top:18px;"></div>
-  <div class="info i-amb" style="margin-top:16px;">
-    <strong>✍️ Anotá tu resultado</strong>
-    Escribí en tu carpeta los temas que te salieron mal. Esos son los que repasás esta semana — con el asistente de abajo, con un compañero o con los profes.
+<!-- ══════ SESIÓN 4 ══════ -->
+<div class="card c-sesion" style="border-left-color:var(--azul);">
+  <div class="ses-head" style="background:#0D3D6E;">
+    <h2>Sesión 4 — Entender lo que hiciste</h2>
+    <div class="meta">🎯 Meta: poder explicarlo, porque el proyecto nuevo arranca desde acá</div>
+  </div>
+  <div class="ses-body">
+    <p>Tener el código andando no alcanza: hay que poder explicarlo. Respondé estas cinco preguntas <strong>con tus palabras</strong> y guardalas junto al Colab.</p>
+
+    <div class="paso">
+      <div class="paso-head">Las cinco preguntas</div>
+      <div class="paso-body">
+        <ol style="line-height:2;">
+          <li><strong>¿Dónde está la IA?</strong> ¿Corre en tu computadora o en otro lado? ¿Cómo te das cuenta?</li>
+          <li><strong>¿Para qué sirve la API Key?</strong> ¿Qué pasaría si estuviera mal escrita?</li>
+          <li><strong>¿Por qué le mandás el historial entero</strong> en cada pregunta, en vez de solo el último mensaje?</li>
+          <li><strong>¿Qué hace el system prompt</strong> y por qué va una sola vez, al principio?</li>
+          <li><strong>¿Cuál es la diferencia entre <code>break</code> y <code>continue</code>?</strong> Dá un ejemplo de tu propio código.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="paso">
+      <div class="paso-head">El puente al proyecto nuevo</div>
+      <div class="paso-body">
+        <p>El <strong>lunes 10/8</strong> arranca la Unidad 4 del segundo cuatrimestre: un <strong>Extractor de datos</strong>. Mirá cuánto de esto vas a reusar:</p>
+        <table>
+          <tr><th style="width:45%;">Lo que hiciste acá</th><th>Cómo se usa en el proyecto nuevo</th></tr>
+          <tr><td>Los datos de conexión (API Key, URL, headers)</td><td><strong>Igual, sin tocar nada.</strong></td></tr>
+          <tr><td><code>consultar_ia()</code> para conversar</td><td>La misma función, pero le pedís <strong>datos ordenados</strong> en vez de charla.</td></tr>
+          <tr><td>Diccionarios con <code>role</code> y <code>content</code></td><td>Diccionarios con los campos que vos elijas.</td></tr>
+          <tr><td>El bucle que repite turnos</td><td>Un bucle que recorre <strong>muchos archivos</strong>.</td></tr>
+          <tr><td>El <code>try/except</code> de la función</td><td>Para atrapar respuestas rotas de la IA y reintentar.</td></tr>
+        </table>
+        <p style="margin-top:12px;">Por eso esta guía importa: si esto queda claro, el proyecto nuevo arranca cuesta abajo.</p>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">7</span> EL PUENTE: TODO ESTO SIGUE EN EL PROYECTO NUEVO</h2>
+<!-- ══════ ERRORES ══════ -->
+<div class="card">
+  <h2 style="font-size:22px;margin-bottom:12px;">🔧 Los errores más comunes</h2>
   <table>
-    <tr><th style="width:45%;">Lo que ya sabés (RPG)</th><th>Cómo lo usás en el Extractor</th></tr>
-    <tr><td>El bloque B2 completo (API Key, URL, headers)</td><td><strong>Igual, sin tocar nada.</strong></td></tr>
-    <tr><td><code>consultar_ia()</code> para narrar</td><td>La misma función, pero le pedís <strong>datos en JSON</strong> en vez de narración.</td></tr>
-    <tr><td><code>temperature</code> alta para creatividad</td><td><strong>Temperatura baja</strong>: para extraer datos no querés que invente.</td></tr>
-    <tr><td>Leer el JSON de la respuesta</td><td>Además vas a leer un JSON <strong>adentro</strong> del texto que devuelve el modelo.</td></tr>
-    <tr><td>Diccionarios <code>role</code>/<code>content</code></td><td>Diccionarios con <strong>tus campos</strong>: producto, cliente, hora.</td></tr>
-    <tr><td>Saber que la IA alucina</td><td>Un <strong>análisis de calidad</strong> para detectar y corregir esas invenciones.</td></tr>
+    <tr><th style="width:40%;">Lo que te aparece</th><th>Qué significa y cómo se arregla</th></tr>
+    <tr><td><code>name 'X' is not defined</code></td><td>No ejecutaste la celda donde se define X. Ejecutá las celdas de arriba, en orden.</td></tr>
+    <tr><td>Error 401 / invalid api key</td><td>La clave está mal copiada o venció. Copiala de nuevo, entera y sin espacios.</td></tr>
+    <tr><td><code>IndentationError</code></td><td>La sangría está mal. Todo lo que va adentro del <code>while</code> o del <code>if</code> lleva 4 espacios de más.</td></tr>
+    <tr><td>El bucle no termina nunca</td><td>Falta el <code>break</code>, o la palabra no coincide (¿pusiste <code>.lower()</code>?).</td></tr>
+    <tr><td>La IA no recuerda nada</td><td>Estás pisando el historial con <code>=</code> en vez de acumular con <code>.append()</code>.</td></tr>
+    <tr><td>Ignora las reglas del system prompt</td><td>El system prompt no está en la posición 0, o no le estás pasando el historial a la función.</td></tr>
+    <tr><td>Todo andaba y de golpe nada funciona</td><td>Se reinició el entorno de Colab. Reiniciar y ejecutar todo, desde la primera celda.</td></tr>
   </table>
-  <div class="info i-grn">
-    <strong>📅 Lunes 10/8 · 120 min — Arranca el proyecto</strong>
-    Vení pensando con quién querés trabajar (equipos de 3 o 4) y qué tema te interesaría. El detalle está en la página de la Clase 1.
-  </div>
 </div>
 
+<!-- ══════ ENTREGA ══════ -->
+<div class="card c-final">
+  <h2 style="font-size:22px;margin-bottom:12px;">🎯 Cómo saber que estás listo</h2>
+  <p>Esta guía no se entrega. Pero si podés tildar todo esto, llegás a la recuperación en buenas condiciones:</p>
+  <div class="checkpoint" style="margin-top:16px;">
+    <strong>✅ Checklist</strong>
+    <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Mi Colab corre completo desde cero</div>
+    <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>El chatbot responde, recuerda y respeta su tema</div>
+    <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Puedo responder las 5 preguntas de la Sesión 4</div>
+    <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Sé explicar mi propio código si me preguntan</div>
+    <div id="fb-final" style="margin-top:14px;font-size:19px;font-weight:bold;"></div>
+  </div>
+  <p style="margin-top:16px;font-size:17px;">Si algo no te sale, no te quedes trabado: preguntá en clase o escribile al profe. Es mejor consultar mientras repasás que llegar con la duda a la recuperación.</p>
+</div>
+
+</div>
 <script>
-var PREGUNTAS = [
- {tema:"Arquitectura cliente/servidor",
-  p:"Cuando corr&eacute;s tu RPG en Colab, &iquest;d&oacute;nde se ejecuta realmente el modelo <code>gpt-oss-120b</code>?",
-  ops:["En tu computadora, se descarga la primera vez","En los servidores de Groq, a los que tu c&oacute;digo les manda un pedido","Dentro de Google Colab","En el navegador, con JavaScript"],
-  ok:1,
-  exp:"Tu Colab es el <strong>cliente (frontend)</strong>: arma el pedido y lo manda. El modelo vive en el <strong>servidor de Groq (backend)</strong>. Por eso necesit&aacute;s internet y una API Key: sin conexi&oacute;n no hay IA."},
- {tema:"El modelo",
-  p:"En openai/gpt-oss-<strong>120b</strong>, &iquest;qu&eacute; significa el 120b?",
-  ops:["Que soporta 120 mil palabras","Que tiene 120 mil millones de par&aacute;metros","Que tarda 120 milisegundos","Que es la versi&oacute;n n&uacute;mero 120"],
-  ok:1,
-  exp:"120b = 120 <em>billion</em>: 120 mil millones de par&aacute;metros, los n&uacute;meros internos que el modelo ajust&oacute; en su entrenamiento. Ah&iacute; est&aacute; lo que sabe. El <em>oss</em> significa que sus pesos son abiertos: por eso Groq puede servirlo."},
- {tema:"Autenticaci&oacute;n (API Key)",
-  p:"&iquest;Para qu&eacute; sirve la API Key que va en los headers?",
-  ops:["Para encriptar el mensaje","Para que el servidor sepa qui&eacute;n sos y autorice el pedido","Para elegir el modelo","Para acelerar la respuesta"],
-  ok:1,
-  exp:"Es tu credencial. El header <code>Authorization: Bearer TU_CLAVE</code> le dice al servidor qui&eacute;n hace el pedido, para autorizarlo y contabilizar tu uso. Por eso <strong>nunca se comparte ni se sube a un repositorio p&uacute;blico</strong>."},
- {tema:"El JSON que va (payload)",
-  p:"En el payload, &iquest;qu&eacute; va dentro de <code>messages</code>?",
-  ops:["Solo el &uacute;ltimo mensaje del jugador","Toda la conversaci&oacute;n hasta ese momento","El system prompt nada m&aacute;s","La respuesta anterior de la IA"],
-  ok:1,
-  exp:"Va el <strong>historial completo</strong>: el system y todos los turnos de user y assistant. Es la &uacute;nica forma que tiene el modelo de saber qu&eacute; pas&oacute; antes."},
- {tema:"API sin estado",
-  p:"&iquest;Por qu&eacute; hay que mandar el historial <strong>entero</strong> en cada llamada?",
-  ops:["Por seguridad","Porque el servidor no guarda nada de tu conversaci&oacute;n entre pedido y pedido","Porque el modelo se reinicia cada hora","Para que responda m&aacute;s r&aacute;pido"],
-  ok:1,
-  exp:"La API es <strong>sin estado</strong>: cada pedido es independiente y el servidor no recuerda el anterior. La memoria la sosten&eacute;s <strong>vos</strong>, en la lista <code>historial</code> de tu Colab. Si no la mand&aacute;s, la IA arranca de cero."},
- {tema:"El JSON que vuelve",
-  p:"&iquest;Por qu&eacute; se escribe <code>respuesta.json()[&quot;choices&quot;][0][&quot;message&quot;][&quot;content&quot;]</code>?",
-  ops:["Es una f&oacute;rmula fija que no significa nada","Porque la respuesta es un JSON con cajas adentro de cajas y hay que abrirlas hasta el texto","Porque hay varios modelos respondiendo a la vez","Para convertir el texto a min&uacute;sculas"],
-  ok:1,
-  exp:"El servidor no devuelve el texto pelado: devuelve un JSON con metadatos. <code>choices</code> es la lista de respuestas, <code>[0]</code> toma la primera, <code>message</code> el mensaje y <code>content</code> el texto. Cada corchete abre una caja."},
- {tema:"Los roles",
-  p:"&iquest;Qu&eacute; hace el rol <code>system</code> en el historial?",
-  ops:["Muestra los mensajes de error del sistema","Configura c&oacute;mo se comporta la IA en toda la conversaci&oacute;n","Guarda la partida","Es el nombre del jugador"],
-  ok:1,
-  exp:"Es la <strong>configuraci&oacute;n</strong> del modelo para esa conversaci&oacute;n: tu guion del Narrador. Va en la posici&oacute;n 0, una sola vez. Los otros roles son <code>user</code> (lo que escribe el jugador) y <code>assistant</code> (lo que respondi&oacute; la IA)."},
- {tema:"Temperatura",
-  p:"Tu par&aacute;metro <code>nivel_creatividad</code> viaja como <code>temperature</code>. &iquest;Qu&eacute; controla?",
-  ops:["La velocidad de la respuesta","Cu&aacute;nto var&iacute;a la respuesta: baja = predecible, alta = creativa","El largo m&aacute;ximo del texto","Cu&aacute;nto cuesta el pedido"],
-  ok:1,
-  exp:"Con temperatura <strong>baja</strong> el modelo elige casi siempre lo m&aacute;s probable: ideal para <strong>extraer datos</strong>, que es lo que viene ahora. Con temperatura <strong>alta</strong> se arriesga m&aacute;s: serv&iacute;a para narrar tu aventura."},
- {tema:"Tokens",
-  p:"&iquest;Qu&eacute; es un <strong>token</strong>?",
-  ops:["Una contrase&ntilde;a temporal","El pedacito de texto en que el modelo divide todo para procesarlo","Un error de la API","Un mensaje del historial"],
-  ok:1,
-  exp:"El modelo no lee palabras enteras: parte el texto en tokens y va prediciendo el siguiente. Importa porque hay un <strong>l&iacute;mite de tokens</strong> por pedido: si el historial crece demasiado, no entra y hay que recortarlo."},
- {tema:"Alucinaciones",
-  p:"&iquest;Por qu&eacute; la IA a veces inventa un dato que no estaba en el texto?",
-  ops:["Porque tiene un error de programaci&oacute;n","Porque genera el texto m&aacute;s probable, no consulta una base de datos con la verdad","Porque la API est&aacute; ca&iacute;da","Porque le falta memoria RAM"],
-  ok:1,
-  exp:"Un LLM genera lo m&aacute;s <strong>probable</strong> seg&uacute;n su entrenamiento. Si le falta un dato, completa igual con algo veros&iacute;mil: eso es una <strong>alucinaci&oacute;n</strong>, y no es un bug. Por eso en el proyecto nuevo vas a <strong>verificar</strong> lo que devuelve."}
-];
-
-var qIdx=0, qOk=0, qFallos=[];
-function qRender(){
-  var c=document.getElementById('quiz-box');
-  if(qIdx>=PREGUNTAS.length){qFin();return;}
-  var q=PREGUNTAS[qIdx];
-  var h='<p style="font-size:16px;color:#666;margin-bottom:6px;">Pregunta '+(qIdx+1)+' de '+PREGUNTAS.length+' &middot; '+q.tema+'</p>';
-  h+='<p style="font-size:20px;font-weight:bold;margin-bottom:14px;">'+q.p+'</p>';
-  for(var i=0;i<q.ops.length;i++){
-    h+='<button class="q-op" onclick="qResp('+i+')">'+q.ops[i]+'</button>';
+function toggle(el){
+  var hecho = el.classList.toggle('hecho');
+  el.querySelector('.caja').textContent = hecho ? '✅' : '⬜';
+  var todos = document.querySelectorAll('.chk');
+  var listos = document.querySelectorAll('.chk.hecho');
+  var fb = document.getElementById('fb-final');
+  if(fb){
+    if(listos.length === todos.length){
+      fb.textContent = '🎉 ¡Está todo listo! Buen trabajo.';
+      fb.style.color = '#137333';
+    }else{
+      fb.textContent = listos.length + ' de ' + todos.length + ' completados';
+      fb.style.color = '#B8720A';
+    }
   }
-  h+='<div id="q-fb"></div>';
-  c.innerHTML=h;
-}
-function qResp(i){
-  var q=PREGUNTAS[qIdx];
-  var btns=document.querySelectorAll('.q-op');
-  for(var b=0;b<btns.length;b++){btns[b].disabled=true;}
-  btns[q.ok].style.background='#E8F4F0';btns[q.ok].style.borderColor='#1F6E5C';
-  var fb=document.getElementById('q-fb');
-  if(i===q.ok){
-    qOk++;
-    fb.innerHTML='<div class="info i-grn"><strong>&#9989; Correcto</strong>'+q.exp+'</div>';
-  }else{
-    qFallos.push(q.tema);
-    btns[i].style.background='#FFEBEE';btns[i].style.borderColor='#C62828';
-    fb.innerHTML='<div class="info i-rojo"><strong>&#10060; No era esa</strong>'+q.exp+'</div>';
-  }
-  fb.innerHTML+='<button class="btn-next" onclick="qNext()">Siguiente &#10142;</button>';
-}
-function qNext(){qIdx++;qRender();}
-function qFin(){
-  var c=document.getElementById('quiz-box');
-  var pct=Math.round(qOk*100/PREGUNTAS.length);
-  var msj = pct>=80 ? 'Ten&eacute;s clara la arquitectura. Est&aacute;s listo para el Extractor.'
-          : pct>=50 ? 'Buena base. Repas&aacute; los temas de abajo antes del lunes 10/8.'
-          : 'Conviene repasar con calma: volv&eacute; a los bloques 1 a 5 de esta p&aacute;gina y us&aacute; el asistente.';
-  var h='<h3 style="font-size:22px;margin-bottom:10px;">Tu diagn&oacute;stico</h3>';
-  h+='<p style="font-size:26px;font-weight:bold;color:#1F6E5C;">'+qOk+' / '+PREGUNTAS.length+' correctas ('+pct+'%)</p>';
-  h+='<p style="margin:10px 0;">'+msj+'</p>';
-  var unicos=[];
-  for(var i=0;i<qFallos.length;i++){if(unicos.indexOf(qFallos[i])===-1)unicos.push(qFallos[i]);}
-  if(unicos.length){
-    h+='<div class="info i-amb"><strong>&#128269; Temas para repasar</strong><ul style="margin-top:8px;">';
-    for(var j=0;j<unicos.length;j++){h+='<li>'+unicos[j]+'</li>';}
-    h+='</ul></div>';
-  }else{
-    h+='<div class="info i-grn"><strong>&#127942; Sin errores</strong>No ten&eacute;s temas pendientes. Si termin&aacute;s antes, ayud&aacute; a un compa&ntilde;ero: explicarlo es la mejor forma de fijarlo.</div>';
-  }
-  h+='<button class="btn-next" onclick="qReset()">&#128260; Volver a intentar</button>';
-  c.innerHTML=h;
-}
-function qReset(){qIdx=0;qOk=0;qFallos=[];qRender();}
-qRender();
-</script>
-
-
-<!-- ==== ASISTENTE ==== -->
-<div class="card c-asistente">
-  <h2><span class="badge" style="background:var(--rpg)">&#129302;</span> ASISTENTE DE APOYO</h2>
-  <p style="margin-bottom:14px;">¿Te quedó flojo algún tema del autodiagnóstico? Elegí el número y lo repasamos con ejemplos. Te explica el concepto y te devuelve preguntas — no te da el código resuelto.</p>
-  <div class="key-row">
-    <input type="password" id="asist-key" placeholder="Tu API Key de Groq">
-    <button class="btn-rpg" onclick="activar()">Activar</button>
-  </div>
-  <div id="asist-chat">
-    <div id="asist-msgs">
-      <div id="msg-inicial" style="align-self:flex-start;background:#2D2D2D;color:#CE9AF5;padding:14px 16px;border-radius:10px;font-size:17px;max-width:95%;line-height:1.8;">Hola. &iquest;Qu&eacute; tema quer&eacute;s repasar?<br><br>
-<strong style="color:#7dd3fc;">1</strong> &mdash; Frontend y backend: d&oacute;nde est&aacute; la IA<br>
-<strong style="color:#7dd3fc;">2</strong> &mdash; El modelo: qu&eacute; es un LLM y qu&eacute; significa 120b<br>
-<strong style="color:#7dd3fc;">3</strong> &mdash; La API Key y los headers<br>
-<strong style="color:#7dd3fc;">4</strong> &mdash; El JSON que va (payload) y el que vuelve<br>
-<strong style="color:#7dd3fc;">5</strong> &mdash; Los roles: system, user, assistant<br>
-<strong style="color:#7dd3fc;">6</strong> &mdash; Por qu&eacute; hay que mandar el historial entero<br>
-<strong style="color:#7dd3fc;">7</strong> &mdash; Temperatura y tokens<br>
-<strong style="color:#7dd3fc;">8</strong> &mdash; Alucinaciones: por qu&eacute; la IA inventa<br><br>
-Escrib&iacute; el n&uacute;mero o contame qu&eacute; no te cerr&oacute;.</div>
-    </div>
-    <div class="asist-inp">
-      <input type="text" id="asist-input" placeholder="Describ&iacute; el problema..." onkeypress="if(event.key==='Enter')enviar()">
-      <button class="btn-rpg" id="asist-btn" onclick="enviar()">Enviar</button>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<script>
-var KEY='',HIST=[];
-var SYS = `Sos el asistente de repaso del Taller de IA, CTP Antonio Martin Marte, Ushuaia. Espanol argentino con vos. Tono directo, claro y alentador.
-
-CONTEXTO: Es el repaso del lunes 3/8. Los alumnos de 7 TIC construyeron en el primer cuatrimestre un RPG conversacional en Colab (Python) usando la API de Groq con el modelo openai/gpt-oss-120b. La semana que viene arrancan un Extractor de datos. El repaso de hoy tiene eje en INTELIGENCIA ARTIFICIAL: arquitectura cliente/servidor, el modelo, el JSON del pedido y de la respuesta, la API. Hicieron un autodiagnostico de 10 preguntas.
-
-EL CODIGO QUE ELLOS TIENEN (bloques B1 a B8 de su notebook):
-B2: API_KEY = "gsk_..." ; URL = "https://api.groq.com/openai/v1/chat/completions" ; headers = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
-B3: def consultar_ia(mensajes, nivel_creatividad): payload = {"model": "openai/gpt-oss-120b", "temperature": nivel_creatividad, "messages": mensajes} ; respuesta = requests.post(URL, headers=headers, json=payload) ; return respuesta.json()["choices"][0]["message"]["content"]
-B4: diccionario jugador. B5: system prompt. B7: turno normal con el historial.
-
-TU ROL: repasar CONCEPTOS DE INTELIGENCIA ARTIFICIAL con ejemplos y preguntas. NUNCA les pegas el codigo completo resuelto: explicas el concepto, das una analogia o un ejemplo en OTRO contexto, y les pedis que lo ubiquen en su propio codigo.
-
-TEMAS:
-1 FRONTEND/BACKEND: su Colab es el cliente: arma el pedido, guarda el historial, muestra la respuesta. El servidor de Groq es el backend: verifica la clave, corre el modelo, devuelve JSON. El modelo NO esta en su computadora porque es enorme. Por eso sin internet no anda. Analogia: es como pedir comida a un restaurante, no cocinarla en casa. Preguntale cual linea de su codigo es la que hace el viaje (requests.post).
-
-2 EL MODELO: openai = quien lo desarrollo, gpt = el tipo de arquitectura, oss = open source (pesos abiertos, por eso Groq puede servirlo), 120b = 120 mil millones de parametros (los numeros ajustados en el entrenamiento). Si preguntan por el modelo viejo: hasta hace poco usaban llama-3.3-70b-versatile, que Groq da de baja el 16 de agosto; por eso migraron. Cambiar de modelo fue solo cambiar el nombre en una linea. Un LLM predice el texto mas probable pedacito por pedacito; no busca en internet ni consulta una base de datos con la verdad. Preguntale por que entonces puede equivocarse con un dato.
-
-3 API KEY Y HEADERS: la API Key es la credencial que identifica quien hace el pedido, viaja en el header Authorization como "Bearer TU_CLAVE". El Content-Type dice en que formato va el pedido (application/json). Insisti en que la clave NO se comparte ni se sube a un repositorio publico. Preguntale que pasaria si la clave estuviera mal escrita.
-
-4 EL JSON: el que va (payload) tiene model, temperature y messages. El que vuelve tiene choices, y adentro message y content. Por eso hay que cavar: respuesta.json()["choices"][0]["message"]["content"]. Cada corchete abre una caja. Analogia: una encomienda dentro de una caja dentro de otra caja. Pedile que te diga que obtendria si solo escribiera respuesta.json()["choices"].
-
-5 ROLES: system configura el comportamiento (el guion del Narrador) y va en la posicion 0 una sola vez; user es lo que escribe la persona; assistant es lo que respondio la IA. Preguntale que pasaria si el system prompt estuviera adentro del bucle.
-
-6 SIN ESTADO: el servidor no guarda nada entre pedido y pedido. La memoria la sostiene el programa de ellos en la lista historial, y la manda entera cada vez. Si no la mandaran, la IA arrancaria de cero en cada turno. Preguntale que parte de su codigo hace crecer el historial (los append).
-
-7 TEMPERATURA Y TOKENS: temperatura baja (0 a 0.3) = respuestas predecibles y estables, ideal para extraer datos; alta (0.7 a 1) = variada y creativa, servia para narrar. Token = el pedacito de texto en que el modelo divide todo; hay un limite por pedido, por eso un historial muy largo puede no entrar. Preguntale que temperatura le pondria al Extractor y por que.
-
-8 ALUCINACIONES: el modelo genera lo mas probable, no lo mas verdadero. Si le falta un dato, completa con algo verosimil. No es un bug: es como funciona. Por eso en el proyecto nuevo van a verificar lo que devuelve. Preguntale como se daria cuenta de que la IA invento un dato.
-
-REGLAS: respuestas breves, dos o tres parrafos como mucho. Siempre termina con una pregunta que lo obligue a mirar SU codigo o a pensar el caso. Si te pide el codigo hecho, le decis que la idea es que lo pueda reconstruir solo y lo ayudas por partes. Si dice que le fue mal en el autodiagnostico, dale animo: es justamente para eso, para saber que repasar antes del lunes 10/8.`;
-function activar(){
-  var k=document.getElementById('asist-key').value.trim();
-  if(!k){alert('Ingresa tu API Key.');return;}
-  KEY=k;HIST=[{role:'system',content:SYS}];
-  document.getElementById('asist-chat').style.display='block';
-  document.getElementById('asist-input').focus();
-}
-async function enviar(){
-  var inp=document.getElementById('asist-input');
-  var msg=inp.value.trim();if(!msg||!KEY)return;
-  inp.value='';document.getElementById('asist-btn').disabled=true;
-  add(msg,'user');HIST.push({role:'user',content:msg});
-  var p=add('...','pens');
-  try{
-    var r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',
-      headers:{'Authorization':'Bearer '+KEY,'Content-Type':'application/json'},
-      body:JSON.stringify({model:'openai/gpt-oss-120b',temperature:0.4,messages:HIST})});
-    var d=await r.json();var resp=d.choices[0].message.content;
-    p.remove();HIST.push({role:'assistant',content:resp});add(resp,'asist');
-  }catch(e){p.remove();add('Error de conexion.','err');HIST.pop();}
-  document.getElementById('asist-btn').disabled=false;
-}
-function add(txt,tipo){
-  var box=document.getElementById('asist-msgs');
-  var d=document.createElement('div');
-  d.style.cssText='max-width:90%;padding:11px 15px;border-radius:10px;font-size:17px;line-height:1.5;white-space:pre-wrap;'+
-    (tipo==='user'?'align-self:flex-end;background:#7B2D8B;color:#fff;margin-left:auto;':
-     tipo==='asist'?'align-self:flex-start;background:#2D2D2D;color:#CE9AF5;':
-     'align-self:center;background:#333;color:#aaa;font-size:14px;font-style:italic;');
-  d.textContent=txt;box.appendChild(d);box.scrollTop=box.scrollHeight;return d;
 }
 </script>
-
 </body>
 </html>
