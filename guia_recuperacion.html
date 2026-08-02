@@ -195,11 +195,15 @@ headers = {
         <p style="font-size:17px;">Es una caja con cajas adentro. Para llegar al texto hay que ir abriendo una por una, y eso es exactamente lo que hace cada corchete:</p>
         <ul style="font-size:17px;margin-top:8px;">
           <li><code>respuesta.json()</code> → convierte todo lo que llegó en un diccionario de Python.</li>
-          <li><code>["choices"]</code> → entra a la lista de respuestas. Se llama así porque la API permite pedir varias opciones distintas a la vez.</li>
-          <li><code>[0]</code> → agarra la primera de esa lista. Como pediste una sola, es la única que hay.</li>
+          <li><code>["choices"]</code> → entra a la lista de respuestas. Se llama así porque la API está preparada para devolver varias versiones distintas de la misma pregunta.</li>
+          <li><code>[0]</code> → agarra la primera de esa lista.</li>
           <li><code>["message"]</code> → entra al mensaje.</li>
           <li><code>["content"]</code> → y acá sí, el texto que buscabas.</li>
         </ul>
+        <div class="tip"><strong>¿Y por qué siempre <code>[0]</code>? ¿Nunca es <code>[1]</code>?</strong><br>
+        Con Groq, nunca. La lista existe porque la API permite pedir varias respuestas a la vez (con un parámetro llamado <code>n</code>), y ahí sí tendrías <code>[0]</code>, <code>[1]</code>, <code>[2]</code> para comparar. Pero Groq solo admite <code>n = 1</code>: siempre te devuelve una sola. Así que esa lista siempre tiene un elemento y el <code>[0]</code> nunca cambia.<br><br>
+        <strong>Ojo, esto no significa que el número entre corchetes sea decorativo.</strong> Cuando trabajes con <em>tus propias</em> listas sí va a cambiar todo el tiempo: si guardás los datos de varios archivos en una lista, <code>resultados[0]</code> es el primero, <code>resultados[1]</code> el segundo, y así. Acá es fijo solo porque la respuesta viene de a una.</div>
+
         <p style="font-size:17px;margin-top:8px;">El <code>return</code> devuelve ese texto. Es importante que sea <code>return</code> y no <code>print</code>: con <code>return</code> el resultado queda guardado en una variable y lo podés seguir usando (agregarlo al historial, darle formato). Con <code>print</code> se muestra en pantalla y se pierde.</p>
 
         <p style="font-size:17px;margin-top:12px;"><strong>5. El <code>try/except</code> es la red de seguridad.</strong> Muchas cosas pueden salir mal en ese viaje: se corta internet, la clave está vencida, el servidor está caído. Sin el <code>try</code>, cualquiera de esas rompe el programa y se corta todo. Con él, Python intenta lo que está adentro del <code>try</code>, y si falla salta al <code>except</code>, que devuelve un mensaje contando qué pasó. Tu programa sigue vivo y vos te enterás del problema.</p>
