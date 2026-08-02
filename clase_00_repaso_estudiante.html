@@ -144,7 +144,7 @@
       <p style="font-size:16px;">Máquinas de Groq, en otro país</p>
       <ul>
         <li>Verifica tu API Key</li>
-        <li>Corre el modelo <code>llama-3.3-70b</code></li>
+        <li>Corre el modelo <code>gpt-oss-120b</code></li>
         <li>Genera la respuesta</li>
         <li>La devuelve en JSON</li>
       </ul>
@@ -162,12 +162,18 @@
 </div>
 
 <div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">2</span> EL MODELO: <code>llama-3.3-70b-versatile</code></h2>
+  <h2><span class="badge" style="background:var(--p1)">2</span> EL MODELO: <code>openai/gpt-oss-120b</code></h2>
   <p>Ese nombre que copiaste sin pensar dice cuatro cosas:</p>
-  <div class="capa"><strong>llama</strong> — La familia de modelos, desarrollada por Meta. Es abierta: por eso Groq puede ofrecerla en su servicio.</div>
-  <div class="capa"><strong>3.3</strong> — La versión. Cada versión se entrena de nuevo, con más datos y mejores técnicas.</div>
-  <div class="capa"><strong>70b</strong> — <strong>70 mil millones de parámetros</strong>: los números internos que el modelo ajustó durante su entrenamiento. Ahí está "lo que sabe".</div>
-  <div class="capa"><strong>versatile</strong> — La variante: pensada para uso general. Hay otras más chicas y rápidas para tareas simples.</div>
+  <div class="capa"><strong>openai</strong> — Quién lo desarrolló. Groq no fabrica el modelo: presta las máquinas donde corre.</div>
+  <div class="capa"><strong>gpt</strong> — El tipo de arquitectura con la que está construido, la misma familia de tecnología que usan casi todos los modelos de lenguaje actuales.</div>
+  <div class="capa"><strong>oss</strong> — <em>Open source</em>: sus pesos son abiertos y cualquiera puede descargarlo o servirlo. Por eso Groq puede ofrecerlo en su plataforma.</div>
+  <div class="capa"><strong>120b</strong> — <strong>120 mil millones de parámetros</strong>: los números internos que el modelo ajustó durante su entrenamiento. Ahí está "lo que sabe".</div>
+
+  <div class="info i-azul">
+    <strong>🔄 Los modelos se dan de baja: esto pasó de verdad, hace unos días</strong>
+    Hasta hace poco este taller usaba <code>llama-3.3-70b-versatile</code>. Groq anunció que <strong>deja de funcionar el 16 de agosto</strong>: después de esa fecha, cualquier programa que lo pida recibe un error. Por eso migramos a <code>openai/gpt-oss-120b</code>.<br><br>
+    Esto es parte normal del oficio: los modelos se actualizan y se retiran, y quien programa con IA tiene que estar atento. La buena noticia es que <strong>el cambio fue una línea</strong>: como el resto del código no depende del modelo, se reemplaza el nombre y todo lo demás sigue igual. Cuando programás bien, cambiar de motor no te obliga a rehacer el auto.
+  </div>
 
   <div class="info i-amb">
     <strong>⚠️ Qué hace un LLM (y qué NO hace)</strong>
@@ -185,7 +191,7 @@
 
   <p style="margin-top:16px;font-size:19px;"><strong>➡️ Lo que SALE de tu programa (el <code>payload</code>):</strong></p>
   <div class="json-box">{
-  "model": "llama-3.3-70b-versatile",   <span style="color:#6A9955;">&lt;- qué modelo querés</span>
+  "model": "openai/gpt-oss-120b",   <span style="color:#6A9955;">&lt;- qué modelo querés</span>
   "temperature": 0.7,                   <span style="color:#6A9955;">&lt;- cuánto puede variar</span>
   "messages": [                         <span style="color:#6A9955;">&lt;- TODA la conversación</span>
       {"role": "system",    "content": "Sos el Narrador..."},
@@ -239,7 +245,7 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 <span class="cm"># ===== B3 — LA FUNCIÓN QUE HACE EL VIAJE =====</span>
 <span class="kw">def</span> <span class="fn">consultar_ia</span>(mensajes, nivel_creatividad):
 
-    payload = {<span class="str">"model"</span>: <span class="str">"llama-3.3-70b-versatile"</span>,
+    payload = {<span class="str">"model"</span>: <span class="str">"openai/gpt-oss-120b"</span>,
                <span class="str">"temperature"</span>: nivel_creatividad,
                <span class="str">"messages"</span>: mensajes}
     <span class="cm"># ^ EL PEDIDO en JSON: qué modelo, cuánta variación,</span>
@@ -313,15 +319,15 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 <script>
 var PREGUNTAS = [
  {tema:"Arquitectura cliente/servidor",
-  p:"Cuando corr&eacute;s tu RPG en Colab, &iquest;d&oacute;nde se ejecuta realmente el modelo llama-3.3-70b?",
+  p:"Cuando corr&eacute;s tu RPG en Colab, &iquest;d&oacute;nde se ejecuta realmente el modelo <code>gpt-oss-120b</code>?",
   ops:["En tu computadora, se descarga la primera vez","En los servidores de Groq, a los que tu c&oacute;digo les manda un pedido","Dentro de Google Colab","En el navegador, con JavaScript"],
   ok:1,
   exp:"Tu Colab es el <strong>cliente (frontend)</strong>: arma el pedido y lo manda. El modelo vive en el <strong>servidor de Groq (backend)</strong>. Por eso necesit&aacute;s internet y una API Key: sin conexi&oacute;n no hay IA."},
  {tema:"El modelo",
-  p:"En llama-3.3-<strong>70b</strong>-versatile, &iquest;qu&eacute; significa el 70b?",
-  ops:["Que soporta 70 mil palabras","Que tiene 70 mil millones de par&aacute;metros","Que tarda 70 milisegundos","Que es la versi&oacute;n n&uacute;mero 70"],
+  p:"En openai/gpt-oss-<strong>120b</strong>, &iquest;qu&eacute; significa el 120b?",
+  ops:["Que soporta 120 mil palabras","Que tiene 120 mil millones de par&aacute;metros","Que tarda 120 milisegundos","Que es la versi&oacute;n n&uacute;mero 120"],
   ok:1,
-  exp:"70b = 70 <em>billion</em>: 70 mil millones de par&aacute;metros, los n&uacute;meros internos que el modelo ajust&oacute; durante su entrenamiento. Ah&iacute; est&aacute; lo que sabe. El 3.3 es la versi&oacute;n de la familia Llama."},
+  exp:"120b = 120 <em>billion</em>: 120 mil millones de par&aacute;metros, los n&uacute;meros internos que el modelo ajust&oacute; en su entrenamiento. Ah&iacute; est&aacute; lo que sabe. El <em>oss</em> significa que sus pesos son abiertos: por eso Groq puede servirlo."},
  {tema:"Autenticaci&oacute;n (API Key)",
   p:"&iquest;Para qu&eacute; sirve la API Key que va en los headers?",
   ops:["Para encriptar el mensaje","Para que el servidor sepa qui&eacute;n sos y autorice el pedido","Para elegir el modelo","Para acelerar la respuesta"],
@@ -432,7 +438,7 @@ qRender();
     <div id="asist-msgs">
       <div id="msg-inicial" style="align-self:flex-start;background:#2D2D2D;color:#CE9AF5;padding:14px 16px;border-radius:10px;font-size:17px;max-width:95%;line-height:1.8;">Hola. &iquest;Qu&eacute; tema quer&eacute;s repasar?<br><br>
 <strong style="color:#7dd3fc;">1</strong> &mdash; Frontend y backend: d&oacute;nde est&aacute; la IA<br>
-<strong style="color:#7dd3fc;">2</strong> &mdash; El modelo: qu&eacute; es un LLM y qu&eacute; significa 70b<br>
+<strong style="color:#7dd3fc;">2</strong> &mdash; El modelo: qu&eacute; es un LLM y qu&eacute; significa 120b<br>
 <strong style="color:#7dd3fc;">3</strong> &mdash; La API Key y los headers<br>
 <strong style="color:#7dd3fc;">4</strong> &mdash; El JSON que va (payload) y el que vuelve<br>
 <strong style="color:#7dd3fc;">5</strong> &mdash; Los roles: system, user, assistant<br>
@@ -454,11 +460,11 @@ Escrib&iacute; el n&uacute;mero o contame qu&eacute; no te cerr&oacute;.</div>
 var KEY='',HIST=[];
 var SYS = `Sos el asistente de repaso del Taller de IA, CTP Antonio Martin Marte, Ushuaia. Espanol argentino con vos. Tono directo, claro y alentador.
 
-CONTEXTO: Es el repaso del lunes 3/8. Los alumnos de 7 TIC construyeron en el primer cuatrimestre un RPG conversacional en Colab (Python) usando la API de Groq con el modelo llama-3.3-70b-versatile. La semana que viene arrancan un Extractor de datos. El repaso de hoy tiene eje en INTELIGENCIA ARTIFICIAL: arquitectura cliente/servidor, el modelo, el JSON del pedido y de la respuesta, la API. Hicieron un autodiagnostico de 10 preguntas.
+CONTEXTO: Es el repaso del lunes 3/8. Los alumnos de 7 TIC construyeron en el primer cuatrimestre un RPG conversacional en Colab (Python) usando la API de Groq con el modelo openai/gpt-oss-120b. La semana que viene arrancan un Extractor de datos. El repaso de hoy tiene eje en INTELIGENCIA ARTIFICIAL: arquitectura cliente/servidor, el modelo, el JSON del pedido y de la respuesta, la API. Hicieron un autodiagnostico de 10 preguntas.
 
 EL CODIGO QUE ELLOS TIENEN (bloques B1 a B8 de su notebook):
 B2: API_KEY = "gsk_..." ; URL = "https://api.groq.com/openai/v1/chat/completions" ; headers = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
-B3: def consultar_ia(mensajes, nivel_creatividad): payload = {"model": "llama-3.3-70b-versatile", "temperature": nivel_creatividad, "messages": mensajes} ; respuesta = requests.post(URL, headers=headers, json=payload) ; return respuesta.json()["choices"][0]["message"]["content"]
+B3: def consultar_ia(mensajes, nivel_creatividad): payload = {"model": "openai/gpt-oss-120b", "temperature": nivel_creatividad, "messages": mensajes} ; respuesta = requests.post(URL, headers=headers, json=payload) ; return respuesta.json()["choices"][0]["message"]["content"]
 B4: diccionario jugador. B5: system prompt. B7: turno normal con el historial.
 
 TU ROL: repasar CONCEPTOS DE INTELIGENCIA ARTIFICIAL con ejemplos y preguntas. NUNCA les pegas el codigo completo resuelto: explicas el concepto, das una analogia o un ejemplo en OTRO contexto, y les pedis que lo ubiquen en su propio codigo.
@@ -466,7 +472,7 @@ TU ROL: repasar CONCEPTOS DE INTELIGENCIA ARTIFICIAL con ejemplos y preguntas. N
 TEMAS:
 1 FRONTEND/BACKEND: su Colab es el cliente: arma el pedido, guarda el historial, muestra la respuesta. El servidor de Groq es el backend: verifica la clave, corre el modelo, devuelve JSON. El modelo NO esta en su computadora porque es enorme. Por eso sin internet no anda. Analogia: es como pedir comida a un restaurante, no cocinarla en casa. Preguntale cual linea de su codigo es la que hace el viaje (requests.post).
 
-2 EL MODELO: llama = familia de Meta, 3.3 = version, 70b = 70 mil millones de parametros (los numeros ajustados en el entrenamiento), versatile = variante de uso general. Un LLM predice el texto mas probable pedacito por pedacito; no busca en internet ni consulta una base de datos con la verdad. Preguntale por que entonces puede equivocarse con un dato.
+2 EL MODELO: openai = quien lo desarrollo, gpt = el tipo de arquitectura, oss = open source (pesos abiertos, por eso Groq puede servirlo), 120b = 120 mil millones de parametros (los numeros ajustados en el entrenamiento). Si preguntan por el modelo viejo: hasta hace poco usaban llama-3.3-70b-versatile, que Groq da de baja el 16 de agosto; por eso migraron. Cambiar de modelo fue solo cambiar el nombre en una linea. Un LLM predice el texto mas probable pedacito por pedacito; no busca en internet ni consulta una base de datos con la verdad. Preguntale por que entonces puede equivocarse con un dato.
 
 3 API KEY Y HEADERS: la API Key es la credencial que identifica quien hace el pedido, viaja en el header Authorization como "Bearer TU_CLAVE". El Content-Type dice en que formato va el pedido (application/json). Insisti en que la clave NO se comparte ni se sube a un repositorio publico. Preguntale que pasaria si la clave estuviera mal escrita.
 
@@ -497,7 +503,7 @@ async function enviar(){
   try{
     var r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',
       headers:{'Authorization':'Bearer '+KEY,'Content-Type':'application/json'},
-      body:JSON.stringify({model:'llama-3.3-70b-versatile',temperature:0.4,messages:HIST})});
+      body:JSON.stringify({model:'openai/gpt-oss-120b',temperature:0.4,messages:HIST})});
     var d=await r.json();var resp=d.choices[0].message.content;
     p.remove();HIST.push({role:'assistant',content:resp});add(resp,'asist');
   }catch(e){p.remove();add('Error de conexion.','err');HIST.pop();}
