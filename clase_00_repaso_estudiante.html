@@ -70,6 +70,25 @@
   .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
   .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
   @media(max-width:768px){.duo,.trio{grid-template-columns:1fr;}}
+
+  /* Ejercicio de JSON */
+  .jej{display:none;}
+  .jej.activo{display:block;}
+  .jpanel{background:#F0FFF0;border:2px solid #006400;border-radius:10px;padding:18px 20px;
+          font-family:Consolas,monospace;font-size:17px;line-height:2;overflow-x:auto;white-space:pre;}
+  .jval{background:#fff;border:2px solid var(--bd);border-radius:6px;padding:1px 7px;
+        cursor:pointer;transition:all .15s;display:inline-block;}
+  .jval:hover{border-color:var(--json);background:#E6F7E6;}
+  .jval.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jval.no{background:#FFEBEE;border-color:var(--rojo);}
+  .jkey{color:#9CDCFE;}
+  .jctx{background:var(--azul-bg);border-left:5px solid var(--azul);border-radius:8px;
+        padding:12px 16px;margin-bottom:12px;font-size:17px;}
+  .jpide{font-size:21px;font-weight:bold;margin:14px 0 10px;}
+  .jfb{margin-top:12px;font-size:18px;}
+  .jcamino{background:var(--code-bg);color:#D4D4D4;font-family:Consolas,monospace;
+           padding:12px 16px;border-radius:8px;font-size:17px;margin-top:10px;overflow-x:auto;}
+  .jprog{font-size:16px;color:#666;margin-bottom:8px;}
 </style>
 </head>
 <body>
@@ -224,8 +243,126 @@
   </div>
 </div>
 
+
+<div class="card c-json">
+  <h2><span class="badge" style="background:var(--json)">4</span> EJERCICIO — NAVEGÁ EL JSON</h2>
+  <p>Leer un JSON y saber cómo llegar a un dato es <strong>la habilidad central del proyecto que viene</strong>. Practiquemos con seis casos distintos: en cada uno, tocá el valor que se te pide.</p>
+
+  <div id="jbox" style="margin-top:18px;">
+
+    <!-- EJ 1 -->
+    <div class="jej activo" data-ok="content" data-camino='respuesta["choices"][0]["message"]["content"]'>
+      <p class="jprog">Caso 1 de 6 · La respuesta de la IA</p>
+      <div class="jctx">Este es el JSON que devuelve Groq cuando tu RPG le pregunta algo. Es el que ya venías desarmando.</div>
+      <p class="jpide">👉 Tocá <strong>el texto que devolvió la IA</strong>.</p>
+      <div class="jpanel">{
+  <span class="jkey">"choices"</span>: [
+      {
+        <span class="jkey">"message"</span>: {
+            <span class="jkey">"role"</span>: <span class="jval" data-k="role">"assistant"</span>,
+            <span class="jkey">"content"</span>: <span class="jval" data-k="content">"La puerta cruje al abrirse..."</span>
+        }
+      }
+  ],
+  <span class="jkey">"usage"</span>: { <span class="jkey">"total_tokens"</span>: <span class="jval" data-k="tokens">512</span> }
+}</div>
+      <div class="jfb"></div>
+    </div>
+
+    <!-- EJ 2 -->
+    <div class="jej" data-ok="cantidad" data-camino='pedido["cantidad"]'>
+      <p class="jprog">Caso 2 de 6 · Un pedido de kiosco</p>
+      <div class="jctx">Así se van a ver los datos que extraiga tu proyecto: un texto suelto convertido en campos ordenados.</div>
+      <p class="jpide">👉 Tocá <strong>la cantidad pedida</strong>.</p>
+      <div class="jpanel">pedido = {
+    <span class="jkey">"producto"</span>: <span class="jval" data-k="producto">"alfajor"</span>,
+    <span class="jkey">"cantidad"</span>: <span class="jval" data-k="cantidad">2</span>,
+    <span class="jkey">"cliente"</span>: <span class="jval" data-k="cliente">"Juan"</span>,
+    <span class="jkey">"hora_retiro"</span>: <span class="jval" data-k="hora">"18:00"</span>
+}</div>
+      <div class="jfb"></div>
+    </div>
+
+    <!-- EJ 3 -->
+    <div class="jej" data-ok="nombre" data-camino='factura["cliente"]["nombre"]'>
+      <p class="jprog">Caso 3 de 6 · Cajas adentro de cajas</p>
+      <div class="jctx">Acá un valor <strong>no</strong> es un dato simple: es otro diccionario completo. Hay que abrir dos puertas.</div>
+      <p class="jpide">👉 Tocá <strong>el nombre del cliente</strong>.</p>
+      <div class="jpanel">factura = {
+    <span class="jkey">"numero"</span>: <span class="jval" data-k="numero">42</span>,
+    <span class="jkey">"cliente"</span>: {
+        <span class="jkey">"nombre"</span>: <span class="jval" data-k="nombre">"Kiosco El Sol"</span>,
+        <span class="jkey">"telefono"</span>: <span class="jval" data-k="tel">"2901-445566"</span>
+    },
+    <span class="jkey">"total"</span>: <span class="jval" data-k="total">15000</span>
+}</div>
+      <div class="jfb"></div>
+    </div>
+
+    <!-- EJ 4 -->
+    <div class="jej" data-ok="p2" data-camino='stock["productos"][1]["nombre"]'>
+      <p class="jprog">Caso 4 de 6 · Una lista de varios</p>
+      <div class="jctx">Cuando hay una lista, cada elemento tiene su número de posición. Y las listas <strong>empiezan en 0</strong>.</div>
+      <p class="jpide">👉 Tocá el nombre del <strong>SEGUNDO</strong> producto.</p>
+      <div class="jpanel">stock = {
+    <span class="jkey">"productos"</span>: [
+        { <span class="jkey">"nombre"</span>: <span class="jval" data-k="p1">"coca 500ml"</span>, <span class="jkey">"stock"</span>: <span class="jval" data-k="s1">12</span> },
+        { <span class="jkey">"nombre"</span>: <span class="jval" data-k="p2">"agua mineral"</span>, <span class="jkey">"stock"</span>: <span class="jval" data-k="s2">30</span> },
+        { <span class="jkey">"nombre"</span>: <span class="jval" data-k="p3">"alfajor"</span>, <span class="jkey">"stock"</span>: <span class="jval" data-k="s3">8</span> }
+    ]
+}</div>
+      <div class="jfb"></div>
+    </div>
+
+    <!-- EJ 5 -->
+    <div class="jej" data-ok="null" data-camino='reserva["hora_retiro"]   # devuelve None (el null de JSON)'>
+      <p class="jprog">Caso 5 de 6 · El dato que no está</p>
+      <div class="jctx">El texto original decía: <em>"Reservo dos empanadas a nombre de Milena"</em>. No aclaraba la hora.</div>
+      <p class="jpide">👉 Tocá <strong>el valor de hora_retiro</strong>.</p>
+      <div class="jpanel">reserva = {
+    <span class="jkey">"producto"</span>: <span class="jval" data-k="prod">"empanadas"</span>,
+    <span class="jkey">"cantidad"</span>: <span class="jval" data-k="cant">2</span>,
+    <span class="jkey">"cliente"</span>: <span class="jval" data-k="cli">"Milena"</span>,
+    <span class="jkey">"hora_retiro"</span>: <span class="jval" data-k="null">null</span>
+}</div>
+      <div class="jfb"></div>
+    </div>
+
+    <!-- EJ 6 -->
+    <div class="jej" data-ok="tot" data-camino='respuesta["usage"]["total_tokens"]'>
+      <p class="jprog">Caso 6 de 6 · El dato escondido</p>
+      <div class="jctx">Volvemos a la respuesta de la API, pero ahora buscando algo que casi nadie mira: cuánto consumió el pedido.</div>
+      <p class="jpide">👉 Tocá <strong>el total de tokens</strong> que gastó la consulta.</p>
+      <div class="jpanel">{
+  <span class="jkey">"model"</span>: <span class="jval" data-k="mod">"openai/gpt-oss-120b"</span>,
+  <span class="jkey">"choices"</span>: [
+      { <span class="jkey">"message"</span>: { <span class="jkey">"content"</span>: <span class="jval" data-k="cont">"Claro, te explico..."</span> } }
+  ],
+  <span class="jkey">"usage"</span>: {
+      <span class="jkey">"prompt_tokens"</span>: <span class="jval" data-k="prompt">18</span>,
+      <span class="jkey">"completion_tokens"</span>: <span class="jval" data-k="comp">494</span>,
+      <span class="jkey">"total_tokens"</span>: <span class="jval" data-k="tot">512</span>
+  }
+}</div>
+      <div class="jfb"></div>
+    </div>
+
+  </div>
+
+  <div id="jfinal" style="display:none;margin-top:18px;">
+    <div class="info i-grn">
+      <strong>🏆 Completaste los seis</strong>
+      Fijate el patrón: <strong>cada corchete abre una caja</strong>. Si el valor es otro diccionario, entrás con otra clave. Si es una lista, entrás con un número de posición. Eso es todo: no hay más misterio.
+    </div>
+    <div class="info i-azul">
+      <strong>💡 Por qué esto importa para el proyecto</strong>
+      El Extractor que vamos a construir hace exactamente esto, pero al revés: le pide a la IA que <strong>arme</strong> un JSON con los campos que vos elegís, y después tu programa lo recorre para sacar cada dato. El caso 5 ya te muestra algo que vas a tener que resolver: <strong>qué hacer cuando el dato no está</strong>.
+    </div>
+  </div>
+</div>
+
 <div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">4</span> DISECCIÓN DE TUS BLOQUES B2 Y B3</h2>
+  <h2><span class="badge" style="background:var(--p1)">5</span> DISECCIÓN DE TUS BLOQUES B2 Y B3</h2>
   <p>Estas son las líneas que venís escribiendo desde la Clase 6. Ahora las leemos entendiendo qué hace cada una:</p>
 
   <div class="code-block"><span class="cm"># ===== B2 — LA CONFIGURACIÓN =====</span>
@@ -270,7 +407,7 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 </div>
 
 <div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">5</span> LOS ROLES Y EL CONTEXTO</h2>
+  <h2><span class="badge" style="background:var(--p1)">6</span> LOS ROLES Y EL CONTEXTO</h2>
   <p>Dentro de <code>messages</code>, cada mensaje tiene un <strong>rol</strong>. No son decorativos: le dicen al modelo cómo interpretar cada texto.</p>
   <div class="trio">
     <div class="mini"><strong>system</strong>La <strong>configuración</strong>: quién es y cómo se comporta. Tu guion del Narrador. Va en la posición 0, una sola vez.</div>
@@ -290,7 +427,7 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 </div>
 
 <div class="card c-avanzado">
-  <h2><span class="badge" style="background:var(--amb)">6</span> ACTIVIDAD INDIVIDUAL — AUTODIAGNÓSTICO</h2>
+  <h2><span class="badge" style="background:var(--amb)">7</span> ACTIVIDAD INDIVIDUAL — AUTODIAGNÓSTICO</h2>
   <p>Diez preguntas sobre cómo funciona tu aplicación con IA. <strong>Se hace solo, sin ayuda y sin mirar el Colab.</strong> No lleva nota: sirve para saber qué repasar. Al final te dice exactamente qué temas mirar de nuevo.</p>
   <div id="quiz-box" style="margin-top:18px;"></div>
   <div class="info i-amb" style="margin-top:16px;">
@@ -300,7 +437,7 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 </div>
 
 <div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">7</span> EL PUENTE: TODO ESTO SIGUE EN EL PROYECTO NUEVO</h2>
+  <h2><span class="badge" style="background:var(--p1)">8</span> EL PUENTE: TODO ESTO SIGUE EN EL PROYECTO NUEVO</h2>
   <table>
     <tr><th style="width:45%;">Lo que ya sabés (RPG)</th><th>Cómo lo usás en el Extractor</th></tr>
     <tr><td>El bloque B2 completo (API Key, URL, headers)</td><td><strong>Igual, sin tocar nada.</strong></td></tr>
@@ -521,5 +658,55 @@ function add(txt,tipo){
 }
 </script>
 
+
+<script>
+(function(){
+  var jIdx = 0, jHechos = 0;
+  function ejercicios(){ return document.querySelectorAll('.jej'); }
+
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('.jval');
+    if(!el) return;
+    var ej = el.closest('.jej');
+    if(!ej || !ej.classList.contains('activo')) return;
+    if(ej.getAttribute('data-resuelto') === 'si') return;
+
+    var fb = ej.querySelector('.jfb');
+    if(el.getAttribute('data-k') === ej.getAttribute('data-ok')){
+      el.classList.add('ok');
+      ej.setAttribute('data-resuelto','si');
+      jHechos++;
+      var camino = ej.getAttribute('data-camino');
+      var extra = '';
+      if(ej.getAttribute('data-ok') === 'null'){
+        extra = '<p style="margin-top:10px;font-size:17px;">En JSON, <code>null</code> significa <strong>el dato no existe</strong>. No es cero ni texto vacío: es ausencia. Python lo lee como <code>None</code>.</p>';
+      }
+      if(ej.getAttribute('data-ok') === 'p2'){
+        extra = '<p style="margin-top:10px;font-size:17px;">Ojo con el <code>[1]</code>: el segundo elemento lleva el número 1, porque las listas empiezan a contar en 0.</p>';
+      }
+      fb.innerHTML = '<span style="color:#137333;font-weight:bold;">✅ ¡Correcto!</span> El camino para llegar ahí es:'
+                   + '<div class="jcamino">' + camino + '</div>' + extra
+                   + '<button class="btn-next" onclick="jSiguiente()">Siguiente ➡</button>';
+    } else {
+      el.classList.add('no');
+      fb.innerHTML = '<span style="color:#C62828;font-weight:bold;">❌ Ese no.</span> Leé de nuevo qué te pide y fijate qué clave lo nombra.';
+      setTimeout(function(){ el.classList.remove('no'); }, 900);
+    }
+  });
+
+  window.jSiguiente = function(){
+    var ejs = ejercicios();
+    ejs[jIdx].classList.remove('activo');
+    jIdx++;
+    if(jIdx < ejs.length){
+      ejs[jIdx].classList.add('activo');
+      ejs[jIdx].scrollIntoView({behavior:'smooth', block:'center'});
+    } else {
+      document.getElementById('jfinal').style.display = 'block';
+      document.getElementById('jfinal').scrollIntoView({behavior:'smooth', block:'center'});
+    }
+  };
+})();
+</script>
 </body>
 </html>
