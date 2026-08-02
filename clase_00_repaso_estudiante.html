@@ -113,7 +113,7 @@
   <p style="margin-top:10px;">Entender el camino completo — tu Colab, el pedido que viaja, el modelo que responde, el JSON que vuelve — es lo que te permite <strong>arreglar lo que falla y construir cosas nuevas</strong>. Sin eso, programás de memoria.</p>
   <div class="info i-azul" style="margin-top:14px;">
     <strong>💡 Lo que repasás hoy es la base del proyecto nuevo</strong>
-    El Extractor que arranca el 10/8 usa exactamente la misma arquitectura. Cambia <em>qué</em> le pedís al modelo, no <em>cómo</em> se lo pedís.
+    El Extractor que vamos a construir usa exactamente la misma arquitectura. Cambia <em>qué</em> le pedís al modelo, no <em>cómo</em> se lo pedís.
   </div>
 </div>
 
@@ -284,7 +284,7 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
   </div>
 
   <div class="duo">
-    <div class="mini"><strong>🌡️ Temperatura</strong>Cuánto se arriesga el modelo. <strong>Baja</strong> (0.0–0.3): predecible y estable → ideal para <strong>extraer datos</strong>. <strong>Alta</strong> (0.7–1.0): variada y creativa → lo que usabas para narrar tu aventura.</div>
+    <div class="mini"><strong>🌡️ Temperatura</strong>Cuánto se arriesga el modelo. <strong>Va de 0 a 2</strong>, y si no la ponés, la API usa 1. <strong>Cerca de 0</strong>: predecible y estable → ideal para <strong>extraer datos</strong>. <strong>Alrededor de 1</strong>: variada y creativa → lo que usabas para narrar. <strong>Cerca de 2</strong>: tan aleatoria que la respuesta puede volverse incoherente.</div>
     <div class="mini"><strong>🔢 Tokens</strong>El modelo parte el texto en pedacitos (tokens) y predice el siguiente. Hay un <strong>límite por pedido</strong>: si el historial crece mucho, no entra. Por eso a veces hay que recortarlo.</div>
   </div>
 </div>
@@ -311,8 +311,9 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
     <tr><td>Saber que la IA alucina</td><td>Un <strong>análisis de calidad</strong> para detectar y corregir esas invenciones.</td></tr>
   </table>
   <div class="info i-grn">
-    <strong>📅 Lunes 10/8 · 120 min — Arranca el proyecto</strong>
-    Vení pensando con quién querés trabajar (equipos de 3 o 4) y qué tema te interesaría. El detalle está en la página de la Clase 1.
+    <strong>📅 Lo que viene</strong>
+    Estas semanas cerramos el primer cuatrimestre: los que tengan que recuperar se preparan, y el resto repasa. El profe les va a confirmar la fecha de arranque del proyecto.<br><br>
+    Mientras tanto, van pensando dos cosas: <strong>con quién les gustaría trabajar</strong> (los equipos son de 3 o 4) y <strong>qué tema les interesaría</strong> para el proyecto.
   </div>
 </div>
 
@@ -355,9 +356,9 @@ var PREGUNTAS = [
   exp:"Es la <strong>configuraci&oacute;n</strong> del modelo para esa conversaci&oacute;n: tu guion del Narrador. Va en la posici&oacute;n 0, una sola vez. Los otros roles son <code>user</code> (lo que escribe el jugador) y <code>assistant</code> (lo que respondi&oacute; la IA)."},
  {tema:"Temperatura",
   p:"Tu par&aacute;metro <code>nivel_creatividad</code> viaja como <code>temperature</code>. &iquest;Qu&eacute; controla?",
-  ops:["La velocidad de la respuesta","Cu&aacute;nto var&iacute;a la respuesta: baja = predecible, alta = creativa","El largo m&aacute;ximo del texto","Cu&aacute;nto cuesta el pedido"],
+  ops:["La velocidad de la respuesta","Cu&aacute;nto var&iacute;a la respuesta: cerca de 0 = predecible, cerca de 2 = muy aleatoria","El largo m&aacute;ximo del texto","Cu&aacute;nto cuesta el pedido"],
   ok:1,
-  exp:"Con temperatura <strong>baja</strong> el modelo elige casi siempre lo m&aacute;s probable: ideal para <strong>extraer datos</strong>, que es lo que viene ahora. Con temperatura <strong>alta</strong> se arriesga m&aacute;s: serv&iacute;a para narrar tu aventura."},
+  exp:"Va <strong>de 0 a 2</strong> (si no la pon&eacute;s, la API usa 1). Cerca de <strong>0</strong> el modelo elige casi siempre lo m&aacute;s probable: ideal para <strong>extraer datos</strong>, que es lo que viene ahora. M&aacute;s arriba se arriesga: serv&iacute;a para narrar tu aventura. Cerca de <strong>2</strong> se vuelve tan aleatoria que puede perder coherencia."},
  {tema:"Tokens",
   p:"&iquest;Qu&eacute; es un <strong>token</strong>?",
   ops:["Una contrase&ntilde;a temporal","El pedacito de texto en que el modelo divide todo para procesarlo","Un error de la API","Un mensaje del historial"],
@@ -404,7 +405,7 @@ function qFin(){
   var c=document.getElementById('quiz-box');
   var pct=Math.round(qOk*100/PREGUNTAS.length);
   var msj = pct>=80 ? 'Ten&eacute;s clara la arquitectura. Est&aacute;s listo para el Extractor.'
-          : pct>=50 ? 'Buena base. Repas&aacute; los temas de abajo antes del lunes 10/8.'
+          : pct>=50 ? 'Buena base. Repas&aacute; los temas de abajo antes de arrancar el proyecto.'
           : 'Conviene repasar con calma: volv&eacute; a los bloques 1 a 5 de esta p&aacute;gina y us&aacute; el asistente.';
   var h='<h3 style="font-size:22px;margin-bottom:10px;">Tu diagn&oacute;stico</h3>';
   h+='<p style="font-size:26px;font-weight:bold;color:#1F6E5C;">'+qOk+' / '+PREGUNTAS.length+' correctas ('+pct+'%)</p>';
@@ -482,11 +483,11 @@ TEMAS:
 
 6 SIN ESTADO: el servidor no guarda nada entre pedido y pedido. La memoria la sostiene el programa de ellos en la lista historial, y la manda entera cada vez. Si no la mandaran, la IA arrancaria de cero en cada turno. Preguntale que parte de su codigo hace crecer el historial (los append).
 
-7 TEMPERATURA Y TOKENS: temperatura baja (0 a 0.3) = respuestas predecibles y estables, ideal para extraer datos; alta (0.7 a 1) = variada y creativa, servia para narrar. Token = el pedacito de texto en que el modelo divide todo; hay un limite por pedido, por eso un historial muy largo puede no entrar. Preguntale que temperatura le pondria al Extractor y por que.
+7 TEMPERATURA Y TOKENS: la temperatura va DE 0 A 2 y el valor por defecto de la API es 1. Cerca de 0 = respuestas predecibles y estables, ideal para extraer datos; alrededor de 1 = variada y creativa, servia para narrar; cerca de 2 = tan aleatoria que puede volverse incoherente. Si un alumno dice que el maximo es 1, corregilo: el maximo es 2. Token = el pedacito de texto en que el modelo divide todo; hay un limite por pedido, por eso un historial muy largo puede no entrar. Preguntale que temperatura le pondria al Extractor y por que.
 
 8 ALUCINACIONES: el modelo genera lo mas probable, no lo mas verdadero. Si le falta un dato, completa con algo verosimil. No es un bug: es como funciona. Por eso en el proyecto nuevo van a verificar lo que devuelve. Preguntale como se daria cuenta de que la IA invento un dato.
 
-REGLAS: respuestas breves, dos o tres parrafos como mucho. Siempre termina con una pregunta que lo obligue a mirar SU codigo o a pensar el caso. Si te pide el codigo hecho, le decis que la idea es que lo pueda reconstruir solo y lo ayudas por partes. Si dice que le fue mal en el autodiagnostico, dale animo: es justamente para eso, para saber que repasar antes del lunes 10/8.`;
+REGLAS: respuestas breves, dos o tres parrafos como mucho. Siempre termina con una pregunta que lo obligue a mirar SU codigo o a pensar el caso. Si te pide el codigo hecho, le decis que la idea es que lo pueda reconstruir solo y lo ayudas por partes. Si dice que le fue mal en el autodiagnostico, dale animo: es justamente para eso, para saber que repasar antes de arrancar el proyecto. Si preguntan cuando empieza el proyecto nuevo, decile que primero se cierra el primer cuatrimestre y que el profe va a confirmar la fecha.`;
 function activar(){
   var k=document.getElementById('asist-key').value.trim();
   if(!k){alert('Ingresa tu API Key.');return;}
