@@ -237,9 +237,15 @@
     El servidor no devuelve la frase pelada: devuelve una caja con cajas adentro. Cada corchete abre una:<br><br>
     <code>respuesta.json()</code> → todo el JSON<br>
     <code>["choices"]</code> → la lista de respuestas<br>
-    <code>[0]</code> → la primera<br>
+    <code>[0]</code> → la primera (y única: ver la nota de abajo)<br>
     <code>["message"]</code> → el mensaje<br>
     <code>["content"]</code> → <strong>el texto que buscabas</strong>
+  </div>
+
+  <div class="info i-amb">
+    <strong>🤔 ¿Por qué siempre <code>[0]</code>? ¿Alguna vez es <code>[1]</code>?</strong>
+    Con Groq, nunca. Esa lista existe porque la API está preparada para devolver <strong>varias respuestas distintas</strong> a la misma pregunta: si pudieras pedir tres, tendrías <code>[0]</code>, <code>[1]</code> y <code>[2]</code> para comparar y elegir. Pero Groq solo admite una por pedido, así que la lista siempre tiene un elemento y el <code>[0]</code> nunca cambia.<br><br>
+    <strong>No es que el número sea de adorno.</strong> En <em>tus propias</em> listas va a cambiar todo el tiempo: cuando tu proyecto procese los diez archivos del corpus, <code>resultados[0]</code> será el primero, <code>resultados[1]</code> el segundo, y así. Acá queda fijo solo porque la respuesta viene de a una.
   </div>
 </div>
 
@@ -352,7 +358,7 @@
   <div id="jfinal" style="display:none;margin-top:18px;">
     <div class="info i-grn">
       <strong>🏆 Completaste los seis</strong>
-      Fijate el patrón: <strong>cada corchete abre una caja</strong>. Si el valor es otro diccionario, entrás con otra clave. Si es una lista, entrás con un número de posición. Eso es todo: no hay más misterio.
+      Fijate el patrón: <strong>cada corchete abre una caja</strong>. Si el valor es otro diccionario, entrás con otra clave. Si es una lista, entrás con un número de posición. Eso es todo: no hay más misterio.<br><br>Y fijate el contraste entre el caso 1 y el caso 4: en la respuesta de la IA el <code>[0]</code> es siempre 0, porque Groq devuelve una sola. En una lista tuya, el número cambia según cuál quieras.
     </div>
     <div class="info i-azul">
       <strong>💡 Por qué esto importa para el proyecto</strong>
@@ -614,7 +620,7 @@ TEMAS:
 
 3 API KEY Y HEADERS: la API Key es la credencial que identifica quien hace el pedido, viaja en el header Authorization como "Bearer TU_CLAVE". El Content-Type dice en que formato va el pedido (application/json). Insisti en que la clave NO se comparte ni se sube a un repositorio publico. Preguntale que pasaria si la clave estuviera mal escrita.
 
-4 EL JSON: el que va (payload) tiene model, temperature y messages. El que vuelve tiene choices, y adentro message y content. Por eso hay que cavar: respuesta.json()["choices"][0]["message"]["content"]. Cada corchete abre una caja. Analogia: una encomienda dentro de una caja dentro de otra caja. Pedile que te diga que obtendria si solo escribiera respuesta.json()["choices"].
+4 EL JSON: el que va (payload) tiene model, temperature y messages. Si preguntan por que siempre es [0] y nunca [1]: con Groq la lista choices siempre tiene un solo elemento porque solo se puede pedir una respuesta por vez; la lista existe por compatibilidad con APIs que permiten pedir varias. Aclarales que en SUS propias listas (por ejemplo los resultados de varios archivos) el indice si cambia. El que vuelve tiene choices, y adentro message y content. Por eso hay que cavar: respuesta.json()["choices"][0]["message"]["content"]. Cada corchete abre una caja. Analogia: una encomienda dentro de una caja dentro de otra caja. Pedile que te diga que obtendria si solo escribiera respuesta.json()["choices"].
 
 5 ROLES: system configura el comportamiento (el guion del Narrador) y va en la posicion 0 una sola vez; user es lo que escribe la persona; assistant es lo que respondio la IA. Preguntale que pasaria si el system prompt estuviera adentro del bucle.
 
@@ -678,6 +684,9 @@ function add(txt,tipo){
       jHechos++;
       var camino = ej.getAttribute('data-camino');
       var extra = '';
+      if(ej.getAttribute('data-ok') === 'content'){
+        extra = '<p style="margin-top:10px;font-size:17px;">Ese <code>[0]</code> con Groq <strong>siempre es 0</strong>: la lista está preparada para varias respuestas, pero te devuelve una sola. En el caso 4 vas a ver un índice que sí cambia.</p>';
+      }
       if(ej.getAttribute('data-ok') === 'null'){
         extra = '<p style="margin-top:10px;font-size:17px;">En JSON, <code>null</code> significa <strong>el dato no existe</strong>. No es cero ni texto vacío: es ausencia. Python lo lee como <code>None</code>.</p>';
       }
