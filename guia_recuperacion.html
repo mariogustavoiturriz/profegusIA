@@ -41,8 +41,8 @@
   .sifalla{background:var(--rojo-bg);border-left:5px solid var(--rojo);border-radius:8px;padding:13px 17px;margin-top:10px;font-size:17px;}
   .sifalla::before{content:"\26A0\FE0F  SI TE DA ERROR";display:block;font-size:12px;font-weight:bold;letter-spacing:1px;color:var(--rojo);margin-bottom:5px;}
   .tip{background:var(--amb-bg);border-left:5px solid var(--amb);border-radius:8px;padding:13px 17px;margin-top:10px;font-size:17px;}
-  .checkpoint{background:var(--vio-bg);border:2px dashed var(--vio);border-radius:10px;padding:18px 22px;margin-top:20px;}
-  .checkpoint strong{color:var(--vio);display:block;margin-bottom:8px;font-size:19px;}
+  .cierre-box{background:var(--vio-bg);border:2px dashed var(--vio);border-radius:10px;padding:18px 22px;margin-top:20px;}
+  .cierre-box strong{color:var(--vio);display:block;margin-bottom:8px;font-size:19px;}
   .chk{background:#fff;border:2px solid var(--bd);border-radius:8px;padding:12px 16px;margin:8px 0;cursor:pointer;font-size:18px;user-select:none;}
   .chk:hover{border-color:var(--p1);}
   .chk.hecho{background:var(--p1-bg);border-color:var(--p1);}
@@ -233,11 +233,6 @@ resultado = <span class="fn">consultar_ia</span>(prueba, <span class="nm">0.5</s
       </div>
     </div>
 
-    <div class="checkpoint">
-      <strong>🚦 Checkpoint 1 — antes de seguir</strong>
-      Tu función tiene que devolver una respuesta de la IA. Si te aparece un error, no avances: revisá la clave y que hayas ejecutado todas las celdas en orden.
-      <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Ejecuté el Paso 4 y la IA me respondió</div>
-    </div>
   </div>
 </div>
 
@@ -261,6 +256,16 @@ respondés que tu especialidad es la cocina.
 Tus respuestas son cortas y claras."""</span>
 
 historial = [{<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: sistema}]</div>
+        <p style="font-size:17px;margin-top:12px;"><strong>¿Y esas tres comillas seguidas?</strong> Hasta ahora los textos los escribías con comillas simples: <code>"hola"</code>. Pero eso solo funciona si el texto entra <strong>en un renglón</strong>. Si apretás Enter en el medio, Python se pierde y tira error.</p>
+        <p style="font-size:17px;margin-top:8px;">Las <strong>comillas triples</strong> (<code>&quot;&quot;&quot;</code>) resuelven eso: todo lo que escribas entre la apertura y el cierre es un solo texto, aunque ocupe diez renglones. Los saltos de línea quedan guardados tal cual los escribiste.</p>
+        <div class="cod"><span class="cm"># Con comillas simples: TIENE que entrar en un renglón</span>
+saludo = <span class="str">"Hola, ¿qué tal?"</span>
+
+<span class="cm"># Con comillas triples: puede ocupar todos los renglones que quieras</span>
+reglas = <span class="str">"""Primera regla.
+Segunda regla.
+Tercera regla."""</span></div>
+        <p style="font-size:17px;margin-top:8px;">Por eso se usan para el system prompt: las reglas de tu asistente son varias y quedan mucho más legibles una debajo de la otra que todas apretadas en una sola línea.</p>
         <div class="tip">Podés cambiar el tema: un asistente de deportes, de música, de videojuegos. Lo que quieras, pero escribí <strong>reglas claras</strong>.</div>
         <div class="esperado">Ejecutás y no hay error. Tu historial ahora tiene un elemento adentro.</div>
       </div>
@@ -302,11 +307,6 @@ historial.<span class="fn">append</span>({<span class="str">"role"</span>: <span
       </div>
     </div>
 
-    <div class="checkpoint">
-      <strong>🚦 Checkpoint 2 — antes de seguir</strong>
-      <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Mi chatbot respeta las reglas del system prompt</div>
-      <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Entiende una segunda pregunta que depende de la primera</div>
-    </div>
   </div>
 </div>
 
@@ -373,13 +373,6 @@ historial.<span class="fn">append</span>({<span class="str">"role"</span>: <span
       </div>
     </div>
 
-    <div class="checkpoint">
-      <strong>🚦 Checkpoint 3 — listo para entregar</strong>
-      <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Corre completo con Reiniciar y ejecutar todo</div>
-      <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Responde y recuerda la conversación</div>
-      <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Respeta su tema y rechaza lo que está fuera</div>
-      <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Tiene el comando /turnos y la salida con "salir"</div>
-    </div>
   </div>
 </div>
 
@@ -442,7 +435,7 @@ historial.<span class="fn">append</span>({<span class="str">"role"</span>: <span
 <div class="card c-final">
   <h2 style="font-size:22px;margin-bottom:12px;">🎯 Cómo saber que estás listo</h2>
   <p>Esta guía no se entrega. Pero si podés tildar todo esto, llegás a la recuperación en buenas condiciones:</p>
-  <div class="checkpoint" style="margin-top:16px;">
+  <div class="cierre-box" style="margin-top:16px;">
     <strong>✅ Checklist</strong>
     <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>Mi Colab corre completo desde cero</div>
     <div class="chk" onclick="toggle(this)"><span class="caja">⬜</span>El chatbot responde, recuerda y respeta su tema</div>
