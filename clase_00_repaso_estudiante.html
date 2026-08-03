@@ -89,6 +89,19 @@
   .jcamino{background:var(--code-bg);color:#D4D4D4;font-family:Consolas,monospace;
            padding:12px 16px;border-radius:8px;font-size:17px;margin-top:10px;overflow-x:auto;}
   .jprog{font-size:16px;color:#666;margin-bottom:8px;}
+
+  /* Taller de reparaciones */
+  .rep{display:none;}
+  .rep.activo{display:block;}
+  .repcod{background:var(--code-bg);border-radius:8px;padding:14px 0;font-family:Consolas,monospace;
+          font-size:16px;line-height:1.9;overflow-x:auto;}
+  .rline{display:block;padding:2px 18px;cursor:pointer;white-space:pre;color:#D4D4D4;}
+  .rline:hover{background:#2D2D2D;}
+  .rline.ok{background:#1F6E5C;}
+  .rline.no{background:#5C1F1F;}
+  .rline.fija{cursor:default;color:#808080;}
+  .rline.fija:hover{background:transparent;}
+  .rnum{color:#606060;display:inline-block;width:26px;user-select:none;}
 </style>
 </head>
 <body>
@@ -437,18 +450,101 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
   </div>
 </div>
 
-<div class="card c-avanzado">
-  <h2><span class="badge" style="background:var(--amb)">7</span> ACTIVIDAD INDIVIDUAL — AUTODIAGNÓSTICO</h2>
-  <p>Diez preguntas sobre cómo funciona tu aplicación con IA. <strong>Se hace solo, sin ayuda y sin mirar el Colab.</strong> No lleva nota: sirve para saber qué repasar. Al final te dice exactamente qué temas mirar de nuevo.</p>
-  <div id="quiz-box" style="margin-top:18px;"></div>
-  <div class="info i-amb" style="margin-top:16px;">
-    <strong>✍️ Anotá tu resultado</strong>
-    Escribí en tu carpeta los temas que te salieron mal. Esos son los que repasás esta semana — con el asistente de abajo, con un compañero o con los profes.
+
+<div class="card c-rojo" style="border-left-color:var(--rojo);background:#FFF6F6;">
+  <h2><span class="badge" style="background:var(--rojo)">7</span> TALLER DE REPARACIONES</h2>
+  <p>Cuatro programas que <strong>no funcionan como deberían</strong>. Cada uno tiene exactamente <strong>un</strong> error, y son errores de verdad: los cometió alguien este año. Tocá la línea que está mal.</p>
+  <p style="margin-top:8px;font-size:18px;color:#666;">Pista: no busques errores de escritura. Todos corren sin romperse. El problema es que <em>hacen algo distinto</em> de lo que se quería.</p>
+
+  <div id="repbox" style="margin-top:20px;">
+
+    <!-- REP 1 -->
+    <div class="rep activo" data-ok="3">
+      <p class="jprog">Reparación 1 de 4 · <strong>El chatbot no recuerda nada</strong></p>
+      <div class="jctx">Cada vez que le preguntás algo, contesta como si fuera la primera vez. No se acuerda de lo anterior.</div>
+      <div class="repcod">
+<span class="rline fija"><span class="rnum">1</span>historial = [{"role": "system", "content": sistema}]</span>
+<span class="rline fija"><span class="rnum">2</span></span>
+<span class="rline fija"><span class="rnum">3</span>while True:</span>
+<span class="rline" data-l="1"><span class="rnum">4</span>    mensaje = input("Vos: ").strip()</span>
+<span class="rline" data-l="2"><span class="rnum">5</span>    if mensaje == "salir": break</span>
+<span class="rline" data-l="3"><span class="rnum">6</span>    historial = [{"role": "user", "content": mensaje}]</span>
+<span class="rline" data-l="4"><span class="rnum">7</span>    respuesta = consultar_ia(historial, 0.7)</span>
+<span class="rline" data-l="5"><span class="rnum">8</span>    print(respuesta)</span>
+      </div>
+      <div class="jfb"></div>
+    </div>
+
+    <!-- REP 2 -->
+    <div class="rep" data-ok="2">
+      <p class="jprog">Reparación 2 de 4 · <strong>«No puedo guardar la respuesta»</strong></p>
+      <div class="jctx">La IA contesta y se ve en pantalla, pero cuando querés guardar esa respuesta en una variable, viene vacía.</div>
+      <div class="repcod">
+<span class="rline fija"><span class="rnum">1</span>def consultar_ia(mensajes, nivel_creatividad):</span>
+<span class="rline" data-l="1"><span class="rnum">2</span>    payload = {"model": "openai/gpt-oss-120b",</span>
+<span class="rline fija"><span class="rnum">3</span>               "temperature": nivel_creatividad,</span>
+<span class="rline fija"><span class="rnum">4</span>               "messages": mensajes}</span>
+<span class="rline" data-l="2"><span class="rnum">5</span>    respuesta = requests.post(URL, headers=headers, json=payload)</span>
+<span class="rline" data-l="3"><span class="rnum">6</span>    print(respuesta.json()["choices"][0]["message"]["content"])</span>
+      </div>
+      <div class="jfb"></div>
+    </div>
+
+    <!-- REP 3 -->
+    <div class="rep" data-ok="2">
+      <p class="jprog">Reparación 3 de 4 · <strong>La IA se olvida de su personaje</strong></p>
+      <div class="jctx">Al principio narra como el Narrador que programaste. Después de unos turnos empieza a responder cualquier cosa, como un asistente común.</div>
+      <div class="repcod">
+<span class="rline fija"><span class="rnum">1</span>historial = []</span>
+<span class="rline fija"><span class="rnum">2</span></span>
+<span class="rline" data-l="1"><span class="rnum">3</span>while True:</span>
+<span class="rline" data-l="2"><span class="rnum">4</span>    historial.append({"role": "system", "content": guion})</span>
+<span class="rline" data-l="3"><span class="rnum">5</span>    accion = input("¿Qué hacés? ").strip()</span>
+<span class="rline" data-l="4"><span class="rnum">6</span>    historial.append({"role": "user", "content": accion})</span>
+<span class="rline" data-l="5"><span class="rnum">7</span>    narracion = consultar_ia(historial, 0.8)</span>
+<span class="rline" data-l="6"><span class="rnum">8</span>    historial.append({"role": "assistant", "content": narracion})</span>
+      </div>
+      <div class="jfb"></div>
+    </div>
+
+    <!-- REP 4 -->
+    <div class="rep" data-ok="3">
+      <p class="jprog">Reparación 4 de 4 · <strong>El comando gasta un turno</strong></p>
+      <div class="jctx">Escribís <code>/estado</code> y te muestra la vida... pero además la IA te narra algo, como si <code>/estado</code> hubiera sido una acción del juego.</div>
+      <div class="repcod">
+<span class="rline fija"><span class="rnum">1</span>while True:</span>
+<span class="rline" data-l="1"><span class="rnum">2</span>    accion = input("¿Qué hacés? ").strip()</span>
+<span class="rline" data-l="2"><span class="rnum">3</span>    if accion.lower() == "/estado":</span>
+<span class="rline" data-l="3"><span class="rnum">4</span>        print(f"HP: {jugador['hp']}")</span>
+<span class="rline" data-l="4"><span class="rnum">5</span>    historial.append({"role": "user", "content": accion})</span>
+<span class="rline" data-l="5"><span class="rnum">6</span>    narracion = consultar_ia(historial, 0.8)</span>
+<span class="rline" data-l="6"><span class="rnum">7</span>    print(narracion)</span>
+      </div>
+      <div class="jfb"></div>
+    </div>
+
+  </div>
+
+  <div id="repfinal" style="display:none;margin-top:18px;">
+    <div class="info i-grn">
+      <strong>🔧 Reparaste los cuatro</strong>
+      Fijate qué tenían en común: <strong>ninguno tiraba un error</strong>. Los cuatro programas corrían perfecto, pero hacían algo distinto de lo que uno quería. Ese es el tipo de falla más difícil de encontrar, y la única forma de detectarla es <strong>entender qué hace cada línea</strong>, no confiar en que no aparezca nada rojo en pantalla.
+    </div>
+    <div class="info i-azul">
+      <strong>💡 En el proyecto que viene va a pasar lo mismo</strong>
+      Tu extractor va a correr sin errores y va a llenar la tabla igual… con datos que la IA inventó. Ahí no hay mensaje rojo que te avise: hay que ir a mirar.
+    </div>
   </div>
 </div>
 
+<div class="card c-avanzado">
+  <h2><span class="badge" style="background:var(--amb)">8</span> ACTIVIDAD INDIVIDUAL — AUTODIAGNÓSTICO</h2>
+  <p>Diez preguntas sobre cómo funciona tu aplicación con IA. <strong>Se hace solo, sin ayuda y sin mirar el Colab.</strong> No lleva nota: sirve para saber qué repasar. Al final te dice exactamente qué temas mirar de nuevo.</p>
+  <div id="quiz-box" style="margin-top:18px;"></div>
+</div>
+
 <div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">8</span> EL PUENTE: TODO ESTO SIGUE EN EL PROYECTO NUEVO</h2>
+  <h2><span class="badge" style="background:var(--p1)">9</span> EL PUENTE: TODO ESTO SIGUE EN EL PROYECTO NUEVO</h2>
   <table>
     <tr><th style="width:45%;">Lo que ya sabés (RPG)</th><th>Cómo lo usás en el Extractor</th></tr>
     <tr><td>El bloque B2 completo (API Key, URL, headers)</td><td><strong>Igual, sin tocar nada.</strong></td></tr>
@@ -718,6 +814,58 @@ function add(txt,tipo){
     } else {
       document.getElementById('jfinal').style.display = 'block';
       document.getElementById('jfinal').scrollIntoView({behavior:'smooth', block:'center'});
+    }
+  };
+})();
+</script>
+
+<script>
+(function(){
+  var rIdx = 0;
+  var EXPL = {
+    1: {mal:'Esa línea <strong>pisa</strong> el historial entero. Con <code>=</code> lo estás reemplazando por una lista nueva de un solo mensaje: se borra el system prompt y todo lo anterior. Por eso arranca de cero cada vez.',
+        fix:'historial.append({"role": "user", "content": mensaje})'},
+    2: {mal:'La función <strong>muestra</strong> la respuesta pero no la <strong>devuelve</strong>. Sin <code>return</code>, quien la llama recibe <code>None</code>: el texto se imprime y se pierde.',
+        fix:'return respuesta.json()["choices"][0]["message"]["content"]'},
+    3: {mal:'El system prompt está <strong>adentro</strong> del bucle: se agrega uno nuevo en cada turno. Después de cinco turnos hay cinco guiones apilados y el modelo se confunde. Va una sola vez, antes del <code>while</code>.',
+        fix:'historial = [{"role": "system", "content": guion}]   # ANTES del while'},
+    4: {mal:'Después de mostrar el estado falta <code>continue</code>. Sin él, el programa sigue de largo y le manda "/estado" a la IA como si fuera una acción del juego.',
+        fix:'        continue   # vuelve al principio, no gasta el turno'}
+  };
+
+  document.addEventListener('click', function(e){
+    var li = e.target.closest('.rline');
+    if(!li || li.classList.contains('fija')) return;
+    var rep = li.closest('.rep');
+    if(!rep || !rep.classList.contains('activo')) return;
+    if(rep.getAttribute('data-resuelto') === 'si') return;
+
+    var fb = rep.querySelector('.jfb');
+    var n = rIdx + 1;
+    if(li.getAttribute('data-l') === rep.getAttribute('data-ok')){
+      li.classList.add('ok');
+      rep.setAttribute('data-resuelto','si');
+      fb.innerHTML = '<span style="color:#137333;font-weight:bold;">🔧 ¡Ese era!</span> '
+                   + EXPL[n].mal
+                   + '<div class="jcamino"><span style="color:#6A9955;"># así tendría que decir:</span><br>' + EXPL[n].fix + '</div>'
+                   + '<button class="btn-next" onclick="rSiguiente()">Siguiente ➡</button>';
+    } else {
+      li.classList.add('no');
+      fb.innerHTML = '<span style="color:#C62828;font-weight:bold;">❌ Esa línea está bien.</span> Volvé a leer qué hace mal el programa y pensá qué línea es la responsable.';
+      setTimeout(function(){ li.classList.remove('no'); }, 900);
+    }
+  });
+
+  window.rSiguiente = function(){
+    var reps = document.querySelectorAll('.rep');
+    reps[rIdx].classList.remove('activo');
+    rIdx++;
+    if(rIdx < reps.length){
+      reps[rIdx].classList.add('activo');
+      reps[rIdx].scrollIntoView({behavior:'smooth', block:'center'});
+    } else {
+      document.getElementById('repfinal').style.display = 'block';
+      document.getElementById('repfinal').scrollIntoView({behavior:'smooth', block:'center'});
     }
   };
 })();
