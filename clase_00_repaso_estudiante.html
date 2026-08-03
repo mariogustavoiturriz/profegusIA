@@ -221,16 +221,21 @@
 
   <p style="margin-top:18px;font-size:19px;"><strong>⬅️ Lo que VUELVE del servidor:</strong></p>
   <div class="json-box">{
-  "choices": [                          <span style="color:#6A9955;">&lt;- lista de respuestas</span>
-      {
-        "message": {
+  "choices": [                    <span style="color:#6A9955;">&lt;-- 1) ["choices"] : es una LISTA</span>
+      {                           <span style="color:#6A9955;">&lt;-- 2) [0] : el primer elemento</span>
+        "message": {              <span style="color:#6A9955;">&lt;-- 3) ["message"]</span>
             "role": "assistant",
-            "content": "Detrás de la puerta hay..."   <span style="color:#6A9955;">&lt;- EL TEXTO</span>
+            "content": "Detrás de la puerta hay..."   <span style="color:#6A9955;">&lt;-- 4) ["content"]</span>
         }
       }
   ],
-  "usage": {"total_tokens": 512}        <span style="color:#6A9955;">&lt;- cuánto consumiste</span>
+  "usage": {"total_tokens": 512}  <span style="color:#6A9955;">&lt;- cuánto consumiste</span>
 }</div>
+
+  <p style="margin-top:14px;font-size:19px;">Seguí los cuatro números del dibujo: son <strong>exactamente</strong> los corchetes de la línea que ya conocés, en el mismo orden.</p>
+  <div class="code-block">respuesta.<span class="fn">json</span>()[<span class="str">"choices"</span>][<span class="nm">0</span>][<span class="str">"message"</span>][<span class="str">"content"</span>]
+              <span class="cm">   1        2       3          4</span></div>
+  <p style="margin-top:10px;font-size:19px;">Ojo con el <strong><code>[0]</code>: no está escrito en el JSON</strong>. Aparece porque después de <code>"choices"</code> hay un corchete <code>[</code>, y eso quiere decir <em>lista</em>. Los elementos de una lista no tienen nombre: se piden por su número de posición, y el primero es el 0.</p>
 
   <div class="info i-json">
     <strong>Por eso hay que "cavar" hasta el texto</strong>
