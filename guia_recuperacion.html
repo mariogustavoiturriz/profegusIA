@@ -181,16 +181,20 @@ headers = {
 
         <p style="font-size:17px;margin-top:12px;"><strong>4. La línea de los corchetes desarma la respuesta.</strong> Acá está la parte que más confunde, así que vale la pena entenderla bien. El servidor <strong>no te devuelve el texto pelado</strong>: te devuelve un JSON con un montón de información alrededor, más o menos así:</p>
         <div class="cod">{
-  <span class="dk">"choices"</span>: [
-      {
-        <span class="dk">"message"</span>: {
+  <span class="dk">"choices"</span>: [                <span class="cm">&lt;-- 1) ["choices"] entra acá</span>
+      {                          <span class="cm">&lt;-- 2) [0] es este primer elemento</span>
+        <span class="dk">"message"</span>: {             <span class="cm">&lt;-- 3) ["message"] entra acá</span>
             <span class="dk">"role"</span>: <span class="str">"assistant"</span>,
-            <span class="dk">"content"</span>: <span class="str">"Acá está lo que te contestó la IA"</span>
+            <span class="dk">"content"</span>: <span class="str">"Acá está lo que te contestó la IA"</span>   <span class="cm">&lt;-- 4) ["content"]</span>
         }
       }
   ],
   <span class="dk">"usage"</span>: { <span class="dk">"total_tokens"</span>: <span class="nm">512</span> }
 }</div>
+        <p style="font-size:17px;margin-top:10px;">Seguí los números del dibujo y vas a ver que son <strong>exactamente</strong> los corchetes de tu código, en el mismo orden:</p>
+        <div class="cod">respuesta.<span class="fn">json</span>()[<span class="str">"choices"</span>][<span class="nm">0</span>][<span class="str">"message"</span>][<span class="str">"content"</span>]
+              <span class="cm">   1        2       3          4</span></div>
+        <p style="font-size:17px;margin-top:10px;">El <strong><code>[0]</code> no aparece escrito en el JSON</strong>, y por eso confunde. Aparece porque después de <code>"choices"</code> viene un corchete <code>[</code>, y eso significa <em>lista</em>. Los elementos de una lista no tienen nombre: se piden por su número de posición. El primero es el 0.</p>
         <p style="font-size:17px;">Es una caja con cajas adentro. Para llegar al texto hay que ir abriendo una por una, y eso es exactamente lo que hace cada corchete:</p>
         <ul style="font-size:17px;margin-top:8px;">
           <li><code>respuesta.json()</code> → convierte todo lo que llegó en un diccionario de Python.</li>
