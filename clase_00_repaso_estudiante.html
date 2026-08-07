@@ -102,6 +102,11 @@
   .rline.fija{cursor:default;color:#808080;}
   .rline.fija:hover{background:transparent;}
   .rnum{color:#606060;display:inline-block;width:26px;user-select:none;}
+
+  .encasa{display:inline-block;background:#7A4B00;color:#fff;font-size:14px;font-weight:bold;
+          letter-spacing:1px;padding:5px 12px;border-radius:20px;margin-left:auto;}
+  .banda-casa{background:#FFF8EE;border:2px dashed #B8720A;border-radius:10px;
+              padding:12px 18px;margin-bottom:16px;font-size:18px;}
 </style>
 </head>
 <body>
@@ -143,6 +148,10 @@
   <h2><span class="badge" style="background:var(--vio)">0</span> POR QUÉ ESTA CLASE</h2>
   <p>En el primer cuatrimestre construiste un RPG que conversa con una IA. Funcionaba. Pero hoy vamos a la pregunta de fondo: <strong>¿qué pasa realmente cuando apretás Enter?</strong></p>
   <p style="margin-top:10px;">Entender el camino completo — tu Colab, el pedido que viaja, el modelo que responde, el JSON que vuelve — es lo que te permite <strong>arreglar lo que falla y construir cosas nuevas</strong>. Sin eso, programás de memoria.</p>
+  <div class="info i-amb" style="margin-top:14px;">
+    <strong>🗺️ Cómo usar esta página</strong>
+    Los bloques <strong>1 al 6</strong> los vemos juntos en clase. Los bloques <strong>7 y 8</strong> están marcados <em>🏠 para casa</em>: son dos actividades para hacer durante la semana, con devolución automática.
+  </div>
   <div class="info i-azul" style="margin-top:14px;">
     <strong>💡 Lo que repasás hoy es la base del proyecto nuevo</strong>
     El Extractor que vamos a construir usa exactamente la misma arquitectura. Cambia <em>qué</em> le pedís al modelo, no <em>cómo</em> se lo pedís.
@@ -452,7 +461,8 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 
 
 <div class="card c-rojo" style="border-left-color:var(--rojo);background:#FFF6F6;">
-  <h2><span class="badge" style="background:var(--rojo)">7</span> TALLER DE REPARACIONES</h2>
+  <h2><span class="badge" style="background:var(--rojo)">7</span> TALLER DE REPARACIONES <span class="encasa">🏠 PARA CASA</span></h2>
+  <div class="banda-casa">Este bloque y el que sigue <strong>no los hacemos en clase</strong>: son para que los resuelvas durante la semana, a tu ritmo. Son los que más te van a servir.</div>
   <p>Cuatro programas que <strong>no funcionan como deberían</strong>. Cada uno tiene exactamente <strong>un</strong> error, y son errores de verdad: los cometió alguien este año. Tocá la línea que está mal.</p>
   <p style="margin-top:8px;font-size:18px;color:#666;">Pista: no busques errores de escritura. Todos corren sin romperse. El problema es que <em>hacen algo distinto</em> de lo que se quería.</p>
 
@@ -538,7 +548,7 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 </div>
 
 <div class="card c-avanzado">
-  <h2><span class="badge" style="background:var(--amb)">8</span> ACTIVIDAD INDIVIDUAL — AUTODIAGNÓSTICO</h2>
+  <h2><span class="badge" style="background:var(--amb)">8</span> ACTIVIDAD INDIVIDUAL — AUTODIAGNÓSTICO <span class="encasa">🏠 PARA CASA</span></h2>
   <p>Diez preguntas sobre cómo funciona tu aplicación con IA. <strong>Se hace solo, sin ayuda y sin mirar el Colab.</strong> No lleva nota: sirve para saber qué repasar. Al final te dice exactamente qué temas mirar de nuevo.</p>
   <div id="quiz-box" style="margin-top:18px;"></div>
 </div>
