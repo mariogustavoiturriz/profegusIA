@@ -910,6 +910,42 @@ cronica = <span class="fn">consultar_ia</span>(historial, ...)   <span class="cm
     <tr><td>Diccionarios <code>role</code>/<code>content</code></td><td>Diccionarios con <strong>tus campos</strong>: producto, cliente, hora.</td></tr>
     <tr><td>Saber que la IA alucina</td><td>Un <strong>análisis de calidad</strong> para detectar y corregir esas invenciones.</td></tr>
   </table>
+
+  <div class="info i-azul" style="margin-top:16px;">
+    <strong>🤖 ¿Y todo esto para qué? Para construir un Agente</strong>
+    El proyecto tiene <strong>dos partes encadenadas</strong>, y esta clase es la base de las dos:
+  </div>
+
+  <div class="arq" style="margin-top:4px;">
+    <div class="arq-lado" style="background:#E8F4F0;border:2px solid var(--p1);">
+      <span class="ico">🔍</span>
+      <h4>PARTE 1 — El Extractor</h4>
+      <p style="font-size:16px;">lo que arranca ahora</p>
+      <ul>
+        <li>Toma textos sueltos</li>
+        <li>Le pide a la IA que saque los datos</li>
+        <li>Arma un <strong>CSV</strong> ordenado y verificado</li>
+      </ul>
+    </div>
+    <div class="arq-medio">
+      <div class="arq-flecha f-ida" style="background:var(--amb);">▶ el CSV<br>alimenta al</div>
+    </div>
+    <div class="arq-lado" style="background:var(--vio-bg);border:2px solid var(--vio);">
+      <span class="ico">🤖</span>
+      <h4>PARTE 2 — El Agente</h4>
+      <p style="font-size:16px;">más adelante</p>
+      <ul>
+        <li>Usa ese CSV como <strong>cerebro</strong></li>
+        <li>Razona qué hacer con los datos</li>
+        <li><strong>Decide y actúa solo</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="info i-amb" style="margin-top:4px;">
+    <strong>La clave</strong>
+    La Parte 2 no existe sin la Parte 1: un agente decide bien solo si sus datos son buenos. Por eso ahora la obsesión es que el Extractor no deje pasar ni una alucinación — <strong>esos datos van a ser el cerebro del Agente</strong>.
+  </div>
   <div class="info i-grn">
     <strong>📅 Lo que viene</strong>
     Estas semanas cerramos el primer cuatrimestre: los que tengan que recuperar se preparan, y el resto repasa. El profe les va a confirmar la fecha de arranque del proyecto.<br><br>
