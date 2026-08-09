@@ -107,12 +107,53 @@
           letter-spacing:1px;padding:5px 12px;border-radius:20px;margin-left:auto;}
   .banda-casa{background:#FFF8EE;border:2px dashed #B8720A;border-radius:10px;
               padding:12px 18px;margin-bottom:16px;font-size:18px;}
+
+  /* Campos extraíbles */
+  .campo{display:inline-block;background:#fff;border:2px solid var(--bd);border-radius:22px;
+         padding:9px 18px;margin:6px 6px 6px 0;cursor:pointer;font-size:18px;transition:all .15s;}
+  .campo:hover{border-color:var(--p1);background:#F2FAF8;}
+  .campo.si{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .campo.no{background:#FFEBEE;border-color:var(--rojo);color:#8B1A1A;text-decoration:line-through;}
+  .ext-txt{background:#FFFDF5;border:2px solid var(--amb);border-radius:10px;padding:16px 20px;
+           font-size:19px;line-height:1.7;font-style:italic;margin-bottom:14px;}
+
+  .tarea{display:block;background:#fff;border:2px solid var(--bd);border-radius:10px;
+         padding:13px 18px;margin-bottom:10px;cursor:pointer;font-size:18px;transition:all .15s;}
+  .tarea:hover{border-color:var(--vio);}
+  .tarea.front{background:var(--azul-bg);border-color:var(--azul);}
+  .tarea.back{background:#FBEAE2;border-color:#C8461E;}
+  .tarea .marca{float:right;font-weight:bold;font-size:16px;}
+  .btn-op{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px 20px;
+          margin:6px 8px 6px 0;font-size:18px;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .btn-op:hover{border-color:var(--p1);}
+  .btn-op.ok{background:#E8F4F0;border-color:var(--p1);}
+  .btn-op.mal{background:#FFEBEE;border-color:var(--rojo);}
+  .parte{display:inline-block;background:#1E1E1E;color:#DCDCAA;border:2px solid #444;
+         border-radius:8px;padding:8px 14px;margin:5px 4px;cursor:pointer;
+         font-family:Consolas,monospace;font-size:20px;}
+  .parte:hover{border-color:#DCDCAA;}
+  .parte.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .parte.mal{background:#5C1F1F;border-color:#C62828;}
+
+  /* Cuestionario de cierre */
+  .cq-op{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);
+         border-radius:10px;padding:13px 18px;margin-bottom:9px;font-size:18px;cursor:pointer;
+         font-family:inherit;color:var(--txt);line-height:1.5;}
+  .cq-op:hover:enabled{border-color:var(--vio);background:#FAF7FF;}
+  .cq-op:disabled{cursor:default;opacity:.95;}
+  .cq-vf{display:inline-block;width:48%;text-align:center;font-size:20px;font-weight:bold;
+         padding:16px;margin:0 1% 10px;border:2px solid var(--bd);border-radius:10px;
+         background:#fff;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .cq-vf:hover:enabled{border-color:var(--vio);}
+  .cq-vf:disabled{cursor:default;opacity:.95;}
+  .cq-barra{height:14px;background:#E8E8E8;border-radius:7px;overflow:hidden;margin:10px 0 4px;}
+  .cq-fill{height:100%;background:var(--vio);width:0;transition:width .3s;}
 </style>
 </head>
 <body>
 <header>
   <h1>CLASE 0 (2C) — REPASO GENERAL: CÓMO FUNCIONA TU APLICACIÓN CON IA</h1>
-  <p>Taller de IA &middot; 7&deg; TIC &middot; CTP Antonio Mart&iacute;n Marte &middot; Viernes 7/8 · 80 minutos</p>
+  <p>Taller de IA &middot; 7&deg; TIC &middot; CTP Antonio Mart&iacute;n Marte &middot; Lunes 10/8 · 120 minutos</p>
 </header>
 <div class="container">
 <a href="index.html" class="back-btn">&#11013; Volver al &Iacute;ndice</a>
@@ -146,15 +187,11 @@
 
 <div class="card c-info">
   <h2><span class="badge" style="background:var(--vio)">0</span> POR QUÉ ESTA CLASE</h2>
-  <p>En el primer cuatrimestre construiste un RPG que conversa con una IA. Funcionaba. Pero hoy vamos a la pregunta de fondo: <strong>¿qué pasa realmente cuando apretás Enter?</strong></p>
-  <p style="margin-top:10px;">Entender el camino completo — tu Colab, el pedido que viaja, el modelo que responde, el JSON que vuelve — es lo que te permite <strong>arreglar lo que falla y construir cosas nuevas</strong>. Sin eso, programás de memoria.</p>
-  <div class="info i-amb" style="margin-top:14px;">
-    <strong>🗺️ Cómo usar esta página</strong>
-    Los bloques <strong>1 al 6</strong> los vemos juntos en clase. Los bloques <strong>7 y 8</strong> están marcados <em>🏠 para casa</em>: son dos actividades para hacer durante la semana, con devolución automática.
-  </div>
-  <div class="info i-azul" style="margin-top:14px;">
-    <strong>💡 Lo que repasás hoy es la base del proyecto nuevo</strong>
-    El Extractor que vamos a construir usa exactamente la misma arquitectura. Cambia <em>qué</em> le pedís al modelo, no <em>cómo</em> se lo pedís.
+  <p>Construiste un RPG que habla con una IA. Hoy vas a entender <strong>qué pasa realmente cuando apretás Enter</strong>: es la base del proyecto que viene.</p>
+  <div class="info i-azul" style="margin-top:12px;">
+    <strong>🧭 Cómo es esta clase</strong>
+    Podés leerla sola, a tu ritmo. Alterna explicaciones cortas con actividades para tocar y resolver. Al final hay un cuestionario para ver cómo te fue.<br><br>
+    <strong>Recorrido:</strong> 1) dónde está la IA · 2) el modelo · 3) el JSON · 4) <em>ejercicio</em> · 5) tu código · 6) roles · 7) <em>reparaciones</em> · 8) <em>qué extraer</em> · 9) <em>autodiagnóstico</em> · ★ desafío · cuestionario final.
   </div>
 </div>
 
@@ -192,25 +229,26 @@
     </div>
   </div>
 
-  <div class="info i-p1">
-    <strong>Tres consecuencias de esto</strong>
-    <ul style="margin-top:8px;">
-      <li><strong>Sin internet no hay IA.</strong> El modelo no está en tu máquina: es demasiado grande para tu compu.</li>
-      <li><strong>Necesitás una API Key.</strong> Es tu credencial para que el servidor te atienda.</li>
-      <li><strong>El servidor no te recuerda.</strong> Cada pedido es independiente — por eso mandás el historial entero cada vez.</li>
-    </ul>
+  <p style="font-size:19px;margin-top:6px;"><strong>Probá si te quedó claro.</strong> Tocá cada tarea para decidir de qué lado pasa:</p>
+  <div id="fbbox">
+    <span class="tarea" data-lado="front">Guardar el historial de la conversación</span>
+    <span class="tarea" data-lado="back">Verificar que tu API Key sea válida</span>
+    <span class="tarea" data-lado="front">Pedirle al jugador que escriba su acción</span>
+    <span class="tarea" data-lado="back">Generar el texto de la respuesta</span>
+    <span class="tarea" data-lado="front">Armar el payload y mandarlo</span>
+    <span class="tarea" data-lado="back">Contar los tokens que gastaste</span>
   </div>
+  <div class="jfb" id="fb-fb"></div>
 </div>
 
 <div class="card c-p1">
   <h2><span class="badge" style="background:var(--p1)">2</span> EL MODELO: <code>openai/gpt-oss-120b</code></h2>
-  <p>Ese nombre que copiaste sin pensar dice cuatro cosas:</p>
-  <div class="capa"><strong>openai</strong> — Quién lo desarrolló. Groq no fabrica el modelo: presta las máquinas donde corre.</div>
-  <div class="capa"><strong>gpt</strong> — El tipo de arquitectura con la que está construido, la misma familia de tecnología que usan casi todos los modelos de lenguaje actuales.</div>
-  <div class="capa"><strong>oss</strong> — <em>Open source</em>: sus pesos son abiertos y cualquiera puede descargarlo o servirlo. Por eso Groq puede ofrecerlo en su plataforma.</div>
-  <div class="capa"><strong>120b</strong> — <strong>120 mil millones de parámetros</strong>: los números internos que el modelo ajustó durante su entrenamiento. Ahí está "lo que sabe".</div>
-
-  <div class="info i-azul">
+  <p>Ese nombre no es al azar. <strong>Tocá cada parte</strong> para ver qué significa:</p>
+  <div style="margin:14px 0;">
+    <span class="parte" data-p="openai">openai</span><span style="font-size:22px;color:#666;">/</span><span class="parte" data-p="gpt">gpt</span><span style="font-size:22px;color:#666;">-</span><span class="parte" data-p="oss">oss</span><span style="font-size:22px;color:#666;">-</span><span class="parte" data-p="120b">120b</span>
+  </div>
+  <div class="jfb" id="fb-modelo" style="min-height:60px;"></div>
+<div class="info i-azul">
     <strong>🔄 Los modelos se dan de baja: esto pasó de verdad, hace unos días</strong>
     Hasta hace poco este taller usaba <code>llama-3.3-70b-versatile</code>. Groq anunció que <strong>deja de funcionar el 16 de agosto</strong>: después de esa fecha, cualquier programa que lo pida recibe un error. Por eso migramos a <code>openai/gpt-oss-120b</code>.<br><br>
     Esto es parte normal del oficio: los modelos se actualizan y se retiran, y quien programa con IA tiene que estar atento. La buena noticia es que <strong>el cambio fue una línea</strong>: como el resto del código no depende del modelo, se reemplaza el nombre y todo lo demás sigue igual. Cuando programás bien, cambiar de motor no te obliga a rehacer el auto.
@@ -285,7 +323,7 @@
 
     <!-- EJ 1 -->
     <div class="jej activo" data-ok="content" data-camino='respuesta["choices"][0]["message"]["content"]'>
-      <p class="jprog">Caso 1 de 6 · La respuesta de la IA</p>
+      <p class="jprog">Caso 1 de 12 · La respuesta de la IA</p>
       <div class="jctx">Este es el JSON que devuelve Groq cuando tu RPG le pregunta algo. Es el que ya venías desarmando.</div>
       <p class="jpide">👉 Tocá <strong>el texto que devolvió la IA</strong>.</p>
       <div class="jpanel">{
@@ -304,7 +342,7 @@
 
     <!-- EJ 2 -->
     <div class="jej" data-ok="cantidad" data-camino='pedido["cantidad"]'>
-      <p class="jprog">Caso 2 de 6 · Un pedido de kiosco</p>
+      <p class="jprog">Caso 2 de 12 · Un pedido de kiosco</p>
       <div class="jctx">Así se van a ver los datos que extraiga tu proyecto: un texto suelto convertido en campos ordenados.</div>
       <p class="jpide">👉 Tocá <strong>la cantidad pedida</strong>.</p>
       <div class="jpanel">pedido = {
@@ -318,7 +356,7 @@
 
     <!-- EJ 3 -->
     <div class="jej" data-ok="nombre" data-camino='factura["cliente"]["nombre"]'>
-      <p class="jprog">Caso 3 de 6 · Cajas adentro de cajas</p>
+      <p class="jprog">Caso 3 de 12 · Cajas adentro de cajas</p>
       <div class="jctx">Acá un valor <strong>no</strong> es un dato simple: es otro diccionario completo. Hay que abrir dos puertas.</div>
       <p class="jpide">👉 Tocá <strong>el nombre del cliente</strong>.</p>
       <div class="jpanel">factura = {
@@ -334,7 +372,7 @@
 
     <!-- EJ 4 -->
     <div class="jej" data-ok="p2" data-camino='stock["productos"][1]["nombre"]'>
-      <p class="jprog">Caso 4 de 6 · Una lista de varios</p>
+      <p class="jprog">Caso 4 de 12 · Una lista de varios</p>
       <div class="jctx">Cuando hay una lista, cada elemento tiene su número de posición. Y las listas <strong>empiezan en 0</strong>.</div>
       <p class="jpide">👉 Tocá el nombre del <strong>SEGUNDO</strong> producto.</p>
       <div class="jpanel">stock = {
@@ -349,7 +387,7 @@
 
     <!-- EJ 5 -->
     <div class="jej" data-ok="null" data-camino='reserva["hora_retiro"]   # devuelve None (el null de JSON)'>
-      <p class="jprog">Caso 5 de 6 · El dato que no está</p>
+      <p class="jprog">Caso 5 de 12 · El dato que no está</p>
       <div class="jctx">El texto original decía: <em>"Reservo dos empanadas a nombre de Milena"</em>. No aclaraba la hora.</div>
       <p class="jpide">👉 Tocá <strong>el valor de hora_retiro</strong>.</p>
       <div class="jpanel">reserva = {
@@ -363,7 +401,7 @@
 
     <!-- EJ 6 -->
     <div class="jej" data-ok="tot" data-camino='respuesta["usage"]["total_tokens"]'>
-      <p class="jprog">Caso 6 de 6 · El dato escondido</p>
+      <p class="jprog">Caso 6 de 12 · El dato escondido</p>
       <div class="jctx">Volvemos a la respuesta de la API, pero ahora buscando algo que casi nadie mira: cuánto consumió el pedido.</div>
       <p class="jpide">👉 Tocá <strong>el total de tokens</strong> que gastó la consulta.</p>
       <div class="jpanel">{
@@ -376,6 +414,100 @@
       <span class="jkey">"completion_tokens"</span>: <span class="jval" data-k="comp">494</span>,
       <span class="jkey">"total_tokens"</span>: <span class="jval" data-k="tot">512</span>
   }
+}</div>
+      <div class="jfb"></div>
+    </div>
+
+
+    <!-- EJ 7 -->
+    <div class="jej" data-ok="sys" data-camino='historial[0]["content"]'>
+      <p class="jprog">Caso 7 de 12 · El historial de tu RPG</p>
+      <div class="jctx">Acá la lista no está adentro de nada: <strong>el historial ES una lista</strong>. Cada mensaje ocupa una posición.</div>
+      <p class="jpide">👉 Tocá <strong>las reglas del Narrador</strong> (el system prompt).</p>
+      <div class="jpanel">historial = [
+    { <span class="jkey">"role"</span>: <span class="jkey">"system"</span>,    <span class="jkey">"content"</span>: <span class="jval" data-k="sys">"Sos el Narrador de una aventura..."</span> },
+    { <span class="jkey">"role"</span>: <span class="jkey">"user"</span>,      <span class="jkey">"content"</span>: <span class="jval" data-k="u1">"abro la puerta"</span> },
+    { <span class="jkey">"role"</span>: <span class="jkey">"assistant"</span>, <span class="jkey">"content"</span>: <span class="jval" data-k="a1">"La puerta cruje..."</span> }
+]</div>
+      <div class="jfb"></div>
+    </div>
+
+    <!-- EJ 8 -->
+    <div class="jej" data-ok="u1" data-camino='historial[1]["content"]'>
+      <p class="jprog">Caso 8 de 12 · El mismo historial, otro dato</p>
+      <div class="jctx">Ahora buscamos algo que está más abajo en la lista. Contá las posiciones desde 0.</div>
+      <p class="jpide">👉 Tocá <strong>lo que escribió el jugador</strong>.</p>
+      <div class="jpanel">historial = [
+    { <span class="jkey">"role"</span>: <span class="jkey">"system"</span>,    <span class="jkey">"content"</span>: <span class="jval" data-k="sys2">"Sos el Narrador de una aventura..."</span> },
+    { <span class="jkey">"role"</span>: <span class="jkey">"user"</span>,      <span class="jkey">"content"</span>: <span class="jval" data-k="u1">"abro la puerta"</span> },
+    { <span class="jkey">"role"</span>: <span class="jkey">"assistant"</span>, <span class="jkey">"content"</span>: <span class="jval" data-k="a1b">"La puerta cruje..."</span> }
+]</div>
+      <div class="jfb"></div>
+    </div>
+
+    <!-- EJ 9 -->
+    <div class="jej" data-ok="razon" data-camino='respuesta["choices"][0]["message"]["reasoning"]'>
+      <p class="jprog">Caso 9 de 12 · Cómo lo pensó la IA</p>
+      <div class="jctx">El modelo nuevo devuelve, además de la respuesta, <strong>el razonamiento que hizo antes de contestar</strong>. Son dos campos hermanos.</div>
+      <p class="jpide">👉 Tocá <strong>el razonamiento</strong> del modelo.</p>
+      <div class="jpanel">{
+  <span class="jkey">"choices"</span>: [
+      {
+        <span class="jkey">"message"</span>: {
+            <span class="jkey">"role"</span>: <span class="jval" data-k="rol9">"assistant"</span>,
+            <span class="jkey">"content"</span>: <span class="jval" data-k="cont9">"Detrás de la puerta hay una escalera."</span>,
+            <span class="jkey">"reasoning"</span>: <span class="jval" data-k="razon">"El jugador abrió una puerta. Debo describir..."</span>
+        }
+      }
+  ]
+}</div>
+      <div class="jfb"></div>
+    </div>
+
+    <!-- EJ 10 -->
+    <div class="jej" data-ok="fin" data-camino='respuesta["choices"][0]["finish_reason"]'>
+      <p class="jprog">Caso 10 de 12 · Por qué paró</p>
+      <div class="jctx">Este dato te dice <strong>por qué el modelo dejó de escribir</strong>. Si dice <code>"stop"</code> terminó bien; si dice <code>"length"</code> se quedó sin tokens y la respuesta está cortada.</div>
+      <p class="jpide">👉 Tocá <strong>el motivo por el que paró</strong>.</p>
+      <div class="jpanel">{
+  <span class="jkey">"choices"</span>: [
+      {
+        <span class="jkey">"message"</span>: { <span class="jkey">"content"</span>: <span class="jval" data-k="cont10">"La escalera baja hacia..."</span> },
+        <span class="jkey">"finish_reason"</span>: <span class="jval" data-k="fin">"length"</span>
+      }
+  ]
+}</div>
+      <div class="jfb"></div>
+    </div>
+
+    <!-- EJ 11 -->
+    <div class="jej" data-ok="hp" data-camino='jugador["stats"]["hp"]'>
+      <p class="jprog">Caso 11 de 12 · Tu diccionario del RPG</p>
+      <div class="jctx">Este es el <code>jugador</code> de tu juego, pero mejor organizado: las estadísticas agrupadas y el inventario como lista.</div>
+      <p class="jpide">👉 Tocá <strong>la vida del jugador</strong>.</p>
+      <div class="jpanel">jugador = {
+    <span class="jkey">"nombre"</span>: <span class="jval" data-k="nom11">"Kira"</span>,
+    <span class="jkey">"stats"</span>: {
+        <span class="jkey">"hp"</span>: <span class="jval" data-k="hp">85</span>,
+        <span class="jkey">"nivel"</span>: <span class="jval" data-k="niv">3</span>
+    },
+    <span class="jkey">"inventario"</span>: [<span class="jval" data-k="i1">"antorcha"</span>, <span class="jval" data-k="i2">"llave oxidada"</span>]
+}</div>
+      <div class="jfb"></div>
+    </div>
+
+    <!-- EJ 12 -->
+    <div class="jej" data-ok="obj2" data-camino='jugador["inventario"][1]'>
+      <p class="jprog">Caso 12 de 12 · El último</p>
+      <div class="jctx">Una lista de textos sueltos, sin diccionarios adentro. Se piden igual: por posición.</div>
+      <p class="jpide">👉 Tocá el <strong>SEGUNDO objeto</strong> del inventario.</p>
+      <div class="jpanel">jugador = {
+    <span class="jkey">"nombre"</span>: <span class="jval" data-k="nom12">"Kira"</span>,
+    <span class="jkey">"inventario"</span>: [
+        <span class="jval" data-k="obj1">"antorcha"</span>,
+        <span class="jval" data-k="obj2">"llave oxidada"</span>,
+        <span class="jval" data-k="obj3">"poción"</span>
+    ]
 }</div>
       <div class="jfb"></div>
     </div>
@@ -441,28 +573,63 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 
 <div class="card c-p1">
   <h2><span class="badge" style="background:var(--p1)">6</span> LOS ROLES Y EL CONTEXTO</h2>
-  <p>Dentro de <code>messages</code>, cada mensaje tiene un <strong>rol</strong>. No son decorativos: le dicen al modelo cómo interpretar cada texto.</p>
-  <div class="trio">
-    <div class="mini"><strong>system</strong>La <strong>configuración</strong>: quién es y cómo se comporta. Tu guion del Narrador. Va en la posición 0, una sola vez.</div>
-    <div class="mini"><strong>user</strong>Lo que escribe la persona. En tu RPG, la acción del jugador.</div>
-    <div class="mini"><strong>assistant</strong>Lo que respondió la IA antes. Se guarda para que el modelo sepa qué dijo.</div>
+  <p>Cada mensaje del historial lleva un <strong>rol</strong>. <strong>Asigná el que corresponde</strong> a cada uno:</p>
+  <div id="rolbox">
+    <div class="rolitem" data-ok="system" style="margin-bottom:14px;">
+      <div class="ext-txt" style="font-style:normal;">"Sos el Narrador de una aventura de terror. Nunca rompas el personaje."</div>
+      <button class="btn-op" data-r="system">system</button>
+      <button class="btn-op" data-r="user">user</button>
+      <button class="btn-op" data-r="assistant">assistant</button>
+      <div class="jfb"></div>
+    </div>
+    <div class="rolitem" data-ok="user" style="margin-bottom:14px;display:none;">
+      <div class="ext-txt" style="font-style:normal;">"abro la puerta con cuidado"</div>
+      <button class="btn-op" data-r="system">system</button>
+      <button class="btn-op" data-r="user">user</button>
+      <button class="btn-op" data-r="assistant">assistant</button>
+      <div class="jfb"></div>
+    </div>
+    <div class="rolitem" data-ok="assistant" style="margin-bottom:14px;display:none;">
+      <div class="ext-txt" style="font-style:normal;">"La puerta cruje. Adentro hay una escalera que baja hacia la oscuridad."</div>
+      <button class="btn-op" data-r="system">system</button>
+      <button class="btn-op" data-r="user">user</button>
+      <button class="btn-op" data-r="assistant">assistant</button>
+      <div class="jfb"></div>
+    </div>
   </div>
 
-  <div class="info i-rojo">
+<div class="info i-rojo">
     <strong>🧠 La memoria la ponés vos, no el servidor</strong>
     El servidor <strong>no guarda nada</strong> entre un pedido y el siguiente: se dice que la API es <em>sin estado</em>. La conversación existe solo porque tu programa la va acumulando en <code>historial</code> y la manda entera cada vez. Si no la mandás, el modelo arranca de cero como si nunca hubieran hablado.
   </div>
 
-  <div class="duo">
-    <div class="mini"><strong>🌡️ Temperatura</strong>Cuánto se arriesga el modelo. <strong>Va de 0 a 2</strong>, y si no la ponés, la API usa 1. <strong>Cerca de 0</strong>: predecible y estable → ideal para <strong>extraer datos</strong>. <strong>Alrededor de 1</strong>: variada y creativa → lo que usabas para narrar. <strong>Cerca de 2</strong>: tan aleatoria que la respuesta puede volverse incoherente.</div>
-    <div class="mini"><strong>🔢 Tokens</strong>El modelo parte el texto en pedacitos (tokens) y predice el siguiente. Hay un <strong>límite por pedido</strong>: si el historial crece mucho, no entra. Por eso a veces hay que recortarlo.</div>
+  <p style="margin-top:18px;"><strong>🌡️ La temperatura va de 0 a 2</strong> (si no la ponés, la API usa 1). ¿Qué valor le pondrías a cada tarea?</p>
+  <div id="tempbox">
+    <div class="tempitem" data-ok="baja" style="margin-bottom:14px;">
+      <div class="ext-txt" style="font-style:normal;">Sacar el nombre del cliente de un pedido, siempre igual</div>
+      <button class="btn-op" data-t="baja">cerca de 0</button>
+      <button class="btn-op" data-t="media">alrededor de 1</button>
+      <button class="btn-op" data-t="alta">cerca de 2</button>
+      <div class="jfb"></div>
+    </div>
+    <div class="tempitem" data-ok="media" style="margin-bottom:14px;display:none;">
+      <div class="ext-txt" style="font-style:normal;">Narrar una aventura distinta en cada partida</div>
+      <button class="btn-op" data-t="baja">cerca de 0</button>
+      <button class="btn-op" data-t="media">alrededor de 1</button>
+      <button class="btn-op" data-t="alta">cerca de 2</button>
+      <div class="jfb"></div>
+    </div>
   </div>
+  <div class="info i-amb">
+    <strong>🔢 Y los tokens</strong>
+    El modelo parte el texto en pedacitos (tokens) y predice el siguiente. Hay un <strong>límite por pedido</strong>: si el historial crece mucho, no entra.
+  </div>
+
 </div>
 
 
 <div class="card c-rojo" style="border-left-color:var(--rojo);background:#FFF6F6;">
-  <h2><span class="badge" style="background:var(--rojo)">7</span> TALLER DE REPARACIONES <span class="encasa">🏠 PARA CASA</span></h2>
-  <div class="banda-casa">Este bloque y el que sigue <strong>no los hacemos en clase</strong>: son para que los resuelvas durante la semana, a tu ritmo. Son los que más te van a servir.</div>
+  <h2><span class="badge" style="background:var(--rojo)">7</span> TALLER DE REPARACIONES</h2>
   <p>Cuatro programas que <strong>no funcionan como deberían</strong>. Cada uno tiene exactamente <strong>un</strong> error, y son errores de verdad: los cometió alguien este año. Tocá la línea que está mal.</p>
   <p style="margin-top:8px;font-size:18px;color:#666;">Pista: no busques errores de escritura. Todos corren sin romperse. El problema es que <em>hacen algo distinto</em> de lo que se quería.</p>
 
@@ -470,7 +637,7 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 
     <!-- REP 1 -->
     <div class="rep activo" data-ok="3">
-      <p class="jprog">Reparación 1 de 4 · <strong>El chatbot no recuerda nada</strong></p>
+      <p class="jprog">Reparación 1 de 8 · <strong>El chatbot no recuerda nada</strong></p>
       <div class="jctx">Cada vez que le preguntás algo, contesta como si fuera la primera vez. No se acuerda de lo anterior.</div>
       <div class="repcod">
 <span class="rline fija"><span class="rnum">1</span>historial = [{"role": "system", "content": sistema}]</span>
@@ -486,8 +653,8 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
     </div>
 
     <!-- REP 2 -->
-    <div class="rep" data-ok="2">
-      <p class="jprog">Reparación 2 de 4 · <strong>«No puedo guardar la respuesta»</strong></p>
+    <div class="rep" data-ok="3">
+      <p class="jprog">Reparación 2 de 8 · <strong>«No puedo guardar la respuesta»</strong></p>
       <div class="jctx">La IA contesta y se ve en pantalla, pero cuando querés guardar esa respuesta en una variable, viene vacía.</div>
       <div class="repcod">
 <span class="rline fija"><span class="rnum">1</span>def consultar_ia(mensajes, nivel_creatividad):</span>
@@ -502,7 +669,7 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 
     <!-- REP 3 -->
     <div class="rep" data-ok="2">
-      <p class="jprog">Reparación 3 de 4 · <strong>La IA se olvida de su personaje</strong></p>
+      <p class="jprog">Reparación 3 de 8 · <strong>La IA se olvida de su personaje</strong></p>
       <div class="jctx">Al principio narra como el Narrador que programaste. Después de unos turnos empieza a responder cualquier cosa, como un asistente común.</div>
       <div class="repcod">
 <span class="rline fija"><span class="rnum">1</span>historial = []</span>
@@ -519,7 +686,7 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 
     <!-- REP 4 -->
     <div class="rep" data-ok="3">
-      <p class="jprog">Reparación 4 de 4 · <strong>El comando gasta un turno</strong></p>
+      <p class="jprog">Reparación 4 de 8 · <strong>El comando gasta un turno</strong></p>
       <div class="jctx">Escribís <code>/estado</code> y te muestra la vida... pero además la IA te narra algo, como si <code>/estado</code> hubiera sido una acción del juego.</div>
       <div class="repcod">
 <span class="rline fija"><span class="rnum">1</span>while True:</span>
@@ -529,6 +696,68 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 <span class="rline" data-l="4"><span class="rnum">5</span>    historial.append({"role": "user", "content": accion})</span>
 <span class="rline" data-l="5"><span class="rnum">6</span>    narracion = consultar_ia(historial, 0.8)</span>
 <span class="rline" data-l="6"><span class="rnum">7</span>    print(narracion)</span>
+      </div>
+      <div class="jfb"></div>
+    </div>
+
+
+    <!-- REP 5 -->
+    <div class="rep" data-ok="2">
+      <p class="jprog">Reparación 5 de 8 · <strong>El comando anda a veces sí y a veces no</strong></p>
+      <div class="jctx">Si escribís <code>/estado</code> funciona. Pero si escribís <code>/Estado</code> o le dejás un espacio adelante, la IA lo toma como una acción del juego.</div>
+      <div class="repcod">
+<span class="rline fija"><span class="rnum">1</span>while True:</span>
+<span class="rline" data-l="1"><span class="rnum">2</span>    accion = input("¿Qué hacés? ")</span>
+<span class="rline" data-l="2"><span class="rnum">3</span>    if accion == "/estado":</span>
+<span class="rline" data-l="3"><span class="rnum">4</span>        print(f"HP: {jugador['hp']}")</span>
+<span class="rline" data-l="4"><span class="rnum">5</span>        continue</span>
+      </div>
+      <div class="jfb"></div>
+    </div>
+
+    <!-- REP 6 -->
+    <div class="rep" data-ok="5">
+      <p class="jprog">Reparación 6 de 8 · <strong>La IA se confunde de quién dijo qué</strong></p>
+      <div class="jctx">Después de un par de turnos empieza a responder cosas raras, como si creyera que <em>vos</em> dijiste lo que en realidad dijo <em>ella</em>.</div>
+      <div class="repcod">
+<span class="rline fija"><span class="rnum">1</span>while True:</span>
+<span class="rline" data-l="1"><span class="rnum">2</span>    accion = input("¿Qué hacés? ").strip()</span>
+<span class="rline" data-l="2"><span class="rnum">3</span>    if accion.lower() == "salir": break</span>
+<span class="rline" data-l="3"><span class="rnum">4</span>    historial.append({"role": "user", "content": accion})</span>
+<span class="rline" data-l="4"><span class="rnum">5</span>    narracion = consultar_ia(historial, 0.8)</span>
+<span class="rline" data-l="5"><span class="rnum">6</span>    historial.append({"role": "user", "content": narracion})</span>
+<span class="rline" data-l="6"><span class="rnum">7</span>    print(narracion)</span>
+      </div>
+      <div class="jfb"></div>
+    </div>
+
+    <!-- REP 7 -->
+    <div class="rep" data-ok="3">
+      <p class="jprog">Reparación 7 de 8 · <strong>El juego se cierra solo</strong></p>
+      <div class="jctx">Escribís <code>/estado</code>, te muestra la vida… y el programa termina. Tenés que volver a ejecutar todo para seguir jugando.</div>
+      <div class="repcod">
+<span class="rline fija"><span class="rnum">1</span>while True:</span>
+<span class="rline" data-l="1"><span class="rnum">2</span>    accion = input("¿Qué hacés? ").strip()</span>
+<span class="rline" data-l="2"><span class="rnum">3</span>    if accion.lower() == "/estado":</span>
+<span class="rline" data-l="3"><span class="rnum">4</span>        print(f"HP: {jugador['hp']}")</span>
+<span class="rline" data-l="4"><span class="rnum">5</span>        break</span>
+      </div>
+      <div class="jfb"></div>
+    </div>
+
+    <!-- REP 8 -->
+    <div class="rep" data-ok="4">
+      <p class="jprog">Reparación 8 de 8 · <strong>Ni memoria ni personaje</strong></p>
+      <div class="jctx">El historial se va llenando bien, pero la IA responde como un asistente cualquiera y no recuerda nada de lo anterior. La más difícil: mirá bien qué le llega a la función.</div>
+      <div class="repcod">
+<span class="rline fija"><span class="rnum">1</span>historial = [{"role": "system", "content": guion}]</span>
+<span class="rline fija"><span class="rnum">2</span></span>
+<span class="rline fija"><span class="rnum">3</span>while True:</span>
+<span class="rline" data-l="1"><span class="rnum">4</span>    accion = input("¿Qué hacés? ").strip()</span>
+<span class="rline" data-l="2"><span class="rnum">5</span>    if accion.lower() == "salir": break</span>
+<span class="rline" data-l="3"><span class="rnum">6</span>    historial.append({"role": "user", "content": accion})</span>
+<span class="rline" data-l="4"><span class="rnum">7</span>    narracion = consultar_ia(accion, 0.8)</span>
+<span class="rline" data-l="5"><span class="rnum">8</span>    historial.append({"role": "assistant", "content": narracion})</span>
       </div>
       <div class="jfb"></div>
     </div>
@@ -547,14 +776,131 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
   </div>
 </div>
 
+
+<div class="card c-p1" style="border-left-color:var(--p1);">
+  <h2><span class="badge" style="background:var(--p1)">8</span> PREPARACIÓN — ¿QUÉ SE PUEDE EXTRAER?</h2>
+  <p>Esta es <strong>la primera decisión del proyecto</strong>, y la que más lo condiciona: elegir qué datos se le piden a la IA. Practiquemos el criterio.</p>
+  <div class="info i-amb">
+    <strong>La regla</strong>
+    Un campo sirve si el dato <strong>está escrito en el texto</strong>. No sirve si hay que interpretarlo, deducirlo o suponerlo — ahí es donde la IA empieza a inventar.
+  </div>
+
+  <div id="extbox" style="margin-top:18px;">
+
+    <div class="ext activo" data-caso="1">
+      <p class="jprog">Texto 1 de 3 · Un pedido de kiosco</p>
+      <div class="ext-txt">"Hola! Necesito 3 alfajores y una coca de litro para Martín, paso a buscarlo tipo 6 de la tarde. Gracias!"</div>
+      <p class="jpide">👉 Tocá los campos que <strong>SÍ</strong> se pueden extraer de este texto:</p>
+      <div>
+        <span class="campo" data-ok="1">producto</span>
+        <span class="campo" data-ok="1">cantidad</span>
+        <span class="campo" data-ok="1">cliente</span>
+        <span class="campo" data-ok="1">hora_retiro</span>
+        <span class="campo" data-ok="0">precio_total</span>
+        <span class="campo" data-ok="0">si_es_cliente_frecuente</span>
+        <span class="campo" data-ok="0">humor_del_cliente</span>
+      </div>
+      <div class="jfb"></div>
+    </div>
+
+    <div class="ext" data-caso="2" style="display:none;">
+      <p class="jprog">Texto 2 de 3 · Una reseña</p>
+      <div class="ext-txt">"Fui a Kalma el sábado. La centolla estaba impecable, aunque tardaron bastante en atender. Le pongo 8 de 10."</div>
+      <p class="jpide">👉 Tocá los campos que <strong>SÍ</strong> se pueden extraer:</p>
+      <div>
+        <span class="campo" data-ok="1">lugar</span>
+        <span class="campo" data-ok="1">plato</span>
+        <span class="campo" data-ok="1">puntaje</span>
+        <span class="campo" data-ok="1">dia_visita</span>
+        <span class="campo" data-ok="0">precio_del_plato</span>
+        <span class="campo" data-ok="0">direccion</span>
+        <span class="campo" data-ok="0">volveria_a_ir</span>
+      </div>
+      <div class="jfb"></div>
+    </div>
+
+    <div class="ext" data-caso="3" style="display:none;">
+      <p class="jprog">Texto 3 de 3 · Una consulta a la escuela</p>
+      <div class="ext-txt">"Buenas, soy la mamá de Lucía Gómez, de 4to año. Quería saber si el viernes hay clases porque escuché que había paro."</div>
+      <p class="jpide">👉 Tocá los campos que <strong>SÍ</strong> se pueden extraer:</p>
+      <div>
+        <span class="campo" data-ok="1">nombre_alumno</span>
+        <span class="campo" data-ok="1">curso</span>
+        <span class="campo" data-ok="1">vinculo</span>
+        <span class="campo" data-ok="1">tema_consulta</span>
+        <span class="campo" data-ok="0">telefono</span>
+        <span class="campo" data-ok="0">urgencia</span>
+        <span class="campo" data-ok="0">turno</span>
+      </div>
+      <div class="jfb"></div>
+    </div>
+
+  </div>
+
+  <div id="extfinal" style="display:none;margin-top:18px;">
+    <div class="info i-grn">
+      <strong>🎯 Ese es el criterio</strong>
+      Fijate qué tenían en común los campos que <strong>no</strong> servían: <code>precio_total</code> y <code>telefono</code> no están escritos; <code>volveria_a_ir</code> y <code>urgencia</code> son interpretaciones; <code>humor_del_cliente</code> es directamente una opinión. Si le pedís esos campos a la IA, <strong>te los va a completar igual</strong> — inventados.
+    </div>
+    <div class="info i-azul">
+      <strong>💡 Guardá esto para la clase que viene</strong>
+      Cuando armen la ficha de su proyecto van a tener que definir de 3 a 6 campos. Aplicá esta prueba a cada uno: <em>"¿puedo señalar con el dedo dónde está este dato en el texto?"</em>. Si no podés, no es un campo.
+    </div>
+  </div>
+</div>
+
 <div class="card c-avanzado">
-  <h2><span class="badge" style="background:var(--amb)">8</span> ACTIVIDAD INDIVIDUAL — AUTODIAGNÓSTICO <span class="encasa">🏠 PARA CASA</span></h2>
-  <p>Diez preguntas sobre cómo funciona tu aplicación con IA. <strong>Se hace solo, sin ayuda y sin mirar el Colab.</strong> No lleva nota: sirve para saber qué repasar. Al final te dice exactamente qué temas mirar de nuevo.</p>
+  <h2><span class="badge" style="background:var(--amb)">9</span> ACTIVIDAD INDIVIDUAL — AUTODIAGNÓSTICO</h2>
+  <p>Veinte preguntas sobre cómo funciona tu aplicación con IA. <strong>Se hace solo, sin ayuda y sin mirar el Colab.</strong> No lleva nota: sirve para saber qué repasar. Al final te dice exactamente qué temas mirar de nuevo.</p>
   <div id="quiz-box" style="margin-top:18px;"></div>
 </div>
 
+
+<div class="card c-avanzado">
+  <h2><span class="badge" style="background:var(--amb)">★</span> DESAFÍO OPCIONAL — EL CRONISTA</h2>
+  <p>Para el que quiera ir más allá. Es <strong>el puente exacto</strong> entre el RPG que hiciste y el proyecto que viene: tu juego va a extraer los datos de su propia partida.</p>
+
+  <div class="info i-amb">
+    <strong>La consigna</strong>
+    Al final de la partida (cuando el jugador escribe <code>salir</code>), tu programa le pide a la IA que lea <strong>todo el historial</strong> y devuelva en JSON: el nombre del héroe, los lugares que visitó, los objetos que consiguió y cómo terminó la aventura.
+  </div>
+
+  <div class="code-block"><span class="cm"># Va justo antes del break, cuando el jugador escribe "salir"</span>
+
+resumen = <span class="str">"""Leé toda la aventura anterior y devolvé SOLO este JSON:
+{{"heroe": "...", "lugares": [...], "objetos": [...], "final": "..."}}
+No agregues ninguna palabra antes ni después."""</span>
+
+<span class="cm"># ✍️ Agregá el pedido al historial y consultá a la IA</span>
+historial.<span class="fn">append</span>({<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: resumen})
+cronica = <span class="fn">consultar_ia</span>(historial, ...)   <span class="cm"># ✍️ ¿qué temperatura le pondrías acá?</span>
+
+<span class="fn">print</span>(cronica)</div>
+
+  <div class="info i-azul">
+    <strong>🤔 Dos preguntas para pensar mientras lo hacés</strong>
+    <ul style="margin-top:8px;">
+      <li><strong>¿Qué temperatura conviene?</strong> No estás pidiendo que narre: estás pidiendo <em>datos</em>. Probá con la que venías usando y después con una bien baja, y compará.</li>
+      <li><strong>¿La IA inventa algo?</strong> Revisá la crónica contra lo que realmente pasó en tu partida. ¿Aparece algún objeto que nunca conseguiste? Ese es el problema central del proyecto que arranca ahora.</li>
+    </ul>
+  </div>
+
+  <div class="info i-grn">
+    <strong>Si te sale, ya hiciste tu primer extractor</strong>
+    Texto libre (la conversación de la partida) → datos ordenados en JSON. Eso es exactamente lo que vamos a construir, pero en serio y con muchos textos.
+  </div>
+</div>
+
+
+<div class="card c-info" style="border-left-color:var(--vio);background:var(--vio-bg);">
+  <h2><span class="badge" style="background:var(--vio)">✔</span> CUESTIONARIO DE CIERRE</h2>
+  <p>Veinte preguntas para cerrar la clase. Hay de dos tipos: <strong>elegir la opción correcta</strong> y <strong>verdadero o falso</strong>. Se responde de a una y al final ves tu puntaje.</p>
+  <div class="cq-barra"><div class="cq-fill" id="cq-fill"></div></div>
+  <div id="cq-box" style="margin-top:14px;"></div>
+</div>
+
 <div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">9</span> EL PUENTE: TODO ESTO SIGUE EN EL PROYECTO NUEVO</h2>
+  <h2><span class="badge" style="background:var(--p1)">10</span> EL PUENTE: TODO ESTO SIGUE EN EL PROYECTO NUEVO</h2>
   <table>
     <tr><th style="width:45%;">Lo que ya sabés (RPG)</th><th>Cómo lo usás en el Extractor</th></tr>
     <tr><td>El bloque B2 completo (API Key, URL, headers)</td><td><strong>Igual, sin tocar nada.</strong></td></tr>
@@ -564,13 +910,6 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
     <tr><td>Diccionarios <code>role</code>/<code>content</code></td><td>Diccionarios con <strong>tus campos</strong>: producto, cliente, hora.</td></tr>
     <tr><td>Saber que la IA alucina</td><td>Un <strong>análisis de calidad</strong> para detectar y corregir esas invenciones.</td></tr>
   </table>
-  <div class="info i-grn">
-    <strong>🏠 Para hacer durante la semana</strong>
-    Dos cosas de esta página quedaron sin hacer en clase, y son las más útiles:<br><br>
-    ▸ El <strong>Taller de Reparaciones</strong> (bloque 7): cuatro programas rotos para arreglar.<br>
-    ▸ El <strong>autodiagnóstico</strong> (bloque 8): diez preguntas que te dicen qué te conviene repasar.<br><br>
-    Hacelas tranquilo en casa. Si algo no te cierra, tenés el asistente acá abajo.
-  </div>
   <div class="info i-grn">
     <strong>📅 Lo que viene</strong>
     Estas semanas cerramos el primer cuatrimestre: los que tengan que recuperar se preparan, y el resto repasa. El profe les va a confirmar la fecha de arranque del proyecto.<br><br>
@@ -629,7 +968,57 @@ var PREGUNTAS = [
   p:"&iquest;Por qu&eacute; la IA a veces inventa un dato que no estaba en el texto?",
   ops:["Porque tiene un error de programaci&oacute;n","Porque genera el texto m&aacute;s probable, no consulta una base de datos con la verdad","Porque la API est&aacute; ca&iacute;da","Porque le falta memoria RAM"],
   ok:1,
-  exp:"Un LLM genera lo m&aacute;s <strong>probable</strong> seg&uacute;n su entrenamiento. Si le falta un dato, completa igual con algo veros&iacute;mil: eso es una <strong>alucinaci&oacute;n</strong>, y no es un bug. Por eso en el proyecto nuevo vas a <strong>verificar</strong> lo que devuelve."}
+  exp:"Un LLM genera lo m&aacute;s <strong>probable</strong> seg&uacute;n su entrenamiento. Si le falta un dato, completa igual con algo veros&iacute;mil: eso es una <strong>alucinaci&oacute;n</strong>, y no es un bug. Por eso en el proyecto nuevo vas a <strong>verificar</strong> lo que devuelve."},
+ {tema:"El endpoint (URL)",
+  p:"La URL termina en <code>/chat/completions</code>. &iquest;Por qu&eacute;?",
+  ops:["Es el nombre de la empresa","Porque le est&aacute;s pidiendo que complete una conversaci&oacute;n; hay otras direcciones para otras tareas","Es la versi&oacute;n del modelo","Podr&iacute;a ser cualquier cosa, no importa"],
+  ok:1,
+  exp:"Es el <em>endpoint</em>: la puerta exacta del servidor a la que le tocás el timbre. Groq tiene otras puertas para otras tareas, como transcribir audio. Si te equivocás de puerta, el pedido no llega."},
+ {tema:"Content-Type",
+  p:"&iquest;Qu&eacute; le avisa <code>&quot;Content-Type&quot;: &quot;application/json&quot;</code> al servidor?",
+  ops:["Qu&eacute; modelo us&aacute;s","En qu&eacute; formato viene lo que le mand&aacute;s, para que sepa c&oacute;mo leerlo","Cu&aacute;ntos tokens vas a gastar","Tu nombre de usuario"],
+  ok:1,
+  exp:"Es la etiqueta del sobre que dice en qu&eacute; idioma est&aacute; escrita la carta. Sin eso, el servidor recibe un mont&oacute;n de caracteres y no sabe si leerlos como JSON, como texto suelto o como un formulario."},
+ {tema:"La palabra Bearer",
+  p:"En <code>Bearer {API_KEY}</code>, &iquest;qu&eacute; hace la palabra <strong>Bearer</strong>?",
+  ops:["Es parte de tu clave personal","Avisa qu&eacute; <em>tipo</em> de credencial viene a continuaci&oacute;n; es un est&aacute;ndar de la web","Es el nombre del servidor","Encripta la clave"],
+  ok:1,
+  exp:"Significa &quot;portador&quot;. Es como decir &quot;ac&aacute; va una llave&quot; antes de dar la llave. Lo vas a encontrar igual en casi cualquier API que uses en tu vida, no solo en Groq."},
+ {tema:"Errores 401 y 400",
+  p:"Te aparece un error <strong>401</strong>. &iquest;D&oacute;nde busc&aacute;s el problema?",
+  ops:["En el prompt que escribiste","En la API Key: 401 significa &quot;no te conozco&quot;","En la conexi&oacute;n a internet","En el modelo elegido"],
+  ok:1,
+  exp:"<strong>401 = no te conozco</strong> (revis&aacute; la clave). <strong>400 = no te entiendo</strong> (revis&aacute; el formato del pedido). Saber leer el n&uacute;mero te ahorra buscar a ciegas."},
+ {tema:"Comillas triples",
+  p:"&iquest;Para qu&eacute; se usan las comillas triples al escribir el system prompt?",
+  ops:["Para que el texto sea m&aacute;s importante","Para que el texto pueda ocupar varios renglones","Para que la IA lo lea primero","Para que no se pueda modificar"],
+  ok:1,
+  exp:"Con comillas simples el texto tiene que entrar en <strong>un rengl&oacute;n</strong>: si apret&aacute;s Enter, Python se pierde. Las triples permiten que ocupe todos los renglones que quieras, y las reglas quedan mucho m&aacute;s legibles."},
+ {tema:"return vs print",
+  p:"Si tu funci&oacute;n <code>consultar_ia()</code> hiciera <code>print</code> en vez de <code>return</code>, &iquest;qu&eacute; pasar&iacute;a?",
+  ops:["Nada, es lo mismo","La respuesta se ver&iacute;a en pantalla pero no podr&iacute;as guardarla en una variable","El programa dar&iacute;a error","Ser&iacute;a m&aacute;s lenta"],
+  ok:1,
+  exp:"Con <code>print</code> el texto se muestra y se pierde: quien llama a la funci&oacute;n recibe <code>None</code>. Con <code>return</code> queda en una variable y pod&eacute;s seguir us&aacute;ndolo: agregarlo al historial, darle formato, guardarlo."},
+ {tema:"finish_reason",
+  p:"La respuesta trae <code>finish_reason: &quot;length&quot;</code>. &iquest;Qu&eacute; significa?",
+  ops:["Que la respuesta es muy larga de leer","Que se qued&oacute; sin tokens y la respuesta est&aacute; cortada","Que termin&oacute; bien","Que el texto que mandaste era largo"],
+  ok:1,
+  exp:"<code>&quot;stop&quot;</code> significa que termin&oacute; normalmente. <code>&quot;length&quot;</code> significa que <strong>se qued&oacute; sin tokens a mitad de camino</strong>: la respuesta est&aacute; incompleta. Si alguna vez te llega un JSON cortado, la causa suele estar ah&iacute;."},
+ {tema:"El campo reasoning",
+  p:"Con el modelo nuevo, el razonamiento del modelo viaja en <code>reasoning</code>. &iquest;D&oacute;nde est&aacute; ese campo?",
+  ops:["Adentro de <code>content</code>","Al lado de <code>content</code>: los dos cuelgan de <code>message</code>","Adentro de <code>usage</code>","En un pedido aparte"],
+  ok:1,
+  exp:"Son <strong>hermanos</strong>. Por eso tu c&oacute;digo sigue funcionando igual: <code>content</code> trae la respuesta final, limpia, sin el razonamiento mezclado. Si quer&eacute;s verlo, es otro camino desde <code>message</code>."},
+ {tema:"Encadenar de m&aacute;s",
+  p:"&iquest;Por qu&eacute; <code>[&quot;message&quot;][&quot;content&quot;][&quot;usage&quot;]</code> da error?",
+  ops:["Porque usage no existe","Porque <code>content</code> ya es un texto, y a un texto no se le piden claves","Porque falta un corchete","Porque el orden est&aacute; invertido"],
+  ok:1,
+  exp:"Cuando lleg&aacute;s a un texto o a un n&uacute;mero, <strong>el camino termin&oacute;</strong>. A un texto solo pod&eacute;s pedirle posiciones con n&uacute;meros. Adem&aacute;s <code>usage</code> cuelga de la ra&iacute;z, no de <code>content</code>: es otro camino."},
+ {tema:"El &iacute;ndice [0]",
+  p:"En tus propias listas, &iquest;el n&uacute;mero entre corchetes es siempre 0?",
+  ops:["S&iacute;, siempre es 0","No: en el JSON de la API queda fijo porque viene una sola respuesta, pero en tus listas cambia seg&uacute;n cu&aacute;l quieras","S&iacute;, salvo que la lista est&eacute; vac&iacute;a","Solo cambia si hay m&aacute;s de diez elementos"],
+  ok:1,
+  exp:"En <code>choices[0]</code> queda fijo porque Groq devuelve una sola respuesta. Pero cuando tu proyecto procese diez archivos, <code>resultados[0]</code> ser&aacute; el primero, <code>resultados[1]</code> el segundo, y as&iacute;. El &iacute;ndice no es decorativo."}
 ];
 
 var qIdx=0, qOk=0, qFallos=[];
@@ -808,6 +1197,18 @@ function add(txt,tipo){
       if(ej.getAttribute('data-ok') === 'null'){
         extra = '<p style="margin-top:10px;font-size:17px;">En JSON, <code>null</code> significa <strong>el dato no existe</strong>. No es cero ni texto vacío: es ausencia. Python lo lee como <code>None</code>.</p>';
       }
+      if(ej.getAttribute('data-ok') === 'u1'){
+        extra = '<p style="margin-top:10px;font-size:17px;">Recordá: el system prompt ocupa la posición <strong>0</strong>, así que el primer mensaje del jugador es la <strong>1</strong>.</p>';
+      }
+      if(ej.getAttribute('data-ok') === 'razon'){
+        extra = '<p style="margin-top:10px;font-size:17px;"><code>reasoning</code> y <code>content</code> son <strong>hermanos</strong>: los dos cuelgan de <code>message</code>. Por eso el camino se bifurca ahí, no se encadena uno después del otro.</p>';
+      }
+      if(ej.getAttribute('data-ok') === 'fin'){
+        extra = '<p style="margin-top:10px;font-size:17px;">Ojo: <code>finish_reason</code> NO está adentro de <code>message</code>, está al lado. Y acá dice <code>"length"</code>: esa respuesta quedó <strong>cortada</strong> por falta de tokens.</p>';
+      }
+      if(ej.getAttribute('data-ok') === 'hp'){
+        extra = '<p style="margin-top:10px;font-size:17px;">Fijate que <code>jugador["hp"]</code> NO funcionaría acá: la vida está adentro de <code>stats</code>. Hay que abrir esa caja primero.</p>';
+      }
       if(ej.getAttribute('data-ok') === 'p2'){
         extra = '<p style="margin-top:10px;font-size:17px;">Ojo con el <code>[1]</code>: el segundo elemento lleva el número 1, porque las listas empiezan a contar en 0.</p>';
       }
@@ -847,7 +1248,15 @@ function add(txt,tipo){
     3: {mal:'El system prompt está <strong>adentro</strong> del bucle: se agrega uno nuevo en cada turno. Después de cinco turnos hay cinco guiones apilados y el modelo se confunde. Va una sola vez, antes del <code>while</code>.',
         fix:'historial = [{"role": "system", "content": guion}]   # ANTES del while'},
     4: {mal:'Después de mostrar el estado falta <code>continue</code>. Sin él, el programa sigue de largo y le manda "/estado" a la IA como si fuera una acción del juego.',
-        fix:'        continue   # vuelve al principio, no gasta el turno'}
+        fix:'        continue   # vuelve al principio, no gasta el turno'},
+    5: {mal:'La comparación es <strong>exacta</strong>: sin <code>.strip()</code> ni <code>.lower()</code>, cualquier espacio de más o una mayúscula hacen que no coincida y el comando no se reconozca.',
+        fix:'    accion = input("¿Qué hacés? ").strip()\n    if accion.lower() == "/estado":'},
+    6: {mal:'Guarda la respuesta de la IA con el rol <code>"user"</code>. El modelo lee el historial y cree que <strong>esas palabras las escribiste vos</strong>. Lo que dice la IA va siempre con el rol <code>"assistant"</code>.',
+        fix:'    historial.append({"role": "assistant", "content": narracion})'},
+    7: {mal:'Usa <code>break</code> donde va <code>continue</code>. <strong>break termina el bucle</strong> (cierra el juego); <code>continue</code> vuelve al principio y sigue jugando.',
+        fix:'        continue   # NO break'},
+    8: {mal:'Le pasa <code>accion</code> en lugar de <code>historial</code>. Le manda a la IA <strong>solo el último mensaje</strong>, sin el system prompt ni los turnos anteriores. El historial se llena, pero no se usa.',
+        fix:'    narracion = consultar_ia(historial, 0.8)'}
   };
 
   document.addEventListener('click', function(e){
@@ -885,6 +1294,295 @@ function add(txt,tipo){
       document.getElementById('repfinal').scrollIntoView({behavior:'smooth', block:'center'});
     }
   };
+})();
+</script>
+
+<script>
+(function(){
+  var eIdx = 0;
+  document.addEventListener('click', function(ev){
+    var c = ev.target.closest('.campo');
+    if(!c) return;
+    var caso = c.closest('.ext');
+    if(!caso || caso.style.display === 'none') return;
+    if(c.classList.contains('si') || c.classList.contains('no')) return;
+
+    var esBueno = c.getAttribute('data-ok') === '1';
+    c.classList.add(esBueno ? 'si' : 'no');
+    var fb = caso.querySelector('.jfb');
+
+    if(!esBueno){
+      var porques = {
+        'precio_total':'El texto no dice ningún precio. La IA te lo inventaría.',
+        'si_es_cliente_frecuente':'Eso no está en el texto: habría que saberlo de otro lado.',
+        'humor_del_cliente':'Es una interpretación, no un dato. Dos personas leerían cosas distintas.',
+        'precio_del_plato':'No aparece ningún precio en la reseña.',
+        'direccion':'Dice el nombre del lugar, pero no dónde queda.',
+        'volveria_a_ir':'No lo dice. Se podría suponer por el puntaje, pero suponer no es extraer.',
+        'telefono':'No hay ningún teléfono en el mensaje.',
+        'urgencia':'Es una interpretación tuya, no algo escrito.',
+        'turno':'Dice el año pero no el turno. Es fácil confundirse con esto.'
+      };
+      fb.innerHTML = '<span style="color:#C62828;font-weight:bold;">❌ Ese no.</span> ' + (porques[c.textContent] || 'Ese dato no está escrito en el texto.');
+    } else {
+      var faltan = caso.querySelectorAll('.campo[data-ok="1"]:not(.si)').length;
+      if(faltan === 0){
+        fb.innerHTML = '<span style="color:#137333;font-weight:bold;">✅ ¡Encontraste los cuatro!</span> Todos esos datos están literalmente escritos en el texto.'
+                     + '<button class="btn-next" onclick="eSiguiente()">Siguiente ➡</button>';
+      } else {
+        fb.innerHTML = '<span style="color:#137333;font-weight:bold;">✅ Bien.</span> Te faltan ' + faltan + '.';
+      }
+    }
+  });
+
+  window.eSiguiente = function(){
+    var casos = document.querySelectorAll('.ext');
+    casos[eIdx].style.display = 'none';
+    eIdx++;
+    if(eIdx < casos.length){
+      casos[eIdx].style.display = 'block';
+      casos[eIdx].scrollIntoView({behavior:'smooth', block:'center'});
+    } else {
+      document.getElementById('extfinal').style.display = 'block';
+      document.getElementById('extfinal').scrollIntoView({behavior:'smooth', block:'center'});
+    }
+  };
+})();
+</script>
+
+<script>
+(function(){
+  // --- Frontend / Backend ---
+  var fbHechas = 0;
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('.tarea');
+    if(!t || t.classList.contains('front') || t.classList.contains('back')) return;
+    var lado = t.getAttribute('data-lado');
+    t.classList.add(lado);
+    t.innerHTML += '<span class="marca">' + (lado==='front' ? '💻 tu Colab' : '🖥️ servidor') + '</span>';
+    fbHechas++;
+    var fb = document.getElementById('fb-fb');
+    if(fbHechas === 6){
+      fb.innerHTML = '<span style="color:#137333;font-weight:bold;">✅ Ahí está el reparto.</span> Tu Colab prepara y muestra; el servidor verifica y genera. Por eso <strong>sin internet no hay IA</strong>: la mitad del trabajo pasa en otro lado.';
+    } else {
+      fb.innerHTML = '<span style="color:#666;">' + fbHechas + ' de 6</span>';
+    }
+  });
+
+  // --- Partes del modelo ---
+  var SIG = {
+    openai:'<strong>openai</strong> — quién lo desarrolló. Groq no fabrica el modelo: presta las máquinas donde corre.',
+    gpt:'<strong>gpt</strong> — el tipo de arquitectura con la que está construido.',
+    oss:'<strong>oss</strong> — <em>open source</em>: sus pesos son abiertos, cualquiera puede descargarlo. Por eso Groq puede ofrecerlo.',
+    '120b':'<strong>120b</strong> — 120 mil millones de parámetros: los números que ajustó en su entrenamiento. Ahí está lo que sabe.'
+  };
+  var vistas = 0;
+  document.addEventListener('click', function(e){
+    var p = e.target.closest('.parte');
+    if(!p || p.classList.contains('ok')) return;
+    p.classList.add('ok');
+    vistas++;
+    var fb = document.getElementById('fb-modelo');
+    fb.innerHTML = SIG[p.getAttribute('data-p')] + (vistas===4 ? '<br><br><span style="color:#137333;font-weight:bold;">✅ Ya sabés leer el nombre de cualquier modelo.</span>' : '');
+  });
+
+  // --- Roles ---
+  var rolIdx = 0;
+  var EXPR = {
+    system:'Configura cómo se comporta la IA en toda la conversación. Va en la <strong>posición 0</strong>, una sola vez.',
+    user:'Lo que escribe la persona.',
+    assistant:'Lo que respondió la IA. Se guarda para que el modelo sepa qué dijo.'
+  };
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('#rolbox .btn-op');
+    if(!b) return;
+    var item = b.closest('.rolitem');
+    if(item.getAttribute('data-listo')) return;
+    var fb = item.querySelector('.jfb');
+    if(b.getAttribute('data-r') === item.getAttribute('data-ok')){
+      b.classList.add('ok');
+      item.setAttribute('data-listo','si');
+      fb.innerHTML = '<span style="color:#137333;font-weight:bold;">✅ Sí.</span> ' + EXPR[item.getAttribute('data-ok')];
+      rolIdx++;
+      var items = document.querySelectorAll('.rolitem');
+      if(rolIdx < items.length) items[rolIdx].style.display = 'block';
+    } else {
+      b.classList.add('mal');
+      fb.innerHTML = '<span style="color:#C62828;font-weight:bold;">❌</span> Pensá quién está hablando ahí.';
+      setTimeout(function(){ b.classList.remove('mal'); }, 900);
+    }
+  });
+
+  // --- Temperatura ---
+  var tIdx = 0;
+  var EXPT = {
+    baja:'Para extraer datos no querés variación: querés siempre lo mismo. Cerca de 0.',
+    media:'Para narrar sí querés que varíe. Alrededor de 1 anda bien. Cerca de 2 empieza a perder coherencia.'
+  };
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('#tempbox .btn-op');
+    if(!b) return;
+    var item = b.closest('.tempitem');
+    if(item.getAttribute('data-listo')) return;
+    var fb = item.querySelector('.jfb');
+    if(b.getAttribute('data-t') === item.getAttribute('data-ok')){
+      b.classList.add('ok');
+      item.setAttribute('data-listo','si');
+      fb.innerHTML = '<span style="color:#137333;font-weight:bold;">✅</span> ' + EXPT[item.getAttribute('data-ok')];
+      tIdx++;
+      var items = document.querySelectorAll('.tempitem');
+      if(tIdx < items.length) items[tIdx].style.display = 'block';
+    } else {
+      b.classList.add('mal');
+      fb.innerHTML = '<span style="color:#C62828;font-weight:bold;">❌</span> Volvé a leer qué tarea es.';
+      setTimeout(function(){ b.classList.remove('mal'); }, 900);
+    }
+  });
+})();
+</script>
+
+<script>
+(function(){
+var CQ = [
+ {t:"mc", p:"&iquest;D&oacute;nde se ejecuta el modelo cuando corr&eacute;s tu programa?",
+  o:["En tu computadora","En los servidores de Groq","En el navegador","En Google Colab"], ok:1},
+ {t:"vf", p:"Sin conexi&oacute;n a internet, tu programa igual puede consultar a la IA.", ok:1,
+  exp:"Falso. El modelo vive en el servidor de Groq: sin internet, no le llega el pedido."},
+ {t:"mc", p:"En <code>gpt-oss-120b</code>, &iquest;qu&eacute; significa el <strong>120b</strong>?",
+  o:["120 mil palabras de memoria","120 mil millones de par&aacute;metros","Versi&oacute;n 120","120 tokens por segundo"], ok:1},
+ {t:"vf", p:"La API Key sirve para que el servidor sepa qui&eacute;n hace el pedido.", ok:0,
+  exp:"Verdadero. Es tu credencial: identifica tu cuenta y autoriza el pedido."},
+ {t:"vf", p:"Est&aacute; bien compartir tu API Key con un compa&ntilde;ero o subirla a un repositorio p&uacute;blico.", ok:1,
+  exp:"Falso. La clave es personal y secreta: nunca se comparte ni se sube a lugares p&uacute;blicos."},
+ {t:"mc", p:"La palabra <code>Bearer</code> en el header <code>Authorization</code>&hellip;",
+  o:["Es parte de tu clave","Avisa qu&eacute; tipo de credencial viene despu&eacute;s","Es el nombre del modelo","Encripta el mensaje"], ok:1},
+ {t:"mc", p:"&iquest;Qu&eacute; le avisa <code>Content-Type: application/json</code> al servidor?",
+  o:["Qu&eacute; modelo us&aacute;s","En qu&eacute; formato viene el pedido","Tu nombre","Cu&aacute;ntos tokens gast&aacute;s"], ok:1},
+ {t:"mc", p:"Te aparece un error <strong>401</strong>. &iquest;D&oacute;nde busc&aacute;s el problema?",
+  o:["En el prompt","En la API Key","En internet","En el modelo"], ok:1},
+ {t:"vf", p:"En el <code>payload</code>, dentro de <code>messages</code> va solo el &uacute;ltimo mensaje del jugador.", ok:1,
+  exp:"Falso. Va toda la conversaci&oacute;n: el system y todos los turnos anteriores."},
+ {t:"vf", p:"El servidor guarda tu conversaci&oacute;n entre un pedido y el siguiente.", ok:1,
+  exp:"Falso. La API es sin estado: no recuerda nada. La memoria la sosten&eacute;s vos con el historial."},
+ {t:"mc", p:"En <code>respuesta.json()[\"choices\"][0][\"message\"][\"content\"]</code>, &iquest;qu&eacute; hace el <code>[0]</code>?",
+  o:["Elige el primer modelo","Toma el primer elemento de la lista de respuestas","Borra el resto","Es un error"], ok:1},
+ {t:"vf", p:"Con Groq, el <code>[0]</code> de <code>choices</code> podr&iacute;a ser <code>[1]</code> si pidieras otra respuesta.", ok:1,
+  exp:"Falso. Groq devuelve una sola respuesta por pedido, as&iacute; que siempre es [0]."},
+ {t:"mc", p:"&iquest;Qu&eacute; hace el rol <code>system</code> en el historial?",
+  o:["Muestra errores","Configura c&oacute;mo se comporta la IA","Guarda la partida","Es el jugador"], ok:1},
+ {t:"mc", p:"Los tres roles de un mensaje son&hellip;",
+  o:["system, user, assistant","input, output, error","admin, user, guest","get, post, put"], ok:0},
+ {t:"mc", p:"Para <strong>extraer datos</strong> de un texto, &iquest;qu&eacute; temperatura conviene?",
+  o:["Alta, cerca de 2","Baja, cerca de 0","Siempre 1","No importa"], ok:1},
+ {t:"vf", p:"La temperatura va de 0 a 2, y si no la pon&eacute;s, la API usa 1.", ok:0,
+  exp:"Verdadero. El rango es 0 a 2 y el valor por defecto es 1."},
+ {t:"mc", p:"&iquest;Qu&eacute; es un <strong>token</strong>?",
+  o:["Una contrase&ntilde;a","El pedacito de texto en que el modelo divide todo","Un error","Un mensaje"], ok:1},
+ {t:"vf", p:"Cuando la IA inventa un dato que no estaba en el texto, es un error de programaci&oacute;n que hay que arreglar.", ok:1,
+  exp:"Falso. Es una alucinaci&oacute;n: el modelo genera lo m&aacute;s probable, no la verdad. No es un bug, es c&oacute;mo funciona."},
+ {t:"mc", p:"Para que un campo sirva en tu proyecto, el dato tiene que&hellip;",
+  o:["Ser interesante","Estar escrito en el texto","Ser un n&uacute;mero","Ser corto"], ok:1},
+ {t:"vf", p:"<code>return</code> y <code>print</code> hacen lo mismo dentro de una funci&oacute;n.", ok:1,
+  exp:"Falso. <code>return</code> devuelve el valor para seguir us&aacute;ndolo; <code>print</code> solo lo muestra y se pierde."}
+];
+
+var ci=0, cok=0, resp=[];
+function cqRender(){
+  var box=document.getElementById('cq-box');
+  document.getElementById('cq-fill').style.width = (ci*100/CQ.length)+'%';
+  if(ci>=CQ.length){ cqFin(); return; }
+  var q=CQ[ci];
+  var h='<p style="font-size:16px;color:#666;margin-bottom:6px;">Pregunta '+(ci+1)+' de '+CQ.length+' &middot; '+(q.t==='vf'?'Verdadero o Falso':'Elegí una')+'</p>';
+  h+='<p style="font-size:20px;font-weight:bold;margin-bottom:14px;">'+q.p+'</p>';
+  if(q.t==='vf'){
+    h+='<button class="cq-vf" onclick="cqVF(0)">✓ VERDADERO</button>';
+    h+='<button class="cq-vf" onclick="cqVF(1)">✗ FALSO</button>';
+  } else {
+    for(var i=0;i<q.o.length;i++){ h+='<button class="cq-op" onclick="cqMC('+i+')">'+q.o[i]+'</button>'; }
+  }
+  h+='<div id="cq-fb"></div>';
+  box.innerHTML=h;
+}
+function cqLock(){ var b=document.querySelectorAll('.cq-op,.cq-vf'); for(var i=0;i<b.length;i++)b[i].disabled=true; return b; }
+function cqNext(bien, fbHtml){
+  var fb=document.getElementById('cq-fb');
+  fb.innerHTML='<div class="info '+(bien?'i-grn':'i-rojo')+'" style="margin-top:12px;">'+fbHtml+'</div>'
+             +'<button class="btn-next" onclick="cqAvanzar()">Siguiente ➡</button>';
+}
+window.cqVF=function(elige){
+  var q=CQ[ci]; var b=cqLock();
+  resp.push({n:ci+1, ok:(elige===q.ok)});
+  b[q.ok].style.borderColor='#1F6E5C'; b[q.ok].style.background='#E8F4F0';
+  var bien=(elige===q.ok);
+  if(bien){cok++;} else { b[elige].style.borderColor='#C62828'; b[elige].style.background='#FFEBEE'; }
+  cqNext(bien, '<strong>'+(bien?'✅ Correcto':'❌ Incorrecto')+'</strong>'+q.exp);
+};
+window.cqMC=function(elige){
+  var q=CQ[ci]; var b=cqLock();
+  resp.push({n:ci+1, ok:(elige===q.ok)});
+  b[q.ok].style.borderColor='#1F6E5C'; b[q.ok].style.background='#E8F4F0';
+  var bien=(elige===q.ok);
+  if(bien){cok++;} else { b[elige].style.borderColor='#C62828'; b[elige].style.background='#FFEBEE'; }
+  cqNext(bien, '<strong>'+(bien?'✅ Correcto':'❌ La correcta está marcada en verde')+'</strong>');
+};
+window.cqAvanzar=function(){ ci++; cqRender(); };
+function cqFin(){
+  document.getElementById('cq-fill').style.width='100%';
+  var box=document.getElementById('cq-box');
+  var pct=Math.round(cok*100/CQ.length);
+  var msj = pct>=80?'Excelente. Ten&eacute;s la clase bien clara. 🎉'
+          : pct>=60?'Bien. Repas&aacute; los temas que fallaste y qued&aacute;s listo.'
+          : 'Conviene volver sobre los bloques de arriba y usar el asistente. 💪';
+  var h='<h3 style="font-size:24px;margin-bottom:8px;">Resultado</h3>';
+  h+='<p style="font-size:30px;font-weight:bold;color:#5C2070;">'+cok+' / '+CQ.length+'</p>';
+  h+='<p style="font-size:20px;margin:8px 0;">'+pct+'% &mdash; '+msj+'</p>';
+  h+='<div class="info i-azul" style="margin-top:16px;text-align:left;">'
+    +'<strong>📩 Guardá tu resultado para el profe</strong>'
+    +'Escrib&iacute; tu nombre y apellido y descarg&aacute; el comprobante. Se lo pas&aacute;s al profe (por el medio que les diga).'
+    +'<div style="margin-top:12px;">'
+    +'<input id="cq-nombre" type="text" placeholder="Tu nombre y apellido" '
+    +'style="width:100%;max-width:420px;padding:12px 16px;font-size:19px;border:2px solid var(--bd);border-radius:10px;font-family:inherit;">'
+    +'</div>'
+    +'<div id="cq-nombre-err" style="color:#C62828;font-size:16px;margin-top:6px;"></div>'
+    +'<button class="btn-next" onclick="cqDescargar()" style="margin-top:12px;">⬇ Descargar mi comprobante</button>'
+    +'</div>';
+  h+='<button class="btn-next" onclick="cqReset()" style="background:#888;margin-top:8px;">🔄 Volver a intentar</button>';
+  box.innerHTML=h;
+}
+window.cqDescargar=function(){
+  var nom=(document.getElementById('cq-nombre').value||'').trim();
+  var err=document.getElementById('cq-nombre-err');
+  if(nom.length<3){ err.textContent='Escrib&iacute; tu nombre completo antes de descargar.'; return; }
+  err.textContent='';
+  var pct=Math.round(cok*100/CQ.length);
+  var ahora=new Date();
+  var fecha=ahora.toLocaleDateString('es-AR')+' '+ahora.toLocaleTimeString('es-AR');
+  var lin=[];
+  lin.push('CUESTIONARIO DE CIERRE - CLASE 0 (2C) - TALLER DE IA');
+  lin.push('======================================================');
+  lin.push('Estudiante: '+nom);
+  lin.push('Fecha: '+fecha);
+  lin.push('Puntaje: '+cok+' / '+CQ.length+'  ('+pct+'%)');
+  lin.push('');
+  lin.push('Detalle por pregunta:');
+  var ordenadas=resp.slice().sort(function(a,b){return a.n-b.n;});
+  for(var i=0;i<ordenadas.length;i++){
+    lin.push('  Pregunta '+ordenadas[i].n+': '+(ordenadas[i].ok?'correcta':'incorrecta'));
+  }
+  lin.push('');
+  lin.push('Codigo de verificacion: '+cok+'-'+CQ.length+'-'+ahora.getTime().toString(36));
+  var txt=lin.join('\n');
+  var blob=new Blob([txt], {type:'text/plain;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  var limpio=nom.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
+  a.href=url; a.download='cuestionario_'+limpio+'.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  err.style.color='#137333'; err.textContent='✅ &iexcl;Descargado! Revis&aacute; tu carpeta de descargas.';
+};
+window.cqReset=function(){ ci=0; cok=0; resp=[]; cqRender(); };
+cqRender();
 })();
 </script>
 </body>
