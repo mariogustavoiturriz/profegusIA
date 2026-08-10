@@ -308,7 +308,8 @@
 <div class="info i-azul">
     <strong>🔄 Los modelos se dan de baja: esto pasó de verdad, hace unos días</strong>
     Hasta hace poco este taller usaba <code>llama-3.3-70b-versatile</code>. Groq anunció que <strong>deja de funcionar el 16 de agosto</strong>: después de esa fecha, cualquier programa que lo pida recibe un error. Por eso migramos a <code>openai/gpt-oss-120b</code>.<br><br>
-    Esto es parte normal del oficio: los modelos se actualizan y se retiran, y quien programa con IA tiene que estar atento. La buena noticia es que <strong>el cambio fue una línea</strong>: como el resto del código no depende del modelo, se reemplaza el nombre y todo lo demás sigue igual. Cuando programás bien, cambiar de motor no te obliga a rehacer el auto.
+    Esto es parte normal del oficio: los modelos se actualizan y se retiran, y quien programa con IA tiene que estar atento. La buena noticia es que <strong>el cambio fue una línea</strong>: como el resto del código no depende del modelo, se reemplaza el nombre y todo lo demás sigue igual. Cuando programás bien, cambiar de motor no te obliga a rehacer el auto.<br><br>
+    Una novedad de este modelo: además del texto de la respuesta (<code>content</code>), devuelve <strong>cómo lo pensó</strong> en un campo aparte llamado <code>reasoning</code>. Los dos viajan juntos, <strong>al lado uno del otro</strong>, adentro de <code>message</code>. Podés leerlo o ignorarlo, pero está bueno saber que existe.
   </div>
 
   <div class="info i-amb">
@@ -861,13 +862,13 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
       <div class="ext-txt">"Hola! Necesito 3 alfajores y una coca de litro para Martín, paso a buscarlo tipo 6 de la tarde. Gracias!"</div>
       <p class="jpide">👉 Tocá los campos que <strong>SÍ</strong> se pueden extraer de este texto:</p>
       <div>
-        <span class="campo" data-ok="1">producto</span>
         <span class="campo" data-ok="1">cantidad</span>
-        <span class="campo" data-ok="1">cliente</span>
         <span class="campo" data-ok="1">hora_retiro</span>
         <span class="campo" data-ok="0">precio_total</span>
-        <span class="campo" data-ok="0">si_es_cliente_frecuente</span>
+        <span class="campo" data-ok="1">cliente</span>
         <span class="campo" data-ok="0">humor_del_cliente</span>
+        <span class="campo" data-ok="1">producto</span>
+        <span class="campo" data-ok="0">si_es_cliente_frecuente</span>
       </div>
       <div class="jfb"></div>
     </div>
@@ -877,13 +878,13 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
       <div class="ext-txt">"Fui a Kalma el sábado. La centolla estaba impecable, aunque tardaron bastante en atender. Le pongo 8 de 10."</div>
       <p class="jpide">👉 Tocá los campos que <strong>SÍ</strong> se pueden extraer:</p>
       <div>
-        <span class="campo" data-ok="1">lugar</span>
-        <span class="campo" data-ok="1">plato</span>
-        <span class="campo" data-ok="1">puntaje</span>
         <span class="campo" data-ok="1">dia_visita</span>
-        <span class="campo" data-ok="0">precio_del_plato</span>
-        <span class="campo" data-ok="0">direccion</span>
         <span class="campo" data-ok="0">volveria_a_ir</span>
+        <span class="campo" data-ok="1">puntaje</span>
+        <span class="campo" data-ok="0">precio_del_plato</span>
+        <span class="campo" data-ok="1">lugar</span>
+        <span class="campo" data-ok="0">direccion</span>
+        <span class="campo" data-ok="1">plato</span>
       </div>
       <div class="jfb"></div>
     </div>
@@ -893,13 +894,13 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
       <div class="ext-txt">"Buenas, soy la mamá de Lucía Gómez, de 4to año. Quería saber si el viernes hay clases porque escuché que había paro."</div>
       <p class="jpide">👉 Tocá los campos que <strong>SÍ</strong> se pueden extraer:</p>
       <div>
-        <span class="campo" data-ok="1">nombre_alumno</span>
-        <span class="campo" data-ok="1">curso</span>
-        <span class="campo" data-ok="1">vinculo</span>
         <span class="campo" data-ok="1">tema_consulta</span>
+        <span class="campo" data-ok="1">vinculo</span>
         <span class="campo" data-ok="0">telefono</span>
+        <span class="campo" data-ok="1">curso</span>
         <span class="campo" data-ok="0">urgencia</span>
         <span class="campo" data-ok="0">turno</span>
+        <span class="campo" data-ok="1">nombre_alumno</span>
       </div>
       <div class="jfb"></div>
     </div>
@@ -1012,73 +1013,73 @@ cronica = <span class="fn">consultar_ia</span>(historial, ...)   <span class="cm
 var PREGUNTAS = [
  {tema:"Arquitectura cliente/servidor",
   p:"Cuando corr&eacute;s tu RPG en Colab, &iquest;d&oacute;nde se ejecuta realmente el modelo <code>gpt-oss-120b</code>?",
-  ops:["En tu computadora, se descarga la primera vez","En los servidores de Groq, a los que tu c&oacute;digo les manda un pedido","Dentro de Google Colab","En el navegador, con JavaScript"],
-  ok:1,
+  ops:["En los servidores de Groq, a los que tu c&oacute;digo les manda un pedido","Dentro de Google Colab","En tu computadora, se descarga la primera vez","En el navegador, con JavaScript"],
+  ok:0,
   exp:"Tu Colab es el <strong>cliente (frontend)</strong>: arma el pedido y lo manda. El modelo vive en el <strong>servidor de Groq (backend)</strong>. Por eso necesit&aacute;s internet y una API Key: sin conexi&oacute;n no hay IA."},
  {tema:"El modelo",
   p:"En openai/gpt-oss-<strong>120b</strong>, &iquest;qu&eacute; significa el 120b?",
-  ops:["Que soporta 120 mil palabras","Que tiene 120 mil millones de par&aacute;metros","Que tarda 120 milisegundos","Que es la versi&oacute;n n&uacute;mero 120"],
-  ok:1,
+  ops:["Que tiene 120 mil millones de par&aacute;metros","Que soporta 120 mil palabras","Que es la versi&oacute;n n&uacute;mero 120","Que tarda 120 milisegundos"],
+  ok:0,
   exp:"120b = 120 <em>billion</em>: 120 mil millones de par&aacute;metros, los n&uacute;meros internos que el modelo ajust&oacute; en su entrenamiento. Ah&iacute; est&aacute; lo que sabe. El <em>oss</em> significa que sus pesos son abiertos: por eso Groq puede servirlo."},
  {tema:"Autenticaci&oacute;n (API Key)",
   p:"&iquest;Para qu&eacute; sirve la API Key que va en los headers?",
-  ops:["Para encriptar el mensaje","Para que el servidor sepa qui&eacute;n sos y autorice el pedido","Para elegir el modelo","Para acelerar la respuesta"],
-  ok:1,
+  ops:["Para acelerar la respuesta","Para elegir el modelo","Para encriptar el mensaje","Para que el servidor sepa qui&eacute;n sos y autorice el pedido"],
+  ok:3,
   exp:"Es tu credencial. El header <code>Authorization: Bearer TU_CLAVE</code> le dice al servidor qui&eacute;n hace el pedido, para autorizarlo y contabilizar tu uso. Por eso <strong>nunca se comparte ni se sube a un repositorio p&uacute;blico</strong>."},
  {tema:"El JSON que va (payload)",
   p:"En el payload, &iquest;qu&eacute; va dentro de <code>messages</code>?",
-  ops:["Solo el &uacute;ltimo mensaje del jugador","Toda la conversaci&oacute;n hasta ese momento","El system prompt nada m&aacute;s","La respuesta anterior de la IA"],
-  ok:1,
+  ops:["El system prompt nada m&aacute;s","Solo el &uacute;ltimo mensaje del jugador","Toda la conversaci&oacute;n hasta ese momento","La respuesta anterior de la IA"],
+  ok:2,
   exp:"Va el <strong>historial completo</strong>: el system y todos los turnos de user y assistant. Es la &uacute;nica forma que tiene el modelo de saber qu&eacute; pas&oacute; antes."},
  {tema:"API sin estado",
   p:"&iquest;Por qu&eacute; hay que mandar el historial <strong>entero</strong> en cada llamada?",
-  ops:["Por seguridad","Porque el servidor no guarda nada de tu conversaci&oacute;n entre pedido y pedido","Porque el modelo se reinicia cada hora","Para que responda m&aacute;s r&aacute;pido"],
-  ok:1,
+  ops:["Porque el modelo se reinicia cada hora","Para que responda m&aacute;s r&aacute;pido","Por seguridad","Porque el servidor no guarda nada de tu conversaci&oacute;n entre pedido y pedido"],
+  ok:3,
   exp:"La API es <strong>sin estado</strong>: cada pedido es independiente y el servidor no recuerda el anterior. La memoria la sosten&eacute;s <strong>vos</strong>, en la lista <code>historial</code> de tu Colab. Si no la mand&aacute;s, la IA arranca de cero."},
  {tema:"El JSON que vuelve",
   p:"&iquest;Por qu&eacute; se escribe <code>respuesta.json()[&quot;choices&quot;][0][&quot;message&quot;][&quot;content&quot;]</code>?",
-  ops:["Es una f&oacute;rmula fija que no significa nada","Porque la respuesta es un JSON con cajas adentro de cajas y hay que abrirlas hasta el texto","Porque hay varios modelos respondiendo a la vez","Para convertir el texto a min&uacute;sculas"],
-  ok:1,
+  ops:["Porque la respuesta es un JSON con cajas adentro de cajas y hay que abrirlas hasta el texto","Para convertir el texto a min&uacute;sculas","Porque hay varios modelos respondiendo a la vez","Es una f&oacute;rmula fija que no significa nada"],
+  ok:0,
   exp:"El servidor no devuelve el texto pelado: devuelve un JSON con metadatos. <code>choices</code> es la lista de respuestas, <code>[0]</code> toma la primera, <code>message</code> el mensaje y <code>content</code> el texto. Cada corchete abre una caja."},
  {tema:"Los roles",
   p:"&iquest;Qu&eacute; hace el rol <code>system</code> en el historial?",
-  ops:["Muestra los mensajes de error del sistema","Configura c&oacute;mo se comporta la IA en toda la conversaci&oacute;n","Guarda la partida","Es el nombre del jugador"],
-  ok:1,
+  ops:["Es el nombre del jugador","Muestra los mensajes de error del sistema","Guarda la partida","Configura c&oacute;mo se comporta la IA en toda la conversaci&oacute;n"],
+  ok:3,
   exp:"Es la <strong>configuraci&oacute;n</strong> del modelo para esa conversaci&oacute;n: tu guion del Narrador. Va en la posici&oacute;n 0, una sola vez. Los otros roles son <code>user</code> (lo que escribe el jugador) y <code>assistant</code> (lo que respondi&oacute; la IA)."},
  {tema:"Temperatura",
   p:"Tu par&aacute;metro <code>nivel_creatividad</code> viaja como <code>temperature</code>. &iquest;Qu&eacute; controla?",
-  ops:["La velocidad de la respuesta","Cu&aacute;nto var&iacute;a la respuesta: cerca de 0 = predecible, cerca de 2 = muy aleatoria","El largo m&aacute;ximo del texto","Cu&aacute;nto cuesta el pedido"],
-  ok:1,
+  ops:["Cu&aacute;nto var&iacute;a la respuesta: cerca de 0 = predecible, cerca de 2 = muy aleatoria","El largo m&aacute;ximo del texto","La velocidad de la respuesta","Cu&aacute;nto cuesta el pedido"],
+  ok:0,
   exp:"Va <strong>de 0 a 2</strong> (si no la pon&eacute;s, la API usa 1). Cerca de <strong>0</strong> el modelo elige casi siempre lo m&aacute;s probable: ideal para <strong>extraer datos</strong>, que es lo que viene ahora. M&aacute;s arriba se arriesga: serv&iacute;a para narrar tu aventura. Cerca de <strong>2</strong> se vuelve tan aleatoria que puede perder coherencia."},
  {tema:"Tokens",
   p:"&iquest;Qu&eacute; es un <strong>token</strong>?",
-  ops:["Una contrase&ntilde;a temporal","El pedacito de texto en que el modelo divide todo para procesarlo","Un error de la API","Un mensaje del historial"],
-  ok:1,
+  ops:["El pedacito de texto en que el modelo divide todo para procesarlo","Un mensaje del historial","Un error de la API","Una contrase&ntilde;a temporal"],
+  ok:0,
   exp:"El modelo no lee palabras enteras: parte el texto en tokens y va prediciendo el siguiente. Importa porque hay un <strong>l&iacute;mite de tokens</strong> por pedido: si el historial crece demasiado, no entra y hay que recortarlo."},
  {tema:"Alucinaciones",
   p:"&iquest;Por qu&eacute; la IA a veces inventa un dato que no estaba en el texto?",
-  ops:["Porque tiene un error de programaci&oacute;n","Porque genera el texto m&aacute;s probable, no consulta una base de datos con la verdad","Porque la API est&aacute; ca&iacute;da","Porque le falta memoria RAM"],
-  ok:1,
+  ops:["Porque le falta memoria RAM","Porque tiene un error de programaci&oacute;n","Porque genera el texto m&aacute;s probable, no consulta una base de datos con la verdad","Porque la API est&aacute; ca&iacute;da"],
+  ok:2,
   exp:"Un LLM genera lo m&aacute;s <strong>probable</strong> seg&uacute;n su entrenamiento. Si le falta un dato, completa igual con algo veros&iacute;mil: eso es una <strong>alucinaci&oacute;n</strong>, y no es un bug. Por eso en el proyecto nuevo vas a <strong>verificar</strong> lo que devuelve."},
  {tema:"El endpoint (URL)",
   p:"La URL termina en <code>/chat/completions</code>. &iquest;Por qu&eacute;?",
-  ops:["Es el nombre de la empresa","Porque le est&aacute;s pidiendo que complete una conversaci&oacute;n; hay otras direcciones para otras tareas","Es la versi&oacute;n del modelo","Podr&iacute;a ser cualquier cosa, no importa"],
-  ok:1,
+  ops:["Es el nombre de la empresa","Es la versi&oacute;n del modelo","Podr&iacute;a ser cualquier cosa, no importa","Porque le est&aacute;s pidiendo que complete una conversaci&oacute;n; hay otras direcciones para otras tareas"],
+  ok:3,
   exp:"Es el <em>endpoint</em>: la puerta exacta del servidor a la que le tocás el timbre. Groq tiene otras puertas para otras tareas, como transcribir audio. Si te equivocás de puerta, el pedido no llega."},
  {tema:"Content-Type",
   p:"&iquest;Qu&eacute; le avisa <code>&quot;Content-Type&quot;: &quot;application/json&quot;</code> al servidor?",
-  ops:["Qu&eacute; modelo us&aacute;s","En qu&eacute; formato viene lo que le mand&aacute;s, para que sepa c&oacute;mo leerlo","Cu&aacute;ntos tokens vas a gastar","Tu nombre de usuario"],
-  ok:1,
+  ops:["En qu&eacute; formato viene lo que le mand&aacute;s, para que sepa c&oacute;mo leerlo","Tu nombre de usuario","Qu&eacute; modelo us&aacute;s","Cu&aacute;ntos tokens vas a gastar"],
+  ok:0,
   exp:"Es la etiqueta del sobre que dice en qu&eacute; idioma est&aacute; escrita la carta. Sin eso, el servidor recibe un mont&oacute;n de caracteres y no sabe si leerlos como JSON, como texto suelto o como un formulario."},
  {tema:"La palabra Bearer",
   p:"En <code>Bearer {API_KEY}</code>, &iquest;qu&eacute; hace la palabra <strong>Bearer</strong>?",
-  ops:["Es parte de tu clave personal","Avisa qu&eacute; <em>tipo</em> de credencial viene a continuaci&oacute;n; es un est&aacute;ndar de la web","Es el nombre del servidor","Encripta la clave"],
-  ok:1,
+  ops:["Avisa qu&eacute; <em>tipo</em> de credencial viene a continuaci&oacute;n; es un est&aacute;ndar de la web","Encripta la clave","Es el nombre del servidor","Es parte de tu clave personal"],
+  ok:0,
   exp:"Significa &quot;portador&quot;. Es como decir &quot;ac&aacute; va una llave&quot; antes de dar la llave. Lo vas a encontrar igual en casi cualquier API que uses en tu vida, no solo en Groq."},
  {tema:"Errores 401 y 400",
   p:"Te aparece un error <strong>401</strong>. &iquest;D&oacute;nde busc&aacute;s el problema?",
-  ops:["En el prompt que escribiste","En la API Key: 401 significa &quot;no te conozco&quot;","En la conexi&oacute;n a internet","En el modelo elegido"],
-  ok:1,
+  ops:["En el modelo elegido","En la conexi&oacute;n a internet","En el prompt que escribiste","En la API Key: 401 significa &quot;no te conozco&quot;"],
+  ok:3,
   exp:"<strong>401 = no te conozco</strong> (revis&aacute; la clave). <strong>400 = no te entiendo</strong> (revis&aacute; el formato del pedido). Saber leer el n&uacute;mero te ahorra buscar a ciegas."},
  {tema:"Comillas triples",
   p:"&iquest;Para qu&eacute; se usan las comillas triples al escribir el system prompt?",
@@ -1087,28 +1088,28 @@ var PREGUNTAS = [
   exp:"Con comillas simples el texto tiene que entrar en <strong>un rengl&oacute;n</strong>: si apret&aacute;s Enter, Python se pierde. Las triples permiten que ocupe todos los renglones que quieras, y las reglas quedan mucho m&aacute;s legibles."},
  {tema:"return vs print",
   p:"Si tu funci&oacute;n <code>consultar_ia()</code> hiciera <code>print</code> en vez de <code>return</code>, &iquest;qu&eacute; pasar&iacute;a?",
-  ops:["Nada, es lo mismo","La respuesta se ver&iacute;a en pantalla pero no podr&iacute;as guardarla en una variable","El programa dar&iacute;a error","Ser&iacute;a m&aacute;s lenta"],
-  ok:1,
+  ops:["La respuesta se ver&iacute;a en pantalla pero no podr&iacute;as guardarla en una variable","Ser&iacute;a m&aacute;s lenta","El programa dar&iacute;a error","Nada, es lo mismo"],
+  ok:0,
   exp:"Con <code>print</code> el texto se muestra y se pierde: quien llama a la funci&oacute;n recibe <code>None</code>. Con <code>return</code> queda en una variable y pod&eacute;s seguir us&aacute;ndolo: agregarlo al historial, darle formato, guardarlo."},
  {tema:"finish_reason",
   p:"La respuesta trae <code>finish_reason: &quot;length&quot;</code>. &iquest;Qu&eacute; significa?",
-  ops:["Que la respuesta es muy larga de leer","Que se qued&oacute; sin tokens y la respuesta est&aacute; cortada","Que termin&oacute; bien","Que el texto que mandaste era largo"],
-  ok:1,
+  ops:["Que el texto que mandaste era largo","Que la respuesta es muy larga de leer","Que se qued&oacute; sin tokens y la respuesta est&aacute; cortada","Que termin&oacute; bien"],
+  ok:2,
   exp:"<code>&quot;stop&quot;</code> significa que termin&oacute; normalmente. <code>&quot;length&quot;</code> significa que <strong>se qued&oacute; sin tokens a mitad de camino</strong>: la respuesta est&aacute; incompleta. Si alguna vez te llega un JSON cortado, la causa suele estar ah&iacute;."},
  {tema:"El campo reasoning",
   p:"Con el modelo nuevo, el razonamiento del modelo viaja en <code>reasoning</code>. &iquest;D&oacute;nde est&aacute; ese campo?",
-  ops:["Adentro de <code>content</code>","Al lado de <code>content</code>: los dos cuelgan de <code>message</code>","Adentro de <code>usage</code>","En un pedido aparte"],
-  ok:1,
+  ops:["En un pedido aparte","Adentro de <code>usage</code>","Al lado de <code>content</code>: los dos cuelgan de <code>message</code>","Adentro de <code>content</code>"],
+  ok:2,
   exp:"Son <strong>hermanos</strong>. Por eso tu c&oacute;digo sigue funcionando igual: <code>content</code> trae la respuesta final, limpia, sin el razonamiento mezclado. Si quer&eacute;s verlo, es otro camino desde <code>message</code>."},
  {tema:"Encadenar de m&aacute;s",
   p:"&iquest;Por qu&eacute; <code>[&quot;message&quot;][&quot;content&quot;][&quot;usage&quot;]</code> da error?",
-  ops:["Porque usage no existe","Porque <code>content</code> ya es un texto, y a un texto no se le piden claves","Porque falta un corchete","Porque el orden est&aacute; invertido"],
-  ok:1,
+  ops:["Porque usage no existe","Porque falta un corchete","Porque <code>content</code> ya es un texto, y a un texto no se le piden claves","Porque el orden est&aacute; invertido"],
+  ok:2,
   exp:"Cuando lleg&aacute;s a un texto o a un n&uacute;mero, <strong>el camino termin&oacute;</strong>. A un texto solo pod&eacute;s pedirle posiciones con n&uacute;meros. Adem&aacute;s <code>usage</code> cuelga de la ra&iacute;z, no de <code>content</code>: es otro camino."},
  {tema:"El &iacute;ndice [0]",
   p:"En tus propias listas, &iquest;el n&uacute;mero entre corchetes es siempre 0?",
-  ops:["S&iacute;, siempre es 0","No: en el JSON de la API queda fijo porque viene una sola respuesta, pero en tus listas cambia seg&uacute;n cu&aacute;l quieras","S&iacute;, salvo que la lista est&eacute; vac&iacute;a","Solo cambia si hay m&aacute;s de diez elementos"],
-  ok:1,
+  ops:["S&iacute;, salvo que la lista est&eacute; vac&iacute;a","S&iacute;, siempre es 0","Solo cambia si hay m&aacute;s de diez elementos","No: en el JSON de la API queda fijo porque viene una sola respuesta, pero en tus listas cambia seg&uacute;n cu&aacute;l quieras"],
+  ok:3,
   exp:"En <code>choices[0]</code> queda fijo porque Groq devuelve una sola respuesta. Pero cuando tu proyecto procese diez archivos, <code>resultados[0]</code> ser&aacute; el primero, <code>resultados[1]</code> el segundo, y as&iacute;. El &iacute;ndice no es decorativo."}
 ];
 
