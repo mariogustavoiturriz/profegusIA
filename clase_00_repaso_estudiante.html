@@ -314,7 +314,7 @@
 </div>
 
 <div class="card c-json">
-  <h2><span class="badge" style="background:var(--json)">3</span> JSON: EL IDIOMA DEL VIAJE</h2>
+  <h2><span class="badge" style="background:var(--json)">3</span> JSON: EL IDIOMA COMÚN</h2>
   <p>Tu Colab habla Python; el servidor no sabe Python. Para entenderse usan un formato neutro que entienden los dos: <strong>JSON</strong>. Todo lo que va y lo que viene tiene esta forma.</p>
 
   <p style="margin-top:16px;font-size:19px;"><strong>➡️ Lo que SALE de tu programa (el <code>payload</code>):</strong></p>
@@ -371,7 +371,7 @@
   <div class="info i-amb">
     <strong>🤔 ¿Por qué siempre <code>[0]</code>? ¿Alguna vez es <code>[1]</code>?</strong>
     Con Groq, nunca. Esa lista existe porque la API está preparada para devolver <strong>varias respuestas distintas</strong> a la misma pregunta: si pudieras pedir tres, tendrías <code>[0]</code>, <code>[1]</code> y <code>[2]</code> para comparar y elegir. Pero Groq solo admite una por pedido, así que la lista siempre tiene un elemento y el <code>[0]</code> nunca cambia.<br><br>
-    <strong>No es que el número sea de adorno.</strong> En <em>tus propias</em> listas va a cambiar todo el tiempo: cuando tu proyecto procese varios textos, <code>resultados[0]</code> será el del primer texto, <code>resultados[1]</code> el del segundo, y así. Acá queda fijo solo porque la respuesta viene de a una.
+    <strong>Ojo, esto vale solo para <em>esta</em> lista</strong> (la de las respuestas de Groq). El número entre corchetes <strong>no</strong> es de adorno: en <em>otras</em> listas sí cambia. Cuando armes las tuyas — por ejemplo, guardando el resultado de varios textos — vas a usar <code>resultados[0]</code> para el primero, <code>resultados[1]</code> para el segundo, y así. La diferencia es que <code>choices</code> siempre trae uno solo, mientras que tus listas van a tener muchos.
   </div>
 </div>
 
