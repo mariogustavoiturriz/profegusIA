@@ -308,8 +308,8 @@
     Un modelo de lenguaje <strong>predice el texto más probable</strong>, pedacito por pedacito, a partir de lo que aprendió al entrenarse. Por sí solo, <strong>no verifica contra ninguna fuente</strong>: no está leyendo internet ni consultando una base de datos con la verdad mientras te responde. Cuando le falta un dato, igual completa con algo <em>verosímil</em>: eso es una <strong>alucinación</strong>, y no es un error del programa — es cómo funciona.<br><br>Ojo: hay asistentes (como algunos chatbots que usás) que <strong>sí</strong> pueden buscar en internet — pero eso es una <em>herramienta extra</em> que les conectaron aparte. El modelo pelado, como el que usan ustedes por la API, no lo hace: responde solo con lo que tiene adentro.
   </div>
   <div class="info i-azul">
-    <strong>Por eso el proyecto nuevo se llama Extractor y no "Adivinador"</strong>
-    Vas a pedirle que saque datos que <strong>están escritos en el texto</strong>, y después vas a <strong>verificar</strong> que no haya inventado nada. Ese control es una de las partes que se evalúan.
+    <strong>Por eso vas a tener que verificar lo que hace la IA</strong>
+    En el proyecto que viene le vas a pedir que saque datos que <strong>están escritos en un texto</strong>, y después vas a <strong>controlar</strong> que no haya inventado nada. Ese control es una de las partes que se evalúan.
   </div>
 </div>
 
@@ -330,15 +330,15 @@
 
   <p style="margin-top:18px;font-size:19px;"><strong>⬅️ Lo que VUELVE del servidor:</strong></p>
   <div class="json-box">{
-  "choices": [                    <span style="color:#6A9955;">&lt;-- 1) ["choices"] : es una LISTA</span>
-      {                           <span style="color:#6A9955;">&lt;-- 2) [0] : el primer elemento</span>
-        "message": {              <span style="color:#6A9955;">&lt;-- 3) ["message"]</span>
-            "role": "assistant",
-            "content": "Detrás de la puerta hay..."   <span style="color:#6A9955;">&lt;-- 4) ["content"]</span>
+  "choices": [                    <span style="color:#6A9955;">&lt;-- 1) una lista: la API puede devolver varias respuestas</span>
+      {                           <span style="color:#6A9955;">&lt;-- 2) [0]: agarrás la primera (y única, con Groq)</span>
+        "message": {              <span style="color:#6A9955;">&lt;-- 3) adentro está el mensaje completo (rol + texto)</span>
+            "role": "assistant",  <span style="color:#6A9955;">&lt;-- quién habla</span>
+            "content": "Detrás de la puerta hay..."   <span style="color:#6A9955;">&lt;-- 4) el texto que buscabas</span>
         }
       }
   ],
-  "usage": {"total_tokens": 512}  <span style="color:#6A9955;">&lt;- cuánto consumiste</span>
+  "usage": {"total_tokens": 512}  <span style="color:#6A9955;">&lt;- cuántos tokens gastó (cuelga aparte, no de choices)</span>
 }</div>
 
   <p style="margin-top:14px;font-size:19px;">Seguí los cuatro números del dibujo: son <strong>exactamente</strong> los corchetes de la línea que ya conocés, en el mismo orden.</p>
@@ -961,19 +961,19 @@ cronica = <span class="fn">consultar_ia</span>(historial, ...)   <span class="cm
   </table>
 
   <div class="info i-azul" style="margin-top:16px;">
-    <strong>🤖 ¿Y todo esto para qué? Para construir un Agente</strong>
-    El proyecto tiene <strong>dos partes encadenadas</strong>, y esta clase es la base de las dos:
+    <strong>🤖 La meta del proyecto: construir un Agente</strong>
+    Un <strong>agente</strong> es un programa que <strong>decide y actúa solo</strong>. Eso es lo que van a construir. Pero un agente solo decide bien si tiene datos buenos — y esos datos hay que <strong>fabricarlos primero</strong>. Por eso el proyecto tiene <strong>dos partes</strong>, y arranca por los datos:
   </div>
 
   <div class="arq" style="margin-top:4px;">
     <div class="arq-lado" style="background:#E8F4F0;border:2px solid var(--p1);">
       <span class="ico">🔍</span>
-      <h4>PARTE 1 — El Extractor</h4>
-      <p style="font-size:16px;">lo que arranca ahora</p>
+      <h4>PARTE 1 — Preparar los datos</h4>
+      <p style="font-size:16px;">el primer paso (arranca ahora)</p>
       <ul>
         <li>Toma textos sueltos</li>
         <li>Le pide a la IA que saque los datos</li>
-        <li>Arma un <strong>CSV</strong> ordenado y verificado</li>
+        <li>Arma un archivo <strong>ordenado y verificado</strong></li>
       </ul>
     </div>
     <div class="arq-medio">
@@ -982,10 +982,10 @@ cronica = <span class="fn">consultar_ia</span>(historial, ...)   <span class="cm
     <div class="arq-lado" style="background:var(--vio-bg);border:2px solid var(--vio);">
       <span class="ico">🤖</span>
       <h4>PARTE 2 — El Agente</h4>
-      <p style="font-size:16px;">más adelante</p>
+      <p style="font-size:16px;">la meta del proyecto</p>
       <ul>
-        <li>Usa ese CSV como <strong>cerebro</strong></li>
-        <li>Razona qué hacer con los datos</li>
+        <li>Usa esos datos como <strong>cerebro</strong></li>
+        <li>Razona qué hacer con ellos</li>
         <li><strong>Decide y actúa solo</strong></li>
       </ul>
     </div>
@@ -993,7 +993,7 @@ cronica = <span class="fn">consultar_ia</span>(historial, ...)   <span class="cm
 
   <div class="info i-amb" style="margin-top:4px;">
     <strong>La clave</strong>
-    La Parte 2 no existe sin la Parte 1: un agente decide bien solo si sus datos son buenos. Por eso ahora la obsesión es que el Extractor no deje pasar ni una alucinación — <strong>esos datos van a ser el cerebro del Agente</strong>.
+    No se puede construir el agente sin datos buenos primero: decide bien solo si el material con el que piensa es confiable. Por eso ahora la obsesión es no dejar pasar ni una alucinación — <strong>lo que preparen ahora va a ser el cerebro del agente</strong>.
   </div>
   <div class="info i-grn">
     <strong>📅 Lo que viene</strong>
