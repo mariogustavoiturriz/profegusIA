@@ -44,7 +44,7 @@
   .i-azul{background:var(--azul-bg);border-color:var(--azul);}
   .i-rojo{background:var(--rojo-bg);border-color:var(--rojo);}
   .i-json{background:var(--json-bg);border-color:var(--json);}
-  .info strong{display:block;margin-bottom:6px;font-size:19px;}
+  .info > strong:first-child{display:block;margin-bottom:6px;font-size:19px;}
   .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:18px 20px;font-size:17px;overflow-x:auto;white-space:pre;line-height:1.65;margin:14px 0;border-radius:8px;}
   .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
   .nm{color:#B5CEA8;} .fn{color:#DCDCAA;} .dk{color:#9CDCFE;}
@@ -88,6 +88,14 @@
   .jfb{margin-top:12px;font-size:18px;}
   .jcamino{background:var(--code-bg);color:#D4D4D4;font-family:Consolas,monospace;
            padding:12px 16px;border-radius:8px;font-size:17px;margin-top:10px;overflow-x:auto;}
+  .jcam-ops{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+  .jcam-op{background:#1E1E1E;color:#D4D4D4;font-family:Consolas,monospace;font-size:16px;
+           padding:11px 14px;border:2px solid #3A3A3A;border-radius:8px;cursor:pointer;text-align:left;
+           transition:all .15s;}
+  .jcam-op:hover:enabled{border-color:var(--vio);}
+  .jcam-op:disabled{cursor:default;}
+  .jcam-op.cam-ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jcam-op.cam-no{background:#3a1e1e;border-color:#C0392B;opacity:.6;}
   .jprog{font-size:16px;color:#666;margin-bottom:8px;}
 
   /* Taller de reparaciones */
@@ -378,12 +386,12 @@
 
 <div class="card c-json">
   <h2><span class="badge" style="background:var(--json)">4</span> EJERCICIO — NAVEGÁ EL JSON</h2>
-  <p>Leer un JSON y saber cómo llegar a un dato es <strong>la habilidad central del proyecto que viene</strong>. Practiquemos con seis casos distintos: en cada uno, tocá el valor que se te pide.</p>
+  <p>Leer un JSON y saber cómo llegar a un dato es <strong>la habilidad central del proyecto que viene</strong>. Practiquemos con doce casos. En cada uno vas a hacer DOS cosas: primero tocás el valor que se pide, y después elegís el <strong>camino</strong> que llega hasta ahí.</p>
 
   <div id="jbox" style="margin-top:18px;">
 
     <!-- EJ 1 -->
-    <div class="jej activo" data-ok="content" data-camino='respuesta["choices"][0]["message"]["content"]'>
+    <div class="jej activo" data-ok="content" data-camino='respuesta["choices"][0]["message"]["content"]' data-mal1='respuesta[&quot;choices&quot;][&quot;message&quot;][&quot;content&quot;]' data-mal2='respuesta[&quot;message&quot;][&quot;content&quot;]'>
       <p class="jprog">Caso 1 de 12 · La respuesta de la IA</p>
       <div class="jctx">Este es el JSON que devuelve Groq cuando tu RPG le pregunta algo. Es el que ya venías desarmando.</div>
       <p class="jpide">👉 Tocá <strong>el texto que devolvió la IA</strong>.</p>
@@ -402,7 +410,7 @@
     </div>
 
     <!-- EJ 2 -->
-    <div class="jej" data-ok="cantidad" data-camino='pedido["cantidad"]'>
+    <div class="jej" data-ok="cantidad" data-camino='pedido["cantidad"]' data-mal1='pedido[&quot;cantidad&quot;][0]' data-mal2='pedido[cantidad]'>
       <p class="jprog">Caso 2 de 12 · Un pedido de kiosco</p>
       <div class="jctx">Así se van a ver los datos que extraiga tu proyecto: un texto suelto convertido en campos ordenados.</div>
       <p class="jpide">👉 Tocá <strong>la cantidad pedida</strong>.</p>
@@ -416,7 +424,7 @@
     </div>
 
     <!-- EJ 3 -->
-    <div class="jej" data-ok="nombre" data-camino='factura["cliente"]["nombre"]'>
+    <div class="jej" data-ok="nombre" data-camino='factura["cliente"]["nombre"]' data-mal1='factura[&quot;nombre&quot;]' data-mal2='factura[&quot;cliente&quot;]'>
       <p class="jprog">Caso 3 de 12 · Cajas adentro de cajas</p>
       <div class="jctx">Acá un valor <strong>no</strong> es un dato simple: es otro diccionario completo. Hay que abrir dos puertas.</div>
       <p class="jpide">👉 Tocá <strong>el nombre del cliente</strong>.</p>
@@ -432,7 +440,7 @@
     </div>
 
     <!-- EJ 4 -->
-    <div class="jej" data-ok="p2" data-camino='stock["productos"][1]["nombre"]'>
+    <div class="jej" data-ok="p2" data-camino='stock["productos"][1]["nombre"]' data-mal1='stock[&quot;productos&quot;][2][&quot;nombre&quot;]' data-mal2='stock[&quot;productos&quot;][&quot;nombre&quot;]'>
       <p class="jprog">Caso 4 de 12 · Una lista de varios</p>
       <div class="jctx">Cuando hay una lista, cada elemento tiene su número de posición. Y las listas <strong>empiezan en 0</strong>.</div>
       <p class="jpide">👉 Tocá el nombre del <strong>SEGUNDO</strong> producto.</p>
@@ -447,7 +455,7 @@
     </div>
 
     <!-- EJ 5 -->
-    <div class="jej" data-ok="null" data-camino='reserva["hora_retiro"]   # devuelve None (el null de JSON)'>
+    <div class="jej" data-ok="null" data-camino='reserva["hora_retiro"]   # devuelve None (el null de JSON)' data-mal1='reserva[&quot;hora&quot;]' data-mal2='reserva[0][&quot;hora_retiro&quot;]'>
       <p class="jprog">Caso 5 de 12 · El dato que no está</p>
       <div class="jctx">El texto original decía: <em>"Reservo dos empanadas a nombre de Milena"</em>. No aclaraba la hora.</div>
       <p class="jpide">👉 Tocá <strong>el valor de hora_retiro</strong>.</p>
@@ -461,7 +469,7 @@
     </div>
 
     <!-- EJ 6 -->
-    <div class="jej" data-ok="tot" data-camino='respuesta["usage"]["total_tokens"]'>
+    <div class="jej" data-ok="tot" data-camino='respuesta["usage"]["total_tokens"]' data-mal1='respuesta[&quot;choices&quot;][0][&quot;usage&quot;][&quot;total_tokens&quot;]' data-mal2='respuesta[&quot;total_tokens&quot;]'>
       <p class="jprog">Caso 6 de 12 · El dato escondido</p>
       <div class="jctx">Volvemos a la respuesta de la API, pero ahora buscando algo que casi nadie mira: cuánto consumió el pedido.</div>
       <p class="jpide">👉 Tocá <strong>el total de tokens</strong> que gastó la consulta.</p>
@@ -481,7 +489,7 @@
 
 
     <!-- EJ 7 -->
-    <div class="jej" data-ok="sys" data-camino='historial[0]["content"]'>
+    <div class="jej" data-ok="sys" data-camino='historial[0]["content"]' data-mal1='historial[&quot;content&quot;]' data-mal2='historial[0][&quot;system&quot;]'>
       <p class="jprog">Caso 7 de 12 · El historial de tu RPG</p>
       <div class="jctx">Acá la lista no está adentro de nada: <strong>el historial ES una lista</strong>. Cada mensaje ocupa una posición.</div>
       <p class="jpide">👉 Tocá <strong>las reglas del Narrador</strong> (el system prompt).</p>
@@ -494,7 +502,7 @@
     </div>
 
     <!-- EJ 8 -->
-    <div class="jej" data-ok="u1" data-camino='historial[1]["content"]'>
+    <div class="jej" data-ok="u1" data-camino='historial[1]["content"]' data-mal1='historial[0][&quot;content&quot;]' data-mal2='historial[&quot;user&quot;][&quot;content&quot;]'>
       <p class="jprog">Caso 8 de 12 · El mismo historial, otro dato</p>
       <div class="jctx">Ahora buscamos algo que está más abajo en la lista. Contá las posiciones desde 0.</div>
       <p class="jpide">👉 Tocá <strong>lo que escribió el jugador</strong>.</p>
@@ -507,7 +515,7 @@
     </div>
 
     <!-- EJ 9 -->
-    <div class="jej" data-ok="razon" data-camino='respuesta["choices"][0]["message"]["reasoning"]'>
+    <div class="jej" data-ok="razon" data-camino='respuesta["choices"][0]["message"]["reasoning"]' data-mal1='respuesta[&quot;choices&quot;][0][&quot;reasoning&quot;]' data-mal2='respuesta[&quot;message&quot;][&quot;reasoning&quot;]'>
       <p class="jprog">Caso 9 de 12 · Cómo lo pensó la IA</p>
       <div class="jctx">El modelo nuevo devuelve, además de la respuesta, <strong>el razonamiento que hizo antes de contestar</strong>. Son dos campos hermanos.</div>
       <p class="jpide">👉 Tocá <strong>el razonamiento</strong> del modelo.</p>
@@ -526,7 +534,7 @@
     </div>
 
     <!-- EJ 10 -->
-    <div class="jej" data-ok="fin" data-camino='respuesta["choices"][0]["finish_reason"]'>
+    <div class="jej" data-ok="fin" data-camino='respuesta["choices"][0]["finish_reason"]' data-mal1='respuesta[&quot;choices&quot;][0][&quot;message&quot;][&quot;finish_reason&quot;]' data-mal2='respuesta[&quot;finish_reason&quot;]'>
       <p class="jprog">Caso 10 de 12 · Por qué paró</p>
       <div class="jctx">Este dato te dice <strong>por qué el modelo dejó de escribir</strong>. Si dice <code>"stop"</code> terminó bien; si dice <code>"length"</code> se quedó sin tokens y la respuesta está cortada.</div>
       <p class="jpide">👉 Tocá <strong>el motivo por el que paró</strong>.</p>
@@ -542,7 +550,7 @@
     </div>
 
     <!-- EJ 11 -->
-    <div class="jej" data-ok="hp" data-camino='jugador["stats"]["hp"]'>
+    <div class="jej" data-ok="hp" data-camino='jugador["stats"]["hp"]' data-mal1='jugador[&quot;hp&quot;]' data-mal2='jugador[&quot;stats&quot;]'>
       <p class="jprog">Caso 11 de 12 · Tu diccionario del RPG</p>
       <div class="jctx">Este es el <code>jugador</code> de tu juego, pero mejor organizado: las estadísticas agrupadas y el inventario como lista.</div>
       <p class="jpide">👉 Tocá <strong>la vida del jugador</strong>.</p>
@@ -558,7 +566,7 @@
     </div>
 
     <!-- EJ 12 -->
-    <div class="jej" data-ok="obj2" data-camino='jugador["inventario"][1]'>
+    <div class="jej" data-ok="obj2" data-camino='jugador["inventario"][1]' data-mal1='jugador[&quot;inventario&quot;][2]' data-mal2='jugador[&quot;inventario&quot;][&quot;1&quot;]'>
       <p class="jprog">Caso 12 de 12 · El último</p>
       <div class="jctx">Una lista de textos sueltos, sin diccionarios adentro. Se piden igual: por posición.</div>
       <p class="jpide">👉 Tocá el <strong>SEGUNDO objeto</strong> del inventario.</p>
@@ -793,7 +801,7 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
     </div>
 
     <!-- REP 7 -->
-    <div class="rep" data-ok="3">
+    <div class="rep" data-ok="4">
       <p class="jprog">Reparación 7 de 8 · <strong>El juego se cierra solo</strong></p>
       <div class="jctx">Escribís <code>/estado</code>, te muestra la vida… y el programa termina. Tenés que volver a ejecutar todo para seguir jugando.</div>
       <div class="repcod">
@@ -827,8 +835,8 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 
   <div id="repfinal" style="display:none;margin-top:18px;">
     <div class="info i-grn">
-      <strong>🔧 Reparaste los cuatro</strong>
-      Fijate qué tenían en común: <strong>ninguno tiraba un error</strong>. Los cuatro programas corrían perfecto, pero hacían algo distinto de lo que uno quería. Ese es el tipo de falla más difícil de encontrar, y la única forma de detectarla es <strong>entender qué hace cada línea</strong>, no confiar en que no aparezca nada rojo en pantalla.
+      <strong>🔧 Reparaste los ocho</strong>
+      Fijate qué tenían en común: <strong>ninguno tiraba un error</strong>. Los ocho programas corrían perfecto, pero hacían algo distinto de lo que uno quería. Ese es el tipo de falla más difícil de encontrar, y la única forma de detectarla es <strong>entender qué hace cada línea</strong>, no confiar en que no aparezca nada rojo en pantalla.
     </div>
     <div class="info i-azul">
       <strong>💡 En el proyecto que viene va a pasar lo mismo</strong>
@@ -839,8 +847,8 @@ headers = {<span class="str">"Authorization"</span>: f<span class="str">"Bearer 
 
 
 <div class="card c-p1" style="border-left-color:var(--p1);">
-  <h2><span class="badge" style="background:var(--p1)">8</span> PREPARACIÓN — ¿QUÉ SE PUEDE EXTRAER?</h2>
-  <p>Esta es <strong>la primera decisión del proyecto</strong>, y la que más lo condiciona: elegir qué datos se le piden a la IA. Practiquemos el criterio.</p>
+  <h2><span class="badge" style="background:var(--p1)">8</span> ¿QUÉ DATOS SE LE PUEDEN PEDIR A LA IA?</h2>
+  <p>Ya sabés que la IA <strong>inventa cuando le falta un dato</strong>. Entonces, antes de pedirle algo, conviene saber qué se le puede pedir sin riesgo. Practiquemos ese criterio con tres textos — te va a servir apenas arranques el proyecto.</p>
   <div class="info i-amb">
     <strong>La regla</strong>
     Un campo sirve si el dato <strong>está escrito en el texto</strong>. No sirve si hay que interpretarlo, deducirlo o suponerlo — ahí es donde la IA empieza a inventar.
@@ -1295,13 +1303,57 @@ function add(txt,tipo){
       if(ej.getAttribute('data-ok') === 'p2'){
         extra = '<p style="margin-top:10px;font-size:17px;">Ojo con el <code>[1]</code>: el segundo elemento lleva el número 1, porque las listas empiezan a contar en 0.</p>';
       }
-      fb.innerHTML = '<span style="color:#137333;font-weight:bold;">✅ ¡Correcto!</span> El camino para llegar ahí es:'
-                   + '<div class="jcamino">' + camino + '</div>' + extra
-                   + '<button class="btn-next" onclick="jSiguiente()">Siguiente ➡</button>';
+      // Guardamos el "extra" (explicación) para mostrarlo recién en el paso 2
+      ej.setAttribute('data-extra', encodeURIComponent(extra));
+      // PASO 2: elegir el camino
+      var mal1 = ej.getAttribute('data-mal1') || '';
+      var mal2 = ej.getAttribute('data-mal2') || '';
+      var opciones = [camino, mal1, mal2];
+      // mezclar
+      for(var i=opciones.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=opciones[i]; opciones[i]=opciones[j]; opciones[j]=t; }
+      var botones = '';
+      for(var k=0;k<opciones.length;k++){
+        botones += '<button class="jcam-op" data-cam="' + opciones[k].replace(/"/g,'&quot;') + '">' + opciones[k] + '</button>';
+      }
+      fb.innerHTML = '<span style="color:#137333;font-weight:bold;">✅ Encontraste el valor.</span>'
+                   + '<p style="margin-top:10px;font-size:18px;"><strong>Ahora el paso difícil:</strong> ¿cuál de estos caminos llega hasta ahí?</p>'
+                   + '<div class="jcam-ops">' + botones + '</div>';
     } else {
       el.classList.add('no');
       fb.innerHTML = '<span style="color:#C62828;font-weight:bold;">❌ Ese no.</span> Leé de nuevo qué te pide y fijate qué clave lo nombra.';
       setTimeout(function(){ el.classList.remove('no'); }, 900);
+    }
+  });
+
+  // PASO 2: elegir el camino correcto
+  document.addEventListener('click', function(e){
+    var op = e.target.closest('.jcam-op');
+    if(!op) return;
+    var ej = op.closest('.jej');
+    if(!ej || ej.getAttribute('data-camino2') === 'si') return;
+    var fb = ej.querySelector('.jfb');
+    var correcto = ej.getAttribute('data-camino');
+    var elegido = op.getAttribute('data-cam').replace(/&quot;/g,'"');
+    if(elegido === correcto){
+      ej.setAttribute('data-camino2','si');
+      op.classList.add('cam-ok');
+      // deshabilitar el resto
+      ej.querySelectorAll('.jcam-op').forEach(function(b){ b.disabled = true; });
+      var extra = decodeURIComponent(ej.getAttribute('data-extra') || '');
+      fb.innerHTML += '<p style="margin-top:12px;color:#137333;font-weight:bold;">✅ Ese es el camino.</p>'
+                    + '<div class="jcamino">' + correcto + '</div>' + extra
+                    + '<button class="btn-next" onclick="jSiguiente()">Siguiente ➡</button>';
+    } else {
+      op.classList.add('cam-no');
+      op.disabled = true;
+      var aviso = ej.querySelector('.jcam-aviso');
+      if(!aviso){
+        var d = document.createElement('p');
+        d.className = 'jcam-aviso';
+        d.style.cssText = 'color:#C62828;font-size:16px;margin-top:8px;';
+        d.innerHTML = 'Ese no llega. Fijate cuántas cajas hay que abrir y en qué orden.';
+        op.closest('.jcam-ops').appendChild(d);
+      }
     }
   });
 
@@ -1336,8 +1388,8 @@ function add(txt,tipo){
         fix:'    accion = input("¿Qué hacés? ").strip()\n    if accion.lower() == "/estado":'},
     6: {mal:'Guarda la respuesta de la IA con el rol <code>"user"</code>. El modelo lee el historial y cree que <strong>esas palabras las escribiste vos</strong>. Lo que dice la IA va siempre con el rol <code>"assistant"</code>.',
         fix:'    historial.append({"role": "assistant", "content": narracion})'},
-    7: {mal:'Usa <code>break</code> donde va <code>continue</code>. <strong>break termina el bucle</strong> (cierra el juego); <code>continue</code> vuelve al principio y sigue jugando.',
-        fix:'        continue   # NO break'},
+    7: {mal:'Sobra el <code>break</code>. Esa línea corta el bucle, así que apenas muestra el HP el juego termina. Como no hay nada más adentro del <code>while</code>, con <strong>borrar el break</strong> alcanza: el <code>while True</code> vuelve solo al principio y el juego sigue.',
+        fix:'        print(f"HP: {jugador[&#39;hp&#39;]}")\n        <span style="color:#888;"># (borramos el break)</span>'},
     8: {mal:'Le pasa <code>accion</code> en lugar de <code>historial</code>. Le manda a la IA <strong>solo el último mensaje</strong>, sin el system prompt ni los turnos anteriores. El historial se llena, pero no se usa.',
         fix:'    narracion = consultar_ia(historial, 0.8)'}
   };
