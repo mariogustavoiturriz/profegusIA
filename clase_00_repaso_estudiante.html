@@ -117,12 +117,19 @@
   .ext-txt{background:#FFFDF5;border:2px solid var(--amb);border-radius:10px;padding:16px 20px;
            font-size:19px;line-height:1.7;font-style:italic;margin-bottom:14px;}
 
-  .tarea{display:block;background:#fff;border:2px solid var(--bd);border-radius:10px;
-         padding:13px 18px;margin-bottom:10px;cursor:pointer;font-size:18px;transition:all .15s;}
-  .tarea:hover{border-color:var(--vio);}
-  .tarea.front{background:var(--azul-bg);border-color:var(--azul);}
-  .tarea.back{background:#FBEAE2;border-color:#C8461E;}
-  .tarea .marca{float:right;font-weight:bold;font-size:16px;}
+  .tarea{background:#fff;border:2px solid var(--bd);border-radius:10px;
+         padding:13px 18px;margin-bottom:10px;font-size:18px;transition:all .15s;
+         display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
+  .tarea-txt{flex:1 1 240px;}
+  .tarea-btns{display:flex;gap:8px;}
+  .tbtn{background:#fff;border:2px solid var(--bd);border-radius:8px;padding:8px 12px;
+        font-size:16px;cursor:pointer;font-family:inherit;color:var(--txt);white-space:nowrap;}
+  .tbtn:hover:enabled{border-color:var(--vio);}
+  .tbtn:disabled{cursor:default;opacity:.55;}
+  .tbtn.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;opacity:1;}
+  .tbtn.mal{background:#FFEBEE;border-color:#C0392B;color:#8B1A1A;opacity:1;}
+  .tarea.resuelta{background:#F7FBF9;border-color:#1F6E5C;}
+  .tarea-fb{flex:1 1 100%;font-size:16px;}
   .btn-op{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px 20px;
           margin:6px 8px 6px 0;font-size:18px;cursor:pointer;font-family:inherit;color:var(--txt);}
   .btn-op:hover{border-color:var(--p1);}
@@ -153,7 +160,7 @@
 <body>
 <header>
   <h1>CLASE 0 (2C) — REPASO GENERAL: CÓMO FUNCIONA TU APLICACIÓN CON IA</h1>
-  <p>Taller de IA &middot; 7&deg; TIC &middot; CTP Antonio Mart&iacute;n Marte &middot; Lunes 10/8</p>
+  <p>Taller de IA &middot; 7&deg; TIC &middot; CTP Antonio Mart&iacute;n Marte &middot; Lunes 10/8 · 120 minutos</p>
 </header>
 <div class="container">
 <a href="index.html" class="back-btn">&#11013; Volver al &Iacute;ndice</a>
@@ -187,7 +194,7 @@
 
 <div class="card c-info">
   <h2><span class="badge" style="background:var(--vio)">0</span> POR QUÉ ESTA CLASE</h2>
-  <p>Construiste un RPG que habla con una IA. Hoy vas a entender <strong>qué pasa realmente cuando apretás Enter</strong>: es la base del proyecto que viene.</p>
+  <p>Ya construiste un RPG que habla con una IA: <strong>sabés hacerlo funcionar</strong>. Hoy le ponemos nombre a lo que ya venías usando — el pedido que viaja, el modelo que responde, el JSON que vuelve — para que puedas <strong>explicarlo, no solo usarlo</strong>. Ese salto es lo que te va a dejar construir el proyecto que viene.</p>
   <div class="info i-azul" style="margin-top:12px;">
     <strong>🧭 Cómo es esta clase</strong>
     Podés leerla sola, a tu ritmo. Alterna explicaciones cortas con actividades para tocar y resolver. Al final hay un cuestionario para ver cómo te fue.<br><br>
@@ -229,14 +236,56 @@
     </div>
   </div>
 
-  <p style="font-size:19px;margin-top:6px;"><strong>Probá si te quedó claro.</strong> Tocá cada tarea para decidir de qué lado pasa:</p>
+  <p style="font-size:19px;margin-top:6px;"><strong>Probá si te quedó claro.</strong> Para cada tarea, decidí <strong>quién la hace</strong>: ¿tu Colab o el servidor de Groq?</p>
   <div id="fbbox">
-    <span class="tarea" data-lado="front">Guardar el historial de la conversación</span>
-    <span class="tarea" data-lado="back">Verificar que tu API Key sea válida</span>
-    <span class="tarea" data-lado="front">Pedirle al jugador que escriba su acción</span>
-    <span class="tarea" data-lado="back">Generar el texto de la respuesta</span>
-    <span class="tarea" data-lado="front">Armar el payload y mandarlo</span>
-    <span class="tarea" data-lado="back">Contar los tokens que gastaste</span>
+    <div class="tarea" data-lado="front">
+      <span class="tarea-txt">Guardar el historial de la conversación</span>
+      <span class="tarea-btns">
+        <button class="tbtn" data-elige="front">💻 Mi Colab</button>
+        <button class="tbtn" data-elige="back">🖥️ Servidor</button>
+      </span>
+      <span class="tarea-fb"></span>
+    </div>
+    <div class="tarea" data-lado="back">
+      <span class="tarea-txt">Verificar que tu API Key sea válida</span>
+      <span class="tarea-btns">
+        <button class="tbtn" data-elige="front">💻 Mi Colab</button>
+        <button class="tbtn" data-elige="back">🖥️ Servidor</button>
+      </span>
+      <span class="tarea-fb"></span>
+    </div>
+    <div class="tarea" data-lado="front">
+      <span class="tarea-txt">Pedirle al jugador que escriba su acción</span>
+      <span class="tarea-btns">
+        <button class="tbtn" data-elige="front">💻 Mi Colab</button>
+        <button class="tbtn" data-elige="back">🖥️ Servidor</button>
+      </span>
+      <span class="tarea-fb"></span>
+    </div>
+    <div class="tarea" data-lado="back">
+      <span class="tarea-txt">Generar el texto de la respuesta</span>
+      <span class="tarea-btns">
+        <button class="tbtn" data-elige="front">💻 Mi Colab</button>
+        <button class="tbtn" data-elige="back">🖥️ Servidor</button>
+      </span>
+      <span class="tarea-fb"></span>
+    </div>
+    <div class="tarea" data-lado="front">
+      <span class="tarea-txt">Armar el pedido (payload) y enviarlo</span>
+      <span class="tarea-btns">
+        <button class="tbtn" data-elige="front">💻 Mi Colab</button>
+        <button class="tbtn" data-elige="back">🖥️ Servidor</button>
+      </span>
+      <span class="tarea-fb"></span>
+    </div>
+    <div class="tarea" data-lado="front">
+      <span class="tarea-txt">Mostrar la respuesta en pantalla</span>
+      <span class="tarea-btns">
+        <button class="tbtn" data-elige="front">💻 Mi Colab</button>
+        <button class="tbtn" data-elige="back">🖥️ Servidor</button>
+      </span>
+      <span class="tarea-fb"></span>
+    </div>
   </div>
   <div class="jfb" id="fb-fb"></div>
 </div>
@@ -256,7 +305,7 @@
 
   <div class="info i-amb">
     <strong>⚠️ Qué hace un LLM (y qué NO hace)</strong>
-    Un modelo de lenguaje <strong>predice el texto más probable</strong>, pedacito por pedacito. No busca en internet, no consulta una base de datos con la verdad, y no razona como una persona. Cuando le falta un dato, igual completa con algo <em>verosímil</em>: eso es una <strong>alucinación</strong>, y no es un error del programa — es cómo funciona.
+    Un modelo de lenguaje <strong>predice el texto más probable</strong>, pedacito por pedacito, a partir de lo que aprendió al entrenarse. Por sí solo, <strong>no verifica contra ninguna fuente</strong>: no está leyendo internet ni consultando una base de datos con la verdad mientras te responde. Cuando le falta un dato, igual completa con algo <em>verosímil</em>: eso es una <strong>alucinación</strong>, y no es un error del programa — es cómo funciona.<br><br>Ojo: hay asistentes (como algunos chatbots que usás) que <strong>sí</strong> pueden buscar en internet — pero eso es una <em>herramienta extra</em> que les conectaron aparte. El modelo pelado, como el que usan ustedes por la API, no lo hace: responde solo con lo que tiene adentro.
   </div>
   <div class="info i-azul">
     <strong>Por eso el proyecto nuevo se llama Extractor y no "Adivinador"</strong>
@@ -1159,7 +1208,7 @@ TU ROL: repasar CONCEPTOS DE INTELIGENCIA ARTIFICIAL con ejemplos y preguntas. N
 TEMAS:
 1 FRONTEND/BACKEND: su Colab es el cliente: arma el pedido, guarda el historial, muestra la respuesta. El servidor de Groq es el backend: verifica la clave, corre el modelo, devuelve JSON. El modelo NO esta en su computadora porque es enorme. Por eso sin internet no anda. Analogia: es como pedir comida a un restaurante, no cocinarla en casa. Preguntale cual linea de su codigo es la que hace el viaje (requests.post).
 
-2 EL MODELO: openai = quien lo desarrollo, gpt = el tipo de arquitectura, oss = open source (pesos abiertos, por eso Groq puede servirlo), 120b = 120 mil millones de parametros (los numeros ajustados en el entrenamiento). Si preguntan por el modelo viejo: hasta hace poco usaban llama-3.3-70b-versatile, que Groq da de baja el 16 de agosto; por eso migraron. Cambiar de modelo fue solo cambiar el nombre en una linea. Un LLM predice el texto mas probable pedacito por pedacito; no busca en internet ni consulta una base de datos con la verdad. Preguntale por que entonces puede equivocarse con un dato.
+2 EL MODELO: openai = quien lo desarrollo, gpt = el tipo de arquitectura, oss = open source (pesos abiertos, por eso Groq puede servirlo), 120b = 120 mil millones de parametros (los numeros ajustados en el entrenamiento). Si preguntan por el modelo viejo: hasta hace poco usaban llama-3.3-70b-versatile, que Groq da de baja el 16 de agosto; por eso migraron. Cambiar de modelo fue solo cambiar el nombre en una linea. Un LLM predice el texto mas probable pedacito por pedacito; por si solo no verifica contra ninguna fuente mientras responde (aunque algunos asistentes tienen busqueda web conectada aparte, como herramienta extra). Preguntale por que entonces puede equivocarse con un dato.
 
 3 API KEY Y HEADERS: la API Key es la credencial que identifica quien hace el pedido, viaja en el header Authorization como "Bearer TU_CLAVE". El Content-Type dice en que formato va el pedido (application/json). Insisti en que la clave NO se comparte ni se sube a un repositorio publico. Preguntale que pasaria si la clave estuviera mal escrita.
 
@@ -1391,17 +1440,33 @@ function add(txt,tipo){
   // --- Frontend / Backend ---
   var fbHechas = 0;
   document.addEventListener('click', function(e){
-    var t = e.target.closest('.tarea');
-    if(!t || t.classList.contains('front') || t.classList.contains('back')) return;
-    var lado = t.getAttribute('data-lado');
-    t.classList.add(lado);
-    t.innerHTML += '<span class="marca">' + (lado==='front' ? '💻 tu Colab' : '🖥️ servidor') + '</span>';
-    fbHechas++;
-    var fb = document.getElementById('fb-fb');
-    if(fbHechas === 6){
-      fb.innerHTML = '<span style="color:#137333;font-weight:bold;">✅ Ahí está el reparto.</span> Tu Colab prepara y muestra; el servidor verifica y genera. Por eso <strong>sin internet no hay IA</strong>: la mitad del trabajo pasa en otro lado.';
+    var btn = e.target.closest('.tbtn');
+    if(!btn || btn.disabled) return;
+    var tarea = btn.closest('.tarea');
+    if(tarea.classList.contains('resuelta')) return;
+    var correcto = tarea.getAttribute('data-lado');
+    var elige = btn.getAttribute('data-elige');
+    var fbT = tarea.querySelector('.tarea-fb');
+    var RAZON = {
+      front:'lo hace <strong>tu Colab</strong>: es código que corre en tu compu.',
+      back:'lo hace <strong>el servidor de Groq</strong>: pasa lejos, del otro lado de internet.'
+    };
+    if(elige === correcto){
+      btn.classList.add('ok');
+      tarea.classList.add('resuelta');
+      tarea.querySelectorAll('.tbtn').forEach(function(b){ b.disabled = true; });
+      fbT.innerHTML = '<span style="color:#137333;font-weight:bold;">✅ Bien:</span> ' + RAZON[correcto];
+      fbHechas++;
+      var fb = document.getElementById('fb-fb');
+      if(fbHechas === 6){
+        fb.innerHTML = '<span style="color:#137333;font-weight:bold;">✅ Ahí está el reparto.</span> Tu Colab prepara y muestra; el servidor verifica y genera. Por eso <strong>sin internet no hay IA</strong>: la mitad del trabajo pasa en otro lado.';
+      } else {
+        fb.innerHTML = '<span style="color:#666;">' + fbHechas + ' de 6</span>';
+      }
     } else {
-      fb.innerHTML = '<span style="color:#666;">' + fbHechas + ' de 6</span>';
+      btn.classList.add('mal');
+      fbT.innerHTML = '<span style="color:#C62828;font-weight:bold;">❌ No.</span> Pensá dónde corre esa tarea y probá de nuevo.';
+      setTimeout(function(){ btn.classList.remove('mal'); fbT.innerHTML=''; }, 1400);
     }
   });
 
