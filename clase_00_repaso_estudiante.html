@@ -344,7 +344,19 @@
   <p style="margin-top:14px;font-size:19px;">Seguí los cuatro números del dibujo: son <strong>exactamente</strong> los corchetes de la línea que ya conocés, en el mismo orden.</p>
   <div class="code-block">respuesta.<span class="fn">json</span>()[<span class="str">"choices"</span>][<span class="nm">0</span>][<span class="str">"message"</span>][<span class="str">"content"</span>]
               <span class="cm">   1        2       3          4</span></div>
-  <p style="margin-top:10px;font-size:19px;">Ojo con el <strong><code>[0]</code>: no está escrito en el JSON</strong>. Aparece porque después de <code>"choices"</code> hay un corchete <code>[</code>, y eso quiere decir <em>lista</em>. Los elementos de una lista no tienen nombre: se piden por su número de posición, y el primero es el 0.</p>
+  <div class="info i-amb" style="margin-top:12px;">
+    <strong>¿De dónde salió el <code>[0]</code>, si no está escrito?</strong>
+    Hay <strong>dos formas</strong> de guardar cosas, y se piden distinto:
+    <div style="margin-top:10px;padding:12px 16px;background:#fff;border-radius:8px;">
+      📇 Con <strong>nombre</strong> (diccionario) → pedís por la palabra:<br>
+      <code style="font-size:17px;">persona["edad"]</code> &nbsp;·&nbsp; <code style="font-size:17px;">["choices"]</code> &nbsp;·&nbsp; <code style="font-size:17px;">["content"]</code>
+    </div>
+    <div style="margin-top:8px;padding:12px 16px;background:#fff;border-radius:8px;">
+      🔢 Por <strong>posición</strong> (lista) → pedís por el número de lugar:<br>
+      <code style="font-size:17px;">alumnos[0]</code> (el primero) &nbsp;·&nbsp; <code style="font-size:17px;">alumnos[1]</code> (el segundo)
+    </div>
+    <p style="margin-top:10px;">El corchete con comillas <code>["..."]</code> es pedir por nombre. El corchete con número <code>[0]</code> es pedir por posición. En el JSON de la respuesta, <code>"choices"</code> es una lista — por eso, para entrar, hace falta un número. Y como <strong>en las listas se cuenta desde 0</strong>, el primero es el <code>[0]</code>.</p>
+  </div>
 
   <div class="info i-json">
     <strong>Por eso hay que "cavar" hasta el texto</strong>
@@ -359,7 +371,7 @@
   <div class="info i-amb">
     <strong>🤔 ¿Por qué siempre <code>[0]</code>? ¿Alguna vez es <code>[1]</code>?</strong>
     Con Groq, nunca. Esa lista existe porque la API está preparada para devolver <strong>varias respuestas distintas</strong> a la misma pregunta: si pudieras pedir tres, tendrías <code>[0]</code>, <code>[1]</code> y <code>[2]</code> para comparar y elegir. Pero Groq solo admite una por pedido, así que la lista siempre tiene un elemento y el <code>[0]</code> nunca cambia.<br><br>
-    <strong>No es que el número sea de adorno.</strong> En <em>tus propias</em> listas va a cambiar todo el tiempo: cuando tu proyecto procese los diez archivos del corpus, <code>resultados[0]</code> será el primero, <code>resultados[1]</code> el segundo, y así. Acá queda fijo solo porque la respuesta viene de a una.
+    <strong>No es que el número sea de adorno.</strong> En <em>tus propias</em> listas va a cambiar todo el tiempo: cuando tu proyecto procese varios textos, <code>resultados[0]</code> será el del primer texto, <code>resultados[1]</code> el del segundo, y así. Acá queda fijo solo porque la respuesta viene de a una.
   </div>
 </div>
 
@@ -950,20 +962,9 @@ cronica = <span class="fn">consultar_ia</span>(historial, ...)   <span class="cm
 
 <div class="card c-p1">
   <h2><span class="badge" style="background:var(--p1)">10</span> EL PUENTE: TODO ESTO SIGUE EN EL PROYECTO NUEVO</h2>
-  <table>
-    <tr><th style="width:45%;">Lo que ya sabés (RPG)</th><th>Cómo lo usás en el Extractor</th></tr>
-    <tr><td>El bloque B2 completo (API Key, URL, headers)</td><td><strong>Igual, sin tocar nada.</strong></td></tr>
-    <tr><td><code>consultar_ia()</code> para narrar</td><td>La misma función, pero le pedís <strong>datos en JSON</strong> en vez de narración.</td></tr>
-    <tr><td><code>temperature</code> alta para creatividad</td><td><strong>Temperatura baja</strong>: para extraer datos no querés que invente.</td></tr>
-    <tr><td>Leer el JSON de la respuesta</td><td>Además vas a leer un JSON <strong>adentro</strong> del texto que devuelve el modelo.</td></tr>
-    <tr><td>Diccionarios <code>role</code>/<code>content</code></td><td>Diccionarios con <strong>tus campos</strong>: producto, cliente, hora.</td></tr>
-    <tr><td>Saber que la IA alucina</td><td>Un <strong>análisis de calidad</strong> para detectar y corregir esas invenciones.</td></tr>
-  </table>
+  <p>Todo lo que repasaste hoy — la conexión, el JSON, los roles, la temperatura, las alucinaciones — <strong>sigue igual en el proyecto que viene</strong>. Cambia qué le pedís al modelo, no cómo.</p>
 
-  <div class="info i-azul" style="margin-top:16px;">
-    <strong>🤖 La meta del proyecto: construir un Agente</strong>
-    Un <strong>agente</strong> es un programa que <strong>decide y actúa solo</strong>. Eso es lo que van a construir. Pero un agente solo decide bien si tiene datos buenos — y esos datos hay que <strong>fabricarlos primero</strong>. Por eso el proyecto tiene <strong>dos partes</strong>, y arranca por los datos:
-  </div>
+  <p style="margin-top:12px;"><strong>La meta:</strong> construir un <strong>agente</strong>, un programa que decide y actúa solo. Pero decide bien solo si tiene buenos datos — y eso hay que fabricarlo primero. Por eso el proyecto tiene <strong>dos partes</strong>:</p>
 
   <div class="arq" style="margin-top:4px;">
     <div class="arq-lado" style="background:#E8F4F0;border:2px solid var(--p1);">
@@ -991,10 +992,7 @@ cronica = <span class="fn">consultar_ia</span>(historial, ...)   <span class="cm
     </div>
   </div>
 
-  <div class="info i-amb" style="margin-top:4px;">
-    <strong>La clave</strong>
-    No se puede construir el agente sin datos buenos primero: decide bien solo si el material con el que piensa es confiable. Por eso ahora la obsesión es no dejar pasar ni una alucinación — <strong>lo que preparen ahora va a ser el cerebro del agente</strong>.
-  </div>
+
   <div class="info i-grn">
     <strong>📅 Lo que viene</strong>
     Estas semanas cerramos el primer cuatrimestre: los que tengan que recuperar se preparan, y el resto repasa. El profe les va a confirmar la fecha de arranque del proyecto.<br><br>
@@ -1139,7 +1137,7 @@ function qNext(){qIdx++;qRender();}
 function qFin(){
   var c=document.getElementById('quiz-box');
   var pct=Math.round(qOk*100/PREGUNTAS.length);
-  var msj = pct>=80 ? 'Ten&eacute;s clara la arquitectura. Est&aacute;s listo para el Extractor.'
+  var msj = pct>=80 ? 'Ten&eacute;s clara la arquitectura. Est&aacute;s listo para arrancar el proyecto.'
           : pct>=50 ? 'Buena base. Repas&aacute; los temas de abajo antes de arrancar el proyecto.'
           : 'Conviene repasar con calma: volv&eacute; a los bloques 1 a 5 de esta p&aacute;gina y us&aacute; el asistente.';
   var h='<h3 style="font-size:22px;margin-bottom:10px;">Tu diagn&oacute;stico</h3>';
