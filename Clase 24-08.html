@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller de IA · Planteo · El taller de bicicletas</title>
+<style>
+  :root{
+    --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
+    --vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;
+    --bco:#FFFFFF;--code-bg:#1E1E1E;--r:12px;
+    --p1:#1F6E5C;--p1-bg:#E8F4F0;
+    --g2:#2E6820;--g2-bg:#EFF8EE;
+    --json:#006400;--json-bg:#F0FFF0;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;
+    --azul:#1565C0;--azul-bg:#E3F2FD;
+    --classroom:#137333;--class-bg:#F0FFF4;
+    --rpg:#5C2070;--rpg-bg:#F8F3FF;
+    --plan:#2A4A7F;--plan-bg:#E5ECF6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:20px;padding:15px 0 50px;}
+  header{background:var(--nav);color:var(--bco);padding:25px 20px;border-bottom:5px solid var(--vio);}
+  header h1{font-size:26px;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
+  header p{font-size:17px;opacity:.9;}
+  .container{width:95%;max-width:1400px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:20px;margin-bottom:10px;padding:10px 20px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  .c-p1{border-left-color:var(--p1);background:var(--p1-bg);}
+  .c-plan{border-left-color:var(--plan);background:var(--plan-bg);}
+  .c-info{border-left-color:var(--vio);background:#FAFCFF;}
+  .c-json{border-left-color:var(--json);background:var(--json-bg);}
+  .c-rojo{border-left-color:var(--rojo);background:var(--rojo-bg);}
+  .c-entrega{border-left-color:var(--classroom);background:var(--class-bg);}
+  .c-asistente{border-left-color:var(--rpg);background:var(--rpg-bg);}
+  .c-avanzado{border-left-color:var(--amb);background:#FFFBF5;}
+  h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
+  .badge{background:var(--nav);color:var(--bco);padding:5px 12px;border-radius:6px;font-size:17px;font-weight:bold;}
+  .info{padding:18px 20px;border-radius:var(--r);margin:15px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
+  .i-p1{background:var(--p1-bg);border-color:var(--p1);}
+  .i-plan{background:var(--plan-bg);border-color:var(--plan);}
+  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
+  .i-amb{background:#FFF8EE;border-color:var(--amb);}
+  .i-azul{background:var(--azul-bg);border-color:var(--azul);}
+  .i-rojo{background:var(--rojo-bg);border-color:var(--rojo);}
+  .i-json{background:var(--json-bg);border-color:var(--json);}
+  .info > strong:first-child{display:block;margin-bottom:6px;font-size:19px;}
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:18px 20px;font-size:17px;overflow-x:auto;white-space:pre;line-height:1.65;margin:14px 0;border-radius:8px;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
+  .nm{color:#B5CEA8;} .fn{color:#DCDCAA;} .dk{color:#9CDCFE;}
+  code{background:#E8E6FF;color:var(--vio);padding:2px 6px;border-radius:4px;font-family:'Consolas',monospace;font-size:17px;}
+  ul{margin-left:22px;} li{margin-bottom:8px;}
+  ol{margin-left:22px;} ol li{margin-bottom:8px;}
+  table{width:100%;border-collapse:collapse;font-size:17px;margin:16px 0;background:#fff;border-radius:8px;overflow:hidden;}
+  th,td{border:1px solid var(--bd);padding:12px 14px;text-align:left;}
+  th{background:var(--nav);color:#fff;font-size:15px;text-transform:uppercase;letter-spacing:.5px;}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+  .trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;}
+  .mini{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:16px;font-size:16px;line-height:1.6;}
+  .mini strong{color:var(--p1);display:block;margin-bottom:4px;font-size:17px;}
+  .check{list-style:none;margin-left:0;}
+  .check li{padding-left:34px;position:relative;margin-bottom:12px;font-size:18px;}
+  .check li::before{content:"\25A2";position:absolute;left:0;font-size:24px;color:var(--p1);}
+  #asist-chat{display:none;}
+  #asist-msgs{background:#1E1E1E;border-radius:10px;padding:16px;min-height:160px;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:10px;}
+  .asist-inp{display:flex;gap:8px;}
+  .asist-inp input{flex:1;padding:11px;border-radius:8px;border:1px solid #ccc;font-size:17px;outline:none;}
+  .btn-rpg{background:var(--rpg);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;}
+  .btn-rpg:disabled{background:#ccc;cursor:not-allowed;}
+  .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
+  .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
+  @media(max-width:768px){.duo,.trio{grid-template-columns:1fr;}}
+
+  /* Ejercicio de JSON */
+  .jej{display:none;}
+  .jej.activo{display:block;}
+  .jpanel{background:#F0FFF0;border:2px solid #006400;border-radius:10px;padding:18px 20px;
+          font-family:Consolas,monospace;font-size:17px;line-height:2;overflow-x:auto;white-space:pre;}
+  .jval{background:#fff;border:2px solid var(--bd);border-radius:6px;padding:1px 7px;
+        cursor:pointer;transition:all .15s;display:inline-block;}
+  .jval:hover{border-color:var(--json);background:#E6F7E6;}
+  .jval.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jval.no{background:#FFEBEE;border-color:var(--rojo);}
+  .jkey{color:#9CDCFE;}
+  .jctx{background:var(--azul-bg);border-left:5px solid var(--azul);border-radius:8px;
+        padding:12px 16px;margin-bottom:12px;font-size:17px;}
+  .jpide{font-size:21px;font-weight:bold;margin:14px 0 10px;}
+  .jfb{margin-top:12px;font-size:18px;}
+  .jcamino{background:var(--code-bg);color:#D4D4D4;font-family:Consolas,monospace;
+           padding:12px 16px;border-radius:8px;font-size:17px;margin-top:10px;overflow-x:auto;}
+  .jcam-ops{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+  .jcam-op{background:#1E1E1E;color:#D4D4D4;font-family:Consolas,monospace;font-size:16px;
+           padding:11px 14px;border:2px solid #3A3A3A;border-radius:8px;cursor:pointer;text-align:left;
+           transition:all .15s;}
+  .jcam-op:hover:enabled{border-color:var(--vio);}
+  .jcam-op:disabled{cursor:default;}
+  .jcam-op.cam-ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jcam-op.cam-no{background:#3a1e1e;border-color:#C0392B;opacity:.6;}
+  .jprog{font-size:16px;color:#666;margin-bottom:8px;}
+
+  /* Taller de reparaciones */
+  .rep{display:none;}
+  .rep.activo{display:block;}
+  .repcod{background:var(--code-bg);border-radius:8px;padding:14px 0;font-family:Consolas,monospace;
+          font-size:16px;line-height:1.9;overflow-x:auto;}
+  .rline{display:block;padding:2px 18px;cursor:pointer;white-space:pre;color:#D4D4D4;}
+  .rline:hover{background:#2D2D2D;}
+  .rline.ok{background:#1F6E5C;}
+  .rline.no{background:#5C1F1F;}
+  .rline.fija{cursor:default;color:#808080;}
+  .rline.fija:hover{background:transparent;}
+  .rnum{color:#606060;display:inline-block;width:26px;user-select:none;}
+
+  .encasa{display:inline-block;background:#7A4B00;color:#fff;font-size:14px;font-weight:bold;
+          letter-spacing:1px;padding:5px 12px;border-radius:20px;margin-left:auto;}
+  .banda-casa{background:#FFF8EE;border:2px dashed #B8720A;border-radius:10px;
+              padding:12px 18px;margin-bottom:16px;font-size:18px;}
+
+  /* Campos extraíbles */
+  .campo{display:inline-block;background:#fff;border:2px solid var(--bd);border-radius:22px;
+         padding:9px 18px;margin:6px 6px 6px 0;cursor:pointer;font-size:18px;transition:all .15s;}
+  .campo:hover{border-color:var(--p1);background:#F2FAF8;}
+  .campo.si{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .campo.no{background:#FFEBEE;border-color:var(--rojo);color:#8B1A1A;text-decoration:line-through;}
+  .ext-txt{background:#FFFDF5;border:2px solid var(--amb);border-radius:10px;padding:16px 20px;
+           font-size:19px;line-height:1.7;font-style:italic;margin-bottom:14px;}
+
+  .tarea{background:#fff;border:2px solid var(--bd);border-radius:10px;
+         padding:13px 18px;margin-bottom:10px;font-size:18px;transition:all .15s;
+         display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
+  .tarea-txt{flex:1 1 240px;}
+  .tarea-btns{display:flex;gap:8px;}
+  .tbtn{background:#fff;border:2px solid var(--bd);border-radius:8px;padding:8px 12px;
+        font-size:16px;cursor:pointer;font-family:inherit;color:var(--txt);white-space:nowrap;}
+  .tbtn:hover:enabled{border-color:var(--vio);}
+  .tbtn:disabled{cursor:default;opacity:.55;}
+  .tbtn.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;opacity:1;}
+  .tbtn.mal{background:#FFEBEE;border-color:#C0392B;color:#8B1A1A;opacity:1;}
+  .tarea.resuelta{background:#F7FBF9;border-color:#1F6E5C;}
+  .tarea-fb{flex:1 1 100%;font-size:16px;}
+  .btn-op{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px 20px;
+          margin:6px 8px 6px 0;font-size:18px;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .btn-op:hover{border-color:var(--p1);}
+  .btn-op.ok{background:#E8F4F0;border-color:var(--p1);}
+  .btn-op.mal{background:#FFEBEE;border-color:var(--rojo);}
+  .parte{display:inline-block;background:#1E1E1E;color:#DCDCAA;border:2px solid #444;
+         border-radius:8px;padding:8px 14px;margin:5px 4px;cursor:pointer;
+         font-family:Consolas,monospace;font-size:20px;}
+  .parte:hover{border-color:#DCDCAA;}
+  .parte.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .parte.mal{background:#5C1F1F;border-color:#C62828;}
+
+  /* Cuestionario de cierre */
+  .cq-op{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);
+         border-radius:10px;padding:13px 18px;margin-bottom:9px;font-size:18px;cursor:pointer;
+         font-family:inherit;color:var(--txt);line-height:1.5;}
+  .cq-op:hover:enabled{border-color:var(--vio);background:#FAF7FF;}
+  .cq-op:disabled{cursor:default;opacity:.95;}
+  .cq-vf{display:inline-block;width:48%;text-align:center;font-size:20px;font-weight:bold;
+         padding:16px;margin:0 1% 10px;border:2px solid var(--bd);border-radius:10px;
+         background:#fff;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .cq-vf:hover:enabled{border-color:var(--vio);}
+  .cq-vf:disabled{cursor:default;opacity:.95;}
+  .cq-barra{height:14px;background:#E8E8E8;border-radius:7px;overflow:hidden;margin:10px 0 4px;}
+  .cq-fill{height:100%;background:var(--vio);width:0;transition:width .3s;}
+</style>
+</head>
+<body>
+<header>
+  <h1>PLANTEO — EL TALLER DE BICICLETAS</h1>
+  <p>Taller de IA &middot; 7&deg; TIC &middot; CTP Antonio Mart&iacute;n Marte &middot; Lunes 24/8 · 80 minutos</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">&#11013; Volver al &Iacute;ndice</a>
+
+<style>
+  .msg{background:#FFFDF6;border:2px solid var(--amb);border-radius:10px;
+       padding:14px 18px;font-size:18px;font-style:italic;line-height:1.6;margin:10px 0;}
+  .tarea{display:block;background:var(--bco);border:2px solid var(--bd);border-left:6px solid var(--p1);
+         border-radius:10px;padding:16px 20px;margin:14px 0;}
+  .tarea h4{margin:0 0 8px 0;font-size:20px;color:var(--p1);}
+  .campo-r{width:100%;box-sizing:border-box;border:2px solid var(--bd);border-radius:8px;
+           padding:11px 13px;font-size:16px;font-family:inherit;color:var(--txt);
+           line-height:1.5;resize:vertical;margin-top:6px;}
+  .campo-r:focus{outline:none;border-color:var(--p1);}
+  .lbl{font-weight:bold;font-size:17px;margin-top:12px;display:block;}
+  .btn-desc{background:var(--p1);color:#fff;border:none;border-radius:10px;padding:14px 24px;
+            font-size:18px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:14px;}
+  details.pista{background:var(--gris);border-left:5px solid var(--vio);border-radius:8px;
+                padding:12px 16px;margin-top:10px;}
+  details.pista summary{cursor:pointer;font-weight:bold;color:var(--vio);font-size:17px;}
+  details.pista p{margin:10px 0 0 0;font-size:17px;}
+  .reloj{display:inline-block;background:var(--amb);color:#fff;font-size:15px;font-weight:bold;
+         padding:3px 12px;border-radius:20px;margin-left:10px;vertical-align:middle;}
+</style>
+
+<div class="card c-info">
+  <h2><span class="badge" style="background:var(--teal)">0</span> QUÉ ES ESTO</h2>
+  <p>Hoy se plantea el trabajo; <strong>el viernes lo defendés</strong>. Defender significa explicar en voz alta qué hiciste y por qué — no repetir de memoria, sino mostrar que entendés lo que tenés adelante.</p>
+  <div class="info i-azul">
+    <strong>🧭 Cómo se trabaja</strong>
+    Hay cuatro tareas, cada vez más profundas. <strong>Empezá por la primera y avanzá hasta donde llegues.</strong> No es una carrera: es preferible una tarea entendida de verdad que cuatro a medias. El profe va a pasar por cada uno para indicarte dónde poner el foco.
+  </div>
+  <div class="info i-amb">
+    <strong>Lo que se registra</strong>
+    Al final descargás tu registro y lo entregás. El viernes lo vas a necesitar para defender: llevá anotado lo que pensaste, no solo el resultado.
+  </div>
+  <div class="info i-grn">
+    <strong>Esto cuenta</strong>
+    Todo lo que resuelvas <strong>y puedas defender el viernes</strong> cuenta para tu calificación del primer cuatrimestre. Llegar más lejos suma; lo que importa es que puedas explicarlo.
+  </div>
+</div>
+
+<div class="card c-p1">
+  <h2><span class="badge" style="background:var(--p1)">1</span> EL CASO</h2>
+  <p>Un taller de bicicletas recibe los pedidos de arreglo por mensaje. Al dueño se le acumulan y quiere ordenarlos en una tabla. Estos son tres mensajes reales que le llegaron:</p>
+
+  <div class="msg">"Hola! Tengo una bici rodado 26 con la cubierta de atrás pinchada. ¿La puedo llevar mañana a la mañana? Soy Marcos."</div>
+  <div class="msg">"Buenas, necesito que me ajusten los frenos de una rodado 29. Paso el jueves después de las 17. Gracias. Lucía"</div>
+  <div class="msg">"Che, se me salió la cadena de la bici del nene, es una rodado 20. ¿Atienden los sábados? Soy el papá de Tomi."</div>
+
+  <div class="info i-json">
+    <strong>El programa que ya existe</strong>
+    En el Colab de hoy hay un programa que <strong>ya funciona</strong>: le manda estos mensajes a la IA y muestra la respuesta. No hay que escribirlo de cero. Hay que <strong>entenderlo</strong> y después <strong>mejorarlo</strong>.
+  </div>
+</div>
+
+<div class="card c-p1">
+  <h2><span class="badge" style="background:var(--p1)">2</span> LAS TAREAS<span class="reloj">60 min</span></h2>
+
+  <div class="tarea">
+    <h4>Tarea 1 — ¿Dónde pasa cada cosa?</h4>
+    <p>Ejecutá el programa. Después contestá: cuando apretás el botón de ejecutar, <strong>¿qué parte del trabajo hace tu computadora y qué parte pasa en otro lado?</strong> ¿Por qué necesitás internet para que funcione?</p>
+    <label class="lbl">Tu respuesta</label>
+    <textarea class="campo-r" id="t1" rows="4" placeholder="Explicá con tus palabras..."></textarea>
+  </div>
+
+  <div class="tarea">
+    <h4>Tarea 2 — Leer el bloque de conexión</h4>
+    <p>Mirá el bloque que arma y manda el pedido. Identificá <strong>cuatro partes</strong>: a qué dirección se manda, con qué credencial se identifica, qué datos se envían, y dónde se lee lo que vuelve. Explicá qué hace cada una.</p>
+    <label class="lbl">Tu respuesta</label>
+    <textarea class="campo-r" id="t2" rows="5" placeholder="1) La dirección...&#10;2) La credencial...&#10;3) Los datos que se envían...&#10;4) La lectura de la respuesta..."></textarea>
+  </div>
+
+  <div class="tarea">
+    <h4>Tarea 3 — Llegar hasta el dato</h4>
+    <p>El programa imprime la respuesta completa que devuelve el servidor. Encontrá, dentro de esa respuesta, <strong>el texto que escribió la IA</strong>. Escribí el camino exacto para llegar hasta él, y explicá por qué hay que pasar por cada paso.</p>
+    <label class="lbl">El camino</label>
+    <textarea class="campo-r" id="t3a" rows="2" placeholder="respuesta[...]..."></textarea>
+    <label class="lbl">Por qué cada paso</label>
+    <textarea class="campo-r" id="t3b" rows="3" placeholder="..."></textarea>
+  </div>
+
+  <div class="tarea" style="border-left-color:var(--vio);">
+    <h4 style="color:var(--vio);">Tarea 4 — Que salga siempre igual</h4>
+    <p>El programa funciona, pero cada mensaje devuelve la respuesta con una forma distinta. Al dueño del taller eso no le sirve: necesita <strong>los tres pedidos con la misma estructura</strong> para poder ponerlos en una tabla.</p>
+    <p style="margin-top:8px;"><strong>Mejorá la instrucción</strong> para que los tres mensajes devuelvan siempre los mismos campos, en el mismo orden, sin texto de más alrededor. Los campos que necesita el taller son: <code>cliente</code>, <code>arreglo</code>, <code>rodado</code> y <code>cuando</code>.</p>
+    <p style="margin-top:10px;">Probá, mirá qué sale, y volvé a probar. Casi nunca sale a la primera.</p>
+
+    <details class="pista">
+      <summary>🔦 Pista 1 — si llevás un rato trabado</summary>
+      <p>¿Le estás diciendo a la IA <em>qué datos</em> querés, o solo "los datos"? Probá nombrarle los campos exactos, uno por uno.</p>
+    </details>
+    <details class="pista">
+      <summary>🔦 Pista 2 — si ya nombraste los campos y sigue distinto</summary>
+      <p>Nombrar los campos arregla <em>qué</em> te devuelve. Pero, ¿le dijiste <em>de qué forma</em> querés que te lo escriba? Si nadie se lo indica, el formato lo elige la IA.</p>
+    </details>
+    <details class="pista">
+      <summary>🔦 Pista 3 — la que casi lo resuelve</summary>
+      <p>Una forma muy efectiva de indicar el formato es <strong>mostrárselo</strong>: escribile en la instrucción un ejemplo de cómo tiene que verse la respuesta, y pedile que la devuelva exactamente así.</p>
+    </details>
+    <label class="lbl">Tu instrucción</label>
+    <textarea class="campo-r" id="t4a" rows="5" placeholder="Copiá acá la instrucción que escribiste..."></textarea>
+    <label class="lbl">¿Funcionó con los tres mensajes? ¿Qué tuviste que ajustar?</label>
+    <textarea class="campo-r" id="t4b" rows="3" placeholder="..."></textarea>
+  </div>
+
+  <div class="info i-amb">
+    <strong>Ojo con un detalle</strong>
+    En el tercer mensaje no dice cómo se llama el cliente: dice "el papá de Tomi". Y en ninguno de los tres dice el precio. Fijate qué hace la IA con esos campos — y anotalo, porque el viernes te lo voy a preguntar.
+  </div>
+  <label class="lbl">¿Qué hizo la IA con los datos que no estaban?</label>
+  <textarea class="campo-r" id="t5" rows="3" placeholder="..."></textarea>
+</div>
+
+<div class="card c-entrega">
+  <h2><span class="badge" style="background:var(--classroom)">✔</span> REGISTRO</h2>
+  <p>Descargá tu registro y entregalo. <strong>Guardalo</strong>: el viernes lo vas a usar para defender.</p>
+  <label class="lbl">Tu nombre</label>
+  <input class="campo-r" id="nombre" placeholder="Nombre y apellido">
+  <button class="btn-desc" onclick="descargarPlanteo()">⬇ Descargar mi registro</button>
+  <p id="okp" style="color:var(--classroom);font-weight:bold;margin-top:10px;"></p>
+</div>
+
+<div class="card c-avanzado">
+  <h2><span class="badge" style="background:var(--vio)">→</span> EL VIERNES</h2>
+  <p>Cada uno defiende lo que trabajó hoy. Son unos minutos: te voy a pedir que expliques una de las tareas y que respondas alguna repregunta. <strong>No hay que estudiar de memoria</strong> — hay que poder explicar lo que hiciste.</p>
+</div>
+
+</div>
+<script>
+function descargarPlanteo(){
+  var n = document.getElementById('nombre').value.trim();
+  if(!n){ alert('Escribí tu nombre antes de descargar.'); return; }
+  function v(id){ var e=document.getElementById(id); return e && e.value.trim() ? e.value.trim() : '(sin completar)'; }
+  var f = new Date();
+  var fecha = f.getDate()+'/'+(f.getMonth()+1)+'/'+f.getFullYear();
+  var t = [];
+  t.push('REGISTRO DE PLANTEO - El taller de bicicletas');
+  t.push('Taller de IA - 7 TIC - CTP Antonio Martin Marte');
+  t.push('Nombre: ' + n);
+  t.push('Fecha: ' + fecha);
+  t.push('');
+  t.push('--- TAREA 1: donde pasa cada cosa ---');
+  t.push(v('t1'));
+  t.push('');
+  t.push('--- TAREA 2: el bloque de conexion ---');
+  t.push(v('t2'));
+  t.push('');
+  t.push('--- TAREA 3: el camino hasta el dato ---');
+  t.push('Camino: ' + v('t3a'));
+  t.push('Por que cada paso: ' + v('t3b'));
+  t.push('');
+  t.push('--- TAREA 4: que salga siempre igual ---');
+  t.push('Instruccion: ' + v('t4a'));
+  t.push('Ajustes: ' + v('t4b'));
+  t.push('');
+  t.push('--- DATOS QUE NO ESTABAN ---');
+  t.push(v('t5'));
+  t.push('');
+  var texto = t.join('\n');
+  var limpio = n.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'_');
+  var blob = new Blob([texto], {type:'text/plain;charset=utf-8'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'planteo_' + limpio + '.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  document.getElementById('okp').textContent = 'Registro descargado. Guardalo para el viernes.';
+}
+</script>
+</body>
+</html>
