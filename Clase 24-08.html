@@ -82,7 +82,7 @@
   <p>Hoy se plantea y desarrolla el trabajo; <strong>el viernes lo defendés</strong>. Defender significa explicar en voz alta qué programaste y por qué.</p>
   <div class="info i-azul">
     <strong>🧭 Cómo se trabaja</strong>
-    Hay cuatro tareas. Abajo tenés el <strong>código base sin comentarios</strong>. Vas a tener que copiarlo a tu Colab[cite: 7], leer la sintaxis, deducir qué hace cada parte y transformarlo en un Extractor de Datos completando los huecos <code>[COMPLETAR]</code>.
+    Hay cuatro tareas. Abajo tenés el <strong>código base sin comentarios</strong>. Vas a tener que copiarlo a tu Colab, leer la sintaxis, deducir qué hace cada parte y transformarlo en un Extractor de Datos completando los huecos <code>[COMPLETAR]</code>.
   </div>
   <div class="info i-amb">
     <strong>Individual, pero se pueden ayudar</strong>
@@ -125,7 +125,7 @@
 <!-- TARJETA DE CÓDIGO BASE CON BOTÓN COPIAR -->
 <div class="card c-codigo">
   <h2><span class="badge" style="background:var(--vio);">2</span> CÓDIGO BASE PARA EL COLAB</h2>
-  <p>Copiá este código con el botón de la esquina y pegalo en tu Google Colab[cite: 7]. Recordá que no tiene comentarios de ayuda: vas a tener que completar los huecos <code>[COMPLETAR]</code> analizando cómo funciona.</p>
+  <p>Copiá este código con el botón de la esquina y pegalo en tu Google Colab. Recordá que no tiene comentarios de ayuda: vas a tener que completar los huecos <code>[COMPLETAR]</code> analizando cómo funciona.</p>
 
   <div class="code-container">
     <button class="copy-btn" onclick="copyCode('codBase')">Copiar Código</button>
@@ -253,9 +253,10 @@ horario: mañana
   <p id="okp" style="color:var(--classroom);font-weight:bold;margin-top:10px;"></p>
 </div>
 
+<!-- TARJETA EL VIERNES SIMPLIFICADA -->
 <div class="card c-avanzado">
   <h2><span class="badge" style="background:var(--vio)">→</span> EL VIERNES</h2>
-  <p>Cada uno defiende su código. Son unos minutos: te voy a pedir que expliques los <code>append</code> del historial, el <code>try/except</code> y tu estrategia de Prompt Engineering.</p>
+  <p>Cada uno defiende su código en una charla corta de unos minutos con el profe, mostrando cómo resolvió el caso y cómo manejó las respuestas de la IA.</p>
 </div>
 
 </div>
@@ -318,7 +319,7 @@ var VARIANTES = [
  { rubro:"una imprenta",
    intro:"Una imprenta recibe los pedidos por mensaje. Quieren pasarlos a una planilla de producción. Estos son tres pedidos:",
    msgs:["\"Hola, necesito 200 tarjetas personales a color. ¿Para cuándo estarían? Soy Valeria.\"",
-         "\"Buenas, quiero imprimir 50 folletos A5 en blanco y negro. Los retiro el lunes. Facundo Ruiz.\"",
+         "\"Buenas, подготовить 50 folletos A5 en blanco y negro. Los retiro el lunes. Facundo Ruiz.\"",
          "\"Che, necesito 3 banners para el negocio de mi hermana. ¿Los tienen para el viernes?\""],
    campos:["cliente","producto","cantidad","cuando"],
    trampa:"En el tercer mensaje no dice quién escribe: no aparece ningún nombre. Y en ninguno de los tres dice el precio." }
