@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taller de IA · Planteo · El taller de bicicletas</title>
+<title>Taller de IA · Planteo · lunes 24/8</title>
 <style>
   :root{
     --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
@@ -15,7 +15,6 @@
     --rojo:#C62828;--rojo-bg:#FFEBEE;
     --azul:#1565C0;--azul-bg:#E3F2FD;
     --classroom:#137333;--class-bg:#F0FFF4;
-    --rpg:#5C2070;--rpg-bg:#F8F3FF;
     --plan:#2A4A7F;--plan-bg:#E5ECF6;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -27,158 +26,20 @@
   .back-btn{display:inline-block;margin-top:20px;margin-bottom:10px;padding:10px 20px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
   .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
   .c-p1{border-left-color:var(--p1);background:var(--p1-bg);}
-  .c-plan{border-left-color:var(--plan);background:var(--plan-bg);}
   .c-info{border-left-color:var(--vio);background:#FAFCFF;}
-  .c-json{border-left-color:var(--json);background:var(--json-bg);}
-  .c-rojo{border-left-color:var(--rojo);background:var(--rojo-bg);}
   .c-entrega{border-left-color:var(--classroom);background:var(--class-bg);}
-  .c-asistente{border-left-color:var(--rpg);background:var(--rpg-bg);}
   .c-avanzado{border-left-color:var(--amb);background:#FFFBF5;}
   h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
   .badge{background:var(--nav);color:var(--bco);padding:5px 12px;border-radius:6px;font-size:17px;font-weight:bold;}
   .info{padding:18px 20px;border-radius:var(--r);margin:15px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
-  .i-p1{background:var(--p1-bg);border-color:var(--p1);}
-  .i-plan{background:var(--plan-bg);border-color:var(--plan);}
-  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
-  .i-amb{background:#FFF8EE;border-color:var(--amb);}
   .i-azul{background:var(--azul-bg);border-color:var(--azul);}
-  .i-rojo{background:var(--rojo-bg);border-color:var(--rojo);}
-  .i-json{background:var(--json-bg);border-color:var(--json);}
-  .info > strong:first-child{display:block;margin-bottom:6px;font-size:19px;}
-  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:18px 20px;font-size:17px;overflow-x:auto;white-space:pre;line-height:1.65;margin:14px 0;border-radius:8px;}
-  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
-  .nm{color:#B5CEA8;} .fn{color:#DCDCAA;} .dk{color:#9CDCFE;}
-  code{background:#E8E6FF;color:var(--vio);padding:2px 6px;border-radius:4px;font-family:'Consolas',monospace;font-size:17px;}
-  ul{margin-left:22px;} li{margin-bottom:8px;}
-  ol{margin-left:22px;} ol li{margin-bottom:8px;}
-  table{width:100%;border-collapse:collapse;font-size:17px;margin:16px 0;background:#fff;border-radius:8px;overflow:hidden;}
-  th,td{border:1px solid var(--bd);padding:12px 14px;text-align:left;}
-  th{background:var(--nav);color:#fff;font-size:15px;text-transform:uppercase;letter-spacing:.5px;}
-  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
-  .trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;}
-  .mini{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:16px;font-size:16px;line-height:1.6;}
-  .mini strong{color:var(--p1);display:block;margin-bottom:4px;font-size:17px;}
-  .check{list-style:none;margin-left:0;}
-  .check li{padding-left:34px;position:relative;margin-bottom:12px;font-size:18px;}
-  .check li::before{content:"\25A2";position:absolute;left:0;font-size:24px;color:var(--p1);}
-  #asist-chat{display:none;}
-  #asist-msgs{background:#1E1E1E;border-radius:10px;padding:16px;min-height:160px;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:10px;}
-  .asist-inp{display:flex;gap:8px;}
-  .asist-inp input{flex:1;padding:11px;border-radius:8px;border:1px solid #ccc;font-size:17px;outline:none;}
-  .btn-rpg{background:var(--rpg);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;}
-  .btn-rpg:disabled{background:#ccc;cursor:not-allowed;}
-  .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
-  .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
-  @media(max-width:768px){.duo,.trio{grid-template-columns:1fr;}}
-
-  /* Ejercicio de JSON */
-  .jej{display:none;}
-  .jej.activo{display:block;}
-  .jpanel{background:#F0FFF0;border:2px solid #006400;border-radius:10px;padding:18px 20px;
-          font-family:Consolas,monospace;font-size:17px;line-height:2;overflow-x:auto;white-space:pre;}
-  .jval{background:#fff;border:2px solid var(--bd);border-radius:6px;padding:1px 7px;
-        cursor:pointer;transition:all .15s;display:inline-block;}
-  .jval:hover{border-color:var(--json);background:#E6F7E6;}
-  .jval.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
-  .jval.no{background:#FFEBEE;border-color:var(--rojo);}
-  .jkey{color:#9CDCFE;}
-  .jctx{background:var(--azul-bg);border-left:5px solid var(--azul);border-radius:8px;
-        padding:12px 16px;margin-bottom:12px;font-size:17px;}
-  .jpide{font-size:21px;font-weight:bold;margin:14px 0 10px;}
-  .jfb{margin-top:12px;font-size:18px;}
-  .jcamino{background:var(--code-bg);color:#D4D4D4;font-family:Consolas,monospace;
-           padding:12px 16px;border-radius:8px;font-size:17px;margin-top:10px;overflow-x:auto;}
-  .jcam-ops{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
-  .jcam-op{background:#1E1E1E;color:#D4D4D4;font-family:Consolas,monospace;font-size:16px;
-           padding:11px 14px;border:2px solid #3A3A3A;border-radius:8px;cursor:pointer;text-align:left;
-           transition:all .15s;}
-  .jcam-op:hover:enabled{border-color:var(--vio);}
-  .jcam-op:disabled{cursor:default;}
-  .jcam-op.cam-ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
-  .jcam-op.cam-no{background:#3a1e1e;border-color:#C0392B;opacity:.6;}
-  .jprog{font-size:16px;color:#666;margin-bottom:8px;}
-
-  /* Taller de reparaciones */
-  .rep{display:none;}
-  .rep.activo{display:block;}
-  .repcod{background:var(--code-bg);border-radius:8px;padding:14px 0;font-family:Consolas,monospace;
-          font-size:16px;line-height:1.9;overflow-x:auto;}
-  .rline{display:block;padding:2px 18px;cursor:pointer;white-space:pre;color:#D4D4D4;}
-  .rline:hover{background:#2D2D2D;}
-  .rline.ok{background:#1F6E5C;}
-  .rline.no{background:#5C1F1F;}
-  .rline.fija{cursor:default;color:#808080;}
-  .rline.fija:hover{background:transparent;}
-  .rnum{color:#606060;display:inline-block;width:26px;user-select:none;}
-
-  .encasa{display:inline-block;background:#7A4B00;color:#fff;font-size:14px;font-weight:bold;
-          letter-spacing:1px;padding:5px 12px;border-radius:20px;margin-left:auto;}
-  .banda-casa{background:#FFF8EE;border:2px dashed #B8720A;border-radius:10px;
-              padding:12px 18px;margin-bottom:16px;font-size:18px;}
-
-  /* Campos extraíbles */
-  .campo{display:inline-block;background:#fff;border:2px solid var(--bd);border-radius:22px;
-         padding:9px 18px;margin:6px 6px 6px 0;cursor:pointer;font-size:18px;transition:all .15s;}
-  .campo:hover{border-color:var(--p1);background:#F2FAF8;}
-  .campo.si{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
-  .campo.no{background:#FFEBEE;border-color:var(--rojo);color:#8B1A1A;text-decoration:line-through;}
-  .ext-txt{background:#FFFDF5;border:2px solid var(--amb);border-radius:10px;padding:16px 20px;
-           font-size:19px;line-height:1.7;font-style:italic;margin-bottom:14px;}
-
-  .tarea{background:#fff;border:2px solid var(--bd);border-radius:10px;
-         padding:13px 18px;margin-bottom:10px;font-size:18px;transition:all .15s;
-         display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
-  .tarea-txt{flex:1 1 240px;}
-  .tarea-btns{display:flex;gap:8px;}
-  .tbtn{background:#fff;border:2px solid var(--bd);border-radius:8px;padding:8px 12px;
-        font-size:16px;cursor:pointer;font-family:inherit;color:var(--txt);white-space:nowrap;}
-  .tbtn:hover:enabled{border-color:var(--vio);}
-  .tbtn:disabled{cursor:default;opacity:.55;}
-  .tbtn.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;opacity:1;}
-  .tbtn.mal{background:#FFEBEE;border-color:#C0392B;color:#8B1A1A;opacity:1;}
-  .tarea.resuelta{background:#F7FBF9;border-color:#1F6E5C;}
-  .tarea-fb{flex:1 1 100%;font-size:16px;}
-  .btn-op{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px 20px;
-          margin:6px 8px 6px 0;font-size:18px;cursor:pointer;font-family:inherit;color:var(--txt);}
-  .btn-op:hover{border-color:var(--p1);}
-  .btn-op.ok{background:#E8F4F0;border-color:var(--p1);}
-  .btn-op.mal{background:#FFEBEE;border-color:var(--rojo);}
-  .parte{display:inline-block;background:#1E1E1E;color:#DCDCAA;border:2px solid #444;
-         border-radius:8px;padding:8px 14px;margin:5px 4px;cursor:pointer;
-         font-family:Consolas,monospace;font-size:20px;}
-  .parte:hover{border-color:#DCDCAA;}
-  .parte.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
-  .parte.mal{background:#5C1F1F;border-color:#C62828;}
-
-  /* Cuestionario de cierre */
-  .cq-op{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);
-         border-radius:10px;padding:13px 18px;margin-bottom:9px;font-size:18px;cursor:pointer;
-         font-family:inherit;color:var(--txt);line-height:1.5;}
-  .cq-op:hover:enabled{border-color:var(--vio);background:#FAF7FF;}
-  .cq-op:disabled{cursor:default;opacity:.95;}
-  .cq-vf{display:inline-block;width:48%;text-align:center;font-size:20px;font-weight:bold;
-         padding:16px;margin:0 1% 10px;border:2px solid var(--bd);border-radius:10px;
-         background:#fff;cursor:pointer;font-family:inherit;color:var(--txt);}
-  .cq-vf:hover:enabled{border-color:var(--vio);}
-  .cq-vf:disabled{cursor:default;opacity:.95;}
-  .cq-barra{height:14px;background:#E8E8E8;border-radius:7px;overflow:hidden;margin:10px 0 4px;}
-  .cq-fill{height:100%;background:var(--vio);width:0;transition:width .3s;}
-</style>
-</head>
-<body>
-<header>
-  <h1>PLANTEO — EL TALLER DE BICICLETAS</h1>
-  <p>Taller de IA &middot; 7&deg; TIC &middot; CTP Antonio Mart&iacute;n Marte &middot; Lunes 24/8 · 80 minutos</p>
-</header>
-<div class="container">
-<a href="index.html" class="back-btn">&#11013; Volver al &Iacute;ndice</a>
-
-<style>
+  .i-amb{background:#FFF8EE;border-color:var(--amb);}
+  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
   .msg{background:#FFFDF6;border:2px solid var(--amb);border-radius:10px;
        padding:14px 18px;font-size:18px;font-style:italic;line-height:1.6;margin:10px 0;}
-  .tarea{display:block;background:var(--bco);border:2px solid var(--bd);border-left:6px solid var(--p1);
-         border-radius:10px;padding:16px 20px;margin:14px 0;}
-  .tarea h4{margin:0 0 8px 0;font-size:20px;color:var(--p1);}
+  .tsk{display:block;background:var(--bco);border:2px solid var(--bd);border-left:6px solid var(--p1);
+       border-radius:10px;padding:16px 20px;margin:14px 0;}
+  .tsk h4{margin:0 0 8px 0;font-size:20px;color:var(--p1);}
   .campo-r{width:100%;box-sizing:border-box;border:2px solid var(--bd);border-radius:8px;
            padding:11px 13px;font-size:16px;font-family:inherit;color:var(--txt);
            line-height:1.5;resize:vertical;margin-top:6px;}
@@ -186,154 +47,267 @@
   .lbl{font-weight:bold;font-size:17px;margin-top:12px;display:block;}
   .btn-desc{background:var(--p1);color:#fff;border:none;border-radius:10px;padding:14px 24px;
             font-size:18px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:14px;}
+  .reloj{display:inline-block;background:var(--amb);color:#fff;font-size:15px;font-weight:bold;
+         padding:3px 12px;border-radius:20px;margin-left:10px;vertical-align:middle;}
   details.pista{background:var(--gris);border-left:5px solid var(--vio);border-radius:8px;
                 padding:12px 16px;margin-top:10px;}
   details.pista summary{cursor:pointer;font-weight:bold;color:var(--vio);font-size:17px;}
   details.pista p{margin:10px 0 0 0;font-size:17px;}
-  .reloj{display:inline-block;background:var(--amb);color:#fff;font-size:15px;font-weight:bold;
-         padding:3px 12px;border-radius:20px;margin-left:10px;vertical-align:middle;}
+  #puerta{background:var(--p1-bg);border:3px solid var(--p1);border-radius:var(--r);
+          padding:26px 28px;text-align:center;margin:20px 0;}
+  #puerta input{font-size:19px;padding:12px 16px;border:2px solid var(--bd);border-radius:10px;
+                width:100%;max-width:420px;font-family:inherit;margin:12px 0;box-sizing:border-box;}
+  .chapa{display:inline-block;background:var(--nav);color:#fff;font-size:16px;font-weight:bold;
+         padding:6px 16px;border-radius:20px;}
+  #contenido{display:none;}
 </style>
+</head>
+<body>
+<header>
+  <h1>PLANTEO — ARREGLOS Y PEDIDOS</h1>
+  <p>Taller de IA &middot; 7&deg; TIC &middot; CTP Antonio Mart&iacute;n Marte &middot; Lunes 24/8 · 120 minutos</p>
+</header>
+<div class="container">
 
 <div class="card c-info">
   <h2><span class="badge" style="background:var(--teal)">0</span> QUÉ ES ESTO</h2>
-  <p>Hoy se plantea el trabajo; <strong>el viernes lo defendés</strong>. Defender significa explicar en voz alta qué hiciste y por qué — no repetir de memoria, sino mostrar que entendés lo que tenés adelante.</p>
+  <p>Hoy se plantea y desarrolla el trabajo; <strong>el viernes lo defendés</strong>. Defender significa explicar en voz alta qué programaste y por qué.</p>
   <div class="info i-azul">
     <strong>🧭 Cómo se trabaja</strong>
-    Hay cuatro tareas, cada vez más profundas. <strong>Empezá por la primera y avanzá hasta donde llegues.</strong> No es una carrera: es preferible una tarea entendida de verdad que cuatro a medias. El profe va a pasar por cada uno para indicarte dónde poner el foco.
+    Hay cuatro tareas. En tu Colab te vas a encontrar con el <strong>código crudo, sin comentarios</strong>. Vas a tener que leer la sintaxis, deducir qué hace cada bloque, y transformarlo en un Extractor de Datos completando los huecos <code>[COMPLETAR]</code>.
   </div>
   <div class="info i-amb">
-    <strong>Lo que se registra</strong>
-    Al final descargás tu registro y lo entregás. El viernes lo vas a necesitar para defender: llevá anotado lo que pensaste, no solo el resultado.
+    <strong>Individual, pero se pueden ayudar</strong>
+    A cada uno le toca <strong>un caso distinto</strong>. Pueden discutir entre ustedes qué roles van en la memoria o cómo atajar a la IA, pero las respuestas no se pueden copiar porque los textos cambian.
   </div>
   <div class="info i-grn">
-    <strong>Esto cuenta</strong>
-    Todo lo que resuelvas <strong>y puedas defender el viernes</strong> cuenta para tu calificación del primer cuatrimestre. Llegar más lejos suma; lo que importa es que puedas explicarlo.
+    <strong>Auditoría final</strong>
+    Cuando tu código funcione, vas a pegar tus 3 mensajes uno por uno en la consola. Si los extrae perfecto, levantás la mano y el profe audita tu pantalla.
+  </div>
+</div>
+
+<div id="puerta">
+  <p style="font-size:21px;font-weight:bold;margin-bottom:4px;">Escribí tu nombre para empezar</p>
+  <p style="font-size:17px;color:#556;">Tu caso se arma a partir de tu nombre. Escribilo siempre igual: si lo cambiás, te cambia el caso.</p>
+  <input id="nombre" placeholder="Nombre y apellido">
+  <br><button class="btn-desc" onclick="abrir()">Ver mi caso</button>
+  <p id="errp" style="color:var(--rojo);font-weight:bold;margin-top:8px;"></p>
+</div>
+
+<div id="contenido">
+
+<div class="card c-p1">
+  <h2><span class="badge" style="background:var(--p1)">1</span> TU CASO <span class="chapa" id="chapa"></span></h2>
+  <p id="intro"></p>
+  
+  <div class="info i-amb" style="margin-top: 15px; border-color: var(--amb); background: #FFF8EE;">
+    <strong>🤔 ¿Por qué usamos Inteligencia Artificial para esto?</strong>
+    <p style="font-size: 17px; margin-top: 5px;">Si los clientes compraran por una app o una web con botones y casilleros, un software con un algoritmo tradicional (programación clásica con <code>if/else</code>) alcanzaría para armar la tabla de pedidos. Pero en el mundo real, los clientes mandan mensajes de WhatsApp caóticos, con faltas de ortografía, jerga ("el auto de mi viejo") y datos mezclados.</p>
+    <p style="font-size: 17px; margin-top: 5px;">Un algoritmo tradicional busca formatos y patrones exactos; si el texto cambia una coma o una palabra, el programa tira error y se rompe. La IA hace algo muy distinto: <strong>comprende el lenguaje natural</strong>. Puede leer un texto desordenado, entender el contexto de la charla, deducir qué dato corresponde a cada campo y extraer la información limpia. Hoy vas a programar justamente eso: un puente entre el caos humano y el orden de una base de datos.</p>
+  </div>
+
+  <div id="mensajes" style="margin-top: 20px;"></div>
+  
+  <div class="info i-azul" style="margin-top: 15px; border-left-color: var(--azul); background: var(--azul-bg);">
+    <strong>💻 Abrí el Colab de la clase</strong>
+    En el código que te pasaron no hay comentarios de ayuda. Revisá la sintaxis, poné tu API Key y resolvé las consignas de desarrollo.
   </div>
 </div>
 
 <div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">1</span> EL CASO</h2>
-  <p>Un taller de bicicletas recibe los pedidos de arreglo por mensaje. Al dueño se le acumulan y quiere ordenarlos en una tabla. Estos son tres mensajes reales que le llegaron:</p>
+  <h2><span class="badge" style="background:var(--p1)">2</span> LAS TAREAS<span class="reloj">120 min</span></h2>
 
-  <div class="msg">"Hola! Tengo una bici rodado 26 con la cubierta de atrás pinchada. ¿La puedo llevar mañana a la mañana? Soy Marcos."</div>
-  <div class="msg">"Buenas, necesito que me ajusten los frenos de una rodado 29. Paso el jueves después de las 17. Gracias. Lucía"</div>
-  <div class="msg">"Che, se me salió la cadena de la bici del nene, es una rodado 20. ¿Atienden los sábados? Soy el papá de Tomi."</div>
-
-  <div class="info i-json">
-    <strong>El programa que ya existe</strong>
-    En el Colab de hoy hay un programa que <strong>ya funciona</strong>: le manda estos mensajes a la IA y muestra la respuesta. No hay que escribirlo de cero. Hay que <strong>entenderlo</strong> y después <strong>mejorarlo</strong>.
-  </div>
-</div>
-
-<div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">2</span> LAS TAREAS<span class="reloj">60 min</span></h2>
-
-  <div class="tarea">
-    <h4>Tarea 1 — ¿Dónde pasa cada cosa?</h4>
-    <p>Ejecutá el programa. Después contestá: cuando apretás el botón de ejecutar, <strong>¿qué parte del trabajo hace tu computadora y qué parte pasa en otro lado?</strong> ¿Por qué necesitás internet para que funcione?</p>
+  <div class="tsk">
+    <h4>Tarea 1 — Lectura de Código (Backend)</h4>
+    <p>Leé tu código de Python. Buscá la variable <code>payload</code>. ¿Qué le estamos mandando exactamente al servidor de Groq ahí adentro? Mencioná para qué sirve la temperatura en `0.0` en este caso específico.</p>
     <label class="lbl">Tu respuesta</label>
     <textarea class="campo-r" id="t1" rows="4" placeholder="Explicá con tus palabras..."></textarea>
   </div>
 
-  <div class="tarea">
-    <h4>Tarea 2 — Leer el bloque de conexión</h4>
-    <p>Mirá el bloque que arma y manda el pedido. Identificá <strong>cuatro partes</strong>: a qué dirección se manda, con qué credencial se identifica, qué datos se envían, y dónde se lee lo que vuelve. Explicá qué hace cada una.</p>
+  <div class="tsk">
+    <h4>Tarea 2 — Completar la Memoria</h4>
+    <p id="preg2"></p>
     <label class="lbl">Tu respuesta</label>
-    <textarea class="campo-r" id="t2" rows="5" placeholder="1) La dirección...&#10;2) La credencial...&#10;3) Los datos que se envían...&#10;4) La lectura de la respuesta..."></textarea>
+    <textarea class="campo-r" id="t2" rows="4" placeholder="..."></textarea>
   </div>
 
-  <div class="tarea">
-    <h4>Tarea 3 — Llegar hasta el dato</h4>
-    <p>El programa imprime la respuesta completa que devuelve el servidor. Encontrá, dentro de esa respuesta, <strong>el texto que escribió la IA</strong>. Escribí el camino exacto para llegar hasta él, y explicá por qué hay que pasar por cada paso.</p>
-    <label class="lbl">El camino</label>
-    <textarea class="campo-r" id="t3a" rows="2" placeholder="respuesta[...]..."></textarea>
-    <label class="lbl">Por qué cada paso</label>
-    <textarea class="campo-r" id="t3b" rows="3" placeholder="..."></textarea>
+  <div class="tsk">
+    <h4>Tarea 3 — Try / Except</h4>
+    <p>En el código tenés un bloque <code>try</code> y un <code>except</code>. Explicá qué hace la línea <code>requests.post</code> y por qué la línea <code>historial.pop()</code> es fundamental si se corta internet.</p>
+    <label class="lbl">Tu explicación</label>
+    <textarea class="campo-r" id="t3" rows="4" placeholder="..."></textarea>
   </div>
 
-  <div class="tarea" style="border-left-color:var(--vio);">
-    <h4 style="color:var(--vio);">Tarea 4 — Que salga siempre igual</h4>
-    <p>El programa funciona, pero cada mensaje devuelve la respuesta con una forma distinta. Al dueño del taller eso no le sirve: necesita <strong>los tres pedidos con la misma estructura</strong> para poder ponerlos en una tabla.</p>
-    <p style="margin-top:8px;"><strong>Mejorá la instrucción</strong> para que los tres mensajes devuelvan siempre los mismos campos, en el mismo orden, sin texto de más alrededor. Los campos que necesita el taller son: <code>cliente</code>, <code>arreglo</code>, <code>rodado</code> y <code>cuando</code>.</p>
-    <p style="margin-top:10px;">Probá, mirá qué sale, y volvé a probar. Casi nunca sale a la primera.</p>
+  <div class="tsk" style="border-left-color:var(--vio);">
+    <h4 style="color:var(--vio);">Tarea 4 — Formato y Alucinaciones</h4>
+    <p>Programá el System Prompt en tu código. Pegá los 3 mensajes de tu caso en la consola de Python, uno por uno. El dueño necesita <strong>los tres pedidos con la misma estructura</strong> para ponerlos en una tabla.</p>
+    <p style="margin-top:8px;" id="campos4"></p>
+    
+    <div class="info i-amb" style="margin-top:10px; border-color: var(--rojo); background: #FFEBEE;">
+      <strong>⚠️ Ojo con la Alucinación</strong>
+      <span id="trampa"></span> Si la IA te inventa datos para rellenar ese hueco, el trabajo no está aprobado. Tenés que obligarla a devolver <code>NO ESPECIFICADO</code>.
+    </div>
 
     <details class="pista">
-      <summary>🔦 Pista 1 — si llevás un rato trabado</summary>
-      <p>¿Le estás diciendo a la IA <em>qué datos</em> querés, o solo "los datos"? Probá nombrarle los campos exactos, uno por uno.</p>
+      <summary>🔦 Pista 1 — Si el formato sale distinto</summary>
+      <p>Nombrar los campos arregla <em>qué</em> te devuelve. Pero si no le mostrás <em>cómo</em> (con un ejemplo literal en el prompt de cómo querés que lo escriba, por ejemplo "cliente: nombre"), la IA elige su propio formato.</p>
     </details>
-    <details class="pista">
-      <summary>🔦 Pista 2 — si ya nombraste los campos y sigue distinto</summary>
-      <p>Nombrar los campos arregla <em>qué</em> te devuelve. Pero, ¿le dijiste <em>de qué forma</em> querés que te lo escriba? Si nadie se lo indica, el formato lo elige la IA.</p>
-    </details>
-    <details class="pista">
-      <summary>🔦 Pista 3 — la que casi lo resuelve</summary>
-      <p>Una forma muy efectiva de indicar el formato es <strong>mostrárselo</strong>: escribile en la instrucción un ejemplo de cómo tiene que verse la respuesta, y pedile que la devuelva exactamente así.</p>
-    </details>
-    <label class="lbl">Tu instrucción</label>
-    <textarea class="campo-r" id="t4a" rows="5" placeholder="Copiá acá la instrucción que escribiste..."></textarea>
-    <label class="lbl">¿Funcionó con los tres mensajes? ¿Qué tuviste que ajustar?</label>
+
+    <label class="lbl">Tu instrucción completa (System Prompt)</label>
+    <textarea class="campo-r" id="t4a" rows="5" placeholder="..."></textarea>
+    <label class="lbl">¿Qué tuviste que escribir en el prompt para que la IA respetara el "NO ESPECIFICADO"?</label>
     <textarea class="campo-r" id="t4b" rows="3" placeholder="..."></textarea>
   </div>
 
-  <div class="info i-amb">
-    <strong>Ojo con un detalle</strong>
-    En el tercer mensaje no dice cómo se llama el cliente: dice "el papá de Tomi". Y en ninguno de los tres dice el precio. Fijate qué hace la IA con esos campos — y anotalo, porque el viernes te lo voy a preguntar.
-  </div>
-  <label class="lbl">¿Qué hizo la IA con los datos que no estaban?</label>
-  <textarea class="campo-r" id="t5" rows="3" placeholder="..."></textarea>
 </div>
 
 <div class="card c-entrega">
   <h2><span class="badge" style="background:var(--classroom)">✔</span> REGISTRO</h2>
-  <p>Descargá tu registro y entregalo. <strong>Guardalo</strong>: el viernes lo vas a usar para defender.</p>
-  <label class="lbl">Tu nombre</label>
-  <input class="campo-r" id="nombre" placeholder="Nombre y apellido">
+  <p>Cuando el profe haya auditado tus extracciones en la consola, descargá tu registro y entregalo. <strong>Guardalo</strong>: el viernes lo vas a usar para defender.</p>
   <button class="btn-desc" onclick="descargarPlanteo()">⬇ Descargar mi registro</button>
   <p id="okp" style="color:var(--classroom);font-weight:bold;margin-top:10px;"></p>
 </div>
 
 <div class="card c-avanzado">
   <h2><span class="badge" style="background:var(--vio)">→</span> EL VIERNES</h2>
-  <p>Cada uno defiende lo que trabajó hoy. Son unos minutos: te voy a pedir que expliques una de las tareas y que respondas alguna repregunta. <strong>No hay que estudiar de memoria</strong> — hay que poder explicar lo que hiciste.</p>
+  <p>Cada uno defiende su código. Son unos minutos: te voy a pedir que expliques los <code>append</code> del historial, el <code>try/except</code> y tu estrategia de Prompt Engineering.</p>
 </div>
 
 </div>
+</div>
+
 <script>
-function descargarPlanteo(){
+var VARIANTES = [
+ { rubro:"un taller de bicicletas",
+   intro:"Un taller de bicicletas recibe los pedidos de arreglo por mensaje. Al dueño se le acumulan y quiere ordenarlos en una tabla. Estos son tres mensajes que le llegaron:",
+   msgs:["\"Hola! Tengo una bici rodado 26 con la cubierta de atrás pinchada. ¿La puedo llevar mañana a la mañana? Soy Marcos.\"",
+         "\"Buenas, necesito que me ajusten los frenos de una rodado 29. Paso el jueves después de las 17. Gracias. Lucía\"",
+         "\"Che, se me salió la cadena de la bici del nene, es una rodado 20. ¿Atienden los sábados? Soy el papá de Tomi.\""],
+   campos:["cliente","arreglo","rodado","cuando"],
+   trampa:"En el tercer mensaje no dice cómo se llama el cliente: dice \"el papá de Tomi\". Y en ninguno de los tres dice el precio." },
+
+ { rubro:"un taller de celulares",
+   intro:"Un taller de celulares recibe las consultas por mensaje. Quieren pasarlas a una planilla para organizar los arreglos. Estos son tres mensajes de hoy:",
+   msgs:["\"Hola, tengo un Samsung A32 con la pantalla rota. ¿Lo puedo llevar el lunes? Soy Brenda.\"",
+         "\"Buenas, necesito cambiar la batería de un iPhone 11. Paso el miércoles a la tarde. Nahuel.\"",
+         "\"Che, se me mojó el teléfono del nene, es un Motorola G20. ¿Atienden hoy? Soy la mamá de Ciro.\""],
+   campos:["cliente","arreglo","modelo","cuando"],
+   trampa:"En el tercer mensaje no dice el nombre del cliente: dice \"la mamá de Ciro\". Y en ninguno de los tres dice cuánto sale el arreglo." },
+
+ { rubro:"una zapatería de arreglos",
+   intro:"Una zapatería que arregla calzado recibe los pedidos por mensaje. Quieren ordenarlos en una tabla. Estos son tres mensajes que llegaron:",
+   msgs:["\"Hola! Tengo unas botas de cuero talle 39 a las que se les despegó la suela. ¿Las llevo el martes? Soy Camila.\"",
+         "\"Buenas, necesito cambiar los cordones y lustrar unos zapatos negros talle 43. Paso el viernes temprano. Diego.\"",
+         "\"Che, a las zapatillas del nene se les rompió el cierre, son talle 34. ¿Están abiertos el sábado? Soy la tía de Bruno.\""],
+   campos:["cliente","arreglo","talle","cuando"],
+   trampa:"En el tercer mensaje no dice el nombre del cliente: dice \"la tía de Bruno\". Y en ninguno de los tres dice el precio del arreglo." },
+
+ { rubro:"una casa de repuestos",
+   intro:"Una casa de repuestos de autos recibe los pedidos por mensaje. Quieren pasarlos a una planilla. Estos son tres pedidos de hoy:",
+   msgs:["\"Hola, necesito un filtro de aceite para un Gol Trend 2015. ¿Lo tienen? Paso mañana. Soy Sergio.\"",
+         "\"Buenas, busco pastillas de freno delanteras para un Corsa 2008. Las retiro el jueves. Marina.\"",
+         "\"Che, necesito una correa de distribución para el auto de mi viejo, es un Peugeot 207. ¿Atienden el sábado?\""],
+   campos:["cliente","repuesto","vehiculo","cuando"],
+   trampa:"En el tercer mensaje no dice quién escribe: no aparece ningún nombre. Y en ninguno de los tres dice el precio." },
+
+ { rubro:"una peluquería",
+   intro:"Una peluquería recibe los pedidos de turno por mensaje. Quieren ordenarlos en una agenda. Estos son tres mensajes que llegaron:",
+   msgs:["\"Hola! Quería un turno para corte y color, si puede ser el martes a la tarde. Soy Rocío.\"",
+         "\"Buenas, necesito corte de barba nomás. ¿Tienen lugar el viernes tipo 18? Gracias. Emiliano\"",
+         "\"Che, quiero cortarle el pelo al nene. ¿Atienden los sábados a la mañana? Soy el papá de Lisandro.\""],
+   campos:["cliente","servicio","dia","horario"],
+   trampa:"En el tercer mensaje no dice el nombre del cliente: dice \"el papá de Lisandro\". Y en ninguno de los tres dice cuánto sale el servicio." },
+
+ { rubro:"una imprenta",
+   intro:"Una imprenta recibe los pedidos por mensaje. Quieren pasarlos a una planilla de producción. Estos son tres pedidos:",
+   msgs:["\"Hola, necesito 200 tarjetas personales a color. ¿Para cuándo estarían? Soy Valeria.\"",
+         "\"Buenas, quiero imprimir 50 folletos A5 en blanco y negro. Los retiro el lunes. Facundo Ruiz.\"",
+         "\"Che, necesito 3 banners para el negocio de mi hermana. ¿Los tienen para el viernes?\""],
+   campos:["cliente","producto","cantidad","cuando"],
+   trampa:"En el tercer mensaje no dice quién escribe: no aparece ningún nombre. Y en ninguno de los tres dice el precio." }
+];
+
+var PREG2 = [
+ "En tu código hay huecos marcados como <code>[COMPLETAR]</code>. Explicá qué <strong>roles</strong> van en cada <code>append</code> del historial y por qué es importante que la IA tenga memoria de las extracciones anteriores.",
+ "En tu código hay huecos marcados como <code>[COMPLETAR]</code>. Explicá qué <strong>roles</strong> van en cada <code>append</code> del historial y por qué es importante que la IA tenga memoria de las extracciones anteriores.",
+ "En tu código hay huecos marcados como <code>[COMPLETAR]</code>. Explicá qué <strong>roles</strong> van en cada <code>append</code> del historial y por qué es importante que la IA tenga memoria de las extracciones anteriores.",
+ "En tu código hay huecos marcados como <code>[COMPLETAR]</code>. Explicá qué <strong>roles</strong> van en cada <code>append</code> del historial y por qué es importante que la IA tenga memoria de las extracciones anteriores.",
+ "En tu código hay huecos marcados como <code>[COMPLETAR]</code>. Explicá qué <strong>roles</strong> van en cada <code>append</code> del historial y por qué es importante que la IA tenga memoria de las extracciones anteriores.",
+ "En tu código hay huecos marcados como <code>[COMPLETAR]</code>. Explicá qué <strong>roles</strong> van en cada <code>append</code> del historial y por qué es importante que la IA tenga memoria de las extracciones anteriores."
+];
+
+var V = null, NOMBRE = "", IDX = 0;
+
+function hashNombre(n){
+  var s = n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z]/g,'');
+  var h = 0;
+  for(var i=0;i<s.length;i++){ h = ((h*31) + s.charCodeAt(i)) % 100000; }
+  return h;
+}
+
+function abrir(){
   var n = document.getElementById('nombre').value.trim();
-  if(!n){ alert('Escribí tu nombre antes de descargar.'); return; }
+  if(n.length < 5 || n.indexOf(' ') < 0){
+    document.getElementById('errp').textContent = 'Escribí tu nombre y apellido completos.';
+    return;
+  }
+  NOMBRE = n;
+  IDX = hashNombre(n) % VARIANTES.length;
+  V = VARIANTES[IDX];
+
+  document.getElementById('chapa').textContent = 'Caso ' + (IDX+1);
+  var nc=document.getElementById('ncaso'); if(nc) nc.textContent = 'caso ' + (IDX+1);
+  document.getElementById('intro').textContent = V.intro;
+  var h = '';
+  for(var i=0;i<V.msgs.length;i++){ h += '<div class="msg">' + V.msgs[i] + '</div>'; }
+  document.getElementById('mensajes').innerHTML = h;
+  
+  document.getElementById('preg2').innerHTML = PREG2[IDX];
+
+  var cs = V.campos.map(function(c){ return '<code>'+c+'</code>'; });
+  document.getElementById('campos4').innerHTML =
+    'Tu instrucción debe lograr que al pegar los tres mensajes devuelvan siempre los mismos campos, en el mismo orden. Los campos que necesitan son: '
+    + cs.slice(0,-1).join(', ') + ' y ' + cs[cs.length-1] + '.';
+  document.getElementById('trampa').textContent = V.trampa;
+
+  document.getElementById('puerta').style.display = 'none';
+  document.getElementById('contenido').style.display = 'block';
+}
+
+function descargarPlanteo(){
+  if(!V){ alert('Primero escribí tu nombre.'); return; }
   function v(id){ var e=document.getElementById(id); return e && e.value.trim() ? e.value.trim() : '(sin completar)'; }
   var f = new Date();
   var fecha = f.getDate()+'/'+(f.getMonth()+1)+'/'+f.getFullYear();
   var t = [];
-  t.push('REGISTRO DE PLANTEO - El taller de bicicletas');
+  t.push('REGISTRO DE PLANTEO');
   t.push('Taller de IA - 7 TIC - CTP Antonio Martin Marte');
-  t.push('Nombre: ' + n);
+  t.push('Nombre: ' + NOMBRE);
+  t.push('Caso asignado: ' + (IDX+1) + ' (' + V.rubro + ')');
   t.push('Fecha: ' + fecha);
   t.push('');
-  t.push('--- TAREA 1: donde pasa cada cosa ---');
+  t.push('--- TAREA 1: El frontend y try/except ---');
   t.push(v('t1'));
   t.push('');
-  t.push('--- TAREA 2: el bloque de conexion ---');
+  t.push('--- TAREA 2: Completar la Memoria ---');
   t.push(v('t2'));
   t.push('');
-  t.push('--- TAREA 3: el camino hasta el dato ---');
-  t.push('Camino: ' + v('t3a'));
-  t.push('Por que cada paso: ' + v('t3b'));
+  t.push('--- TAREA 3: Try / Except ---');
+  t.push(v('t3'));
   t.push('');
-  t.push('--- TAREA 4: que salga siempre igual ---');
-  t.push('Instruccion: ' + v('t4a'));
-  t.push('Ajustes: ' + v('t4b'));
+  t.push('--- TAREA 4: Formato y Alucinaciones ---');
+  t.push('Campos pedidos: ' + V.campos.join(', '));
+  t.push('System Prompt: ' + v('t4a'));
   t.push('');
-  t.push('--- DATOS QUE NO ESTABAN ---');
-  t.push(v('t5'));
+  t.push('--- ALUCINACIONES Y DATOS FALTANTES ---');
+  t.push(v('t4b'));
   t.push('');
   var texto = t.join('\n');
-  var limpio = n.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'_');
+  var limpio = NOMBRE.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'_');
   var blob = new Blob([texto], {type:'text/plain;charset=utf-8'});
   var a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'planteo_' + limpio + '.txt';
+  a.download = 'planteo_caso' + (IDX+1) + '_' + limpio + '.txt';
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
