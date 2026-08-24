@@ -55,7 +55,7 @@
   details.pista summary{cursor:pointer;font-weight:bold;color:var(--vio);font-size:17px;}
   details.pista p{margin:10px 0 0 0;font-size:17px;}
   
-  /* Estilo de los bloques de código con botón copiar (Clase 12) */
+  /* Estilo de los bloques de código con botón copiar */
   .code-container { position: relative; margin: 20px 0; }
   .code-block { background: var(--code-bg); color: #D4D4D4; font-family: 'Consolas', monospace; padding: 50px 20px 20px 20px; border-radius: var(--r); font-size: 18px; border: 1px solid #000; overflow-x: auto; white-space: pre; line-height: 1.5; }
   .copy-btn { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); color: #FFF; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 15px; font-weight: bold; transition: 0.2s; z-index: 10; }
@@ -110,6 +110,11 @@
   
   <div id="mensajes" style="margin-top: 15px;"></div>
   
+  <div class="info i-azul" style="margin-top: 15px; border-left-color: var(--azul); background: var(--azul-bg);">
+    <strong>💻 Abrí el Colab de la clase</strong>
+    En el código que te pasaron no hay comentarios de ayuda. Revisá la sintaxis, poné tu API Key y resolvé las consignas de desarrollo.
+  </div>
+
   <div class="info i-amb" style="margin-top: 15px; border-color: var(--amb); background: #FFF8EE;">
     <strong>🤔 ¿Por qué usamos Inteligencia Artificial para esto?</strong>
     <p style="font-size: 17px; margin-top: 5px;">Si los clientes compraran por una app o una web con botones y casilleros, un software con un algoritmo tradicional (programación clásica con <code>if/else</code>) alcanzaría para armar la tabla de pedidos. Pero en el mundo real, los clientes mandan mensajes de WhatsApp caóticos, con faltas de ortografía, jerga ("el auto de mi viejo") y datos mezclados.</p>
@@ -117,7 +122,7 @@
   </div>
 </div>
 
-<!-- NUEVA TARJETA: CÓDIGO BASE CON BOTÓN COPIAR -->
+<!-- TARJETA DE CÓDIGO BASE CON BOTÓN COPIAR -->
 <div class="card c-codigo">
   <h2><span class="badge" style="background:var(--vio);">2</span> CÓDIGO BASE PARA EL COLAB</h2>
   <p>Copiá este código con el botón de la esquina y pegalo en tu Google Colab[cite: 7]. Recordá que no tiene comentarios de ayuda: vas a tener que completar los huecos <code>[COMPLETAR]</code> analizando cómo funciona.</p>
@@ -209,6 +214,20 @@ while True:
     <p>Programá el System Prompt en tu código. Pegá los 3 mensajes de tu caso en la consola de Python, uno por uno. El dueño necesita <strong>los tres pedidos con la misma estructura</strong> para ponerlos en una tabla.</p>
     <p style="margin-top:8px;" id="campos4"></p>
     
+    <!-- EJEMPLO VISUAL INTEGRADO -->
+    <div class="info i-azul" style="margin-top: 15px; border-color: var(--teal); background: #E8F4F0; color: #1F6E5C;">
+      <strong>💡 Ejemplo de cómo tiene que salir por consola:</strong>
+      <p style="font-size: 17px; margin-top: 5px; color: var(--txt);">Si probás con un mensaje como este:</p>
+      <div class="msg" style="margin: 5px 0; font-size: 17px;">"Che, quiero cortarle el pelo al nene. ¿Atienden los sábados a la mañana? Soy el papá de Lisandro."</div>
+      <p style="font-size: 17px; margin-top: 5px; color: var(--txt);">Tu programa tiene que arrojar exactamente esta estructura limpia (fijate cómo maneja el dato que falta):</p>
+      <div style="background: var(--code-bg); color: #D4D4D4; font-family: Consolas, monospace; padding: 12px; border-radius: 6px; font-size: 16px; margin-top: 8px; line-height: 1.5;">
+cliente: NO ESPECIFICADO<br>
+servicio: cortar el pelo al nene<br>
+dia: sabados<br>
+horario: mañana
+      </div>
+    </div>
+
     <div class="info i-amb" style="margin-top:10px; border-color: var(--rojo); background: #FFEBEE;">
       <strong>⚠️ Ojo con la Alucinación</strong>
       <span id="trampa"></span> Si la IA te inventa datos para rellenar ese hueco, el trabajo no está aprobado. Tenés que obligarla a devolver <code>NO ESPECIFICADO</code>.
@@ -273,7 +292,7 @@ var VARIANTES = [
    trampa:"En el tercer mensaje no dice el nombre del cliente: dice \"la mamá de Ciro\". Y en ninguno de los tres dice cuánto sale el arreglo." },
 
  { rubro:"una zapatería de arreglos",
-   intro:"Un zapatería que arregla calzado recibe los pedidos por mensaje. Quieren ordenarlos en una tabla. Estos son tres mensajes que llegaron:",
+   intro:"Una zapatería que arregla calzado recibe los pedidos por mensaje. Quieren ordenarlos en una tabla. Estos son tres mensajes que llegaron:",
    msgs:["\"Hola! Tengo unas botas de cuero talle 39 a las que se les despegó la suela. ¿Las llevo el martes? Soy Camila.\"",
          "\"Buenas, necesito cambiar los cordones y lustrar unos zapatos negros talle 43. Paso el viernes temprano. Diego.\"",
          "\"Che, a las zapatillas del nene se les rompió el cierre, son talle 34. ¿Están abiertos el sábado? Soy la tía de Bruno.\""],
