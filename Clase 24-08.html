@@ -27,6 +27,7 @@
   .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
   .c-p1{border-left-color:var(--p1);background:var(--p1-bg);}
   .c-info{border-left-color:var(--vio);background:#FAFCFF;}
+  .c-codigo{border-left-color:var(--vio);background:#FAFCFF;}
   .c-entrega{border-left-color:var(--classroom);background:var(--class-bg);}
   .c-avanzado{border-left-color:var(--amb);background:#FFFBF5;}
   h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
@@ -53,6 +54,13 @@
                 padding:12px 16px;margin-top:10px;}
   details.pista summary{cursor:pointer;font-weight:bold;color:var(--vio);font-size:17px;}
   details.pista p{margin:10px 0 0 0;font-size:17px;}
+  
+  /* Estilo de los bloques de código con botón copiar (Clase 12) */
+  .code-container { position: relative; margin: 20px 0; }
+  .code-block { background: var(--code-bg); color: #D4D4D4; font-family: 'Consolas', monospace; padding: 50px 20px 20px 20px; border-radius: var(--r); font-size: 18px; border: 1px solid #000; overflow-x: auto; white-space: pre; line-height: 1.5; }
+  .copy-btn { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); color: #FFF; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 15px; font-weight: bold; transition: 0.2s; z-index: 10; }
+  .copy-btn:hover { background: var(--teal); border-color: var(--teal); }
+
   #puerta{background:var(--p1-bg);border:3px solid var(--p1);border-radius:var(--r);
           padding:26px 28px;text-align:center;margin:20px 0;}
   #puerta input{font-size:19px;padding:12px 16px;border:2px solid var(--bd);border-radius:10px;
@@ -74,7 +82,7 @@
   <p>Hoy se plantea y desarrolla el trabajo; <strong>el viernes lo defendés</strong>. Defender significa explicar en voz alta qué programaste y por qué.</p>
   <div class="info i-azul">
     <strong>🧭 Cómo se trabaja</strong>
-    Hay cuatro tareas. En tu Colab te vas a encontrar con el <strong>código crudo, sin comentarios</strong>. Vas a tener que leer la sintaxis, deducir qué hace cada bloque, y transformarlo en un Extractor de Datos completando los huecos <code>[COMPLETAR]</code>.
+    Hay cuatro tareas. Abajo tenés el <strong>código base sin comentarios</strong>. Vas a tener que copiarlo a tu Colab[cite: 7], leer la sintaxis, deducir qué hace cada parte y transformarlo en un Extractor de Datos completando los huecos <code>[COMPLETAR]</code>.
   </div>
   <div class="info i-amb">
     <strong>Individual, pero se pueden ayudar</strong>
@@ -102,11 +110,6 @@
   
   <div id="mensajes" style="margin-top: 15px;"></div>
   
-  <div class="info i-azul" style="margin-top: 15px; border-left-color: var(--azul); background: var(--azul-bg);">
-    <strong>💻 Abrí el Colab de la clase</strong>
-    En el código que te pasaron no hay comentarios de ayuda. Revisá la sintaxis, poné tu API Key y resolvé las consignas de desarrollo.
-  </div>
-
   <div class="info i-amb" style="margin-top: 15px; border-color: var(--amb); background: #FFF8EE;">
     <strong>🤔 ¿Por qué usamos Inteligencia Artificial para esto?</strong>
     <p style="font-size: 17px; margin-top: 5px;">Si los clientes compraran por una app o una web con botones y casilleros, un software con un algoritmo tradicional (programación clásica con <code>if/else</code>) alcanzaría para armar la tabla de pedidos. Pero en el mundo real, los clientes mandan mensajes de WhatsApp caóticos, con faltas de ortografía, jerga ("el auto de mi viejo") y datos mezclados.</p>
@@ -114,8 +117,71 @@
   </div>
 </div>
 
+<!-- NUEVA TARJETA: CÓDIGO BASE CON BOTÓN COPIAR -->
+<div class="card c-codigo">
+  <h2><span class="badge" style="background:var(--vio);">2</span> CÓDIGO BASE PARA EL COLAB</h2>
+  <p>Copiá este código con el botón de la esquina y pegalo en tu Google Colab[cite: 7]. Recordá que no tiene comentarios de ayuda: vas a tener que completar los huecos <code>[COMPLETAR]</code> analizando cómo funciona.</p>
+
+  <div class="code-container">
+    <button class="copy-btn" onclick="copyCode('codBase')">Copiar Código</button>
+    <div id="codBase" class="code-block">import requests
+
+# --- 1. CONFIGURACIÓN BÁSICA ---
+API_KEY = "gsk_PEGA_TU_CLAVE_ACA"
+URL     = "https://api.groq.com/openai/v1/chat/completions"
+headers = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
+
+# --- 2. EL CEREBRO: SYSTEM PROMPT ---
+reglas_de_la_ia = """
+[COMPLETAR_ACA: Borrá esto y escribí con tus palabras las reglas para extraer los datos de tu caso. 
+Asegurate de pedir el formato exacto de salida y agregá la regla de qué hacer si falta un dato (NO ESPECIFICADO).]
+"""
+
+# Inicializamos la memoria guardando el rol "system" en la posición 0
+historial = [
+    {"role": "system", "content": reglas_de_la_ia}
+]
+
+print("🤖 El Extractor está listo. Pegá los mensajes de los clientes. Escribí 'salir' para terminar.\n")
+
+# --- 3. EL BUCLE DE CONVERSACIÓN ---
+while True:
+    mensaje = input("Mensaje del cliente: ")
+    
+    if mensaje.lower() == "salir":
+        print("¡Hasta luego!")
+        break
+
+    # Guardamos lo que el usuario escribió en la memoria
+    historial.append({"role": "[COMPLETAR]", "content": mensaje})
+
+    # Armamos el paquete. ¡Atención! Mandamos la lista COMPLETA de historial
+    payload = {
+        "model": "openai/gpt-oss-120b",
+        "temperature": 0.0,  # <-- 0.0 para que sea preciso y no invente
+        "messages": historial   
+    }
+
+    # El escudo protector por si perdemos conexión
+    try:
+        response  = requests.post(URL, headers=headers, json=payload)
+        data      = response.json()
+        respuesta = data["choices"][0]["message"]["content"]
+
+        print(f"\n📊 EXTRACCIÓN: \n{respuesta}\n")
+        
+        # Guardamos la respuesta de la IA en la memoria para que no se olvide
+        historial.append({"role": "[COMPLETAR]", "content": respuesta})
+
+    except Exception as e:
+        print(f"\n⚠️ Hubo un error de conexión: {e}\n")
+        # Si falla, borramos el mensaje del usuario que no se pudo procesar
+        historial.pop()</div>
+  </div>
+</div>
+
 <div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">2</span> LAS TAREAS<span class="reloj">120 min</span></h2>
+  <h2><span class="badge" style="background:var(--p1)">3</span> LAS TAREAS<span class="reloj">120 min</span></h2>
 
   <div class="tsk">
     <h4>Tarea 1 — Lectura de Código (Backend)</h4>
@@ -177,6 +243,18 @@
 </div>
 
 <script>
+  // Función para copiar código (igual a Clase 12)
+  function copyCode(id) {
+    var el = document.getElementById(id);
+    navigator.clipboard.writeText(el.textContent || el.innerText).then(function() {
+      var btn = el.previousElementSibling;
+      var orig = btn.innerText;
+      btn.innerText = "¡Copiado!";
+      btn.style.background = "var(--teal)";
+      setTimeout(function() { btn.innerText = orig; btn.style.background = "rgba(255,255,255,0.15)"; }, 2000);
+    });
+  }
+
 var VARIANTES = [
  { rubro:"un taller de bicicletas",
    intro:"Un taller de bicicletas recibe los pedidos de arreglo por mensaje. Al dueño se le acumulan y quiere ordenarlos en una tabla. Estos son tres mensajes que le llegaron:",
@@ -195,7 +273,7 @@ var VARIANTES = [
    trampa:"En el tercer mensaje no dice el nombre del cliente: dice \"la mamá de Ciro\". Y en ninguno de los tres dice cuánto sale el arreglo." },
 
  { rubro:"una zapatería de arreglos",
-   intro:"Una zapatería que arregla calzado recibe los pedidos por mensaje. Quieren ordenarlos en una tabla. Estos son tres mensajes que llegaron:",
+   intro:"Un zapatería que arregla calzado recibe los pedidos por mensaje. Quieren ordenarlos en una tabla. Estos son tres mensajes que llegaron:",
    msgs:["\"Hola! Tengo unas botas de cuero talle 39 a las que se les despegó la suela. ¿Las llevo el martes? Soy Camila.\"",
          "\"Buenas, necesito cambiar los cordones y lustrar unos zapatos negros talle 43. Paso el viernes temprano. Diego.\"",
          "\"Che, a las zapatillas del nene se les rompió el cierre, son talle 34. ¿Están abiertos el sábado? Soy la tía de Bruno.\""],
@@ -305,12 +383,11 @@ function descargarPlanteo(){
   var texto = t.join('\n');
   var limpio = NOMBRE.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'_');
   var blob = new Blob([texto], {type:'text/plain;charset=utf-8'});
+  var url = URL.createObjectURL(blob);
   var a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'planteo_caso' + (IDX+1) + '_' + limpio + '.txt';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  a.href = url; a.download = 'planteo_caso' + (IDX+1) + '_' + limpio + '.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
   document.getElementById('okp').textContent = 'Registro descargado. Guardalo para el viernes.';
 }
 </script>
