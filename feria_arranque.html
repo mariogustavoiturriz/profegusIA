@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arranque del equipo · calidad del aire</title>
+<style>
+  :root{
+    --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
+    --vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;
+    --bco:#FFFFFF;--code-bg:#1E1E1E;--r:12px;
+    --p1:#1F6E5C;--p1-bg:#E8F4F0;
+    --g2:#2E6820;--g2-bg:#EFF8EE;
+    --json:#006400;--json-bg:#F0FFF0;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;
+    --azul:#1565C0;--azul-bg:#E3F2FD;
+    --classroom:#137333;--class-bg:#F0FFF4;
+    --rpg:#5C2070;--rpg-bg:#F8F3FF;
+    --plan:#2A4A7F;--plan-bg:#E5ECF6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:20px;padding:15px 0 50px;}
+  header{background:var(--nav);color:var(--bco);padding:25px 20px;border-bottom:5px solid var(--vio);}
+  header h1{font-size:26px;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
+  header p{font-size:17px;opacity:.9;}
+  .container{width:95%;max-width:1400px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:20px;margin-bottom:10px;padding:10px 20px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  .c-p1{border-left-color:var(--p1);background:var(--p1-bg);}
+  .c-plan{border-left-color:var(--plan);background:var(--plan-bg);}
+  .c-info{border-left-color:var(--vio);background:#FAFCFF;}
+  .c-json{border-left-color:var(--json);background:var(--json-bg);}
+  .c-rojo{border-left-color:var(--rojo);background:var(--rojo-bg);}
+  .c-entrega{border-left-color:var(--classroom);background:var(--class-bg);}
+  .c-asistente{border-left-color:var(--rpg);background:var(--rpg-bg);}
+  .c-avanzado{border-left-color:var(--amb);background:#FFFBF5;}
+  h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
+  .badge{background:var(--nav);color:var(--bco);padding:5px 12px;border-radius:6px;font-size:17px;font-weight:bold;}
+  .info{padding:18px 20px;border-radius:var(--r);margin:15px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
+  .i-p1{background:var(--p1-bg);border-color:var(--p1);}
+  .i-plan{background:var(--plan-bg);border-color:var(--plan);}
+  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
+  .i-amb{background:#FFF8EE;border-color:var(--amb);}
+  .i-azul{background:var(--azul-bg);border-color:var(--azul);}
+  .i-rojo{background:var(--rojo-bg);border-color:var(--rojo);}
+  .i-json{background:var(--json-bg);border-color:var(--json);}
+  .info > strong:first-child{display:block;margin-bottom:6px;font-size:19px;}
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:18px 20px;font-size:17px;overflow-x:auto;white-space:pre;line-height:1.65;margin:14px 0;border-radius:8px;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
+  .nm{color:#B5CEA8;} .fn{color:#DCDCAA;} .dk{color:#9CDCFE;}
+  code{background:#E8E6FF;color:var(--vio);padding:2px 6px;border-radius:4px;font-family:'Consolas',monospace;font-size:17px;}
+  ul{margin-left:22px;} li{margin-bottom:8px;}
+  ol{margin-left:22px;} ol li{margin-bottom:8px;}
+  table{width:100%;border-collapse:collapse;font-size:17px;margin:16px 0;background:#fff;border-radius:8px;overflow:hidden;}
+  th,td{border:1px solid var(--bd);padding:12px 14px;text-align:left;}
+  th{background:var(--nav);color:#fff;font-size:15px;text-transform:uppercase;letter-spacing:.5px;}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+  .trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;}
+  .mini{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:16px;font-size:16px;line-height:1.6;}
+  .mini strong{color:var(--p1);display:block;margin-bottom:4px;font-size:17px;}
+  .check{list-style:none;margin-left:0;}
+  .check li{padding-left:34px;position:relative;margin-bottom:12px;font-size:18px;}
+  .check li::before{content:"\25A2";position:absolute;left:0;font-size:24px;color:var(--p1);}
+  #asist-chat{display:none;}
+  #asist-msgs{background:#1E1E1E;border-radius:10px;padding:16px;min-height:160px;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:10px;}
+  .asist-inp{display:flex;gap:8px;}
+  .asist-inp input{flex:1;padding:11px;border-radius:8px;border:1px solid #ccc;font-size:17px;outline:none;}
+  .btn-rpg{background:var(--rpg);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;}
+  .btn-rpg:disabled{background:#ccc;cursor:not-allowed;}
+  .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
+  .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
+  @media(max-width:768px){.duo,.trio{grid-template-columns:1fr;}}
+
+  /* Ejercicio de JSON */
+  .jej{display:none;}
+  .jej.activo{display:block;}
+  .jpanel{background:#F0FFF0;border:2px solid #006400;border-radius:10px;padding:18px 20px;
+          font-family:Consolas,monospace;font-size:17px;line-height:2;overflow-x:auto;white-space:pre;}
+  .jval{background:#fff;border:2px solid var(--bd);border-radius:6px;padding:1px 7px;
+        cursor:pointer;transition:all .15s;display:inline-block;}
+  .jval:hover{border-color:var(--json);background:#E6F7E6;}
+  .jval.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jval.no{background:#FFEBEE;border-color:var(--rojo);}
+  .jkey{color:#9CDCFE;}
+  .jctx{background:var(--azul-bg);border-left:5px solid var(--azul);border-radius:8px;
+        padding:12px 16px;margin-bottom:12px;font-size:17px;}
+  .jpide{font-size:21px;font-weight:bold;margin:14px 0 10px;}
+  .jfb{margin-top:12px;font-size:18px;}
+  .jcamino{background:var(--code-bg);color:#D4D4D4;font-family:Consolas,monospace;
+           padding:12px 16px;border-radius:8px;font-size:17px;margin-top:10px;overflow-x:auto;}
+  .jcam-ops{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+  .jcam-op{background:#1E1E1E;color:#D4D4D4;font-family:Consolas,monospace;font-size:16px;
+           padding:11px 14px;border:2px solid #3A3A3A;border-radius:8px;cursor:pointer;text-align:left;
+           transition:all .15s;}
+  .jcam-op:hover:enabled{border-color:var(--vio);}
+  .jcam-op:disabled{cursor:default;}
+  .jcam-op.cam-ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jcam-op.cam-no{background:#3a1e1e;border-color:#C0392B;opacity:.6;}
+  .jprog{font-size:16px;color:#666;margin-bottom:8px;}
+
+  /* Taller de reparaciones */
+  .rep{display:none;}
+  .rep.activo{display:block;}
+  .repcod{background:var(--code-bg);border-radius:8px;padding:14px 0;font-family:Consolas,monospace;
+          font-size:16px;line-height:1.9;overflow-x:auto;}
+  .rline{display:block;padding:2px 18px;cursor:pointer;white-space:pre;color:#D4D4D4;}
+  .rline:hover{background:#2D2D2D;}
+  .rline.ok{background:#1F6E5C;}
+  .rline.no{background:#5C1F1F;}
+  .rline.fija{cursor:default;color:#808080;}
+  .rline.fija:hover{background:transparent;}
+  .rnum{color:#606060;display:inline-block;width:26px;user-select:none;}
+
+  .encasa{display:inline-block;background:#7A4B00;color:#fff;font-size:14px;font-weight:bold;
+          letter-spacing:1px;padding:5px 12px;border-radius:20px;margin-left:auto;}
+  .banda-casa{background:#FFF8EE;border:2px dashed #B8720A;border-radius:10px;
+              padding:12px 18px;margin-bottom:16px;font-size:18px;}
+
+  /* Campos extraíbles */
+  .campo{display:inline-block;background:#fff;border:2px solid var(--bd);border-radius:22px;
+         padding:9px 18px;margin:6px 6px 6px 0;cursor:pointer;font-size:18px;transition:all .15s;}
+  .campo:hover{border-color:var(--p1);background:#F2FAF8;}
+  .campo.si{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .campo.no{background:#FFEBEE;border-color:var(--rojo);color:#8B1A1A;text-decoration:line-through;}
+  .ext-txt{background:#FFFDF5;border:2px solid var(--amb);border-radius:10px;padding:16px 20px;
+           font-size:19px;line-height:1.7;font-style:italic;margin-bottom:14px;}
+
+  .tarea{background:#fff;border:2px solid var(--bd);border-radius:10px;
+         padding:13px 18px;margin-bottom:10px;font-size:18px;transition:all .15s;
+         display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
+  .tarea-txt{flex:1 1 240px;}
+  .tarea-btns{display:flex;gap:8px;}
+  .tbtn{background:#fff;border:2px solid var(--bd);border-radius:8px;padding:8px 12px;
+        font-size:16px;cursor:pointer;font-family:inherit;color:var(--txt);white-space:nowrap;}
+  .tbtn:hover:enabled{border-color:var(--vio);}
+  .tbtn:disabled{cursor:default;opacity:.55;}
+  .tbtn.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;opacity:1;}
+  .tbtn.mal{background:#FFEBEE;border-color:#C0392B;color:#8B1A1A;opacity:1;}
+  .tarea.resuelta{background:#F7FBF9;border-color:#1F6E5C;}
+  .tarea-fb{flex:1 1 100%;font-size:16px;}
+  .btn-op{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px 20px;
+          margin:6px 8px 6px 0;font-size:18px;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .btn-op:hover{border-color:var(--p1);}
+  .btn-op.ok{background:#E8F4F0;border-color:var(--p1);}
+  .btn-op.mal{background:#FFEBEE;border-color:var(--rojo);}
+  .parte{display:inline-block;background:#1E1E1E;color:#DCDCAA;border:2px solid #444;
+         border-radius:8px;padding:8px 14px;margin:5px 4px;cursor:pointer;
+         font-family:Consolas,monospace;font-size:20px;}
+  .parte:hover{border-color:#DCDCAA;}
+  .parte.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .parte.mal{background:#5C1F1F;border-color:#C62828;}
+
+  /* Cuestionario de cierre */
+  .cq-op{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);
+         border-radius:10px;padding:13px 18px;margin-bottom:9px;font-size:18px;cursor:pointer;
+         font-family:inherit;color:var(--txt);line-height:1.5;}
+  .cq-op:hover:enabled{border-color:var(--vio);background:#FAF7FF;}
+  .cq-op:disabled{cursor:default;opacity:.95;}
+  .cq-vf{display:inline-block;width:48%;text-align:center;font-size:20px;font-weight:bold;
+         padding:16px;margin:0 1% 10px;border:2px solid var(--bd);border-radius:10px;
+         background:#fff;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .cq-vf:hover:enabled{border-color:var(--vio);}
+  .cq-vf:disabled{cursor:default;opacity:.95;}
+  .cq-barra{height:14px;background:#E8E8E8;border-radius:7px;overflow:hidden;margin:10px 0 4px;}
+  .cq-fill{height:100%;background:var(--vio);width:0;transition:width .3s;}
+</style>
+</head>
+<body>
+<header>
+  <h1>ARRANQUE DEL EQUIPO — CALIDAD DEL AIRE</h1>
+  <p>Taller de IA &middot; 7&deg; TIC &middot; CTP Antonio Mart&iacute;n Marte &middot; Lunes 31/8 &middot; 40 minutos</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">&#11013; Volver al &Iacute;ndice</a>
+<style>
+  .fa-rol{display:flex;gap:10px;align-items:center;margin-bottom:9px;flex-wrap:wrap;}
+  .fa-rol label{flex:0 0 240px;font-weight:bold;font-size:16px;}
+  .rol-d{background:var(--bco);border:2px solid var(--bd);border-left:7px solid var(--p1);
+         border-radius:12px;padding:16px 20px;margin-bottom:12px;display:block;}
+  .rol-d h4{margin:0 0 8px 0;font-size:21px;color:var(--txt);}
+  .rol-d p{font-size:17px;line-height:1.6;margin:6px 0;}
+  .rol-d input{margin-top:10px;}
+  .fa-rol input{flex:1 1 190px;border:2px solid var(--bd);border-radius:8px;padding:9px 12px;
+                font-size:16px;font-family:inherit;}
+  .cp{width:100%;box-sizing:border-box;border:2px solid var(--bd);border-radius:8px;padding:11px 13px;
+      font-size:16px;font-family:inherit;color:var(--txt);line-height:1.5;resize:vertical;margin-top:8px;}
+  .cp:focus{outline:none;border-color:var(--p1);}
+  .lb{font-weight:bold;font-size:17px;margin-top:14px;display:block;}
+  .btn-d{background:var(--p1);color:#fff;border:none;border-radius:10px;padding:14px 24px;
+         font-size:18px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:14px;}
+  .reloj{display:inline-block;background:var(--amb);color:#fff;font-size:15px;font-weight:bold;
+         padding:3px 12px;border-radius:20px;margin-left:10px;vertical-align:middle;}
+  .fuente{background:var(--gris);border-radius:8px;padding:12px 15px;margin-bottom:9px;font-size:16px;}
+  .fuente b{color:var(--p1);}
+</style>
+
+<div class="card c-info">
+  <h2><span class="badge" style="background:var(--teal)">0</span> ARRANCAMOS</h2>
+  <p>El proyecto empieza formalmente el viernes, pero ustedes ya tienen tema y equipo. Así que <strong>hoy adelantamos lo que no depende de nadie más</strong>: repartir los roles y salir a buscar los documentos.</p>
+  <div class="info i-amb">
+    <strong>Por qué esto primero</strong>
+    Sin los documentos no hay nada que extraer. Es la materia prima: cuanto antes la tengan, antes pueden trabajar.
+  </div>
+</div>
+
+<div class="card c-p1">
+  <h2><span class="badge" style="background:var(--p1)">1</span> REPARTAN LOS ROLES<span class="reloj">10 min</span></h2>
+  <p>Cada uno se hace cargo de una parte. Los roles reparten el trabajo, <strong>no el contenido</strong>: en la feria cualquiera tiene que poder explicar el proyecto entero.</p>
+  <div class="info i-grn">
+    <strong>Cómo elegir</strong>
+    Léanlos todos antes de repartir. Elijan por <strong>lo que cada uno ya sabe hacer o quiere aprender</strong>, no por lo que parece más fácil. Y si a alguien un rol le queda grande, se puede compartir de a dos: eso no es hacer trampa, es cómo trabaja un equipo.
+  </div>
+  <div class="rol-d">
+    <h4>&#128268; Sensores y datos</h4>
+    <p><strong>Qué hace:</strong> se ocupa de que el aparato que mide siga funcionando y siga publicando los números.</p>
+    <p><strong>En concreto:</strong> revisar que el ESP32 esté midiendo, decidir cada cuánto tiempo toma una medición, y ver de qué manera esos números le llegan al programa.</p>
+    <input class="cp" id="r1" placeholder="&#191;Qui&eacute;n se hace cargo?">
+  </div>
+
+  <div class="rol-d">
+    <h4>&#128218; Busca las fuentes</h4>
+    <p><strong>Qué hace:</strong> consigue los documentos donde están escritos los valores peligrosos.</p>
+    <p><strong>En concreto:</strong> buscar en internet guías de salud y normativa, guardarlas junto con el link, y <strong>recortar la parte donde está el número</strong> para pasársela a quien extrae. Nadie tiene que leer un PDF entero.</p>
+    <input class="cp" id="r2" placeholder="&#191;Qui&eacute;n se hace cargo?">
+  </div>
+
+  <div class="rol-d" style="border-left-color:var(--cielo,#2E86C1);">
+    <h4>&#128269; Extrae los umbrales</h4>
+    <p><strong>Qué hace:</strong> saca los datos de esos textos usando la IA, y logra que salgan siempre ordenados de la misma forma.</p>
+    <p><strong>En concreto:</strong> tomar el fragmento de texto, escribir la instrucción que le dice a la IA qué datos querés y con qué forma, probarla, y corregirla hasta que la respuesta salga siempre igual. Es lo que se practicó estas dos clases.</p>
+    <input class="cp" id="r3" placeholder="&#191;Qui&eacute;n se hace cargo?">
+  </div>
+
+  <div class="rol-d" style="border-left-color:var(--rojo);">
+    <h4>&#9989; Verifica los datos</h4>
+    <p><strong>Qué hace:</strong> revisa que cada dato que la IA sacó esté de verdad en el documento original.</p>
+    <p><strong>En concreto:</strong> agarrar cada valor de la tabla, buscarlo en el texto de donde salió, y marcar si estaba o si la IA lo inventó. <strong>Es el rol más importante del proyecto:</strong> un dato inventado acá puede hacer que el sistema diga que el aire está bien cuando no lo está.</p>
+    <input class="cp" id="r4" placeholder="&#191;Qui&eacute;n se hace cargo?">
+  </div>
+
+  <div class="rol-d" style="border-left-color:var(--vio);">
+    <h4>&#129302; L&oacute;gica del agente</h4>
+    <p><strong>Qué hace:</strong> programa la parte que decide qué hacer con cada medición.</p>
+    <p><strong>En concreto:</strong> escribir las reglas que comparan el número medido contra la tabla, y definir qué pasa en cada caso: si todo está normal, si hay que ventilar, o si hay que avisar de urgencia.</p>
+    <input class="cp" id="r5" placeholder="&#191;Qui&eacute;n se hace cargo?">
+  </div>
+  <div class="info i-azul">
+    <strong>Verificación de a dos</strong>
+    El rol de verificar no lo hace una sola persona: cada dato lo chequean dos. Anoten quién es el segundo par de ojos.
+  </div>
+  <label class="lb">Segundo verificador</label>
+  <input class="cp" id="r6" placeholder="Qui&eacute;n">
+</div>
+
+<div class="card c-p1">
+  <h2><span class="badge" style="background:var(--p1)">2</span> SALGAN A BUSCAR DOCUMENTOS<span class="reloj">30 min</span></h2>
+  <p>Necesitan textos donde estén escritos los <strong>valores de referencia</strong>: a partir de qué cantidad un contaminante es peligroso, cuánto tiempo se puede estar expuesto, qué temperatura o humedad son adecuadas.</p>
+
+  <div class="info i-json">
+    <strong>Qué buscar exactamente</strong>
+    No cualquier texto sobre el aire. <strong>Textos que digan un número</strong>: "el límite es X ppm", "no más de Y horas". Si el documento no tiene números de referencia, no sirve para esto.
+  </div>
+
+  <p style="margin-top:12px;"><strong>Por dónde empezar:</strong></p>
+  <div class="fuente"><b>Guías de calidad del aire de la OMS</b> — valores límite por contaminante y tiempo de exposición.</div>
+  <div class="fuente"><b>Normativa de instalaciones de gas</b> — monóxido de carbono en ambientes.</div>
+  <div class="fuente"><b>Hojas de seguridad de gases</b> — buscá "ficha de seguridad monóxido de carbono".</div>
+  <div class="fuente"><b>Protocolos de higiene y seguridad laboral</b> — temperatura y humedad en ambientes de trabajo.</div>
+
+  <div class="info i-rojo">
+    <strong>Anoten de dónde salió cada uno</strong>
+    Guarden el documento <strong>y el link</strong>. Un umbral sin fuente no puede entrar a la tabla: esa es una de las dos reglas del proyecto.
+  </div>
+
+  <label class="lb">Documento 1 — qué es y de dónde salió</label>
+  <textarea class="cp" id="d1" rows="2" placeholder="Ej: Gu&iacute;a OMS calidad del aire 2021 - link..."></textarea>
+  <label class="lb">Documento 2</label>
+  <textarea class="cp" id="d2" rows="2" placeholder="..."></textarea>
+  <label class="lb">Documento 3</label>
+  <textarea class="cp" id="d3" rows="2" placeholder="..."></textarea>
+  <label class="lb">Documento 4</label>
+  <textarea class="cp" id="d4" rows="2" placeholder="..."></textarea>
+
+  <label class="lb">&#191;Alg&uacute;n valor que ya encontraron? Copienlo tal cual dice el documento</label>
+  <textarea class="cp" id="val" rows="3" placeholder="Ej: mon&oacute;xido de carbono - 9 ppm - 8 horas - Gu&iacute;a OMS p.14"></textarea>
+</div>
+
+<div class="card c-entrega">
+  <h2><span class="badge" style="background:var(--classroom)">&#10003;</span> GUARDEN LO DE HOY</h2>
+  <label class="lb">Nombre del equipo</label>
+  <input class="cp" id="eq" placeholder="C&oacute;mo se llaman">
+  <button class="btn-d" onclick="bajar2()">&#11015; Descargar</button>
+  <p id="ok2" style="color:var(--classroom);font-weight:bold;margin-top:10px;"></p>
+</div>
+
+<div class="card c-avanzado">
+  <h2><span class="badge" style="background:var(--vio)">&rarr;</span> EL VIERNES</h2>
+  <p>Arranca el proyecto para todo el curso. Ustedes llegan con los roles repartidos y los documentos en la mano, así que van a poder empezar directo con la extracción.</p>
+</div>
+</div>
+<script>
+function bajar2(){
+  var e=document.getElementById('eq').value.trim();
+  if(!e){ alert('Pongan el nombre del equipo.'); return; }
+  function v(i){ var x=document.getElementById(i); return x && x.value.trim() ? x.value.trim() : '(sin completar)'; }
+  var f=new Date();
+  var t=['ARRANQUE DEL EQUIPO - Calidad del aire','Taller de IA - 7 TIC',
+         'Equipo: '+e, 'Fecha: '+f.getDate()+'/'+(f.getMonth()+1)+'/'+f.getFullYear(),'',
+         '--- ROLES ---',
+         'Sensores y datos: '+v('r1'),
+         'Busca las fuentes: '+v('r2'),
+         'Extrae los umbrales: '+v('r3'),
+         'Verifica los datos: '+v('r4'),
+         'Logica del agente: '+v('r5'),
+         'Segundo verificador: '+v('r6'),'',
+         '--- DOCUMENTOS ENCONTRADOS ---',
+         '1) '+v('d1'), '2) '+v('d2'), '3) '+v('d3'), '4) '+v('d4'),'',
+         '--- VALORES QUE YA ENCONTRAMOS ---', v('val'),''];
+  var limpio=e.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'_');
+  var b=new Blob([t.join('\n')],{type:'text/plain;charset=utf-8'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(b);
+  a.download='arranque_'+limpio+'.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  document.getElementById('ok2').textContent='Descargado. Guardenlo para el viernes.';
+}
+</script>
+</body></html>
