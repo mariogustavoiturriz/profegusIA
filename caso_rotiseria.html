@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taller de IA · Cierre · La rotisería</title>
+<title>Taller de IA · Cierre Guiado · La rotisería</title>
 <style>
   :root{
     --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
@@ -15,8 +15,6 @@
     --rojo:#C62828;--rojo-bg:#FFEBEE;
     --azul:#1565C0;--azul-bg:#E3F2FD;
     --classroom:#137333;--class-bg:#F0FFF4;
-    --rpg:#5C2070;--rpg-bg:#F8F3FF;
-    --plan:#2A4A7F;--plan-bg:#E5ECF6;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:20px;padding:15px 0 50px;}
@@ -24,300 +22,335 @@
   header h1{font-size:26px;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
   header p{font-size:17px;opacity:.9;}
   .container{width:95%;max-width:1400px;margin:0 auto;padding:0 15px;}
-  .back-btn{display:inline-block;margin-top:20px;margin-bottom:10px;padding:10px 20px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
   .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
   .c-p1{border-left-color:var(--p1);background:var(--p1-bg);}
-  .c-plan{border-left-color:var(--plan);background:var(--plan-bg);}
   .c-info{border-left-color:var(--vio);background:#FAFCFF;}
   .c-json{border-left-color:var(--json);background:var(--json-bg);}
   .c-rojo{border-left-color:var(--rojo);background:var(--rojo-bg);}
   .c-entrega{border-left-color:var(--classroom);background:var(--class-bg);}
-  .c-asistente{border-left-color:var(--rpg);background:var(--rpg-bg);}
-  .c-avanzado{border-left-color:var(--amb);background:#FFFBF5;}
   h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
   .badge{background:var(--nav);color:var(--bco);padding:5px 12px;border-radius:6px;font-size:17px;font-weight:bold;}
   .info{padding:18px 20px;border-radius:var(--r);margin:15px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
-  .i-p1{background:var(--p1-bg);border-color:var(--p1);}
-  .i-plan{background:var(--plan-bg);border-color:var(--plan);}
-  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
-  .i-amb{background:#FFF8EE;border-color:var(--amb);}
   .i-azul{background:var(--azul-bg);border-color:var(--azul);}
-  .i-rojo{background:var(--rojo-bg);border-color:var(--rojo);}
-  .i-json{background:var(--json-bg);border-color:var(--json);}
-  .info > strong:first-child{display:block;margin-bottom:6px;font-size:19px;}
-  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:18px 20px;font-size:17px;overflow-x:auto;white-space:pre;line-height:1.65;margin:14px 0;border-radius:8px;}
-  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
-  .nm{color:#B5CEA8;} .fn{color:#DCDCAA;} .dk{color:#9CDCFE;}
-  code{background:#E8E6FF;color:var(--vio);padding:2px 6px;border-radius:4px;font-family:'Consolas',monospace;font-size:17px;}
-  ul{margin-left:22px;} li{margin-bottom:8px;}
-  ol{margin-left:22px;} ol li{margin-bottom:8px;}
-  table{width:100%;border-collapse:collapse;font-size:17px;margin:16px 0;background:#fff;border-radius:8px;overflow:hidden;}
-  th,td{border:1px solid var(--bd);padding:12px 14px;text-align:left;}
-  th{background:var(--nav);color:#fff;font-size:15px;text-transform:uppercase;letter-spacing:.5px;}
-  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
-  .trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;}
-  .mini{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:16px;font-size:16px;line-height:1.6;}
-  .mini strong{color:var(--p1);display:block;margin-bottom:4px;font-size:17px;}
-  .check{list-style:none;margin-left:0;}
-  .check li{padding-left:34px;position:relative;margin-bottom:12px;font-size:18px;}
-  .check li::before{content:"\25A2";position:absolute;left:0;font-size:24px;color:var(--p1);}
-  #asist-chat{display:none;}
-  #asist-msgs{background:#1E1E1E;border-radius:10px;padding:16px;min-height:160px;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:10px;}
-  .asist-inp{display:flex;gap:8px;}
-  .asist-inp input{flex:1;padding:11px;border-radius:8px;border:1px solid #ccc;font-size:17px;outline:none;}
-  .btn-rpg{background:var(--rpg);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;}
-  .btn-rpg:disabled{background:#ccc;cursor:not-allowed;}
-  .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
-  .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
-  @media(max-width:768px){.duo,.trio{grid-template-columns:1fr;}}
-
-  /* Ejercicio de JSON */
-  .jej{display:none;}
-  .jej.activo{display:block;}
-  .jpanel{background:#F0FFF0;border:2px solid #006400;border-radius:10px;padding:18px 20px;
-          font-family:Consolas,monospace;font-size:17px;line-height:2;overflow-x:auto;white-space:pre;}
-  .jval{background:#fff;border:2px solid var(--bd);border-radius:6px;padding:1px 7px;
-        cursor:pointer;transition:all .15s;display:inline-block;}
-  .jval:hover{border-color:var(--json);background:#E6F7E6;}
-  .jval.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
-  .jval.no{background:#FFEBEE;border-color:var(--rojo);}
-  .jkey{color:#9CDCFE;}
-  .jctx{background:var(--azul-bg);border-left:5px solid var(--azul);border-radius:8px;
-        padding:12px 16px;margin-bottom:12px;font-size:17px;}
-  .jpide{font-size:21px;font-weight:bold;margin:14px 0 10px;}
-  .jfb{margin-top:12px;font-size:18px;}
-  .jcamino{background:var(--code-bg);color:#D4D4D4;font-family:Consolas,monospace;
-           padding:12px 16px;border-radius:8px;font-size:17px;margin-top:10px;overflow-x:auto;}
-  .jcam-ops{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
-  .jcam-op{background:#1E1E1E;color:#D4D4D4;font-family:Consolas,monospace;font-size:16px;
-           padding:11px 14px;border:2px solid #3A3A3A;border-radius:8px;cursor:pointer;text-align:left;
-           transition:all .15s;}
-  .jcam-op:hover:enabled{border-color:var(--vio);}
-  .jcam-op:disabled{cursor:default;}
-  .jcam-op.cam-ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
-  .jcam-op.cam-no{background:#3a1e1e;border-color:#C0392B;opacity:.6;}
-  .jprog{font-size:16px;color:#666;margin-bottom:8px;}
-
-  /* Taller de reparaciones */
-  .rep{display:none;}
-  .rep.activo{display:block;}
-  .repcod{background:var(--code-bg);border-radius:8px;padding:14px 0;font-family:Consolas,monospace;
-          font-size:16px;line-height:1.9;overflow-x:auto;}
-  .rline{display:block;padding:2px 18px;cursor:pointer;white-space:pre;color:#D4D4D4;}
-  .rline:hover{background:#2D2D2D;}
-  .rline.ok{background:#1F6E5C;}
-  .rline.no{background:#5C1F1F;}
-  .rline.fija{cursor:default;color:#808080;}
-  .rline.fija:hover{background:transparent;}
-  .rnum{color:#606060;display:inline-block;width:26px;user-select:none;}
-
-  .encasa{display:inline-block;background:#7A4B00;color:#fff;font-size:14px;font-weight:bold;
-          letter-spacing:1px;padding:5px 12px;border-radius:20px;margin-left:auto;}
-  .banda-casa{background:#FFF8EE;border:2px dashed #B8720A;border-radius:10px;
-              padding:12px 18px;margin-bottom:16px;font-size:18px;}
-
-  /* Campos extraíbles */
-  .campo{display:inline-block;background:#fff;border:2px solid var(--bd);border-radius:22px;
-         padding:9px 18px;margin:6px 6px 6px 0;cursor:pointer;font-size:18px;transition:all .15s;}
-  .campo:hover{border-color:var(--p1);background:#F2FAF8;}
-  .campo.si{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
-  .campo.no{background:#FFEBEE;border-color:var(--rojo);color:#8B1A1A;text-decoration:line-through;}
-  .ext-txt{background:#FFFDF5;border:2px solid var(--amb);border-radius:10px;padding:16px 20px;
-           font-size:19px;line-height:1.7;font-style:italic;margin-bottom:14px;}
-
-  .tarea{background:#fff;border:2px solid var(--bd);border-radius:10px;
-         padding:13px 18px;margin-bottom:10px;font-size:18px;transition:all .15s;
-         display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
-  .tarea-txt{flex:1 1 240px;}
-  .tarea-btns{display:flex;gap:8px;}
-  .tbtn{background:#fff;border:2px solid var(--bd);border-radius:8px;padding:8px 12px;
-        font-size:16px;cursor:pointer;font-family:inherit;color:var(--txt);white-space:nowrap;}
-  .tbtn:hover:enabled{border-color:var(--vio);}
-  .tbtn:disabled{cursor:default;opacity:.55;}
-  .tbtn.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;opacity:1;}
-  .tbtn.mal{background:#FFEBEE;border-color:#C0392B;color:#8B1A1A;opacity:1;}
-  .tarea.resuelta{background:#F7FBF9;border-color:#1F6E5C;}
-  .tarea-fb{flex:1 1 100%;font-size:16px;}
-  .btn-op{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px 20px;
-          margin:6px 8px 6px 0;font-size:18px;cursor:pointer;font-family:inherit;color:var(--txt);}
-  .btn-op:hover{border-color:var(--p1);}
-  .btn-op.ok{background:#E8F4F0;border-color:var(--p1);}
-  .btn-op.mal{background:#FFEBEE;border-color:var(--rojo);}
-  .parte{display:inline-block;background:#1E1E1E;color:#DCDCAA;border:2px solid #444;
-         border-radius:8px;padding:8px 14px;margin:5px 4px;cursor:pointer;
-         font-family:Consolas,monospace;font-size:20px;}
-  .parte:hover{border-color:#DCDCAA;}
-  .parte.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
-  .parte.mal{background:#5C1F1F;border-color:#C62828;}
-
-  /* Cuestionario de cierre */
-  .cq-op{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);
-         border-radius:10px;padding:13px 18px;margin-bottom:9px;font-size:18px;cursor:pointer;
-         font-family:inherit;color:var(--txt);line-height:1.5;}
-  .cq-op:hover:enabled{border-color:var(--vio);background:#FAF7FF;}
-  .cq-op:disabled{cursor:default;opacity:.95;}
-  .cq-vf{display:inline-block;width:48%;text-align:center;font-size:20px;font-weight:bold;
-         padding:16px;margin:0 1% 10px;border:2px solid var(--bd);border-radius:10px;
-         background:#fff;cursor:pointer;font-family:inherit;color:var(--txt);}
-  .cq-vf:hover:enabled{border-color:var(--vio);}
-  .cq-vf:disabled{cursor:default;opacity:.95;}
-  .cq-barra{height:14px;background:#E8E8E8;border-radius:7px;overflow:hidden;margin:10px 0 4px;}
-  .cq-fill{height:100%;background:var(--vio);width:0;transition:width .3s;}
+  .msg{background:#FFFDF6;border:2px solid var(--amb);border-radius:10px;padding:14px 18px;font-size:18px;font-style:italic;line-height:1.6;margin:10px 0;}
+  .op{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);border-radius:10px;padding:13px 17px;margin-bottom:9px;font-size:17px;cursor:pointer;font-family:inherit;color:var(--txt);line-height:1.5;}
+  .op:hover:enabled{border-color:var(--p1);background:#F7FBFA;}
+  .op:disabled{cursor:default;}
+  .op.ok{background:#E8F5E9;border-color:#1F6E5C;font-weight:bold;}
+  .op.mal{background:#FFEBEE;border-color:#C62828;}
+  .fb{font-size:17px;margin-top:10px;padding:12px 15px;background:var(--gris);border-radius:8px;}
+  .duo2{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
+  .duo2 button{flex:1 1 180px;}
+  .item{display:block;background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px 16px;margin-bottom:9px;font-size:17px;}
+  .lineas{background:var(--code-bg);border-radius:10px;padding:14px 0;margin:12px 0;overflow-x:auto;}
+  .ln{display:block;padding:7px 18px;color:#D4D4D4;font-family:Consolas,monospace;font-size:16px;cursor:pointer;white-space:pre;}
+  .ln:hover{background:#2A2A2A;}
+  .ln.ok{background:#1F6E5C;color:#fff;}
+  .ln.mal{background:#5A2020;}
+  .jsonb{background:var(--code-bg);border-radius:10px;padding:16px 20px;margin:12px 0;font-family:Consolas,monospace;font-size:16px;color:#D4D4D4;line-height:1.9;overflow-x:auto;white-space:pre-wrap;}
+  .val{background:#2D2D2D;border:2px solid #555;border-radius:6px;padding:2px 8px;cursor:pointer;color:#CE9178;}
+  .val:hover{border-color:var(--vio);}
+  .val.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .val.mal{background:#5A2020;border-color:#C0392B;}
+  .campo-r{width:100%;box-sizing:border-box;border:2px solid var(--bd);border-radius:8px;padding:11px 13px;font-size:16px;font-family:inherit;color:var(--txt);line-height:1.5;resize:vertical;margin-top:6px;}
+  .lbl{font-weight:bold;font-size:17px;margin-top:12px;display:block;}
+  .btn-desc{background:var(--p1);color:#fff;border:none;border-radius:10px;padding:14px 24px;font-size:18px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:14px;}
 </style>
 </head>
 <body>
 <header>
-  <h1>CIERRE — LA ROTISERÍA</h1>
-  <p>Taller de IA &middot; 7&deg; TIC &middot; CTP Antonio Mart&iacute;n Marte &middot; Caso de práctica · disponible</p>
+  <h1>CIERRE GUIADO — LA ROTISERÍA</h1>
+  <p>Taller de IA · 7° TIC · CTP Antonio Martín Marte · Recuperación</p>
 </header>
 <div class="container">
-<a href="index.html" class="back-btn">&#11013; Volver al &Iacute;ndice</a>
-
-<style>
-  .msg{background:#FFFDF6;border:2px solid var(--amb);border-radius:10px;
-       padding:14px 18px;font-size:18px;font-style:italic;line-height:1.6;margin:10px 0;}
-  .campo-r{width:100%;box-sizing:border-box;border:2px solid var(--bd);border-radius:8px;
-           padding:11px 13px;font-size:16px;font-family:inherit;color:var(--txt);
-           line-height:1.5;resize:vertical;margin-top:6px;}
-  .campo-r:focus{outline:none;border-color:var(--p1);}
-  .lbl{font-weight:bold;font-size:17px;margin-top:12px;display:block;}
-  .btn-desc{background:var(--p1);color:#fff;border:none;border-radius:10px;padding:14px 24px;
-            font-size:18px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:14px;}
-  .reloj{display:inline-block;background:var(--amb);color:#fff;font-size:15px;font-weight:bold;
-         padding:3px 12px;border-radius:20px;margin-left:10px;vertical-align:middle;}
-  .paso-c{background:var(--bco);border:2px solid var(--bd);border-left:6px solid var(--p1);
-          border-radius:10px;padding:16px 20px;margin:14px 0;}
-  .paso-c h4{margin:0 0 8px 0;font-size:20px;color:var(--p1);}
-</style>
 
 <div class="card c-info">
-  <h2><span class="badge" style="background:var(--teal)">0</span> UN CASO PARA PRACTICAR</h2>
-  <p>Es un caso <strong>nuevo</strong>, de otro rubro, donde se junta todo lo que vieron. La idea no es que memorices: es que <strong>puedas hacerlo en un contexto que no viste antes</strong>. Está disponible para practicar cuando quieras.</p>
-  <div class="info i-amb">
-    <strong>Cómo trabajar</strong>
-    Andá en orden. Si te trabás en un paso, dejá anotado hasta dónde llegaste y seguí con el siguiente: se evalúa todo el recorrido, no solo el final.
-  </div>
-
-</div>
-
-<div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">1</span> EL CASO</h2>
-  <p>Una rotisería toma los pedidos por mensaje. Quieren pasarlos a una planilla para organizar la cocina. Estos son los mensajes de hoy:</p>
-
+  <h2><span class="badge" style="background:var(--teal)">0</span> EL DESAFÍO DE HOY</h2>
+  <p>Vamos a aplicar todo lo que repasamos la clase pasada, pero en un caso nuevo. Una rotisería quiere armar una planilla para organizar la cocina usando estos mensajes que mandan los clientes:</p>
   <div class="msg">"Hola! Quer&iacute;a pedir 2 milanesas napolitanas con pur&eacute; para las 21. A nombre de Ram&iacute;rez."</div>
   <div class="msg">"Buenas, 1 pollo entero al horno con papas. Paso a buscarlo tipo 20:30. Soy Vanina."</div>
   <div class="msg">"Che, mandame 3 empanadas de carne y 3 de pollo, para ahora si se puede. Departamento 4B."</div>
-
-  <div class="info i-json">
-    <strong>Lo que hay que lograr</strong>
-    Que el programa devuelva, para cada mensaje, estos campos: <code>cliente</code>, <code>pedido</code>, <code>cantidad</code> y <code>hora</code>.
+  <div class="info i-azul">
+    <strong>🎯 Tu objetivo</strong>
+    Que la IA devuelva siempre cuatro campos exactos: <code>cliente</code>, <code>pedido</code>, <code>cantidad</code> y <code>hora</code>. Resolvé los pasos tocando las opciones correctas.
   </div>
 </div>
 
 <div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">2</span> EL RECORRIDO</h2>
+  <h2><span class="badge" style="background:var(--p1)">1</span> ¿DÓNDE PASA CADA COSA?</h2>
+  <p>Decidí quién hace cada tarea en el circuito del programa.</p>
+  <div id="z1"></div>
+  <div class="fb" id="f1" style="display:none;"></div>
+</div>
 
-  <div class="paso-c">
-    <h4>Paso 1 — El circuito</h4>
-    <p>Antes de tocar nada: explicá qué va a pasar cuando ejecutes el programa. ¿Qué hace tu computadora, qué hace el servidor, y qué viaja entre los dos?</p>
-    <textarea class="campo-r" id="c1" rows="4" placeholder="..."></textarea>
-  </div>
+<div class="card c-p1">
+  <h2><span class="badge" style="background:var(--p1)">2</span> EL CÓDIGO DE CONEXIÓN</h2>
+  <p>Tocá la línea de código que corresponda a lo que te pregunto.</p>
+  <p class="jprog" id="p2" style="font-size:17px;color:#667;"></p>
+  <div class="lineas" id="z2"></div>
+  <div class="fb" id="f2" style="display:none;"></div>
+</div>
 
-  <div class="paso-c">
-    <h4>Paso 2 — La conexión</h4>
-    <p>Mirá el bloque de conexión del programa. Señalá dónde está la dirección, dónde la credencial, y dónde se arma lo que se envía. Explicá qué error daría el programa si la credencial estuviera vencida.</p>
-    <textarea class="campo-r" id="c2" rows="4" placeholder="..."></textarea>
+<div class="card c-json">
+  <h2><span class="badge" style="background:var(--json)">3</span> LLEGAR HASTA EL DATO</h2>
+  <p>El servidor mandó esta respuesta. <strong>Tocá el texto que escribió la IA</strong>.</p>
+  <div class="jsonb">{
+  <span style="color:#9CDCFE;">"choices"</span>: [
+      {
+        <span style="color:#9CDCFE;">"message"</span>: {
+            <span style="color:#9CDCFE;">"role"</span>: <span class="val" data-k="rol">"assistant"</span>,
+            <span style="color:#9CDCFE;">"content"</span>: <span class="val" data-k="cont">"cliente: Ramirez, pedido: milanesas..."</span>
+        },
+        <span style="color:#9CDCFE;">"finish_reason"</span>: <span class="val" data-k="fin">"stop"</span>
+      }
+  ],
+  <span style="color:#9CDCFE;">"usage"</span>: {<span style="color:#9CDCFE;">"total_tokens"</span>: <span class="val" data-k="tok">250</span>}
+}</div>
+  <div class="fb" id="f3" style="display:none;"></div>
+  <div id="z3b" style="display:none;">
+    <p style="font-weight:bold;margin-top:14px;">¿Cuál es la línea de código exacta para extraer ese texto?</p>
+    <div id="z3c"></div>
+    <div class="fb" id="f3b" style="display:none;"></div>
   </div>
+</div>
 
-  <div class="paso-c">
-    <h4>Paso 3 — Llegar al dato</h4>
-    <p>Ejecutá el programa con el primer mensaje. Escribí el camino completo para llegar al texto que devolvió la IA.</p>
-    <textarea class="campo-r" id="c3" rows="2" placeholder="respuesta[...]..."></textarea>
-  </div>
+<div class="card c-p1">
+  <h2><span class="badge" style="background:var(--p1)">4</span> REGLAS Y TEMPERATURA</h2>
+  <div id="z4"></div>
+  <div class="fb" id="f4" style="display:none;"></div>
+</div>
 
-  <div class="paso-c">
-    <h4>Paso 4 — Las reglas y la temperatura</h4>
-    <p>Para este trabajo, ¿qué temperatura le pondrías y por qué? ¿En cuál de los tres roles conviene escribir las reglas de extracción, y por qué en ese y no en otro?</p>
-    <textarea class="campo-r" id="c4" rows="4" placeholder="..."></textarea>
-  </div>
-
-  <div class="paso-c">
-    <h4>Paso 5 — Lo que no está</h4>
-    <p>Mirá los tres mensajes con atención. <strong>Hay campos que no se pueden completar</strong> porque el dato no está escrito. Identificá cuáles son, y después fijate qué hizo la IA con ellos.</p>
-    <label class="lbl">¿Qué campos no se pueden sacar de cada mensaje?</label>
-    <textarea class="campo-r" id="c5a" rows="3" placeholder="..."></textarea>
-    <label class="lbl">¿Qué hizo la IA con esos campos? ¿Los dejó vacíos o los completó?</label>
-    <textarea class="campo-r" id="c5b" rows="3" placeholder="..."></textarea>
-  </div>
-
-  <div class="paso-c" style="border-left-color:var(--vio);">
-    <h4 style="color:var(--vio);">Paso 6 — Que funcione con los tres</h4>
-    <p>Escribí la instrucción para que los tres mensajes devuelvan los cuatro campos con la misma forma, y que <strong>cuando un dato no esté, lo deje vacío en vez de inventarlo</strong>.</p>
-    <textarea class="campo-r" id="c6" rows="5" placeholder="Tu instrucción..."></textarea>
-    <label class="lbl">¿Funcionó con los tres? ¿Qué tuviste que ajustar?</label>
-    <textarea class="campo-r" id="c6b" rows="3" placeholder="..."></textarea>
-  </div>
+<div class="card c-rojo">
+  <h2><span class="badge" style="background:var(--rojo)">5</span> LA TRAMPA DE LA IA</h2>
+  <p>Le mandamos a la IA el último mensaje: <em>"Che, mandame 3 empanadas de carne y 3 de pollo, para ahora si se puede. Departamento 4B."</em></p>
+  <p>Esto fue lo que devolvió. <strong>Tocá los dos renglones donde la IA inventó o asumió un dato</strong> que no estaba escrito claramente.</p>
+  <div id="z5"></div>
+  <div class="fb" id="f5" style="display:none;"></div>
 </div>
 
 <div class="card c-entrega">
-  <h2><span class="badge" style="background:var(--classroom)">✔</span> TU REGISTRO</h2>
-  <p>Si lo hacés completo, descargá tu registro y mostráselo al profe.</p>
-  <label class="lbl">Tu nombre</label>
+  <h2><span class="badge" style="background:var(--classroom)">✔</span> TU TURNO: LA INSTRUCCIÓN</h2>
+  <p>Ahora que sabés cómo se equivoca la IA, escribí el *System Prompt* final para proteger a la rotisería. Recordá pedirle los cuatro campos (<code>cliente</code>, <code>pedido</code>, <code>cantidad</code> y <code>hora</code>) y ponerle la regla de oro si falta un dato.</p>
+  
+  <textarea class="campo-r" id="instruccion" rows="5" placeholder="Sos un extractor de datos para una rotisería..."></textarea>
+  
+  <label class="lbl" style="margin-top:20px;">Tu nombre</label>
   <input class="campo-r" id="nombre" placeholder="Nombre y apellido">
-  <label class="lbl">Para cerrar: ¿qué entendés hoy que no entendías hace dos semanas?</label>
-  <textarea class="campo-r" id="cierre" rows="3" placeholder="..."></textarea>
-  <button class="btn-desc" onclick="descargarCierre()">⬇ Descargar entrega final</button>
-  <p id="okc" style="color:var(--classroom);font-weight:bold;margin-top:10px;"></p>
+  
+  <button class="btn-desc" onclick="descargarCierre()">⬇ Descargar mi trabajo</button>
+  <p id="okr" style="color:var(--classroom);font-weight:bold;margin-top:10px;"></p>
 </div>
 
 </div>
+
 <script>
+var res = {b1:0, b2:0, b3:0, b4:0, b5:0};
+
+/* --- B1: Colab vs Servidor --- */
+var T1 = [
+ {t:"Ingresar el mensaje del cliente por teclado", lado:"colab", e:"El input corre localmente."},
+ {t:"Revisar si tu API Key tiene permiso", lado:"serv", e:"La seguridad la maneja el dueño del modelo."},
+ {t:"Armar el diccionario 'payload' y mandarlo", lado:"colab", e:"Tu script empaqueta la info."},
+ {t:"Adivinar un dato si falta información", lado:"serv", e:"La alucinación la produce la red neuronal."}
+];
+(function(){
+  var h='';
+  for(var i=0;i<T1.length;i++){
+    h += '<div class="item"><div>'+T1[i].t+'</div><div class="duo2">'
+       + '<button class="op" onclick="r1('+i+',\'colab\')">💻 Mi Colab</button>'
+       + '<button class="op" onclick="r1('+i+',\'serv\')">🖥️ Servidor de Groq</button></div>'
+       + '<div id="fb1_'+i+'"></div></div>';
+  }
+  document.getElementById('z1').innerHTML = h;
+})();
+function r1(i, elige){
+  var cont = document.getElementById('fb1_'+i);
+  if(cont.getAttribute('data-listo')==='si') return;
+  if(elige === T1[i].lado){
+    cont.setAttribute('data-listo','si');
+    cont.innerHTML = '<div class="fb"><strong style="color:#137333;">¡Bien!</strong> '+T1[i].e+'</div>';
+    res.b1++;
+    if(res.b1===T1.length){
+      document.getElementById('f1').style.display='block';
+      document.getElementById('f1').innerHTML='<strong style="color:#137333;">Bloque 1 completo.</strong>';
+    }
+  } else {
+    cont.innerHTML = '<div class="fb"><strong style="color:#C62828;">Mmm, no.</strong> Pensá dónde está el cerebro y dónde la interfaz.</div>';
+    setTimeout(function(){ if(cont.getAttribute('data-listo')!=='si') cont.innerHTML=''; }, 1600);
+  }
+}
+
+/* --- B2: Código --- */
+var CODIGO = [
+ 'url = "https://api.groq.com/openai/v1/chat/completions"',
+ 'headers = {"Authorization": f"Bearer {API_KEY}"}',
+ 'datos = {',
+ '    "model": "llama-3.3-70b-versatile",',
+ '    "messages": historial,',
+ '    "temperature": 0.0',
+ '}',
+ 'r = requests.post(url, headers=headers, json=datos)'
+];
+var P2 = [
+ {p:"¿En qué línea está la clave secreta para entrar?", ok:1, e:"Ahí se pasa la variable API_KEY en el header."},
+ {p:"¿Qué línea le ordena a la IA que no invente variaciones raras?", ok:5, e:"Temperatura en 0.0 la vuelve estricta y repetitiva."},
+ {p:"¿Cuál es la línea que finalmente dispara el mensaje por internet?", ok:7, e:"El requests.post es el que hace el envío final."}
+];
+var i2 = 0;
+function render2(){
+  document.getElementById('p2').textContent = 'Pregunta '+(i2+1)+' de '+P2.length+' · '+P2[i2].p;
+  var h='';
+  for(var i=0;i<CODIGO.length;i++){
+    h += '<span class="ln" data-i="'+i+'" onclick="r2('+i+')">'+CODIGO[i].replace(/</g,'&lt;')+'</span>';
+  }
+  document.getElementById('z2').innerHTML = h;
+}
+render2();
+function r2(i){
+  var f = document.getElementById('f2');
+  var lns = document.querySelectorAll('#z2 .ln');
+  if(i === P2[i2].ok){
+    lns[i].classList.add('ok');
+    f.style.display='block';
+    f.innerHTML = '<strong style="color:#137333;">Exacto.</strong> '+P2[i2].e
+                + (i2+1 < P2.length ? '<br><button class="btn-desc" style="padding:8px 16px; margin-top:8px; font-size:16px;" onclick="sig2()">Siguiente</button>' : '<br><strong>Bloque 2 completo.</strong>');
+    res.b2++;
+  } else {
+    lns[i].classList.add('mal');
+    f.style.display='block';
+    f.innerHTML = '<strong style="color:#C62828;">Esa no es.</strong> Volvé a leer el código.';
+    setTimeout(function(){ lns[i].classList.remove('mal'); }, 1200);
+  }
+}
+function sig2(){ i2++; document.getElementById('f2').style.display='none'; render2(); }
+
+/* --- B3: JSON --- */
+document.addEventListener('click', function(e){
+  var v = e.target.closest('.val');
+  if(!v || v.getAttribute('data-listo')==='si') return;
+  var f = document.getElementById('f3');
+  f.style.display='block';
+  if(v.getAttribute('data-k')==='cont'){
+    v.classList.add('ok'); v.setAttribute('data-listo','si');
+    f.innerHTML = '<strong style="color:#137333;">¡Ese es!</strong> Ahí vive el string que necesitamos.';
+    res.b3++;
+    document.getElementById('z3b').style.display='block';
+    var caminos = [
+      {c:'r.json()["choices"][0]["message"]["content"]', ok:true},
+      {c:'r.json()["message"]["content"]', ok:false},
+      {c:'r.json()["choices"]["message"]["content"]', ok:false}
+    ];
+    for(var i=caminos.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=caminos[i]; caminos[i]=caminos[j]; caminos[j]=t; }
+    var h='';
+    for(var k=0;k<caminos.length;k++){
+      h += '<button class="op" style="font-family:Consolas,monospace;" onclick="r3b(this,'+caminos[k].ok+')">'+caminos[k].c.replace(/</g,'&lt;')+'</button>';
+    }
+    document.getElementById('z3c').innerHTML = h;
+  } else {
+    v.classList.add('mal');
+    f.innerHTML = '<strong style="color:#C62828;">No.</strong> Eso es un metadato, buscá el texto real de la respuesta.';
+    setTimeout(function(){ v.classList.remove('mal'); }, 1200);
+  }
+});
+function r3b(btn, bien){
+  var f = document.getElementById('f3b');
+  f.style.display='block';
+  if(bien){
+    btn.classList.add('ok');
+    document.querySelectorAll('#z3c .op').forEach(function(b){ b.disabled=true; });
+    f.innerHTML = '<strong style="color:#137333;">Excelente.</strong> Como "choices" es una lista, necesitamos el [0] para abrirla.';
+    res.b3++;
+  } else {
+    btn.classList.add('mal'); btn.disabled = true;
+    f.innerHTML = '<strong style="color:#C62828;">Ese se rompe.</strong> Acordate que hay una lista (corchetes) en el medio.';
+  }
+}
+
+/* --- B4: Reglas --- */
+var P4 = [
+ {p:"Para que el extractor arme la tabla perfecta sin cambiar el formato, ¿qué temperatura usamos?", o:["Temperatura 0.0 (Cero)","Temperatura 1.5","La temperatura no importa"], ok:0, e:"El 0.0 lo vuelve determinista y preciso."},
+ {p:"¿Adentro de qué diccionario guardamos las reglas estrictas de extracción?", o:["{'role': 'user'}","{'role': 'assistant'}","{'role': 'system'}"], ok:2, e:"El system es el rol que la IA respeta como mandato general."}
+];
+var i4=0;
+function render4(){
+  var q=P4[i4];
+  var h='<p style="font-size:17px;color:#667;">Pregunta '+(i4+1)+' de '+P4.length+'</p>';
+  h+='<p style="font-weight:bold;font-size:19px;margin:8px 0 12px 0;">'+q.p+'</p>';
+  for(var i=0;i<q.o.length;i++){ h+='<button class="op" onclick="r4('+i+')">'+q.o[i]+'</button>'; }
+  document.getElementById('z4').innerHTML=h;
+}
+render4();
+function r4(i){
+  var q=P4[i4], f=document.getElementById('f4');
+  var btns=document.querySelectorAll('#z4 .op');
+  for(var k=0;k<btns.length;k++){ btns[k].disabled=true; }
+  btns[q.ok].classList.add('ok');
+  if(i!==q.ok){ btns[i].classList.add('mal'); } else { res.b4++; }
+  f.style.display='block';
+  f.innerHTML = (i===q.ok?'<strong style="color:#137333;">¡Correcto!</strong> ':'<strong style="color:#C62828;">Mmm no.</strong> ')+q.e
+              + (i4+1<P4.length ? '<br><button class="btn-desc" style="padding:8px 16px; margin-top:8px; font-size:16px;" onclick="sig4()">Siguiente</button>' : '<br><strong>Bloque 4 completo.</strong>');
+}
+function sig4(){ i4++; document.getElementById('f4').style.display='none'; render4(); }
+
+/* --- B5: Alucinaciones Rotisería --- */
+var T5 = [
+ {t:"cliente: Departamento 4B", inv:true, e:"Dijo Depto 4B, pero eso es una dirección, no su nombre. Alucinación por contexto."},
+ {t:"pedido: empanadas de carne y pollo", inv:false, e:"Estaba explícito en el mensaje."},
+ {t:"cantidad: 6", inv:false, e:"Dijo 3 y 3, es una deducción válida, el dato está."},
+ {t:"hora: 20:45", inv:true, e:"El cliente pidió 'para ahora'. Inventar una hora exacta es un peligro en una cocina."}
+];
+(function(){
+  var h='';
+  for(var i=0;i<T5.length;i++){ h+='<button class="op" style="font-family:Consolas,monospace;" onclick="r5('+i+')">'+T5[i].t+'</button>'; }
+  document.getElementById('z5').innerHTML=h;
+})();
+function r5(i){
+  var btns=document.querySelectorAll('#z5 .op'), f=document.getElementById('f5');
+  if(btns[i].disabled) return;
+  f.style.display='block';
+  if(T5[i].inv){
+    btns[i].classList.add('ok'); btns[i].disabled=true; res.b5++;
+    f.innerHTML='<strong style="color:#137333;">¡Cazaste la alucinación!</strong> '+T5[i].e;
+    if(res.b5===2){ f.innerHTML+='<br><strong>¡Encontraste las dos trampas!</strong> La IA no puede soportar los espacios vacíos y rellena con lo que le suena lógico.'; }
+  } else {
+    btns[i].classList.add('mal');
+    f.innerHTML='<strong style="color:#C62828;">Ese dato es real.</strong> '+T5[i].e;
+    setTimeout(function(){ btns[i].classList.remove('mal'); }, 1400);
+  }
+}
+
+/* --- Registro --- */
 function descargarCierre(){
   var n = document.getElementById('nombre').value.trim();
-  if(!n){ alert('Escribí tu nombre antes de descargar.'); return; }
-  function v(id){ var e=document.getElementById(id); return e && e.value.trim() ? e.value.trim() : '(sin completar)'; }
+  var inst = document.getElementById('instruccion').value.trim();
+  if(!n){ alert('Falta tu nombre.'); return; }
+  if(!inst){ alert('Escribí el System Prompt antes de descargar.'); return; }
+  
   var f = new Date();
   var fecha = f.getDate()+'/'+(f.getMonth()+1)+'/'+f.getFullYear();
-  var hora = ('0'+f.getHours()).slice(-2)+':'+('0'+f.getMinutes()).slice(-2);
   var t = [];
-  t.push('ENTREGA FINAL DEL PERIODO - La rotiseria');
+  t.push('REGISTRO - Cierre Guiado (La Rotiseria)');
   t.push('Taller de IA - 7 TIC - CTP Antonio Martin Marte');
   t.push('Nombre: ' + n);
-  t.push('Fecha: ' + fecha + ' ' + hora);
+  t.push('Fecha: ' + fecha);
   t.push('');
-  t.push('--- PASO 1: el circuito ---');
-  t.push(v('c1'));
+  t.push('Rendimiento en bloques:');
+  t.push('B1 - Circuito: ' + res.b1 + ' de 4');
+  t.push('B2 - Conexion: ' + res.b2 + ' de 3');
+  t.push('B3 - Navegar JSON: ' + res.b3 + ' de 2');
+  t.push('B4 - Reglas y Temp: ' + res.b4 + ' de 2');
+  t.push('B5 - Alucinaciones detectadas: ' + res.b5 + ' de 2');
   t.push('');
-  t.push('--- PASO 2: la conexion ---');
-  t.push(v('c2'));
+  t.push('--- INSTRUCCION FINAL (SYSTEM PROMPT) ---');
+  t.push(inst);
   t.push('');
-  t.push('--- PASO 3: el camino al dato ---');
-  t.push(v('c3'));
-  t.push('');
-  t.push('--- PASO 4: reglas y temperatura ---');
-  t.push(v('c4'));
-  t.push('');
-  t.push('--- PASO 5: lo que no esta ---');
-  t.push('Campos que no se pueden sacar: ' + v('c5a'));
-  t.push('Que hizo la IA: ' + v('c5b'));
-  t.push('');
-  t.push('--- PASO 6: la instruccion ---');
-  t.push(v('c6'));
-  t.push('Ajustes: ' + v('c6b'));
-  t.push('');
-  t.push('--- CIERRE ---');
-  t.push(v('cierre'));
-  t.push('');
-  var texto = t.join('\n');
-  var limpio = n.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'_');
-  var blob = new Blob([texto], {type:'text/plain;charset=utf-8'});
+  
+  var blob = new Blob([t.join('\n')], {type:'text/plain;charset=utf-8'});
   var a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'cierre_' + limpio + '.txt';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  document.getElementById('okc').textContent = 'Entrega descargada. Subila antes de salir.';
+  a.download = 'cierre_guiado_rotiseria_' + n.replace(/[^a-zA-Z0-9]/g,'_') + '.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  document.getElementById('okr').textContent='¡Registro descargado! Excelente trabajo.';
 }
 </script>
 </body>
