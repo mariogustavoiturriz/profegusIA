@@ -1,0 +1,2314 @@
+{
+ "fuente": "Muestreo de red de agua",
+ "unidad": "mg/L",
+ "campo_principal": "nitratos_mg_l",
+ "lecturas_por_hora": 12,
+ "total_lecturas": 288,
+ "nota": "Datos simulados con fines educativos. No corresponden a mediciones reales.",
+ "lecturas": [
+  {
+   "minuto_del_dia": 0,
+   "hora": "00:00",
+   "nitratos_mg_l": 21.1,
+   "promedio_ultima_hora": 21.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 5,
+   "hora": "00:05",
+   "nitratos_mg_l": 20.7,
+   "promedio_ultima_hora": 21.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 10,
+   "hora": "00:10",
+   "nitratos_mg_l": 20.4,
+   "promedio_ultima_hora": 20.9,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 15,
+   "hora": "00:15",
+   "nitratos_mg_l": 21.1,
+   "promedio_ultima_hora": 20.7,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 20,
+   "hora": "00:20",
+   "nitratos_mg_l": 21.2,
+   "promedio_ultima_hora": 20.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 25,
+   "hora": "00:25",
+   "nitratos_mg_l": 22.2,
+   "promedio_ultima_hora": 20.9,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 30,
+   "hora": "00:30",
+   "nitratos_mg_l": 22.4,
+   "promedio_ultima_hora": 21.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 35,
+   "hora": "00:35",
+   "nitratos_mg_l": 22.9,
+   "promedio_ultima_hora": 21.3,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 40,
+   "hora": "00:40",
+   "nitratos_mg_l": 22.2,
+   "promedio_ultima_hora": 21.5,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 45,
+   "hora": "00:45",
+   "nitratos_mg_l": 23.3,
+   "promedio_ultima_hora": 21.6,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 50,
+   "hora": "00:50",
+   "nitratos_mg_l": 23.1,
+   "promedio_ultima_hora": 21.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 55,
+   "hora": "00:55",
+   "nitratos_mg_l": 23.2,
+   "promedio_ultima_hora": 21.9,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 60,
+   "hora": "01:00",
+   "nitratos_mg_l": 23.5,
+   "promedio_ultima_hora": 22.0,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 65,
+   "hora": "01:05",
+   "nitratos_mg_l": 23.6,
+   "promedio_ultima_hora": 22.2,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 70,
+   "hora": "01:10",
+   "nitratos_mg_l": 24.7,
+   "promedio_ultima_hora": 22.4,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 75,
+   "hora": "01:15",
+   "nitratos_mg_l": 24.1,
+   "promedio_ultima_hora": 22.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 80,
+   "hora": "01:20",
+   "nitratos_mg_l": 24.7,
+   "promedio_ultima_hora": 23.0,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 85,
+   "hora": "01:25",
+   "nitratos_mg_l": 25.9,
+   "promedio_ultima_hora": 23.3,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 90,
+   "hora": "01:30",
+   "nitratos_mg_l": 26.2,
+   "promedio_ultima_hora": 23.6,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 95,
+   "hora": "01:35",
+   "nitratos_mg_l": 26.7,
+   "promedio_ultima_hora": 23.9,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 100,
+   "hora": "01:40",
+   "nitratos_mg_l": 26.5,
+   "promedio_ultima_hora": 24.3,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 105,
+   "hora": "01:45",
+   "nitratos_mg_l": 27.6,
+   "promedio_ultima_hora": 24.6,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 110,
+   "hora": "01:50",
+   "nitratos_mg_l": 27.7,
+   "promedio_ultima_hora": 25.0,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 115,
+   "hora": "01:55",
+   "nitratos_mg_l": 27.3,
+   "promedio_ultima_hora": 25.4,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 120,
+   "hora": "02:00",
+   "nitratos_mg_l": 27.6,
+   "promedio_ultima_hora": 25.7,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 125,
+   "hora": "02:05",
+   "nitratos_mg_l": 28.5,
+   "promedio_ultima_hora": 26.1,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 130,
+   "hora": "02:10",
+   "nitratos_mg_l": 29.3,
+   "promedio_ultima_hora": 26.5,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 135,
+   "hora": "02:15",
+   "nitratos_mg_l": 29.8,
+   "promedio_ultima_hora": 26.8,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 140,
+   "hora": "02:20",
+   "nitratos_mg_l": 29.8,
+   "promedio_ultima_hora": 27.3,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 145,
+   "hora": "02:25",
+   "nitratos_mg_l": 30.6,
+   "promedio_ultima_hora": 27.7,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 150,
+   "hora": "02:30",
+   "nitratos_mg_l": 30.6,
+   "promedio_ultima_hora": 28.1,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 155,
+   "hora": "02:35",
+   "nitratos_mg_l": 31.4,
+   "promedio_ultima_hora": 28.5,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 160,
+   "hora": "02:40",
+   "nitratos_mg_l": 32.6,
+   "promedio_ultima_hora": 28.9,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 165,
+   "hora": "02:45",
+   "nitratos_mg_l": 32.6,
+   "promedio_ultima_hora": 29.4,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 170,
+   "hora": "02:50",
+   "nitratos_mg_l": 32.5,
+   "promedio_ultima_hora": 29.8,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 175,
+   "hora": "02:55",
+   "nitratos_mg_l": 33.9,
+   "promedio_ultima_hora": 30.2,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 180,
+   "hora": "03:00",
+   "nitratos_mg_l": 33.3,
+   "promedio_ultima_hora": 30.8,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 185,
+   "hora": "03:05",
+   "nitratos_mg_l": 34.2,
+   "promedio_ultima_hora": 31.2,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 190,
+   "hora": "03:10",
+   "nitratos_mg_l": 33.9,
+   "promedio_ultima_hora": 31.7,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 195,
+   "hora": "03:15",
+   "nitratos_mg_l": 35.3,
+   "promedio_ultima_hora": 32.1,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 200,
+   "hora": "03:20",
+   "nitratos_mg_l": 35.1,
+   "promedio_ultima_hora": 32.6,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 205,
+   "hora": "03:25",
+   "nitratos_mg_l": 35.6,
+   "promedio_ultima_hora": 33.0,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 210,
+   "hora": "03:30",
+   "nitratos_mg_l": 36.5,
+   "promedio_ultima_hora": 33.4,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 215,
+   "hora": "03:35",
+   "nitratos_mg_l": 37.2,
+   "promedio_ultima_hora": 33.9,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 220,
+   "hora": "03:40",
+   "nitratos_mg_l": 37.5,
+   "promedio_ultima_hora": 34.4,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 225,
+   "hora": "03:45",
+   "nitratos_mg_l": 37.9,
+   "promedio_ultima_hora": 34.8,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 230,
+   "hora": "03:50",
+   "nitratos_mg_l": 38.6,
+   "promedio_ultima_hora": 35.2,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 235,
+   "hora": "03:55",
+   "nitratos_mg_l": 38.3,
+   "promedio_ultima_hora": 35.8,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 240,
+   "hora": "04:00",
+   "nitratos_mg_l": 39.2,
+   "promedio_ultima_hora": 36.1,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 245,
+   "hora": "04:05",
+   "nitratos_mg_l": 39.3,
+   "promedio_ultima_hora": 36.6,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 250,
+   "hora": "04:10",
+   "nitratos_mg_l": 40.7,
+   "promedio_ultima_hora": 37.0,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 255,
+   "hora": "04:15",
+   "nitratos_mg_l": 40.7,
+   "promedio_ultima_hora": 37.6,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 260,
+   "hora": "04:20",
+   "nitratos_mg_l": 41.1,
+   "promedio_ultima_hora": 38.1,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 265,
+   "hora": "04:25",
+   "nitratos_mg_l": 41.8,
+   "promedio_ultima_hora": 38.6,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 270,
+   "hora": "04:30",
+   "nitratos_mg_l": 43.1,
+   "promedio_ultima_hora": 39.1,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 275,
+   "hora": "04:35",
+   "nitratos_mg_l": 43.0,
+   "promedio_ultima_hora": 39.6,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 280,
+   "hora": "04:40",
+   "nitratos_mg_l": 43.3,
+   "promedio_ultima_hora": 40.1,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 285,
+   "hora": "04:45",
+   "nitratos_mg_l": 44.2,
+   "promedio_ultima_hora": 40.6,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 290,
+   "hora": "04:50",
+   "nitratos_mg_l": 44.8,
+   "promedio_ultima_hora": 41.1,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 295,
+   "hora": "04:55",
+   "nitratos_mg_l": 44.1,
+   "promedio_ultima_hora": 41.6,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 300,
+   "hora": "05:00",
+   "nitratos_mg_l": 45.1,
+   "promedio_ultima_hora": 42.1,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 305,
+   "hora": "05:05",
+   "nitratos_mg_l": 46.0,
+   "promedio_ultima_hora": 42.6,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 310,
+   "hora": "05:10",
+   "nitratos_mg_l": 45.7,
+   "promedio_ultima_hora": 43.2,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 315,
+   "hora": "05:15",
+   "nitratos_mg_l": 46.5,
+   "promedio_ultima_hora": 43.6,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 320,
+   "hora": "05:20",
+   "nitratos_mg_l": 46.1,
+   "promedio_ultima_hora": 44.1,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 325,
+   "hora": "05:25",
+   "nitratos_mg_l": 46.5,
+   "promedio_ultima_hora": 44.5,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 330,
+   "hora": "05:30",
+   "nitratos_mg_l": 46.6,
+   "promedio_ultima_hora": 44.9,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 335,
+   "hora": "05:35",
+   "nitratos_mg_l": 47.2,
+   "promedio_ultima_hora": 45.2,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 340,
+   "hora": "05:40",
+   "nitratos_mg_l": 47.5,
+   "promedio_ultima_hora": 45.5,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 345,
+   "hora": "05:45",
+   "nitratos_mg_l": 48.1,
+   "promedio_ultima_hora": 45.9,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 350,
+   "hora": "05:50",
+   "nitratos_mg_l": 48.8,
+   "promedio_ultima_hora": 46.2,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 355,
+   "hora": "05:55",
+   "nitratos_mg_l": 49.0,
+   "promedio_ultima_hora": 46.5,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 360,
+   "hora": "06:00",
+   "nitratos_mg_l": 49.1,
+   "promedio_ultima_hora": 46.9,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 365,
+   "hora": "06:05",
+   "nitratos_mg_l": 49.0,
+   "promedio_ultima_hora": 47.3,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 370,
+   "hora": "06:10",
+   "nitratos_mg_l": 48.9,
+   "promedio_ultima_hora": 47.5,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 375,
+   "hora": "06:15",
+   "nitratos_mg_l": 49.8,
+   "promedio_ultima_hora": 47.8,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 380,
+   "hora": "06:20",
+   "nitratos_mg_l": 50.0,
+   "promedio_ultima_hora": 48.1,
+   "tendencia": "subiendo",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 385,
+   "hora": "06:25",
+   "nitratos_mg_l": 48.8,
+   "promedio_ultima_hora": 48.4,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 390,
+   "hora": "06:30",
+   "nitratos_mg_l": 49.2,
+   "promedio_ultima_hora": 48.6,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 395,
+   "hora": "06:35",
+   "nitratos_mg_l": 49.2,
+   "promedio_ultima_hora": 48.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 400,
+   "hora": "06:40",
+   "nitratos_mg_l": 50.0,
+   "promedio_ultima_hora": 48.9,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 405,
+   "hora": "06:45",
+   "nitratos_mg_l": 49.9,
+   "promedio_ultima_hora": 49.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 410,
+   "hora": "06:50",
+   "nitratos_mg_l": 50.5,
+   "promedio_ultima_hora": 49.3,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 415,
+   "hora": "06:55",
+   "nitratos_mg_l": 49.9,
+   "promedio_ultima_hora": 49.4,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 420,
+   "hora": "07:00",
+   "nitratos_mg_l": 49.5,
+   "promedio_ultima_hora": 49.5,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 425,
+   "hora": "07:05",
+   "nitratos_mg_l": 49.2,
+   "promedio_ultima_hora": 49.6,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 430,
+   "hora": "07:10",
+   "nitratos_mg_l": 49.3,
+   "promedio_ultima_hora": 49.6,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 435,
+   "hora": "07:15",
+   "nitratos_mg_l": 49.3,
+   "promedio_ultima_hora": 49.6,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 440,
+   "hora": "07:20",
+   "nitratos_mg_l": 49.4,
+   "promedio_ultima_hora": 49.6,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 445,
+   "hora": "07:25",
+   "nitratos_mg_l": 49.1,
+   "promedio_ultima_hora": 49.5,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 450,
+   "hora": "07:30",
+   "nitratos_mg_l": 49.8,
+   "promedio_ultima_hora": 49.5,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 455,
+   "hora": "07:35",
+   "nitratos_mg_l": 49.8,
+   "promedio_ultima_hora": 49.6,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 460,
+   "hora": "07:40",
+   "nitratos_mg_l": 50.2,
+   "promedio_ultima_hora": 49.6,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 465,
+   "hora": "07:45",
+   "nitratos_mg_l": 49.4,
+   "promedio_ultima_hora": 49.7,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 470,
+   "hora": "07:50",
+   "nitratos_mg_l": 48.9,
+   "promedio_ultima_hora": 49.6,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 475,
+   "hora": "07:55",
+   "nitratos_mg_l": 48.6,
+   "promedio_ultima_hora": 49.5,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 480,
+   "hora": "08:00",
+   "nitratos_mg_l": 49.3,
+   "promedio_ultima_hora": 49.4,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 485,
+   "hora": "08:05",
+   "nitratos_mg_l": 47.8,
+   "promedio_ultima_hora": 49.4,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 490,
+   "hora": "08:10",
+   "nitratos_mg_l": 47.5,
+   "promedio_ultima_hora": 49.2,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 495,
+   "hora": "08:15",
+   "nitratos_mg_l": 47.6,
+   "promedio_ultima_hora": 49.1,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 500,
+   "hora": "08:20",
+   "nitratos_mg_l": 47.1,
+   "promedio_ultima_hora": 48.9,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 505,
+   "hora": "08:25",
+   "nitratos_mg_l": 47.5,
+   "promedio_ultima_hora": 48.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 510,
+   "hora": "08:30",
+   "nitratos_mg_l": 46.4,
+   "promedio_ultima_hora": 48.6,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 515,
+   "hora": "08:35",
+   "nitratos_mg_l": 46.0,
+   "promedio_ultima_hora": 48.3,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 520,
+   "hora": "08:40",
+   "nitratos_mg_l": 46.9,
+   "promedio_ultima_hora": 48.0,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 525,
+   "hora": "08:45",
+   "nitratos_mg_l": 46.6,
+   "promedio_ultima_hora": 47.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 530,
+   "hora": "08:50",
+   "nitratos_mg_l": 45.7,
+   "promedio_ultima_hora": 47.5,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 535,
+   "hora": "08:55",
+   "nitratos_mg_l": 45.2,
+   "promedio_ultima_hora": 47.2,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 540,
+   "hora": "09:00",
+   "nitratos_mg_l": 45.0,
+   "promedio_ultima_hora": 47.0,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 545,
+   "hora": "09:05",
+   "nitratos_mg_l": 43.9,
+   "promedio_ultima_hora": 46.6,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 550,
+   "hora": "09:10",
+   "nitratos_mg_l": 43.8,
+   "promedio_ultima_hora": 46.3,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 555,
+   "hora": "09:15",
+   "nitratos_mg_l": 43.1,
+   "promedio_ultima_hora": 46.0,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 560,
+   "hora": "09:20",
+   "nitratos_mg_l": 43.2,
+   "promedio_ultima_hora": 45.6,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 565,
+   "hora": "09:25",
+   "nitratos_mg_l": 43.4,
+   "promedio_ultima_hora": 45.3,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 570,
+   "hora": "09:30",
+   "nitratos_mg_l": 41.7,
+   "promedio_ultima_hora": 44.9,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 575,
+   "hora": "09:35",
+   "nitratos_mg_l": 42.7,
+   "promedio_ultima_hora": 44.5,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 580,
+   "hora": "09:40",
+   "nitratos_mg_l": 41.9,
+   "promedio_ultima_hora": 44.3,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 585,
+   "hora": "09:45",
+   "nitratos_mg_l": 40.8,
+   "promedio_ultima_hora": 43.9,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 590,
+   "hora": "09:50",
+   "nitratos_mg_l": 41.2,
+   "promedio_ultima_hora": 43.4,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 595,
+   "hora": "09:55",
+   "nitratos_mg_l": 39.4,
+   "promedio_ultima_hora": 43.0,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 600,
+   "hora": "10:00",
+   "nitratos_mg_l": 39.9,
+   "promedio_ultima_hora": 42.5,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 605,
+   "hora": "10:05",
+   "nitratos_mg_l": 38.9,
+   "promedio_ultima_hora": 42.1,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 610,
+   "hora": "10:10",
+   "nitratos_mg_l": 39.4,
+   "promedio_ultima_hora": 41.7,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 615,
+   "hora": "10:15",
+   "nitratos_mg_l": 38.0,
+   "promedio_ultima_hora": 41.3,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 620,
+   "hora": "10:20",
+   "nitratos_mg_l": 36.9,
+   "promedio_ultima_hora": 40.9,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 625,
+   "hora": "10:25",
+   "nitratos_mg_l": 37.1,
+   "promedio_ultima_hora": 40.4,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 630,
+   "hora": "10:30",
+   "nitratos_mg_l": 37.0,
+   "promedio_ultima_hora": 39.8,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 635,
+   "hora": "10:35",
+   "nitratos_mg_l": 36.9,
+   "promedio_ultima_hora": 39.4,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 640,
+   "hora": "10:40",
+   "nitratos_mg_l": 35.5,
+   "promedio_ultima_hora": 38.9,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 645,
+   "hora": "10:45",
+   "nitratos_mg_l": 35.0,
+   "promedio_ultima_hora": 38.4,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 650,
+   "hora": "10:50",
+   "nitratos_mg_l": 34.0,
+   "promedio_ultima_hora": 37.9,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 655,
+   "hora": "10:55",
+   "nitratos_mg_l": 34.5,
+   "promedio_ultima_hora": 37.3,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 660,
+   "hora": "11:00",
+   "nitratos_mg_l": 33.7,
+   "promedio_ultima_hora": 36.9,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 665,
+   "hora": "11:05",
+   "nitratos_mg_l": 33.1,
+   "promedio_ultima_hora": 36.4,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 670,
+   "hora": "11:10",
+   "nitratos_mg_l": 32.5,
+   "promedio_ultima_hora": 35.9,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 675,
+   "hora": "11:15",
+   "nitratos_mg_l": 31.7,
+   "promedio_ultima_hora": 35.4,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 680,
+   "hora": "11:20",
+   "nitratos_mg_l": 32.4,
+   "promedio_ultima_hora": 34.8,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 685,
+   "hora": "11:25",
+   "nitratos_mg_l": 31.5,
+   "promedio_ultima_hora": 34.4,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 690,
+   "hora": "11:30",
+   "nitratos_mg_l": 31.4,
+   "promedio_ultima_hora": 34.0,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 695,
+   "hora": "11:35",
+   "nitratos_mg_l": 30.0,
+   "promedio_ultima_hora": 33.5,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 700,
+   "hora": "11:40",
+   "nitratos_mg_l": 30.5,
+   "promedio_ultima_hora": 32.9,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 705,
+   "hora": "11:45",
+   "nitratos_mg_l": 30.0,
+   "promedio_ultima_hora": 32.5,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 710,
+   "hora": "11:50",
+   "nitratos_mg_l": 29.4,
+   "promedio_ultima_hora": 32.1,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 715,
+   "hora": "11:55",
+   "nitratos_mg_l": 28.5,
+   "promedio_ultima_hora": 31.7,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 720,
+   "hora": "12:00",
+   "nitratos_mg_l": 28.7,
+   "promedio_ultima_hora": 31.2,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 725,
+   "hora": "12:05",
+   "nitratos_mg_l": 27.7,
+   "promedio_ultima_hora": 30.8,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 730,
+   "hora": "12:10",
+   "nitratos_mg_l": 27.7,
+   "promedio_ultima_hora": 30.4,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 735,
+   "hora": "12:15",
+   "nitratos_mg_l": 27.2,
+   "promedio_ultima_hora": 30.0,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 740,
+   "hora": "12:20",
+   "nitratos_mg_l": 26.8,
+   "promedio_ultima_hora": 29.6,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 745,
+   "hora": "12:25",
+   "nitratos_mg_l": 26.0,
+   "promedio_ultima_hora": 29.1,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 750,
+   "hora": "12:30",
+   "nitratos_mg_l": 26.5,
+   "promedio_ultima_hora": 28.7,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 755,
+   "hora": "12:35",
+   "nitratos_mg_l": 26.1,
+   "promedio_ultima_hora": 28.2,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 760,
+   "hora": "12:40",
+   "nitratos_mg_l": 24.9,
+   "promedio_ultima_hora": 27.9,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 765,
+   "hora": "12:45",
+   "nitratos_mg_l": 25.2,
+   "promedio_ultima_hora": 27.5,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 770,
+   "hora": "12:50",
+   "nitratos_mg_l": 24.6,
+   "promedio_ultima_hora": 27.1,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 775,
+   "hora": "12:55",
+   "nitratos_mg_l": 23.6,
+   "promedio_ultima_hora": 26.7,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 780,
+   "hora": "13:00",
+   "nitratos_mg_l": 23.7,
+   "promedio_ultima_hora": 26.2,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 785,
+   "hora": "13:05",
+   "nitratos_mg_l": 22.7,
+   "promedio_ultima_hora": 25.8,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 790,
+   "hora": "13:10",
+   "nitratos_mg_l": 23.4,
+   "promedio_ultima_hora": 25.4,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 795,
+   "hora": "13:15",
+   "nitratos_mg_l": 22.9,
+   "promedio_ultima_hora": 25.1,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 800,
+   "hora": "13:20",
+   "nitratos_mg_l": 22.3,
+   "promedio_ultima_hora": 24.7,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 805,
+   "hora": "13:25",
+   "nitratos_mg_l": 22.7,
+   "promedio_ultima_hora": 24.3,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 810,
+   "hora": "13:30",
+   "nitratos_mg_l": 22.7,
+   "promedio_ultima_hora": 24.1,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 815,
+   "hora": "13:35",
+   "nitratos_mg_l": 21.3,
+   "promedio_ultima_hora": 23.7,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 820,
+   "hora": "13:40",
+   "nitratos_mg_l": 22.2,
+   "promedio_ultima_hora": 23.3,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 825,
+   "hora": "13:45",
+   "nitratos_mg_l": 21.7,
+   "promedio_ultima_hora": 23.1,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 830,
+   "hora": "13:50",
+   "nitratos_mg_l": 21.0,
+   "promedio_ultima_hora": 22.8,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 835,
+   "hora": "13:55",
+   "nitratos_mg_l": 20.6,
+   "promedio_ultima_hora": 22.5,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 840,
+   "hora": "14:00",
+   "nitratos_mg_l": 20.6,
+   "promedio_ultima_hora": 22.3,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 845,
+   "hora": "14:05",
+   "nitratos_mg_l": 21.1,
+   "promedio_ultima_hora": 22.0,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 850,
+   "hora": "14:10",
+   "nitratos_mg_l": 19.9,
+   "promedio_ultima_hora": 21.9,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 855,
+   "hora": "14:15",
+   "nitratos_mg_l": 20.6,
+   "promedio_ultima_hora": 21.6,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 860,
+   "hora": "14:20",
+   "nitratos_mg_l": 19.4,
+   "promedio_ultima_hora": 21.4,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 865,
+   "hora": "14:25",
+   "nitratos_mg_l": 20.3,
+   "promedio_ultima_hora": 21.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 870,
+   "hora": "14:30",
+   "nitratos_mg_l": 19.6,
+   "promedio_ultima_hora": 20.9,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 875,
+   "hora": "14:35",
+   "nitratos_mg_l": 19.0,
+   "promedio_ultima_hora": 20.7,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 880,
+   "hora": "14:40",
+   "nitratos_mg_l": 18.8,
+   "promedio_ultima_hora": 20.5,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 885,
+   "hora": "14:45",
+   "nitratos_mg_l": 19.6,
+   "promedio_ultima_hora": 20.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 890,
+   "hora": "14:50",
+   "nitratos_mg_l": 19.0,
+   "promedio_ultima_hora": 20.0,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 895,
+   "hora": "14:55",
+   "nitratos_mg_l": 18.9,
+   "promedio_ultima_hora": 19.9,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 900,
+   "hora": "15:00",
+   "nitratos_mg_l": 18.3,
+   "promedio_ultima_hora": 19.7,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 905,
+   "hora": "15:05",
+   "nitratos_mg_l": 18.2,
+   "promedio_ultima_hora": 19.5,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 910,
+   "hora": "15:10",
+   "nitratos_mg_l": 18.2,
+   "promedio_ultima_hora": 19.3,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 915,
+   "hora": "15:15",
+   "nitratos_mg_l": 17.9,
+   "promedio_ultima_hora": 19.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 920,
+   "hora": "15:20",
+   "nitratos_mg_l": 17.4,
+   "promedio_ultima_hora": 18.9,
+   "tendencia": "bajando",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 925,
+   "hora": "15:25",
+   "nitratos_mg_l": 17.7,
+   "promedio_ultima_hora": 18.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 930,
+   "hora": "15:30",
+   "nitratos_mg_l": 18.3,
+   "promedio_ultima_hora": 18.6,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 935,
+   "hora": "15:35",
+   "nitratos_mg_l": 17.6,
+   "promedio_ultima_hora": 18.4,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 940,
+   "hora": "15:40",
+   "nitratos_mg_l": 17.9,
+   "promedio_ultima_hora": 18.3,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 945,
+   "hora": "15:45",
+   "nitratos_mg_l": 17.6,
+   "promedio_ultima_hora": 18.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 950,
+   "hora": "15:50",
+   "nitratos_mg_l": 17.5,
+   "promedio_ultima_hora": 18.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 955,
+   "hora": "15:55",
+   "nitratos_mg_l": 17.1,
+   "promedio_ultima_hora": 18.0,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 960,
+   "hora": "16:00",
+   "nitratos_mg_l": 17.7,
+   "promedio_ultima_hora": 17.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 965,
+   "hora": "16:05",
+   "nitratos_mg_l": 17.0,
+   "promedio_ultima_hora": 17.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 970,
+   "hora": "16:10",
+   "nitratos_mg_l": 16.9,
+   "promedio_ultima_hora": 17.7,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 975,
+   "hora": "16:15",
+   "nitratos_mg_l": 16.6,
+   "promedio_ultima_hora": 17.6,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 980,
+   "hora": "16:20",
+   "nitratos_mg_l": 16.9,
+   "promedio_ultima_hora": 17.4,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 985,
+   "hora": "16:25",
+   "nitratos_mg_l": 16.7,
+   "promedio_ultima_hora": 17.4,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 990,
+   "hora": "16:30",
+   "nitratos_mg_l": 16.8,
+   "promedio_ultima_hora": 17.3,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 995,
+   "hora": "16:35",
+   "nitratos_mg_l": 17.0,
+   "promedio_ultima_hora": 17.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1000,
+   "hora": "16:40",
+   "nitratos_mg_l": 17.3,
+   "promedio_ultima_hora": 17.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1005,
+   "hora": "16:45",
+   "nitratos_mg_l": 16.4,
+   "promedio_ultima_hora": 17.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1010,
+   "hora": "16:50",
+   "nitratos_mg_l": 17.4,
+   "promedio_ultima_hora": 17.0,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1015,
+   "hora": "16:55",
+   "nitratos_mg_l": 17.1,
+   "promedio_ultima_hora": 17.0,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1020,
+   "hora": "17:00",
+   "nitratos_mg_l": 15.9,
+   "promedio_ultima_hora": 17.0,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1025,
+   "hora": "17:05",
+   "nitratos_mg_l": 16.3,
+   "promedio_ultima_hora": 16.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1030,
+   "hora": "17:10",
+   "nitratos_mg_l": 16.1,
+   "promedio_ultima_hora": 16.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1035,
+   "hora": "17:15",
+   "nitratos_mg_l": 16.1,
+   "promedio_ultima_hora": 16.7,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1040,
+   "hora": "17:20",
+   "nitratos_mg_l": 17.0,
+   "promedio_ultima_hora": 16.7,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1045,
+   "hora": "17:25",
+   "nitratos_mg_l": 16.7,
+   "promedio_ultima_hora": 16.7,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1050,
+   "hora": "17:30",
+   "nitratos_mg_l": 15.6,
+   "promedio_ultima_hora": 16.7,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1055,
+   "hora": "17:35",
+   "nitratos_mg_l": 15.9,
+   "promedio_ultima_hora": 16.6,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1060,
+   "hora": "17:40",
+   "nitratos_mg_l": 15.6,
+   "promedio_ultima_hora": 16.5,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1065,
+   "hora": "17:45",
+   "nitratos_mg_l": 15.8,
+   "promedio_ultima_hora": 16.3,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1070,
+   "hora": "17:50",
+   "nitratos_mg_l": 16.6,
+   "promedio_ultima_hora": 16.3,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1075,
+   "hora": "17:55",
+   "nitratos_mg_l": 17.0,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1080,
+   "hora": "18:00",
+   "nitratos_mg_l": 17.0,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1085,
+   "hora": "18:05",
+   "nitratos_mg_l": 16.3,
+   "promedio_ultima_hora": 16.3,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1090,
+   "hora": "18:10",
+   "nitratos_mg_l": 15.6,
+   "promedio_ultima_hora": 16.3,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1095,
+   "hora": "18:15",
+   "nitratos_mg_l": 16.4,
+   "promedio_ultima_hora": 16.3,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1100,
+   "hora": "18:20",
+   "nitratos_mg_l": 16.2,
+   "promedio_ultima_hora": 16.3,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1105,
+   "hora": "18:25",
+   "nitratos_mg_l": 16.4,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1110,
+   "hora": "18:30",
+   "nitratos_mg_l": 15.8,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1115,
+   "hora": "18:35",
+   "nitratos_mg_l": 15.5,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1120,
+   "hora": "18:40",
+   "nitratos_mg_l": 16.0,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1125,
+   "hora": "18:45",
+   "nitratos_mg_l": 15.5,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1130,
+   "hora": "18:50",
+   "nitratos_mg_l": 16.9,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1135,
+   "hora": "18:55",
+   "nitratos_mg_l": 16.8,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1140,
+   "hora": "19:00",
+   "nitratos_mg_l": 16.6,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1145,
+   "hora": "19:05",
+   "nitratos_mg_l": 15.4,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1150,
+   "hora": "19:10",
+   "nitratos_mg_l": 16.2,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1155,
+   "hora": "19:15",
+   "nitratos_mg_l": 16.5,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1160,
+   "hora": "19:20",
+   "nitratos_mg_l": 15.9,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1165,
+   "hora": "19:25",
+   "nitratos_mg_l": 15.5,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1170,
+   "hora": "19:30",
+   "nitratos_mg_l": 16.8,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1175,
+   "hora": "19:35",
+   "nitratos_mg_l": 16.2,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1180,
+   "hora": "19:40",
+   "nitratos_mg_l": 15.3,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1185,
+   "hora": "19:45",
+   "nitratos_mg_l": 16.5,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1190,
+   "hora": "19:50",
+   "nitratos_mg_l": 15.7,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1195,
+   "hora": "19:55",
+   "nitratos_mg_l": 16.7,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1200,
+   "hora": "20:00",
+   "nitratos_mg_l": 16.1,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1205,
+   "hora": "20:05",
+   "nitratos_mg_l": 16.6,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1210,
+   "hora": "20:10",
+   "nitratos_mg_l": 15.9,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1215,
+   "hora": "20:15",
+   "nitratos_mg_l": 16.7,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1220,
+   "hora": "20:20",
+   "nitratos_mg_l": 15.9,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1225,
+   "hora": "20:25",
+   "nitratos_mg_l": 15.5,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1230,
+   "hora": "20:30",
+   "nitratos_mg_l": 16.2,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1235,
+   "hora": "20:35",
+   "nitratos_mg_l": 16.8,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1240,
+   "hora": "20:40",
+   "nitratos_mg_l": 15.5,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1245,
+   "hora": "20:45",
+   "nitratos_mg_l": 15.8,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1250,
+   "hora": "20:50",
+   "nitratos_mg_l": 15.3,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1255,
+   "hora": "20:55",
+   "nitratos_mg_l": 15.9,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1260,
+   "hora": "21:00",
+   "nitratos_mg_l": 16.1,
+   "promedio_ultima_hora": 16.0,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1265,
+   "hora": "21:05",
+   "nitratos_mg_l": 16.5,
+   "promedio_ultima_hora": 16.0,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1270,
+   "hora": "21:10",
+   "nitratos_mg_l": 15.9,
+   "promedio_ultima_hora": 16.0,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1275,
+   "hora": "21:15",
+   "nitratos_mg_l": 16.2,
+   "promedio_ultima_hora": 16.0,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1280,
+   "hora": "21:20",
+   "nitratos_mg_l": 16.5,
+   "promedio_ultima_hora": 16.0,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1285,
+   "hora": "21:25",
+   "nitratos_mg_l": 15.7,
+   "promedio_ultima_hora": 16.0,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1290,
+   "hora": "21:30",
+   "nitratos_mg_l": 16.5,
+   "promedio_ultima_hora": 16.0,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1295,
+   "hora": "21:35",
+   "nitratos_mg_l": 16.5,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1300,
+   "hora": "21:40",
+   "nitratos_mg_l": 15.9,
+   "promedio_ultima_hora": 16.0,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1305,
+   "hora": "21:45",
+   "nitratos_mg_l": 15.6,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1310,
+   "hora": "21:50",
+   "nitratos_mg_l": 16.4,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1315,
+   "hora": "21:55",
+   "nitratos_mg_l": 16.0,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1320,
+   "hora": "22:00",
+   "nitratos_mg_l": 15.4,
+   "promedio_ultima_hora": 16.2,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1325,
+   "hora": "22:05",
+   "nitratos_mg_l": 15.7,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1330,
+   "hora": "22:10",
+   "nitratos_mg_l": 16.4,
+   "promedio_ultima_hora": 16.0,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1335,
+   "hora": "22:15",
+   "nitratos_mg_l": 16.3,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1340,
+   "hora": "22:20",
+   "nitratos_mg_l": 15.2,
+   "promedio_ultima_hora": 16.1,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1345,
+   "hora": "22:25",
+   "nitratos_mg_l": 15.4,
+   "promedio_ultima_hora": 16.0,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1350,
+   "hora": "22:30",
+   "nitratos_mg_l": 15.9,
+   "promedio_ultima_hora": 15.9,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1355,
+   "hora": "22:35",
+   "nitratos_mg_l": 15.3,
+   "promedio_ultima_hora": 15.9,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1360,
+   "hora": "22:40",
+   "nitratos_mg_l": 15.8,
+   "promedio_ultima_hora": 15.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1365,
+   "hora": "22:45",
+   "nitratos_mg_l": 15.3,
+   "promedio_ultima_hora": 15.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1370,
+   "hora": "22:50",
+   "nitratos_mg_l": 16.8,
+   "promedio_ultima_hora": 15.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1375,
+   "hora": "22:55",
+   "nitratos_mg_l": 15.8,
+   "promedio_ultima_hora": 15.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1380,
+   "hora": "23:00",
+   "nitratos_mg_l": 16.3,
+   "promedio_ultima_hora": 15.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1385,
+   "hora": "23:05",
+   "nitratos_mg_l": 15.6,
+   "promedio_ultima_hora": 15.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1390,
+   "hora": "23:10",
+   "nitratos_mg_l": 15.5,
+   "promedio_ultima_hora": 15.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1395,
+   "hora": "23:15",
+   "nitratos_mg_l": 15.7,
+   "promedio_ultima_hora": 15.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1400,
+   "hora": "23:20",
+   "nitratos_mg_l": 15.3,
+   "promedio_ultima_hora": 15.7,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1405,
+   "hora": "23:25",
+   "nitratos_mg_l": 16.1,
+   "promedio_ultima_hora": 15.7,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1410,
+   "hora": "23:30",
+   "nitratos_mg_l": 15.4,
+   "promedio_ultima_hora": 15.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1415,
+   "hora": "23:35",
+   "nitratos_mg_l": 16.1,
+   "promedio_ultima_hora": 15.7,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1420,
+   "hora": "23:40",
+   "nitratos_mg_l": 16.3,
+   "promedio_ultima_hora": 15.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1425,
+   "hora": "23:45",
+   "nitratos_mg_l": 15.9,
+   "promedio_ultima_hora": 15.9,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1430,
+   "hora": "23:50",
+   "nitratos_mg_l": 15.8,
+   "promedio_ultima_hora": 15.9,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  },
+  {
+   "minuto_del_dia": 1435,
+   "hora": "23:55",
+   "nitratos_mg_l": 16.5,
+   "promedio_ultima_hora": 15.8,
+   "tendencia": "estable",
+   "es_atipico": "no"
+  }
+ ]
+}
