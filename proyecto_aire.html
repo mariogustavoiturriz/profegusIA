@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Proyecto · Agente de calidad del aire</title>
 <style>
+  .pa-rol{display:flex;gap:10px;align-items:center;margin-bottom:9px;flex-wrap:wrap;}
+  .pa-rol label{flex:0 0 210px;font-weight:bold;font-size:16px;}
+  .pa-cp{width:100%;box-sizing:border-box;border:2px solid var(--bd);border-radius:9px;
+         padding:11px 14px;font-size:16px;font-family:inherit;color:var(--txt);line-height:1.5;
+         resize:vertical;margin-top:6px;}
+  .pa-rol .pa-cp{flex:1 1 190px;width:auto;margin-top:0;}
+  .pa-cp:focus{outline:none;border-color:var(--p1);}
+  .pa-lb{font-weight:bold;font-size:17px;margin-top:16px;display:block;}
+  .pa-ay{display:block;font-size:15.5px;color:#667;margin-top:3px;}
+  .pa-btn{background:var(--p1);color:#fff;border:none;border-radius:10px;padding:14px 24px;
+          font-size:18px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:16px;}
   :root{
     --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
     --vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;
@@ -341,12 +352,7 @@
 
   <div class="info i-amb">
     <strong>Dos cosas que sí tienen que escribir hoy</strong>
-    No están resueltas en esta ficha y las necesitan igual que el resto de los equipos. Contéstenlas <strong>sin buscar nada</strong>, entre todos:
-    <br><br>
-    <strong>1. Lo que YA SABEMOS del tema.</strong> Sin buscar en internet: ¿qué sabe el equipo sobre calidad del aire y monóxido? Puede ser poco.<br><br>
-    <strong>2. Lo que NECESITAMOS AVERIGUAR.</strong> ¿Qué preguntas les quedan? Sobre todo: <strong>¿qué número no saben todavía?</strong>
-    <br><br>
-    En noviembre van a releer lo que escribieron hoy. Por eso conviene ser honestos: si ponen que ya saben todo, después no se nota nada.
+    No están resueltas en esta ficha y las necesitan igual que el resto de los equipos. Contéstenlas <strong>sin buscar nada</strong>, entre todos. En noviembre van a releer lo que escribieron hoy: si ponen que ya saben todo, después no se nota nada.
   </div>
 
   <div class="info i-json">
@@ -355,10 +361,45 @@
     <br><br>
     <em>Necesitamos averiguar:</em> «¿a partir de cuántos ppm es peligroso? ¿Cambia según cuánto tiempo estés expuesto? ¿Quién define ese límite y dónde está escrito?»
   </div>
+
+<div class="card c-entrega">
+  <h2><span class="badge" style="background:var(--classroom)">3</span> COMPLETEN Y DESCARGUEN — ES LA ENTREGA DE HOY</h2>
+  <p>Esto es lo que suben a Classroom al terminar la clase, igual que los demás equipos.</p>
+
+  <label class="pa-lb">Los cinco roles</label>
+  <div class="pa-rol"><label>🔌 Sensores y datos</label><input class="pa-cp" id="r1" placeholder="Quién"></div>
+  <div class="pa-rol"><label>📚 Busca las fuentes</label><input class="pa-cp" id="r2" placeholder="Quién"></div>
+  <div class="pa-rol"><label>🔍 Extrae los umbrales</label><input class="pa-cp" id="r3" placeholder="Quién" value="Abril"></div>
+  <div class="pa-rol"><label>✅ Verifica los datos</label><input class="pa-cp" id="r4" placeholder="Quién"></div>
+  <div class="pa-rol"><label>🤖 Lógica del agente</label><input class="pa-cp" id="r5" placeholder="Quién"></div>
+  <div class="pa-rol"><label>✅ Segundo verificador</label><input class="pa-cp" id="r6" placeholder="Quién"></div>
+
+  <label class="pa-lb">Lo que YA SABEMOS sobre calidad del aire</label>
+  <span class="pa-ay">Sin buscar en internet. Puede ser poco.</span>
+  <textarea class="pa-cp" id="saben" rows="3" placeholder="Escriban lo que se les venga..."></textarea>
+
+  <label class="pa-lb">Lo que NECESITAMOS AVERIGUAR</label>
+  <span class="pa-ay">Sobre todo: ¿qué número no saben todavía?</span>
+  <textarea class="pa-cp" id="averiguar" rows="3" placeholder="Las preguntas que hoy no pueden contestar..."></textarea>
+
+  <label class="pa-lb">Documentos que encontraron hoy</label>
+  <span class="pa-ay">Nombre y link de cada uno. <strong>Al menos dos.</strong> Sin el link no sirven.</span>
+  <textarea class="pa-cp" id="docs" rows="4" placeholder="1) ...&#10;2) ..."></textarea>
+
+  <label class="pa-lb">¿Algún valor que ya vieron? Copienlo tal cual</label>
+  <textarea class="pa-cp" id="valor" rows="2" placeholder="Ej: mon&oacute;xido - 9 ppm - 8 horas - Gu&iacute;a OMS p.14"></textarea>
+
+  <button class="pa-btn" onclick="bajarFeria()">⬇ Descargar la entrega de hoy</button>
+  <p id="okf" style="color:var(--classroom);font-weight:bold;margin-top:10px;font-size:17px;"></p>
+</div>
 </div>
 
 <div class="card c-entrega">
-  <h2><span class="badge" style="background:var(--classroom)">✔</span> LO QUE HAY QUE ENTREGAR</h2>
+  <h2><span class="badge" style="background:var(--classroom)">✔</span> LO QUE HAY QUE ENTREGAR AL FINAL</h2>
+  <div class="info i-amb">
+    <strong>Esto no es de hoy</strong>
+    Son las cinco entregas de <strong>todo el proyecto</strong>, de acá a noviembre. Están acá para que sepan a dónde van. Lo de hoy es la sección de arriba.
+  </div>
   <table>
     <tr><th>Entrega</th><th>Qué es</th></tr>
     <tr><td><strong>Los textos fuente</strong></td><td>La carpeta con los documentos de donde salen los umbrales, con su origen anotado.</td></tr>
@@ -374,5 +415,32 @@
 </div>
 
 </div>
+
+<script>
+function bajarFeria(){
+  function v(i){ var e=document.getElementById(i); return e && e.value.trim() ? e.value.trim() : '(sin completar)'; }
+  var f=new Date();
+  var t=['PROYECTO CALIDAD DEL AIRE - Entrega del viernes 4/9',
+    'Taller de IA - 7 TIC - CTP Antonio Martin Marte',
+    'Fecha: '+f.getDate()+'/'+(f.getMonth()+1)+'/'+f.getFullYear(),'',
+    '--- ROLES ---',
+    'Sensores y datos: '+v('r1'),
+    'Busca las fuentes: '+v('r2'),
+    'Extrae los umbrales: '+v('r3'),
+    'Verifica los datos: '+v('r4'),
+    'Logica del agente: '+v('r5'),
+    'Segundo verificador: '+v('r6'),'',
+    '--- PUNTO DE PARTIDA ---',
+    'Lo que ya sabemos:', v('saben'),'',
+    'Lo que necesitamos averiguar:', v('averiguar'),'',
+    '--- DOCUMENTOS ENCONTRADOS ---', v('docs'),'',
+    'Valor que ya vimos: '+v('valor'),''];
+  var b=new Blob([t.join('\n')],{type:'text/plain;charset=utf-8'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(b);
+  a.download='feria_aire_04-09.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  document.getElementById('okf').textContent='Descargado. Subilo a Classroom antes de salir.';
+}
+</script>
 </body>
 </html>
