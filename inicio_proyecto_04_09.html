@@ -190,6 +190,11 @@
             line-height:1.5;resize:vertical;margin-top:6px;}
   .ip-campo:focus{outline:none;border-color:var(--p1);}
   .ip-lbl{font-weight:bold;font-size:17px;margin-top:14px;display:block;}
+  .ip-ayuda{display:block;font-size:15.5px;color:#667;margin-top:3px;line-height:1.5;}
+  details.ip-ej{background:var(--gris);border-left:5px solid var(--p1);border-radius:8px;
+                padding:9px 14px;margin-top:7px;}
+  details.ip-ej summary{cursor:pointer;font-size:15.5px;color:var(--p1);font-weight:bold;}
+  details.ip-ej p{font-size:16px;margin:8px 0 0 0;line-height:1.6;}
   .ip-btn{background:var(--p1);color:#fff;border:none;border-radius:10px;padding:14px 24px;
           font-size:18px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:14px;}
   .ip-rol{display:flex;gap:10px;align-items:center;margin-bottom:9px;flex-wrap:wrap;}
@@ -264,7 +269,7 @@
 
   <div class="info i-json">
     <strong>Las tres condiciones</strong>
-    <strong>1.</strong> Que existan <strong>textos reales</strong> de donde sacar los datos — al menos diez, y que los puedan conseguir.<br>
+    <strong>1.</strong> Que existan <strong>textos reales</strong> de donde sacar los datos. Al menos <strong>diez fragmentos</strong> con un dato adentro — pueden salir de dos o tres documentos, no hacen falta diez.<br>
     <strong>2.</strong> Que los datos <strong>estén escritos</strong> en esos textos, no que haya que suponerlos.<br>
     <strong>3.</strong> Que después se pueda <strong>decidir algo</strong> con esa tabla. Si no hay decisión posible, no hay agente.
   </div>
@@ -284,6 +289,13 @@
   <div class="ip-idea"><strong>Accesibilidad</strong><span>normativa de accesibilidad edilicia → tabla de medidas mínimas → decide si un espacio del colegio cumple</span></div>
   <div class="ip-idea"><strong>Derechos del consumidor</strong><span>Ley 24.240 → tabla de plazos y derechos → decide si un reclamo procede y cómo hacerlo</span></div>
 
+  <div class="info i-amb">
+    <strong>📄 Ojo con el formato</strong>
+    El texto tiene que poder <strong>copiarse</strong>. Sirve una página web, un PDF del que se pueda seleccionar texto, o un documento.
+    <br><br>
+    <strong>No sirve:</strong> una foto o un escaneo, porque no se puede copiar. Y si el valor está adentro de una <strong>tabla</strong> del PDF, al copiarlo se desarma — se puede usar igual, pero hay que acomodarlo a mano.
+  </div>
+
   <div class="info i-rojo">
     <strong>Antes de decidir, hagan la prueba</strong>
     Agarren <strong>un</strong> texto de los que quieren usar y subráyenlo: ¿los datos que quieren sacar están escritos ahí? Si tienen que deducirlos o suponerlos, el tema no sirve — o hay que cambiar los campos. Es mejor descubrirlo hoy que dentro de tres semanas.
@@ -301,30 +313,66 @@
   <textarea class="ip-campo" id="f_integrantes" rows="2" placeholder="Nombres y apellidos, separados por coma"></textarea>
 
   <label class="ip-lbl">¿De qué se trata? En una frase.</label>
-  <textarea class="ip-campo" id="f_tema" rows="2" placeholder="Ej: convertir los pedidos que le llegan a una rotisería en una planilla de cocina"></textarea>
+  <span class="ip-ayuda">Completen esta oración: «Vamos a convertir <em>(qué textos)</em> en una tabla de <em>(qué datos)</em>, para que un programa pueda decidir <em>(qué cosa)</em>.»</span>
+  <textarea class="ip-campo" id="f_tema" rows="2" placeholder="Vamos a convertir... en una tabla de... para decidir..."></textarea>
 
-  <label class="ip-lbl">¿De dónde salen los textos? ¿Cuántos tienen o pueden conseguir?</label>
-  <textarea class="ip-campo" id="f_textos" rows="3" placeholder="Ej: capturas de mensajes reales que nos pasa el dueño; tenemos 12"></textarea>
+  <label class="ip-lbl">¿De dónde salen los textos?</label>
+  <span class="ip-ayuda">Nombren <strong>documentos concretos</strong>, no «de internet». Si todavía no los tienen, escriban dónde los van a buscar.</span>
+  <details class="ip-ej">
+    <summary>Ver un ejemplo</summary>
+    <p>«Del Código Alimentario Argentino, artículo 982, que está en la página del Ministerio. Y de una guía de análisis de agua que encontramos en un sitio del gobierno. Todavía no los bajamos.»</p>
+  </details>
+  <textarea class="ip-campo" id="f_textos" rows="3" placeholder="Qué documentos, y dónde están"></textarea>
 
   <div class="info i-json" style="margin-top:18px;">
-    <strong>🔎 Antes de seguir: dónde están parados</strong>
-    Escriban esto <strong>ahora</strong>, antes de averiguar nada. Al final del proyecto van a volver a leerlo, y ahí se va a ver todo lo que aprendieron en el camino.
+    <strong>🔎 Antes de seguir: dónde están parados hoy</strong>
+    Estas dos preguntas se contestan <strong>ahora, sin buscar nada</strong>. No hay respuesta correcta ni se corrige.
+    <br><br>
+    En noviembre van a volver a leer lo que escribieron hoy, y ahí van a ver todo lo que aprendieron en el camino. <strong>Por eso conviene ser honestos:</strong> si ponen que ya saben todo, después no se nota nada.
   </div>
 
   <label class="ip-lbl">Lo que YA SABEMOS sobre nuestro tema</label>
-  <textarea class="ip-campo" id="f_sabemos" rows="3" placeholder="Lo que el equipo ya conoce, sin buscar en ningún lado"></textarea>
+  <span class="ip-ayuda">Sin buscar en internet: ¿qué sabe el equipo de este tema? Puede ser poco. Puede ser algo que le escucharon a alguien.</span>
+  <details class="ip-ej">
+    <summary>Ver un ejemplo</summary>
+    <p><em>Equipo que eligió agua potable:</em></p>
+    <p>«Sabemos que el agua de la canilla se puede tomar. Que hay lugares donde no. Que le ponen cloro. Uno del equipo escuchó que en algunos barrios el agua sale con olor raro.»</p>
+  </details>
+  <textarea class="ip-campo" id="f_sabemos" rows="3" placeholder="Escriban lo que se les venga, aunque parezca poco"></textarea>
 
   <label class="ip-lbl">Lo que NECESITAMOS AVERIGUAR</label>
-  <textarea class="ip-campo" id="f_averiguar" rows="3" placeholder="Las preguntas que todavía no saben contestar"></textarea>
+  <span class="ip-ayuda">¿Qué preguntas les quedan? Sobre todo: <strong>¿qué número no saben todavía?</strong></span>
+  <details class="ip-ej">
+    <summary>Ver un ejemplo</summary>
+    <p><em>El mismo equipo:</em></p>
+    <p>«¿Cuánto cloro puede tener el agua antes de ser peligrosa? ¿Quién decide ese límite? ¿Dónde está escrito? ¿Qué otras cosas se miden además del cloro?»</p>
+  </details>
+  <textarea class="ip-campo" id="f_averiguar" rows="3" placeholder="Las preguntas que hoy no pueden contestar"></textarea>
 
   <label class="ip-lbl">¿Qué campos van a extraer? (entre cuatro y seis)</label>
-  <textarea class="ip-campo" id="f_campos" rows="2" placeholder="Ej: cliente, pedido, cantidad, hora"></textarea>
+  <span class="ip-ayuda">Son <strong>las columnas de su tabla</strong>. Uno de ellos tiene que ser <code>fuente</code>: de dónde salió el dato.</span>
+  <details class="ip-ej">
+    <summary>Ver un ejemplo</summary>
+    <p><em>Agua:</em> parametro · valor_maximo · unidad · fuente</p>
+    <p style="margin-top:6px;"><em>Ruido:</em> ambiente · decibeles_maximos · horario · fuente</p>
+  </details>
+  <textarea class="ip-campo" id="f_campos" rows="2" placeholder="Cuatro a seis nombres, separados por coma"></textarea>
 
-  <label class="ip-lbl">De esos campos, ¿cuál puede faltar en algunos textos? ¿Qué van a hacer en ese caso?</label>
-  <textarea class="ip-campo" id="f_faltan" rows="2" placeholder="..."></textarea>
+  <label class="ip-lbl">De esos campos, ¿cuál puede faltar en algunos textos?</label>
+  <span class="ip-ayuda">En los textos reales <strong>siempre falta algo</strong>. Si les parece que no falta ninguno, todavía no miraron un documento de verdad.</span>
+  <details class="ip-ej">
+    <summary>Ver un ejemplo</summary>
+    <p>«Puede faltar la unidad, porque a veces el documento la dice una sola vez al principio de la tabla. Si falta, lo dejamos vacío y lo anotamos, en vez de suponerla.»</p>
+  </details>
+  <textarea class="ip-campo" id="f_faltan" rows="2" placeholder="Cuál puede faltar, y qué hacen en ese caso"></textarea>
 
-  <label class="ip-lbl">Cuando tengan la tabla lista, ¿qué va a decidir el agente con ella?</label>
-  <textarea class="ip-campo" id="f_agente" rows="3" placeholder="Ej: qué pedido preparar primero según la hora de entrega"></textarea>
+  <label class="ip-lbl">Cuando tengan la tabla lista, ¿qué va a decidir el agente?</label>
+  <span class="ip-ayuda"><strong>Este es el campo más importante de la ficha.</strong> Si no lo pueden contestar, el tema todavía no cierra: una tabla sin decisión posible no da para un proyecto.</span>
+  <details class="ip-ej">
+    <summary>Ver un ejemplo</summary>
+    <p>«Le pasás un análisis de agua y te dice si es apta para tomar, solo para lavar, o si no hay que usarla. Y te explica contra qué límite lo comparó.»</p>
+  </details>
+  <textarea class="ip-campo" id="f_agente" rows="3" placeholder="Le pasás... y te dice..."></textarea>
 
   <label class="ip-lbl">Los roles del equipo</label>
   <div class="ip-rol"><label>📚 Consigue los textos</label><input class="ip-campo" id="r1" placeholder="Quién"></div>
