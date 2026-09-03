@@ -192,6 +192,28 @@
   tr:nth-child(even) td{background:#F7FAFC;}
 </style>
 
+<div class="card c-p1">
+  <h2><span class="badge" style="background:var(--p1)">👉</span> QUÉ HACEN HOY</h2>
+  <p style="font-size:19px;">Este documento describe <strong>todo el proyecto</strong>, que va hasta noviembre. Pero hoy tienen <strong>55 minutos</strong> y tres cosas para hacer.</p>
+
+  <table class="sp" style="margin-top:14px;">
+    <tr><th style="width:80px;">Tiempo</th><th>Qué</th></tr>
+    <tr><td><strong>15 min</strong></td><td><strong>Leer las secciones 0, ⚠ y 1.</strong> De qué se trata, las dos reglas de seguridad, y los cinco roles con lo que hace cada uno.</td></tr>
+    <tr><td><strong>15 min</strong></td><td><strong>Repartir los roles.</strong> Son cinco y son cinco: uno por cabeza. Léanlos todos antes de elegir.<br><span style="font-size:15px;color:#667;">El rol 3, extracción, ya está asignado a Abril.</span></td></tr>
+    <tr><td><strong>25 min</strong></td><td><strong>Escribir las dos preguntas de la sección 2</strong> —lo que ya saben y lo que necesitan averiguar— y <strong>empezar a buscar documentos</strong>.</td></tr>
+  </table>
+
+  <div class="info i-grn">
+    <strong>Lo que se llevan de hoy</strong>
+    Los cinco roles con nombre, las dos preguntas contestadas, y <strong>al menos dos documentos guardados con su link</strong>. Con eso el lunes arrancan directo a extraer.
+  </div>
+
+  <div class="info i-amb">
+    <strong>Hoy no se programa</strong>
+    No abran ningún Colab. Hoy es organizarse y conseguir la materia prima. El código empieza el viernes 11.
+  </div>
+</div>
+
 <div class="card c-info">
   <h2><span class="badge" style="background:var(--teal)">0</span> DE QUÉ SE TRATA</h2>
   <p>Ustedes ya tienen un sistema que <strong>mide</strong>: monóxido, gas, temperatura y humedad, con un ESP32 que publica los datos en la web. Eso funciona y está bueno.</p>
@@ -264,7 +286,7 @@
 
 <div class="card c-p1">
   <h2><span class="badge" style="background:var(--p1)">1</span> LOS CINCO ROLES</h2>
-  <p>Cada uno tiene un rol, pero <strong>todos aprenden lo mismo</strong>: los roles reparten el trabajo, no el contenido. En la Expo cualquiera tiene que poder explicar el proyecto entero.</p>
+  <p>Cada uno tiene un rol, pero <strong>todos aprenden lo mismo</strong>: los roles reparten el trabajo, no el contenido. Cuando lo presenten, cualquiera tiene que poder explicar el proyecto entero.</p>
 
   <div class="pa-rol">
     <span class="quien">Rol 1</span>
@@ -301,6 +323,37 @@
   <div class="info i-amb">
     <strong>Los roles rotan en la verificación</strong>
     El rol 4 no verifica solo: <strong>cada valor lo chequean dos personas distintas</strong>. Con datos que pueden afectar la seguridad de alguien, un solo par de ojos no alcanza.
+  </div>
+</div>
+
+<div class="card c-p1">
+  <h2><span class="badge" style="background:var(--p1)">2</span> SU FICHA, YA RESUELTA</h2>
+  <p>Los demás equipos hoy tienen que definir su tema desde cero. Ustedes ya lo tienen. <strong>Así queda completada la ficha del proyecto</strong>, para que la tengan escrita igual que el resto:</p>
+
+  <table class="sp">
+    <tr><th style="width:30%;">Campo</th><th>Su respuesta</th></tr>
+    <tr><td><strong>De qué se trata</strong></td><td>Convertir los documentos de normativa sobre calidad del aire en una tabla de umbrales, para que un programa interprete las mediciones del sensor y avise si hay que ventilar.</td></tr>
+    <tr><td><strong>De dónde salen los textos</strong></td><td>Guías de calidad del aire de la OMS, normativa de instalaciones de gas, hojas de seguridad de gases y protocolos de higiene y seguridad laboral.</td></tr>
+    <tr><td><strong>Qué campos extraen</strong></td><td><code>contaminante</code> · <code>limite</code> · <code>tiempo_exposicion</code> · <code>fuente</code></td></tr>
+    <tr><td><strong>Qué puede faltar</strong></td><td>El tiempo de exposición: muchos documentos dan el límite sin aclarar para cuántas horas. Si falta, va vacío y se anota.</td></tr>
+    <tr><td><strong>Qué decide el agente</strong></td><td>Recibe la medición del sensor, la compara con la tabla, mira si viene subiendo, y dice si está normal, si hay que ventilar o si hay que alertar — explicando contra qué valor lo comparó.</td></tr>
+  </table>
+
+  <div class="info i-amb">
+    <strong>Dos cosas que sí tienen que escribir hoy</strong>
+    No están resueltas en esta ficha y las necesitan igual que el resto de los equipos. Contéstenlas <strong>sin buscar nada</strong>, entre todos:
+    <br><br>
+    <strong>1. Lo que YA SABEMOS del tema.</strong> Sin buscar en internet: ¿qué sabe el equipo sobre calidad del aire y monóxido? Puede ser poco.<br><br>
+    <strong>2. Lo que NECESITAMOS AVERIGUAR.</strong> ¿Qué preguntas les quedan? Sobre todo: <strong>¿qué número no saben todavía?</strong>
+    <br><br>
+    En noviembre van a releer lo que escribieron hoy. Por eso conviene ser honestos: si ponen que ya saben todo, después no se nota nada.
+  </div>
+
+  <div class="info i-json">
+    <strong>Un ejemplo de cómo se contesta</strong>
+    <em>Ya sabemos:</em> «que el monóxido no se ve ni se huele, que las estufas mal ventiladas son peligrosas, y que en Ushuaia hay casos todos los inviernos.»
+    <br><br>
+    <em>Necesitamos averiguar:</em> «¿a partir de cuántos ppm es peligroso? ¿Cambia según cuánto tiempo estés expuesto? ¿Quién define ese límite y dónde está escrito?»
   </div>
 </div>
 
