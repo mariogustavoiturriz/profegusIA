@@ -3,20 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taller de IA · Arranca el proyecto</title>
-<style>
-  :root{
-    --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
-    --vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;
-    --bco:#FFFFFF;--code-bg:#1E1E1E;--r:12px;
-    --p1:#1F6E5C;--p1-bg:#E8F4F0;
-    --g2:#2E6820;--g2-bg:#EFF8EE;
-    --json:#006400;--json-bg:#F0FFF0;<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taller de IA · Arranca el proyecto</title>
+<title>Guía docente · viernes 4/9</title>
 <style>
   :root{
     --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
@@ -180,813 +167,242 @@
 </head>
 <body>
 <header>
-  <h1>ARRANCA EL PROYECTO — DE TEXTOS A DECISIONES</h1>
-  <p>Taller de IA &middot; 7&deg; TIC &middot; CTP Antonio Mart&iacute;n Marte &middot; Viernes 4/9 · 80 minutos</p>
+  <h1>GUÍA DOCENTE — VIERNES 4/9</h1>
+  <p>Arranca el proyecto &middot; Taller de IA &middot; 7&deg; TIC &middot; 80 minutos</p>
 </header>
 <div class="container">
-<a href="index.html" class="back-btn">&#11013; Volver al &Iacute;ndice</a>
-
 <style>
-  .ip-parte{display:block;background:var(--bco);border:2px solid var(--bd);border-radius:var(--r);
-            padding:20px 24px;margin:14px 0;}
-  .ip-parte h3{margin:0 0 4px 0;font-size:23px;}
-  .ip-flujo{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0;}
-  .ip-flujo .pf{flex:1 1 130px;background:var(--p1-bg);border:2px solid var(--p1);
-                border-radius:10px;padding:11px 12px;font-size:15px;text-align:center;}
-  .ip-flujo .fl{font-size:24px;color:var(--p1);font-weight:bold;}
-  .ip-idea{display:block;background:#fff;border:2px solid var(--bd);border-radius:10px;
-           padding:13px 17px;margin-bottom:9px;font-size:17px;}
-  .ip-idea strong{color:var(--p1);}
-  .ip-idea span{display:block;font-size:15px;color:#667;margin-top:3px;font-style:italic;}
-  .ip-campo{width:100%;box-sizing:border-box;border:2px solid var(--bd);border-radius:8px;
-            padding:11px 13px;font-size:16px;font-family:inherit;color:var(--txt);
-            line-height:1.5;resize:vertical;margin-top:6px;}
-  .ip-campo:focus{outline:none;border-color:var(--p1);}
-  .ip-lbl{font-weight:bold;font-size:17px;margin-top:14px;display:block;}
-  .ip-ayuda{display:block;font-size:15.5px;color:#667;margin-top:3px;line-height:1.5;}
-  details.ip-ej{background:var(--gris);border-left:5px solid var(--p1);border-radius:8px;
-                padding:9px 14px;margin-top:7px;}
-  details.ip-ej summary{cursor:pointer;font-size:15.5px;color:var(--p1);font-weight:bold;}
-  details.ej-g{padding:14px 18px;margin-bottom:10px;border-left-width:7px;}
-  details.ej-g summary{font-size:19px;}
-  details.ej-g p{font-size:16.5px;margin-top:9px;}
-  details.ej-g b{color:var(--p1);}
-  details.ip-ej p{font-size:16px;margin:8px 0 0 0;line-height:1.6;}
-  .ip-btn{background:var(--p1);color:#fff;border:none;border-radius:10px;padding:14px 24px;
-          font-size:18px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:14px;}
-  .ip-rol{display:flex;gap:10px;align-items:center;margin-bottom:9px;flex-wrap:wrap;}
-  .ip-rol label{flex:0 0 210px;font-weight:bold;font-size:16px;}
-  .ip-rol input{flex:1 1 200px;border:2px solid var(--bd);border-radius:8px;padding:9px 12px;
-                font-size:16px;font-family:inherit;}
-  .reloj{display:inline-block;background:var(--amb);color:#fff;font-size:15px;font-weight:bold;
-         padding:3px 12px;border-radius:20px;margin-left:10px;vertical-align:middle;}
+  table.g{width:100%;border-collapse:collapse;font-size:15.5px;margin:12px 0;}
+  table.g th{background:var(--nav);color:#fff;padding:9px 11px;text-align:left;font-size:13.5px;}
+  table.g td{border:1px solid var(--bd);padding:9px 11px;vertical-align:top;}
+  table.g tr:nth-child(even) td{background:#F7FAFC;}
+  table.g td.t{font-weight:bold;white-space:nowrap;color:var(--p1);width:74px;}
+  .no{background:#FDECEA;border-left:6px solid #C0392B;border-radius:8px;padding:12px 16px;margin:10px 0;font-size:16px;}
+  .si{background:#F0FAF7;border-left:6px solid #1F6E5C;border-radius:8px;padding:12px 16px;margin:10px 0;font-size:16px;}
+  .decir{background:#FFFDF6;border:2px dashed var(--amb);border-radius:10px;padding:14px 18px;
+         margin:10px 0;font-size:17px;line-height:1.65;font-style:italic;color:#5A3800;}
+  .decir b{font-style:normal;color:#7A4B00;}
+  .chk{background:var(--gris);border-radius:9px;padding:13px 17px;font-size:16px;line-height:2;}
 </style>
 
+<div class="card c-rojo">
+  <h2><span class="badge" style="background:var(--rojo)">✓</span> ANTES DE ENTRAR — 5 MINUTOS</h2>
+  <div class="chk">
+    ☐ &nbsp;Proyector andando y la página <code>inicio_proyecto_04_09.html</code> abierta<br>
+    ☐ &nbsp;<code>cronometro_clase.html</code> en otra pestaña, con el preset del viernes cargado<br>
+    ☐ &nbsp;El <strong>programa del sensor</strong> abierto en Colab y <strong>ya ejecutado una vez</strong> — no lo estrenes frente a ellos<br>
+    ☐ &nbsp;Verificar que la clase esté desbloqueada en el índice (se abre 10:35)<br>
+    ☐ &nbsp;Decidido <strong>quién va a ver los proyectos</strong> — te lo van a preguntar<br>
+    ☐ &nbsp;Saber si los equipos ya están armados o se arman hoy
+  </div>
+  <div class="no">
+    <strong>Si el Colab del sensor no arranca</strong><br>
+    Tené una <strong>captura de pantalla</strong> de la salida. La demo es el corazón de la clase; si depende del wifi y el wifi falla, perdés el arranque. Con la captura funciona igual.
+  </div>
+</div>
+
 <div class="card c-info">
-  <h2><span class="badge" style="background:var(--teal)">0</span> HOY EMPIEZA EL PROYECTO</h2>
-
-  <div style="background:var(--p1-bg);border:3px solid var(--p1);border-radius:var(--r);
-              padding:22px 26px;margin:14px 0;text-align:center;">
-    <p style="font-size:17px;color:var(--p1);font-weight:bold;letter-spacing:1px;margin-bottom:8px;">LA PREGUNTA DEL PROYECTO</p>
-    <p style="font-size:25px;font-weight:bold;line-height:1.4;margin:0;">¿Cómo puede una máquina<br>interpretar datos y ayudarnos a decidir?</p>
-  </div>
-
-  <p>Esa es la pregunta que van a responder hasta el final del proyecto. <strong>No tiene una sola respuesta correcta</strong>: cada equipo la va a contestar desde su tema, y las respuestas van a ser distintas.</p>
-  <p style="margin-top:10px;">Lo van a mostrar a gente que no cursó con ustedes, así que no alcanza con que funcione: tienen que poder explicar <strong>por qué lo hicieron así</strong>.</p>
-  <div class="info i-azul">
-    <strong>🧭 Cómo es la clase de hoy</strong>
-    Primero vemos qué se construye. Después cada equipo <strong>elige su tema y completa su ficha</strong>, que es el plan de trabajo. Al final la descargan y la entregan: sin ficha no se arranca a programar.
+  <h2><span class="badge" style="background:var(--teal)">0</span> QUÉ SE USA Y QUÉ NO</h2>
+  <table class="g">
+    <tr><th>Archivo</th><th>Para quién</th></tr>
+    <tr><td><code>inicio_proyecto_04_09.html</code></td><td><strong>Todo el curso.</strong> Es la clase.</td></tr>
+    <tr><td><code>proyecto_aire.html</code></td><td><strong>Equipo de feria, desde el minuto 25.</strong> Los primeros 25 van con todos.</td></tr>
+    <tr><td><code>abril_mi_rol.html</code></td><td><strong>Abril</strong>, cuando el equipo pase a su ficha.</td></tr>
+    <tr><td><code>cronometro_clase.html</code></td><td>Para vos, proyectado.</td></tr>
+  </table>
+  <div class="no">
+    <strong>Hoy NO se toca código.</strong> Es una clase de planificación. El primer Colab del proyecto es el <strong>viernes 11/9</strong>. Si abrís un notebook hoy, te desviás.
   </div>
 </div>
 
 <div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">1</span> QUÉ VAN A CONSTRUIR</h2>
-  <p style="font-size:20px;">La meta es un <strong>agente</strong>: un programa que decide y actúa solo. Pero un agente solo decide bien si tiene datos buenos, y esos datos hay que fabricarlos primero. Por eso el proyecto tiene dos partes.</p>
+  <h2><span class="badge" style="background:var(--p1)">1</span> MINUTO A MINUTO</h2>
 
-  <div class="ip-parte" style="border-top:6px solid var(--p1);">
-    <h3 style="color:var(--p1);">PARTE 1 — El extractor</h3>
-    <p>Textos sueltos entran, tabla ordenada sale. Le piden a la IA que saque los datos de cada texto, verifican que no haya inventado nada, y arman un archivo.</p>
-    <div class="ip-flujo">
-      <div class="pf">textos sueltos</div><div class="fl">→</div>
-      <div class="pf">la IA extrae</div><div class="fl">→</div>
-      <div class="pf">ustedes verifican</div><div class="fl">→</div>
-      <div class="pf">tabla ordenada</div>
-    </div>
+  <table class="g">
+    <tr><td class="t">0 – 8</td><td>
+      <strong>La pregunta.</strong> Proyectá la página. Leé en voz alta el recuadro verde.
+      <div class="decir"><b>Podés decir:</b> «Hasta ahora hicimos ejercicios. Desde hoy y hasta noviembre van a construir una sola cosa, en equipo, y va a existir de verdad. La pregunta que vamos a responder es esta.»</div>
+      Aclarales dos cosas: <strong>no tiene una sola respuesta correcta</strong>, y cada equipo la va a contestar desde su tema.
+    </td></tr>
+
+    <tr><td class="t">8 – 18</td><td>
+      <strong>La demo.</strong> Pasá al Colab del sensor. Ejecutalo. Que vean la medición entrando y el aviso saliendo.
+      <div class="decir"><b>Después de que lo vean andando, preguntá:</b> «¿De dónde salieron estos números que dicen qué es peligroso? ¿Quién los verificó?»</div>
+      Dejá que contesten. Alguien va a decir «los buscó en internet» o «los sabe el que lo hizo». Y ahí cerrás: <strong>nadie los verificó. Alguien los escribió de memoria.</strong>
+      <div class="si">
+        <strong>Este es el momento de la clase.</strong> Todo el proyecto sale de acá: un programa que decide es lo fácil; lo difícil es que los datos con los que decide sean confiables.
+      </div>
+    </td></tr>
+
+    <tr><td class="t">18 – 25</td><td>
+      <strong>Las dos partes.</strong> Bloque 1: el extractor y el agente.
+      <div class="decir"><b>La idea en una frase:</b> «Primero fabrican los datos buenos. Después construyen algo que decide con ellos.»</div>
+      <strong>No te extiendas.</strong> Hoy solo se planifica la Parte 1; el agente lo van a entender cuando llegue.
+      <br><br><em>Acá el equipo de feria pasa a <code>proyecto_aire.html</code> y Abril a su página.</em>
+    </td></tr>
+
+    <tr><td class="t">25 – 45</td><td>
+      <strong>Eligen tema.</strong> Bloque 2. Leen las tres condiciones y las nueve ideas.
+      <br><br>Vos pasás por los equipos con <strong>una sola pregunta</strong>: «¿de dónde van a sacar los textos?». Es la que separa un tema viable de uno que suena lindo.
+      <div class="si">
+        <strong>Empujá la prueba del texto subrayado.</strong> Que abran un documento real y busquen el número. Diez minutos acá ahorran tres semanas en octubre.
+      </div>
+    </td></tr>
+
+    <tr><td class="t">45 – 75</td><td>
+      <strong>Completan la ficha.</strong> Bloque 3. Es lo que más lleva y está bien.
+      <br><br>Los campos donde se traban están abajo, en la sección 3.
+    </td></tr>
+
+    <tr><td class="t">75 – 80</td><td>
+      <strong>Descargan y entregan.</strong> Botón al final de la página, baja un <code>.txt</code>.
+      <div class="decir"><b>Cerrá con:</b> «Sin ficha no se arranca el lunes. El lunes salimos a buscar los textos y necesitan saber cuáles.»</div>
+    </td></tr>
+  </table>
+</div>
+
+<div class="card c-p1">
+  <h2><span class="badge" style="background:var(--p1)">2</span> CÓMO APROBAR UN TEMA</h2>
+  <p>Un solo criterio, verificable, que no depende de tu gusto:</p>
+  <div class="si">
+    <strong>«Mostrame un documento donde esté escrito el valor de referencia.»</strong><br>
+    Si no pueden señalarte una frase con un número, el tema no sirve <em>todavía</em>.
   </div>
 
-  <div class="ip-parte" style="border-top:6px solid var(--vio);">
-    <h3 style="color:var(--vio);">PARTE 2 — El agente</h3>
-    <p>Usa esa tabla como cerebro. Recibe una situación nueva, la compara con lo que sabe, decide qué hacer y lo hace.</p>
-    <div class="ip-flujo">
-      <div class="pf">PERCIBE</div><div class="fl">→</div>
-      <div class="pf">RAZONA</div><div class="fl">→</div>
-      <div class="pf">DECIDE</div><div class="fl">→</div>
-      <div class="pf">ACTÚA</div>
-    </div>
+  <table class="g">
+    <tr><th>Si un equipo…</th><th>Qué hacés</th></tr>
+    <tr><td>No se le ocurre nada</td><td>Mandalos a las nueve ideas. Que elijan una y la hagan propia. No pierdas tiempo en que inventen algo original.</td></tr>
+    <tr><td>Eligió algo sin datos escritos<br><em>(ej: «la contaminación»)</em></td><td>No lo rechaces. Preguntá: «¿qué dato querrían sacar?» y busquen juntos si existe en algún documento. Casi siempre se salva acotando el tema.</td></tr>
+    <tr><td>Quiere algo fuera del marco ambiental o social</td><td>Si cumple las tres condiciones, dejalo. El marco ordena, no encierra.</td></tr>
+    <tr><td>Eligió el mismo tema que otro equipo</td><td>Dejalos. Van a conseguir textos distintos y a resolverlo distinto. Y en octubre se pueden probar entre ellos.</td></tr>
+    <tr><td>Terminó la ficha en 15 minutos</td><td>Sospechá. Preguntales <strong>qué va a decidir el agente</strong>: si no lo pueden contestar, la ficha está incompleta aunque tenga todo lleno.</td></tr>
+    <tr><td>Quedó un estudiante sin equipo</td><td>Sumalo al equipo más chico. No armes un equipo de uno.</td></tr>
+    <tr><td><strong>El equipo tiene menos de 5 y los roles son 5</strong></td><td><strong>De 4:</strong> uno toma <em>fuentes</em> + <em>documenta</em>.<br><strong>De 3 (Juampi):</strong> además la <em>verificación</em> la hacen entre todos — que igual conviene, porque cada dato lo chequean dos. Ya está aclarado en la página.</td></tr>
+  </table>
+</div>
+
+<div class="card c-avanzado">
+  <h2><span class="badge" style="background:var(--vio)">3</span> LOS CAMPOS DONDE SE TRABAN</h2>
+  <p>La ficha tiene diez campos. Estos cuatro son los que generan preguntas:</p>
+
+  <table class="g">
+    <tr><th>Campo</th><th>Qué contestar si preguntan</th></tr>
+    <tr><td><strong>«¿Qué campos van a extraer?»</strong></td><td>Que piensen en las <strong>columnas de una tabla</strong>. Si el tema es agua: parámetro, valor máximo, unidad, fuente. Entre cuatro y seis. Menos de cuatro es pobre, más de seis se vuelve inmanejable.</td></tr>
+    <tr><td><strong>«¿Cuál puede faltar?»</strong></td><td>Es la pregunta más importante de la ficha. En los textos reales <strong>siempre falta algo</strong>. Si contestan «ninguno», todavía no miraron un texto de verdad.</td></tr>
+    <tr><td><strong>«¿Qué va a decidir el agente?»</strong></td><td>Si no lo pueden contestar, <strong>el tema no cierra</strong>. Una tabla sin decisión posible es una tabla, no un proyecto. Ejemplo: «si el agua es apta y para qué uso».</td></tr>
+    <tr><td><strong>«Lo que ya sabemos / necesitamos averiguar»</strong></td><td>Que lo escriban <strong>antes de buscar nada</strong>. Si dicen «no sabemos nada», está perfecto: eso también es un punto de partida. En noviembre lo van a releer.</td></tr>
+  </table>
+
+  <div class="no">
+    <strong>Dos cosas que conviene que aclares vos</strong><br>
+    <strong>1.</strong> Son <strong>diez fragmentos, no diez documentos</strong>. Un solo reglamento puede tener quince valores. Si entienden «diez documentos» se frustran buscando.<br><br>
+    <strong>2.</strong> El texto <strong>tiene que poder copiarse</strong>. Una foto o un escaneo no sirven. Y si el valor está en una tabla del PDF, al copiarlo se desarma — se usa igual, pero hay que acomodarlo a mano. <em>Muchas normativas presentan los límites en tablas, así que esto va a pasar.</em>
   </div>
 
-  <div class="info i-json">
-    <strong>👀 Miren esto antes de seguir</strong>
-    Hay un programa que ya funciona: recibe mediciones de un sensor y avisa si el aire está bien o mal. Compara el número medido contra unos valores de referencia y responde.
-    <br><br>
-    Ahora la pregunta importante: <strong>¿de dónde salieron esos valores de referencia?</strong> Alguien los escribió a mano, de memoria. Nadie verificó que sean correctos, y no dicen de qué documento salieron.
-    <br><br>
-    <strong>Eso es lo que ustedes van a construir.</strong> Un programa que decide es la parte fácil; lo difícil —y lo que hace que sirva— es que los datos con los que decide sean confiables.
-  </div>
-
-  <div class="info i-amb">
-    <strong>Hoy solo se planifica la Parte 1</strong>
-    El agente viene después. Pero conviene tenerlo en la cabeza desde ahora, porque <strong>lo que elijan hoy condiciona lo que el agente va a poder decidir</strong>.
+  <div class="no">
+    <strong>El error más común</strong><br>
+    Elegir un tema por lo interesante y no por los textos. «Cambio climático» suena mejor que «agua potable», pero del segundo hay valores escritos en el Código Alimentario y del primero no hay una tabla que se pueda extraer.
   </div>
 </div>
 
 <div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">2</span> ELEGIR EL TEMA<span class="reloj">20 min</span></h2>
-  <p>El tema lo eligen ustedes. Tiene que cumplir <strong>tres condiciones</strong>:</p>
+  <h2><span class="badge" style="background:var(--p1)">4</span> EL EQUIPO DE FERIA</h2>
+  <p><strong>Minutos 0 a 25: van con todo el curso.</strong> No se separan. La demo del sensor les habla directo — es el diagnóstico de su propio proyecto.</p>
+  <p style="margin-top:10px;"><strong>Desde el minuto 25:</strong> abren <code>proyecto_aire.html</code> y usan el resto en repartir los cinco roles y arrancar con los documentos de normativa.</p>
 
-  <div class="info i-json">
-    <strong>Las tres condiciones</strong>
-    <strong>1.</strong> Que existan <strong>textos reales</strong> de donde sacar los datos. Al menos <strong>diez fragmentos</strong> con un dato adentro — pueden salir de dos o tres documentos, no hacen falta diez.<br>
-    <strong>2.</strong> Que los datos <strong>estén escritos</strong> en esos textos, no que haya que suponerlos.<br>
-    <strong>3.</strong> Que después se pueda <strong>decidir algo</strong> con esa tabla. Si no hay decisión posible, no hay agente.
+  <div class="si">
+    <strong>Los roles ya están definidos en su ficha.</strong> Abril va en el rol 3, extracción de umbrales. Decíselo al equipo como un rol más, sin explicar por qué.
   </div>
-
-  <p style="margin-top:14px;">Si no se les ocurre nada, algunas ideas:</p>
-
-  <p style="margin-top:6px;"><strong>Ambientales</strong></p>
-  <div class="ip-idea"><strong>Agua potable</strong><span>Código Alimentario y protocolos de análisis → tabla de valores máximos → decide si el agua es apta y para qué uso</span></div>
-  <div class="ip-idea"><strong>Radiación UV</strong><span>índice UV y guías de fotoprotección → tabla de tiempos de exposición → decide cuánto se puede estar al sol</span></div>
-  <div class="ip-idea"><strong>Ruido ambiental</strong><span>guías de la OMS y normativa municipal → tabla de decibeles permitidos → decide si un nivel es tolerable</span></div>
-  <div class="ip-idea"><strong>Temperatura en aulas y viviendas</strong><span>normativa de higiene y seguridad → tabla de rangos → decide si hay que ventilar o calefaccionar</span></div>
-  <div class="ip-idea"><strong>Conservación de alimentos</strong><span>Código Alimentario y material de ANMAT → tabla de temperaturas y tiempos → decide si algo se puede consumir</span></div>
-  <div class="ip-idea"><strong>Residuos y reciclado</strong><span>normativa de separación → tabla de materiales → decide en qué contenedor va y qué impacto tiene</span></div>
-
-  <p style="margin-top:14px;"><strong>Sociales</strong></p>
-  <div class="ip-idea"><strong>Derechos del estudiante</strong><span>Ley de Educación y reglamento de la escuela → tabla de situaciones → decide si un reclamo corresponde</span></div>
-  <div class="ip-idea"><strong>Accesibilidad</strong><span>normativa de accesibilidad edilicia → tabla de medidas mínimas → decide si un espacio del colegio cumple</span></div>
-  <div class="ip-idea"><strong>Derechos del consumidor</strong><span>Ley 24.240 → tabla de plazos y derechos → decide si un reclamo procede y cómo hacerlo</span></div>
 
   <div class="info i-amb">
-    <strong>📄 Ojo con el formato</strong>
-    El texto tiene que poder <strong>copiarse</strong>. Sirve una página web, un PDF del que se pueda seleccionar texto, o un documento.
-    <br><br>
-    <strong>No sirve:</strong> una foto o un escaneo, porque no se puede copiar. Y si el valor está adentro de una <strong>tabla</strong> del PDF, al copiarlo se desarma — se puede usar igual, pero hay que acomodarlo a mano.
+    <strong>Que completen dos cosas de la ficha común</strong><br>
+    <em>Lo que ya sabemos</em> y <em>lo que necesitamos averiguar</em>. No están en su ficha y son diez minutos.
   </div>
 
-  <div class="info i-rojo">
-    <strong>Antes de decidir, hagan la prueba</strong>
-    Agarren <strong>un</strong> texto de los que quieren usar y subráyenlo: ¿los datos que quieren sacar están escritos ahí? Si tienen que deducirlos o suponerlos, el tema no sirve — o hay que cambiar los campos. Es mejor descubrirlo hoy que dentro de tres semanas.
-  </div>
-</div>
-
-<div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">2b</span> FICHAS DE EJEMPLO</h2>
-  <p>Así completaría la ficha un equipo de cada tema. <strong>Abrí la que se parezca a la tuya</strong> y fijate cómo encadenan las respuestas — no para copiarla, para entender qué se espera.</p>
-
-  <details class="ip-ej ej-g">
-    <summary>💧 Agua potable</summary>
-    <p><b>De qué se trata:</b> convertir la normativa sobre agua potable en una tabla de valores máximos, para que un programa diga si un análisis da apto.</p>
-    <p><b>De dónde salen los textos:</b> del Código Alimentario Argentino, artículo 982, y de una guía de análisis de agua de un organismo público. Todavía no los bajamos.</p>
-    <p><b>Ya sabemos:</b> que el agua de la canilla se puede tomar, que le ponen cloro, y que en algunos barrios sale con olor raro.</p>
-    <p><b>Necesitamos averiguar:</b> cuánto cloro puede tener antes de ser peligrosa, quién decide ese límite y dónde está escrito.</p>
-    <p><b>Campos:</b> parametro · valor_maximo · unidad · fuente</p>
-    <p><b>Qué puede faltar:</b> la unidad, porque a veces el documento la dice una sola vez arriba de la tabla. Si falta, la dejamos vacía.</p>
-    <p><b>Qué decide el agente:</b> le pasás un análisis y te dice si el agua es apta para tomar, solo para lavar, o si no hay que usarla — y contra qué límite lo comparó.</p>
-  </details>
-
-  <details class="ip-ej ej-g">
-    <summary>🔊 Ruido ambiental</summary>
-    <p><b>De qué se trata:</b> convertir la normativa de ruidos en una tabla de decibeles permitidos, para que un programa diga si un nivel medido es tolerable.</p>
-    <p><b>De dónde salen los textos:</b> de las guías de ruido de la OMS y de la ordenanza municipal de ruidos molestos de Ushuaia.</p>
-    <p><b>Ya sabemos:</b> que hay horarios en que no se puede hacer ruido, que los boliches tienen límite, y que el ruido fuerte hace mal al oído.</p>
-    <p><b>Necesitamos averiguar:</b> cuántos decibeles son muchos, si el límite cambia de día y de noche, y cómo se mide.</p>
-    <p><b>Campos:</b> ambiente · decibeles_maximos · horario · fuente</p>
-    <p><b>Qué puede faltar:</b> el horario, porque algunos límites valen para todo el día y el documento no lo aclara.</p>
-    <p><b>Qué decide el agente:</b> le pasás una medición y la hora, y te dice si ese nivel está permitido ahí y por cuánto tiempo se puede aguantar.</p>
-  </details>
-
-  <details class="ip-ej ej-g">
-    <summary>☀️ Radiación UV</summary>
-    <p><b>De qué se trata:</b> convertir las guías de fotoprotección en una tabla de tiempos de exposición, para que un programa diga cuánto se puede estar al sol.</p>
-    <p><b>De dónde salen los textos:</b> del índice UV del Servicio Meteorológico Nacional y de material de dermatología sobre protección solar.</p>
-    <p><b>Ya sabemos:</b> que en Ushuaia el sol pega fuerte por el agujero de ozono, que hay que ponerse protector, y que al mediodía es peor.</p>
-    <p><b>Necesitamos averiguar:</b> desde qué índice UV es peligroso, cuánto tiempo se puede estar según el tipo de piel, y cada cuánto hay que reponer el protector.</p>
-    <p><b>Campos:</b> indice_uv · tipo_de_piel · minutos_seguros · proteccion · fuente</p>
-    <p><b>Qué puede faltar:</b> el tipo de piel, porque algunas guías dan un solo tiempo para todos.</p>
-    <p><b>Qué decide el agente:</b> le pasás el índice UV del día y tu tipo de piel, y te dice cuánto podés estar afuera y con qué protección.</p>
-  </details>
-
-  <details class="ip-ej ej-g">
-    <summary>🍔 Conservación de alimentos</summary>
-    <p><b>De qué se trata:</b> convertir la normativa alimentaria en una tabla de temperaturas y tiempos, para que un programa diga si un alimento está en condiciones.</p>
-    <p><b>De dónde salen los textos:</b> del Código Alimentario Argentino y de material de ANMAT sobre cadena de frío.</p>
-    <p><b>Ya sabemos:</b> que la carne va en la heladera, que si se corta la luz mucho tiempo la comida se echa a perder, y que hay comida que no se puede recongelar.</p>
-    <p><b>Necesitamos averiguar:</b> a qué temperatura exacta va cada cosa, cuántas horas aguanta fuera de la heladera, y qué pasa si se congela de nuevo.</p>
-    <p><b>Campos:</b> alimento · temperatura_conservacion · tiempo_maximo · fuente</p>
-    <p><b>Qué puede faltar:</b> el tiempo máximo, porque muchos documentos dan solo la temperatura.</p>
-    <p><b>Qué decide el agente:</b> le contás qué alimento es, a qué temperatura estuvo y cuánto tiempo, y te dice si se puede consumir o hay que descartarlo.</p>
-  </details>
-
-  <details class="ip-ej ej-g">
-    <summary>📋 Derechos del estudiante</summary>
-    <p><b>De qué se trata:</b> convertir la ley de educación y el reglamento de la escuela en una tabla de situaciones y derechos, para que un programa diga si un reclamo corresponde.</p>
-    <p><b>De dónde salen los textos:</b> de la Ley 26.206, de la ley de convivencia escolar, y del reglamento de nuestro colegio.</p>
-    <p><b>Ya sabemos:</b> que no te pueden dejar afuera por no pagar la cooperadora, que las sanciones tienen que avisarse en casa, y que hay un consejo de convivencia.</p>
-    <p><b>Necesitamos averiguar:</b> qué dice exactamente la ley, qué plazos hay para reclamar, y a quién se le reclama.</p>
-    <p><b>Campos:</b> situacion · que_corresponde · a_quien_reclamar · articulo</p>
-    <p><b>Qué puede faltar:</b> el plazo, porque muchos artículos no lo dicen.</p>
-    <p><b>Qué decide el agente:</b> le contás una situación que te pasó y te dice si está amparada, qué corresponde hacer y en qué artículo se apoya.</p>
-  </details>
-
-  <div class="info i-amb">
-    <strong>Ojo con dos de estos</strong>
-    Alimentos y derechos tocan cosas serias. Si eligen alguno, el sistema se presenta siempre como <strong>trabajo escolar</strong> y no reemplaza a un profesional. Y ningún dato entra a la tabla sin la fuente anotada.
+  <p style="font-size:19px;margin-top:16px;"><strong>Abril</strong></p>
+  <p>Cuando el equipo pase a su ficha, ella abre <code>abril_mi_rol.html</code>. Tiene un texto de práctica para empezar sin esperar a que el rol 2 consiga documentos.</p>
+  <p style="margin-top:8px;"><strong>Con la DAI:</strong> leer el fragmento juntas y buscar dónde está el número. Lo de la IA lo hace ella sola — ya lo practicó dos veces.</p>
+  <div class="si">
+    Si el equipo se traba con la instrucción, <strong>ella es la que sabe</strong>. Vale que eso se note en la clase.
   </div>
 </div>
 
 <div class="card c-entrega">
-  <h2><span class="badge" style="background:var(--classroom)">3</span> LA FICHA DEL EQUIPO<span class="reloj">45 min</span></h2>
-  <p>Este es el plan de trabajo. Complétenlo entre todos y descárguenlo al final.</p>
-
-  <label class="ip-lbl">Nombre del equipo</label>
-  <input class="ip-campo" id="f_equipo" placeholder="Como quieran llamarse">
-
-  <label class="ip-lbl">Integrantes</label>
-  <textarea class="ip-campo" id="f_integrantes" rows="2" placeholder="Nombres y apellidos, separados por coma"></textarea>
-
-  <label class="ip-lbl">¿De qué se trata? En una frase.</label>
-  <span class="ip-ayuda">Completen esta oración: «Vamos a convertir <em>(qué textos)</em> en una tabla de <em>(qué datos)</em>, para que un programa pueda decidir <em>(qué cosa)</em>.»</span>
-  <textarea class="ip-campo" id="f_tema" rows="2" placeholder="Vamos a convertir... en una tabla de... para decidir..."></textarea>
-
-  <label class="ip-lbl">¿De dónde salen los textos?</label>
-  <span class="ip-ayuda">Nombren <strong>documentos concretos</strong>, no «de internet». Si todavía no los tienen, escriban dónde los van a buscar.</span>
-  <details class="ip-ej">
-    <summary>Ver un ejemplo</summary>
-    <p>«Del Código Alimentario Argentino, artículo 982, que está en la página del Ministerio. Y de una guía de análisis de agua que encontramos en un sitio del gobierno. Todavía no los bajamos.»</p>
-  </details>
-  <textarea class="ip-campo" id="f_textos" rows="3" placeholder="Qué documentos, y dónde están"></textarea>
-
-  <div class="info i-json" style="margin-top:18px;">
-    <strong>🔎 Antes de seguir: dónde están parados hoy</strong>
-    Estas dos preguntas se contestan <strong>ahora, sin buscar nada</strong>. No hay respuesta correcta ni se corrige.
-    <br><br>
-    En noviembre van a volver a leer lo que escribieron hoy, y ahí van a ver todo lo que aprendieron en el camino. <strong>Por eso conviene ser honestos:</strong> si ponen que ya saben todo, después no se nota nada.
-  </div>
-
-  <label class="ip-lbl">Lo que YA SABEMOS sobre nuestro tema</label>
-  <span class="ip-ayuda">Sin buscar en internet: ¿qué sabe el equipo de este tema? Puede ser poco. Puede ser algo que le escucharon a alguien.</span>
-  <details class="ip-ej">
-    <summary>Ver un ejemplo</summary>
-    <p><em>Equipo que eligió agua potable:</em></p>
-    <p>«Sabemos que el agua de la canilla se puede tomar. Que hay lugares donde no. Que le ponen cloro. Uno del equipo escuchó que en algunos barrios el agua sale con olor raro.»</p>
-  </details>
-  <textarea class="ip-campo" id="f_sabemos" rows="3" placeholder="Escriban lo que se les venga, aunque parezca poco"></textarea>
-
-  <label class="ip-lbl">Lo que NECESITAMOS AVERIGUAR</label>
-  <span class="ip-ayuda">¿Qué preguntas les quedan? Sobre todo: <strong>¿qué número no saben todavía?</strong></span>
-  <details class="ip-ej">
-    <summary>Ver un ejemplo</summary>
-    <p><em>El mismo equipo:</em></p>
-    <p>«¿Cuánto cloro puede tener el agua antes de ser peligrosa? ¿Quién decide ese límite? ¿Dónde está escrito? ¿Qué otras cosas se miden además del cloro?»</p>
-  </details>
-  <textarea class="ip-campo" id="f_averiguar" rows="3" placeholder="Las preguntas que hoy no pueden contestar"></textarea>
-
-  <label class="ip-lbl">¿Qué campos van a extraer? (entre cuatro y seis)</label>
-  <span class="ip-ayuda">Son <strong>las columnas de su tabla</strong>. Uno de ellos tiene que ser <code>fuente</code>: de dónde salió el dato.</span>
-  <details class="ip-ej">
-    <summary>Ver un ejemplo</summary>
-    <p><em>Agua:</em> parametro · valor_maximo · unidad · fuente</p>
-    <p style="margin-top:6px;"><em>Ruido:</em> ambiente · decibeles_maximos · horario · fuente</p>
-  </details>
-  <textarea class="ip-campo" id="f_campos" rows="2" placeholder="Cuatro a seis nombres, separados por coma"></textarea>
-
-  <label class="ip-lbl">De esos campos, ¿cuál puede faltar en algunos textos?</label>
-  <span class="ip-ayuda">En los textos reales <strong>siempre falta algo</strong>. Si les parece que no falta ninguno, todavía no miraron un documento de verdad.</span>
-  <details class="ip-ej">
-    <summary>Ver un ejemplo</summary>
-    <p>«Puede faltar la unidad, porque a veces el documento la dice una sola vez al principio de la tabla. Si falta, lo dejamos vacío y lo anotamos, en vez de suponerla.»</p>
-  </details>
-  <textarea class="ip-campo" id="f_faltan" rows="2" placeholder="Cuál puede faltar, y qué hacen en ese caso"></textarea>
-
-  <label class="ip-lbl">Cuando tengan la tabla lista, ¿qué va a decidir el agente?</label>
-  <span class="ip-ayuda"><strong>Este es el campo más importante de la ficha.</strong> Si no lo pueden contestar, el tema todavía no cierra: una tabla sin decisión posible no da para un proyecto.</span>
-  <details class="ip-ej">
-    <summary>Ver un ejemplo</summary>
-    <p>«Le pasás un análisis de agua y te dice si es apta para tomar, solo para lavar, o si no hay que usarla. Y te explica contra qué límite lo comparó.»</p>
-  </details>
-  <textarea class="ip-campo" id="f_agente" rows="3" placeholder="Le pasás... y te dice..."></textarea>
-
-  <label class="ip-lbl">Los roles del equipo</label>
-  <div class="ip-rol"><label>📚 Consigue los textos</label><input class="ip-campo" id="r1" placeholder="Quién"></div>
-  <div class="ip-rol"><label>🔍 Programa la extracción</label><input class="ip-campo" id="r2" placeholder="Quién"></div>
-  <div class="ip-rol"><label>✅ Verifica los datos</label><input class="ip-campo" id="r3" placeholder="Quién"></div>
-  <div class="ip-rol"><label>🤖 Arma la lógica del agente</label><input class="ip-campo" id="r4" placeholder="Quién"></div>
-  <div class="ip-rol"><label>📝 Documenta y prepara la presentación</label><input class="ip-campo" id="r5" placeholder="Quién"></div>
-
-  <div class="info i-json">
-    <strong>Si son menos de cinco</strong>
-    Los roles son cinco, pero no todos los equipos son de cinco. <strong>Está bien que alguien tome dos.</strong>
-    <br><br>
-    <strong>Si son cuatro:</strong> una persona hace <em>consigue los textos</em> y <em>documenta</em>.<br>
-    <strong>Si son tres:</strong> además, la <em>verificación</em> la hacen entre todos — que igual es lo que conviene, porque cada dato lo tienen que chequear dos personas distintas.
-  </div>
-
+  <h2><span class="badge" style="background:var(--classroom)">5</span> QUÉ TE LLEVÁS</h2>
+  <p>Una ficha por equipo en <code>.txt</code>, con el nombre del equipo en el archivo.</p>
+  <table class="g">
+    <tr><th>Qué mirar al revisarlas</th><th>Señal de alarma</th></tr>
+    <tr><td>De dónde salen los textos</td><td>«De internet» a secas. Sin fuente concreta, el lunes no van a encontrar nada.</td></tr>
+    <tr><td>Qué campos van a extraer</td><td>Menos de cuatro, o campos que son opiniones y no datos.</td></tr>
+    <tr><td>Qué va a decidir el agente</td><td>Vacío o vago. Es el campo que revela si el tema cierra.</td></tr>
+    <tr><td>Los roles</td><td>Que estén los cinco con nombre. Si falta gente, hay alguien sin tarea.</td></tr>
+  </table>
   <div class="info i-amb">
-    <strong>Los roles reparten el trabajo, no el contenido</strong>
-    Cuando lo presenten, cualquiera del equipo tiene que poder explicar el proyecto entero. Y el rol de <strong>verificación</strong> nunca lo hace una sola persona: cada dato lo chequean dos.
-  </div>
-
-  <button class="ip-btn" onclick="descargarFicha()">⬇ Descargar la ficha del equipo</button>
-  <p id="okf" style="color:var(--classroom);font-weight:bold;margin-top:10px;"></p>
-</div>
-
-<div class="card c-avanzado">
-  <h2><span class="badge" style="background:var(--vio)">→</span> LO QUE VIENE</h2>
-  <p>Con la ficha aprobada, el próximo paso es juntar los textos: esa es la materia prima y sin ella no se puede avanzar. Después viene programar la extracción, verificar, y recién ahí el agente.</p>
-  <div class="info i-rojo">
-    <strong>Una advertencia que vale para todos los equipos</strong>
-    Si su proyecto toca algo que le puede importar a alguien de verdad —salud, seguridad, plata—, el sistema se presenta siempre como <strong>prototipo educativo</strong>, y ningún dato entra a la tabla sin verificar contra la fuente. La IA inventa cuando le falta información: eso ya lo saben, y de ahora en más es responsabilidad del equipo.
-  </div>
-</div>
-
-</div>
-<script>
-function descargarFicha(){
-  function v(id){ var e=document.getElementById(id); return e && e.value.trim() ? e.value.trim() : '(sin completar)'; }
-  var eq = document.getElementById('f_equipo').value.trim();
-  if(!eq){ alert('Pongan el nombre del equipo antes de descargar.'); return; }
-  var f = new Date();
-  var fecha = f.getDate()+'/'+(f.getMonth()+1)+'/'+f.getFullYear();
-  var t = [];
-  t.push('FICHA DE PROYECTO - Segundo cuatrimestre');
-  t.push('Taller de IA - 7 TIC - CTP Antonio Martin Marte');
-  t.push('Equipo: ' + eq);
-  t.push('Fecha: ' + fecha);
-  t.push('');
-  t.push('Integrantes: ' + v('f_integrantes'));
-  t.push('');
-  t.push('--- EL TEMA ---');
-  t.push('De que se trata: ' + v('f_tema'));
-  t.push('');
-  t.push('De donde salen los textos: ' + v('f_textos'));
-  t.push('');
-  t.push('--- PUNTO DE PARTIDA ---');
-  t.push('Lo que ya sabemos: ' + v('f_sabemos'));
-  t.push('');
-  t.push('Lo que necesitamos averiguar: ' + v('f_averiguar'));
-  t.push('');
-  t.push('--- LOS DATOS ---');
-  t.push('Campos a extraer: ' + v('f_campos'));
-  t.push('');
-  t.push('Campos que pueden faltar y que hacemos: ' + v('f_faltan'));
-  t.push('');
-  t.push('--- EL AGENTE ---');
-  t.push('Que va a decidir: ' + v('f_agente'));
-  t.push('');
-  t.push('--- ROLES ---');
-  t.push('Consigue los textos: ' + v('r1'));
-  t.push('Programa la extraccion: ' + v('r2'));
-  t.push('Verifica los datos: ' + v('r3'));
-  t.push('Logica del agente: ' + v('r4'));
-  t.push('Documenta y Expo: ' + v('r5'));
-  t.push('');
-  var texto = t.join('\n');
-  var limpio = eq.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'_');
-  var blob = new Blob([texto], {type:'text/plain;charset=utf-8'});
-  var a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'ficha_' + limpio + '.txt';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  document.getElementById('okf').textContent = 'Ficha descargada. Entréguenla antes de salir.';
-}
-</script>
-</body>
-</html>
-    --rojo:#C62828;--rojo-bg:#FFEBEE;
-    --azul:#1565C0;--azul-bg:#E3F2FD;
-    --classroom:#137333;--class-bg:#F0FFF4;
-    --rpg:#5C2070;--rpg-bg:#F8F3FF;
-    --plan:#2A4A7F;--plan-bg:#E5ECF6;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:20px;padding:15px 0 50px;}
-  header{background:var(--nav);color:var(--bco);padding:25px 20px;border-bottom:5px solid var(--vio);}
-  header h1{font-size:26px;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
-  header p{font-size:17px;opacity:.9;}
-  .container{width:95%;max-width:1400px;margin:0 auto;padding:0 15px;}
-  .back-btn{display:inline-block;margin-top:20px;margin-bottom:10px;padding:10px 20px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
-  .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
-  .c-p1{border-left-color:var(--p1);background:var(--p1-bg);}
-  .c-plan{border-left-color:var(--plan);background:var(--plan-bg);}
-  .c-info{border-left-color:var(--vio);background:#FAFCFF;}
-  .c-json{border-left-color:var(--json);background:var(--json-bg);}
-  .c-rojo{border-left-color:var(--rojo);background:var(--rojo-bg);}
-  .c-entrega{border-left-color:var(--classroom);background:var(--class-bg);}
-  .c-asistente{border-left-color:var(--rpg);background:var(--rpg-bg);}
-  .c-avanzado{border-left-color:var(--amb);background:#FFFBF5;}
-  h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
-  .badge{background:var(--nav);color:var(--bco);padding:5px 12px;border-radius:6px;font-size:17px;font-weight:bold;}
-  .info{padding:18px 20px;border-radius:var(--r);margin:15px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
-  .i-p1{background:var(--p1-bg);border-color:var(--p1);}
-  .i-plan{background:var(--plan-bg);border-color:var(--plan);}
-  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
-  .i-amb{background:#FFF8EE;border-color:var(--amb);}
-  .i-azul{background:var(--azul-bg);border-color:var(--azul);}
-  .i-rojo{background:var(--rojo-bg);border-color:var(--rojo);}
-  .i-json{background:var(--json-bg);border-color:var(--json);}
-  .info > strong:first-child{display:block;margin-bottom:6px;font-size:19px;}
-  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:18px 20px;font-size:17px;overflow-x:auto;white-space:pre;line-height:1.65;margin:14px 0;border-radius:8px;}
-  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
-  .nm{color:#B5CEA8;} .fn{color:#DCDCAA;} .dk{color:#9CDCFE;}
-  code{background:#E8E6FF;color:var(--vio);padding:2px 6px;border-radius:4px;font-family:'Consolas',monospace;font-size:17px;}
-  ul{margin-left:22px;} li{margin-bottom:8px;}
-  ol{margin-left:22px;} ol li{margin-bottom:8px;}
-  table{width:100%;border-collapse:collapse;font-size:17px;margin:16px 0;background:#fff;border-radius:8px;overflow:hidden;}
-  th,td{border:1px solid var(--bd);padding:12px 14px;text-align:left;}
-  th{background:var(--nav);color:#fff;font-size:15px;text-transform:uppercase;letter-spacing:.5px;}
-  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
-  .trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;}
-  .mini{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:16px;font-size:16px;line-height:1.6;}
-  .mini strong{color:var(--p1);display:block;margin-bottom:4px;font-size:17px;}
-  .check{list-style:none;margin-left:0;}
-  .check li{padding-left:34px;position:relative;margin-bottom:12px;font-size:18px;}
-  .check li::before{content:"\25A2";position:absolute;left:0;font-size:24px;color:var(--p1);}
-  #asist-chat{display:none;}
-  #asist-msgs{background:#1E1E1E;border-radius:10px;padding:16px;min-height:160px;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:10px;}
-  .asist-inp{display:flex;gap:8px;}
-  .asist-inp input{flex:1;padding:11px;border-radius:8px;border:1px solid #ccc;font-size:17px;outline:none;}
-  .btn-rpg{background:var(--rpg);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;}
-  .btn-rpg:disabled{background:#ccc;cursor:not-allowed;}
-  .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
-  .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
-  @media(max-width:768px){.duo,.trio{grid-template-columns:1fr;}}
-
-  /* Ejercicio de JSON */
-  .jej{display:none;}
-  .jej.activo{display:block;}
-  .jpanel{background:#F0FFF0;border:2px solid #006400;border-radius:10px;padding:18px 20px;
-          font-family:Consolas,monospace;font-size:17px;line-height:2;overflow-x:auto;white-space:pre;}
-  .jval{background:#fff;border:2px solid var(--bd);border-radius:6px;padding:1px 7px;
-        cursor:pointer;transition:all .15s;display:inline-block;}
-  .jval:hover{border-color:var(--json);background:#E6F7E6;}
-  .jval.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
-  .jval.no{background:#FFEBEE;border-color:var(--rojo);}
-  .jkey{color:#9CDCFE;}
-  .jctx{background:var(--azul-bg);border-left:5px solid var(--azul);border-radius:8px;
-        padding:12px 16px;margin-bottom:12px;font-size:17px;}
-  .jpide{font-size:21px;font-weight:bold;margin:14px 0 10px;}
-  .jfb{margin-top:12px;font-size:18px;}
-  .jcamino{background:var(--code-bg);color:#D4D4D4;font-family:Consolas,monospace;
-           padding:12px 16px;border-radius:8px;font-size:17px;margin-top:10px;overflow-x:auto;}
-  .jcam-ops{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
-  .jcam-op{background:#1E1E1E;color:#D4D4D4;font-family:Consolas,monospace;font-size:16px;
-           padding:11px 14px;border:2px solid #3A3A3A;border-radius:8px;cursor:pointer;text-align:left;
-           transition:all .15s;}
-  .jcam-op:hover:enabled{border-color:var(--vio);}
-  .jcam-op:disabled{cursor:default;}
-  .jcam-op.cam-ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
-  .jcam-op.cam-no{background:#3a1e1e;border-color:#C0392B;opacity:.6;}
-  .jprog{font-size:16px;color:#666;margin-bottom:8px;}
-
-  /* Taller de reparaciones */
-  .rep{display:none;}
-  .rep.activo{display:block;}
-  .repcod{background:var(--code-bg);border-radius:8px;padding:14px 0;font-family:Consolas,monospace;
-          font-size:16px;line-height:1.9;overflow-x:auto;}
-  .rline{display:block;padding:2px 18px;cursor:pointer;white-space:pre;color:#D4D4D4;}
-  .rline:hover{background:#2D2D2D;}
-  .rline.ok{background:#1F6E5C;}
-  .rline.no{background:#5C1F1F;}
-  .rline.fija{cursor:default;color:#808080;}
-  .rline.fija:hover{background:transparent;}
-  .rnum{color:#606060;display:inline-block;width:26px;user-select:none;}
-
-  .encasa{display:inline-block;background:#7A4B00;color:#fff;font-size:14px;font-weight:bold;
-          letter-spacing:1px;padding:5px 12px;border-radius:20px;margin-left:auto;}
-  .banda-casa{background:#FFF8EE;border:2px dashed #B8720A;border-radius:10px;
-              padding:12px 18px;margin-bottom:16px;font-size:18px;}
-
-  /* Campos extraíbles */
-  .campo{display:inline-block;background:#fff;border:2px solid var(--bd);border-radius:22px;
-         padding:9px 18px;margin:6px 6px 6px 0;cursor:pointer;font-size:18px;transition:all .15s;}
-  .campo:hover{border-color:var(--p1);background:#F2FAF8;}
-  .campo.si{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
-  .campo.no{background:#FFEBEE;border-color:var(--rojo);color:#8B1A1A;text-decoration:line-through;}
-  .ext-txt{background:#FFFDF5;border:2px solid var(--amb);border-radius:10px;padding:16px 20px;
-           font-size:19px;line-height:1.7;font-style:italic;margin-bottom:14px;}
-
-  .tarea{background:#fff;border:2px solid var(--bd);border-radius:10px;
-         padding:13px 18px;margin-bottom:10px;font-size:18px;transition:all .15s;
-         display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
-  .tarea-txt{flex:1 1 240px;}
-  .tarea-btns{display:flex;gap:8px;}
-  .tbtn{background:#fff;border:2px solid var(--bd);border-radius:8px;padding:8px 12px;
-        font-size:16px;cursor:pointer;font-family:inherit;color:var(--txt);white-space:nowrap;}
-  .tbtn:hover:enabled{border-color:var(--vio);}
-  .tbtn:disabled{cursor:default;opacity:.55;}
-  .tbtn.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;opacity:1;}
-  .tbtn.mal{background:#FFEBEE;border-color:#C0392B;color:#8B1A1A;opacity:1;}
-  .tarea.resuelta{background:#F7FBF9;border-color:#1F6E5C;}
-  .tarea-fb{flex:1 1 100%;font-size:16px;}
-  .btn-op{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px 20px;
-          margin:6px 8px 6px 0;font-size:18px;cursor:pointer;font-family:inherit;color:var(--txt);}
-  .btn-op:hover{border-color:var(--p1);}
-  .btn-op.ok{background:#E8F4F0;border-color:var(--p1);}
-  .btn-op.mal{background:#FFEBEE;border-color:var(--rojo);}
-  .parte{display:inline-block;background:#1E1E1E;color:#DCDCAA;border:2px solid #444;
-         border-radius:8px;padding:8px 14px;margin:5px 4px;cursor:pointer;
-         font-family:Consolas,monospace;font-size:20px;}
-  .parte:hover{border-color:#DCDCAA;}
-  .parte.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
-  .parte.mal{background:#5C1F1F;border-color:#C62828;}
-
-  /* Cuestionario de cierre */
-  .cq-op{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);
-         border-radius:10px;padding:13px 18px;margin-bottom:9px;font-size:18px;cursor:pointer;
-         font-family:inherit;color:var(--txt);line-height:1.5;}
-  .cq-op:hover:enabled{border-color:var(--vio);background:#FAF7FF;}
-  .cq-op:disabled{cursor:default;opacity:.95;}
-  .cq-vf{display:inline-block;width:48%;text-align:center;font-size:20px;font-weight:bold;
-         padding:16px;margin:0 1% 10px;border:2px solid var(--bd);border-radius:10px;
-         background:#fff;cursor:pointer;font-family:inherit;color:var(--txt);}
-  .cq-vf:hover:enabled{border-color:var(--vio);}
-  .cq-vf:disabled{cursor:default;opacity:.95;}
-  .cq-barra{height:14px;background:#E8E8E8;border-radius:7px;overflow:hidden;margin:10px 0 4px;}
-  .cq-fill{height:100%;background:var(--vio);width:0;transition:width .3s;}
-</style>
-</head>
-<body>
-<header>
-  <h1>ARRANCA EL PROYECTO — DE TEXTOS A DECISIONES</h1>
-  <p>Taller de IA &middot; 7&deg; TIC &middot; CTP Antonio Mart&iacute;n Marte &middot; Viernes 4/9 · 80 minutos</p>
-</header>
-<div class="container">
-<a href="index.html" class="back-btn">&#11013; Volver al &Iacute;ndice</a>
-
-<style>
-  .ip-parte{display:block;background:var(--bco);border:2px solid var(--bd);border-radius:var(--r);
-            padding:20px 24px;margin:14px 0;}
-  .ip-parte h3{margin:0 0 4px 0;font-size:23px;}
-  .ip-flujo{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0;}
-  .ip-flujo .pf{flex:1 1 130px;background:var(--p1-bg);border:2px solid var(--p1);
-                border-radius:10px;padding:11px 12px;font-size:15px;text-align:center;}
-  .ip-flujo .fl{font-size:24px;color:var(--p1);font-weight:bold;}
-  .ip-idea{display:block;background:#fff;border:2px solid var(--bd);border-radius:10px;
-           padding:13px 17px;margin-bottom:9px;font-size:17px;}
-  .ip-idea strong{color:var(--p1);}
-  .ip-idea span{display:block;font-size:15px;color:#667;margin-top:3px;font-style:italic;}
-  .ip-campo{width:100%;box-sizing:border-box;border:2px solid var(--bd);border-radius:8px;
-            padding:11px 13px;font-size:16px;font-family:inherit;color:var(--txt);
-            line-height:1.5;resize:vertical;margin-top:6px;}
-  .ip-campo:focus{outline:none;border-color:var(--p1);}
-  .ip-lbl{font-weight:bold;font-size:17px;margin-top:14px;display:block;}
-  .ip-ayuda{display:block;font-size:15.5px;color:#667;margin-top:3px;line-height:1.5;}
-  details.ip-ej{background:var(--gris);border-left:5px solid var(--p1);border-radius:8px;
-                padding:9px 14px;margin-top:7px;}
-  details.ip-ej summary{cursor:pointer;font-size:15.5px;color:var(--p1);font-weight:bold;}
-  details.ip-ej p{font-size:16px;margin:8px 0 0 0;line-height:1.6;}
-  .ip-btn{background:var(--p1);color:#fff;border:none;border-radius:10px;padding:14px 24px;
-          font-size:18px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:14px;}
-  .ip-rol{display:flex;gap:10px;align-items:center;margin-bottom:9px;flex-wrap:wrap;}
-  .ip-rol label{flex:0 0 210px;font-weight:bold;font-size:16px;}
-  .ip-rol input{flex:1 1 200px;border:2px solid var(--bd);border-radius:8px;padding:9px 12px;
-                font-size:16px;font-family:inherit;}
-  .reloj{display:inline-block;background:var(--amb);color:#fff;font-size:15px;font-weight:bold;
-         padding:3px 12px;border-radius:20px;margin-left:10px;vertical-align:middle;}
-</style>
-
-<div class="card c-info">
-  <h2><span class="badge" style="background:var(--teal)">0</span> HOY EMPIEZA EL PROYECTO</h2>
-
-  <div style="background:var(--p1-bg);border:3px solid var(--p1);border-radius:var(--r);
-              padding:22px 26px;margin:14px 0;text-align:center;">
-    <p style="font-size:17px;color:var(--p1);font-weight:bold;letter-spacing:1px;margin-bottom:8px;">LA PREGUNTA DEL PROYECTO</p>
-    <p style="font-size:25px;font-weight:bold;line-height:1.4;margin:0;">¿Cómo puede una máquina<br>interpretar datos y ayudarnos a decidir?</p>
-  </div>
-
-  <p>Esa es la pregunta que van a responder hasta el final del proyecto. <strong>No tiene una sola respuesta correcta</strong>: cada equipo la va a contestar desde su tema, y las respuestas van a ser distintas.</p>
-  <p style="margin-top:10px;">Lo van a mostrar a gente que no cursó con ustedes, así que no alcanza con que funcione: tienen que poder explicar <strong>por qué lo hicieron así</strong>.</p>
-  <div class="info i-azul">
-    <strong>🧭 Cómo es la clase de hoy</strong>
-    Primero vemos qué se construye. Después cada equipo <strong>elige su tema y completa su ficha</strong>, que es el plan de trabajo. Al final la descargan y la entregan: sin ficha no se arranca a programar.
-  </div>
-</div>
-
-<div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">1</span> QUÉ VAN A CONSTRUIR</h2>
-  <p style="font-size:20px;">La meta es un <strong>agente</strong>: un programa que decide y actúa solo. Pero un agente solo decide bien si tiene datos buenos, y esos datos hay que fabricarlos primero. Por eso el proyecto tiene dos partes.</p>
-
-  <div class="ip-parte" style="border-top:6px solid var(--p1);">
-    <h3 style="color:var(--p1);">PARTE 1 — El extractor</h3>
-    <p>Textos sueltos entran, tabla ordenada sale. Le piden a la IA que saque los datos de cada texto, verifican que no haya inventado nada, y arman un archivo.</p>
-    <div class="ip-flujo">
-      <div class="pf">textos sueltos</div><div class="fl">→</div>
-      <div class="pf">la IA extrae</div><div class="fl">→</div>
-      <div class="pf">ustedes verifican</div><div class="fl">→</div>
-      <div class="pf">tabla ordenada</div>
-    </div>
-  </div>
-
-  <div class="ip-parte" style="border-top:6px solid var(--vio);">
-    <h3 style="color:var(--vio);">PARTE 2 — El agente</h3>
-    <p>Usa esa tabla como cerebro. Recibe una situación nueva, la compara con lo que sabe, decide qué hacer y lo hace.</p>
-    <div class="ip-flujo">
-      <div class="pf">PERCIBE</div><div class="fl">→</div>
-      <div class="pf">RAZONA</div><div class="fl">→</div>
-      <div class="pf">DECIDE</div><div class="fl">→</div>
-      <div class="pf">ACTÚA</div>
-    </div>
-  </div>
-
-  <div class="info i-json">
-    <strong>👀 Miren esto antes de seguir</strong>
-    Hay un programa que ya funciona: recibe mediciones de un sensor y avisa si el aire está bien o mal. Compara el número medido contra unos valores de referencia y responde.
-    <br><br>
-    Ahora la pregunta importante: <strong>¿de dónde salieron esos valores de referencia?</strong> Alguien los escribió a mano, de memoria. Nadie verificó que sean correctos, y no dicen de qué documento salieron.
-    <br><br>
-    <strong>Eso es lo que ustedes van a construir.</strong> Un programa que decide es la parte fácil; lo difícil —y lo que hace que sirva— es que los datos con los que decide sean confiables.
-  </div>
-
-  <div class="info i-amb">
-    <strong>Hoy solo se planifica la Parte 1</strong>
-    El agente viene después. Pero conviene tenerlo en la cabeza desde ahora, porque <strong>lo que elijan hoy condiciona lo que el agente va a poder decidir</strong>.
-  </div>
-</div>
-
-<div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">2</span> ELEGIR EL TEMA<span class="reloj">20 min</span></h2>
-  <p>El tema lo eligen ustedes. Tiene que cumplir <strong>tres condiciones</strong>:</p>
-
-  <div class="info i-json">
-    <strong>Las tres condiciones</strong>
-    <strong>1.</strong> Que existan <strong>textos reales</strong> de donde sacar los datos. Al menos <strong>diez fragmentos</strong> con un dato adentro — pueden salir de dos o tres documentos, no hacen falta diez.<br>
-    <strong>2.</strong> Que los datos <strong>estén escritos</strong> en esos textos, no que haya que suponerlos.<br>
-    <strong>3.</strong> Que después se pueda <strong>decidir algo</strong> con esa tabla. Si no hay decisión posible, no hay agente.
-  </div>
-
-  <p style="margin-top:14px;">Si no se les ocurre nada, algunas ideas:</p>
-
-  <p style="margin-top:6px;"><strong>Ambientales</strong></p>
-  <div class="ip-idea"><strong>Agua potable</strong><span>Código Alimentario y protocolos de análisis → tabla de valores máximos → decide si el agua es apta y para qué uso</span></div>
-  <div class="ip-idea"><strong>Radiación UV</strong><span>índice UV y guías de fotoprotección → tabla de tiempos de exposición → decide cuánto se puede estar al sol</span></div>
-  <div class="ip-idea"><strong>Ruido ambiental</strong><span>guías de la OMS y normativa municipal → tabla de decibeles permitidos → decide si un nivel es tolerable</span></div>
-  <div class="ip-idea"><strong>Temperatura en aulas y viviendas</strong><span>normativa de higiene y seguridad → tabla de rangos → decide si hay que ventilar o calefaccionar</span></div>
-  <div class="ip-idea"><strong>Conservación de alimentos</strong><span>Código Alimentario y material de ANMAT → tabla de temperaturas y tiempos → decide si algo se puede consumir</span></div>
-  <div class="ip-idea"><strong>Residuos y reciclado</strong><span>normativa de separación → tabla de materiales → decide en qué contenedor va y qué impacto tiene</span></div>
-
-  <p style="margin-top:14px;"><strong>Sociales</strong></p>
-  <div class="ip-idea"><strong>Derechos del estudiante</strong><span>Ley de Educación y reglamento de la escuela → tabla de situaciones → decide si un reclamo corresponde</span></div>
-  <div class="ip-idea"><strong>Accesibilidad</strong><span>normativa de accesibilidad edilicia → tabla de medidas mínimas → decide si un espacio del colegio cumple</span></div>
-  <div class="ip-idea"><strong>Derechos del consumidor</strong><span>Ley 24.240 → tabla de plazos y derechos → decide si un reclamo procede y cómo hacerlo</span></div>
-
-  <div class="info i-amb">
-    <strong>📄 Ojo con el formato</strong>
-    El texto tiene que poder <strong>copiarse</strong>. Sirve una página web, un PDF del que se pueda seleccionar texto, o un documento.
-    <br><br>
-    <strong>No sirve:</strong> una foto o un escaneo, porque no se puede copiar. Y si el valor está adentro de una <strong>tabla</strong> del PDF, al copiarlo se desarma — se puede usar igual, pero hay que acomodarlo a mano.
-  </div>
-
-  <div class="info i-rojo">
-    <strong>Antes de decidir, hagan la prueba</strong>
-    Agarren <strong>un</strong> texto de los que quieren usar y subráyenlo: ¿los datos que quieren sacar están escritos ahí? Si tienen que deducirlos o suponerlos, el tema no sirve — o hay que cambiar los campos. Es mejor descubrirlo hoy que dentro de tres semanas.
+    <strong>Antes del lunes</strong>
+    Leé las fichas y marcá los equipos con problemas. El lunes salen a buscar textos: si el tema no cierra, pierden la clase entera.
   </div>
 </div>
 
 <div class="card c-entrega">
-  <h2><span class="badge" style="background:var(--classroom)">3</span> LA FICHA DEL EQUIPO<span class="reloj">45 min</span></h2>
-  <p>Este es el plan de trabajo. Complétenlo entre todos y descárguenlo al final.</p>
+  <h2><span class="badge" style="background:var(--classroom)">5b</span> QUÉ REGISTRAR — Y CÓMO SUBIRLO</h2>
 
-  <label class="ip-lbl">Nombre del equipo</label>
-  <input class="ip-campo" id="f_equipo" placeholder="Como quieran llamarse">
-
-  <label class="ip-lbl">Integrantes</label>
-  <textarea class="ip-campo" id="f_integrantes" rows="2" placeholder="Nombres y apellidos, separados por coma"></textarea>
-
-  <label class="ip-lbl">¿De qué se trata? En una frase.</label>
-  <span class="ip-ayuda">Completen esta oración: «Vamos a convertir <em>(qué textos)</em> en una tabla de <em>(qué datos)</em>, para que un programa pueda decidir <em>(qué cosa)</em>.»</span>
-  <textarea class="ip-campo" id="f_tema" rows="2" placeholder="Vamos a convertir... en una tabla de... para decidir..."></textarea>
-
-  <label class="ip-lbl">¿De dónde salen los textos?</label>
-  <span class="ip-ayuda">Nombren <strong>documentos concretos</strong>, no «de internet». Si todavía no los tienen, escriban dónde los van a buscar.</span>
-  <details class="ip-ej">
-    <summary>Ver un ejemplo</summary>
-    <p>«Del Código Alimentario Argentino, artículo 982, que está en la página del Ministerio. Y de una guía de análisis de agua que encontramos en un sitio del gobierno. Todavía no los bajamos.»</p>
-  </details>
-  <textarea class="ip-campo" id="f_textos" rows="3" placeholder="Qué documentos, y dónde están"></textarea>
-
-  <div class="info i-json" style="margin-top:18px;">
-    <strong>🔎 Antes de seguir: dónde están parados hoy</strong>
-    Estas dos preguntas se contestan <strong>ahora, sin buscar nada</strong>. No hay respuesta correcta ni se corrige.
-    <br><br>
-    En noviembre van a volver a leer lo que escribieron hoy, y ahí van a ver todo lo que aprendieron en el camino. <strong>Por eso conviene ser honestos:</strong> si ponen que ya saben todo, después no se nota nada.
+  <div class="si">
+    <strong>Hoy no se pone nota.</strong> Es la fase de diagnóstico del proyecto: lo que se registra es si el tema es viable y si la ficha está completa. La calificación llega con la evaluación de la Parte 1, el 19/10.
   </div>
 
-  <label class="ip-lbl">Lo que YA SABEMOS sobre nuestro tema</label>
-  <span class="ip-ayuda">Sin buscar en internet: ¿qué sabe el equipo de este tema? Puede ser poco. Puede ser algo que le escucharon a alguien.</span>
-  <details class="ip-ej">
-    <summary>Ver un ejemplo</summary>
-    <p><em>Equipo que eligió agua potable:</em></p>
-    <p>«Sabemos que el agua de la canilla se puede tomar. Que hay lugares donde no. Que le ponen cloro. Uno del equipo escuchó que en algunos barrios el agua sale con olor raro.»</p>
-  </details>
-  <textarea class="ip-campo" id="f_sabemos" rows="3" placeholder="Escriban lo que se les venga, aunque parezca poco"></textarea>
+  <h3 style="color:var(--p1);margin-top:16px;">En Classroom</h3>
+  <table class="g">
+    <tr><td><strong>Tipo</strong></td><td><strong>Tarea</strong>, no Material. Material no permite entrega y vos necesitás recibir el <code>.txt</code>.</td></tr>
+    <tr><td><strong>Calificación</strong></td><td><strong>Sin calificar.</strong> Classroom te deja crear la tarea sin puntos. Queda el registro de entrega sin que sea una nota.</td></tr>
+    <tr><td><strong>Entrega</strong></td><td>Que <strong>cada integrante suba el mismo archivo</strong>. Si entrega uno solo, los demás te figuran «sin entregar» y el registro se ensucia.</td></tr>
+    <tr><td><strong>Fecha límite</strong></td><td>Hoy al terminar la clase. Si alguno no llega, que lo suba durante el fin de semana — pero <strong>vos las leés antes del lunes</strong>.</td></tr>
+    <tr><td><strong>Adjuntar</strong></td><td>El link a la página de la clase, para que la puedan reabrir.</td></tr>
+  </table>
 
-  <label class="ip-lbl">Lo que NECESITAMOS AVERIGUAR</label>
-  <span class="ip-ayuda">¿Qué preguntas les quedan? Sobre todo: <strong>¿qué número no saben todavía?</strong></span>
-  <details class="ip-ej">
-    <summary>Ver un ejemplo</summary>
-    <p><em>El mismo equipo:</em></p>
-    <p>«¿Cuánto cloro puede tener el agua antes de ser peligrosa? ¿Quién decide ese límite? ¿Dónde está escrito? ¿Qué otras cosas se miden además del cloro?»</p>
-  </details>
-  <textarea class="ip-campo" id="f_averiguar" rows="3" placeholder="Las preguntas que hoy no pueden contestar"></textarea>
+  <h3 style="color:var(--p1);margin-top:18px;">Tu planilla</h3>
+  <p>Una fila por equipo. Marcá con ✓, ~ o ✗. <strong>Lo único que decide si pueden seguir es la última columna.</strong></p>
 
-  <label class="ip-lbl">¿Qué campos van a extraer? (entre cuatro y seis)</label>
-  <span class="ip-ayuda">Son <strong>las columnas de su tabla</strong>. Uno de ellos tiene que ser <code>fuente</code>: de dónde salió el dato.</span>
-  <details class="ip-ej">
-    <summary>Ver un ejemplo</summary>
-    <p><em>Agua:</em> parametro · valor_maximo · unidad · fuente</p>
-    <p style="margin-top:6px;"><em>Ruido:</em> ambiente · decibeles_maximos · horario · fuente</p>
-  </details>
-  <textarea class="ip-campo" id="f_campos" rows="2" placeholder="Cuatro a seis nombres, separados por coma"></textarea>
+  <table class="g">
+    <tr>
+      <th style="width:16%;">Equipo</th>
+      <th>Ficha completa</th>
+      <th>Textos identificables<br><span style="font-weight:normal;font-size:12px;">documentos concretos, no «internet»</span></th>
+      <th>Campos bien definidos<br><span style="font-weight:normal;font-size:12px;">4 a 6, con <code>fuente</code></span></th>
+      <th>Sabe qué decide el agente</th>
+      <th style="background:#7A4B00;">¿Sigue?</th>
+    </tr>
+    <tr><td><strong>Feria</strong></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td><strong>Karla</strong></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td><strong>Lucía</strong></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td><strong>Juampi</strong></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table>
 
-  <label class="ip-lbl">De esos campos, ¿cuál puede faltar en algunos textos?</label>
-  <span class="ip-ayuda">En los textos reales <strong>siempre falta algo</strong>. Si les parece que no falta ninguno, todavía no miraron un documento de verdad.</span>
-  <details class="ip-ej">
-    <summary>Ver un ejemplo</summary>
-    <p>«Puede faltar la unidad, porque a veces el documento la dice una sola vez al principio de la tabla. Si falta, lo dejamos vacío y lo anotamos, en vez de suponerla.»</p>
-  </details>
-  <textarea class="ip-campo" id="f_faltan" rows="2" placeholder="Cuál puede faltar, y qué hacen en ese caso"></textarea>
-
-  <label class="ip-lbl">Cuando tengan la tabla lista, ¿qué va a decidir el agente?</label>
-  <span class="ip-ayuda"><strong>Este es el campo más importante de la ficha.</strong> Si no lo pueden contestar, el tema todavía no cierra: una tabla sin decisión posible no da para un proyecto.</span>
-  <details class="ip-ej">
-    <summary>Ver un ejemplo</summary>
-    <p>«Le pasás un análisis de agua y te dice si es apta para tomar, solo para lavar, o si no hay que usarla. Y te explica contra qué límite lo comparó.»</p>
-  </details>
-  <textarea class="ip-campo" id="f_agente" rows="3" placeholder="Le pasás... y te dice..."></textarea>
-
-  <label class="ip-lbl">Los roles del equipo</label>
-  <div class="ip-rol"><label>📚 Consigue los textos</label><input class="ip-campo" id="r1" placeholder="Quién"></div>
-  <div class="ip-rol"><label>🔍 Programa la extracción</label><input class="ip-campo" id="r2" placeholder="Quién"></div>
-  <div class="ip-rol"><label>✅ Verifica los datos</label><input class="ip-campo" id="r3" placeholder="Quién"></div>
-  <div class="ip-rol"><label>🤖 Arma la lógica del agente</label><input class="ip-campo" id="r4" placeholder="Quién"></div>
-  <div class="ip-rol"><label>📝 Documenta y prepara la presentación</label><input class="ip-campo" id="r5" placeholder="Quién"></div>
-
-  <div class="info i-json">
-    <strong>Si son menos de cinco</strong>
-    Los roles son cinco, pero no todos los equipos son de cinco. <strong>Está bien que alguien tome dos.</strong>
-    <br><br>
-    <strong>Si son cuatro:</strong> una persona hace <em>consigue los textos</em> y <em>documenta</em>.<br>
-    <strong>Si son tres:</strong> además, la <em>verificación</em> la hacen entre todos — que igual es lo que conviene, porque cada dato lo tienen que chequear dos personas distintas.
+  <div class="no">
+    <strong>El equipo que no pase la última columna</strong><br>
+    Si no saben qué va a decidir el agente, <strong>el lunes no pueden salir a buscar textos</strong>: no saben qué buscar. Hablá con ese equipo el lunes al empezar, diez minutos, antes de que arranque el resto.
   </div>
 
   <div class="info i-amb">
-    <strong>Los roles reparten el trabajo, no el contenido</strong>
-    Cuando lo presenten, cualquiera del equipo tiene que poder explicar el proyecto entero. Y el rol de <strong>verificación</strong> nunca lo hace una sola persona: cada dato lo chequean dos.
+    <strong>Dónde va esto en la evaluación</strong>
+    Es la <strong>Fase 1 — Diagnóstico</strong> de la arquitectura evaluativa. La evidencia es la ficha; los criterios son las tres condiciones del tema. Guardá los <code>.txt</code>: en noviembre los van a releer para ver el recorrido.
   </div>
-
-  <button class="ip-btn" onclick="descargarFicha()">⬇ Descargar la ficha del equipo</button>
-  <p id="okf" style="color:var(--classroom);font-weight:bold;margin-top:10px;"></p>
 </div>
 
 <div class="card c-avanzado">
-  <h2><span class="badge" style="background:var(--vio)">→</span> LO QUE VIENE</h2>
-  <p>Con la ficha aprobada, el próximo paso es juntar los textos: esa es la materia prima y sin ella no se puede avanzar. Después viene programar la extracción, verificar, y recién ahí el agente.</p>
-  <div class="info i-rojo">
-    <strong>Una advertencia que vale para todos los equipos</strong>
-    Si su proyecto toca algo que le puede importar a alguien de verdad —salud, seguridad, plata—, el sistema se presenta siempre como <strong>prototipo educativo</strong>, y ningún dato entra a la tabla sin verificar contra la fuente. La IA inventa cuando le falta información: eso ya lo saben, y de ahora en más es responsabilidad del equipo.
-  </div>
+  <h2><span class="badge" style="background:var(--vio)">6</span> LAS PREGUNTAS QUE TE VAN A HACER</h2>
+  <table class="g">
+    <tr><td><strong>«¿Esto es para nota?»</strong></td><td>Sí. La ficha es la primera entrega del proyecto y el proyecto se evalúa por proceso, no solo por el resultado final.</td></tr>
+    <tr><td><strong>«¿Quién lo va a ver?»</strong></td><td><em>Tenés que tener esta respuesta antes de entrar.</em> Se publica en la web del curso, se presenta entre equipos el 16/11, o las dos.</td></tr>
+    <tr><td><strong>«¿Podemos cambiar de tema después?»</strong></td><td>Hasta el lunes sí. Después no, porque los textos ya están juntados.</td></tr>
+    <tr><td><strong>«¿Tenemos que programar?»</strong></td><td>Sí, pero no hoy. Hoy se planifica. El primer Colab es el 11/9.</td></tr>
+    <tr><td><strong>«¿Por qué ellos hacen lo del aire?»</strong></td><td>Porque ya tenían el proyecto armado para la feria. Hacen exactamente lo mismo que el resto, con su tema.</td></tr>
+  </table>
 </div>
 
+<div class="card c-info">
+  <h2><span class="badge" style="background:var(--teal)">7</span> EL LUNES 7/9</h2>
+  <p><code>textos_fuente_07_09.html</code> — 120 minutos. Qué texto sirve y cuál no, salir a buscar los fragmentos, y revisarlos con una lista de cinco chequeos.</p>
+  <p style="margin-top:10px;"><strong>Preparalo:</strong> tené a mano dos o tres documentos de ejemplo, por si algún equipo llega sin nada.</p>
 </div>
-<script>
-function descargarFicha(){
-  function v(id){ var e=document.getElementById(id); return e && e.value.trim() ? e.value.trim() : '(sin completar)'; }
-  var eq = document.getElementById('f_equipo').value.trim();
-  if(!eq){ alert('Pongan el nombre del equipo antes de descargar.'); return; }
-  var f = new Date();
-  var fecha = f.getDate()+'/'+(f.getMonth()+1)+'/'+f.getFullYear();
-  var t = [];
-  t.push('FICHA DE PROYECTO - Segundo cuatrimestre');
-  t.push('Taller de IA - 7 TIC - CTP Antonio Martin Marte');
-  t.push('Equipo: ' + eq);
-  t.push('Fecha: ' + fecha);
-  t.push('');
-  t.push('Integrantes: ' + v('f_integrantes'));
-  t.push('');
-  t.push('--- EL TEMA ---');
-  t.push('De que se trata: ' + v('f_tema'));
-  t.push('');
-  t.push('De donde salen los textos: ' + v('f_textos'));
-  t.push('');
-  t.push('--- PUNTO DE PARTIDA ---');
-  t.push('Lo que ya sabemos: ' + v('f_sabemos'));
-  t.push('');
-  t.push('Lo que necesitamos averiguar: ' + v('f_averiguar'));
-  t.push('');
-  t.push('--- LOS DATOS ---');
-  t.push('Campos a extraer: ' + v('f_campos'));
-  t.push('');
-  t.push('Campos que pueden faltar y que hacemos: ' + v('f_faltan'));
-  t.push('');
-  t.push('--- EL AGENTE ---');
-  t.push('Que va a decidir: ' + v('f_agente'));
-  t.push('');
-  t.push('--- ROLES ---');
-  t.push('Consigue los textos: ' + v('r1'));
-  t.push('Programa la extraccion: ' + v('r2'));
-  t.push('Verifica los datos: ' + v('r3'));
-  t.push('Logica del agente: ' + v('r4'));
-  t.push('Documenta y Expo: ' + v('r5'));
-  t.push('');
-  var texto = t.join('\n');
-  var limpio = eq.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'_');
-  var blob = new Blob([texto], {type:'text/plain;charset=utf-8'});
-  var a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'ficha_' + limpio + '.txt';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  document.getElementById('okf').textContent = 'Ficha descargada. Entréguenla antes de salir.';
-}
-</script>
-</body>
-</html>
+</div>
+</body></html>
