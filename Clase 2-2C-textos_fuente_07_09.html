@@ -181,6 +181,13 @@
          font-size:18px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:14px;}
   .reloj{display:inline-block;background:var(--amb);color:#fff;font-size:15px;font-weight:bold;
          padding:3px 12px;border-radius:20px;margin-left:10px;vertical-align:middle;}
+  details.ej-eq{background:#fff;border:2px solid var(--bd);border-left:6px solid var(--p1);
+                border-radius:10px;padding:13px 17px;margin-bottom:9px;}
+  details.ej-eq summary{cursor:pointer;font-weight:bold;font-size:19px;color:var(--p1);}
+  details.ej-eq p{font-size:16.5px;line-height:1.6;margin:11px 0 0 0;padding:11px 15px;border-radius:9px;}
+  details.ej-eq p.si{background:#F0FAF7;border:2px solid #1F6E5C;}
+  details.ej-eq p.no{background:#FDECEA;border:2px solid #C0392B;}
+  details.ej-eq span{display:block;font-size:15px;color:#556;margin-top:6px;font-style:italic;}
   .ej-si{background:#F0FAF7;border:2px solid #1F6E5C;border-radius:10px;padding:14px 18px;margin:10px 0;
          font-size:17px;line-height:1.6;}
   .ej-no{background:#FDECEA;border:2px solid #C0392B;border-radius:10px;padding:14px 18px;margin:10px 0;
@@ -252,15 +259,44 @@
   <h2><span class="badge" style="background:var(--p1)">1</span> EL CRITERIO PARA DECIDIR<span class="reloj">20 min</span></h2>
   <p>Antes de tocar la planilla, pongámonos de acuerdo en qué sirve. <strong>El texto tiene que tener el dato escrito</strong>, no explicado.</p>
 
-  <p style="margin-top:14px;"><strong>Sirve:</strong></p>
-  <div class="ej-si"><b>&#10003;</b> "La concentración de nitratos en agua de consumo no debe superar los <b>45 mg/L</b>."<br>
-  <span style="font-size:15px;color:#556;">Tiene el número, la unidad y a qué se refiere. Se puede extraer tal cual.</span></div>
+  <p style="margin-top:14px;"><strong>Abran el de su tema:</strong></p>
 
-  <p style="margin-top:14px;"><strong>No sirve:</strong></p>
-  <div class="ej-no"><b>&#10007;</b> "El exceso de nitratos en el agua puede ocasionar problemas de salud, especialmente en lactantes."<br>
-  <span style="font-size:15px;color:#556;">Es verdad y está bien escrito, pero <b>no dice ningún valor</b>. No hay dato que sacar.</span></div>
-  <div class="ej-no"><b>&#10007;</b> "Los niveles registrados fueron considerablemente superiores a lo recomendado."<br>
-  <span style="font-size:15px;color:#556;">"Considerablemente superiores" no es un dato: habría que suponer cuánto.</span></div>
+  <details class="ej-eq">
+    <summary>🌬️ Calidad del aire</summary>
+    <p class="si"><strong>✅ Sirve:</strong> «Para una exposición de 8 horas se recomienda no superar los 9 ppm de monóxido de carbono.»<br>
+    <span>Tiene el contaminante, el número, la unidad y el tiempo. Se extrae tal cual.</span></p>
+    <p class="no"><strong>❌ No sirve:</strong> «El monóxido de carbono es un gas peligroso que puede causar intoxicación.»<br>
+    <span>Es verdad, pero no dice ningún valor. No hay dato que sacar.</span></p>
+  </details>
+
+  <details class="ej-eq">
+    <summary>🌡️ Temperatura en aulas y viviendas</summary>
+    <p class="si"><strong>✅ Sirve:</strong> «La temperatura en locales de trabajo sedentario debe mantenerse entre 18 y 24 °C.»<br>
+    <span>Dice el ambiente y el rango exacto.</span></p>
+    <p class="no"><strong>❌ No sirve:</strong> «Un ambiente demasiado frío afecta la concentración de los estudiantes.»<br>
+    <span>«Demasiado frío» no es un dato: habría que suponer desde cuántos grados.</span></p>
+  </details>
+
+  <details class="ej-eq">
+    <summary>♻️ Separación de residuos</summary>
+    <p class="si"><strong>✅ Sirve:</strong> «Los envases de plástico, latas y briks se depositan en el contenedor amarillo.»<br>
+    <span>Dice qué material va en qué contenedor. <strong>Acá el dato no es un número, es una categoría</strong> — y sirve igual.</span></p>
+    <p class="no"><strong>❌ No sirve:</strong> «Reciclar es fundamental para cuidar el medio ambiente.»<br>
+    <span>No dice qué va dónde. No hay nada que poner en la tabla.</span></p>
+  </details>
+
+  <details class="ej-eq">
+    <summary>🍔 Conservación de alimentos</summary>
+    <p class="si"><strong>✅ Sirve:</strong> «La carne picada fresca debe conservarse entre 0 y 4 °C por un máximo de 48 horas.»<br>
+    <span>Alimento, temperatura y tiempo, todo escrito.</span></p>
+    <p class="no"><strong>❌ No sirve:</strong> «Es importante mantener la cadena de frío para evitar enfermedades.»<br>
+    <span>No dice ni qué alimento ni a qué temperatura.</span></p>
+  </details>
+
+  <div class="info i-amb">
+    <strong>La regla, en una línea</strong>
+    Si para llenar la tabla tenés que <strong>suponer</strong> algo, el texto no sirve. El dato tiene que estar escrito.
+  </div>
 
   <div class="info i-amb">
     <strong>📄 Tiene que poder copiarse</strong>
