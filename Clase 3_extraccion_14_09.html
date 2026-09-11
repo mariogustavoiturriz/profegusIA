@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>La IA extrae los datos</title>
 <style>
+  table.cierre{width:100%;border-collapse:collapse;font-size:16px;margin:12px 0;}
+  table.cierre th{background:var(--nav);color:#fff;padding:9px 12px;text-align:left;font-size:13.5px;}
+  table.cierre td{border:1px solid var(--bd);padding:10px 12px;vertical-align:top;}
+  table.cierre tr:nth-child(even) td{background:#F7FAFC;}
+
   :root{
     --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
     --vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;
@@ -305,22 +310,25 @@
 
 <div class="card c-entrega" style="border-top:6px solid var(--vio);">
   <h2><span class="badge" style="background:var(--vio)">📓</span> ANTES DE IRSE<span class="reloj">10 min</span></h2>
-  <div class="info i-azul">
-    <strong>1. Guarden la instrucción en la planilla</strong>
-    En la hoja <strong>Equipo</strong>, abajo de todo, peguen la instrucción que les funcionó. Es lo más valioso que produjeron hoy.
+  <p style="font-size:19px;">Todo va a la <strong>planilla del equipo</strong>. No hay nada que descargar.</p>
+
+  <table class="cierre">
+    <tr><th>Qué</th><th>Dónde</th></tr>
+    <tr><td><strong>La instrucción que les funcionó</strong> — es lo más valioso de hoy</td><td><strong>Equipo</strong> → «Nuestra instrucción para la IA»</td></tr>
+    <tr><td>Qué pasó con los otros fragmentos y qué tuvieron que ajustar</td><td><strong>Clase a clase</strong> → «Qué nos costó»</td></tr>
+    <tr><td>Qué queda pendiente</td><td><strong>Clase a clase</strong></td></tr>
+    <tr><td>Quién hizo qué hoy</td><td><strong>Clase a clase</strong></td></tr>
+  </table>
+
+  <div class="info i-rojo">
+    <strong>La instrucción, sí o sí</strong>
+    Si queda solo en el Colab, el 25 no la van a encontrar. <strong>Cópienla completa en la planilla antes de salir.</strong>
   </div>
+
   <div class="info i-grn">
-    <strong>2. Completen «Clase a clase»</strong>
-    Con la fecha de hoy. Dos renglones.
+    <strong>Y cada uno su bitácora</strong>
+    La pregunta 2 —qué te costó— es la que más sirve.
   </div>
-  <div class="info i-amb">
-    <strong>3. Cada uno su bitácora</strong>
-    Es individual. Y acordate que la pregunta 2 —qué te costó— es la que más sirve.
-  </div>
-  <label class="lb">Nombre del equipo</label>
-  <input class="cp" id="eq" placeholder="Equipo">
-  <button class="btn-d" onclick="bajarE()">⬇ Descargar el registro de hoy</button>
-  <p id="oke" style="color:var(--classroom);font-weight:bold;margin-top:10px;"></p>
 </div>
 
 <div class="card c-info">
@@ -341,25 +349,4 @@
   <p>El <strong>viernes 25</strong> vamos a hacer que esa respuesta deje de ser texto y pase a ser algo que el programa pueda usar de verdad.</p>
 </div>
 </div>
-<script>
-function bajarE(){
-  var e=document.getElementById('eq').value.trim();
-  if(!e){ alert('Pongan el nombre del equipo.'); return; }
-  function v(i){ var x=document.getElementById(i); return x && x.value.trim() ? x.value.trim() : '(sin completar)'; }
-  var f=new Date();
-  var t=['REGISTRO - La IA extrae los datos','Taller de IA - 7 TIC',
-    'Equipo: '+e,'Fecha: '+f.getDate()+'/'+(f.getMonth()+1)+'/'+f.getFullYear(),'',
-    '--- PRIMERA PRUEBA ---', v('p1'),'',
-    '--- NUESTRA INSTRUCCION ---', v('p2'),'',
-    '--- LA PRUEBA DE FUEGO ---',
-    'Con el segundo fragmento: '+v('p3'),'',
-    'Que le agregamos: '+v('p4'),''];
-  var l=e.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'_');
-  var b=new Blob([t.join('\n')],{type:'text/plain;charset=utf-8'});
-  var a=document.createElement('a'); a.href=URL.createObjectURL(b);
-  a.download='extraccion_'+l+'.txt';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  document.getElementById('oke').textContent='Descargado. Y no olviden la planilla y la bitácora.';
-}
-</script>
 </body></html>
