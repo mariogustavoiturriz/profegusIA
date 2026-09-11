@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devolución · VitalAir</title>
+<style>
+  :root{
+    --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
+    --vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;
+    --bco:#FFFFFF;--code-bg:#1E1E1E;--r:12px;
+    --p1:#1F6E5C;--p1-bg:#E8F4F0;
+    --g2:#2E6820;--g2-bg:#EFF8EE;
+    --json:#006400;--json-bg:#F0FFF0;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;
+    --azul:#1565C0;--azul-bg:#E3F2FD;
+    --classroom:#137333;--class-bg:#F0FFF4;
+    --rpg:#5C2070;--rpg-bg:#F8F3FF;
+    --plan:#2A4A7F;--plan-bg:#E5ECF6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:20px;padding:15px 0 50px;}
+  header{background:var(--nav);color:var(--bco);padding:25px 20px;border-bottom:5px solid var(--vio);}
+  header h1{font-size:26px;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
+  header p{font-size:17px;opacity:.9;}
+  .container{width:95%;max-width:1400px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:20px;margin-bottom:10px;padding:10px 20px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  .c-p1{border-left-color:var(--p1);background:var(--p1-bg);}
+  .c-plan{border-left-color:var(--plan);background:var(--plan-bg);}
+  .c-info{border-left-color:var(--vio);background:#FAFCFF;}
+  .c-json{border-left-color:var(--json);background:var(--json-bg);}
+  .c-rojo{border-left-color:var(--rojo);background:var(--rojo-bg);}
+  .c-entrega{border-left-color:var(--classroom);background:var(--class-bg);}
+  .c-asistente{border-left-color:var(--rpg);background:var(--rpg-bg);}
+  .c-avanzado{border-left-color:var(--amb);background:#FFFBF5;}
+  h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
+  .badge{background:var(--nav);color:var(--bco);padding:5px 12px;border-radius:6px;font-size:17px;font-weight:bold;}
+  .info{padding:18px 20px;border-radius:var(--r);margin:15px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
+  .i-p1{background:var(--p1-bg);border-color:var(--p1);}
+  .i-plan{background:var(--plan-bg);border-color:var(--plan);}
+  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
+  .i-amb{background:#FFF8EE;border-color:var(--amb);}
+  .i-azul{background:var(--azul-bg);border-color:var(--azul);}
+  .i-rojo{background:var(--rojo-bg);border-color:var(--rojo);}
+  .i-json{background:var(--json-bg);border-color:var(--json);}
+  .info > strong:first-child{display:block;margin-bottom:6px;font-size:19px;}
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:18px 20px;font-size:17px;overflow-x:auto;white-space:pre;line-height:1.65;margin:14px 0;border-radius:8px;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
+  .nm{color:#B5CEA8;} .fn{color:#DCDCAA;} .dk{color:#9CDCFE;}
+  code{background:#E8E6FF;color:var(--vio);padding:2px 6px;border-radius:4px;font-family:'Consolas',monospace;font-size:17px;}
+  ul{margin-left:22px;} li{margin-bottom:8px;}
+  ol{margin-left:22px;} ol li{margin-bottom:8px;}
+  table{width:100%;border-collapse:collapse;font-size:17px;margin:16px 0;background:#fff;border-radius:8px;overflow:hidden;}
+  th,td{border:1px solid var(--bd);padding:12px 14px;text-align:left;}
+  th{background:var(--nav);color:#fff;font-size:15px;text-transform:uppercase;letter-spacing:.5px;}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+  .trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;}
+  .mini{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:16px;font-size:16px;line-height:1.6;}
+  .mini strong{color:var(--p1);display:block;margin-bottom:4px;font-size:17px;}
+  .check{list-style:none;margin-left:0;}
+  .check li{padding-left:34px;position:relative;margin-bottom:12px;font-size:18px;}
+  .check li::before{content:"\25A2";position:absolute;left:0;font-size:24px;color:var(--p1);}
+  #asist-chat{display:none;}
+  #asist-msgs{background:#1E1E1E;border-radius:10px;padding:16px;min-height:160px;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:10px;}
+  .asist-inp{display:flex;gap:8px;}
+  .asist-inp input{flex:1;padding:11px;border-radius:8px;border:1px solid #ccc;font-size:17px;outline:none;}
+  .btn-rpg{background:var(--rpg);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;}
+  .btn-rpg:disabled{background:#ccc;cursor:not-allowed;}
+  .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
+  .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
+  @media(max-width:768px){.duo,.trio{grid-template-columns:1fr;}}
+
+  /* Ejercicio de JSON */
+  .jej{display:none;}
+  .jej.activo{display:block;}
+  .jpanel{background:#F0FFF0;border:2px solid #006400;border-radius:10px;padding:18px 20px;
+          font-family:Consolas,monospace;font-size:17px;line-height:2;overflow-x:auto;white-space:pre;}
+  .jval{background:#fff;border:2px solid var(--bd);border-radius:6px;padding:1px 7px;
+        cursor:pointer;transition:all .15s;display:inline-block;}
+  .jval:hover{border-color:var(--json);background:#E6F7E6;}
+  .jval.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jval.no{background:#FFEBEE;border-color:var(--rojo);}
+  .jkey{color:#9CDCFE;}
+  .jctx{background:var(--azul-bg);border-left:5px solid var(--azul);border-radius:8px;
+        padding:12px 16px;margin-bottom:12px;font-size:17px;}
+  .jpide{font-size:21px;font-weight:bold;margin:14px 0 10px;}
+  .jfb{margin-top:12px;font-size:18px;}
+  .jcamino{background:var(--code-bg);color:#D4D4D4;font-family:Consolas,monospace;
+           padding:12px 16px;border-radius:8px;font-size:17px;margin-top:10px;overflow-x:auto;}
+  .jcam-ops{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+  .jcam-op{background:#1E1E1E;color:#D4D4D4;font-family:Consolas,monospace;font-size:16px;
+           padding:11px 14px;border:2px solid #3A3A3A;border-radius:8px;cursor:pointer;text-align:left;
+           transition:all .15s;}
+  .jcam-op:hover:enabled{border-color:var(--vio);}
+  .jcam-op:disabled{cursor:default;}
+  .jcam-op.cam-ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jcam-op.cam-no{background:#3a1e1e;border-color:#C0392B;opacity:.6;}
+  .jprog{font-size:16px;color:#666;margin-bottom:8px;}
+
+  /* Taller de reparaciones */
+  .rep{display:none;}
+  .rep.activo{display:block;}
+  .repcod{background:var(--code-bg);border-radius:8px;padding:14px 0;font-family:Consolas,monospace;
+          font-size:16px;line-height:1.9;overflow-x:auto;}
+  .rline{display:block;padding:2px 18px;cursor:pointer;white-space:pre;color:#D4D4D4;}
+  .rline:hover{background:#2D2D2D;}
+  .rline.ok{background:#1F6E5C;}
+  .rline.no{background:#5C1F1F;}
+  .rline.fija{cursor:default;color:#808080;}
+  .rline.fija:hover{background:transparent;}
+  .rnum{color:#606060;display:inline-block;width:26px;user-select:none;}
+
+  .encasa{display:inline-block;background:#7A4B00;color:#fff;font-size:14px;font-weight:bold;
+          letter-spacing:1px;padding:5px 12px;border-radius:20px;margin-left:auto;}
+  .banda-casa{background:#FFF8EE;border:2px dashed #B8720A;border-radius:10px;
+              padding:12px 18px;margin-bottom:16px;font-size:18px;}
+
+  /* Campos extraíbles */
+  .campo{display:inline-block;background:#fff;border:2px solid var(--bd);border-radius:22px;
+         padding:9px 18px;margin:6px 6px 6px 0;cursor:pointer;font-size:18px;transition:all .15s;}
+  .campo:hover{border-color:var(--p1);background:#F2FAF8;}
+  .campo.si{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .campo.no{background:#FFEBEE;border-color:var(--rojo);color:#8B1A1A;text-decoration:line-through;}
+  .ext-txt{background:#FFFDF5;border:2px solid var(--amb);border-radius:10px;padding:16px 20px;
+           font-size:19px;line-height:1.7;font-style:italic;margin-bottom:14px;}
+
+  .tarea{background:#fff;border:2px solid var(--bd);border-radius:10px;
+         padding:13px 18px;margin-bottom:10px;font-size:18px;transition:all .15s;
+         display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
+  .tarea-txt{flex:1 1 240px;}
+  .tarea-btns{display:flex;gap:8px;}
+  .tbtn{background:#fff;border:2px solid var(--bd);border-radius:8px;padding:8px 12px;
+        font-size:16px;cursor:pointer;font-family:inherit;color:var(--txt);white-space:nowrap;}
+  .tbtn:hover:enabled{border-color:var(--vio);}
+  .tbtn:disabled{cursor:default;opacity:.55;}
+  .tbtn.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;opacity:1;}
+  .tbtn.mal{background:#FFEBEE;border-color:#C0392B;color:#8B1A1A;opacity:1;}
+  .tarea.resuelta{background:#F7FBF9;border-color:#1F6E5C;}
+  .tarea-fb{flex:1 1 100%;font-size:16px;}
+  .btn-op{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px 20px;
+          margin:6px 8px 6px 0;font-size:18px;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .btn-op:hover{border-color:var(--p1);}
+  .btn-op.ok{background:#E8F4F0;border-color:var(--p1);}
+  .btn-op.mal{background:#FFEBEE;border-color:var(--rojo);}
+  .parte{display:inline-block;background:#1E1E1E;color:#DCDCAA;border:2px solid #444;
+         border-radius:8px;padding:8px 14px;margin:5px 4px;cursor:pointer;
+         font-family:Consolas,monospace;font-size:20px;}
+  .parte:hover{border-color:#DCDCAA;}
+  .parte.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .parte.mal{background:#5C1F1F;border-color:#C62828;}
+
+  /* Cuestionario de cierre */
+  .cq-op{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);
+         border-radius:10px;padding:13px 18px;margin-bottom:9px;font-size:18px;cursor:pointer;
+         font-family:inherit;color:var(--txt);line-height:1.5;}
+  .cq-op:hover:enabled{border-color:var(--vio);background:#FAF7FF;}
+  .cq-op:disabled{cursor:default;opacity:.95;}
+  .cq-vf{display:inline-block;width:48%;text-align:center;font-size:20px;font-weight:bold;
+         padding:16px;margin:0 1% 10px;border:2px solid var(--bd);border-radius:10px;
+         background:#fff;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .cq-vf:hover:enabled{border-color:var(--vio);}
+  .cq-vf:disabled{cursor:default;opacity:.95;}
+  .cq-barra{height:14px;background:#E8E8E8;border-radius:7px;overflow:hidden;margin:10px 0 4px;}
+  .cq-fill{height:100%;background:var(--vio);width:0;transition:width .3s;}
+</style>
+</head>
+<body>
+<header>
+  <h1>DEVOLUCIÓN — EQUIPO VitalAir</h1>
+  <p>Proyecto de calidad del aire &middot; Sobre lo entregado el 4 y el 7 de septiembre</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">&#11013; Volver al &Iacute;ndice</a>
+<style>
+  table.d{width:100%;border-collapse:collapse;font-size:15.5px;margin:12px 0;}
+  table.d th{background:var(--nav);color:#fff;padding:9px 11px;text-align:left;font-size:13.5px;}
+  table.d td{border:1px solid var(--bd);padding:9px 11px;vertical-align:top;}
+  table.d td.n{font-weight:bold;white-space:nowrap;width:52px;text-align:center;}
+  tr.si td{background:#F0FAF7;}
+  tr.no td{background:#FDECEA;}
+  .cita{background:#FFFDF6;border-left:6px solid var(--amb);border-radius:8px;
+        padding:12px 17px;font-style:italic;font-size:16.5px;margin:9px 0;line-height:1.6;}
+</style>
+
+<div class="card c-info">
+  <h2><span class="badge" style="background:var(--teal)">0</span> LO PRIMERO</h2>
+  <p style="font-size:19px;">Trabajaron bien. Juntaron <strong>doce fragmentos</strong>, con la fuente y el link de cada uno, y completaron la planilla los dos días.</p>
+  <div class="info i-grn">
+    <strong>Y algo que no les pedí y está muy bien</strong>
+    Buscaron datos <strong>para los dos sensores</strong>, no solo para el de monóxido. Los fragmentos 8 al 12 son de gases combustibles: eso es del MQ-2. Pensaron en el equipo que tienen, no solo en la consigna.
+  </div>
+</div>
+
+<div class="card c-p1">
+  <h2><span class="badge" style="background:var(--p1)">1</span> LOS DOCE NO VAN AL MISMO LUGAR</h2>
+  <p style="font-size:19px;">Ninguno se descarta. Pero <strong>no todos sirven para lo mismo</strong>, y ahí está lo interesante de lo que juntaron.</p>
+
+  <table class="d">
+    <tr><th style="width:22%;">Grupo</th><th>Para qué sirve</th><th>Dónde va</th></tr>
+    <tr class="si"><td><strong>DATOS</strong></td><td>Los números con los que el agente <strong>compara</strong> una medición</td><td>Hoja «Tabla de datos»</td></tr>
+    <tr><td><strong>CONTEXTO</strong></td><td>Lo que el agente usa para <strong>explicarle a la persona</strong> por qué debería hacer caso</td><td>Hoja «Contexto» (nueva)</td></tr>
+  </table>
+
+  <div class="info i-grn">
+    <strong>Por qué esto importa</strong>
+    En octubre, cuando armen el agente, van a tener que decidir <strong>qué devuelve</strong>. Y no alcanza con un número: si dice «40 ppm, ventilar» y nada más, suena a alarma de auto y nadie le hace caso.
+    <br><br>
+    <strong>Una parte de esa respuesta va a salir de la tabla</strong> —el nivel, contra qué valor lo comparó— <strong>y otra del contexto</strong>: por qué le tiene que importar a la persona. Por eso los dos grupos de textos sirven, cada uno para lo suyo.
+  </div>
+
+  <h3 style="color:var(--p1);margin-top:20px;">Los que van a DATOS</h3>
+  <p>Seis de sus fragmentos tienen valores que sirven para la tabla: <strong>el 1, el 7, el 8, el 9, el 10 y el 11</strong>.</p>
+  <table class="d">
+    <tr><th class="n">N°</th><th>Qué tienen de bueno</th></tr>
+    <tr class="si"><td class="n">1 y 7</td><td><strong>Son los mejores que consiguieron.</strong> Traen el valor, la unidad y el tiempo de exposición — los tres campos de una.</td></tr>
+    <tr class="si"><td class="n">8</td><td>Bien elegido: además del límite normal trae el valor de emergencia.</td></tr>
+    <tr class="si"><td class="n">9, 10 y 11</td><td>Cubren varios gases distintos. <strong>Son los que le dan trabajo al MQ-2.</strong></td></tr>
+  </table>
+  <div class="info i-amb">
+    <strong>Los valores no se los escribo</strong>
+    Están en sus textos y el <strong>lunes 14 los va a sacar la IA</strong>. Su trabajo después es confirmar que lo que sacó coincide con el documento.
+  </div>
+
+  <h3 style="color:var(--vio);margin-top:20px;">Los otros seis: eso lo deciden ustedes</h3>
+  <p>Los fragmentos <strong>2, 3, 4, 6 y 12</strong> no tienen un número que sirva para la tabla. <strong>Pero no se descartan.</strong></p>
+
+  <div class="info i-amb">
+    <strong>Vuelvan a leerlos, uno por uno</strong>
+    Para cada uno, háganse esta pregunta: <em>¿en qué momento el agente necesitaría decir esto?</em>
+    <br><br>
+    Si encuentran cuándo, va a la hoja <strong>Contexto</strong>, y ahí escriben para qué sirve. Si no lo encuentran, ese fragmento no va a ningún lado — y eso también es una decisión válida, anotada.
+  </div>
+
+  <div class="info i-json">
+    <strong>Un ejemplo, para que vean qué busco</strong>
+    El fragmento <strong>2</strong> dice que el monóxido es incoloro e inodoro. ¿Cuándo sirve eso? <em>Cuando alguien diga «yo no huelo nada»: es la razón por la que hay que hacerle caso al sensor.</em>
+    <br><br>
+    Ese está resuelto y cargado en su planilla. <strong>Los otros cuatro los piensan ustedes.</strong>
+  </div>
+
+  <div class="info i-amb">
+    <strong>Solo uno queda pendiente</strong>
+    El <strong>5</strong>, la Ley 20.284: dice que hay tres niveles —alerta, alarma y emergencia— <strong>pero no dice cuáles son</strong>. Así no sirve para ninguno de los dos grupos. <strong>Busquen el anexo de esa ley:</strong> ahí sí están los valores, y sería la única fuente argentina de la tabla.
+  </div>
+</div>
+
+<div class="card c-rojo">
+  <h2><span class="badge" style="background:var(--rojo)">2</span> EL PROBLEMA MÁS IMPORTANTE</h2>
+  <p style="font-size:19px;">Sin darse cuenta, juntaron <strong>dos tipos de umbral completamente distintos</strong>.</p>
+
+  <table class="d">
+    <tr><th>Tipo</th><th>Qué significa</th><th>Ejemplo de los suyos</th></tr>
+    <tr><td><strong>Toxicidad</strong></td><td>A partir de cuánto <strong>te hace mal a la salud</strong></td><td>Fragmentos 1, 7 y 8</td></tr>
+    <tr><td><strong>Explosividad</strong></td><td>A partir de cuánto <strong>la mezcla puede prender</strong></td><td>Fragmentos 9, 10 y 11</td></tr>
+  </table>
+
+  <p style="margin-top:12px;"><strong>Comparen ustedes las dos escalas.</strong> Abran el fragmento 1 y el 9, miren los números, y hagan la cuenta: <em>¿cuántas veces más grande es uno que el otro?</em> El resultado los va a sorprender.</p>
+
+  <div class="info i-rojo">
+    <strong>Por qué esto rompe el agente</strong>
+    Si el agente compara todos los valores contra la misma columna, va a tratar una lectura de gas combustible como si fuera monóxido — y al revés. <strong>El caso peor:</strong> que no alerte por monóxido porque «todavía está lejos del límite», cuando ese límite era el de otro gas y otra escala.
+  </div>
+
+  <div class="info i-grn">
+    <strong>Cómo se arregla</strong>
+    Les agregué una columna a la tabla: <strong><code>tipo_de_riesgo</code></strong>, con dos opciones — <em>toxicidad</em> o <em>explosividad</em>. <strong>Cada fila la completan ustedes</strong>, según de dónde salió el dato.
+    <br><br>
+    Y cuando escriban el agente, tiene que saber que son dos escalas distintas.
+  </div>
+</div>
+
+<div class="card c-avanzado">
+  <h2><span class="badge" style="background:var(--vio)">3</span> LO QUE LES FALTA</h2>
+
+  <p style="font-size:19px;"><strong>El DHT11.</strong></p>
+  <p>Su equipo mide temperatura y humedad, pero no hay ni un fragmento sobre eso. Sin umbrales, el agente no va a poder decir nada de esos dos datos.</p>
+  <div class="cita">Busquen: rangos de temperatura y humedad recomendados en ambientes interiores. La normativa de higiene y seguridad los tiene, y también las guías de calidad de aire interior.</div>
+
+  <p style="font-size:19px;margin-top:18px;"><strong>Los fragmentos no están en la planilla.</strong></p>
+  <p>Cargaron los links, pero la columna del texto quedó vacía: los fragmentos están en archivos sueltos.</p>
+  <div class="info i-amb">
+    <strong>Pásenlos adentro el lunes</strong>
+    En octubre no van a saber qué link corresponde a qué texto. Y quien extraiga necesita el texto a mano, no ir a buscar el archivo.
+  </div>
+
+  <p style="font-size:19px;margin-top:18px;"><strong>La hoja «Equipo» está a medias.</strong></p>
+  <p>Falta: de dónde salen los textos, qué campos extraen, qué campo puede faltar, y <strong>qué va a decidir el agente</strong>. Esa última es la que más importa, porque define si el proyecto cierra.</p>
+</div>
+
+<div class="card c-entrega">
+  <h2><span class="badge" style="background:var(--classroom)">4</span> PARA EL LUNES</h2>
+  <div class="chk" style="background:var(--gris);border-radius:9px;padding:14px 18px;font-size:16.5px;line-height:2.1;">
+    ☐ &nbsp;Pasar los <strong>fragmentos con números</strong> a la hoja «Tabla de datos», con su texto completo<br>
+    ☐ &nbsp;Pasar los <strong>de contexto</strong> a la hoja nueva «Contexto» — <em>les dejé la hoja armada con un ejemplo; el resto lo cargan ustedes</em><br>
+    ☐ &nbsp;Marcar en cada fila si es <strong>toxicidad</strong> o <strong>explosividad</strong><br>
+    ☐ &nbsp;Buscar umbrales de <strong>temperatura y humedad</strong><br>
+    ☐ &nbsp;Completar la hoja «Equipo»<br>
+    ☐ &nbsp;Buscar el <strong>anexo de la Ley 20.284</strong>, donde estarían los tres niveles
+  </div>
+  <div class="info i-azul">
+    <strong>Con eso quedan en muy buena posición</strong>
+    Los doce fragmentos sirven, cada uno para lo suyo. Entendieron para qué sirve cada sensor y juntaron material que le va a dar sentido a las alertas. Lo que falta es ordenarlo.
+  </div>
+</div>
+</div>
+</body></html>
