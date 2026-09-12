@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Devolución · MPXL Alimentos</title>
+<title>Devolución · MPXL</title>
 <style>
   :root{
     --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
@@ -185,80 +185,107 @@
 
 <div class="card c-info">
   <h2><span class="badge" style="background:var(--teal)">0</span> LO PRIMERO</h2>
-  <p style="font-size:19px;">La ficha es la mejor de los cuatro equipos. Tienen los campos correctos, saben qué puede faltar y cómo manejarlo, y pueden contestar qué va a decidir el agente en una oración.</p>
+  <p style="font-size:19px;">La ficha es <strong>la mejor de los cuatro equipos</strong>: los cuatro campos contestados, con criterio. Y son los que más avanzaron en la tabla: <strong>doce filas</strong>.</p>
   <div class="info i-grn">
-    <strong>Esto específicamente está muy bien</strong>
-    Escribieron: <em>«puede faltar el tiempo máximo; en ese caso ponemos 'No especificado en la fuente' y no inventamos el dato»</em>. Eso es exactamente el criterio correcto, y lo encontraron solos.
-  </div>
-</div>
-
-<div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">1</span> LOS CUATRO FRAGMENTOS</h2>
-  <table class="d">
-    <tr><th class="n">N°</th><th>De qué es</th><th>Veredicto</th></tr>
-    <tr class="si"><td class="n">3</td><td>Refrigeración de carne</td><td><strong>DATO</strong> ✅ — tiene el alimento y el rango.</td></tr>
-    <tr class="si"><td class="n">4</td><td>Carne fresca en heladera y congelada</td><td><strong>DATO</strong> ✅ — tiene los tiempos de las dos condiciones.</td></tr>
-    <tr><td class="n">1 y 2</td><td>Los dos primeros</td><td>No tienen un límite por alimento. <strong>Decidan ustedes si sirven como contexto.</strong></td></tr>
-  </table>
-
-  <div class="info i-amb">
-    <strong>Los dos primeros: la pregunta es de ustedes</strong>
-    Vuelvan a leerlos y pregúntense: <em>¿en qué momento el agente necesitaría decir esto?</em> Si encuentran cuándo, van a la hoja <strong>Contexto</strong> con esa respuesta escrita. Si no, no van.
-    <br><br>
-    Hay uno cargado como ejemplo en su planilla para que vean el formato.
-  </div>
-  <div class="info i-amb">
-    <strong>Tienen los textos correctos, pero les faltan</strong>
-    Con cuatro fragmentos no alcanzan para una tabla útil. Necesitan al menos diez. El CAA y ANMAT que mencionan en la ficha son las fuentes correctas — vayan directo ahí.
+    <strong>Esto en particular está muy bien</strong>
+    Escribieron: <em>«puede faltar el tiempo máximo; en ese caso ponemos "No especificado en la fuente" y no inventamos el dato»</em>. Ese es exactamente el criterio del proyecto, y lo encontraron solos.
   </div>
 </div>
 
 <div class="card c-rojo">
-  <h2><span class="badge" style="background:var(--rojo)">2</span> DOS PROBLEMAS EN LA TABLA</h2>
+  <h2><span class="badge" style="background:var(--rojo)">1</span> Y AHÍ ESTÁ EL PROBLEMA</h2>
+  <p style="font-size:19px;">Escribieron que no van a inventar datos. <strong>Pero de las doce filas, ninguna se puede rastrear hasta un documento.</strong></p>
 
-  <p style="font-size:19px;"><strong>1. Los datos de la tabla no están en sus textos.</strong></p>
-  <p>Cargaron pescado fresco, carne de cerdo y vacuna, y pusieron «ANMAT» como fuente. Pero ninguno de sus cuatro fragmentos es de ANMAT. Es el mismo hallazgo que hizo el equipo de residuos: <strong>los sabían, los escribieron, y la columna fuente quedó sin llenar</strong> — y ahí se perdió la señal.</p>
-  <div class="info i-grn">
-    <strong>La diferencia: lo que encontraron puede ser correcto</strong>
-    ANMAT realmente tiene esos datos. Lo que hay que hacer es ir al sitio de ANMAT, encontrar la tabla que usaron como referencia, y pegar el link y el nombre exacto. Si estaban mirando esa fuente mientras completaban, los datos probablemente son buenos — solo les falta demostrarlo.
+  <table class="d">
+    <tr><th>Qué dice la columna Fuente</th><th class="n">Filas</th><th>El problema</th></tr>
+    <tr class="no"><td><code>conservar carne fresca y sin congelar</code></td><td class="n">9</td><td>Eso no es un documento: parece el título de un tema o el nombre de una búsqueda.</td></tr>
+    <tr class="no"><td><code>ANMAT</code></td><td class="n">2</td><td>Es un organismo, no un documento. Y <strong>ANMAT no está entre sus cuatro textos fuente.</strong></td></tr>
+    <tr class="no"><td>vacía</td><td class="n">1</td><td>—</td></tr>
+  </table>
+
+  <div class="info i-rojo">
+    <strong>Lo que esto significa en concreto</strong>
+    Si alguien pregunta «¿de dónde sacaron que las achuras van entre 0 y 2 °C?», hoy no lo pueden contestar. <strong>Y en la evaluación de octubre esa es la pregunta.</strong>
   </div>
 
-  <p style="font-size:19px;margin-top:18px;"><strong>2. La columna temperatura mezcla dos valores.</strong></p>
-  <p>Pusieron <span class="cod">5°C o menos  freezer: -18</span> en una sola celda. Eso el agente no lo puede usar: cuando llegue una medición, no va a saber contra cuál comparar.</p>
-  <table class="d">
-    <tr><th>Opción A — dos columnas</th><th>Opción B — una columna + condición</th></tr>
-    <tr><td><span class="cod">temperatura_heladera</span> y <span class="cod">temperatura_freezer</span><br>Cada uno con su valor.</td><td>Una sola columna <span class="cod">temperatura</span>, y la condición dice si es refrigerado o congelado.<br>Como ya tenían: <span class="cod">condicion</span>.</td></tr>
-  </table>
   <div class="info i-amb">
-    <strong>La opción B ya la tienen pensada</strong>
-    Su columna <code>condicion</code> dice «refrigerada» o «congelada». Si la usan bien, el agente puede comparar: si la condición es «refrigerada», usa el límite de heladera; si es «congelada», usa el de freezer. Eso funciona — solo hay que separar los valores.
+    <strong>No es que estén mal</strong>
+    Probablemente varios sean correctos: se nota que miraron una fuente buena mientras completaban. <strong>Lo que falta es anotar cuál era.</strong> Si la tienen abierta, es media hora de trabajo; si no se acuerdan, hay que rehacerlo.
   </div>
 </div>
 
 <div class="card c-avanzado">
-  <h2><span class="badge" style="background:var(--vio)">3</span> ALGO QUE HAY QUE RESOLVER</h2>
-  <p style="font-size:19px;"><strong>Solo Paola consiguió los cuatro fragmentos.</strong></p>
-  <p>En la ficha figura Paola en la búsqueda, y las dos clases faltó alguien. El 7 la clase a clase dice «nos costó organizar la información» — probablemente por eso.</p>
+  <h2><span class="badge" style="background:var(--vio)">2</span> HAY FILAS REPETIDAS, Y NO COINCIDEN</h2>
+  <p><strong>Carne vacuna</strong> aparece dos veces. <strong>Carne de cerdo</strong> también. Y en cada par, los valores son distintos.</p>
+
   <div class="info i-rojo">
-    <strong>Si busca una sola persona, el lunes es igual</strong>
-    Necesitan diez fragmentos. Si los consigue una sola persona, van a llegar cortos. El lunes cada integrante tiene que saber exactamente qué busca — y anotarlo en «Clase a clase».
+    <strong>El agente no va a saber cuál usar</strong>
+    Cuando le pregunten por carne vacuna, va a encontrar dos filas que dicen cosas diferentes. <strong>Va a elegir una, y ustedes no van a saber cuál ni por qué.</strong>
+  </div>
+
+  <div class="info i-grn">
+    <strong>Y esto tiene una salida interesante</strong>
+    Puede que las dos estén bien y hablen de cosas distintas: una de carne fresca al vacío y otra de carne en envase común, por ejemplo. <strong>Si es así, falta una columna que las distinga.</strong>
+    <br><br>
+    Miren las dos filas, comparen, y decidan: ¿es un duplicado que hay que borrar, o son dos casos que necesitan un campo más?
+  </div>
+</div>
+
+<div class="card c-p1">
+  <h2><span class="badge" style="background:var(--p1)">3</span> LOS CUATRO TEXTOS FUENTE</h2>
+  <table class="d">
+    <tr><th class="n">N°</th><th>De qué es</th><th>Veredicto</th></tr>
+    <tr class="si"><td class="n">3</td><td>AgroGlobal — refrigeración de carne</td><td><strong>DATO</strong> ✅</td></tr>
+    <tr class="si"><td class="n">4</td><td>SADA — conservación de carne fresca</td><td><strong>DATO</strong> ✅</td></tr>
+    <tr><td class="n">1 y 2</td><td>TERRA y CUN — por qué el frío conserva</td><td>Sin límite por alimento. <strong>Decidan si sirven como contexto.</strong></td></tr>
+  </table>
+
+  <div class="info i-amb">
+    <strong>Los dos primeros: la pregunta es de ustedes</strong>
+    Vuelvan a leerlos: <em>¿en qué momento el agente necesitaría decir esto?</em> Si encuentran cuándo, van a la hoja <strong>Contexto</strong> con esa respuesta escrita. Hay uno cargado como ejemplo.
+  </div>
+
+  <div class="info i-rojo">
+    <strong>Y acá está el hueco más grande</strong>
+    Tienen <strong>doce filas de datos</strong> pero <strong>cuatro textos fuente</strong>. Los números no cierran: los datos de las achuras, el curado y el ahumado <strong>no salen de ninguno de esos cuatro documentos</strong>.
+    <br><br>
+    Vayan a buscar de dónde salieron y cárguenlos como textos fuente. <strong>Sin eso, esas filas no se pueden defender.</strong>
+  </div>
+</div>
+
+<div class="card c-p1">
+  <h2><span class="badge" style="background:var(--p1)">4</span> LA COLUMNA TEMPERATURA</h2>
+  <p>Varias filas tienen dos valores en una sola celda: <span class="cod">5°C o menos  freezer: -18</span>. El agente no lo puede usar: cuando llegue una medición, no va a saber contra cuál comparar.</p>
+  <div class="info i-grn">
+    <strong>La solución ya la tienen pensada</strong>
+    Su columna <code>condicion</code> distingue refrigerada de congelada. <strong>Úsenla:</strong> una fila para heladera y otra para freezer, cada una con su temperatura y sus días. Es más filas, pero cada una dice una sola cosa.
+  </div>
+</div>
+
+<div class="card c-avanzado">
+  <h2><span class="badge" style="background:var(--vio)">5</span> UNA COSA DEL EQUIPO</h2>
+  <p style="font-size:19px;"><strong>Los cuatro textos los consiguió Paola.</strong></p>
+  <p>En la ficha figura ella en la búsqueda, y las dos clases faltó alguien. Necesitan más fuentes y no alcanza con una persona buscando.</p>
+  <div class="info i-amb">
+    <strong>Para el lunes</strong>
+    Repártanse la búsqueda por tipo de alimento, para que no se superpongan. Y anoten en «Clase a clase» quién hizo qué.
   </div>
 </div>
 
 <div class="card c-entrega">
-  <h2><span class="badge" style="background:var(--classroom)">4</span> PARA EL LUNES</h2>
+  <h2><span class="badge" style="background:var(--classroom)">6</span> PARA EL LUNES</h2>
   <div class="chk">
-    ☐ &nbsp;Ir a ANMAT y encontrar el link exacto de los datos del pescado y la carne<br>
-    ☐ &nbsp;Cargar ese link en la columna <strong>Fuente</strong> de las tres filas<br>
-    ☐ &nbsp;Separar los valores de temperatura: heladera por un lado, freezer por otro<br>
-    ☐ &nbsp;Mover los fragmentos 1 y 2 a la hoja <strong>Contexto</strong> y completar <strong>para qué le sirven al agente</strong> — <em>hay un ejemplo cargado con el formato</em><br>
-    ☐ &nbsp;Conseguir al menos <strong>seis fragmentos más</strong>, repartidos entre los cuatro<br>
-    ☐ &nbsp;Definir quién busca qué: por tipo de alimento, para que no se superpongan<br>
-    ☐ &nbsp;Anotar en «Clase a clase» quién hizo qué hoy
+    ☐ &nbsp;Completar la <strong>columna Fuente</strong> de las 12 filas — está marcada en rojo<br>
+    ☐ &nbsp;Los datos cuya fuente no encuentren: <strong>déjenlos vacíos, no los borren</strong>. El 14 los vuelve a sacar la IA<br>
+    ☐ &nbsp;Resolver los <strong>duplicados</strong> de carne vacuna y carne de cerdo<br>
+    ☐ &nbsp;Separar los dos valores de <strong>temperatura</strong> en filas distintas<br>
+    ☐ &nbsp;Cargar como textos fuente los documentos de donde salieron achuras, curado y ahumado<br>
+    ☐ &nbsp;Decidir si los fragmentos 1 y 2 van a <strong>Contexto</strong> y para qué<br>
+    ☐ &nbsp;Repartir la búsqueda entre los cuatro
   </div>
   <div class="info i-azul">
-    <strong>La base está bien puesta</strong>
-    Los campos son los correctos, la decisión del agente está clara y ya tienen el criterio más importante: no inventar. Lo que falta es materia prima — más textos y más fuentes verificadas.
+    <strong>Están más adelante de lo que parece</strong>
+    Doce filas es más de lo que hizo cualquier otro equipo, y la ficha la tienen impecable. <strong>Lo que falta no es trabajo nuevo: es documentar el que ya hicieron.</strong>
   </div>
 </div>
 </div>
