@@ -2,10 +2,26 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Calculadora</title>
     <style>
-        body { display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #000; margin: 0; font-family: -apple-system, sans-serif; }
+        * {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        html, body { 
+            overflow: hidden; 
+            position: fixed; 
+            width: 100%; 
+            height: 100%; 
+            touch-action: none; 
+            background-color: #000; 
+            margin: 0; 
+            font-family: -apple-system, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
         .calculator { background: #1c1c1c; padding: 20px; border-radius: 20px; width: 280px; box-shadow: 0px 0px 20px rgba(0,0,0,0.8); }
         #display { width: 100%; height: 70px; font-size: 40px; text-align: right; margin-bottom: 15px; padding: 5px; box-sizing: border-box; background: transparent; color: white; border: none; outline: none; }
         .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
@@ -51,7 +67,7 @@
 
 <script>
     let display = document.getElementById('display');
-    let operatorCount = 0;
+    let equalsCount = 0;
     let isForcing = false;
     let forceString = "";
     let forceIndex = 0;
@@ -63,45 +79,53 @@
         if (value === '-') visualValue = '-';
         if (value === '/') visualValue = '÷';
         
-        if (['+', '-', '*', '/'].includes(value)) {
-            operatorCount++;
+        if (isForcing && forceIndex < forceString.length) {
+            // El espectador aprieta botones sin mirar.
+            // Imprimimos el dígito que necesitamos sin importar qué tocó.
+            display.value += forceString[forceIndex];
+            forceIndex++;
+        } else if (!isForcing) {
             display.value += visualValue;
             
-            // Al tocar el tercer operador (el + después de los 4 dígitos), se activa la trampa
-            if (operatorCount === 3) {
+            // Si aprieta '+' y ya apretó el igual dos veces antes, activamos la trampa
+            if (value === '+' && equalsCount === 2) {
                 isForcing = true;
-                let currentMath = display.value.slice(0, -1).replace(/×/g, '*').replace(/÷/g, '/');
-                let currentTotal = eval(currentMath);
-                
-                // Calcula el número exacto que falta para llegar a 21440
+                let currentTotal = parseFloat(display.value);
                 let difference = forceTarget - currentTotal;
                 forceString = difference.toString();
                 forceIndex = 0;
             }
-        } else if (isForcing && value !== '=') {
-            // El espectador aprieta botones sin mirar
-            if (forceIndex < forceString.length) {
-                display.value += forceString[forceIndex];
-                forceIndex++;
-            }
-            // Si sigue apretando más botones de la cuenta, los ignoramos
-        } else {
-            display.value += value;
         }
     }
 
     function clearDisplay() {
+        // Si aprietan borrar durante el forzaje, lo tomamos como un toque ciego más
+        if (isForcing && forceIndex < forceString.length) {
+            append('0'); 
+            return;
+        }
         display.value = '';
-        operatorCount = 0;
+        equalsCount = 0;
         isForcing = false;
     }
 
     function calculate() {
+        // Si aprietan igual durante el forzaje pero faltan números, lo tomamos como un toque ciego más
+        if (isForcing && forceIndex < forceString.length) {
+            append('0'); 
+            return;
+        }
         try {
             let mathString = display.value.replace(/×/g, '*').replace(/÷/g, '/');
             display.value = eval(mathString);
-            operatorCount = 0;
-            isForcing = false;
+            
+            if (!isForcing) {
+                equalsCount++;
+            } else {
+                // Al finalizar el truco, se reinicia el contador por si querés repetir
+                equalsCount = 0;
+                isForcing = false;
+            }
         } catch (e) {
             display.value = 'Error';
         }
