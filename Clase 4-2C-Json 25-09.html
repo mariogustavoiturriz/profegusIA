@@ -204,96 +204,117 @@
   .chk{background:var(--gris);border-radius:9px;padding:13px 17px;font-size:16px;line-height:2;}
 </style>
 
+
 <div class="card c-info">
-  <h2><span class="badge" style="background:var(--teal)">0</span> DONDE QUEDAMOS</h2>
-  <p>El 14 lograron que la IA devuelva sus campos, siempre con la misma forma. <strong>Hoy hacemos que eso deje de ser texto.</strong></p>
+  <h2><span class="badge" style="background:var(--teal)">0</span> RETOMAMOS<span class="reloj">15 min</span></h2>
+  <p>La última clase fue el <strong>lunes 14</strong>. Pasaron once días, así que antes de seguir recuperamos lo de ese día. <strong>En equipo, en este orden:</strong></p>
+  <ol style="margin-top:10px;">
+    <li>Abran la <strong>planilla del equipo</strong>, hoja <strong>Equipo</strong>, abajo de todo: ahí tiene que estar <strong>Nuestro system prompt</strong>. Si quedó vacío, está en el Colab del 14.</li>
+    <li>En el Drive, carpeta <code>codigo/extractor</code>: clic derecho sobre el Colab del 14 → <strong>Hacer una copia</strong>. Renombren la copia <code>json_25-09_NombreDelEquipo</code> y trabajen ahí.</li>
+    <li>En la planilla, hoja <strong>Textos fuente</strong>, elijan un fragmento <strong>que tenga un número</strong>, no uno de los que pasaron a Contexto. Péguenlo en la copia y córranla. Si Colab pide permiso para usar la clave, acepten.</li>
+    <li>Fíjense si devuelve <strong>solo sus campos, siempre en el mismo orden y sin saludos</strong>. Después pruébenlo con otro fragmento: tiene que salir igual.</li>
+  </ol>
+
   <div class="info i-rojo">
-    <strong>El Colab tampoco viene resuelto</strong>
-    Igual que el 14: les doy la conexión y nada más. <strong>El resto lo arman ustedes</strong> — ya lo hicieron una vez.
+    <strong>Si no sale igual, arranquen por ahí</strong>
+    Todo lo de hoy se apoya en eso. Lo que casi siempre lo arregla: escribirle en el system prompt un ejemplo de cómo tiene que verse la respuesta.
   </div>
 
-  <div class="info i-azul">
-    <strong>🧭 Cómo es la clase</strong>
-    Primero vemos por qué el texto no alcanza. Después le piden a la IA que devuelva <strong>JSON</strong>, y aprenden a convertirlo en algo que el programa pueda usar. Al final, qué hacer cuando eso falla.
-  </div>
-  <div class="info i-amb">
-    <strong>Tengan a mano</strong>
-    Su planilla con el <strong>system prompt que guardaron el 14</strong>, en la hoja Equipo. Hoy lo van a modificar.
+  <div class="info i-grn">
+    <strong>En voz alta y sin mirar</strong>
+    Estas dos se las voy a preguntar en la evaluación de octubre.
+    <details class="pista">
+      <summary>¿Qué es el system prompt y dónde está en el código?</summary>
+      <p>El texto que le dice a la IA cómo comportarse. Es el primer mensaje del historial, el que tiene el rol <code>system</code>.</p>
+    </details>
+    <details class="pista">
+      <summary>¿Qué es el formato de salida?</summary>
+      <p>Decirle de qué forma devolver los datos. Si no se lo decimos, la forma la elige la IA y cambia cada vez.</p>
+    </details>
   </div>
 </div>
 
 <div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">1</span> POR QUÉ EL TEXTO NO ALCANZA<span class="reloj">15 min</span></h2>
-  <p>Esto es lo que devuelve su <strong>system prompt</strong> hoy:</p>
-  <div class="bien">contaminante: monoxido de carbono
-limite: 9
-unidad: ppm</div>
+  <h2><span class="badge" style="background:var(--p1)">1</span> POR QUÉ EL TEXTO NO ALCANZA<span class="reloj">10 min</span></h2>
+  <p>Volvamos al ejemplo del 14, el de los nitratos en el agua. Su system prompt devolvía algo así:</p>
+  <div class="bien">parametro: nitratos
+valor_maximo: 45
+unidad: mg/L
+fuente: CAA art. 982</div>
 
-  <p style="margin-top:12px;">Se lee perfecto. <strong>Pero para Python eso es una sola cosa: un texto largo.</strong></p>
-  <div class="cod"><span class="cm"># si quisieran sacar el límite, tendrían que hacer esto:</span>
+  <p style="margin-top:12px;">Se lee perfecto. <strong>Pero para Python es una sola cosa: un texto largo.</strong></p>
+  <div class="cod"><span class="cm"># para sacar el valor máximo, habría que hacer esto:</span>
 respuesta.split(<span class="st">"\n"</span>)[<span class="nu">1</span>].split(<span class="st">": "</span>)[<span class="nu">1</span>]</div>
-  <p>Funciona... hasta que la IA agregue un espacio, cambie el orden o meta una línea de más. <strong>Y ahí se rompe todo el programa.</strong></p>
+  <p>Funciona hasta que la IA agregue un espacio, cambie el orden o meta una línea de más. <strong>Ahí se rompe todo.</strong></p>
 
   <div class="info i-rojo">
     <strong>El problema de fondo</strong>
-    Ustedes van a procesar diez fragmentos y guardar los resultados en una tabla. Si cada respuesta hay que cortarla a mano, <strong>una sola respuesta rara arruina la tabla entera.</strong>
+    Van a procesar diez fragmentos o más y guardar todo en una tabla. Si hay que cortar cada respuesta a mano, <strong>una sola respuesta rara arruina la tabla entera.</strong>
   </div>
 </div>
 
 <div class="card c-json">
-  <h2><span class="badge" style="background:var(--json)">2</span> PEDIRLE JSON<span class="reloj">20 min</span></h2>
-  <p>JSON es una forma de escribir datos que Python entiende directo. Se ve así:</p>
-  <div class="bien">{"contaminante": "monoxido de carbono", "limite": 9, "unidad": "ppm"}</div>
-  <p>Llaves, comillas en los nombres, y dos puntos. <strong>Nada nuevo:</strong> es lo mismo que ya vieron cuando leían la respuesta de la IA con <code>["choices"][0]</code>.</p>
+  <h2><span class="badge" style="background:var(--json)">2</span> PEDIRLE JSON<span class="reloj">15 min</span></h2>
+  <p>JSON es una forma de escribir datos que Python entiende directo:</p>
+  <div class="bien">{"parametro": "nitratos", "valor_maximo": 45, "unidad": "mg/L", "fuente": "CAA art. 982"}</div>
+  <p>Llaves, comillas en los nombres y dos puntos. <strong>Ya lo vieron:</strong> es lo que leían con <code>["choices"][0]</code>.</p>
 
-  <p style="margin-top:14px;"><strong>Modifiquen su system prompt</strong> para que devuelva JSON en vez de líneas. Prueben con un fragmento suyo.</p>
+  <p style="margin-top:14px;"><strong>Modifiquen su system prompt</strong> para que devuelva JSON con <strong>sus</strong> campos. Son las columnas de su hoja <strong>Tabla de datos</strong>, escritas igual, sin tildes ni espacios:</p>
+  <table class="cierre">
+    <tr><th>Equipo</th><th>Sus campos</th></tr>
+    <tr><td><strong>VitalAir</strong></td><td><code>contaminante</code> <code>limite</code> <code>unidad</code> <code>tiempo_exposicion</code> <code>tipo_de_riesgo</code> <code>fuente</code></td></tr>
+    <tr><td><strong>Ambiente Óptimo</strong></td><td><code>ambiente</code> <code>temperatura_min</code> <code>temperatura_max</code> <code>humedad</code> <code>fuente</code></td></tr>
+    <tr><td><strong>Residuo Econexo</strong></td><td><code>material</code> <code>contenedor</code> <code>reciclable</code> <code>tiempo_degradacion</code> <code>fuente</code></td></tr>
+    <tr><td><strong>MPXL</strong></td><td><code>alimento</code> <code>temperatura</code> <code>dias_maximos</code> <code>condicion</code> <code>fuente</code></td></tr>
+  </table>
+  <p style="font-size:17px;color:#667;">Si en su planilla cambiaron alguna columna, vale la de la planilla.</p>
 
   <details class="pista">
-    <summary>🔦 Pista 1 — no sé cómo pedírselo</summary>
-    <p>Decíselo con esas palabras: «Devolvé la respuesta en formato JSON». Y mostrale un ejemplo de cómo tiene que verse.</p>
+    <summary>🔦 Pista 1 · no sé cómo pedírselo</summary>
+    <p>Pedile con esas palabras que devuelva la respuesta en formato JSON, y mostrale un ejemplo de cómo tiene que verse.</p>
   </details>
   <details class="pista">
-    <summary>🔦 Pista 2 — devuelve JSON pero con texto alrededor</summary>
-    <p>Es lo más común. La IA escribe «Acá está el JSON:» antes, o lo envuelve en <code>```json</code>. Pedile explícitamente que <strong>no agregue nada antes ni después</strong>.</p>
+    <summary>🔦 Pista 2 · devuelve JSON pero con texto alrededor</summary>
+    <p>Es lo más común: la IA pone una frase antes de las llaves, o lo envuelve en <code>```json</code>. Pedile que <strong>no agregue nada antes ni después</strong>.</p>
   </details>
 
-  <div class="preg"><strong>&#128173;</strong> Su system prompt, ahora pidiendo JSON</label>
-  
+  <div class="preg"><strong>&#128173;</strong> Cuando salga JSON limpio, sin nada alrededor, ese es su system prompt nuevo.</div>
 </div>
 
 <div class="card c-json">
-  <h2><span class="badge" style="background:var(--json)">3</span> DE TEXTO A DATO<span class="reloj">30 min</span></h2>
-  <p>Ahora la parte importante. <strong>Una línea convierte ese texto en algo usable:</strong></p>
+  <h2><span class="badge" style="background:var(--json)">3</span> DE TEXTO A DATO<span class="reloj">25 min</span></h2>
+  <p><strong>Una línea convierte ese texto en algo usable:</strong></p>
   <div class="cod"><span class="kw">import</span> json
 
 datos = json.loads(respuesta)</div>
 
   <p>Y desde ahí, cada campo se pide por su nombre:</p>
-  <div class="cod"><span class="kw">print</span>(datos[<span class="st">"limite"</span>])       <span class="cm"># 9</span>
-<span class="kw">print</span>(datos[<span class="st">"unidad"</span>])       <span class="cm"># ppm</span></div>
+  <div class="cod"><span class="kw">print</span>(datos[<span class="st">"valor_maximo"</span>])   <span class="cm"># 45</span>
+<span class="kw">print</span>(datos[<span class="st">"unidad"</span>])         <span class="cm"># mg/L</span></div>
 
   <div class="info i-grn">
     <strong>Miren la diferencia</strong>
     Antes: <code>respuesta.split("\n")[1].split(": ")[1]</code><br>
-    Ahora: <code>datos["limite"]</code>
-    <br><br>
-    <strong>Y ya no importa el orden</strong> en que la IA devolvió los campos. Si un día pone la unidad primero, funciona igual.
+    Ahora: <code>datos["valor_maximo"]</code><br>
+    Y ya no importa en qué orden vengan los campos.
   </div>
 
-  <p style="margin-top:14px;">En el Colab: hagan la extracción, conviertan con <code>json.loads()</code>, y saquen <strong>cada campo por separado</strong>.</p>
+  <div class="info i-azul">
+    <strong>En su Colab</strong>
+    Usen sus campos, escritos igual que en el JSON: si no coinciden letra por letra, Python tira <code>KeyError</code>. Y <code>respuesta</code> puede llamarse distinto en su código: es la variable donde guardan lo que devolvió la IA.
+  </div>
 
-  <div class="preg"><strong>&#128173;</strong> ¿Ven la diferencia? <span style="font-weight:normal;color:#667;">Antes tenían un texto largo. Ahora tienen cada valor por separado, y podrían compararlo con un número.</span></div>
+  <p style="margin-top:14px;">En el Colab: hagan la extracción, conviertan con <code>json.loads()</code> y saquen <strong>cada campo por separado</strong>.</p>
+
+  <div class="preg"><strong>&#128173;</strong> ¿Ven la diferencia? <span style="font-weight:normal;color:#667;">Antes era un texto largo. Ahora cada valor está por separado y se puede comparar con un número.</span></div>
 </div>
 
 <div class="card c-rojo">
   <h2><span class="badge" style="background:var(--rojo)">4</span> CUANDO SE ROMPE<span class="reloj">10 min</span></h2>
-  <p>Prueben esto: pidan la extracción sobre un fragmento y, antes de convertir, <strong>miren si la respuesta empieza con una llave</strong>.</p>
-  <p style="margin-top:10px;">Tarde o temprano la IA va a devolver algo así:</p>
+  <p>Antes de convertir, <strong>miren si la respuesta empieza con una llave</strong>. Tarde o temprano la IA va a devolver algo así:</p>
   <div class="mal">Claro! Acá está el JSON que pediste:
-{"contaminante": "monoxido", "limite": 9}</div>
-  <p>Y <code>json.loads()</code> va a fallar con <code>JSONDecodeError</code>, porque ese «Claro!» no es JSON.</p>
-
-  <div class="preg"><strong>&#128173;</strong> ¿Les falló alguna vez? <span style="font-weight:normal;color:#667;">¿Qué había devuelto la IA en vez de JSON? Anótenlo en «Clase a clase».</span></div>
+{"parametro": "nitratos", "valor_maximo": 45}</div>
+  <p>Y <code>json.loads()</code> falla con <code>JSONDecodeError</code>, porque ese saludo no es JSON.</p>
 
   <div class="info i-amb">
     <strong>Por ahora solo hay que detectarlo</strong>
@@ -302,35 +323,49 @@ datos = json.loads(respuesta)</div>
 
   <div class="cod"><span class="kw">try</span>:
     datos = json.loads(respuesta)
-    <span class="kw">print</span>(datos[<span class="st">"limite"</span>])
+    <span class="kw">print</span>(datos)
 <span class="kw">except</span> json.JSONDecodeError:
     <span class="kw">print</span>(<span class="st">"⚠️ No devolvio JSON valido"</span>)
     <span class="kw">print</span>(respuesta)</div>
 
-  <label class="lb">¿Les falló alguna vez? ¿Qué había devuelto?</div>
+  <div class="preg"><strong>&#128173;</strong> ¿Les falló alguna vez? <span style="font-weight:normal;color:#667;">¿Qué había devuelto la IA? Anótenlo en la hoja Clase a clase.</span></div>
 </div>
 
 <div class="card c-entrega" style="border-top:6px solid var(--vio);">
   <h2><span class="badge" style="background:var(--vio)">📓</span> ANTES DE IRSE<span class="reloj">5 min</span></h2>
-  <p style="font-size:19px;">Dos lugares: <strong>el Colab va al Drive</strong> y <strong>lo demás a la planilla</strong>.</p>
-
   <table class="cierre">
     <tr><th>Qué</th><th>Dónde</th></tr>
-    <tr><td><strong>El Colab de hoy</strong></td><td>Carpeta <strong>codigo</strong> → <code>json_25-09_NombreDelEquipo</code></td></tr>
-    <tr><td><strong>El system prompt nuevo, pidiendo JSON</strong> — reemplaza al del 14</td><td><strong>Planilla</strong> → Equipo → «Nuestro system prompt»</td></tr>
-    <tr><td>Si les falló la conversión y qué había devuelto</td><td><strong>Planilla</strong> → Clase a clase</td></tr>
+    <tr><td><strong>El Colab de hoy</strong></td><td>La copia, en <strong>codigo/extractor</strong>. Archivo → Guardar.</td></tr>
+    <tr><td><strong>El system prompt nuevo</strong>, el que pide JSON</td><td><strong>Planilla</strong> → Equipo → Nuestro system prompt. Reemplaza al del 14.</td></tr>
+    <tr><td>Si falló la conversión y qué había devuelto</td><td><strong>Planilla</strong> → Clase a clase</td></tr>
     <tr><td>Quién hizo qué hoy</td><td><strong>Planilla</strong> → Clase a clase</td></tr>
   </table>
 
-
   <div class="info i-grn">
-    <strong>Y cada uno su bitácora</strong>
+    <strong>📓 Y cada uno, su bitácora</strong>
+    Su archivo, en <strong>Viernes 25/9</strong>: las cinco preguntas. Si no llegan en clase, <strong>la terminan antes del lunes 28</strong>. Si quedó vacía la del 14, esa también.
+  </div>
+</div>
+
+<div class="card c-avanzado">
+  <h2><span class="badge" style="background:var(--amb)">📅</span> PLAZOS</h2>
+  <p>Con hoy quedan <strong>seis clases</strong> hasta la evaluación de la Parte 1.</p>
+  <table class="cierre">
+    <tr><th>Cuándo</th><th>Qué</th></tr>
+    <tr><td><strong>Hoy, antes de irse</strong></td><td>El Colab guardado y el system prompt nuevo en la planilla.</td></tr>
+    <tr><td><strong>Antes del lunes 28</strong></td><td>La bitácora de hoy.</td></tr>
+    <tr><td><strong>Antes del viernes 2/10</strong></td><td>Al menos diez fragmentos en Textos fuente: ese día se procesan todos.</td></tr>
+    <tr><td><strong>⭐ Lunes 19/10</strong></td><td><strong>Evaluación de la Parte 1:</strong> el extractor completo, con su análisis de calidad.</td></tr>
+  </table>
+  <div class="info i-amb">
+    <strong>VitalAir, además</strong>
+    El lunes 28, la tabla de umbrales completa con su fuente. El lunes 5/10, el agente simple andando. Está todo en Camino a la Nacional.
   </div>
 </div>
 
 <div class="card c-info">
   <h2><span class="badge" style="background:var(--teal)">→</span> EL LUNES 28</h2>
-  <p>Con la respuesta ya convertida en dato, el lunes vamos a hacer que <strong>salga siempre con los mismos campos</strong>, aunque el texto no los tenga todos.</p>
+  <p>Con la respuesta ya convertida en dato, vamos a hacer que <strong>salga siempre con los mismos campos</strong>, aunque el texto no los tenga todos.</p>
 </div>
 </div>
 </body></html>
