@@ -198,16 +198,17 @@
   <h2><span class="badge" style="background:var(--json)">1</span> QUÉ VA A LA TABLA</h2>
   <p>Cada fila es <strong>un límite</strong>, de un solo fragmento, con su fuente.</p>
   <table class="d">
-    <tr><th>Fragmento</th><th>Qué sale</th><th>tipo_de_riesgo</th></tr>
-    <tr class="si"><td><strong>1</strong></td><td>Monóxido: los dos de NIOSH y el de OSHA, tres filas</td><td>toxicidad</td></tr>
-    <tr class="si"><td><strong>8</strong></td><td>Etanol: el de OSHA y el IDLH, dos filas</td><td>toxicidad</td></tr>
-    <tr class="si"><td><strong>9, 10 y 11</strong></td><td>El LEL de cada gas: GLP, metano, propano, butano, isobutano, hidrógeno y etanol</td><td>explosividad</td></tr>
+    <tr><th>Fragmento</th><th>Qué sale</th></tr>
+    <tr class="si"><td><strong>1</strong></td><td>Monóxido: los dos de NIOSH y el de OSHA, tres filas</td></tr>
+    <tr class="si"><td><strong>8</strong></td><td>Etanol: el de OSHA y el IDLH, dos filas</td></tr>
+    <tr class="si"><td><strong>9, 10 y 11</strong></td><td>El LEL de cada gas: GLP, metano, propano, butano, isobutano, hidrógeno y etanol</td></tr>
   </table>
   <div class="info i-grn">
     <strong>Cómo se llenan</strong>
     Todo en <strong>ppm</strong>, que es lo que mide el sensor: sus textos lo traen al lado del porcentaje.<br>
     Si da un rango, como el GLP, el valor más bajo: es el más prudente.<br>
-    El UEL no va: para avisar importa el límite de abajo.
+    El UEL no va: para avisar importa el límite de abajo.<br>
+    <strong>tipo_de_riesgo</strong> no está escrito en los textos, así que la IA lo va a dejar en null. Lo completan ustedes: los límites de exposición, del 1 y el 8, son toxicidad; los LEL son explosividad.
   </div>
 </div>
 
@@ -215,12 +216,13 @@
   <h2><span class="badge" style="background:var(--amb)">2</span> CÓMO CORTAR</h2>
   <p>El pedido de Abril saca <strong>una fila por fragmento</strong>. Si un fragmento trae tres límites, hay que cortarlo en tres. Así:</p>
   <p style="margin-top:8px;"><strong>El 1</strong> queda en tres:</p>
-  <div class="frag">REL de NIOSH: TWA de 35 ppm (40 mg/m3)</div>
-  <div class="frag">REL de NIOSH: C de 200 ppm (229 mg/m3)</div>
-  <div class="frag">PEL de OSHA: TWA de 50 ppm (55 mg/m3)</div>
+  <div class="frag">Monóxido de carbono. REL de NIOSH: TWA de 35 ppm (40 mg/m3)</div>
+  <div class="frag">Monóxido de carbono. REL de NIOSH: C de 200 ppm (229 mg/m3)</div>
+  <div class="frag">Monóxido de carbono. PEL de OSHA: TWA de 50 ppm (55 mg/m3)</div>
   <p style="margin-top:8px;"><strong>Los de gases</strong>, uno por gas y solo con el LEL:</p>
   <div class="frag">Metano (CH₄): LEL 5,0% vol. (50.000 ppm)</div>
-  <p style="margin-top:8px;">Cada fragmento nuevo va en su propia fila de Textos fuente, con el link del original.</p>
+  <p style="margin-top:8px;"><strong>Cada pedazo tiene que decir de qué gas habla.</strong> En el 1 el nombre estaba solo en el título: si no lo ponen, la IA no lo sabe y lo inventa.</p>
+  <p>Cada fragmento nuevo va en su propia fila de Textos fuente, con el link del original.</p>
 </div>
 
 <div class="card c-rojo">
@@ -241,7 +243,7 @@
     <tr><th>Quién</th><th>Qué</th></tr>
     <tr><td><strong>Dos</strong></td><td>Buscan el link del 8 al 12. El 7 no hace falta: repite al 1.</td></tr>
     <tr><td><strong>Uno</strong></td><td>Corta los fragmentos como en el paso 2 y los carga en Textos fuente.</td></tr>
-    <tr><td><strong>Uno, con Abril</strong></td><td>El traspaso: pegan su pedido en el Colab y lo prueban con tres fragmentos. Con eso hacen los bloques 1 a 4 de la clase: su pedido ya tiene el ejemplo, los campos y el null.</td></tr>
+    <tr><td><strong>Uno, con Abril</strong></td><td>El traspaso: pegan su pedido en el Colab y lo prueban con tres fragmentos. Con eso hacen los bloques 1 a 4 de la clase: su pedido ya tiene la forma, la lista de campos y el null.</td></tr>
     <tr><td><strong>Todos, al final</strong></td><td>Corren el bucle con los fragmentos cortados y pegan las filas en la Tabla de datos. Las que cargó Abril no se repiten.</td></tr>
     <tr><td><strong>Cualquiera</strong></td><td>Le pide a Ambiente Óptimo sus textos de temperatura y humedad, con la fuente: su sensor las mide y ustedes no tienen umbrales.</td></tr>
   </table>
