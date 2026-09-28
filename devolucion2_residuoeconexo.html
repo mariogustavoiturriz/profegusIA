@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Devolución · VitalAir</title>
+<title>Devolución · Ambiente Óptimo</title>
 <style>
   :root{
     --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
@@ -167,8 +167,8 @@
 </head>
 <body>
 <header>
-  <h1>DEVOLUCIÓN — VitalAir</h1>
-  <p>Su tabla de umbrales &middot; Lunes 28 de septiembre</p>
+  <h1>DEVOLUCIÓN — Ambiente Óptimo</h1>
+  <p>Su tabla y sus textos &middot; Lunes 28 de septiembre</p>
 </header>
 <div class="container">
 <a href="index.html" class="back-btn">&#11013; Volver al &Iacute;ndice</a>
@@ -182,75 +182,55 @@
   tr.no td{background:#FDECEA;}
   .chk{background:var(--gris);border-radius:9px;padding:14px 18px;font-size:16.5px;line-height:2.1;}
 </style>
-<style>
-  .cod{background:#1E1E1E;color:#D4D4D4;border-radius:10px;padding:13px 17px;margin:10px 0;
-       font-family:Consolas,monospace;font-size:15px;line-height:1.7;white-space:pre-wrap;}
-  .frag{background:#FFFDF5;border:2px solid var(--amb);border-radius:10px;padding:10px 14px;margin:6px 0;
-        font-family:Consolas,monospace;font-size:15px;}
-</style>
 
-<div class="card c-rojo">
-  <h2><span class="badge" style="background:var(--rojo)">!</span> HOY SE COMPLETA LA TABLA</h2>
-  <p>Es su fecha de Camino a la Nacional: sin la tabla de umbrales, el agente del 5/10 no tiene contra qué comparar. <strong>Esta devolución la resuelven toda hoy.</strong> Al final está cómo repartirse.</p>
+<div class="card c-info">
+  <h2><span class="badge" style="background:var(--teal)">1</span> SÍ, ALCANZA CON UNA TABLA</h2>
+  <p>Me preguntaron por dos tablas. Leí sus textos y conviene una sola: en varios de sus textos la humedad viene atada a una temperatura, y si las separan se pierde esa relación.</p>
+  <p style="margin-top:10px;">Sus columnas quedan así:</p>
+  <div class="chk"><code>ambiente</code> · <code>condicion</code> · <code>temperatura_min</code> · <code>temperatura_max</code> · <code>humedad_min</code> · <code>humedad_max</code> · <code>fuente</code></div>
+  <div class="info i-grn">
+    <strong>Tres reglas</strong>
+    Una fila sale de un solo fragmento, con su fuente.<br>
+    Números solos: 40 y 60, no 40 a 60 %.<br>
+    Lo que el fragmento no dice queda en null.
+  </div>
+  <p style="margin-top:10px;"><strong>condicion</strong> es para decir cuándo vale el rango: general, día, noche, invierno o verano.</p>
 </div>
 
-<div class="card c-json">
-  <h2><span class="badge" style="background:var(--json)">1</span> QUÉ VA A LA TABLA</h2>
-  <p>Cada fila es <strong>un límite</strong>, de un solo fragmento, con su fuente.</p>
+<div class="card c-rojo">
+  <h2><span class="badge" style="background:var(--rojo)">2</span> LO QUE HAY QUE ARREGLAR</h2>
   <table class="d">
-    <tr><th>Fragmento</th><th>Qué sale</th></tr>
-    <tr class="si"><td><strong>1</strong></td><td>Monóxido: los dos de NIOSH y el de OSHA, tres filas</td></tr>
-    <tr class="si"><td><strong>8</strong></td><td>Etanol: el de OSHA y el IDLH, dos filas</td></tr>
-    <tr class="si"><td><strong>9, 10 y 11</strong></td><td>El LEL de cada gas: GLP, metano, propano, butano, isobutano, hidrógeno y etanol</td></tr>
+    <tr><th>Qué</th><th>Qué hacer</th></tr>
+    <tr><td><strong>Niveles de humedad</strong> y <strong>temperatura ideal para el hogar</strong></td><td>Traen cuatro o cinco rangos cada uno. Córtenlos en varios fragmentos, uno por rango, y que cada pedazo diga de qué ambiente habla.</td></tr>
+    <tr><td><strong>Las columnas nuevas</strong></td><td>condicion va a la derecha de ambiente. humedad pasa a ser humedad_min, con humedad_max a su derecha. Queda el mismo orden que en el JSON.</td></tr>
+    <tr><td><strong>La fila gris</strong></td><td>Es el ejemplo de la plantilla: sáquenle lo que le agregaron, Alexis y no. Sus datos van desde la fila N° 1, que es la tercera de la hoja.</td></tr>
+    <tr><td><strong>Verificó 1 y 2</strong></td><td>Van nombres de dos personas que no sacaron ese dato. El sí o el no va en ¿Está bien?</td></tr>
   </table>
-  <div class="info i-grn">
-    <strong>Cómo se llenan</strong>
-    Todo en <strong>ppm</strong>, que es lo que mide el sensor: sus textos lo traen al lado del porcentaje.<br>
-    Si da un rango, como el GLP, el valor más bajo: es el más prudente. Eso y lo de ppm ya están en el pedido de Abril.<br>
-    El UEL no va: para avisar importa el límite de abajo.<br>
-    <strong>tipo_de_riesgo</strong> no está escrito en los textos, así que la IA lo tendría que dejar en null. Lo completan ustedes: los límites de exposición, del 1 y el 8, son toxicidad; los LEL son explosividad.
+</div>
+
+<div class="card c-p1">
+  <h2><span class="badge" style="background:var(--p1)">3</span> A CONTEXTO, NO A LA TABLA</h2>
+  <table class="d">
+    <tr class="ac"><td><strong>Cómo controlar la humedad</strong></td><td>Acción: dice qué hacer.</td></tr>
+    <tr><td><strong>Cómo se lee la humedad</strong>, <strong>ley 19.587</strong>, <strong>información sobre temperatura</strong></td><td>Explican.</td></tr>
+    <tr class="no"><td><strong>Documento sin título (1)</strong></td><td>Es de gases y partículas: del equipo del aire. Sáquenlo.</td></tr>
+  </table>
+  <div class="info i-amb">
+    <strong>No pierdan el del BID</strong>
+    El que dice qué pasa con los aprendizajes cuando hace mucho calor no vino con los textos que me pasaron, pero está en su planilla, fragmento 10. Es el que le da sentido al proyecto en un aula.
   </div>
 </div>
 
-<div class="card c-avanzado">
-  <h2><span class="badge" style="background:var(--amb)">2</span> CÓMO CORTAR</h2>
-  <p>El pedido de Abril saca <strong>una fila por fragmento</strong>. Si un fragmento trae tres límites, hay que cortarlo en tres. Así:</p>
-  <p style="margin-top:8px;"><strong>El 1</strong> queda en tres:</p>
-  <div class="frag">Monóxido de carbono. REL de NIOSH: TWA de 35 ppm (40 mg/m3)</div>
-  <div class="frag">Monóxido de carbono. REL de NIOSH: C de 200 ppm (229 mg/m3)</div>
-  <div class="frag">Monóxido de carbono. PEL de OSHA: TWA de 50 ppm (55 mg/m3)</div>
-  <p style="margin-top:8px;"><strong>Los de gases</strong>, uno por gas y solo con el LEL:</p>
-  <div class="frag">Metano (CH₄): LEL 5,0% vol. (50.000 ppm)</div>
-  <p style="margin-top:8px;"><strong>Cada pedazo tiene que decir de qué gas habla.</strong> En el 1 el nombre estaba solo en el título: si no lo ponen, la IA no lo sabe y lo inventa.</p>
-  <p>Cada fragmento nuevo va en su propia fila de Textos fuente, con el link del original.</p>
-</div>
-
-<div class="card c-rojo">
-  <h2><span class="badge" style="background:var(--rojo)">3</span> LO QUE HAY QUE ARREGLAR</h2>
-  <table class="d">
-    <tr><th>Qué</th><th>Qué hacer</th></tr>
-    <tr class="no"><td><strong>Del 7 al 12 no tienen link</strong></td><td>Y algunos tampoco el nombre del documento. Es lo primero que pregunta el jurado.</td></tr>
-    <tr><td><strong>El 7 dice lo mismo que el 1</strong></td><td>Usen el 1, que tiene link.</td></tr>
-    <tr><td><strong>El 11 repite lo de OSHA del 8</strong></td><td>Del 11 usen solo el hidrógeno y el LEL del etanol.</td></tr>
-    <tr class="no"><td><strong>El 7 dice 8 horas para NIOSH</strong></td><td>La página del CDC, su fragmento 1, no lo dice. Si no está en la fuente, tiempo_exposicion va null.</td></tr>
-  </table>
-  <p>A Contexto van el 2, el 3, el 4 y el 12: explican, no sirven para comparar.</p>
-</div>
-
 <div class="card c-entrega">
-  <h2><span class="badge" style="background:var(--classroom)">✔</span> HOY, REPARTIDOS</h2>
-  <table class="d">
-    <tr><th>Quién</th><th>Qué</th></tr>
-    <tr><td><strong>Dos</strong></td><td>Buscan el link del 8 al 12. El 7 no hace falta: repite al 1.</td></tr>
-    <tr><td><strong>Uno</strong></td><td>Corta los fragmentos como en el paso 2 y los carga en Textos fuente.</td></tr>
-    <tr><td><strong>Uno, con Abril</strong></td><td>El traspaso: pegan su pedido en el Colab y lo prueban con tres fragmentos. Con eso hacen los bloques 1 a 4 de la clase: su pedido ya tiene la forma, la lista de campos y el null.</td></tr>
-    <tr><td><strong>Todos, al final</strong></td><td>Para la tabla de hoy, lo más rápido es la página de Abril: pasan los fragmentos cortados de a tres y pegan las filas con su botón en la Tabla de datos. Las que ya cargó Abril no se repiten. El viernes el programa la arma entera.</td></tr>
-    <tr><td><strong>Cualquiera</strong></td><td>Le pide a Ambiente Óptimo sus textos de temperatura y humedad, con la fuente: su sensor las mide y ustedes no tienen umbrales.</td></tr>
-  </table>
-  <p>El pedido de Abril va así en el Colab:</p>
-  <div class="cod">reglas_estrictas = """
-(peguen acá el pedido de Abril, de la hoja Equipo)
-"""</div>
+  <h2><span class="badge" style="background:var(--classroom)">✔</span> CUÁNDO</h2>
+  <div class="chk">
+    <strong>Hoy, en clase</strong><br>
+    ☐ &nbsp;Columnas nuevas en la Tabla de datos: condicion, humedad_min y humedad_max<br>
+    <strong>Antes del viernes 2</strong><br>
+    ☐ &nbsp;Cortar los dos textos largos, un fragmento por rango<br>
+    ☐ &nbsp;Pasar a Contexto los que explican o dicen qué hacer<br>
+    ☐ &nbsp;Dejar la fila gris como estaba y cargar desde la fila N° 1
+  </div>
 </div>
 
 </div>
