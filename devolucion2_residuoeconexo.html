@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Devolución · Ambiente Óptimo</title>
+<title>Devolución · Residuo Econexo</title>
 <style>
   :root{
     --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
@@ -167,7 +167,7 @@
 </head>
 <body>
 <header>
-  <h1>DEVOLUCIÓN — Ambiente Óptimo</h1>
+  <h1>DEVOLUCIÓN — Residuo Econexo</h1>
   <p>Su tabla y sus textos &middot; Lunes 28 de septiembre</p>
 </header>
 <div class="container">
@@ -184,52 +184,48 @@
 </style>
 
 <div class="card c-info">
-  <h2><span class="badge" style="background:var(--teal)">1</span> SÍ, ALCANZA CON UNA TABLA</h2>
-  <p>Me preguntaron por dos tablas. Leí sus textos y conviene una sola: en varios de sus textos la humedad viene atada a una temperatura, y si las separan se pierde esa relación.</p>
-  <p style="margin-top:10px;">Sus columnas quedan así:</p>
-  <div class="chk"><code>ambiente</code> · <code>condicion</code> · <code>temperatura_min</code> · <code>temperatura_max</code> · <code>humedad_min</code> · <code>humedad_max</code> · <code>fuente</code></div>
-  <div class="info i-grn">
-    <strong>Tres reglas</strong>
-    Una fila sale de un solo fragmento, con su fuente.<br>
-    Números solos: 40 y 60, no 40 a 60 %.<br>
-    Lo que el fragmento no dice queda en null.
+  <h2><span class="badge" style="background:var(--teal)">1</span> LO PRIMERO</h2>
+  <p>Consiguieron textos con datos concretos: qué va en cada contenedor y cuánto tarda en degradarse cada cosa. Eso es lo que necesita la tabla.</p>
+  <div class="info i-rojo">
+    <strong>Pero los colores son de España</strong>
+    Los contenedores salen de la Fundación Aquae, que es española. El proyecto es para Ushuaia: fíjense en la página de la municipalidad, que ya la tienen entre sus links, y usen los colores de acá.
   </div>
-  <p style="margin-top:10px;"><strong>condicion</strong> es para decir cuándo vale el rango: general, día, noche, invierno o verano.</p>
 </div>
 
 <div class="card c-rojo">
-  <h2><span class="badge" style="background:var(--rojo)">2</span> LO QUE HAY QUE ARREGLAR</h2>
+  <h2><span class="badge" style="background:var(--rojo)">2</span> SU TABLA</h2>
+  <p>La armaron a mano. Está bien para ver la forma, pero las filas las va a generar el programa el viernes 2. Lo que importa hoy:</p>
+  <div class="info i-grn">
+    <strong>Una fila sale de un solo texto, con su fuente</strong>
+    El contenedor y el tiempo de degradación vienen de textos distintos, así que van en filas distintas. Lo que el texto no dice queda en null.
+  </div>
   <table class="d">
-    <tr><th>Qué</th><th>Qué hacer</th></tr>
-    <tr><td><strong>Niveles de humedad</strong> y <strong>temperatura ideal para el hogar</strong></td><td>Traen cuatro o cinco rangos cada uno. Córtenlos en varios fragmentos, uno por rango, y que cada pedazo diga de qué ambiente habla.</td></tr>
-    <tr><td><strong>Las columnas nuevas</strong></td><td>condicion va a la derecha de ambiente. humedad pasa a ser humedad_min, con humedad_max a su derecha. Queda el mismo orden que en el JSON.</td></tr>
-    <tr><td><strong>La fila gris</strong></td><td>Es el ejemplo de la plantilla: sáquenle lo que le agregaron, Alexis y no. Sus datos van desde la fila N° 1, que es la tercera de la hoja.</td></tr>
-    <tr><td><strong>Verificó 1 y 2</strong></td><td>Van nombres de dos personas que no sacaron ese dato. El sí o el no va en ¿Está bien?</td></tr>
+    <tr><th>Qué vi</th><th>Qué hacer</th></tr>
+    <tr class="no"><td><strong>Reciclable: sí</strong> en todas</td><td>Sus textos hablan de reciclaje para papel y cartón, vidrio y orgánicos. El del contenedor amarillo, el de plástico y latas, no lo dice: ahí es un dato supuesto y va en null.</td></tr>
+    <tr class="no"><td><strong>Residuos secos, verde</strong></td><td>No está en sus textos. Si sale de la página de la municipalidad, cárguenla como texto, con su link.</td></tr>
+    <tr><td><strong>Orgánicos, marrón</strong></td><td>Está en sus textos y falta en la tabla.</td></tr>
+    <tr><td><strong>tiempo_degradacion</strong> vacío</td><td>Los datos los tienen: vidrio, pilas, bolsas de plástico, botellas, toallitas, bastoncillos y compresas. Van en años, con el número solo: 4000, no 4.000 años.</td></tr>
+    <tr><td><strong>Fuente</strong> sin completar</td><td>El nombre del documento de cada texto. En su archivo los textos y los links están separados: cada fragmento tiene que decir de qué link salió.</td></tr>
   </table>
 </div>
 
 <div class="card c-p1">
   <h2><span class="badge" style="background:var(--p1)">3</span> A CONTEXTO, NO A LA TABLA</h2>
-  <table class="d">
-    <tr class="ac"><td><strong>Cómo controlar la humedad</strong></td><td>Acción: dice qué hacer.</td></tr>
-    <tr><td><strong>Cómo se lee la humedad</strong>, <strong>ley 19.587</strong>, <strong>información sobre temperatura</strong></td><td>Explican.</td></tr>
-    <tr class="no"><td><strong>Documento sin título (1)</strong></td><td>Es de gases y partículas: del equipo del aire. Sáquenlo.</td></tr>
-  </table>
+  <p>Los porcentajes de qué tiramos, las toneladas por día, el 6 % que se recicla, los residuos peligrosos y lo del mercurio de las pilas. No sirven para decidir en qué contenedor va algo, pero sí para explicar por qué importa.</p>
   <div class="info i-amb">
-    <strong>No pierdan el del BID</strong>
-    El que dice qué pasa con los aprendizajes cuando hace mucho calor no vino con los textos que me pasaron, pero está en su planilla, fragmento 10. Es el que le da sentido al proyecto en un aula.
+    <strong>Tienen estudios con números distintos</strong>
+    Los que son de Ushuaia, márquenlos: son los que más les sirven.
   </div>
 </div>
 
 <div class="card c-entrega">
   <h2><span class="badge" style="background:var(--classroom)">✔</span> CUÁNDO</h2>
   <div class="chk">
-    <strong>Hoy, en clase</strong><br>
-    ☐ &nbsp;Columnas nuevas en la Tabla de datos: condicion, humedad_min y humedad_max<br>
     <strong>Antes del viernes 2</strong><br>
-    ☐ &nbsp;Cortar los dos textos largos, un fragmento por rango<br>
-    ☐ &nbsp;Pasar a Contexto los que explican o dicen qué hacer<br>
-    ☐ &nbsp;Dejar la fila gris como estaba y cargar desde la fila N° 1
+    ☐ &nbsp;Confirmar los colores de los contenedores de Ushuaia<br>
+    ☐ &nbsp;Cargar cada texto en Textos fuente, uno por fila, con su link<br>
+    ☐ &nbsp;Los porcentajes y las toneladas, a Contexto<br>
+    ☐ &nbsp;Revisar reciclable y residuos secos: solo lo que dicen los textos
   </div>
 </div>
 
