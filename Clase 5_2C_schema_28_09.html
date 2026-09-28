@@ -189,6 +189,7 @@
        font-family:Consolas,monospace;font-size:15px;line-height:1.7;margin:8px 0;}
   .bien{background:#F0FAF7;border:2px solid #1F6E5C;border-radius:10px;padding:13px 17px;
         font-family:Consolas,monospace;font-size:15px;line-height:1.7;margin:8px 0;}
+  .mal,.bien{white-space:pre-wrap;}
   details.pista{background:var(--gris);border-left:5px solid var(--vio);border-radius:8px;
                 padding:12px 16px;margin-top:9px;}
   details.pista summary{cursor:pointer;font-weight:bold;color:var(--vio);font-size:17px;}
@@ -201,7 +202,7 @@
 
 <div class="card c-info">
   <h2><span class="badge" style="background:var(--teal)">0</span> DONDE QUEDAMOS</h2>
-  <p>El viernes la IA devolvió JSON y <code>json.loads()</code> lo convirtió en datos. <strong>Hoy hacemos que salga igual todas las veces.</strong></p>
+  <p>El viernes le pidieron a la IA que devuelva JSON. <strong>Hoy lo terminan de convertir en datos y hacemos que salga igual todas las veces.</strong></p>
   <div class="info i-amb">
     <strong>Abran</strong>
     El Colab del viernes, <code>json_25-09_NombreDelEquipo</code>, en <code>codigo/extractor</code>.<br>
@@ -214,7 +215,7 @@
 </div>
 
 <div class="card c-entrega">
-  <h2><span class="badge" style="background:var(--classroom)">📩</span> SU DEVOLUCIÓN<span class="reloj">15 min</span></h2>
+  <h2><span class="badge" style="background:var(--classroom)">📩</span> SU DEVOLUCIÓN<span class="reloj">10 min</span></h2>
   <p>Cada equipo tiene la suya: se las compartí hoy. <strong>Léanla juntos.</strong></p>
   <p>Hoy, en clase, hacen <strong>lo de las columnas</strong>, porque lo necesitan para el bloque 3. El resto de la lista, antes del viernes 2.</p>
   <div class="info i-amb">
@@ -224,40 +225,42 @@
 </div>
 
 <div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">1</span> EL PROBLEMA QUE NO VIERON<span class="reloj">20 min</span></h2>
+  <h2><span class="badge" style="background:var(--p1)">1</span> TERMINAR EL JSON.LOADS<span class="reloj">30 min</span></h2>
+  <p>Lo que quedó del viernes: convertir la respuesta en datos. Lo hacemos directo en el bucle del 14, con tres fragmentos.</p>
   <ol>
-    <li>Vayan a la celda del bucle, la de <code>lista_textos</code>.</li>
-    <li>Súmenle un tercer fragmento con número, de Textos fuente:</li>
+    <li>Busquen la celda del bucle, la de <code>lista_textos</code>, y súmenle un tercer fragmento con número:</li>
   </ol>
   <div class="cod">FRAGMENTO_3 = <span class="st">"""
 (peguen acá el tercero)
 """</span>
 lista_textos = [FRAGMENTO, OTRO_FRAGMENTO, FRAGMENTO_3]</div>
-  <ol start="3">
-    <li>Córranla y miren las tres respuestas juntas.</li>
+  <ol start="2">
+    <li>Dejen el bucle así. El historial es el del RPG: primero las reglas, como el game_master, y después lo que entra. <strong>Lo nuevo son las líneas marcadas:</strong></li>
   </ol>
-  <details class="pista">
-    <summary>🔦 ¿Cómo tenía que estar el bucle?</summary>
-    <p>Es el del 14 con el <code>json.loads</code> del viernes. El historial es el mismo del RPG: primero las reglas, como el game_master, y después lo que entra.</p>
-    <div class="cod"><span class="kw">import</span> json
+  <div class="cod"><span class="kw">import</span> json                                   <span class="cm"># nuevo</span>
 
 <span class="kw">for</span> texto <span class="kw">in</span> lista_textos:
     historial = [{<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: reglas_estrictas}]
     historial.append({<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: texto})
     respuesta = consultar_ia(historial, 0.0)
-    <span class="kw">try</span>:
-        datos = json.loads(respuesta)
+    <span class="kw">try</span>:                                   <span class="cm"># nuevo</span>
+        datos = json.loads(respuesta)      <span class="cm"># nuevo: de texto a dato</span>
         <span class="kw">print</span>(datos)
-    <span class="kw">except</span> json.JSONDecodeError:
+    <span class="kw">except</span> json.JSONDecodeError:           <span class="cm"># nuevo: si no vino JSON, avisa</span>
         <span class="kw">print</span>(<span class="st">"⚠️ No devolvio JSON valido:"</span>, respuesta)
     <span class="kw">print</span>(<span class="st">"----"</span>)</div>
-  </details>
-  <p style="margin-top:12px;">Es probable que salga algo así:</p>
+  <ol start="3">
+    <li>Córranlo. Si sale ⚠️, la IA escribió algo alrededor del JSON: agreguen a <code>reglas_estrictas</code> que no ponga nada antes ni después.</li>
+    <li>En una celda nueva, saquen un campo por su nombre, con uno de los suyos:</li>
+  </ol>
+  <div class="cod"><span class="kw">print</span>(datos[<span class="st">"limite"</span>])</div>
+  <p style="font-size:17px;color:#667;">Si da KeyError, el nombre no coincide: lo arreglan en el bloque 3.</p>
+
+  <p style="margin-top:14px;"><strong>Ahora miren las tres respuestas juntas.</strong> Es probable que salga algo así:</p>
   <div class="mal">{"parametro": "nitratos", "valor_maximo": 45, "unidad": "mg/L"}
 {"parametro": "nitratos", "valor_maximo": "45 mg/L"}
 {"sustancia": "nitrato", "limite": 45, "unidad": "mg/L", "nota": "agua de red"}</div>
-  <p>Las tres son JSON. Pero cambian los nombres, la unidad aparece pegada al número y hay un campo de más. <strong>Con eso, cada fila de la tabla tendría columnas distintas.</strong></p>
-  <div class="preg"><strong>&#128173;</strong> ¿Qué tienen distinto las suyas?</div>
+  <p>Las tres son JSON. Pero cambian los nombres, la unidad aparece pegada al número y hay un campo de más. <strong>Con eso, cada fila de la tabla tendría columnas distintas.</strong> Es lo que arreglamos en los bloques 2 y 3.</p>
 </div>
 
 <div class="card c-json">
@@ -291,7 +294,7 @@ Devolvé un JSON exactamente con esta forma:
 </div>
 
 <div class="card c-json">
-  <h2><span class="badge" style="background:var(--json)">3</span> FIJAR LA ESTRUCTURA<span class="reloj">35 min</span></h2>
+  <h2><span class="badge" style="background:var(--json)">3</span> FIJAR LA ESTRUCTURA<span class="reloj">30 min</span></h2>
   <p>El ejemplo es una sugerencia. Ahora lo hacemos obligatorio.</p>
   <ol>
     <li>Debajo del ejemplo, sumen la lista de campos. El ejemplo lo dejan: juntos funcionan mejor.</li>
