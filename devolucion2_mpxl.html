@@ -194,12 +194,13 @@
 
 <div class="card c-json">
   <h2><span class="badge" style="background:var(--json)">2</span> SUS COLUMNAS, DE NUEVO</h2>
+  <p>En la Tabla de datos, en este orden, que es el mismo del JSON:</p>
   <div class="chk"><code>alimento</code> · <code>lugar</code> · <code>temperatura_max</code> · <code>tiempo_maximo</code> · <code>unidad_tiempo</code> · <code>fuente</code></div>
   <div class="info i-grn">
     <strong>Cómo se llenan</strong>
     <strong>lugar</strong>: heladera o freezer. Si un texto da los dos, son dos filas.<br>
     <strong>temperatura_max</strong>: número solo. 4, no 4 °C o menos.<br>
-    <strong>tiempo_maximo</strong> y <strong>unidad_tiempo</strong>: 5 y días, o 12 y meses. Si es un rango, el número más alto.<br>
+    <strong>tiempo_maximo</strong> y <strong>unidad_tiempo</strong>: 5 y días, o 12 y meses. Si es un rango, el número más bajo: es el más prudente.<br>
     Lo que el texto no dice queda en null.
   </div>
   <p style="margin-top:10px;">Lo que hoy tienen en condición, como el envase hermético o la cadena de frío, no es un dato para comparar: dice qué hacer. Va a Contexto.</p>
