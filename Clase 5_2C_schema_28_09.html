@@ -205,12 +205,12 @@
   <p>El viernes le pidieron a la IA que devuelva JSON. <strong>Hoy lo terminan de convertir en datos y hacemos que salga igual todas las veces.</strong></p>
   <div class="info i-amb">
     <strong>Abran</strong>
-    El Colab del viernes, <code>json_25-09_NombreDelEquipo</code>, en <code>codigo/extractor</code>.<br>
+    El Colab del viernes, <code>json_25-09_NombreDelEquipo</code>, en <code>codigo/extractor</code>. Si no hicieron la copia, el del 14.<br>
     La planilla, en la hoja Textos fuente.
   </div>
   <div class="info i-rojo">
     <strong>Antes de tocar nada: Entorno de ejecución → Ejecutar todas</strong>
-    Desde el viernes Colab se olvidó de todo. Si no, aparece un NameError con consultar_ia. Si pide permiso para la clave, acepten.
+    Desde el viernes Colab se olvidó de todo: si no, aparece un NameError con consultar_ia. Si se frena en una celda con error, corran de a una desde arriba: la conexión, los fragmentos y <code>reglas_estrictas</code>. Si pide permiso para la clave, acepten.
   </div>
 </div>
 
@@ -250,7 +250,7 @@ lista_textos = [FRAGMENTO, OTRO_FRAGMENTO, FRAGMENTO_3]</div>
         <span class="kw">print</span>(<span class="st">"⚠️ No devolvio JSON valido:"</span>, respuesta)
     <span class="kw">print</span>(<span class="st">"----"</span>)</div>
   <ol start="3">
-    <li>Córranlo. Si sale ⚠️, la IA escribió algo alrededor del JSON: agreguen a <code>reglas_estrictas</code> que no ponga nada antes ni después.</li>
+    <li>Córranlo. Si sale ⚠️ No devolvio JSON valido, la IA escribió algo alrededor del JSON: agreguen a <code>reglas_estrictas</code> que no ponga nada antes ni después. Si lo que muestra dice Error, es la clave o la conexión, no el JSON.</li>
     <li>En una celda nueva, saquen un campo por su nombre, con uno de los suyos:</li>
   </ol>
   <div class="cod"><span class="kw">print</span>(datos[<span class="st">"limite"</span>])</div>
@@ -307,7 +307,7 @@ Devolvé un JSON exactamente con esta forma:
 No agregues campos que no estén en esta lista.
 No saques ninguno, aunque no encuentres el dato.</span></div>
   <ol start="2">
-    <li>Usen <strong>sus</strong> campos, que son las columnas de su Tabla de datos:</li>
+    <li>Usen <strong>sus</strong> campos, que son las columnas de su Tabla de datos, <strong>en el mismo orden</strong>: el viernes el programa pega las filas ahí.</li>
   </ol>
   <table class="cierre">
     <tr><th>Equipo</th><th>Sus campos</th><th>Van como número</th></tr>
