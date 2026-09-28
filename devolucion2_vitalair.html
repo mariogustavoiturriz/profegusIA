@@ -182,58 +182,73 @@
   tr.no td{background:#FDECEA;}
   .chk{background:var(--gris);border-radius:9px;padding:14px 18px;font-size:16.5px;line-height:2.1;}
 </style>
+<style>
+  .cod{background:#1E1E1E;color:#D4D4D4;border-radius:10px;padding:13px 17px;margin:10px 0;
+       font-family:Consolas,monospace;font-size:15px;line-height:1.7;white-space:pre-wrap;}
+  .frag{background:#FFFDF5;border:2px solid var(--amb);border-radius:10px;padding:10px 14px;margin:6px 0;
+        font-family:Consolas,monospace;font-size:15px;}
+</style>
 
 <div class="card c-rojo">
   <h2><span class="badge" style="background:var(--rojo)">!</span> HOY SE COMPLETA LA TABLA</h2>
-  <p>Es su fecha de Camino a la Nacional: sin la tabla de umbrales, el agente del 5/10 no tiene contra qué comparar. Los datos los tienen. Falta ordenarlos.</p>
+  <p>Es su fecha de Camino a la Nacional: sin la tabla de umbrales, el agente del 5/10 no tiene contra qué comparar. <strong>Esta devolución la resuelven toda hoy.</strong> Al final está cómo repartirse.</p>
 </div>
 
 <div class="card c-json">
   <h2><span class="badge" style="background:var(--json)">1</span> QUÉ VA A LA TABLA</h2>
-  <p>Cada fila es <strong>un límite</strong>, de un solo fragmento, con su fuente. Si un fragmento trae varios límites, lo cortan: así el pedido de Abril saca una fila por fragmento.</p>
+  <p>Cada fila es <strong>un límite</strong>, de un solo fragmento, con su fuente.</p>
   <table class="d">
     <tr><th>Fragmento</th><th>Qué sale</th><th>tipo_de_riesgo</th></tr>
-    <tr class="si"><td><strong>1</strong></td><td>Monóxido: los tres límites de NIOSH y OSHA, tres filas</td><td>toxicidad</td></tr>
+    <tr class="si"><td><strong>1</strong></td><td>Monóxido: los dos de NIOSH y el de OSHA, tres filas</td><td>toxicidad</td></tr>
     <tr class="si"><td><strong>8</strong></td><td>Etanol: el de OSHA y el IDLH, dos filas</td><td>toxicidad</td></tr>
-    <tr class="si"><td><strong>9, 10 y 11</strong></td><td>GLP, metano, propano, butano, isobutano, hidrógeno y etanol: el LEL de cada uno, una fila por gas</td><td>explosividad</td></tr>
+    <tr class="si"><td><strong>9, 10 y 11</strong></td><td>El LEL de cada gas: GLP, metano, propano, butano, isobutano, hidrógeno y etanol</td><td>explosividad</td></tr>
   </table>
   <div class="info i-grn">
     <strong>Cómo se llenan</strong>
-    <strong>unidad</strong>: ppm en todas, que es lo que mide el sensor. Sus textos ya traen el valor en ppm al lado del porcentaje.<br>
-    <strong>Si da un rango</strong>, como el GLP, el valor más bajo: es el más prudente.<br>
-    <strong>tiempo_exposicion</strong>: lo que diga el texto. Si no dice, null.<br>
-    <strong>El UEL no va</strong>: para avisar importa el límite de abajo.
+    Todo en <strong>ppm</strong>, que es lo que mide el sensor: sus textos lo traen al lado del porcentaje.<br>
+    Si da un rango, como el GLP, el valor más bajo: es el más prudente.<br>
+    El UEL no va: para avisar importa el límite de abajo.
   </div>
+</div>
+
+<div class="card c-avanzado">
+  <h2><span class="badge" style="background:var(--amb)">2</span> CÓMO CORTAR</h2>
+  <p>El pedido de Abril saca <strong>una fila por fragmento</strong>. Si un fragmento trae tres límites, hay que cortarlo en tres. Así:</p>
+  <p style="margin-top:8px;"><strong>El 1</strong> queda en tres:</p>
+  <div class="frag">REL de NIOSH: TWA de 35 ppm (40 mg/m3)</div>
+  <div class="frag">REL de NIOSH: C de 200 ppm (229 mg/m3)</div>
+  <div class="frag">PEL de OSHA: TWA de 50 ppm (55 mg/m3)</div>
+  <p style="margin-top:8px;"><strong>Los de gases</strong>, uno por gas y solo con el LEL:</p>
+  <div class="frag">Metano (CH₄): LEL 5,0% vol. (50.000 ppm)</div>
+  <p style="margin-top:8px;">Cada fragmento nuevo va en su propia fila de Textos fuente, con el link del original.</p>
 </div>
 
 <div class="card c-rojo">
-  <h2><span class="badge" style="background:var(--rojo)">2</span> LO QUE HAY QUE ARREGLAR</h2>
+  <h2><span class="badge" style="background:var(--rojo)">3</span> LO QUE HAY QUE ARREGLAR</h2>
   <table class="d">
     <tr><th>Qué</th><th>Qué hacer</th></tr>
-    <tr class="no"><td><strong>Del 7 al 12 no tienen fuente ni link</strong></td><td>Es lo primero que les va a preguntar el jurado. Sin eso, esas filas no valen.</td></tr>
-    <tr><td><strong>El 7 repite al 1</strong> y <strong>el 11 repite al 8</strong></td><td>Quédense con el que tiene fuente.</td></tr>
-    <tr class="no"><td><strong>El 7 dice 8 horas para NIOSH</strong></td><td>La página del CDC, su fragmento 1, no dice cuántas horas. Si no está en la fuente, va null.</td></tr>
+    <tr class="no"><td><strong>Del 7 al 12 no tienen link</strong></td><td>Y algunos tampoco el nombre del documento. Es lo primero que pregunta el jurado.</td></tr>
+    <tr><td><strong>El 7 dice lo mismo que el 1</strong></td><td>Usen el 1, que tiene link.</td></tr>
+    <tr><td><strong>El 11 repite lo de OSHA del 8</strong></td><td>Del 11 usen solo el hidrógeno y el LEL del etanol.</td></tr>
+    <tr class="no"><td><strong>El 7 dice 8 horas para NIOSH</strong></td><td>La página del CDC, su fragmento 1, no lo dice. Si no está en la fuente, tiempo_exposicion va null.</td></tr>
   </table>
-</div>
-
-<div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">3</span> A CONTEXTO</h2>
-  <p>El 2, el 3 y el 4 explican por qué el monóxido es peligroso. El 12 explica qué es el LEL y cómo pasar de porcentaje a ppm. Sirven para que el agente explique, no para comparar.</p>
-  <div class="info i-amb">
-    <strong>Les faltan temperatura y humedad</strong>
-    Su sensor las mide y no tienen umbrales. Ambiente Óptimo tiene justo esos textos, con fuente: pídanselos.
-  </div>
+  <p>A Contexto van el 2, el 3, el 4 y el 12: explican, no sirven para comparar.</p>
 </div>
 
 <div class="card c-entrega">
-  <h2><span class="badge" style="background:var(--classroom)">✔</span> PARA HOY</h2>
-  <div class="chk">
-    ☐ &nbsp;Buscar fuente y link del 7 al 12<br>
-    ☐ &nbsp;Sacar los repetidos<br>
-    ☐ &nbsp;Cortar los fragmentos: uno por límite<br>
-    ☐ &nbsp;Cargar la tabla con el pedido de Abril, todo en ppm<br>
-    ☐ &nbsp;Pedirle a Ambiente Óptimo los textos de temperatura y humedad
-  </div>
+  <h2><span class="badge" style="background:var(--classroom)">✔</span> HOY, REPARTIDOS</h2>
+  <table class="d">
+    <tr><th>Quién</th><th>Qué</th></tr>
+    <tr><td><strong>Dos</strong></td><td>Buscan el link del 8 al 12. El 7 no hace falta: repite al 1.</td></tr>
+    <tr><td><strong>Uno</strong></td><td>Corta los fragmentos como en el paso 2 y los carga en Textos fuente.</td></tr>
+    <tr><td><strong>Uno, con Abril</strong></td><td>El traspaso: pegan su pedido en el Colab y lo prueban con tres fragmentos. Con eso hacen los bloques 1 a 4 de la clase: su pedido ya tiene el ejemplo, los campos y el null.</td></tr>
+    <tr><td><strong>Todos, al final</strong></td><td>Corren el bucle con los fragmentos cortados y pegan las filas en la Tabla de datos. Las que cargó Abril no se repiten.</td></tr>
+    <tr><td><strong>Cualquiera</strong></td><td>Le pide a Ambiente Óptimo sus textos de temperatura y humedad, con la fuente: su sensor las mide y ustedes no tienen umbrales.</td></tr>
+  </table>
+  <p>El pedido de Abril va así en el Colab:</p>
+  <div class="cod">reglas_estrictas = """
+(peguen acá el pedido de Abril, de la hoja Equipo)
+"""</div>
 </div>
 
 </div>
