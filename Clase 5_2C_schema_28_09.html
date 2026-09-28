@@ -202,14 +202,14 @@
 
 <div class="card c-info">
   <h2><span class="badge" style="background:var(--teal)">0</span> DONDE QUEDAMOS</h2>
-  <p>El viernes le pidieron a la IA que devuelva JSON. <strong>Hoy lo terminan de convertir en datos y hacemos que salga igual todas las veces.</strong></p>
+  <p>El viernes le pidieron a la IA que devuelva JSON. <strong>Hoy terminamos de pasarlo a datos y hacemos que salga siempre igual.</strong></p>
   <div class="info i-amb">
     <strong>Abran</strong>
     El Colab del viernes, <code>json_25-09_NombreDelEquipo</code>, en <code>codigo/extractor</code>. Si no hicieron la copia, el del 14.<br>
     La planilla, en la hoja Textos fuente.
   </div>
   <div class="info i-rojo">
-    <strong>Antes de tocar nada: Entorno de ejecución → Ejecutar todas</strong>
+    <strong>Antes de arrancar: Entorno de ejecución → Ejecutar todas</strong>
     Desde el viernes Colab se olvidó de todo: si no, aparece un NameError con consultar_ia. Si se frena en una celda con error, corran de a una desde arriba: la conexión, los fragmentos y <code>reglas_estrictas</code>. Si pide permiso para la clave, acepten.
   </div>
 </div>
@@ -226,7 +226,7 @@
 
 <div class="card c-p1">
   <h2><span class="badge" style="background:var(--p1)">1</span> TERMINAR EL JSON.LOADS<span class="reloj">30 min</span></h2>
-  <p>Lo que quedó del viernes: convertir la respuesta en datos. Lo hacemos directo en el bucle del 14, con tres fragmentos.</p>
+  <p>Lo que quedó pendiente del viernes: pasar la respuesta a datos. Lo hacemos de una en el bucle del 14, con tres fragmentos.</p>
   <ol>
     <li>Busquen la celda del bucle, la de <code>lista_textos</code>, y súmenle un tercer fragmento con número:</li>
   </ol>
@@ -250,13 +250,13 @@ lista_textos = [FRAGMENTO, OTRO_FRAGMENTO, FRAGMENTO_3]</div>
         <span class="kw">print</span>(<span class="st">"⚠️ No devolvio JSON valido:"</span>, respuesta)
     <span class="kw">print</span>(<span class="st">"----"</span>)</div>
   <ol start="3">
-    <li>Córranlo. Si sale ⚠️ No devolvio JSON valido, la IA escribió algo alrededor del JSON: agreguen a <code>reglas_estrictas</code> que no ponga nada antes ni después. Si lo que muestra dice Error, es la clave o la conexión, no el JSON.</li>
+    <li>Córranlo. Si sale ⚠️ No devolvio JSON valido, la IA escribió algo alrededor del JSON: agreguen a <code>reglas_estrictas</code> que no ponga nada antes ni después. Si lo que muestra dice Error, casi siempre es la clave o la conexión, no el JSON.</li>
     <li>Fíjense que ahora se imprime con comillas simples: <strong>ya no es texto, es un diccionario</strong>, como los del primer cuatrimestre. En una celda nueva, saquen un campo por su nombre, con uno de los suyos:</li>
   </ol>
   <div class="cod"><span class="kw">print</span>(datos[<span class="st">"limite"</span>])</div>
   <p style="font-size:17px;color:#667;">Si da KeyError, el nombre no coincide: lo arreglan en el bloque 3.</p>
 
-  <p style="margin-top:14px;"><strong>Ahora miren las tres respuestas juntas.</strong> Es probable que salga algo así:</p>
+  <p style="margin-top:14px;"><strong>Ahora miren las tres respuestas juntas.</strong> Seguro les sale algo así:</p>
   <div class="mal">{"parametro": "nitratos", "valor_maximo": 45, "unidad": "mg/L"}
 {"parametro": "nitratos", "valor_maximo": "45 mg/L"}
 {"sustancia": "nitrato", "limite": 45, "unidad": "mg/L", "nota": "agua de red"}</div>
@@ -276,26 +276,29 @@ Devolvé un JSON exactamente con esta forma:
 """</span></div>
   <p style="font-size:17px;color:#667;">Los números van con 0 y los textos con puntos suspensivos.</p>
   <ol start="2">
+    <li>Mejor todavía: denle <strong>un ejemplo resuelto</strong>, un fragmento con la respuesta exacta que esperan. Debajo de la forma:</li>
+  </ol>
+  <div class="cod"><span class="st">Ejemplo:
+Texto: La concentración de nitratos en agua de consumo no debe superar los 45 mg/L.
+Respuesta: {"parametro": "nitratos", "valor_maximo": 45, "unidad": "mg/L", "fuente": null}</span></div>
+  <p style="font-size:17px;color:#667;">Usen uno de sus fragmentos. La fuente va en null porque ese texto no la dice.</p>
+  <ol start="3">
     <li>Corran el bucle otra vez con los tres fragmentos.</li>
   </ol>
   <div class="info i-amb">
     <strong>¿El viernes ya le pusieron un ejemplo?</strong>
-    Revisen que tenga exactamente los campos de su tabla, escritos igual, y pasen al bloque 3.
+    Revisen que tenga exactamente los campos de su tabla, escritos igual, y súmenle el ejemplo resuelto.
   </div>
   <div class="info i-grn">
     <strong>Esto se llama few-shot</strong>
-    Darle ejemplos en vez de describir. La IA copia lo que ve. El ejemplo más fuerte es un fragmento con su respuesta, como en la pista de abajo.
+    Darle ejemplos resueltos en vez de explicarle con palabras. La IA copia lo que ve.
   </div>
-  <details class="pista">
-    <summary>🔦 Si con la forma no alcanza</summary>
-    <p>Denle un ejemplo completo: uno de sus fragmentos y, abajo, la respuesta exacta que esperan para ese fragmento.</p>
-  </details>
   <div class="preg"><strong>&#128173;</strong> ¿Ahora los tres usan los mismos nombres?</div>
 </div>
 
 <div class="card c-json">
   <h2><span class="badge" style="background:var(--json)">3</span> FIJAR LA ESTRUCTURA<span class="reloj">30 min</span></h2>
-  <p>El ejemplo es una sugerencia. Ahora lo hacemos obligatorio.</p>
+  <p>El ejemplo la orienta, pero la IA se puede ir por las ramas. Ahora le pedimos campo por campo, sin dejarle nada librado a su criterio.</p>
   <ol>
     <li>Debajo del ejemplo, sumen la lista de campos. El ejemplo lo dejan: juntos funcionan mejor.</li>
   </ol>
@@ -307,7 +310,7 @@ Devolvé un JSON exactamente con esta forma:
 No agregues campos que no estén en esta lista.
 No saques ninguno, aunque no encuentres el dato.</span></div>
   <ol start="2">
-    <li>Usen <strong>sus</strong> campos, que son las columnas de su Tabla de datos, <strong>en el mismo orden</strong>: el viernes el programa pega las filas ahí.</li>
+    <li>Usen <strong>sus</strong> campos, que son las columnas de su Tabla de datos, <strong>en el mismo orden</strong>: el viernes van a pegar ahí las filas que arme el programa.</li>
   </ol>
   <table class="cierre">
     <tr><th>Equipo</th><th>Sus campos</th><th>Van como número</th></tr>
@@ -331,13 +334,13 @@ No saques ninguno, aunque no encuentres el dato.</span></div>
   </details>
   <details class="pista">
     <summary>🔦 Para los que terminan: pedir JSON desde el payload</summary>
-    <p>Groq puede obligar a la IA a devolver JSON. En <code>consultar_ia</code>, agreguen esta línea al payload:</p>
+    <p>Groq puede exigir que la respuesta sea JSON válido: si no lo logra, da error en vez de devolver texto. En <code>consultar_ia</code>, agreguen esta línea al payload, que es el paquete que le mandamos a la IA:</p>
     <div class="cod"><span class="st">"response_format"</span>: {<span class="st">"type"</span>: <span class="st">"json_object"</span>},</div>
-    <p>Funciona porque su system prompt dice JSON. Ojo: el payload asegura que sea JSON; que estén sus campos lo sigue asegurando la estructura.</p>
+    <p>Para usarlo, el system prompt tiene que mencionar JSON, y el suyo ya lo hace. Ojo: el payload asegura que sea JSON, no que estén sus campos. Eso lo sigue pidiendo la estructura.</p>
   </details>
   <div class="info i-azul">
     <strong>¿El viernes les dio KeyError?</strong>
-    Con esto se termina: cada campo está siempre y siempre con el mismo nombre.
+    Con la estructura fija pasa mucho menos: cada campo tiene que estar, y con el mismo nombre. Si igual falta alguno, el control de la primera pista lo caza.
   </div>
 </div>
 
@@ -345,7 +348,7 @@ No saques ninguno, aunque no encuentres el dato.</span></div>
   <h2><span class="badge" style="background:var(--rojo)">4</span> CUANDO FALTA UN DATO<span class="reloj">15 min</span></h2>
   <ol>
     <li>En <code>FRAGMENTO_3</code> pongan uno al que le falte alguno de sus campos. Corran.</li>
-    <li>Miren qué hizo: ¿lo sacó, lo dejó vacío o <strong>lo inventó</strong>? El inventado es el peligroso y el más común. Tiene nombre: <strong>alucinación</strong>.</li>
+    <li>Miren qué hizo: ¿lo sacó, lo dejó vacío o <strong>lo inventó</strong>? El inventado es el más peligroso, y pasa seguido. Tiene nombre: <strong>alucinación</strong>.</li>
     <li>Agreguen al final de <code>reglas_estrictas</code>:</li>
   </ol>
   <div class="bien">Si un dato no está escrito en el texto, poné null.
@@ -361,8 +364,8 @@ No lo deduzcas, no lo estimes, no uses lo que sepas del tema.</div>
   <table class="cierre">
     <tr><th>Concepto</th><th>Qué es</th></tr>
     <tr><td><strong>json.loads</strong></td><td>Convierte el texto de la IA en un diccionario.</td></tr>
-    <tr><td><strong>Few-shot</strong></td><td>Darle ejemplos en vez de describir.</td></tr>
-    <tr><td><strong>Esquema de salida</strong> (output schema)</td><td>La lista fija de campos que la IA devuelve siempre.</td></tr>
+    <tr><td><strong>Few-shot</strong></td><td>Darle ejemplos resueltos: un texto y la respuesta que esperás.</td></tr>
+    <tr><td><strong>Esquema de salida</strong> (output schema)</td><td>La lista fija de campos que le pedimos que devuelva siempre.</td></tr>
     <tr><td><strong>null y alucinación</strong></td><td>null es el dato que no está en el texto. Si la IA lo completa igual, alucina.</td></tr>
   </table>
   <p>En la evaluación del 19/10 se los voy a preguntar.</p>
