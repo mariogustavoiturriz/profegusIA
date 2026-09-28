@@ -3,11 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Que salga siempre igual</title>
+<title>Devolución · Residuo Econexo</title>
 <style>
-  .preg{background:#FFFDF6;border-left:6px solid var(--amb);border-radius:8px;
-        padding:12px 17px;margin:11px 0;font-size:17px;line-height:1.6;font-weight:bold;}
-  .preg strong:first-child{color:var(--amb);margin-right:5px;}
   :root{
     --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
     --vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;
@@ -170,238 +167,67 @@
 </head>
 <body>
 <header>
-  <h1>QUE SALGA SIEMPRE IGUAL</h1>
-  <p>Taller de IA &middot; 7&deg; TIC &middot; Lunes 28/9 &middot; 120 minutos</p>
+  <h1>DEVOLUCIÓN — Residuo Econexo</h1>
+  <p>Su tabla y sus textos &middot; Lunes 28 de septiembre</p>
 </header>
 <div class="container">
 <a href="index.html" class="back-btn">&#11013; Volver al &Iacute;ndice</a>
-<style>  .cp{width:100%;box-sizing:border-box;border:2px solid var(--bd);border-radius:9px;padding:11px 14px;
-      font-size:16px;font-family:inherit;line-height:1.5;resize:vertical;margin-top:7px;}
-  .cp:focus{outline:none;border-color:var(--p1);}
-  .lb{font-weight:bold;font-size:17px;margin-top:15px;display:block;}
-  .ay{display:block;font-size:15px;color:#667;margin-top:2px;}
-  .reloj{display:inline-block;background:var(--amb);color:#fff;font-size:15px;font-weight:bold;
-         padding:3px 12px;border-radius:20px;margin-left:10px;vertical-align:middle;}
-  .cod{background:#1E1E1E;color:#D4D4D4;border-radius:10px;padding:15px 19px;margin:10px 0;
-       font-family:Consolas,monospace;font-size:15.5px;line-height:1.7;white-space:pre-wrap;overflow-x:auto;}
-  .cod .cm{color:#6A9955;} .cod .st{color:#CE9178;} .cod .kw{color:#569CD6;}
-  .mal{background:#FDECEA;border:2px solid #C0392B;border-radius:10px;padding:13px 17px;
-       font-family:Consolas,monospace;font-size:15px;line-height:1.7;margin:8px 0;}
-  .bien{background:#F0FAF7;border:2px solid #1F6E5C;border-radius:10px;padding:13px 17px;
-        font-family:Consolas,monospace;font-size:15px;line-height:1.7;margin:8px 0;}
-  .mal,.bien{white-space:pre-wrap;}
-  details.pista{background:var(--gris);border-left:5px solid var(--vio);border-radius:8px;
-                padding:12px 16px;margin-top:9px;}
-  details.pista summary{cursor:pointer;font-weight:bold;color:var(--vio);font-size:17px;}
-  details.pista p{margin:10px 0 0 0;font-size:17px;}
-  table.cierre{width:100%;border-collapse:collapse;font-size:16px;margin:12px 0;}
-  table.cierre th{background:var(--nav);color:#fff;padding:9px 12px;text-align:left;font-size:13.5px;}
-  table.cierre td{border:1px solid var(--bd);padding:10px 12px;vertical-align:top;}
-  table.cierre tr:nth-child(even) td{background:#F7FAFC;}</style>
-
+<style>
+  table.d{width:100%;border-collapse:collapse;font-size:15.5px;margin:12px 0;}
+  table.d th{background:var(--nav);color:#fff;padding:9px 11px;text-align:left;font-size:13.5px;}
+  table.d td{border:1px solid var(--bd);padding:9px 11px;vertical-align:top;}
+  table.d td.n{font-weight:bold;white-space:nowrap;width:52px;text-align:center;}
+  tr.si td{background:#F0FAF7;}
+  tr.ac td{background:#FFF4E5;}
+  tr.no td{background:#FDECEA;}
+  .chk{background:var(--gris);border-radius:9px;padding:14px 18px;font-size:16.5px;line-height:2.1;}
+</style>
 
 <div class="card c-info">
-  <h2><span class="badge" style="background:var(--teal)">0</span> DONDE QUEDAMOS</h2>
-  <p>El viernes le pidieron a la IA que devuelva JSON. <strong>Hoy terminamos de pasarlo a datos y hacemos que salga siempre igual.</strong></p>
-  <div class="info i-amb">
-    <strong>Abran</strong>
-    El Colab del viernes, <code>json_25-09_NombreDelEquipo</code>, en <code>codigo/extractor</code>. Si no hicieron la copia, el del 14.<br>
-    La planilla, en la hoja Textos fuente.
-  </div>
+  <h2><span class="badge" style="background:var(--teal)">1</span> LO PRIMERO</h2>
+  <p>Consiguieron textos con datos concretos: qué va en cada contenedor y cuánto tarda en degradarse cada cosa. Eso es lo que necesita la tabla.</p>
   <div class="info i-rojo">
-    <strong>Antes de arrancar: Entorno de ejecución → Ejecutar todas</strong>
-    Desde el viernes Colab se olvidó de todo: si no, aparece un NameError con consultar_ia. Si se frena en una celda con error, corran de a una desde arriba: la conexión, los fragmentos y <code>reglas_estrictas</code>. Si pide permiso para la clave, acepten.
-  </div>
-</div>
-
-<div class="card c-entrega">
-  <h2><span class="badge" style="background:var(--classroom)">📩</span> SU DEVOLUCIÓN<span class="reloj">10 min</span></h2>
-  <p>Cada equipo tiene la suya: se las compartí hoy. <strong>Léanla juntos.</strong></p>
-  <p>Hoy, en clase, hacen <strong>lo de las columnas</strong>, porque lo necesitan para el bloque 3. El resto de la lista, antes del viernes 2.</p>
-  <div class="info i-amb">
-    <strong>VitalAir: ustedes, todo hoy</strong>
-    Es su fecha de la tabla. En su devolución está cómo repartirse.
-  </div>
-</div>
-
-<div class="card c-p1">
-  <h2><span class="badge" style="background:var(--p1)">1</span> TERMINAR EL JSON.LOADS<span class="reloj">30 min</span></h2>
-  <p>Lo que quedó pendiente del viernes: pasar la respuesta a datos. Lo hacemos de una en el bucle del 14, con tres fragmentos.</p>
-  <ol>
-    <li>Busquen la celda del bucle, la de <code>lista_textos</code>, y súmenle un tercer fragmento con número:</li>
-  </ol>
-  <div class="cod">FRAGMENTO_3 = <span class="st">"""
-(peguen acá el tercero)
-"""</span>
-lista_textos = [FRAGMENTO, OTRO_FRAGMENTO, FRAGMENTO_3]</div>
-  <ol start="2">
-    <li>Dejen el bucle así. El historial es el del RPG: primero las reglas, como el game_master, y después lo que entra. <strong>Lo nuevo son las líneas marcadas:</strong></li>
-  </ol>
-  <div class="cod"><span class="kw">import</span> json                                   <span class="cm"># nuevo</span>
-
-<span class="kw">for</span> texto <span class="kw">in</span> lista_textos:
-    historial = [{<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: reglas_estrictas}]
-    historial.append({<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: texto})
-    respuesta = consultar_ia(historial, 0.0)
-    <span class="kw">try</span>:                                   <span class="cm"># nuevo</span>
-        datos = json.loads(respuesta)      <span class="cm"># nuevo: de texto a dato</span>
-        <span class="kw">print</span>(datos)
-    <span class="kw">except</span> json.JSONDecodeError:           <span class="cm"># nuevo: si no vino JSON, avisa</span>
-        <span class="kw">print</span>(<span class="st">"⚠️ No devolvio JSON valido:"</span>, respuesta)
-    <span class="kw">print</span>(<span class="st">"----"</span>)</div>
-  <ol start="3">
-    <li>Córranlo. Si sale ⚠️ No devolvio JSON valido, la IA escribió algo alrededor del JSON: agreguen a <code>reglas_estrictas</code> que no ponga nada antes ni después. Si lo que muestra dice Error, casi siempre es la clave o la conexión, no el JSON.</li>
-    <li>Fíjense que ahora se imprime con comillas simples: <strong>ya no es texto, es un diccionario</strong>, como los del primer cuatrimestre. En una celda nueva, saquen un campo por su nombre, con uno de los suyos:</li>
-  </ol>
-  <div class="cod"><span class="kw">print</span>(datos[<span class="st">"limite"</span>])</div>
-  <p style="font-size:17px;color:#667;">Si da KeyError, el nombre no coincide: lo arreglan en el bloque 3.</p>
-
-  <p style="margin-top:14px;"><strong>Ahora miren las tres respuestas juntas.</strong> Capaz que les sale algo así:</p>
-  <div class="mal">{"parametro": "nitratos", "valor_maximo": 45, "unidad": "mg/L"}
-{"parametro": "nitratos", "valor_maximo": "45 mg/L"}
-{"sustancia": "nitrato", "limite": 45, "unidad": "mg/L", "nota": "agua de red"}</div>
-  <p>Las tres son JSON. Pero cambian los nombres, la unidad aparece pegada al número y hay un campo de más. <strong>Con eso, cada fila de la tabla tendría columnas distintas.</strong> Es lo que arreglamos en los bloques 2 y 3.</p>
-</div>
-
-<div class="card c-json">
-  <h2><span class="badge" style="background:var(--json)">2</span> MOSTRARLE UN EJEMPLO<span class="reloj">25 min</span></h2>
-  <p><strong>El código no se toca.</strong> Cambia solo el texto de <code>reglas_estrictas</code>, la variable con su system prompt. Si en su Colab se llama distinto, es esa.</p>
-  <ol>
-    <li>Al final de sus reglas, agreguen cómo tiene que verse la respuesta, con <strong>sus</strong> campos:</li>
-  </ol>
-  <div class="cod">reglas_estrictas = <span class="st">"""
-(lo que ya tenían)
-Devolvé un JSON exactamente con esta forma:
-{"parametro": "...", "valor_maximo": 0, "unidad": "...", "fuente": "..."}
-"""</span></div>
-  <p style="font-size:17px;color:#667;">Los números van con 0 y los textos con puntos suspensivos.</p>
-  <ol start="2">
-    <li>Mejor todavía: denle <strong>un ejemplo resuelto</strong>, un fragmento con la respuesta exacta que esperan. Debajo de la forma:</li>
-  </ol>
-  <div class="cod"><span class="st">Ejemplo:
-Texto: La concentración de nitratos en agua de consumo no debe superar los 45 mg/L.
-Respuesta: {"parametro": "nitratos", "valor_maximo": 45, "unidad": "mg/L", "fuente": null}</span></div>
-  <p style="font-size:17px;color:#667;">Usen uno de sus fragmentos. La fuente va en null porque ese texto no la dice.</p>
-  <ol start="3">
-    <li>Corran el bucle otra vez con los tres fragmentos.</li>
-  </ol>
-  <div class="info i-amb">
-    <strong>¿El viernes ya le pusieron un ejemplo?</strong>
-    Revisen que tenga exactamente los campos de su tabla, escritos igual, y súmenle el ejemplo resuelto.
-  </div>
-  <div class="info i-grn">
-    <strong>Esto se llama few-shot</strong>
-    Darle ejemplos resueltos en vez de explicarle con palabras. La IA copia lo que ve.
-  </div>
-  <div class="preg"><strong>&#128173;</strong> ¿Ahora los tres usan los mismos nombres?</div>
-</div>
-
-<div class="card c-json">
-  <h2><span class="badge" style="background:var(--json)">3</span> FIJAR LA ESTRUCTURA<span class="reloj">30 min</span></h2>
-  <p>El ejemplo la orienta, pero la IA se puede ir por las ramas. Ahora le pedimos campo por campo, sin dejarle nada librado a su criterio.</p>
-  <ol>
-    <li>Debajo del ejemplo, sumen la lista de campos. El ejemplo lo dejan: juntos funcionan mejor.</li>
-  </ol>
-  <div class="cod"><span class="st">Devolvé SIEMPRE un JSON con exactamente estos campos:
-- parametro: texto
-- valor_maximo: número, sin la unidad adentro
-- unidad: texto, separado del número
-- fuente: texto
-No agregues campos que no estén en esta lista.
-No saques ninguno, aunque no encuentres el dato.</span></div>
-  <ol start="2">
-    <li>Usen <strong>sus</strong> campos, que son las columnas de su Tabla de datos, <strong>en el mismo orden</strong>: el viernes van a pegar ahí las filas que arme el programa.</li>
-  </ol>
-  <table class="cierre">
-    <tr><th>Equipo</th><th>Sus campos</th><th>Van como número</th></tr>
-    <tr><td><strong>VitalAir</strong></td><td><code>contaminante</code> <code>limite</code> <code>unidad</code> <code>tiempo_exposicion</code> <code>tipo_de_riesgo</code> <code>fuente</code></td><td>limite</td></tr>
-    <tr><td><strong>Ambiente Óptimo</strong></td><td><code>ambiente</code> <code>condicion</code> <code>temperatura_min</code> <code>temperatura_max</code> <code>humedad_min</code> <code>humedad_max</code> <code>fuente</code></td><td>las dos temperaturas y las dos humedades</td></tr>
-    <tr><td><strong>Residuo Econexo</strong></td><td><code>material</code> <code>contenedor</code> <code>reciclable</code> <code>tiempo_degradacion</code> <code>fuente</code></td><td>tiempo_degradacion, en años</td></tr>
-    <tr><td><strong>MPXL</strong></td><td><code>alimento</code> <code>lugar</code> <code>temperatura_max</code> <code>tiempo_maximo</code> <code>unidad_tiempo</code> <code>fuente</code></td><td>temperatura_max y tiempo_maximo</td></tr>
-  </table>
-  <p style="font-size:17px;color:#667;">Ambiente Óptimo y MPXL: sus campos cambiaron desde el viernes. El porqué está en su devolución.</p>
-  <ol start="3">
-    <li>Corran el bucle: <strong>los tres tienen que salir con la misma forma.</strong></li>
-  </ol>
-  <details class="pista">
-    <summary>🔦 Para comprobarlo con código, sin mirar a ojo</summary>
-    <p>Antes del bucle, la lista de sus campos. El viernes 2 van a usar esta misma lista para armar la tabla.</p>
-    <div class="cod">campos = [<span class="st">"parametro"</span>, <span class="st">"valor_maximo"</span>, <span class="st">"unidad"</span>, <span class="st">"fuente"</span>]   <span class="cm"># con los suyos</span></div>
-    <p>Y adentro del bucle, debajo de <code>print(datos)</code>:</p>
-    <div class="cod">        <span class="kw">for</span> campo <span class="kw">in</span> campos:
-            <span class="kw">if</span> campo <span class="kw">not in</span> datos:
-                <span class="kw">print</span>(<span class="st">"⚠️ Falta:"</span>, campo)</div>
-  </details>
-  <details class="pista">
-    <summary>🔦 Para los que terminan: pedir JSON desde el payload</summary>
-    <p>Groq puede exigir que la respuesta sea JSON válido: si no lo logra, da error en vez de devolver texto. En <code>consultar_ia</code>, agreguen esta línea al payload, que es el paquete que le mandamos a la IA:</p>
-    <div class="cod"><span class="st">"response_format"</span>: {<span class="st">"type"</span>: <span class="st">"json_object"</span>},</div>
-    <p>Para usarlo, el system prompt tiene que mencionar JSON, y el suyo ya lo hace. Ojo: el payload asegura que sea JSON, no que estén sus campos. Eso lo sigue pidiendo la estructura.</p>
-  </details>
-  <div class="info i-azul">
-    <strong>¿El viernes les dio KeyError?</strong>
-    Con la estructura fija pasa mucho menos: cada campo tiene que estar, y con el mismo nombre. Si igual falta alguno, el control de la primera pista lo caza.
+    <strong>Pero los colores son de España</strong>
+    Los contenedores salen de la Fundación Aquae, que es española. El proyecto es para Ushuaia: fíjense en la página de la municipalidad, que ya la tienen entre sus links, y usen los colores de acá.
   </div>
 </div>
 
 <div class="card c-rojo">
-  <h2><span class="badge" style="background:var(--rojo)">4</span> CUANDO FALTA UN DATO<span class="reloj">15 min</span></h2>
-  <ol>
-    <li>En <code>FRAGMENTO_3</code> pongan uno al que le falte alguno de sus campos. Corran.</li>
-    <li>Miren qué hizo: ¿lo sacó, lo dejó vacío o <strong>lo inventó</strong>? El inventado es el más peligroso, y pasa seguido. Tiene nombre: <strong>alucinación</strong>.</li>
-    <li>Agreguen al final de <code>reglas_estrictas</code>:</li>
-  </ol>
-  <div class="bien">Si un dato no está escrito en el texto, poné null.
-No lo deduzcas, no lo estimes, no uses lo que sepas del tema.</div>
-  <ol start="4">
-    <li>Corran de nuevo. En Python, el null aparece como <code>None</code>: el viernes va a ser una celda vacía en la tabla.</li>
-  </ol>
-  <div class="preg"><strong>&#128173;</strong> ¿Qué había hecho antes de que se lo aclararan?</div>
-</div>
-
-<div class="card c-info">
-  <h2><span class="badge" style="background:var(--teal)">✔</span> LO QUE APRENDIERON HOY</h2>
-  <table class="cierre">
-    <tr><th>Concepto</th><th>Qué es</th></tr>
-    <tr><td><strong>json.loads</strong></td><td>Convierte el texto de la IA en un diccionario.</td></tr>
-    <tr><td><strong>Few-shot</strong></td><td>Darle ejemplos resueltos: un texto y la respuesta que esperás.</td></tr>
-    <tr><td><strong>Esquema de salida</strong> (output schema)</td><td>La lista fija de campos que le pedimos que devuelva siempre.</td></tr>
-    <tr><td><strong>null y alucinación</strong></td><td>null es el dato que no está en el texto. Si la IA lo completa igual, alucina.</td></tr>
-  </table>
-  <p>En la evaluación del 19/10 se los voy a preguntar.</p>
-</div>
-
-<div class="card c-entrega" style="border-top:6px solid var(--vio);">
-  <h2><span class="badge" style="background:var(--vio)">📓</span> ANTES DE IRSE<span class="reloj">10 min</span></h2>
-  <table class="cierre">
-    <tr><th>Qué</th><th>Dónde</th></tr>
-    <tr><td><strong>El Colab</strong></td><td>El mismo del viernes: Archivo → Guardar</td></tr>
-    <tr><td><strong>El texto de reglas_estrictas</strong></td><td>Planilla → Equipo → Nuestro system prompt. Reemplaza al del viernes.</td></tr>
-    <tr><td>Qué hizo la IA cuando faltaba un dato</td><td>Planilla → Clase a clase → Qué nos costó</td></tr>
-    <tr><td>Quién hizo qué hoy</td><td>Planilla → Clase a clase</td></tr>
-  </table>
+  <h2><span class="badge" style="background:var(--rojo)">2</span> SU TABLA</h2>
+  <p>La armaron a mano. Está bien para ver la forma, pero las filas las va a generar el programa el viernes 2. Lo que importa hoy:</p>
   <div class="info i-grn">
-    <strong>📓 Y cada uno, su bitácora</strong>
-    En <strong>Lunes 28/9</strong>, las cinco preguntas. Si no llegan, <strong>antes del viernes 2</strong>.
+    <strong>Una fila sale de un solo texto, con su fuente</strong>
+    El contenedor y el tiempo de degradación vienen de textos distintos, así que van en filas distintas. Lo que el texto no dice queda en null.
   </div>
-</div>
-
-<div class="card c-avanzado">
-  <h2><span class="badge" style="background:var(--amb)">📅</span> PLAZOS</h2>
-  <table class="cierre">
-    <tr><th>Cuándo</th><th>Qué</th></tr>
-    <tr><td><strong>Antes del viernes 2</strong></td><td>La bitácora de hoy y al menos diez fragmentos en Textos fuente.</td></tr>
-    <tr><td><strong>⭐ Lunes 19/10</strong></td><td>Evaluación de la Parte 1. Quedan cinco clases.</td></tr>
+  <table class="d">
+    <tr><th>Qué vi</th><th>Qué hacer</th></tr>
+    <tr class="no"><td><strong>Reciclable: sí</strong> en todas</td><td>Sus textos hablan de reciclaje para papel y cartón, vidrio y orgánicos. El del contenedor amarillo, el de plástico y latas, no lo dice: ahí es un dato supuesto y va en null.</td></tr>
+    <tr class="no"><td><strong>Residuos secos, verde</strong></td><td>No está en sus textos. Si sale de la página de la municipalidad, cárguenla como texto, con su link.</td></tr>
+    <tr><td><strong>Orgánicos, marrón</strong></td><td>Está en sus textos y falta en la tabla.</td></tr>
+    <tr><td><strong>tiempo_degradacion</strong> vacío</td><td>Los datos los tienen: vidrio, pilas, bolsas de plástico, botellas, toallitas, bastoncillos y compresas. Van en años, con el número solo: 4000, no 4.000 años.</td></tr>
+    <tr><td><strong>Fuente</strong> sin completar</td><td>El nombre del documento de cada texto. En su archivo los textos y los links están separados: cada fragmento tiene que decir de qué link salió.</td></tr>
   </table>
+</div>
+
+<div class="card c-p1">
+  <h2><span class="badge" style="background:var(--p1)">3</span> A CONTEXTO, NO A LA TABLA</h2>
+  <p>Los porcentajes de qué tiramos, las toneladas por día, el 6 % que se recicla, los residuos peligrosos y lo del mercurio de las pilas. No sirven para decidir en qué contenedor va algo, pero sí para explicar por qué importa.</p>
   <div class="info i-amb">
-    <strong>VitalAir, además</strong>
-    Hoy: la tabla de umbrales completa y el traspaso del pedido de Abril, que alguien del equipo prueba con ella en el Colab. El 2/10, cada valor verificado por dos personas. El 5/10, el agente simple andando.
+    <strong>Tienen estudios con números distintos</strong>
+    Los que son de Ushuaia, márquenlos: son los que más les sirven.
   </div>
 </div>
 
-<div class="card c-info">
-  <h2><span class="badge" style="background:var(--teal)">→</span> EL VIERNES 2</h2>
-  <p>Con la salida ya estable, van a procesar <strong>todos sus fragmentos de una vez</strong> y guardar el resultado en un archivo.</p>
+<div class="card c-entrega">
+  <h2><span class="badge" style="background:var(--classroom)">✔</span> CUÁNDO</h2>
+  <div class="chk">
+    <strong>Antes del viernes 2</strong><br>
+    ☐ &nbsp;Confirmar los colores de los contenedores de Ushuaia<br>
+    ☐ &nbsp;Cargar cada texto en Textos fuente, uno por fila, con su link<br>
+    ☐ &nbsp;Los porcentajes y las toneladas, a Contexto<br>
+    ☐ &nbsp;Revisar reciclable y residuos secos: solo lo que dicen los textos
+  </div>
 </div>
+
 </div>
 </body></html>
