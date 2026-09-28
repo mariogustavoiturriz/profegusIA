@@ -207,6 +207,16 @@
     El Colab del viernes, <code>json_25-09_NombreDelEquipo</code>, en <code>codigo/extractor</code>.<br>
     La planilla, en la hoja Textos fuente.
   </div>
+  <div class="info i-rojo">
+    <strong>Antes de tocar nada: Entorno de ejecución → Ejecutar todas</strong>
+    Desde el viernes Colab se olvidó de todo. Si no, aparece un NameError con consultar_ia. Si pide permiso para la clave, acepten.
+  </div>
+</div>
+
+<div class="card c-entrega">
+  <h2><span class="badge" style="background:var(--classroom)">📩</span> SU DEVOLUCIÓN<span class="reloj">15 min</span></h2>
+  <p>Cada equipo tiene la suya: se las compartí hoy. <strong>Léanla juntos.</strong></p>
+  <p>Hoy, en clase, hacen <strong>lo de las columnas</strong>, porque lo necesitan para el bloque 3. El resto de la lista, antes del viernes 2.</p>
 </div>
 
 <div class="card c-p1">
@@ -225,7 +235,9 @@ lista_textos = [FRAGMENTO, OTRO_FRAGMENTO, FRAGMENTO_3]</div>
   <details class="pista">
     <summary>🔦 ¿Cómo tenía que estar el bucle?</summary>
     <p>Es el del 14 con el <code>json.loads</code> del viernes. El historial es el mismo del RPG: primero las reglas, como el game_master, y después lo que entra.</p>
-    <div class="cod"><span class="kw">for</span> texto <span class="kw">in</span> lista_textos:
+    <div class="cod"><span class="kw">import</span> json
+
+<span class="kw">for</span> texto <span class="kw">in</span> lista_textos:
     historial = [{<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: reglas_estrictas}]
     historial.append({<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: texto})
     respuesta = consultar_ia(historial, 0.0)
@@ -245,19 +257,24 @@ lista_textos = [FRAGMENTO, OTRO_FRAGMENTO, FRAGMENTO_3]</div>
 </div>
 
 <div class="card c-json">
-  <h2><span class="badge" style="background:var(--json)">2</span> MOSTRARLE UN EJEMPLO<span class="reloj">30 min</span></h2>
-  <p><strong>El código no se toca.</strong> Cambia solo el texto de <code>reglas_estrictas</code>.</p>
+  <h2><span class="badge" style="background:var(--json)">2</span> MOSTRARLE UN EJEMPLO<span class="reloj">25 min</span></h2>
+  <p><strong>El código no se toca.</strong> Cambia solo el texto de <code>reglas_estrictas</code>, la variable con su system prompt. Si en su Colab se llama distinto, es esa.</p>
   <ol>
     <li>Al final de sus reglas, agreguen cómo tiene que verse la respuesta, con <strong>sus</strong> campos:</li>
   </ol>
   <div class="cod">reglas_estrictas = <span class="st">"""
 (lo que ya tenían)
 Devolvé un JSON exactamente con esta forma:
-{"parametro": "...", "valor_maximo": 0, "unidad": "..."}
+{"parametro": "...", "valor_maximo": 0, "unidad": "...", "fuente": "..."}
 """</span></div>
+  <p style="font-size:17px;color:#667;">Los números van con 0 y los textos con puntos suspensivos.</p>
   <ol start="2">
     <li>Corran el bucle otra vez con los tres fragmentos.</li>
   </ol>
+  <div class="info i-amb">
+    <strong>¿El viernes ya le pusieron un ejemplo?</strong>
+    Revisen que tenga exactamente los campos de su tabla, escritos igual, y pasen al bloque 3.
+  </div>
   <div class="info i-grn">
     <strong>Esto se llama few-shot</strong>
     Mostrarle la forma en vez de describirla. La IA copia lo que ve.
@@ -270,10 +287,10 @@ Devolvé un JSON exactamente con esta forma:
 </div>
 
 <div class="card c-json">
-  <h2><span class="badge" style="background:var(--json)">3</span> FIJAR LA ESTRUCTURA<span class="reloj">40 min</span></h2>
+  <h2><span class="badge" style="background:var(--json)">3</span> FIJAR LA ESTRUCTURA<span class="reloj">35 min</span></h2>
   <p>El ejemplo es una sugerencia. Ahora lo hacemos obligatorio.</p>
   <ol>
-    <li>En <code>reglas_estrictas</code>, cambien el ejemplo por la lista de campos:</li>
+    <li>Debajo del ejemplo, sumen la lista de campos. El ejemplo lo dejan: juntos funcionan mejor.</li>
   </ol>
   <div class="cod"><span class="st">Devolvé SIEMPRE un JSON con exactamente estos campos:
 - parametro: texto
@@ -286,23 +303,24 @@ No saques ninguno, aunque no encuentres el dato.</span></div>
     <li>Usen <strong>sus</strong> campos, que son las columnas de su Tabla de datos:</li>
   </ol>
   <table class="cierre">
-    <tr><th>Equipo</th><th>Sus campos</th></tr>
-    <tr><td><strong>VitalAir</strong></td><td><code>contaminante</code> <code>limite</code> <code>unidad</code> <code>tiempo_exposicion</code> <code>tipo_de_riesgo</code> <code>fuente</code></td></tr>
-    <tr><td><strong>Ambiente Óptimo</strong></td><td><code>ambiente</code> <code>condicion</code> <code>temperatura_min</code> <code>temperatura_max</code> <code>humedad_min</code> <code>humedad_max</code> <code>fuente</code></td></tr>
-    <tr><td><strong>Residuo Econexo</strong></td><td><code>material</code> <code>contenedor</code> <code>reciclable</code> <code>tiempo_degradacion</code> <code>fuente</code></td></tr>
-    <tr><td><strong>MPXL</strong></td><td><code>alimento</code> <code>lugar</code> <code>temperatura_max</code> <code>tiempo_maximo</code> <code>unidad_tiempo</code> <code>fuente</code></td></tr>
+    <tr><th>Equipo</th><th>Sus campos</th><th>Van como número</th></tr>
+    <tr><td><strong>VitalAir</strong></td><td><code>contaminante</code> <code>limite</code> <code>unidad</code> <code>tiempo_exposicion</code> <code>tipo_de_riesgo</code> <code>fuente</code></td><td>limite</td></tr>
+    <tr><td><strong>Ambiente Óptimo</strong></td><td><code>ambiente</code> <code>condicion</code> <code>temperatura_min</code> <code>temperatura_max</code> <code>humedad_min</code> <code>humedad_max</code> <code>fuente</code></td><td>las dos temperaturas y las dos humedades</td></tr>
+    <tr><td><strong>Residuo Econexo</strong></td><td><code>material</code> <code>contenedor</code> <code>reciclable</code> <code>tiempo_degradacion</code> <code>fuente</code></td><td>tiempo_degradacion, en años</td></tr>
+    <tr><td><strong>MPXL</strong></td><td><code>alimento</code> <code>lugar</code> <code>temperatura_max</code> <code>tiempo_maximo</code> <code>unidad_tiempo</code> <code>fuente</code></td><td>temperatura_max y tiempo_maximo</td></tr>
   </table>
+  <p style="font-size:17px;color:#667;">Ambiente Óptimo y MPXL: sus campos cambiaron desde el viernes. El porqué está en su devolución.</p>
   <ol start="3">
     <li>Corran el bucle: <strong>los tres tienen que salir con la misma forma.</strong></li>
   </ol>
   <div class="info i-azul">
-    <strong>¿Todavía están armando la tabla?</strong>
-    Hoy alcanza con las columnas. Las filas las llena el programa el viernes: una por fragmento. Lo de cada equipo está en su devolución.
+    <strong>¿El viernes les dio KeyError?</strong>
+    Con esto se termina: cada campo está siempre y siempre con el mismo nombre.
   </div>
 </div>
 
 <div class="card c-rojo">
-  <h2><span class="badge" style="background:var(--rojo)">4</span> CUANDO FALTA UN DATO<span class="reloj">20 min</span></h2>
+  <h2><span class="badge" style="background:var(--rojo)">4</span> CUANDO FALTA UN DATO<span class="reloj">15 min</span></h2>
   <ol>
     <li>En <code>FRAGMENTO_3</code> pongan uno al que le falte alguno de sus campos. Corran.</li>
     <li>Miren qué hizo: ¿lo sacó, lo dejó vacío o <strong>lo inventó</strong>? El inventado es el peligroso, y es el más común.</li>
