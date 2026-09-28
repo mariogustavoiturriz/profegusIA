@@ -251,7 +251,7 @@ lista_textos = [FRAGMENTO, OTRO_FRAGMENTO, FRAGMENTO_3]</div>
     <span class="kw">print</span>(<span class="st">"----"</span>)</div>
   <ol start="3">
     <li>Córranlo. Si sale ⚠️ No devolvio JSON valido, la IA escribió algo alrededor del JSON: agreguen a <code>reglas_estrictas</code> que no ponga nada antes ni después. Si lo que muestra dice Error, es la clave o la conexión, no el JSON.</li>
-    <li>En una celda nueva, saquen un campo por su nombre, con uno de los suyos:</li>
+    <li>Fíjense que ahora se imprime con comillas simples: <strong>ya no es texto, es un diccionario</strong>, como los del primer cuatrimestre. En una celda nueva, saquen un campo por su nombre, con uno de los suyos:</li>
   </ol>
   <div class="cod"><span class="kw">print</span>(datos[<span class="st">"limite"</span>])</div>
   <p style="font-size:17px;color:#667;">Si da KeyError, el nombre no coincide: lo arreglan en el bloque 3.</p>
@@ -284,7 +284,7 @@ Devolvé un JSON exactamente con esta forma:
   </div>
   <div class="info i-grn">
     <strong>Esto se llama few-shot</strong>
-    Mostrarle la forma en vez de describirla. La IA copia lo que ve.
+    Darle ejemplos en vez de describir. La IA copia lo que ve. El ejemplo más fuerte es un fragmento con su respuesta, como en la pista de abajo.
   </div>
   <details class="pista">
     <summary>🔦 Si con la forma no alcanza</summary>
@@ -320,6 +320,21 @@ No saques ninguno, aunque no encuentres el dato.</span></div>
   <ol start="3">
     <li>Corran el bucle: <strong>los tres tienen que salir con la misma forma.</strong></li>
   </ol>
+  <details class="pista">
+    <summary>🔦 Para comprobarlo con código, sin mirar a ojo</summary>
+    <p>Antes del bucle, la lista de sus campos. El viernes 2 van a usar esta misma lista para armar la tabla.</p>
+    <div class="cod">campos = [<span class="st">"parametro"</span>, <span class="st">"valor_maximo"</span>, <span class="st">"unidad"</span>, <span class="st">"fuente"</span>]   <span class="cm"># con los suyos</span></div>
+    <p>Y adentro del bucle, debajo de <code>print(datos)</code>:</p>
+    <div class="cod">        <span class="kw">for</span> campo <span class="kw">in</span> campos:
+            <span class="kw">if</span> campo <span class="kw">not in</span> datos:
+                <span class="kw">print</span>(<span class="st">"⚠️ Falta:"</span>, campo)</div>
+  </details>
+  <details class="pista">
+    <summary>🔦 Para los que terminan: pedir JSON desde el payload</summary>
+    <p>Groq puede obligar a la IA a devolver JSON. En <code>consultar_ia</code>, agreguen esta línea al payload:</p>
+    <div class="cod"><span class="st">"response_format"</span>: {<span class="st">"type"</span>: <span class="st">"json_object"</span>},</div>
+    <p>Funciona porque su system prompt dice JSON. Ojo: el payload asegura que sea JSON; que estén sus campos lo sigue asegurando la estructura.</p>
+  </details>
   <div class="info i-azul">
     <strong>¿El viernes les dio KeyError?</strong>
     Con esto se termina: cada campo está siempre y siempre con el mismo nombre.
@@ -330,7 +345,7 @@ No saques ninguno, aunque no encuentres el dato.</span></div>
   <h2><span class="badge" style="background:var(--rojo)">4</span> CUANDO FALTA UN DATO<span class="reloj">15 min</span></h2>
   <ol>
     <li>En <code>FRAGMENTO_3</code> pongan uno al que le falte alguno de sus campos. Corran.</li>
-    <li>Miren qué hizo: ¿lo sacó, lo dejó vacío o <strong>lo inventó</strong>? El inventado es el peligroso, y es el más común.</li>
+    <li>Miren qué hizo: ¿lo sacó, lo dejó vacío o <strong>lo inventó</strong>? El inventado es el peligroso y el más común. Tiene nombre: <strong>alucinación</strong>.</li>
     <li>Agreguen al final de <code>reglas_estrictas</code>:</li>
   </ol>
   <div class="bien">Si un dato no está escrito en el texto, poné null.
@@ -339,6 +354,18 @@ No lo deduzcas, no lo estimes, no uses lo que sepas del tema.</div>
     <li>Corran de nuevo. En Python, el null aparece como <code>None</code>: el viernes va a ser una celda vacía en la tabla.</li>
   </ol>
   <div class="preg"><strong>&#128173;</strong> ¿Qué había hecho antes de que se lo aclararan?</div>
+</div>
+
+<div class="card c-info">
+  <h2><span class="badge" style="background:var(--teal)">✔</span> LO QUE APRENDIERON HOY</h2>
+  <table class="cierre">
+    <tr><th>Concepto</th><th>Qué es</th></tr>
+    <tr><td><strong>json.loads</strong></td><td>Convierte el texto de la IA en un diccionario.</td></tr>
+    <tr><td><strong>Few-shot</strong></td><td>Darle ejemplos en vez de describir.</td></tr>
+    <tr><td><strong>Esquema de salida</strong> (output schema)</td><td>La lista fija de campos que la IA devuelve siempre.</td></tr>
+    <tr><td><strong>null y alucinación</strong></td><td>null es el dato que no está en el texto. Si la IA lo completa igual, alucina.</td></tr>
+  </table>
+  <p>En la evaluación del 19/10 se los voy a preguntar.</p>
 </div>
 
 <div class="card c-entrega" style="border-top:6px solid var(--vio);">
