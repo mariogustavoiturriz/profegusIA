@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Todos los textos de una vez</title>
+<style>
+  .preg{background:#FFFDF6;border-left:6px solid var(--amb);border-radius:8px;
+        padding:12px 17px;margin:11px 0;font-size:17px;line-height:1.6;font-weight:bold;}
+  .preg strong:first-child{color:var(--amb);margin-right:5px;}
+  :root{
+    --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
+    --vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;
+    --bco:#FFFFFF;--code-bg:#1E1E1E;--r:12px;
+    --p1:#1F6E5C;--p1-bg:#E8F4F0;
+    --g2:#2E6820;--g2-bg:#EFF8EE;
+    --json:#006400;--json-bg:#F0FFF0;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;
+    --azul:#1565C0;--azul-bg:#E3F2FD;
+    --classroom:#137333;--class-bg:#F0FFF4;
+    --rpg:#5C2070;--rpg-bg:#F8F3FF;
+    --plan:#2A4A7F;--plan-bg:#E5ECF6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:20px;padding:15px 0 50px;}
+  header{background:var(--nav);color:var(--bco);padding:25px 20px;border-bottom:5px solid var(--vio);}
+  header h1{font-size:26px;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
+  header p{font-size:17px;opacity:.9;}
+  .container{width:95%;max-width:1400px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:20px;margin-bottom:10px;padding:10px 20px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  .c-p1{border-left-color:var(--p1);background:var(--p1-bg);}
+  .c-plan{border-left-color:var(--plan);background:var(--plan-bg);}
+  .c-info{border-left-color:var(--vio);background:#FAFCFF;}
+  .c-json{border-left-color:var(--json);background:var(--json-bg);}
+  .c-rojo{border-left-color:var(--rojo);background:var(--rojo-bg);}
+  .c-entrega{border-left-color:var(--classroom);background:var(--class-bg);}
+  .c-asistente{border-left-color:var(--rpg);background:var(--rpg-bg);}
+  .c-avanzado{border-left-color:var(--amb);background:#FFFBF5;}
+  h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
+  .badge{background:var(--nav);color:var(--bco);padding:5px 12px;border-radius:6px;font-size:17px;font-weight:bold;}
+  .info{padding:18px 20px;border-radius:var(--r);margin:15px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
+  .i-p1{background:var(--p1-bg);border-color:var(--p1);}
+  .i-plan{background:var(--plan-bg);border-color:var(--plan);}
+  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
+  .i-amb{background:#FFF8EE;border-color:var(--amb);}
+  .i-azul{background:var(--azul-bg);border-color:var(--azul);}
+  .i-rojo{background:var(--rojo-bg);border-color:var(--rojo);}
+  .i-json{background:var(--json-bg);border-color:var(--json);}
+  .info > strong:first-child{display:block;margin-bottom:6px;font-size:19px;}
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:18px 20px;font-size:17px;overflow-x:auto;white-space:pre;line-height:1.65;margin:14px 0;border-radius:8px;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
+  .nm{color:#B5CEA8;} .fn{color:#DCDCAA;} .dk{color:#9CDCFE;}
+  code{background:#E8E6FF;color:var(--vio);padding:2px 6px;border-radius:4px;font-family:'Consolas',monospace;font-size:17px;}
+  ul{margin-left:22px;} li{margin-bottom:8px;}
+  ol{margin-left:22px;} ol li{margin-bottom:8px;}
+  table{width:100%;border-collapse:collapse;font-size:17px;margin:16px 0;background:#fff;border-radius:8px;overflow:hidden;}
+  th,td{border:1px solid var(--bd);padding:12px 14px;text-align:left;}
+  th{background:var(--nav);color:#fff;font-size:15px;text-transform:uppercase;letter-spacing:.5px;}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+  .trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;}
+  .mini{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:16px;font-size:16px;line-height:1.6;}
+  .mini strong{color:var(--p1);display:block;margin-bottom:4px;font-size:17px;}
+  .check{list-style:none;margin-left:0;}
+  .check li{padding-left:34px;position:relative;margin-bottom:12px;font-size:18px;}
+  .check li::before{content:"\25A2";position:absolute;left:0;font-size:24px;color:var(--p1);}
+  #asist-chat{display:none;}
+  #asist-msgs{background:#1E1E1E;border-radius:10px;padding:16px;min-height:160px;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:10px;}
+  .asist-inp{display:flex;gap:8px;}
+  .asist-inp input{flex:1;padding:11px;border-radius:8px;border:1px solid #ccc;font-size:17px;outline:none;}
+  .btn-rpg{background:var(--rpg);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;}
+  .btn-rpg:disabled{background:#ccc;cursor:not-allowed;}
+  .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
+  .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
+  @media(max-width:768px){.duo,.trio{grid-template-columns:1fr;}}
+
+  /* Ejercicio de JSON */
+  .jej{display:none;}
+  .jej.activo{display:block;}
+  .jpanel{background:#F0FFF0;border:2px solid #006400;border-radius:10px;padding:18px 20px;
+          font-family:Consolas,monospace;font-size:17px;line-height:2;overflow-x:auto;white-space:pre;}
+  .jval{background:#fff;border:2px solid var(--bd);border-radius:6px;padding:1px 7px;
+        cursor:pointer;transition:all .15s;display:inline-block;}
+  .jval:hover{border-color:var(--json);background:#E6F7E6;}
+  .jval.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jval.no{background:#FFEBEE;border-color:var(--rojo);}
+  .jkey{color:#9CDCFE;}
+  .jctx{background:var(--azul-bg);border-left:5px solid var(--azul);border-radius:8px;
+        padding:12px 16px;margin-bottom:12px;font-size:17px;}
+  .jpide{font-size:21px;font-weight:bold;margin:14px 0 10px;}
+  .jfb{margin-top:12px;font-size:18px;}
+  .jcamino{background:var(--code-bg);color:#D4D4D4;font-family:Consolas,monospace;
+           padding:12px 16px;border-radius:8px;font-size:17px;margin-top:10px;overflow-x:auto;}
+  .jcam-ops{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+  .jcam-op{background:#1E1E1E;color:#D4D4D4;font-family:Consolas,monospace;font-size:16px;
+           padding:11px 14px;border:2px solid #3A3A3A;border-radius:8px;cursor:pointer;text-align:left;
+           transition:all .15s;}
+  .jcam-op:hover:enabled{border-color:var(--vio);}
+  .jcam-op:disabled{cursor:default;}
+  .jcam-op.cam-ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jcam-op.cam-no{background:#3a1e1e;border-color:#C0392B;opacity:.6;}
+  .jprog{font-size:16px;color:#666;margin-bottom:8px;}
+
+  /* Taller de reparaciones */
+  .rep{display:none;}
+  .rep.activo{display:block;}
+  .repcod{background:var(--code-bg);border-radius:8px;padding:14px 0;font-family:Consolas,monospace;
+          font-size:16px;line-height:1.9;overflow-x:auto;}
+  .rline{display:block;padding:2px 18px;cursor:pointer;white-space:pre;color:#D4D4D4;}
+  .rline:hover{background:#2D2D2D;}
+  .rline.ok{background:#1F6E5C;}
+  .rline.no{background:#5C1F1F;}
+  .rline.fija{cursor:default;color:#808080;}
+  .rline.fija:hover{background:transparent;}
+  .rnum{color:#606060;display:inline-block;width:26px;user-select:none;}
+
+  .encasa{display:inline-block;background:#7A4B00;color:#fff;font-size:14px;font-weight:bold;
+          letter-spacing:1px;padding:5px 12px;border-radius:20px;margin-left:auto;}
+  .banda-casa{background:#FFF8EE;border:2px dashed #B8720A;border-radius:10px;
+              padding:12px 18px;margin-bottom:16px;font-size:18px;}
+
+  /* Campos extraíbles */
+  .campo{display:inline-block;background:#fff;border:2px solid var(--bd);border-radius:22px;
+         padding:9px 18px;margin:6px 6px 6px 0;cursor:pointer;font-size:18px;transition:all .15s;}
+  .campo:hover{border-color:var(--p1);background:#F2FAF8;}
+  .campo.si{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .campo.no{background:#FFEBEE;border-color:var(--rojo);color:#8B1A1A;text-decoration:line-through;}
+  .ext-txt{background:#FFFDF5;border:2px solid var(--amb);border-radius:10px;padding:16px 20px;
+           font-size:19px;line-height:1.7;font-style:italic;margin-bottom:14px;}
+
+  .tarea{background:#fff;border:2px solid var(--bd);border-radius:10px;
+         padding:13px 18px;margin-bottom:10px;font-size:18px;transition:all .15s;
+         display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
+  .tarea-txt{flex:1 1 240px;}
+  .tarea-btns{display:flex;gap:8px;}
+  .tbtn{background:#fff;border:2px solid var(--bd);border-radius:8px;padding:8px 12px;
+        font-size:16px;cursor:pointer;font-family:inherit;color:var(--txt);white-space:nowrap;}
+  .tbtn:hover:enabled{border-color:var(--vio);}
+  .tbtn:disabled{cursor:default;opacity:.55;}
+  .tbtn.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;opacity:1;}
+  .tbtn.mal{background:#FFEBEE;border-color:#C0392B;color:#8B1A1A;opacity:1;}
+  .tarea.resuelta{background:#F7FBF9;border-color:#1F6E5C;}
+  .tarea-fb{flex:1 1 100%;font-size:16px;}
+  .btn-op{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px 20px;
+          margin:6px 8px 6px 0;font-size:18px;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .btn-op:hover{border-color:var(--p1);}
+  .btn-op.ok{background:#E8F4F0;border-color:var(--p1);}
+  .btn-op.mal{background:#FFEBEE;border-color:var(--rojo);}
+  .parte{display:inline-block;background:#1E1E1E;color:#DCDCAA;border:2px solid #444;
+         border-radius:8px;padding:8px 14px;margin:5px 4px;cursor:pointer;
+         font-family:Consolas,monospace;font-size:20px;}
+  .parte:hover{border-color:#DCDCAA;}
+  .parte.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .parte.mal{background:#5C1F1F;border-color:#C62828;}
+
+  /* Cuestionario de cierre */
+  .cq-op{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);
+         border-radius:10px;padding:13px 18px;margin-bottom:9px;font-size:18px;cursor:pointer;
+         font-family:inherit;color:var(--txt);line-height:1.5;}
+  .cq-op:hover:enabled{border-color:var(--vio);background:#FAF7FF;}
+  .cq-op:disabled{cursor:default;opacity:.95;}
+  .cq-vf{display:inline-block;width:48%;text-align:center;font-size:20px;font-weight:bold;
+         padding:16px;margin:0 1% 10px;border:2px solid var(--bd);border-radius:10px;
+         background:#fff;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .cq-vf:hover:enabled{border-color:var(--vio);}
+  .cq-vf:disabled{cursor:default;opacity:.95;}
+  .cq-barra{height:14px;background:#E8E8E8;border-radius:7px;overflow:hidden;margin:10px 0 4px;}
+  .cq-fill{height:100%;background:var(--vio);width:0;transition:width .3s;}
+</style>
+</head>
+<body>
+<header>
+  <h1>TODOS LOS TEXTOS DE UNA VEZ</h1>
+  <p>Taller de IA &middot; 7&deg; TIC &middot; Lunes 5/10 &middot; 120 minutos</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">&#11013; Volver al &Iacute;ndice</a>
+<style>  .cp{width:100%;box-sizing:border-box;border:2px solid var(--bd);border-radius:9px;padding:11px 14px;
+      font-size:16px;font-family:inherit;line-height:1.5;resize:vertical;margin-top:7px;}
+  .cp:focus{outline:none;border-color:var(--p1);}
+  .lb{font-weight:bold;font-size:17px;margin-top:15px;display:block;}
+  .ay{display:block;font-size:15px;color:#667;margin-top:2px;}
+  .reloj{display:inline-block;background:var(--amb);color:#fff;font-size:15px;font-weight:bold;
+         padding:3px 12px;border-radius:20px;margin-left:10px;vertical-align:middle;}
+  .cod{background:#1E1E1E;color:#D4D4D4;border-radius:10px;padding:15px 19px;margin:10px 0;
+       font-family:Consolas,monospace;font-size:15.5px;line-height:1.7;white-space:pre-wrap;overflow-x:auto;}
+  .cod .cm{color:#6A9955;} .cod .st{color:#CE9178;} .cod .kw{color:#569CD6;}
+  .mal{background:#FDECEA;border:2px solid #C0392B;border-radius:10px;padding:13px 17px;
+       font-family:Consolas,monospace;font-size:15px;line-height:1.7;margin:8px 0;}
+  .bien{background:#F0FAF7;border:2px solid #1F6E5C;border-radius:10px;padding:13px 17px;
+        font-family:Consolas,monospace;font-size:15px;line-height:1.7;margin:8px 0;}
+  .mal,.bien{white-space:pre-wrap;}
+  details.pista{background:var(--gris);border-left:5px solid var(--vio);border-radius:8px;
+                padding:12px 16px;margin-top:9px;}
+  details.pista summary{cursor:pointer;font-weight:bold;color:var(--vio);font-size:17px;}
+  details.pista p{margin:10px 0 0 0;font-size:17px;}
+  table.cierre{width:100%;border-collapse:collapse;font-size:16px;margin:12px 0;}
+  table.cierre th{background:var(--nav);color:#fff;padding:9px 12px;text-align:left;font-size:13.5px;}
+  table.cierre td{border:1px solid var(--bd);padding:10px 12px;vertical-align:top;}
+  table.cierre tr:nth-child(even) td{background:#F7FAFC;}</style>
+<style>.equipo{font-weight:bold;margin:12px 0 0;font-size:17px;}</style>
+
+
+<div class="card c-info">
+  <h2><span class="badge" style="background:var(--teal)">0</span> DÓNDE QUEDAMOS<span class="reloj">10 min</span></h2>
+  <p>El viernes no hubo clase: la última fue el lunes 28, cuando el bucle empezó a devolver datos. <strong>Hoy lo corren con todos sus fragmentos y guardan el resultado en un archivo.</strong></p>
+  <div class="info i-amb">
+    <strong>Abran</strong>
+    El Colab de siempre, <code>json_25-09_NombreDelEquipo</code>, en <code>codigo/extractor</code>.<br>
+    La planilla, en Clase a clase y Textos fuente.
+  </div>
+  <div class="info i-rojo">
+    <strong>Antes de arrancar: Entorno de ejecución → Ejecutar todas</strong>
+    Si se frena en una celda con error, corran de a una desde arriba. Si pide permiso para la clave, acepten.
+  </div>
+  <div class="info i-amb">
+    <strong>VitalAir: repártanse</strong>
+    Los cuatro hacen la clase. Apenas tengan la hoja tabla, dos empiezan a verificar ahí: que cada valor esté escrito en su documento. Anotan al lado de cada fila quién lo verificó.
+  </div>
+</div>
+
+<div class="card c-p1">
+  <h2><span class="badge" style="background:var(--p1)">1</span> TERMINAR LO DEL LUNES 28<span class="reloj">30 min</span></h2>
+  <p>Busquen en <strong>Clase a clase</strong> hasta qué bloque llegaron y, con la clase del lunes 28 al lado, hagan lo que falte:</p>
+  <ul class="check">
+    <li><strong>El bucle muestra diccionarios</strong>, con comillas simples. Si no, bloque 1 del lunes 28.</li>
+    <li><strong>Salen sus campos</strong>, con los mismos nombres. Si no, bloques 2 y 3.</li>
+    <li><strong>Si falta un dato, pone null.</strong> Si no, bloque 4.</li>
+  </ul>
+  <div class="info i-amb">
+    <strong>A los 30 minutos, todos al bloque 2</strong>
+    Lo mínimo: que el bucle muestre diccionarios. Si no llegaron a fijar los campos, hoy la tabla puede salir con columnas vacías, y se arregla después. Si el lunes 28 terminaron todo, directo al 2.
+  </div>
+</div>
+
+<div class="card c-json">
+  <h2><span class="badge" style="background:var(--json)">2</span> TODOS LOS FRAGMENTOS<span class="reloj">25 min</span></h2>
+  <p>Hasta ahora el bucle pasaba tres y los mostraba. <strong>Ahora pasa todos y guarda cada fila.</strong></p>
+  <ol>
+    <li>En una celda nueva, abajo de todo, la lista con todos sus fragmentos de <strong>Textos fuente</strong>. Arriba de cada uno, su fuente: la IA solo saca lo que está en el texto.</li>
+  </ol>
+  <div class="cod">lista_textos = [
+<span class="st">"""Fuente: (el documento del fragmento 1)
+(el fragmento 1, tal cual)"""</span>,
+
+<span class="st">"""Fuente: (el documento del fragmento 2)
+(el fragmento 2, tal cual)"""</span>,
+
+<span class="cm"># ... y así con todos, cada uno con su coma al final</span>
+]
+
+print(len(lista_textos), <span class="st">"fragmentos"</span>)</div>
+  <p style="font-size:17px;color:#667;">Así queda uno completo:</p>
+  <div class="cod"><span class="st">"""Fuente: Código Alimentario Argentino, art. 982
+La concentración de nitratos en agua de consumo no debe superar los 45 mg/L."""</span>,</div>
+  <p style="font-size:17px;color:#667;">Copien el texto desde adentro de la celda, con doble clic, no la celda entera. Cada uno entre tres comillas y con coma al final. Si el número que muestra es menor que los que pegaron, falta una coma.</p>
+  <ol start="2">
+    <li>En otra celda nueva, el bucle del lunes 28 con las líneas marcadas:</li>
+  </ol>
+  <div class="cod"><span class="kw">import</span> json
+<span class="kw">import</span> time                                  <span class="cm"># nuevo</span>
+
+resultados = []                              <span class="cm"># nuevo: acá se juntan las filas</span>
+
+<span class="kw">for</span> texto <span class="kw">in</span> lista_textos[:3]:               <span class="cm"># nuevo: por ahora, los tres primeros</span>
+    historial = [{<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: reglas_estrictas}]
+    historial.append({<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: texto})
+    respuesta = consultar_ia(historial, 0.0)
+    <span class="kw">try</span>:
+        datos = json.loads(respuesta)
+        resultados.append(datos)             <span class="cm"># nuevo: guarda la fila</span>
+        print(<span class="st">"✅"</span>, datos)
+    <span class="kw">except</span> json.JSONDecodeError:
+        print(<span class="st">"⚠️ Falló este fragmento:"</span>, texto)   <span class="cm"># cambió: dice cuál</span>
+        print(<span class="st">"La IA devolvió:"</span>, respuesta)
+    print(<span class="st">"----"</span>)
+    time.sleep(8)                            <span class="cm"># nuevo: espera 8 segundos</span>
+
+print(len(resultados), <span class="st">"de"</span>, len(lista_textos), <span class="st">"salieron bien"</span>)   <span class="cm"># nuevo</span></div>
+  <details class="pista" open>
+    <summary>🔦 ¿Qué hace cada línea nueva?</summary>
+    <p><code>import time</code>: para esperar.</p>
+    <p><code>resultados = []</code>: acá se juntan las filas.</p>
+    <p><code>resultados.append(datos)</code>: suma la fila, como el <code>historial.append</code>.</p>
+    <p><code>Falló este fragmento</code>: muestra cuál y qué devolvió la IA. Sirve para el viernes.</p>
+    <p><code>time.sleep(8)</code>: espera 8 segundos. La clave gratis de Groq tiene un límite por minuto.</p>
+    <p><code>lista_textos[:3]</code>: solo los tres primeros, como el <code>historial[1:]</code> del /guardar.</p>
+    <p><code>len(...)</code>: cuenta, como el <code>len(historial)</code> del RPG.</p>
+  </details>
+  <ol start="3">
+    <li>Córranlo: prueba con los tres primeros. Va a decir 3 de 10, o de los que tengan: es normal.</li>
+    <li>Cuando ande, saquen el <code>[:3]</code> del <code>for</code> y corran todos. <strong>Tarda un par de minutos.</strong></li>
+  </ol>
+  <div class="info i-azul">
+    <strong>¿La IA devolvió algo que empieza con ⚠️ Error?</strong>
+    No es el fragmento: es la clave o el límite por minuto. Esperen un minuto y vuelvan a correr.
+  </div>
+  <div class="preg"><strong>&#128173;</strong> ¿Cuántos salieron bien de cuántos había?</div>
+</div>
+
+<div class="card c-json">
+  <h2><span class="badge" style="background:var(--json)">3</span> EL ARCHIVO<span class="reloj">30 min</span></h2>
+  <p>Ya tienen todas las filas en <code>resultados</code>. <strong>Ahora las guardan como tabla, en un archivo CSV.</strong></p>
+  <ol>
+    <li>En otra celda nueva:</li>
+  </ol>
+  <div class="cod"><span class="kw">import</span> csv
+<span class="kw">from</span> google.colab <span class="kw">import</span> files
+
+campos = [<span class="st">"parametro"</span>, <span class="st">"valor_maximo"</span>, <span class="st">"unidad"</span>, <span class="st">"fuente"</span>]   <span class="cm"># los suyos, en el orden de la tabla</span>
+
+<span class="kw">with</span> open(<span class="st">"tabla.csv"</span>, <span class="st">"w"</span>, newline=<span class="st">""</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> archivo:
+    escritor = csv.DictWriter(archivo, fieldnames=campos, extrasaction=<span class="st">"ignore"</span>)
+    escritor.writeheader()
+    escritor.writerows(resultados)
+
+files.download(<span class="st">"tabla.csv"</span>)</div>
+  <ol start="2">
+    <li>Cambien la línea de <code>campos</code> por la de su equipo:</li>
+  </ol>
+  <p class="equipo">VitalAir</p><div class="cod">campos = [<span class="st">"contaminante"</span>, <span class="st">"limite"</span>, <span class="st">"unidad"</span>, <span class="st">"tiempo_exposicion"</span>, <span class="st">"tipo_de_riesgo"</span>, <span class="st">"fuente"</span>]</div><p class="equipo">Ambiente Óptimo</p><div class="cod">campos = [<span class="st">"ambiente"</span>, <span class="st">"condicion"</span>, <span class="st">"temperatura_min"</span>, <span class="st">"temperatura_max"</span>, <span class="st">"humedad_min"</span>, <span class="st">"humedad_max"</span>, <span class="st">"fuente"</span>]</div><p class="equipo">Residuo Econexo</p><div class="cod">campos = [<span class="st">"material"</span>, <span class="st">"contenedor"</span>, <span class="st">"reciclable"</span>, <span class="st">"tiempo_degradacion"</span>, <span class="st">"fuente"</span>]</div><p style="font-size:17px;color:#667;">Para que reciclable no salga True o False, pidan en reglas_estrictas que ponga sí o no.</p><p class="equipo">MPXL</p><div class="cod">campos = [<span class="st">"alimento"</span>, <span class="st">"lugar"</span>, <span class="st">"temperatura_max"</span>, <span class="st">"tiempo_maximo"</span>, <span class="st">"unidad_tiempo"</span>, <span class="st">"fuente"</span>]</div>
+  <details class="pista" open>
+    <summary>🔦 ¿Qué hace cada línea?</summary>
+    <p><code>import csv</code>: para escribir tablas.</p>
+    <p><code>files</code>: una herramienta de Colab, como la de la clave. Baja archivos.</p>
+    <p><code>with open(...)</code>: el del /guardar del RPG. <code>newline=""</code> evita renglones vacíos de más.</p>
+    <p><code>DictWriter</code>: cada diccionario, una fila, con las columnas de <code>campos</code>. Un campo de más queda afuera. Un null, celda vacía.</p>
+    <p><code>writeheader()</code>: los títulos. <code>writerows(...)</code>: todas las filas.</p>
+  </details>
+  <ol start="3">
+    <li>Córranla: se baja <code>tabla.csv</code>. Si el navegador pregunta, permitan la descarga.</li>
+    <li>En la planilla: <strong>Archivo → Importar → Subir</strong> → <code>tabla.csv</code>.</li>
+    <li><strong>Ubicación de importación: Insertar hojas nuevas.</strong> Destilden <strong>convertir texto en números, fechas y fórmulas</strong>, así los números no cambian.</li>
+    <li><strong>Importar datos.</strong> Aparece la hoja <strong>tabla</strong>.</li>
+  </ol>
+  <details class="pista">
+    <summary>🔦 Si da AttributeError: 'list' object has no attribute 'get'</summary>
+    <p>Para algún fragmento la IA devolvió varias filas juntas, entre corchetes. Ese fragmento trae más de un dato: córtenlo como dice su devolución, uno por fila. Después corran otra vez la lista, el bucle y esta celda.</p>
+  </details>
+  <details class="pista">
+    <summary>🔦 Si da NameError con resultados</summary>
+    <p>Corran antes la celda del bucle. Si Colab se reinició, Ejecutar todas.</p>
+  </details>
+  <details class="pista">
+    <summary>🔦 Si no se bajó el archivo</summary>
+    <p>Ícono de carpeta, a la izquierda del Colab → <code>tabla.csv</code> → los tres puntitos → Descargar.</p>
+  </details>
+  <div class="info i-grn">
+    <strong>Todavía no la pasen a Tabla de datos</strong>
+    El viernes, con el reintento, recuperan las que fallaron y ahí la pasan completa.
+  </div>
+</div>
+
+<div class="card c-rojo">
+  <h2><span class="badge" style="background:var(--rojo)">4</span> MIRAR LA TABLA<span class="reloj">15 min</span></h2>
+  <p>Todas juntas muestran lo que de a una no se veía. En la hoja <strong>tabla</strong>:</p>
+  <ul>
+    <li><strong>¿Menos filas que fragmentos?</strong> Las que faltan fallaron.</li>
+    <li><strong>¿Una columna vacía entera?</strong> O la línea <code>campos</code> no es la de su equipo, o la IA le cambió el nombre a ese campo: revisen <code>reglas_estrictas</code>.</li>
+    <li><strong>¿Celdas vacías sueltas?</strong> Si el fragmento no tiene el dato, es el null. Si lo tiene, la IA no lo encontró.</li>
+  </ul>
+  <div class="preg"><strong>&#128173;</strong> ¿Qué fragmentos fallaron y qué devolvió la IA? Anótenlo en Clase a clase, en Qué queda pendiente: el viernes arrancamos por ahí.</div>
+</div>
+
+<div class="card c-info">
+  <h2><span class="badge" style="background:var(--teal)">✔</span> LO QUE APRENDIERON HOY</h2>
+  <table class="cierre">
+    <tr><th>Concepto</th><th>Qué es</th></tr>
+    <tr><td><strong>Pipeline</strong></td><td>La cadena completa: textos → IA → json.loads → CSV. Cada paso le pasa su resultado al siguiente.</td></tr>
+    <tr><td><strong>Procesar en lote</strong></td><td>Pasar todos los textos por el mismo programa, de una vez.</td></tr>
+    <tr><td><strong>CSV</strong></td><td>Una tabla guardada como texto: una fila por renglón y comas entre las columnas. La abre cualquier planilla.</td></tr>
+  </table>
+  <p>En la evaluación del 19/10 se los voy a preguntar.</p>
+</div>
+
+<div class="card c-entrega" style="border-top:6px solid var(--vio);">
+  <h2><span class="badge" style="background:var(--vio)">📓</span> ANTES DE IRSE<span class="reloj">10 min</span></h2>
+  <table class="cierre">
+    <tr><th>Qué</th><th>Dónde</th></tr>
+    <tr><td><strong>El Colab</strong></td><td>El mismo de siempre: Archivo → Guardar</td></tr>
+    <tr><td>Si cambiaron reglas_estrictas</td><td>Planilla → Equipo → Nuestro system prompt</td></tr>
+    <tr><td>Qué fragmentos fallaron y qué devolvió la IA</td><td>Planilla → Clase a clase → Qué queda pendiente</td></tr>
+    <tr><td>Quién hizo qué hoy</td><td>Planilla → Clase a clase</td></tr>
+  </table>
+  <div class="info i-grn">
+    <strong>📓 Y cada uno, su bitácora</strong>
+    En <strong>Lunes 5/10</strong>, las cinco preguntas. Si no llegan, <strong>antes del viernes 9</strong>.
+  </div>
+</div>
+
+<div class="card c-avanzado">
+  <h2><span class="badge" style="background:var(--amb)">📅</span> PLAZOS</h2>
+  <table class="cierre">
+    <tr><th>Cuándo</th><th>Qué</th></tr>
+    <tr><td><strong>Antes del viernes 9</strong></td><td>La bitácora de hoy y, si no llegaron, los fragmentos que faltan para tener diez.</td></tr>
+    <tr><td><strong>⭐ Lunes 19/10</strong></td><td>Evaluación de la Parte 1. Con hoy quedan tres clases.</td></tr>
+  </table>
+  <div class="info i-amb">
+    <strong>VitalAir, además</strong>
+    El agente lo arman con todo el curso, desde el 23/10. Hasta ahí, la meta es la tabla con cada umbral verificado.
+  </div>
+</div>
+
+<div class="card c-info">
+  <h2><span class="badge" style="background:var(--teal)">→</span> EL VIERNES 9</h2>
+  <p>Seguro algún fragmento falló hoy. El viernes el programa aprende a <strong>reintentar, con un límite</strong>, y la tabla completa pasa a Tabla de datos.</p>
+</div>
+</div>
+</body></html>
