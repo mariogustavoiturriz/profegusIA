@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Repaso: del texto a la tabla</title>
+<style>
+  .preg{background:#FFFDF6;border-left:6px solid var(--amb);border-radius:8px;
+        padding:12px 17px;margin:11px 0;font-size:17px;line-height:1.6;font-weight:bold;}
+  .preg strong:first-child{color:var(--amb);margin-right:5px;}
+  :root{
+    --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
+    --vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;
+    --bco:#FFFFFF;--code-bg:#1E1E1E;--r:12px;
+    --p1:#1F6E5C;--p1-bg:#E8F4F0;
+    --g2:#2E6820;--g2-bg:#EFF8EE;
+    --json:#006400;--json-bg:#F0FFF0;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;
+    --azul:#1565C0;--azul-bg:#E3F2FD;
+    --classroom:#137333;--class-bg:#F0FFF4;
+    --rpg:#5C2070;--rpg-bg:#F8F3FF;
+    --plan:#2A4A7F;--plan-bg:#E5ECF6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:20px;padding:15px 0 50px;}
+  header{background:var(--nav);color:var(--bco);padding:25px 20px;border-bottom:5px solid var(--vio);}
+  header h1{font-size:26px;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
+  header p{font-size:17px;opacity:.9;}
+  .container{width:95%;max-width:1400px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:20px;margin-bottom:10px;padding:10px 20px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  .c-p1{border-left-color:var(--p1);background:var(--p1-bg);}
+  .c-plan{border-left-color:var(--plan);background:var(--plan-bg);}
+  .c-info{border-left-color:var(--vio);background:#FAFCFF;}
+  .c-json{border-left-color:var(--json);background:var(--json-bg);}
+  .c-rojo{border-left-color:var(--rojo);background:var(--rojo-bg);}
+  .c-entrega{border-left-color:var(--classroom);background:var(--class-bg);}
+  .c-asistente{border-left-color:var(--rpg);background:var(--rpg-bg);}
+  .c-avanzado{border-left-color:var(--amb);background:#FFFBF5;}
+  h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
+  .badge{background:var(--nav);color:var(--bco);padding:5px 12px;border-radius:6px;font-size:17px;font-weight:bold;}
+  .info{padding:18px 20px;border-radius:var(--r);margin:15px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
+  .i-p1{background:var(--p1-bg);border-color:var(--p1);}
+  .i-plan{background:var(--plan-bg);border-color:var(--plan);}
+  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
+  .i-amb{background:#FFF8EE;border-color:var(--amb);}
+  .i-azul{background:var(--azul-bg);border-color:var(--azul);}
+  .i-rojo{background:var(--rojo-bg);border-color:var(--rojo);}
+  .i-json{background:var(--json-bg);border-color:var(--json);}
+  .info > strong:first-child{display:block;margin-bottom:6px;font-size:19px;}
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:18px 20px;font-size:17px;overflow-x:auto;white-space:pre;line-height:1.65;margin:14px 0;border-radius:8px;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
+  .nm{color:#B5CEA8;} .fn{color:#DCDCAA;} .dk{color:#9CDCFE;}
+  code{background:#E8E6FF;color:var(--vio);padding:2px 6px;border-radius:4px;font-family:'Consolas',monospace;font-size:17px;}
+  ul{margin-left:22px;} li{margin-bottom:8px;}
+  ol{margin-left:22px;} ol li{margin-bottom:8px;}
+  table{width:100%;border-collapse:collapse;font-size:17px;margin:16px 0;background:#fff;border-radius:8px;overflow:hidden;}
+  th,td{border:1px solid var(--bd);padding:12px 14px;text-align:left;}
+  th{background:var(--nav);color:#fff;font-size:15px;text-transform:uppercase;letter-spacing:.5px;}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+  .trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;}
+  .mini{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:16px;font-size:16px;line-height:1.6;}
+  .mini strong{color:var(--p1);display:block;margin-bottom:4px;font-size:17px;}
+  .check{list-style:none;margin-left:0;}
+  .check li{padding-left:34px;position:relative;margin-bottom:12px;font-size:18px;}
+  .check li::before{content:"\25A2";position:absolute;left:0;font-size:24px;color:var(--p1);}
+  #asist-chat{display:none;}
+  #asist-msgs{background:#1E1E1E;border-radius:10px;padding:16px;min-height:160px;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:10px;}
+  .asist-inp{display:flex;gap:8px;}
+  .asist-inp input{flex:1;padding:11px;border-radius:8px;border:1px solid #ccc;font-size:17px;outline:none;}
+  .btn-rpg{background:var(--rpg);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;}
+  .btn-rpg:disabled{background:#ccc;cursor:not-allowed;}
+  .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
+  .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
+  @media(max-width:768px){.duo,.trio{grid-template-columns:1fr;}}
+
+  /* Ejercicio de JSON */
+  .jej{display:none;}
+  .jej.activo{display:block;}
+  .jpanel{background:#F0FFF0;border:2px solid #006400;border-radius:10px;padding:18px 20px;
+          font-family:Consolas,monospace;font-size:17px;line-height:2;overflow-x:auto;white-space:pre;}
+  .jval{background:#fff;border:2px solid var(--bd);border-radius:6px;padding:1px 7px;
+        cursor:pointer;transition:all .15s;display:inline-block;}
+  .jval:hover{border-color:var(--json);background:#E6F7E6;}
+  .jval.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jval.no{background:#FFEBEE;border-color:var(--rojo);}
+  .jkey{color:#9CDCFE;}
+  .jctx{background:var(--azul-bg);border-left:5px solid var(--azul);border-radius:8px;
+        padding:12px 16px;margin-bottom:12px;font-size:17px;}
+  .jpide{font-size:21px;font-weight:bold;margin:14px 0 10px;}
+  .jfb{margin-top:12px;font-size:18px;}
+  .jcamino{background:var(--code-bg);color:#D4D4D4;font-family:Consolas,monospace;
+           padding:12px 16px;border-radius:8px;font-size:17px;margin-top:10px;overflow-x:auto;}
+  .jcam-ops{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+  .jcam-op{background:#1E1E1E;color:#D4D4D4;font-family:Consolas,monospace;font-size:16px;
+           padding:11px 14px;border:2px solid #3A3A3A;border-radius:8px;cursor:pointer;text-align:left;
+           transition:all .15s;}
+  .jcam-op:hover:enabled{border-color:var(--vio);}
+  .jcam-op:disabled{cursor:default;}
+  .jcam-op.cam-ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jcam-op.cam-no{background:#3a1e1e;border-color:#C0392B;opacity:.6;}
+  .jprog{font-size:16px;color:#666;margin-bottom:8px;}
+
+  /* Taller de reparaciones */
+  .rep{display:none;}
+  .rep.activo{display:block;}
+  .repcod{background:var(--code-bg);border-radius:8px;padding:14px 0;font-family:Consolas,monospace;
+          font-size:16px;line-height:1.9;overflow-x:auto;}
+  .rline{display:block;padding:2px 18px;cursor:pointer;white-space:pre;color:#D4D4D4;}
+  .rline:hover{background:#2D2D2D;}
+  .rline.ok{background:#1F6E5C;}
+  .rline.no{background:#5C1F1F;}
+  .rline.fija{cursor:default;color:#808080;}
+  .rline.fija:hover{background:transparent;}
+  .rnum{color:#606060;display:inline-block;width:26px;user-select:none;}
+
+  .encasa{display:inline-block;background:#7A4B00;color:#fff;font-size:14px;font-weight:bold;
+          letter-spacing:1px;padding:5px 12px;border-radius:20px;margin-left:auto;}
+  .banda-casa{background:#FFF8EE;border:2px dashed #B8720A;border-radius:10px;
+              padding:12px 18px;margin-bottom:16px;font-size:18px;}
+
+  /* Campos extraíbles */
+  .campo{display:inline-block;background:#fff;border:2px solid var(--bd);border-radius:22px;
+         padding:9px 18px;margin:6px 6px 6px 0;cursor:pointer;font-size:18px;transition:all .15s;}
+  .campo:hover{border-color:var(--p1);background:#F2FAF8;}
+  .campo.si{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .campo.no{background:#FFEBEE;border-color:var(--rojo);color:#8B1A1A;text-decoration:line-through;}
+  .ext-txt{background:#FFFDF5;border:2px solid var(--amb);border-radius:10px;padding:16px 20px;
+           font-size:19px;line-height:1.7;font-style:italic;margin-bottom:14px;}
+
+  .tarea{background:#fff;border:2px solid var(--bd);border-radius:10px;
+         padding:13px 18px;margin-bottom:10px;font-size:18px;transition:all .15s;
+         display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
+  .tarea-txt{flex:1 1 240px;}
+  .tarea-btns{display:flex;gap:8px;}
+  .tbtn{background:#fff;border:2px solid var(--bd);border-radius:8px;padding:8px 12px;
+        font-size:16px;cursor:pointer;font-family:inherit;color:var(--txt);white-space:nowrap;}
+  .tbtn:hover:enabled{border-color:var(--vio);}
+  .tbtn:disabled{cursor:default;opacity:.55;}
+  .tbtn.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;opacity:1;}
+  .tbtn.mal{background:#FFEBEE;border-color:#C0392B;color:#8B1A1A;opacity:1;}
+  .tarea.resuelta{background:#F7FBF9;border-color:#1F6E5C;}
+  .tarea-fb{flex:1 1 100%;font-size:16px;}
+  .btn-op{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px 20px;
+          margin:6px 8px 6px 0;font-size:18px;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .btn-op:hover{border-color:var(--p1);}
+  .btn-op.ok{background:#E8F4F0;border-color:var(--p1);}
+  .btn-op.mal{background:#FFEBEE;border-color:var(--rojo);}
+  .parte{display:inline-block;background:#1E1E1E;color:#DCDCAA;border:2px solid #444;
+         border-radius:8px;padding:8px 14px;margin:5px 4px;cursor:pointer;
+         font-family:Consolas,monospace;font-size:20px;}
+  .parte:hover{border-color:#DCDCAA;}
+  .parte.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .parte.mal{background:#5C1F1F;border-color:#C62828;}
+
+  /* Cuestionario de cierre */
+  .cq-op{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);
+         border-radius:10px;padding:13px 18px;margin-bottom:9px;font-size:18px;cursor:pointer;
+         font-family:inherit;color:var(--txt);line-height:1.5;}
+  .cq-op:hover:enabled{border-color:var(--vio);background:#FAF7FF;}
+  .cq-op:disabled{cursor:default;opacity:.95;}
+  .cq-vf{display:inline-block;width:48%;text-align:center;font-size:20px;font-weight:bold;
+         padding:16px;margin:0 1% 10px;border:2px solid var(--bd);border-radius:10px;
+         background:#fff;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .cq-vf:hover:enabled{border-color:var(--vio);}
+  .cq-vf:disabled{cursor:default;opacity:.95;}
+  .cq-barra{height:14px;background:#E8E8E8;border-radius:7px;overflow:hidden;margin:10px 0 4px;}
+  .cq-fill{height:100%;background:var(--vio);width:0;transition:width .3s;}
+</style>
+</head>
+<body>
+<header>
+  <h1>REPASO: DEL TEXTO A LA TABLA</h1>
+  <p>Taller de IA &middot; 7&deg; TIC &middot; Viernes 9/10 &middot; 80 minutos</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">&#11013; Volver al &Iacute;ndice</a>
+<style>  .cp{width:100%;box-sizing:border-box;border:2px solid var(--bd);border-radius:9px;padding:11px 14px;
+      font-size:16px;font-family:inherit;line-height:1.5;resize:vertical;margin-top:7px;}
+  .cp:focus{outline:none;border-color:var(--p1);}
+  .lb{font-weight:bold;font-size:17px;margin-top:15px;display:block;}
+  .ay{display:block;font-size:15px;color:#667;margin-top:2px;}
+  .reloj{display:inline-block;background:var(--amb);color:#fff;font-size:15px;font-weight:bold;
+         padding:3px 12px;border-radius:20px;margin-left:10px;vertical-align:middle;}
+  .cod{background:#1E1E1E;color:#D4D4D4;border-radius:10px;padding:15px 19px;margin:10px 0;
+       font-family:Consolas,monospace;font-size:15.5px;line-height:1.7;white-space:pre-wrap;overflow-x:auto;}
+  .cod .cm{color:#6A9955;} .cod .st{color:#CE9178;} .cod .kw{color:#569CD6;}
+  .mal{background:#FDECEA;border:2px solid #C0392B;border-radius:10px;padding:13px 17px;
+       font-family:Consolas,monospace;font-size:15px;line-height:1.7;margin:8px 0;}
+  .bien{background:#F0FAF7;border:2px solid #1F6E5C;border-radius:10px;padding:13px 17px;
+        font-family:Consolas,monospace;font-size:15px;line-height:1.7;margin:8px 0;}
+  .mal,.bien{white-space:pre-wrap;}
+  details.pista{background:var(--gris);border-left:5px solid var(--vio);border-radius:8px;
+                padding:12px 16px;margin-top:9px;}
+  details.pista summary{cursor:pointer;font-weight:bold;color:var(--vio);font-size:17px;}
+  details.pista p{margin:10px 0 0 0;font-size:17px;}
+  table.cierre{width:100%;border-collapse:collapse;font-size:16px;margin:12px 0;}
+  table.cierre th{background:var(--nav);color:#fff;padding:9px 12px;text-align:left;font-size:13.5px;}
+  table.cierre td{border:1px solid var(--bd);padding:10px 12px;vertical-align:top;}
+  table.cierre tr:nth-child(even) td{background:#F7FAFC;}</style>
+<style>
+  .pred{background:#FFFDF6;border-left:6px solid var(--amb);border-radius:8px;padding:12px 17px;margin:12px 0;font-size:18px;}
+  .romper{background:#FDECEA;border-left:6px solid #C0392B;border-radius:8px;padding:12px 17px;margin:12px 0;font-size:18px;}
+  .mic{background:var(--azul-bg);border-left:6px solid var(--azul);border-radius:8px;padding:12px 17px;margin:12px 0;font-size:18px;}
+  .alto{background:#fff;border:3px solid var(--nav);border-radius:12px;padding:14px 20px;margin:18px 0 4px;font-size:18px;}
+  .alto ol{margin:8px 0 6px 24px;}
+  .chico{font-size:16px;color:#667;margin-top:6px;}
+  details.ver{margin-top:8px;}
+  details.ver summary{cursor:pointer;color:var(--vio);font-weight:bold;font-size:16px;}
+  details.ver p{margin-top:6px;font-size:17px;}
+  .copiar{background:var(--p1);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:15px;font-weight:bold;cursor:pointer;margin:-4px 0 10px;}
+  details.equipo{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px 16px;margin:12px 0;}
+  details.equipo summary{cursor:pointer;font-weight:bold;font-size:19px;color:var(--nav);}
+  .leyenda{font-size:17px;background:var(--gris);border-radius:8px;padding:10px 14px;margin-top:14px;}
+  table.trampa td:first-child{white-space:nowrap;}
+</style>
+<style>
+  .eq-bar{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
+  .btn-eq{background:#fff;border:3px solid var(--nav);border-radius:12px;padding:14px 22px;font-size:20px;font-weight:bold;cursor:pointer;font-family:inherit;color:var(--nav);}
+  .btn-eq.activo{background:var(--nav);color:#fff;}
+  .falta-eq{background:#FFF3B0;border:3px dashed #B8860B;border-radius:10px;padding:14px 18px;font-size:19px;font-weight:bold;margin:10px 0;}
+  .sale{background:#F0FAF7;border-left:6px solid #1F6E5C;border-radius:8px;padding:10px 16px;margin:10px 0;font-size:18px;}
+  .sierror{background:#FDECEA;border-left:6px solid #C0392B;border-radius:8px;padding:10px 16px;margin:10px 0;font-size:17px;}
+  .preg2{background:#FFFDF6;border-left:6px solid var(--amb);border-radius:8px;padding:10px 16px;margin:10px 0;font-size:18px;}
+  .preg2 summary{cursor:pointer;color:var(--vio);font-weight:bold;font-size:16px;margin-top:4px;}
+  .que{font-size:19px;margin-bottom:8px;}
+  .copiar{background:var(--p1);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:16px;font-weight:bold;cursor:pointer;margin:-4px 0 10px;}
+  .tag-eq{display:inline-block;background:var(--nav);color:#fff;border-radius:6px;padding:2px 10px;font-size:15px;margin-left:8px;vertical-align:middle;}
+  .aviso{background:#FDECEA;border:3px solid #C0392B;border-radius:10px;padding:10px 16px;margin:12px 0;font-size:18px;font-weight:bold;color:#8B1A1A;}
+  ol.pasos{font-size:19px;} ol.pasos li{margin-bottom:8px;}
+  h2{flex-wrap:wrap;}
+  /* resumen del proyecto */
+  .proy{background:var(--nav);color:#fff;border-radius:12px;padding:16px 20px;margin:4px 0 14px;text-align:center;}
+  .proy-n{font-size:26px;font-weight:bold;letter-spacing:1px;}
+  .proy-p{font-size:20px;margin-top:6px;font-style:italic;}
+  .prts{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;margin:10px 0 16px;}
+  .prt{flex:1 1 260px;border-radius:12px;padding:14px 16px;border:3px solid;}
+  .prt.uno{border-color:var(--p1);background:#F0FAF7;}
+  .prt.dos{border-color:var(--vio);background:#F2F5FB;}
+  .prt-t{font-weight:bold;font-size:19px;}
+  .prt.uno .prt-t{color:var(--p1);} .prt.dos .prt-t{color:var(--vio);}
+  .prt-s{font-size:18px;margin-top:4px;}
+  .prt-f{font-size:15.5px;margin-top:8px;background:#fff;border-radius:8px;padding:6px 10px;color:#334;}
+  .prt-c{font-size:15.5px;margin-top:8px;font-weight:bold;}
+  .prts-fl{align-self:center;font-size:30px;color:var(--nav);}
+  .prts-fl .v{display:none;}
+  .su{border:3px solid var(--nav);border-radius:12px;padding:12px 16px;margin:10px 0;background:#fff;}
+  .su-t{font-size:20px;font-weight:bold;color:var(--nav);margin-bottom:4px;}
+  .su-r{font-size:18px;margin:10px 0 4px;}
+  .su-k{display:inline-block;background:var(--nav);color:#fff;border-radius:6px;padding:1px 9px;font-size:15px;font-weight:bold;margin-right:6px;}
+  .mini-wrap{overflow-x:auto;}
+  table.tmini{border-collapse:collapse;font-size:14.5px;margin:4px 0;}
+  table.tmini th{background:var(--p1);color:#fff;padding:5px 9px;font-family:Consolas,monospace;font-weight:normal;}
+  table.tmini td{border:1px solid var(--bd);padding:5px 9px;white-space:nowrap;}
+  .etapas{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0;}
+  .et{border:2px solid var(--bd);border-radius:8px;padding:5px 9px;font-size:14.5px;background:#fff;color:#556;}
+  .et.on{border-color:var(--p1);background:var(--p1);color:#fff;font-weight:bold;}
+  .et.p2{border-style:dashed;}
+  .et-n{font-weight:bold;margin-right:5px;}
+  /* el camino y el por qué / para qué de cada tarjeta */
+  .camino{display:flex;flex-wrap:wrap;align-items:center;gap:4px;background:var(--gris);border-radius:10px;padding:8px 12px;margin:2px 0 12px;font-size:15px;}
+  .camino .aqui{font-size:18px;margin-right:4px;}
+  .nodo{display:inline-block;border:2px solid var(--bd);border-radius:20px;padding:2px 10px;background:#fff;color:#667;white-space:nowrap;}
+  .nodo.on{background:var(--json);border-color:var(--json);color:#fff;font-weight:bold;}
+  .nodo.ag{border-style:dashed;}
+  .camino .fl{color:#99A;}
+  .camino .nota{margin-left:8px;font-weight:bold;color:var(--json);}
+  .pq{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px;}
+  .pq > div{border-radius:10px;padding:10px 14px;font-size:17.5px;}
+  .pq-a{background:#F2F5FB;border-left:6px solid var(--vio);}
+  .pq-b{background:#F0FAF7;border-left:6px solid var(--p1);}
+  .pq-t{font-weight:bold;font-size:15px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+  .pq-a .pq-t{color:var(--vio);} .pq-b .pq-t{color:var(--p1);}
+  table.mapa td{font-size:16.5px;vertical-align:middle;}
+  .flujo{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 6px;}
+  .fj{background:var(--nav);color:#fff;border-radius:8px;padding:6px 12px;font-size:17px;font-weight:bold;white-space:nowrap;}
+  .fj b{display:inline-block;background:#fff;color:var(--nav);border-radius:50%;width:22px;height:22px;line-height:22px;text-align:center;font-size:14px;margin-right:6px;}
+  .fjf{color:var(--nav);font-size:20px;font-weight:bold;}
+  ol.sub{font-size:18px;margin:6px 0 8px 22px;} ol.sub li{margin-bottom:4px;}
+  table.mapa td:nth-child(3){white-space:nowrap;font-weight:bold;}
+  @media (max-width:640px){
+    .pq{grid-template-columns:1fr;}
+    .prts-fl{width:100%;text-align:center;font-size:26px;}
+    .prts-fl .h{display:none;} .prts-fl .v{display:inline;}
+    table.mapa td{font-size:15px;padding:7px 6px;}
+    table.mapa td:nth-child(3){white-space:normal;}
+    table.mapa .nodo{padding:2px 6px;white-space:normal;}
+    table.cierre{font-size:14.5px;}
+    table.cierre td, table.cierre th{padding:7px 6px;overflow-wrap:anywhere;}
+  }
+</style>
+
+<div class="card c-info">
+  <h2><span class="badge" style="background:var(--teal)">0</span> DE QUÉ SE TRATA EL PROYECTO<span class="reloj">5 min</span></h2>
+  <div class="proy">
+    <div class="proy-n">DE TEXTOS A DECISIONES</div>
+    <div class="proy-p">¿Cómo puede una máquina interpretar datos y ayudarnos a decidir?</div>
+  </div>
+  <p class="que">La meta es un <strong>agente</strong>: un programa que decide. Pero un agente solo decide bien si tiene <strong>datos buenos</strong>, y esos datos hay que fabricarlos primero. Por eso el proyecto tiene dos partes:</p>
+  <div class="prts">
+    <div class="prt uno">
+      <div class="prt-t">PARTE 1 · EL EXTRACTOR</div>
+      <div class="prt-s">Textos sueltos entran, tabla ordenada sale.</div>
+      <div class="prt-f">textos sueltos → la IA extrae → ustedes verifican → tabla ordenada</div>
+      <div class="prt-c">📍 Estamos acá. ⭐ Evaluación: lunes 19/10.</div>
+    </div>
+    <div class="prts-fl"><span class="h">➜</span><span class="v">⬇</span></div>
+    <div class="prt dos">
+      <div class="prt-t">PARTE 2 · EL AGENTE</div>
+      <div class="prt-s">Usa esa tabla como cerebro: recibe una situación nueva, la compara con la tabla y decide qué hacer.</div>
+      <div class="prt-f">percibe → razona → decide → actúa</div>
+      <div class="prt-c">Después de la evaluación.</div>
+    </div>
+  </div>
+  <p class="que"><strong>¿Y el de ustedes?</strong> Toquen su equipo:</p>
+  <div class="eq-bar"><button class="btn-eq" data-v="vitalair" onclick="elegir('vitalair')">VitalAir</button><button class="btn-eq" data-v="ambiente" onclick="elegir('ambiente')">Ambiente Óptimo</button><button class="btn-eq" data-v="residuo" onclick="elegir('residuo')">Residuo Econexo</button><button class="btn-eq" data-v="mpxl" onclick="elegir('mpxl')">MPXL</button></div>
+  <div class="falta-eq">⬆ Toquen su equipo: acá aparece su tabla y lo que va a decidir su agente.</div><div data-eq="vitalair" style="display:none"><div class="su"><div class="su-t">VitalAir · Calidad del aire</div><div class="su-r"><span class="su-k">📊 Su tabla</span> La que fabrica el extractor: una fila por fragmento, cada una con su fuente.</div><div class="mini-wrap"><table class="tmini"><tr><th>contaminante</th><th>limite</th><th>unidad</th><th>tiempo_exposicion</th><th>tipo_de_riesgo</th><th>fuente</th></tr><tr><td>benceno</td><td>1</td><td>ppm</td><td>8 horas</td><td>toxicidad</td><td>Ficha de práctica V1 (inventada)</td></tr></table></div><div class="chico">Esta fila es de práctica: los valores son inventados.</div><div class="su-r"><span class="su-k">🧠 Su agente</span> Le pasás la medición del sensor y te dice si está normal, si hay que ventilar o si hay que alertar, y contra qué valor lo comparó.</div><div class="su-r"><span class="su-k">🔗 Por eso</span> Para comparar, necesita el límite de cada contaminante, con su unidad y su fuente. <strong>Eso sale de la tabla.</strong></div></div></div><div data-eq="ambiente" style="display:none"><div class="su"><div class="su-t">Ambiente Óptimo · Ambiente en aulas y viviendas</div><div class="su-r"><span class="su-k">📊 Su tabla</span> La que fabrica el extractor: una fila por fragmento, cada una con su fuente.</div><div class="mini-wrap"><table class="tmini"><tr><th>ambiente</th><th>condicion</th><th>temperatura_min</th><th>temperatura_max</th><th>humedad_min</th><th>humedad_max</th><th>fuente</th></tr><tr><td>aula</td><td>invierno</td><td>19</td><td>23</td><td>40</td><td>60</td><td>Ficha de práctica A1 (inventada)</td></tr></table></div><div class="chico">Esta fila es de práctica: los valores son inventados.</div><div class="su-r"><span class="su-k">🧠 Su agente</span> Le pasás qué ambiente es y qué temperatura hay, y te dice si está bien, si hay que ventilar o si hay que calefaccionar.</div><div class="su-r"><span class="su-k">🔗 Por eso</span> Para decidir, necesita el rango de temperatura de cada ambiente, con su fuente. <strong>Eso sale de la tabla.</strong></div></div></div><div data-eq="residuo" style="display:none"><div class="su"><div class="su-t">Residuo Econexo · Residuos y reciclado</div><div class="su-r"><span class="su-k">📊 Su tabla</span> La que fabrica el extractor: una fila por fragmento, cada una con su fuente.</div><div class="mini-wrap"><table class="tmini"><tr><th>material</th><th>contenedor</th><th>reciclable</th><th>tiempo_degradacion</th><th>fuente</th></tr><tr><td>latas de aluminio</td><td>contenedor A</td><td>sí</td><td>200</td><td>Ficha de práctica R1 (inventada)</td></tr></table></div><div class="chico">Esta fila es de práctica: los valores son inventados.</div><div class="su-r"><span class="su-k">🧠 Su agente</span> Le dan los datos de una ciudad, les dice cuántos residuos hay de cada uno y, con eso, les da recomendaciones según la gravedad.</div><div class="su-r"><span class="su-k">🔗 Por eso</span> Para recomendar, necesita saber de cada material en qué contenedor va, si se recicla y cuánto tarda en degradarse. <strong>Eso sale de la tabla.</strong></div></div></div><div data-eq="mpxl" style="display:none"><div class="su"><div class="su-t">MPXL · Conservación de alimentos</div><div class="su-r"><span class="su-k">📊 Su tabla</span> La que fabrica el extractor: una fila por fragmento, cada una con su fuente.</div><div class="mini-wrap"><table class="tmini"><tr><th>alimento</th><th>lugar</th><th>temperatura_max</th><th>tiempo_maximo</th><th>unidad_tiempo</th><th>fuente</th></tr><tr><td>pollo crudo</td><td>heladera</td><td>4</td><td>1</td><td>días</td><td>Ficha de práctica M1 (inventada)</td></tr></table></div><div class="chico">Esta fila es de práctica: los valores son inventados.</div><div class="su-r"><span class="su-k">🧠 Su agente</span> Decide si un alimento está en condiciones de consumo.</div><div class="su-r"><span class="su-k">🔗 Por eso</span> Para decidir, necesita saber de cada alimento dónde se guarda, hasta qué temperatura y por cuánto tiempo. <strong>Eso sale de la tabla.</strong></div></div></div>
+  <p class="que" style="margin-top:16px"><strong>Dónde estamos:</strong> las ocho etapas del Plan del proyecto.</p>
+  <div class="etapas"><div class="et"><span class="et-n">1</span>Elegir el tema y armar la ficha</div><div class="et"><span class="et-n">2</span>Conseguir los textos</div><div class="et on"><span class="et-n">3</span>Que la IA saque los datos</div><div class="et on"><span class="et-n">4</span>Que la salida sirva para un programa</div><div class="et on"><span class="et-n">5</span>Armar la tabla completa</div><div class="et"><span class="et-n">6</span>Verificar que no haya inventos</div><div class="et p2"><span class="et-n">7</span>Construir el agente</div><div class="et p2"><span class="et-n">8</span>Probarlo con otra gente y corregir</div></div>
+  <div class="chico">En verde, lo que repasamos hoy. De la 1 a la 6 es la Parte 1; la 7 y la 8, la Parte 2.</div>
+</div>
+
+<div class="card c-info">
+  <h2><span class="badge" style="background:var(--teal)">▶</span> CÓMO VA HOY<span class="reloj">3 min</span></h2>
+  <p class="que">Armamos el extractor <strong>de nuevo, de cero</strong>, celda por celda, con el mismo código de las clases del 14, del 28 y del 5. Cada tarjeta de abajo es <strong>una celda</strong>, y en cada una van a ver <strong>por qué</strong> está ese bloque y <strong>para qué</strong> sirve en el proyecto.</p>
+  <p class="que"><strong>El camino del extractor.</strong> Es el pipeline del lunes 5. En cada tarjeta, 📍 marca en qué paso estamos.</p>
+  <table class="cierre mapa">
+    <tr><th>Paso</th><th>Qué hace</th><th>Tarjetas</th></tr>
+    <tr><td><span class="nodo">📄 textos</span></td><td>Los fragmentos, cada uno con su fuente</td><td>3</td></tr>
+    <tr><td><span class="nodo">🤖 IA</span></td><td>Lee cada texto y saca los datos, siguiendo las reglas</td><td>1 · 2 · 4 · 7</td></tr>
+    <tr><td><span class="nodo">🗂️ json.loads</span></td><td>Convierte lo que contesta la IA en datos que un programa puede usar</td><td>5 · 6</td></tr>
+    <tr><td><span class="nodo">🔁 bucle</span></td><td>Hace esos tres pasos con todos los textos, uno por uno</td><td>8</td></tr>
+    <tr><td><span class="nodo">📊 CSV</span></td><td>Guarda todas las filas: la tabla</td><td>9</td></tr>
+    <tr><td><span class="nodo">🔍 verificar</span></td><td>Cada dato, contra su texto</td><td>10</td></tr>
+    <tr><td><span class="nodo ag">🧠 agente</span></td><td>Usa la tabla para decidir</td><td>Parte 2</td></tr>
+  </table>
+  <p class="que"><strong>Para arrancar:</strong></p>
+  <ol class="pasos">
+    <li><strong>Un Colab vacío, en su carpeta.</strong> En el Drive del equipo, entren a la carpeta <strong>codigo</strong> y después a <strong>extractor</strong>. Arriba a la izquierda, el botón <strong>+ Nuevo</strong> → <strong>Más</strong> → <strong>Google Colaboratory</strong>. Se abre un Colab vacío.<div class="chico">Si en Más no aparece Google Colaboratory, me llaman.</div></li>
+    <li><strong>Pónganle nombre.</strong> Arriba a la izquierda del Colab está el nombre del archivo. Hagan clic ahí, borren lo que dice y escriban <code>repaso_09-10_NombreDelEquipo</code>.</li>
+    <li><strong>Después, con cada tarjeta, de la 1 a la 10, hacen siempre lo mismo:</strong>
+      <div class="flujo">
+        <span class="fj"><b>a</b> 📋 Copiar</span><span class="fjf">→</span>
+        <span class="fj"><b>b</b> + Código</span><span class="fjf">→</span>
+        <span class="fj"><b>c</b> Ctrl+V</span><span class="fjf">→</span>
+        <span class="fj"><b>d</b> ▶</span><span class="fjf">→</span>
+        <span class="fj"><b>e</b> ¿Salió lo de ✅?</span>
+      </div>
+      <ol class="sub" type="a">
+        <li>En la tarjeta de esta página, el botón <strong>📋 Copiar</strong>, que está abajo del código.</li>
+        <li>En el Colab, el botón <strong>+ Código</strong>, arriba a la izquierda. Aparece una celda vacía.</li>
+        <li>Clic adentro de esa celda y <strong>Ctrl+V</strong>: se pega el código.</li>
+        <li>El botón <strong>▶</strong>, a la izquierda de la celda. Esperen a que termine.</li>
+        <li>Abajo de la celda aparece lo que salió. Compárenlo con <strong>✅ Tiene que salir</strong>. Si es igual, pasan a la tarjeta siguiente. Si no, me llaman.</li>
+      </ol>
+      Una tarjeta, una celda. En orden, sin saltearse ninguna.
+    </li>
+  </ol>
+  <div class="info i-rojo">
+    <strong>No avanzamos hasta que todos lleguen</strong>
+    Si a un equipo no le sale lo que dice ✅, frenamos y lo resolvemos entre todos.
+  </div>
+  <div class="info i-amb">
+    <strong>Los textos de hoy son de práctica</strong>
+    Los valores son inventados. No los pasen a su Tabla de datos.
+  </div>
+</div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--json)">1</span> LA CONEXIÓN<span class="reloj">5 min</span></h2><div class="camino"><span class="aqui">📍</span><span class="nodo">📄 textos</span><span class="fl">→</span><span class="nodo on">🤖 IA</span><span class="fl">→</span><span class="nodo">🗂️ json.loads</span><span class="fl">→</span><span class="nodo">📊 CSV</span><span class="fl">→</span><span class="nodo">🔍 verificar</span><span class="fl">→</span><span class="nodo ag">🧠 agente</span></div><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>La IA no está en el Colab: está en los servidores de Groq. Hay que mandarle el pedido por internet, con la clave.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>Es el teléfono del extractor: cada dato de su tabla va a pasar por <code>consultar_ia</code>.</div></div><p class="que">La del 14: manda el pedido a la IA y trae la respuesta.</p><div class="cod" id="k1"><span class="kw">from</span> google.colab <span class="kw">import</span> userdata
+<span class="kw">import</span> requests
+
+<span class="cm"># La clave se guarda en los Secrets de Colab (el icono de la llave, a la izquierda).</span>
+<span class="cm"># Se llama GROQ_API_KEY. Asi no queda escrita en el codigo.</span>
+API_KEY = userdata.get(<span class="st">'GROQ_API_KEY'</span>)
+
+URL = <span class="st">"https://api.groq.com/openai/v1/chat/completions"</span>
+headers = {<span class="st">"Authorization"</span>: f<span class="st">"Bearer {API_KEY}"</span>, <span class="st">"Content-Type"</span>: <span class="st">"application/json"</span>}
+
+
+<span class="kw">def</span> consultar_ia(mensajes, nivel_creatividad):
+    payload = {<span class="st">"model"</span>: <span class="st">"openai/gpt-oss-120b"</span>,
+               <span class="st">"temperature"</span>: nivel_creatividad,
+               <span class="st">"messages"</span>: mensajes}
+    <span class="kw">try</span>:
+        respuesta = requests.post(URL, headers=headers, json=payload)
+        <span class="kw">return</span> respuesta.json()[<span class="st">"choices"</span>][0][<span class="st">"message"</span>][<span class="st">"content"</span>]
+    <span class="kw">except</span> Exception <span class="kw">as</span> e:
+        <span class="kw">return</span> f<span class="st">"⚠️ Error: {e}"</span>
+
+
+print(<span class="st">"✅ Conexion lista."</span>)</div><button class="copiar" onclick="copiar('k1',this)">📋 Copiar</button><div class="sale"><strong>✅ Tiene que salir:</strong> ✅ Conexion lista.</div><div class="sierror"><strong>Si sale error:</strong> si pide permiso para la clave, acepten. Si dice que no encuentra GROQ_API_KEY, abran la llave de la izquierda y activen el acceso para este notebook.</div><div class="preg2"><strong>❓ ¿Qué devuelve consultar_ia?</strong><details><summary>Respuesta</summary><p>Texto: lo que contestó la IA. O un aviso que empieza con ⚠️ Error, si algo falló.</p></details></div></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--json)">2</span> LAS REGLAS <span class="tag-eq nombre-eq">su equipo</span><span class="reloj">9 min</span></h2><div class="camino"><span class="aqui">📍</span><span class="nodo">📄 textos</span><span class="fl">→</span><span class="nodo on">🤖 IA</span><span class="fl">→</span><span class="nodo">🗂️ json.loads</span><span class="fl">→</span><span class="nodo">📊 CSV</span><span class="fl">→</span><span class="nodo">🔍 verificar</span><span class="fl">→</span><span class="nodo ag">🧠 agente</span></div><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>Si no le decimos qué sacar y cómo escribirlo, la IA contesta a su manera, y cada vez distinto.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>Que de cada texto salgan siempre los mismos campos, con los mismos nombres: son las columnas de su tabla. <span data-eq="vitalair" style="display:none">Las de ustedes: <code>contaminante</code>, <code>limite</code>, <code>unidad</code>, <code>tiempo_exposicion</code>, <code>tipo_de_riesgo</code> y <code>fuente</code>.</span><span data-eq="ambiente" style="display:none">Las de ustedes: <code>ambiente</code>, <code>condicion</code>, <code>temperatura_min</code>, <code>temperatura_max</code>, <code>humedad_min</code>, <code>humedad_max</code> y <code>fuente</code>.</span><span data-eq="residuo" style="display:none">Las de ustedes: <code>material</code>, <code>contenedor</code>, <code>reciclable</code>, <code>tiempo_degradacion</code> y <code>fuente</code>.</span><span data-eq="mpxl" style="display:none">Las de ustedes: <code>alimento</code>, <code>lugar</code>, <code>temperatura_max</code>, <code>tiempo_maximo</code>, <code>unidad_tiempo</code> y <code>fuente</code>.</span></div></div><p class="que"><code>reglas_estrictas</code> es el system prompt: lo que le pedimos a la IA. Tiene cinco partes: <strong>1</strong> la forma del JSON con sus campos, <strong>2</strong> un ejemplo resuelto (few-shot), <strong>3</strong> la lista de campos (el esquema de salida), <strong>4</strong> null si el dato no está, <strong>5</strong> nada antes ni después del JSON.</p><div class="falta-eq">⬆ Primero elijan su equipo, arriba de todo.</div><div data-eq="vitalair" style="display:none"><div class="cod" id="k2">reglas_estrictas = <span class="st">"""
+Sacá de este texto los datos del contaminante.
+Devolvé un JSON exactamente con esta forma:
+{"contaminante": "...", "limite": 0, "unidad": "...", "tiempo_exposicion": "...", "tipo_de_riesgo": "...", "fuente": "..."}
+
+Ejemplo:
+Texto: Fuente: Ficha de práctica A (inventada)
+Formaldehído: no superar 1 ppm durante 8 horas. Riesgo: toxicidad.
+Respuesta: {"contaminante": "formaldehído", "limite": 1, "unidad": "ppm", "tiempo_exposicion": "8 horas", "tipo_de_riesgo": "toxicidad", "fuente": "Ficha de práctica A (inventada)"}
+
+Devolvé SIEMPRE un JSON con exactamente estos campos:
+- contaminante: texto
+- limite: número, sin la unidad adentro
+- unidad: texto, separado del número
+- tiempo_exposicion: texto
+- tipo_de_riesgo: texto
+- fuente: texto
+No agregues campos que no estén en esta lista.
+No saques ninguno, aunque no encuentres el dato.
+Si el texto da el valor en ppm, usá ppm.
+Si da un rango, usá el valor más bajo.
+Si un dato no está escrito en el texto, poné null.
+No lo deduzcas, no lo estimes, no uses lo que sepas del tema.
+No agregues nada antes ni después del JSON.
+"""</span></div><button class="copiar" onclick="copiar('k2',this)">📋 Copiar</button></div><div data-eq="ambiente" style="display:none"><div class="cod" id="k3">reglas_estrictas = <span class="st">"""
+Sacá de este texto los rangos de temperatura y humedad de un ambiente.
+Devolvé un JSON exactamente con esta forma:
+{"ambiente": "...", "condicion": "...", "temperatura_min": 0, "temperatura_max": 0, "humedad_min": 0, "humedad_max": 0, "fuente": "..."}
+
+Ejemplo:
+Texto: Fuente: Ficha de práctica A (inventada)
+En una biblioteca, de día, la temperatura tiene que estar entre 20 y 23 °C y la humedad entre 45 y 55 %.
+Respuesta: {"ambiente": "biblioteca", "condicion": "día", "temperatura_min": 20, "temperatura_max": 23, "humedad_min": 45, "humedad_max": 55, "fuente": "Ficha de práctica A (inventada)"}
+
+Devolvé SIEMPRE un JSON con exactamente estos campos:
+- ambiente: texto
+- condicion: cuándo vale el rango (general, día, noche, invierno o verano), solo si el texto lo dice
+- temperatura_min: número en °C, sin la unidad
+- temperatura_max: número en °C, sin la unidad
+- humedad_min: número en %, sin la unidad
+- humedad_max: número en %, sin la unidad
+- fuente: texto
+No agregues campos que no estén en esta lista.
+No saques ninguno, aunque no encuentres el dato.
+Si un dato no está escrito en el texto, poné null.
+No lo deduzcas, no lo estimes, no uses lo que sepas del tema.
+No agregues nada antes ni después del JSON.
+"""</span></div><button class="copiar" onclick="copiar('k3',this)">📋 Copiar</button></div><div data-eq="residuo" style="display:none"><div class="cod" id="k4">reglas_estrictas = <span class="st">"""
+Sacá de este texto los datos del residuo.
+Devolvé un JSON exactamente con esta forma:
+{"material": "...", "contenedor": "...", "reciclable": "...", "tiempo_degradacion": 0, "fuente": "..."}
+
+Ejemplo:
+Texto: Fuente: Ficha de práctica A (inventada)
+Los envases de cartón van al contenedor D. Son reciclables y tardan 1 año en degradarse.
+Respuesta: {"material": "envases de cartón", "contenedor": "contenedor D", "reciclable": "sí", "tiempo_degradacion": 1, "fuente": "Ficha de práctica A (inventada)"}
+
+Devolvé SIEMPRE un JSON con exactamente estos campos:
+- material: texto
+- contenedor: texto
+- reciclable: sí o no
+- tiempo_degradacion: número en años, sin la unidad
+- fuente: texto
+No agregues campos que no estén en esta lista.
+No saques ninguno, aunque no encuentres el dato.
+Si un dato no está escrito en el texto, poné null.
+No lo deduzcas, no lo estimes, no uses lo que sepas del tema.
+No agregues nada antes ni después del JSON.
+"""</span></div><button class="copiar" onclick="copiar('k4',this)">📋 Copiar</button></div><div data-eq="mpxl" style="display:none"><div class="cod" id="k5">reglas_estrictas = <span class="st">"""
+Sacá de este texto cómo se conserva un alimento.
+Devolvé un JSON exactamente con esta forma:
+{"alimento": "...", "lugar": "...", "temperatura_max": 0, "tiempo_maximo": 0, "unidad_tiempo": "...", "fuente": "..."}
+
+Ejemplo:
+Texto: Fuente: Ficha de práctica A (inventada)
+El queso fresco se guarda en la heladera a 4 °C como máximo, hasta 5 días.
+Respuesta: {"alimento": "queso fresco", "lugar": "heladera", "temperatura_max": 4, "tiempo_maximo": 5, "unidad_tiempo": "días", "fuente": "Ficha de práctica A (inventada)"}
+
+Devolvé SIEMPRE un JSON con exactamente estos campos:
+- alimento: texto
+- lugar: heladera o freezer
+- temperatura_max: número en °C, sin la unidad
+- tiempo_maximo: número, sin la unidad
+- unidad_tiempo: días, semanas o meses
+- fuente: texto
+No agregues campos que no estén en esta lista.
+No saques ninguno, aunque no encuentres el dato.
+Si da un rango, usá el número más bajo.
+Si un dato no está escrito en el texto, poné null.
+No lo deduzcas, no lo estimes, no uses lo que sepas del tema.
+No agregues nada antes ni después del JSON.
+"""</span></div><button class="copiar" onclick="copiar('k5',this)">📋 Copiar</button></div><div class="sale"><strong>✅ Tiene que salir:</strong> nada. Esta celda no muestra nada, y está bien.</div><p class="que"><strong>Después:</strong> abran la planilla, hoja Equipo, Nuestro system prompt. ¿Cuáles de las cinco partes le faltaban a la suya?</p><div class="preg2"><strong>❓ ¿Para qué sirve el ejemplo resuelto?</strong><details><summary>Respuesta</summary><p>La IA copia la forma que ve. Mostrarle un ejemplo funciona mejor que explicarle.</p></details></div></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--json)">3</span> LOS TEXTOS DE PRÁCTICA <span class="tag-eq nombre-eq">su equipo</span><span class="reloj">5 min</span></h2><div class="camino"><span class="aqui">📍</span><span class="nodo on">📄 textos</span><span class="fl">→</span><span class="nodo">🤖 IA</span><span class="fl">→</span><span class="nodo">🗂️ json.loads</span><span class="fl">→</span><span class="nodo">📊 CSV</span><span class="fl">→</span><span class="nodo">🔍 verificar</span><span class="fl">→</span><span class="nodo ag">🧠 agente</span></div><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>Los datos tienen que salir de un documento, no de lo que la IA sabe de memoria. Por eso cada fragmento lleva su fuente arriba.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>Son la materia prima: de cada fragmento sale una fila de la tabla. Hoy son de práctica; la próxima clase van los suyos.</div></div><p class="que">La lista, igual que la del lunes 5: cada fragmento con su línea de fuente arriba.</p><div class="falta-eq">⬆ Primero elijan su equipo, arriba de todo.</div><div data-eq="vitalair" style="display:none"><div class="cod" id="k6">lista_textos = [
+<span class="st">"""Fuente: Ficha de práctica V1 (inventada)
+Benceno: no superar 1 ppm durante 8 horas. Riesgo: toxicidad."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica V2 (inventada)
+Acetona: explota desde el 2 % del aire, que es lo mismo que 20.000 ppm. Riesgo: explosividad."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica V3 (inventada)
+Estireno: el límite es de 20 ppm. Riesgo: toxicidad."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica V4 (inventada)
+Tolueno: entre 10 y 20 ppm durante 8 horas. Riesgo: toxicidad."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica V5 (inventada)
+Xileno: 50 ppm durante 8 horas. Hexano: 20 ppm durante 8 horas. Riesgo de los dos: toxicidad."""</span>,
+]
+
+print(len(lista_textos), <span class="st">"fragmentos"</span>)</div><button class="copiar" onclick="copiar('k6',this)">📋 Copiar</button></div><div data-eq="ambiente" style="display:none"><div class="cod" id="k7">lista_textos = [
+<span class="st">"""Fuente: Ficha de práctica A1 (inventada)
+En un aula, en invierno, la temperatura tiene que estar entre 19 y 23 °C y la humedad entre 40 y 60 %."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica A2 (inventada)
+Oficina, de día: de 20 a 24°C, con humedad del 45 al 55%."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica A3 (inventada)
+En un dormitorio, de noche, lo ideal es entre 16 y 19 °C."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica A4 (inventada)
+En la cocina, la humedad no debería pasar el 65 %."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica A5 (inventada)
+En el baño, entre 21 y 24 °C. En el living, entre 19 y 22 °C."""</span>,
+]
+
+print(len(lista_textos), <span class="st">"fragmentos"</span>)</div><button class="copiar" onclick="copiar('k7',this)">📋 Copiar</button></div><div data-eq="residuo" style="display:none"><div class="cod" id="k8">lista_textos = [
+<span class="st">"""Fuente: Ficha de práctica R1 (inventada)
+Las latas de aluminio van al contenedor A. Son reciclables y tardan 200 años en degradarse."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica R2 (inventada)
+El papel va al contenedor B y se recicla. Tarda 6 meses en degradarse."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica R3 (inventada)
+La cáscara de banana va al contenedor C."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica R4 (inventada)
+Una bolsa de plástico tarda entre 100 y 500 años en degradarse. Va al contenedor A y no se recicla."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica R5 (inventada)
+Las botellas de vidrio van al contenedor B y las de plástico, al contenedor A."""</span>,
+]
+
+print(len(lista_textos), <span class="st">"fragmentos"</span>)</div><button class="copiar" onclick="copiar('k8',this)">📋 Copiar</button></div><div data-eq="mpxl" style="display:none"><div class="cod" id="k9">lista_textos = [
+<span class="st">"""Fuente: Ficha de práctica M1 (inventada)
+El pollo crudo se guarda en la heladera a 4 °C como máximo, hasta 1 día."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica M2 (inventada)
+Leche abierta: heladera, 4°C o menos, hasta 3 días."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica M3 (inventada)
+La manteca dura 2 semanas en la heladera."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica M4 (inventada)
+La carne picada dura de 1 a 2 días en la heladera, a no más de 4 °C."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica M5 (inventada)
+El pescado dura 1 día en la heladera y 2 meses en el freezer."""</span>,
+]
+
+print(len(lista_textos), <span class="st">"fragmentos"</span>)</div><button class="copiar" onclick="copiar('k9',this)">📋 Copiar</button></div><div class="sale"><strong>✅ Tiene que salir:</strong> 5 fragmentos</div></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--json)">4</span> UN FRAGMENTO<span class="reloj">7 min</span></h2><div class="camino"><span class="aqui">📍</span><span class="nodo on">📄 textos</span><span class="fl">→</span><span class="nodo on">🤖 IA</span><span class="fl">→</span><span class="nodo">🗂️ json.loads</span><span class="fl">→</span><span class="nodo">📊 CSV</span><span class="fl">→</span><span class="nodo">🔍 verificar</span><span class="fl">→</span><span class="nodo ag">🧠 agente</span></div><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>Antes de hacerlo con todos, lo probamos con uno: si algo falla, sabemos dónde.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>Es el corazón del extractor: entra un texto, sale lo que contesta la IA. Esto mismo va después adentro del bucle.</div></div><p class="que">Lo de adentro del bucle, con un solo fragmento: el primero de la lista.</p><div class="cod" id="k10"><span class="kw">import</span> json
+
+texto = lista_textos[0]            <span class="cm"># solo para hoy: el primero de la lista</span>
+historial = [{<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: reglas_estrictas}]
+historial.append({<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: texto})
+respuesta = consultar_ia(historial, 0.0)
+print(respuesta)</div><button class="copiar" onclick="copiar('k10',this)">📋 Copiar</button><div class="sale"><strong>✅ Tiene que salir:</strong> un JSON entre llaves, con los nombres entre comillas dobles. Es texto: así lo escribe la IA.</div><div class="sierror"><strong>Si sale error:</strong> si empieza con ⚠️ Error, es la clave o la conexión: corran otra vez la tarjeta 1.</div><div class="preg2"><strong>❓ ¿Por qué dice lista_textos[0] si es el primero?</strong><details><summary>Respuesta</summary><p>Porque en Python se cuenta desde 0, como el choices[0] de la conexión.</p></details></div></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--json)">5</span> DE TEXTO A DICCIONARIO <span class="tag-eq nombre-eq">su equipo</span><span class="reloj">7 min</span></h2><div class="camino"><span class="aqui">📍</span><span class="nodo">📄 textos</span><span class="fl">→</span><span class="nodo">🤖 IA</span><span class="fl">→</span><span class="nodo on">🗂️ json.loads</span><span class="fl">→</span><span class="nodo">📊 CSV</span><span class="fl">→</span><span class="nodo">🔍 verificar</span><span class="fl">→</span><span class="nodo ag">🧠 agente</span></div><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>Lo que contesta la IA es texto, aunque tenga llaves. A un texto no se le puede pedir un dato por su nombre.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div><code>json.loads</code> lo convierte en diccionario, y ahí sí. <span data-eq="vitalair" style="display:none">Con <code>datos["limite"]</code> sale solo el límite. Ese número es el que su agente va a comparar con la medición del sensor.</span><span data-eq="ambiente" style="display:none">Con <code>datos["temperatura_max"]</code> sale solo la temperatura máxima. Ese número es el que su agente va a comparar con la temperatura del ambiente.</span><span data-eq="residuo" style="display:none">Con <code>datos["material"]</code> sale solo el material. Así su agente va a poder buscar cada material en la tabla.</span><span data-eq="mpxl" style="display:none">Con <code>datos["alimento"]</code> sale solo el alimento. Así su agente va a poder buscar cada alimento en la tabla.</span></div></div><p class="que">La conversión del lunes 28, y un dato pedido por su nombre.</p><div class="falta-eq">⬆ Primero elijan su equipo, arriba de todo.</div><div data-eq="vitalair" style="display:none"><div class="cod" id="k11">datos = json.loads(respuesta)
+print(datos)
+print(datos[<span class="st">"limite"</span>])</div><button class="copiar" onclick="copiar('k11',this)">📋 Copiar</button></div><div data-eq="ambiente" style="display:none"><div class="cod" id="k12">datos = json.loads(respuesta)
+print(datos)
+print(datos[<span class="st">"temperatura_max"</span>])</div><button class="copiar" onclick="copiar('k12',this)">📋 Copiar</button></div><div data-eq="residuo" style="display:none"><div class="cod" id="k13">datos = json.loads(respuesta)
+print(datos)
+print(datos[<span class="st">"material"</span>])</div><button class="copiar" onclick="copiar('k13',this)">📋 Copiar</button></div><div data-eq="mpxl" style="display:none"><div class="cod" id="k14">datos = json.loads(respuesta)
+print(datos)
+print(datos[<span class="st">"alimento"</span>])</div><button class="copiar" onclick="copiar('k14',this)">📋 Copiar</button></div><div class="sale"><strong>✅ Tiene que salir:</strong> el mismo JSON pero con comillas simples: ya es un diccionario. Y abajo, un solo dato.</div><div class="sierror"><strong>Si sale error:</strong> JSONDecodeError quiere decir que la IA escribió algo antes o después de las llaves: miren lo que imprimió la tarjeta 4. A sus reglas les falta la parte 5. KeyError quiere decir que el nombre del campo no es igual, letra por letra.</div><div class="preg2"><strong>❓ ¿Qué diferencia hay entre respuesta y datos?</strong><details><summary>Respuesta</summary><p>respuesta es el texto que mandó la IA. datos es el diccionario que armó json.loads, y a ese sí se le pide cada dato por su nombre.</p></details></div></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--json)">6</span> EL ESCUDO<span class="reloj">5 min</span></h2><div class="camino"><span class="aqui">📍</span><span class="nodo">📄 textos</span><span class="fl">→</span><span class="nodo">🤖 IA</span><span class="fl">→</span><span class="nodo on">🗂️ json.loads</span><span class="fl">→</span><span class="nodo">📊 CSV</span><span class="fl">→</span><span class="nodo">🔍 verificar</span><span class="fl">→</span><span class="nodo ag">🧠 agente</span></div><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>A veces la IA escribe algo antes del JSON, como el viernes 25. Sin escudo, <code>json.loads</code> da error y el programa se corta.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>Que el extractor aguante: si un texto falla, avisa y sigue con los demás. Un texto que falla no tira abajo toda la tabla.</div></div><p class="que">El try y el except del bucle del lunes 28. Esta celda no usa la IA: arma a mano una respuesta mala, como la del viernes 25.</p><div class="cod" id="k15">respuesta = <span class="st">"""Claro! Acá está el JSON que pediste:
+{"parametro": "nitratos", "valor_maximo": 45}"""</span>      <span class="cm"># solo para hoy: una respuesta mala, como la del 25/9</span>
+
+<span class="kw">try</span>:
+    datos = json.loads(respuesta)
+    print(datos)
+<span class="kw">except</span> json.JSONDecodeError:
+    print(<span class="st">"⚠️ No devolvio JSON valido:"</span>, respuesta)</div><button class="copiar" onclick="copiar('k15',this)">📋 Copiar</button><div class="sale"><strong>✅ Tiene que salir:</strong> ⚠️ No devolvio JSON valido, y la respuesta mala. El programa avisa y no se corta.</div><div class="preg2"><strong>❓ Si de diez fragmentos falla el cuarto y no hay escudo, ¿qué pasa con los otros seis?</strong><details><summary>Respuesta</summary><p>No se procesan: el programa se corta en el cuarto.</p></details></div></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--json)">7</span> CUANDO FALTA UN DATO <span class="tag-eq nombre-eq">su equipo</span><span class="reloj">8 min</span></h2><div class="camino"><span class="aqui">📍</span><span class="nodo">📄 textos</span><span class="fl">→</span><span class="nodo on">🤖 IA</span><span class="fl">→</span><span class="nodo">🗂️ json.loads</span><span class="fl">→</span><span class="nodo">📊 CSV</span><span class="fl">→</span><span class="nodo">🔍 verificar</span><span class="fl">→</span><span class="nodo ag">🧠 agente</span></div><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>Si el texto no dice un dato, la IA lo puede completar de memoria. Eso es alucinar: queda un dato que no sale de ninguna fuente.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>Con null, el hueco queda a la vista y nadie lo confunde con un dato. <span data-eq="vitalair" style="display:none">Si su agente decide con un dato inventado, puede decir «normal» cuando había que alertar.</span><span data-eq="ambiente" style="display:none">Si su agente decide con un dato inventado, puede decir «está bien» cuando había que ventilar o calefaccionar.</span><span data-eq="residuo" style="display:none">Si su agente decide con un dato inventado, puede recomendar mal: por ejemplo, mandar a reciclar algo que no se recicla.</span><span data-eq="mpxl" style="display:none">Si su agente decide con un dato inventado, puede decir que un alimento está en condiciones cuando no lo está.</span></div></div><p class="que">Igual que la tarjeta 4, con el fragmento 2, que tiene un dato que no está en el texto.</p><div class="cod" id="k16">texto = lista_textos[2]            <span class="cm"># solo para hoy: el que tiene un dato que falta</span>
+historial = [{<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: reglas_estrictas}]
+historial.append({<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: texto})
+respuesta = consultar_ia(historial, 0.0)
+print(respuesta)</div><button class="copiar" onclick="copiar('k16',this)">📋 Copiar</button><div class="falta-eq">⬆ Primero elijan su equipo, arriba de todo.</div><div data-eq="vitalair" style="display:none"><div class="sale"><strong>✅ Tiene que salir:</strong> tiempo_exposicion: null, porque el texto no dice el tiempo.</div></div><div data-eq="ambiente" style="display:none"><div class="sale"><strong>✅ Tiene que salir:</strong> humedad_min y humedad_max: null, porque el texto no dice la humedad.</div></div><div data-eq="residuo" style="display:none"><div class="sale"><strong>✅ Tiene que salir:</strong> reciclable y tiempo_degradacion: null, porque el texto no los dice.</div></div><div data-eq="mpxl" style="display:none"><div class="sale"><strong>✅ Tiene que salir:</strong> temperatura_max: null, porque el texto no dice la temperatura.</div></div><div class="preg2"><strong>❓ ¿Por qué null y no lo que suele ser?</strong><details><summary>Respuesta</summary><p>Porque el texto no lo dice. Lo que suele ser la IA lo sabe de memoria, y en la tabla solo va lo que está escrito en el texto. Si lo completa igual, alucina.</p></details></div></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--json)">8</span> EL BUCLE<span class="reloj">9 min</span></h2><div class="camino"><span class="aqui">📍</span><span class="nodo on">📄 textos</span><span class="fl">→</span><span class="nodo on">🤖 IA</span><span class="fl">→</span><span class="nodo on">🗂️ json.loads</span><span class="fl">→</span><span class="nodo">📊 CSV</span><span class="fl">→</span><span class="nodo">🔍 verificar</span><span class="fl">→</span><span class="nodo ag">🧠 agente</span><span class="nota">🔁 con cada texto</span></div><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>Su tabla necesita todos los fragmentos, no uno. De a uno y a mano es lento, y se escapa alguno.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>El <code>for</code> repite las tarjetas 4, 5 y 6 con cada fragmento y junta las filas en <code>resultados</code>. Ya es la tabla, pero solo en la memoria del Colab.</div></div><p class="que">La celda del lunes 5, tal cual. Las líneas que dicen nuevo son del lunes 5; las otras, el bucle del lunes 28.</p><div class="cod" id="k17"><span class="kw">import</span> json
+<span class="kw">import</span> time                                  <span class="cm"># nuevo</span>
+
+resultados = []                              <span class="cm"># nuevo: acá se juntan las filas</span>
+
+<span class="kw">for</span> texto <span class="kw">in</span> lista_textos[:3]:               <span class="cm"># nuevo: por ahora, los tres primeros</span>
+    historial = [{<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: reglas_estrictas}]
+    historial.append({<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: texto})
+    respuesta = consultar_ia(historial, 0.0)
+    <span class="kw">try</span>:
+        datos = json.loads(respuesta)
+        resultados.append(datos)             <span class="cm"># nuevo: guarda la fila</span>
+        print(<span class="st">"✅"</span>, datos)
+    <span class="kw">except</span> json.JSONDecodeError:
+        print(<span class="st">"⚠️ Falló este fragmento:"</span>, texto)   <span class="cm"># cambió: dice cuál</span>
+        print(<span class="st">"La IA devolvió:"</span>, respuesta)
+    print(<span class="st">"----"</span>)
+    time.sleep(8)                            <span class="cm"># nuevo: espera 8 segundos</span>
+
+print(len(resultados), <span class="st">"de"</span>, len(lista_textos), <span class="st">"salieron bien"</span>)   <span class="cm"># nuevo</span></div><button class="copiar" onclick="copiar('k17',this)">📋 Copiar</button><div class="sale"><strong>✅ Tiene que salir:</strong> 3 de 5 salieron bien. Prueba con los tres primeros: es normal.</div><p class="que"><strong>Después:</strong> cambien la línea del for para que quede así, sin el <code>[:3]</code>, y córranla otra vez. Tarda un minuto.</p><div class="cod" id="k18"><span class="kw">for</span> texto <span class="kw">in</span> lista_textos:</div><button class="copiar" onclick="copiar('k18',this)">📋 Copiar</button><div class="sale"><strong>✅ Tiene que salir:</strong> 5 de 5 salieron bien.</div><div class="preg2"><strong>❓ ¿Por qué el historial arranca de cero en cada vuelta?</strong><details><summary>Respuesta</summary><p>Para que no se mezclen: cada fragmento es aparte. En el RPG sí queríamos memoria; acá no.</p></details></div></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--json)">9</span> EL ARCHIVO <span class="tag-eq nombre-eq">su equipo</span><span class="reloj">7 min</span></h2><div class="camino"><span class="aqui">📍</span><span class="nodo">📄 textos</span><span class="fl">→</span><span class="nodo">🤖 IA</span><span class="fl">→</span><span class="nodo">🗂️ json.loads</span><span class="fl">→</span><span class="nodo on">📊 CSV</span><span class="fl">→</span><span class="nodo">🔍 verificar</span><span class="fl">→</span><span class="nodo ag">🧠 agente</span></div><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div><code>resultados</code> vive en la memoria del Colab: si se cierra, se pierde. La tabla tiene que quedar guardada en un archivo.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div><code>tabla.csv</code> es lo que sale de la Parte 1: la tabla ordenada. La abre cualquier planilla, y en la Parte 2 la va a usar su agente.</div></div><p class="que">La celda del lunes 5, tal cual, con la línea de campos de su equipo.</p><div class="falta-eq">⬆ Primero elijan su equipo, arriba de todo.</div><div data-eq="vitalair" style="display:none"><div class="cod" id="k19"><span class="kw">import</span> csv
+<span class="kw">from</span> google.colab <span class="kw">import</span> files
+
+campos = [<span class="st">"contaminante"</span>, <span class="st">"limite"</span>, <span class="st">"unidad"</span>, <span class="st">"tiempo_exposicion"</span>, <span class="st">"tipo_de_riesgo"</span>, <span class="st">"fuente"</span>]
+
+<span class="kw">with</span> open(<span class="st">"tabla.csv"</span>, <span class="st">"w"</span>, newline=<span class="st">""</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> archivo:
+    escritor = csv.DictWriter(archivo, fieldnames=campos, extrasaction=<span class="st">"ignore"</span>)
+    escritor.writeheader()
+    escritor.writerows(resultados)
+
+files.download(<span class="st">"tabla.csv"</span>)</div><button class="copiar" onclick="copiar('k19',this)">📋 Copiar</button></div><div data-eq="ambiente" style="display:none"><div class="cod" id="k20"><span class="kw">import</span> csv
+<span class="kw">from</span> google.colab <span class="kw">import</span> files
+
+campos = [<span class="st">"ambiente"</span>, <span class="st">"condicion"</span>, <span class="st">"temperatura_min"</span>, <span class="st">"temperatura_max"</span>, <span class="st">"humedad_min"</span>, <span class="st">"humedad_max"</span>, <span class="st">"fuente"</span>]
+
+<span class="kw">with</span> open(<span class="st">"tabla.csv"</span>, <span class="st">"w"</span>, newline=<span class="st">""</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> archivo:
+    escritor = csv.DictWriter(archivo, fieldnames=campos, extrasaction=<span class="st">"ignore"</span>)
+    escritor.writeheader()
+    escritor.writerows(resultados)
+
+files.download(<span class="st">"tabla.csv"</span>)</div><button class="copiar" onclick="copiar('k20',this)">📋 Copiar</button></div><div data-eq="residuo" style="display:none"><div class="cod" id="k21"><span class="kw">import</span> csv
+<span class="kw">from</span> google.colab <span class="kw">import</span> files
+
+campos = [<span class="st">"material"</span>, <span class="st">"contenedor"</span>, <span class="st">"reciclable"</span>, <span class="st">"tiempo_degradacion"</span>, <span class="st">"fuente"</span>]
+
+<span class="kw">with</span> open(<span class="st">"tabla.csv"</span>, <span class="st">"w"</span>, newline=<span class="st">""</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> archivo:
+    escritor = csv.DictWriter(archivo, fieldnames=campos, extrasaction=<span class="st">"ignore"</span>)
+    escritor.writeheader()
+    escritor.writerows(resultados)
+
+files.download(<span class="st">"tabla.csv"</span>)</div><button class="copiar" onclick="copiar('k21',this)">📋 Copiar</button></div><div data-eq="mpxl" style="display:none"><div class="cod" id="k22"><span class="kw">import</span> csv
+<span class="kw">from</span> google.colab <span class="kw">import</span> files
+
+campos = [<span class="st">"alimento"</span>, <span class="st">"lugar"</span>, <span class="st">"temperatura_max"</span>, <span class="st">"tiempo_maximo"</span>, <span class="st">"unidad_tiempo"</span>, <span class="st">"fuente"</span>]
+
+<span class="kw">with</span> open(<span class="st">"tabla.csv"</span>, <span class="st">"w"</span>, newline=<span class="st">""</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> archivo:
+    escritor = csv.DictWriter(archivo, fieldnames=campos, extrasaction=<span class="st">"ignore"</span>)
+    escritor.writeheader()
+    escritor.writerows(resultados)
+
+files.download(<span class="st">"tabla.csv"</span>)</div><button class="copiar" onclick="copiar('k22',this)">📋 Copiar</button></div><div class="sale"><strong>✅ Tiene que salir:</strong> se baja tabla.csv.</div><div class="aviso">⚠️ Ese tabla.csv es de práctica: no lo importen a su planilla.</div><div class="sierror"><strong>Si sale error:</strong> si dice AttributeError: 'list' object has no attribute 'get', el fragmento 4 trae dos datos y la IA los devolvió juntos. En la tarjeta 3, cambien el fragmento 4 por estos dos, corran la tarjeta 3, la 8 y esta otra vez:</div><div class="falta-eq">⬆ Primero elijan su equipo, arriba de todo.</div><div data-eq="vitalair" style="display:none"><div class="cod" id="k23"><span class="st">"""Fuente: Ficha de práctica V5 (inventada)
+Xileno: 50 ppm durante 8 horas. Riesgo: toxicidad."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica V5 (inventada)
+Hexano: 20 ppm durante 8 horas. Riesgo: toxicidad."""</span>,</div><button class="copiar" onclick="copiar('k23',this)">📋 Copiar</button></div><div data-eq="ambiente" style="display:none"><div class="cod" id="k24"><span class="st">"""Fuente: Ficha de práctica A5 (inventada)
+En el baño, entre 21 y 24 °C."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica A5 (inventada)
+En el living, entre 19 y 22 °C."""</span>,</div><button class="copiar" onclick="copiar('k24',this)">📋 Copiar</button></div><div data-eq="residuo" style="display:none"><div class="cod" id="k25"><span class="st">"""Fuente: Ficha de práctica R5 (inventada)
+Las botellas de vidrio van al contenedor B."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica R5 (inventada)
+Las botellas de plástico van al contenedor A."""</span>,</div><button class="copiar" onclick="copiar('k25',this)">📋 Copiar</button></div><div data-eq="mpxl" style="display:none"><div class="cod" id="k26"><span class="st">"""Fuente: Ficha de práctica M5 (inventada)
+El pescado dura 1 día en la heladera."""</span>,
+
+<span class="st">"""Fuente: Ficha de práctica M5 (inventada)
+El pescado dura 2 meses en el freezer."""</span>,</div><button class="copiar" onclick="copiar('k26',this)">📋 Copiar</button></div></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--json)">10</span> MIRAR LA TABLA<span class="reloj">5 min</span></h2><div class="camino"><span class="aqui">📍</span><span class="nodo">📄 textos</span><span class="fl">→</span><span class="nodo">🤖 IA</span><span class="fl">→</span><span class="nodo">🗂️ json.loads</span><span class="fl">→</span><span class="nodo on">📊 CSV</span><span class="fl">→</span><span class="nodo on">🔍 verificar</span><span class="fl">→</span><span class="nodo ag">🧠 agente</span></div><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>La IA se puede equivocar o inventar, y el programa no se da cuenta. Ustedes sí.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>Que cada dato de la tabla se pueda rastrear hasta su fuente. Con la tabla verificada, su agente decide con datos buenos.</div></div><p class="que">Para ver el archivo sin salir del Colab.</p><div class="cod" id="k27">print(open(<span class="st">"tabla.csv"</span>, encoding=<span class="st">"utf-8"</span>).read())      <span class="cm"># solo para mirar el archivo</span></div><button class="copiar" onclick="copiar('k27',this)">📋 Copiar</button><div class="sale"><strong>✅ Tiene que salir:</strong> una fila por fragmento, con comas entre las columnas. Donde la IA puso null, quedan dos comas seguidas.</div><p class="que"><strong>Verifiquen:</strong> comparen cada fila con su texto. ¿Todo lo que dice la fila está escrito en el texto?</p><div class="preg2"><strong>❓ ¿Quién decide el orden de las columnas?</strong><details><summary>Respuesta</summary><p>La lista campos.</p></details></div></div>
+
+<div class="card c-info">
+  <h2><span class="badge" style="background:var(--teal)">✔</span> LO QUE REPASAMOS</h2>
+  <table class="cierre">
+    <tr><th>Concepto</th><th>Qué es</th><th>Para qué, en el proyecto</th></tr>
+    <tr><td><strong>System prompt</strong> (reglas_estrictas)</td><td>Lo que le pedimos a la IA, con el rol system. Cinco partes.</td><td>Que de cada texto salgan los mismos campos: las columnas de la tabla.</td></tr>
+    <tr><td><strong>json.loads</strong></td><td>Convierte el texto de la IA en un diccionario.</td><td>Que un programa pueda usar cada dato por su nombre.</td></tr>
+    <tr><td><strong>try y except</strong></td><td>El escudo: si no vino JSON, avisa en vez de cortar.</td><td>Que un texto que falla no tire abajo toda la tabla.</td></tr>
+    <tr><td><strong>null y alucinación</strong></td><td>null es el dato que no está. Si la IA lo completa igual, alucina.</td><td>Que en la tabla no haya datos inventados.</td></tr>
+    <tr><td><strong>Bucle y resultados</strong></td><td>Cada fragmento por separado, y una fila por fragmento.</td><td>Que la tabla tenga todos los textos.</td></tr>
+    <tr><td><strong>CSV</strong></td><td>Una tabla guardada como texto: una fila por renglón y comas entre las columnas.</td><td>La tabla guardada: lo que sale de la Parte 1 y va a usar el agente.</td></tr>
+  </table>
+  <p>En la evaluación del 19/10 se los voy a preguntar.</p>
+</div>
+
+<div class="card c-entrega" style="border-top:6px solid var(--vio);">
+  <h2><span class="badge" style="background:var(--vio)">📓</span> ANTES DE IRSE<span class="reloj">5 min</span></h2>
+  <table class="cierre">
+    <tr><th>Qué</th><th>Dónde</th></tr>
+    <tr><td><strong>El Colab de hoy</strong></td><td>Archivo → Guardar. Queda en codigo/extractor.</td></tr>
+    <tr><td>Si a sus reglas les faltaban partes</td><td>Planilla → Equipo → Nuestro system prompt: las completan.</td></tr>
+    <tr><td>Hasta qué tarjeta llegaron</td><td>Planilla → Clase a clase → Qué hicimos hoy</td></tr>
+  </table>
+  <div class="info i-grn">
+    <strong>📓 Y cada uno, su bitácora</strong>
+    En <strong>Viernes 9/10</strong>, las cinco preguntas. Si no llegan, antes de la próxima clase.
+  </div>
+  <p><strong>La próxima clase:</strong> en este Colab cambian los textos de práctica por sus fragmentos de verdad. Todo lo demás queda igual. ⭐ Lunes 19/10: evaluación de la Parte 1.</p>
+</div>
+</div>
+<script>
+var NOMBRES = {'vitalair':'VitalAir','ambiente':'Ambiente Óptimo','residuo':'Residuo Econexo','mpxl':'MPXL'};
+function elegir(e){
+  document.querySelectorAll('[data-eq]').forEach(function(el){ el.style.display = (el.getAttribute('data-eq')===e) ? '' : 'none'; });
+  document.querySelectorAll('.falta-eq').forEach(function(el){ el.style.display = 'none'; });
+  document.querySelectorAll('.btn-eq').forEach(function(b){ b.classList.toggle('activo', b.getAttribute('data-v')===e); });
+  document.querySelectorAll('.nombre-eq').forEach(function(s){ s.textContent = NOMBRES[e]; });
+  try{ localStorage.setItem('repaso0910_equipo', e); }catch(x){}
+  try{ history.replaceState(null, '', '#' + e); }catch(x){}
+}
+window.addEventListener('hashchange', function(){ var h = location.hash.replace('#',''); if (NOMBRES[h]) elegir(h); });
+window.addEventListener('load', function(){
+  var h = location.hash.replace('#',''), e = null;
+  if (NOMBRES[h]) e = h; else { try{ var g = localStorage.getItem('repaso0910_equipo'); if (NOMBRES[g]) e = g; }catch(x){} }
+  if (e) elegir(e);
+});
+function copiar(id, b){
+  var t = document.getElementById(id).innerText;
+  function ok(){ var o=b.textContent; b.textContent='✅ Copiado'; setTimeout(function(){ b.textContent=o; }, 1600); }
+  function viejo(){ var a=document.createElement('textarea'); a.value=t; document.body.appendChild(a); a.select();
+    try{ document.execCommand('copy'); ok(); }catch(x){ b.textContent='Seleccionalo y copialo a mano'; } document.body.removeChild(a); }
+  if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(ok, viejo); } else { viejo(); }
+}
+</script>
+</body></html>
