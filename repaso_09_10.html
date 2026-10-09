@@ -389,14 +389,13 @@ headers = {<span class="st">"Authorization"</span>: f<span class="st">"Bearer {A
 
 print(<span class="st">"✅ Conexion lista."</span>)</div><button class="copiar" onclick="copiar('k1',this)">📋 Copiar</button><div class="sale"><strong>✅ Tiene que salir:</strong> ✅ Conexion lista.</div><div class="sierror"><strong>Si sale error:</strong> si pide permiso para la clave, acepten. Si dice que no encuentra GROQ_API_KEY, abran la llave de la izquierda y activen el acceso para este notebook.</div><div class="preg2"><strong>❓ ¿Qué devuelve consultar_ia?</strong><details><summary>Respuesta</summary><p>Texto: lo que contestó la IA. O un aviso que empieza con ⚠️ Error, si algo falló.</p></details></div></div>
 <div class="card c-json"><h2><span class="badge" style="background:var(--json)">2</span> LAS REGLAS <span class="tag-eq nombre-eq">su equipo</span><span class="reloj">9 min</span></h2><div class="camino"><span class="aqui">📍</span><span class="nodo">📄 textos</span><span class="fl">→</span><span class="nodo on">🤖 IA</span><span class="fl">→</span><span class="nodo">🗂️ json.loads</span><span class="fl">→</span><span class="nodo">📊 CSV</span><span class="fl">→</span><span class="nodo">🔍 verificar</span><span class="fl">→</span><span class="nodo ag">🧠 agente</span></div><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>Si no le decimos qué sacar y cómo escribirlo, la IA contesta a su manera, y cada vez distinto.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>Que de cada texto salgan siempre los mismos campos, con los mismos nombres: son las columnas de su tabla. <span data-eq="vitalair" style="display:none">Las de ustedes: <code>contaminante</code>, <code>limite</code>, <code>unidad</code>, <code>tiempo_exposicion</code>, <code>tipo_de_riesgo</code> y <code>fuente</code>.</span><span data-eq="ambiente" style="display:none">Las de ustedes: <code>ambiente</code>, <code>condicion</code>, <code>temperatura_min</code>, <code>temperatura_max</code>, <code>humedad_min</code>, <code>humedad_max</code> y <code>fuente</code>.</span><span data-eq="residuo" style="display:none">Las de ustedes: <code>material</code>, <code>contenedor</code>, <code>reciclable</code>, <code>tiempo_degradacion</code> y <code>fuente</code>.</span><span data-eq="mpxl" style="display:none">Las de ustedes: <code>alimento</code>, <code>lugar</code>, <code>temperatura_max</code>, <code>tiempo_maximo</code>, <code>unidad_tiempo</code> y <code>fuente</code>.</span></div></div><p class="que"><code>reglas_estrictas</code> es el system prompt: lo que le pedimos a la IA. Tiene cinco partes: <strong>1</strong> la forma del JSON con sus campos, <strong>2</strong> un ejemplo resuelto (few-shot), <strong>3</strong> la lista de campos (el esquema de salida), <strong>4</strong> null si el dato no está, <strong>5</strong> nada antes ni después del JSON.</p><div class="falta-eq">⬆ Primero elijan su equipo, arriba de todo.</div><div data-eq="vitalair" style="display:none"><div class="cod" id="k2">reglas_estrictas = <span class="st">"""
-Sacá de este texto los datos del contaminante.
+Sacá de este texto estos datos: contaminante, limite, unidad, tiempo_exposicion, tipo_de_riesgo y fuente.
 Devolvé un JSON exactamente con esta forma:
 {"contaminante": "...", "limite": 0, "unidad": "...", "tiempo_exposicion": "...", "tipo_de_riesgo": "...", "fuente": "..."}
 
 Ejemplo:
-Texto: Fuente: Ficha de práctica A (inventada)
-Formaldehído: no superar 1 ppm durante 8 horas. Riesgo: toxicidad.
-Respuesta: {"contaminante": "formaldehído", "limite": 1, "unidad": "ppm", "tiempo_exposicion": "8 horas", "tipo_de_riesgo": "toxicidad", "fuente": "Ficha de práctica A (inventada)"}
+Texto: Formaldehído: no superar 1 ppm durante 8 horas. Riesgo: toxicidad.
+Respuesta: {"contaminante": "formaldehído", "limite": 1, "unidad": "ppm", "tiempo_exposicion": "8 horas", "tipo_de_riesgo": "toxicidad", "fuente": null}
 
 Devolvé SIEMPRE un JSON con exactamente estos campos:
 - contaminante: texto
@@ -407,78 +406,68 @@ Devolvé SIEMPRE un JSON con exactamente estos campos:
 - fuente: texto
 No agregues campos que no estén en esta lista.
 No saques ninguno, aunque no encuentres el dato.
-Si el texto da el valor en ppm, usá ppm.
-Si da un rango, usá el valor más bajo.
-Si un dato no está escrito en el texto, poné null.
-No lo deduzcas, no lo estimes, no uses lo que sepas del tema.
-No agregues nada antes ni después del JSON.
+Si un dato no está escrito en el texto, poné null. No lo deduzcas, no lo estimes, no uses lo que sepas del tema.
+No agregues saludos, ni explicaciones, ni nada antes o después.
 """</span></div><button class="copiar" onclick="copiar('k2',this)">📋 Copiar</button></div><div data-eq="ambiente" style="display:none"><div class="cod" id="k3">reglas_estrictas = <span class="st">"""
-Sacá de este texto los rangos de temperatura y humedad de un ambiente.
+Sacá de este texto estos datos: ambiente, condicion, temperatura_min, temperatura_max, humedad_min, humedad_max y fuente.
 Devolvé un JSON exactamente con esta forma:
 {"ambiente": "...", "condicion": "...", "temperatura_min": 0, "temperatura_max": 0, "humedad_min": 0, "humedad_max": 0, "fuente": "..."}
 
 Ejemplo:
-Texto: Fuente: Ficha de práctica A (inventada)
-En una biblioteca, de día, la temperatura tiene que estar entre 20 y 23 °C y la humedad entre 45 y 55 %.
-Respuesta: {"ambiente": "biblioteca", "condicion": "día", "temperatura_min": 20, "temperatura_max": 23, "humedad_min": 45, "humedad_max": 55, "fuente": "Ficha de práctica A (inventada)"}
+Texto: En una biblioteca, de día, la temperatura tiene que estar entre 20 y 23 °C y la humedad entre 45 y 55 %.
+Respuesta: {"ambiente": "biblioteca", "condicion": "día", "temperatura_min": 20, "temperatura_max": 23, "humedad_min": 45, "humedad_max": 55, "fuente": null}
 
 Devolvé SIEMPRE un JSON con exactamente estos campos:
 - ambiente: texto
-- condicion: cuándo vale el rango (general, día, noche, invierno o verano), solo si el texto lo dice
-- temperatura_min: número en °C, sin la unidad
-- temperatura_max: número en °C, sin la unidad
-- humedad_min: número en %, sin la unidad
-- humedad_max: número en %, sin la unidad
+- condicion: texto
+- temperatura_min: número, sin la unidad adentro
+- temperatura_max: número, sin la unidad adentro
+- humedad_min: número, sin la unidad adentro
+- humedad_max: número, sin la unidad adentro
 - fuente: texto
 No agregues campos que no estén en esta lista.
 No saques ninguno, aunque no encuentres el dato.
-Si un dato no está escrito en el texto, poné null.
-No lo deduzcas, no lo estimes, no uses lo que sepas del tema.
-No agregues nada antes ni después del JSON.
+Si un dato no está escrito en el texto, poné null. No lo deduzcas, no lo estimes, no uses lo que sepas del tema.
+No agregues saludos, ni explicaciones, ni nada antes o después.
 """</span></div><button class="copiar" onclick="copiar('k3',this)">📋 Copiar</button></div><div data-eq="residuo" style="display:none"><div class="cod" id="k4">reglas_estrictas = <span class="st">"""
-Sacá de este texto los datos del residuo.
+Sacá de este texto estos datos: material, contenedor, reciclable, tiempo_degradacion y fuente.
 Devolvé un JSON exactamente con esta forma:
 {"material": "...", "contenedor": "...", "reciclable": "...", "tiempo_degradacion": 0, "fuente": "..."}
 
 Ejemplo:
-Texto: Fuente: Ficha de práctica A (inventada)
-Los envases de cartón van al contenedor D. Son reciclables y tardan 1 año en degradarse.
-Respuesta: {"material": "envases de cartón", "contenedor": "contenedor D", "reciclable": "sí", "tiempo_degradacion": 1, "fuente": "Ficha de práctica A (inventada)"}
+Texto: Los envases de cartón van al contenedor D. Son reciclables y tardan 1 año en degradarse.
+Respuesta: {"material": "envases de cartón", "contenedor": "contenedor D", "reciclable": "sí", "tiempo_degradacion": 1, "fuente": null}
 
 Devolvé SIEMPRE un JSON con exactamente estos campos:
 - material: texto
 - contenedor: texto
 - reciclable: sí o no
-- tiempo_degradacion: número en años, sin la unidad
+- tiempo_degradacion: número, sin la unidad adentro
 - fuente: texto
 No agregues campos que no estén en esta lista.
 No saques ninguno, aunque no encuentres el dato.
-Si un dato no está escrito en el texto, poné null.
-No lo deduzcas, no lo estimes, no uses lo que sepas del tema.
-No agregues nada antes ni después del JSON.
+Si un dato no está escrito en el texto, poné null. No lo deduzcas, no lo estimes, no uses lo que sepas del tema.
+No agregues saludos, ni explicaciones, ni nada antes o después.
 """</span></div><button class="copiar" onclick="copiar('k4',this)">📋 Copiar</button></div><div data-eq="mpxl" style="display:none"><div class="cod" id="k5">reglas_estrictas = <span class="st">"""
-Sacá de este texto cómo se conserva un alimento.
+Sacá de este texto estos datos: alimento, lugar, temperatura_max, tiempo_maximo, unidad_tiempo y fuente.
 Devolvé un JSON exactamente con esta forma:
 {"alimento": "...", "lugar": "...", "temperatura_max": 0, "tiempo_maximo": 0, "unidad_tiempo": "...", "fuente": "..."}
 
 Ejemplo:
-Texto: Fuente: Ficha de práctica A (inventada)
-El queso fresco se guarda en la heladera a 4 °C como máximo, hasta 5 días.
-Respuesta: {"alimento": "queso fresco", "lugar": "heladera", "temperatura_max": 4, "tiempo_maximo": 5, "unidad_tiempo": "días", "fuente": "Ficha de práctica A (inventada)"}
+Texto: El queso fresco se guarda en la heladera a 4 °C como máximo, hasta 5 días.
+Respuesta: {"alimento": "queso fresco", "lugar": "heladera", "temperatura_max": 4, "tiempo_maximo": 5, "unidad_tiempo": "días", "fuente": null}
 
 Devolvé SIEMPRE un JSON con exactamente estos campos:
 - alimento: texto
-- lugar: heladera o freezer
-- temperatura_max: número en °C, sin la unidad
-- tiempo_maximo: número, sin la unidad
-- unidad_tiempo: días, semanas o meses
+- lugar: texto
+- temperatura_max: número, sin la unidad adentro
+- tiempo_maximo: número, sin la unidad adentro
+- unidad_tiempo: texto, separado del número
 - fuente: texto
 No agregues campos que no estén en esta lista.
 No saques ninguno, aunque no encuentres el dato.
-Si da un rango, usá el número más bajo.
-Si un dato no está escrito en el texto, poné null.
-No lo deduzcas, no lo estimes, no uses lo que sepas del tema.
-No agregues nada antes ni después del JSON.
+Si un dato no está escrito en el texto, poné null. No lo deduzcas, no lo estimes, no uses lo que sepas del tema.
+No agregues saludos, ni explicaciones, ni nada antes o después.
 """</span></div><button class="copiar" onclick="copiar('k5',this)">📋 Copiar</button></div><div class="sale"><strong>✅ Tiene que salir:</strong> nada. Esta celda no muestra nada, y está bien.</div><p class="que"><strong>Después:</strong> abran la planilla, hoja Equipo, Nuestro system prompt. ¿Cuáles de las cinco partes le faltaban a la suya?</p><div class="preg2"><strong>❓ ¿Para qué sirve el ejemplo resuelto?</strong><details><summary>Respuesta</summary><p>La IA copia la forma que ve. Mostrarle un ejemplo funciona mejor que explicarle.</p></details></div></div>
 <div class="card c-json"><h2><span class="badge" style="background:var(--json)">3</span> LOS TEXTOS DE PRÁCTICA <span class="tag-eq nombre-eq">su equipo</span><span class="reloj">5 min</span></h2><div class="camino"><span class="aqui">📍</span><span class="nodo on">📄 textos</span><span class="fl">→</span><span class="nodo">🤖 IA</span><span class="fl">→</span><span class="nodo">🗂️ json.loads</span><span class="fl">→</span><span class="nodo">📊 CSV</span><span class="fl">→</span><span class="nodo">🔍 verificar</span><span class="fl">→</span><span class="nodo ag">🧠 agente</span></div><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>Los datos tienen que salir de un documento, no de lo que la IA sabe de memoria. Por eso cada fragmento lleva su fuente arriba.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>Son la materia prima: de cada fragmento sale una fila de la tabla. Hoy son de práctica; la próxima clase van los suyos.</div></div><p class="que">La lista, igual que la del lunes 5: cada fragmento con su línea de fuente arriba.</p><div class="falta-eq">⬆ Primero elijan su equipo, arriba de todo.</div><div data-eq="vitalair" style="display:none"><div class="cod" id="k6">lista_textos = [
 <span class="st">"""Fuente: Ficha de práctica V1 (inventada)
@@ -638,7 +627,7 @@ campos = [<span class="st">"alimento"</span>, <span class="st">"lugar"</span>, <
     escritor.writeheader()
     escritor.writerows(resultados)
 
-files.download(<span class="st">"tabla.csv"</span>)</div><button class="copiar" onclick="copiar('k22',this)">📋 Copiar</button></div><div class="sale"><strong>✅ Tiene que salir:</strong> se baja tabla.csv.</div><div class="aviso">⚠️ Ese tabla.csv es de práctica: no lo importen a su planilla.</div><div class="sierror"><strong>Si sale error:</strong> si dice AttributeError: 'list' object has no attribute 'get', el fragmento 4 trae dos datos y la IA los devolvió juntos. En la tarjeta 3, cambien el fragmento 4 por estos dos, corran la tarjeta 3, la 8 y esta otra vez:</div><div class="falta-eq">⬆ Primero elijan su equipo, arriba de todo.</div><div data-eq="vitalair" style="display:none"><div class="cod" id="k23"><span class="st">"""Fuente: Ficha de práctica V5 (inventada)
+files.download(<span class="st">"tabla.csv"</span>)</div><button class="copiar" onclick="copiar('k22',this)">📋 Copiar</button></div><div class="sale"><strong>✅ Tiene que salir:</strong> se baja tabla.csv.</div><div class="aviso">⚠️ Ese tabla.csv es de práctica: en la tarjeta 10 lo miran y después borran esa hoja.</div><div class="sierror"><strong>Si sale error:</strong> si dice AttributeError: 'list' object has no attribute 'get', el fragmento 4 trae dos datos y la IA los devolvió juntos. En la tarjeta 3, cambien el fragmento 4 por estos dos, corran la tarjeta 3, la 8 y esta otra vez:</div><div class="falta-eq">⬆ Primero elijan su equipo, arriba de todo.</div><div data-eq="vitalair" style="display:none"><div class="cod" id="k23"><span class="st">"""Fuente: Ficha de práctica V5 (inventada)
 Xileno: 50 ppm durante 8 horas. Riesgo: toxicidad."""</span>,
 
 <span class="st">"""Fuente: Ficha de práctica V5 (inventada)
@@ -655,7 +644,7 @@ El pescado dura 1 día en la heladera."""</span>,
 
 <span class="st">"""Fuente: Ficha de práctica M5 (inventada)
 El pescado dura 2 meses en el freezer."""</span>,</div><button class="copiar" onclick="copiar('k26',this)">📋 Copiar</button></div></div>
-<div class="card c-json"><h2><span class="badge" style="background:var(--json)">10</span> MIRAR LA TABLA<span class="reloj">5 min</span></h2><div class="camino"><span class="aqui">📍</span><span class="nodo">📄 textos</span><span class="fl">→</span><span class="nodo">🤖 IA</span><span class="fl">→</span><span class="nodo">🗂️ json.loads</span><span class="fl">→</span><span class="nodo on">📊 CSV</span><span class="fl">→</span><span class="nodo on">🔍 verificar</span><span class="fl">→</span><span class="nodo ag">🧠 agente</span></div><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>La IA se puede equivocar o inventar, y el programa no se da cuenta. Ustedes sí.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>Que cada dato de la tabla se pueda rastrear hasta su fuente. Con la tabla verificada, su agente decide con datos buenos.</div></div><p class="que">Para ver el archivo sin salir del Colab.</p><div class="cod" id="k27">print(open(<span class="st">"tabla.csv"</span>, encoding=<span class="st">"utf-8"</span>).read())      <span class="cm"># solo para mirar el archivo</span></div><button class="copiar" onclick="copiar('k27',this)">📋 Copiar</button><div class="sale"><strong>✅ Tiene que salir:</strong> una fila por fragmento, con comas entre las columnas. Donde la IA puso null, quedan dos comas seguidas.</div><p class="que"><strong>Verifiquen:</strong> comparen cada fila con su texto. ¿Todo lo que dice la fila está escrito en el texto?</p><div class="preg2"><strong>❓ ¿Quién decide el orden de las columnas?</strong><details><summary>Respuesta</summary><p>La lista campos.</p></details></div><div class="info i-grn"><strong>⏩ ¿Les salió todo? Cuando les diga, siguen en la página Su tabla, con sus textos</strong>Está en el índice. Es este mismo Colab y este mismo código: cambian la lista de práctica por sus fragmentos de verdad.</div></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--json)">10</span> MIRAR LA TABLA<span class="reloj">5 min</span></h2><div class="camino"><span class="aqui">📍</span><span class="nodo">📄 textos</span><span class="fl">→</span><span class="nodo">🤖 IA</span><span class="fl">→</span><span class="nodo">🗂️ json.loads</span><span class="fl">→</span><span class="nodo on">📊 CSV</span><span class="fl">→</span><span class="nodo on">🔍 verificar</span><span class="fl">→</span><span class="nodo ag">🧠 agente</span></div><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>La IA se puede equivocar o inventar, y el programa no se da cuenta. Ustedes sí.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>Que cada dato de la tabla se pueda rastrear hasta su fuente. Con la tabla verificada, su agente decide con datos buenos.</div></div><p class="que">Como el lunes 5. Esta tarjeta no tiene código.</p><ol class="pasos"><li>En la planilla: Archivo → Importar → Subir → tabla.csv.</li><li>Ubicación de importación: <strong>Insertar hojas nuevas</strong>. Destilden <strong>convertir texto en números, fechas y fórmulas</strong>. Importar datos. Aparece la hoja tabla.</li><li>Mírenla: ¿menos filas que fragmentos? ¿una columna vacía entera? ¿celdas vacías sueltas?</li><li>Después, clic derecho en la pestaña tabla → Borrar. Es de práctica.</li></ol><div class="sale"><strong>✅ Tiene que salir:</strong> una fila por fragmento. Donde la IA puso null, la celda queda vacía.</div><div class="preg2"><strong>❓ ¿Quién decide el orden de las columnas?</strong><details><summary>Respuesta</summary><p>La lista campos.</p></details></div><div class="info i-grn"><strong>⏩ ¿Les salió todo? Cuando les diga, siguen en la página Su tabla, con sus textos</strong>Está en el índice. Es este mismo Colab y este mismo código: cambian la lista de práctica por sus fragmentos de verdad.</div></div>
 
 <div class="card c-info">
   <h2><span class="badge" style="background:var(--teal)">✔</span> LO QUE REPASAMOS</h2>
