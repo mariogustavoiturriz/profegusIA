@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devolución · Ambiente Óptimo</title>
+<style>
+  :root{
+    --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
+    --vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;
+    --bco:#FFFFFF;--code-bg:#1E1E1E;--r:12px;
+    --p1:#1F6E5C;--p1-bg:#E8F4F0;
+    --g2:#2E6820;--g2-bg:#EFF8EE;
+    --json:#006400;--json-bg:#F0FFF0;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;
+    --azul:#1565C0;--azul-bg:#E3F2FD;
+    --classroom:#137333;--class-bg:#F0FFF4;
+    --rpg:#5C2070;--rpg-bg:#F8F3FF;
+    --plan:#2A4A7F;--plan-bg:#E5ECF6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:20px;padding:15px 0 50px;}
+  header{background:var(--nav);color:var(--bco);padding:25px 20px;border-bottom:5px solid var(--vio);}
+  header h1{font-size:26px;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
+  header p{font-size:17px;opacity:.9;}
+  .container{width:95%;max-width:1400px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:20px;margin-bottom:10px;padding:10px 20px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  .c-p1{border-left-color:var(--p1);background:var(--p1-bg);}
+  .c-plan{border-left-color:var(--plan);background:var(--plan-bg);}
+  .c-info{border-left-color:var(--vio);background:#FAFCFF;}
+  .c-json{border-left-color:var(--json);background:var(--json-bg);}
+  .c-rojo{border-left-color:var(--rojo);background:var(--rojo-bg);}
+  .c-entrega{border-left-color:var(--classroom);background:var(--class-bg);}
+  .c-asistente{border-left-color:var(--rpg);background:var(--rpg-bg);}
+  .c-avanzado{border-left-color:var(--amb);background:#FFFBF5;}
+  h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
+  .badge{background:var(--nav);color:var(--bco);padding:5px 12px;border-radius:6px;font-size:17px;font-weight:bold;}
+  .info{padding:18px 20px;border-radius:var(--r);margin:15px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
+  .i-p1{background:var(--p1-bg);border-color:var(--p1);}
+  .i-plan{background:var(--plan-bg);border-color:var(--plan);}
+  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
+  .i-amb{background:#FFF8EE;border-color:var(--amb);}
+  .i-azul{background:var(--azul-bg);border-color:var(--azul);}
+  .i-rojo{background:var(--rojo-bg);border-color:var(--rojo);}
+  .i-json{background:var(--json-bg);border-color:var(--json);}
+  .info > strong:first-child{display:block;margin-bottom:6px;font-size:19px;}
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:18px 20px;font-size:17px;overflow-x:auto;white-space:pre;line-height:1.65;margin:14px 0;border-radius:8px;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
+  .nm{color:#B5CEA8;} .fn{color:#DCDCAA;} .dk{color:#9CDCFE;}
+  code{background:#E8E6FF;color:var(--vio);padding:2px 6px;border-radius:4px;font-family:'Consolas',monospace;font-size:17px;}
+  ul{margin-left:22px;} li{margin-bottom:8px;}
+  ol{margin-left:22px;} ol li{margin-bottom:8px;}
+  table{width:100%;border-collapse:collapse;font-size:17px;margin:16px 0;background:#fff;border-radius:8px;overflow:hidden;}
+  th,td{border:1px solid var(--bd);padding:12px 14px;text-align:left;}
+  th{background:var(--nav);color:#fff;font-size:15px;text-transform:uppercase;letter-spacing:.5px;}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+  .trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;}
+  .mini{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:16px;font-size:16px;line-height:1.6;}
+  .mini strong{color:var(--p1);display:block;margin-bottom:4px;font-size:17px;}
+  .check{list-style:none;margin-left:0;}
+  .check li{padding-left:34px;position:relative;margin-bottom:12px;font-size:18px;}
+  .check li::before{content:"\25A2";position:absolute;left:0;font-size:24px;color:var(--p1);}
+  #asist-chat{display:none;}
+  #asist-msgs{background:#1E1E1E;border-radius:10px;padding:16px;min-height:160px;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:10px;}
+  .asist-inp{display:flex;gap:8px;}
+  .asist-inp input{flex:1;padding:11px;border-radius:8px;border:1px solid #ccc;font-size:17px;outline:none;}
+  .btn-rpg{background:var(--rpg);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;}
+  .btn-rpg:disabled{background:#ccc;cursor:not-allowed;}
+  .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
+  .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
+  @media(max-width:768px){.duo,.trio{grid-template-columns:1fr;}}
+
+  /* Ejercicio de JSON */
+  .jej{display:none;}
+  .jej.activo{display:block;}
+  .jpanel{background:#F0FFF0;border:2px solid #006400;border-radius:10px;padding:18px 20px;
+          font-family:Consolas,monospace;font-size:17px;line-height:2;overflow-x:auto;white-space:pre;}
+  .jval{background:#fff;border:2px solid var(--bd);border-radius:6px;padding:1px 7px;
+        cursor:pointer;transition:all .15s;display:inline-block;}
+  .jval:hover{border-color:var(--json);background:#E6F7E6;}
+  .jval.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jval.no{background:#FFEBEE;border-color:var(--rojo);}
+  .jkey{color:#9CDCFE;}
+  .jctx{background:var(--azul-bg);border-left:5px solid var(--azul);border-radius:8px;
+        padding:12px 16px;margin-bottom:12px;font-size:17px;}
+  .jpide{font-size:21px;font-weight:bold;margin:14px 0 10px;}
+  .jfb{margin-top:12px;font-size:18px;}
+  .jcamino{background:var(--code-bg);color:#D4D4D4;font-family:Consolas,monospace;
+           padding:12px 16px;border-radius:8px;font-size:17px;margin-top:10px;overflow-x:auto;}
+  .jcam-ops{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+  .jcam-op{background:#1E1E1E;color:#D4D4D4;font-family:Consolas,monospace;font-size:16px;
+           padding:11px 14px;border:2px solid #3A3A3A;border-radius:8px;cursor:pointer;text-align:left;
+           transition:all .15s;}
+  .jcam-op:hover:enabled{border-color:var(--vio);}
+  .jcam-op:disabled{cursor:default;}
+  .jcam-op.cam-ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jcam-op.cam-no{background:#3a1e1e;border-color:#C0392B;opacity:.6;}
+  .jprog{font-size:16px;color:#666;margin-bottom:8px;}
+
+  /* Taller de reparaciones */
+  .rep{display:none;}
+  .rep.activo{display:block;}
+  .repcod{background:var(--code-bg);border-radius:8px;padding:14px 0;font-family:Consolas,monospace;
+          font-size:16px;line-height:1.9;overflow-x:auto;}
+  .rline{display:block;padding:2px 18px;cursor:pointer;white-space:pre;color:#D4D4D4;}
+  .rline:hover{background:#2D2D2D;}
+  .rline.ok{background:#1F6E5C;}
+  .rline.no{background:#5C1F1F;}
+  .rline.fija{cursor:default;color:#808080;}
+  .rline.fija:hover{background:transparent;}
+  .rnum{color:#606060;display:inline-block;width:26px;user-select:none;}
+
+  .encasa{display:inline-block;background:#7A4B00;color:#fff;font-size:14px;font-weight:bold;
+          letter-spacing:1px;padding:5px 12px;border-radius:20px;margin-left:auto;}
+  .banda-casa{background:#FFF8EE;border:2px dashed #B8720A;border-radius:10px;
+              padding:12px 18px;margin-bottom:16px;font-size:18px;}
+
+  /* Campos extraíbles */
+  .campo{display:inline-block;background:#fff;border:2px solid var(--bd);border-radius:22px;
+         padding:9px 18px;margin:6px 6px 6px 0;cursor:pointer;font-size:18px;transition:all .15s;}
+  .campo:hover{border-color:var(--p1);background:#F2FAF8;}
+  .campo.si{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .campo.no{background:#FFEBEE;border-color:var(--rojo);color:#8B1A1A;text-decoration:line-through;}
+  .ext-txt{background:#FFFDF5;border:2px solid var(--amb);border-radius:10px;padding:16px 20px;
+           font-size:19px;line-height:1.7;font-style:italic;margin-bottom:14px;}
+
+  .tarea{background:#fff;border:2px solid var(--bd);border-radius:10px;
+         padding:13px 18px;margin-bottom:10px;font-size:18px;transition:all .15s;
+         display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
+  .tarea-txt{flex:1 1 240px;}
+  .tarea-btns{display:flex;gap:8px;}
+  .tbtn{background:#fff;border:2px solid var(--bd);border-radius:8px;padding:8px 12px;
+        font-size:16px;cursor:pointer;font-family:inherit;color:var(--txt);white-space:nowrap;}
+  .tbtn:hover:enabled{border-color:var(--vio);}
+  .tbtn:disabled{cursor:default;opacity:.55;}
+  .tbtn.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;opacity:1;}
+  .tbtn.mal{background:#FFEBEE;border-color:#C0392B;color:#8B1A1A;opacity:1;}
+  .tarea.resuelta{background:#F7FBF9;border-color:#1F6E5C;}
+  .tarea-fb{flex:1 1 100%;font-size:16px;}
+  .btn-op{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px 20px;
+          margin:6px 8px 6px 0;font-size:18px;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .btn-op:hover{border-color:var(--p1);}
+  .btn-op.ok{background:#E8F4F0;border-color:var(--p1);}
+  .btn-op.mal{background:#FFEBEE;border-color:var(--rojo);}
+  .parte{display:inline-block;background:#1E1E1E;color:#DCDCAA;border:2px solid #444;
+         border-radius:8px;padding:8px 14px;margin:5px 4px;cursor:pointer;
+         font-family:Consolas,monospace;font-size:20px;}
+  .parte:hover{border-color:#DCDCAA;}
+  .parte.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .parte.mal{background:#5C1F1F;border-color:#C62828;}
+
+  /* Cuestionario de cierre */
+  .cq-op{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);
+         border-radius:10px;padding:13px 18px;margin-bottom:9px;font-size:18px;cursor:pointer;
+         font-family:inherit;color:var(--txt);line-height:1.5;}
+  .cq-op:hover:enabled{border-color:var(--vio);background:#FAF7FF;}
+  .cq-op:disabled{cursor:default;opacity:.95;}
+  .cq-vf{display:inline-block;width:48%;text-align:center;font-size:20px;font-weight:bold;
+         padding:16px;margin:0 1% 10px;border:2px solid var(--bd);border-radius:10px;
+         background:#fff;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .cq-vf:hover:enabled{border-color:var(--vio);}
+  .cq-vf:disabled{cursor:default;opacity:.95;}
+  .cq-barra{height:14px;background:#E8E8E8;border-radius:7px;overflow:hidden;margin:10px 0 4px;}
+  .cq-fill{height:100%;background:var(--vio);width:0;transition:width .3s;}
+</style>
+</head>
+<body>
+<header>
+  <h1>DEVOLUCIÓN — AMBIENTE ÓPTIMO</h1>
+  <p>Su planilla y su Colab, al viernes 16 &middot; Lunes 19 de octubre</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">&#11013; Volver al &Iacute;ndice</a>
+<style>
+  table.d{width:100%;border-collapse:collapse;font-size:15.5px;margin:12px 0;}
+  table.d th{background:var(--nav);color:#fff;padding:9px 11px;text-align:left;font-size:13.5px;}
+  table.d td{border:1px solid var(--bd);padding:9px 11px;vertical-align:top;}
+  table.d td.n{font-weight:bold;white-space:nowrap;width:52px;text-align:center;}
+  tr.si td{background:#F0FAF7;}
+  tr.ac td{background:#FFF4E5;}
+  tr.no td{background:#FDECEA;}
+  .chk{background:var(--gris);border-radius:9px;padding:14px 18px;font-size:16.5px;line-height:2.1;}
+</style><style>table.d td{overflow-wrap:anywhere;} @media (max-width:640px){table.d{font-size:14.5px;} table.d td, table.d th{padding:7px 7px;}}</style>
+<div class="card c-json"><h2><span class="badge" style="background:var(--json)">0</span> LA NOTA HASTA AHORA</h2><p>Dos de las cuatro partes ya están. Las preguntas al grupo y a cada uno son hoy, y la nota parcial es el promedio de las cuatro.</p><table class="d"><tr><th>Parte</th><th>Nota</th></tr><tr><td><strong>📊 La tabla verificada</strong> (del grupo)</td><td><strong>6</strong></td></tr></table><p><strong>📓 El proceso</strong>: la planilla del grupo (4,5 de 6, pesa 4) y la bitácora de cada uno (pesa 6).</p><table class="d"><tr><th>Estudiante</th><th>Bitácora</th><th>Proceso</th></tr><tr><td>Karla Orquera</td><td>6 de 6</td><td><strong>9</strong></td></tr><tr><td>Carolyn Copa</td><td>6 de 6</td><td><strong>9</strong></td></tr><tr><td>Alexis Romero</td><td>4,5 de 6</td><td><strong>7,5</strong></td></tr><tr><td>Facundo Corbalán</td><td>6 de 6</td><td><strong>9</strong></td></tr></table><div class="info i-amb"><strong>Es provisoria</strong>El día que alguien faltó sin justificar no cuenta en la bitácora: si hubo faltas, el proceso de esa persona baja.</div></div>
+<div class="card c-info"><h2><span class="badge" style="background:var(--teal)">1</span> LO QUE ESTÁ BIEN</h2><ul><li>El extractor anduvo con sus 9 textos.</li><li>Muy buen system prompt en el Colab, con ejemplo resuelto y qué hacer si falta un dato.</li><li>Cada fila con su fuente.</li></ul></div>
+<div class="card c-rojo"><h2><span class="badge" style="background:var(--rojo)">2</span> LO QUE HAY QUE ARREGLAR</h2><p>Lo miré en su planilla y en su Colab. Arréglenlo antes de seguir con el agente: el agente decide con esta tabla.</p><table class="d"><tr><th>Qué</th><th>Dónde</th><th>Qué hacer</th></tr><tr><td><strong>Fila N° 1 (BID)</strong></td><td>Tabla de datos</td><td>El texto dice que lo óptimo es menos de 22 °C. 30 a 20 es una baja de temperatura, no un rango. Queda máxima 22 y mínima vacía.</td></tr><tr><td><strong>Fila N° 9 (Foro Nergiza)</strong></td><td>Tabla de datos</td><td>Es lo que le pasa a una persona en su casa, no una recomendación. Sáquenla.</td></tr><tr><td><strong>La fila de IDAE</strong></td><td>Colab, salida del bucle</td><td>Salió toda en None y la completaron a mano. Anótenlo en Clase a clase como fallido.</td></tr><tr><td><strong>Verificó 1 y 2</strong></td><td>Tabla de datos</td><td>Hay un solo nombre en toda la tabla. Van dos nombres por fila.</td></tr><tr><td><strong>La línea campos</strong></td><td>Colab, la celda que empieza con import csv</td><td>Tiene los campos de VitalAir. Pongan los suyos: por eso su tabla.csv no sirve y no tienen hoja tabla.</td></tr><tr><td><strong>consultar_ia</strong></td><td>Colab, celda de la conexión</td><td>Recibe mensajes pero usa historial. Cambien "messages": historial por "messages": mensajes.</td></tr><tr><td><strong>Datos perdidos</strong></td><td>Tabla de datos</td><td>OCU quedó sin la noche y Ariston sin el invierno. Revisen esas dos filas contra su texto.</td></tr><tr><td><strong>Equipo y Textos fuente</strong></td><td>Planilla</td><td>El system prompt está vacío: peguen el del Colab. Campos dice otros nombres que la tabla. Iberdrola y Noticias Habitaclia no están con ese nombre ni con link, y el link de IDAE termina en .pdff.</td></tr><tr><td><strong>Clase a clase</strong></td><td>Planilla</td><td>Falta el 16/10.</td></tr></table></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--json)">3</span> PARA EL AGENTE</h2><ul><li>Cuando peguen la tabla en el bloque 6, borren la fila gris de ejemplo: dice aula de clase, 18 a 24 °C, y el agente la usaría como un dato.</li><li>Prueben las 14:30 y las 10:25. Si dice que el aula está bien, fíjense contra qué fila comparó.</li></ul></div>
+<div class="card c-info"><h2><span class="badge" style="background:var(--teal)">📓</span> Y CADA UNO</h2><p>Su bitácora al día: una entrada por clase. Si faltaron, lo escriben igual; si la falta no está justificada, ese día no suma.</p></div>
+</div>
+</body></html>
