@@ -67,33 +67,32 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--warn);outline-o
 // 10 postas en orden de recorrido. Alternan interés general (g) y lógica (l).
 // c = código del cartel · pista = adónde ir · a = índice de la opción correcta
 const P=[
- {c:"FARO27",   pista:"El aula de 7° TIC, donde empieza todo.",                        t:"g", q:"¿Cuál es el nombre verdadero de Wolverine?", ops:["Logan Howlett","James Howlett","Victor Creed","Scott Summers"], a:1},
+ {c:"FARO27",   pista:"El aula de 7° TIC, donde empieza todo.",                        t:"g", q:"¿Qué pueblo originario navegaba en canoa por el Canal Beagle?", ops:["Selk'nam","Yámana","Mapuche","Tehuelche"], a:1},
  {c:"LENGA84",  pista:"Donde se toma asistencia cada mañana.",                          t:"l", q:"3, 6, 12, 24, … ¿qué número sigue?", ops:["36","48","30","42"], a:1},
- {c:"CASTOR39", pista:"Donde viven las compus y un router que nunca duerme.",           t:"g", q:"¿En qué revista apareció Spider-Man por primera vez, en 1962?", ops:["Amazing Fantasy","Tales of Suspense","Action Comics","Strange Tales"], a:0},
- {c:"GLACIAR52",pista:"Sin esto no hay mate: donde se carga el agua.",                  t:"l", q:"Todos los kree son guerreros. Ronan es kree. ¿Qué es seguro?", ops:["Ronan es guerrero","Todos los guerreros son kree","Ronan no es guerrero","No se puede saber nada"], a:0},
- {c:"CANAL16",  pista:"Miles de datos sin enchufe: el lugar más silencioso.",           t:"g", q:"¿Quién fue el primer Flash, en 1940?", ops:["Barry Allen","Wally West","Bart Allen","Jay Garrick"], a:3},
+ {c:"CASTOR39", pista:"Donde viven las compus y un router que nunca duerme.",           t:"g", q:"¿En qué año se fundó Ushuaia?", ops:["1520","1884","1910","1955"], a:1},
+ {c:"GLACIAR52",pista:"Sin esto no hay mate: donde se carga el agua.",                  t:"l", q:"Todos los trajes tienen filtro. Lo que tiene Tomás es un traje. ¿Qué es seguro?", ops:["El de Tomás tiene filtro","Todo lo que tiene filtro es un traje","El de Tomás no tiene filtro","No se puede saber nada"], a:0},
+ {c:"CANAL16",  pista:"Miles de datos sin enchufe: el lugar más silencioso.",           t:"g", q:"¿Qué animal trajeron a Tierra del Fuego en 1946 y terminó siendo una plaga?", ops:["El conejo","El zorro gris","El castor","El ciervo"], a:2},
  {c:"PINGU73",  pista:"Ahí se cuelgan los avisos. Revisen la cartelera con linterna.",  t:"l", q:"En binario, ¿cuánto vale 1101?", ops:["11","12","13","1101"], a:2},
- {c:"ZORRO45",  pista:"Donde nos juntamos todos en los actos.",                         t:"g", q:"En las películas de Marvel, ¿dónde se forjó Mjolnir, el martillo de Thor?", ops:["Asgard","Nidavellir","Jotunheim","Xandar"], a:1},
- {c:"ORCA61",   pista:"Suban o bajen: la señal está en la escalera.",                   t:"l", q:"Hulk pesa más que Thor. Thor pesa más que Flash. ¿Quién es el más liviano?", ops:["Hulk","Thor","Flash","No se puede saber"], a:2},
- {c:"MARTIAL38",pista:"Donde se arreglan y se arman cosas: el taller.",                 t:"g", q:"¿Quién dibujó la historieta original de El Eternauta, en 1957?", ops:["Quino","Francisco Solano López","Alberto Breccia","Dante Quinterno"], a:1},
- {c:"ANDES90",  pista:"Última señal: la puerta de entrada de la escuela.",              t:"l", q:"5 robots arman 5 escudos en 5 minutos. ¿Cuánto tardan 100 robots en armar 100 escudos?", ops:["100 minutos","20 minutos","5 minutos","1 minuto"], a:2}
+ {c:"ZORRO45",  pista:"Donde nos juntamos todos en los actos.",                         t:"g", q:"¿Cómo se llama el faro del Canal Beagle que todos fotografían?", ops:["Les Eclaireurs","San Juan de Salvamento","Faro Martial","Cabo Vírgenes"], a:0},
+ {c:"ORCA61",   pista:"Suban o bajen: la señal está en la escalera.",                   t:"l", q:"Elba es más alta que Nahuel. Nahuel es más alto que Lucía. ¿Quién es la más baja?", ops:["Elba","Nahuel","Lucía","No se puede saber"], a:2},
+ {c:"MARTIAL38",pista:"Donde se arreglan y se arman cosas: el taller.",                 t:"g", q:"¿Cuál es el árbol más común del bosque fueguino?", ops:["El pehuén","La lenga","El sauce","El alerce"], a:1},
+ {c:"ANDES90",  pista:"Última señal: la puerta de entrada de la escuela.",              t:"l", q:"5 equipos arman 5 trajes en 5 minutos. ¿Cuánto tardan 100 equipos en armar 100 trajes?", ops:["100 minutos","20 minutos","5 minutos","1 minuto"], a:2}
 ];
-const PALABRA="MULTIVERSO"; // una letra por posta, en el orden del relato
+const PALABRA="COMPAÑEROS"; // una letra por posta, en el orden del relato
 // El relato avanza por cantidad de postas resueltas, no por lugar: todas las rutas viven la misma historia
-const INTRO="Ushuaia, viernes a la noche. Se corta la luz en la escuela. Afuera empieza a caer una nieve que brilla raro. Por la radio se escucha a Juan Salvo: esta nevada no es de este mundo, rompió el multiverso. Diez héroes de Marvel y DC quedaron atrapados en la escuela. Ustedes tienen los trajes. Libérenlos antes de que la nevada cubra todo.";
+const INTRO="Ushuaia, viernes a la noche. Se corta la luz en toda la ciudad. Empieza a nevar, pero los copos brillan. Un perro sale a la calle y no vuelve. Elba, la portera, prende su radio a pilas: nadie contesta. Ustedes están encerrados en la escuela. Con camperas, cinta, antiparras y barbijos arman trajes. Hay diez balizas viejas repartidas por el edificio. Si las encienden todas, la señal llega a Río Grande. Afuera, la nevada no para.";
 const RELATO=[
- "Wolverine sale del hielo sacudiéndose. A él la nevada no lo mata. A ustedes sí. Les dice que sigan.",
- "Batman aparece entre las sombras. Ya sabía que iban a venir. Les marca el camino con una linterna.",
- "Spider-Man cuelga del techo. Su sentido arácnido detecta otra señal cerca.",
- "Wonder Woman rompe el hielo con su lazo. El lazo no miente: el próximo está cerca.",
- "Hulk mira la nieve sin moverse. Por primera vez, no rompe nada. Les señala un pasillo.",
- "Flash pasa tan rápido que casi no lo ven. Les deja un aviso: la nevada avanza.",
- "Thor levanta el martillo. Un trueno ilumina el pasillo un segundo.",
- "Black Panther revisa los trajes. Tecnología fueguina, le gusta. Faltan pocos.",
- "Superman siente la nevada: no es de Krypton ni de la Tierra. Falta uno solo.",
- "Juan Salvo, el Eternauta, aparece en la puerta. Les recuerda que nadie se salva solo. La nevada se detiene."
+ "Encendieron la primera baliza. La radio de Elba hace un ruido. No es una voz, pero es algo.",
+ "Nahuel, de 5° año, aparece con una linterna. Estaba escondido en el baño. Se suma al grupo.",
+ "En la ventana, la nieve se acumula sin hacer ruido. Nadie toca el vidrio.",
+ "Elba les cuenta que su abuelo era radioaficionado. Le enseñó que una señal débil, repetida, igual llega.",
+ "Se escuchan pasos en el piso de arriba. Lentos. Demasiado ordenados para ser una persona.",
+ "La radio capta una voz desde Tolhuin: hay otros resistiendo. No están solos.",
+ "Lucía, la del buffet, trae termos con agua caliente. Sin calor no hay traje que aguante.",
+ "Los pasos de arriba se detienen. Alguien, o algo, está escuchando la señal.",
+ "Falta una sola baliza. La nieve ya tapa la mitad de la puerta de entrada.",
+ "La última baliza se enciende. Desde Río Grande contestan: la señal llegó. Solos no lo hubieran logrado."
 ];
-// 4 rutas: cada equipo arranca en otra posta del circuito y no se amontonan
 const SALIDA={A:0,B:3,C:5,D:8};
 const ESPERA=20, DANIO=10; // segundos de bloqueo y energía que se pierde al errar
 // =======================================================
@@ -131,7 +130,7 @@ function llegar(cod){
   if(f==="sin"){aviso="err:Falta escanear el QR de largada que les muestro.";return}
   if(f==="antes"){aviso="err:Todavía no arrancó. Esperen la largada.";return}
   if(f==="fin"){aviso="err:La nevada ya cubrió todo. Se terminó el tiempo.";return}
-  if(i!==actual()){const k=(i-SALIDA[st.ruta]+N)%N;aviso=k<st.paso?"ok:A este héroe ya lo liberaron.":"err:No es acá. Sigan la pista que tienen.";return}
+  if(i!==actual()){const k=(i-SALIDA[st.ruta]+N)%N;aviso=k<st.paso?"ok:Esta baliza ya la encendieron.":"err:No es acá. Sigan la pista que tienen.";return}
   if(!st.buscando){aviso="ok:Ya están en la posta. Resuelvan el desafío.";return}
   st.buscando=false; save(); aviso="new:¡Señal encontrada!";
 }
@@ -181,7 +180,7 @@ function render(){
   let h=`<div><div class="eyebrow">Pernocte · 7° TIC</div><h1>Misión <span>Nocturna</span></h1></div>`;
   if(!st.equipo){
     h+=`<div class="box"><p class="relato">${INTRO}</p></div>
-    <div class="box"><label for="eq">Nombre del equipo</label><input id="eq" autocomplete="off" placeholder="Ej: Los Eternautas">
+    <div class="box"><label for="eq">Nombre del equipo</label><input id="eq" autocomplete="off" placeholder="Ej: Los del Beagle">
     <label>Ruta (se las asigno yo)</label><div class="rutas">${Object.keys(SALIDA).map(r=>`<button class="alt" data-r="${r}">${r}</button>`).join("")}</div>
     <button id="go">Ponerse el traje</button>${aviso?`<div class="msg err">${aviso.slice(4)}</div>`:""}</div>
     ${cajaLargada()}
@@ -204,7 +203,7 @@ function render(){
 
   if(st.fin){
     h+=`<div class="box found"><div class="eyebrow">Misión cumplida · ${mmss(st.fin-cfg.t)}</div><p class="relato">${RELATO[N-1]}</p>
-    <p>Liberaron a los ${N} héroes. Estas son sus letras, mezcladas:</p><div class="letras">${mezcla().map(l=>`<div class="letra">${l}</div>`).join("")}</div>
+    <p>Encendieron las ${N} balizas. Estas son sus letras, mezcladas:</p><div class="letras">${mezcla().map(l=>`<div class="letra">${l}</div>`).join("")}</div>
     <p class="small">Ordénenlas para formar la palabra secreta y vengan a decírmela.</p></div>`;
   } else if(f==="sin"){
     h+=`<div class="box"><p>Escaneen el QR de largada que les muestro o escriban el código que está debajo.</p></div>`+cajaLargada();
@@ -212,16 +211,16 @@ function render(){
     h+=`<div class="box"><p class="relato">${INTRO}</p><p>La largada es a las <b>${horaLargada()}</b>. Ahí aparece la primera pista.</p></div>`+cajaLargada();
   } else if(f==="fin"){
     h+=`<div class="box found"><div class="eyebrow">Tiempo cumplido</div><p class="relato">La nevada cubrió la escuela.</p>
-    <p>Liberaron a ${st.paso} de ${N} héroes. Traje al ${st.energia}%.</p>
+    <p>Encendieron ${st.paso} de ${N} balizas. Traje al ${st.energia}%.</p>
     ${st.paso?`<div class="letras">${mezcla().map(l=>`<div class="letra">${l}</div>`).join("")}</div>`:""}
-    <p class="small">Vengan con esta pantalla. Gana quien liberó más héroes; si empatan, quien tenga más traje.</p></div>`;
+    <p class="small">Vengan con esta pantalla. Gana quien encendió más balizas; si empatan, quien tenga más traje.</p></div>`;
   } else if(!st.buscando){
     const p=P[actual()];
     h+=`<div class="box ${llegada?"found":""}"><span class="tipo ${p.t==="l"?"logica":""}">${p.t==="l"?"Desafío lógico":"Interés general"} · posta ${st.paso+1}</span>
     <p>${esc(p.q)}</p><div class="ops">${p.ops.map((o,k)=>`<button class="alt" data-o="${k}">${esc(o)}</button>`).join("")}</div><div id="lock" class="small"></div></div>`;
   } else {
     const p=P[actual()];
-    h+=`<div class="box"><p class="relato">${st.paso?RELATO[st.paso-1]:"Arrancamos. El primer héroe está cerca."}</p></div>
+    h+=`<div class="box"><p class="relato">${st.paso?RELATO[st.paso-1]:"Arrancamos. La primera baliza está cerca."}</p></div>
     <div class="box"><div class="eyebrow">Pista ${st.paso+1} de ${N}</div><p>${esc(p.pista)}</p></div>
     <div class="box"><label for="cod">¿No anda el QR? Código del cartel</label><div class="row"><input id="cod" autocomplete="off"><button id="ir">Marcar</button></div></div>`;
     if(st.paso)h+=`<div><div class="eyebrow">Letras</div><div class="letras">${letras().map(l=>`<div class="letra">${l}</div>`).join("")}</div></div>`;
