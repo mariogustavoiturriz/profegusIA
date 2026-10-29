@@ -1,0 +1,266 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"></head><body>
+<title>Misión Nocturna 7° TIC</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+/* Pantalla de traje: oscura, letra grande, se lee con poca luz. Nieve suave de fondo (la nevada) */
+:root{
+  --bg:#05080e; --panel:#0d1520; --line:#1f2d42; --fg:#e8eef6; --dim:#8a9bb3;
+  --signal:#5cf2c4; --warn:#ffb347; --snow:#cfe3ff;
+  --display:"Chakra Petch",system-ui,sans-serif; --body:"Atkinson Hyperlegible",system-ui,sans-serif;
+  color-scheme:dark;
+}
+html,body{background:var(--bg);color:var(--fg)}
+body{font-family:var(--body);font-size:18px;line-height:1.5;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 40px}
+#nieve{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.35}
+main{position:relative;z-index:1;max-width:560px;margin:0 auto;display:grid;gap:16px}
+h1{font-family:var(--display);font-size:1.7rem;margin:0;letter-spacing:.02em}
+h1 span{color:var(--signal)}
+.eyebrow{font-family:var(--display);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.hud{display:grid;grid-template-columns:1fr auto;gap:8px 14px;align-items:center}
+.radar{display:flex;gap:5px}
+.dot{flex:1;height:14px;border-radius:4px;border:1px solid var(--line);max-width:30px}
+.dot.ok{background:var(--signal);border-color:var(--signal);box-shadow:0 0 8px var(--signal)}
+.energia{grid-column:1/-1;display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:.85rem;color:var(--dim)}
+.barra{flex:1;height:10px;border-radius:5px;background:var(--line);overflow:hidden}
+.barra i{display:block;height:100%;background:var(--signal);transition:width .4s}
+.barra.baja i{background:var(--warn)}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:12px}
+.box p{margin:0;font-size:1.15rem}
+.relato{border-left:3px solid var(--snow);padding-left:14px;font-style:italic;color:var(--snow)}
+.found{border-color:var(--signal)}
+.tipo{display:inline-block;font-family:var(--display);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:6px;border:1px solid var(--line);color:var(--dim);justify-self:start}
+.tipo.logica{border-color:var(--warn);color:var(--warn)}
+.msg{font-family:var(--display);font-size:1.05rem;color:var(--signal)}
+.err{color:var(--warn)}
+label{font-family:var(--display);color:var(--dim);font-size:.9rem}
+input{width:100%;box-sizing:border-box;font:inherit;font-size:1.2rem;padding:13px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--fg)}
+#cod{text-transform:uppercase}
+button{font-family:var(--display);font-size:1.05rem;font-weight:700;padding:13px 16px;border-radius:10px;border:0;background:var(--signal);color:var(--bg);cursor:pointer}
+button.alt{background:transparent;color:var(--fg);border:2px solid var(--line)}
+button.sel{border-color:var(--signal);color:var(--signal)}
+button.ghost{background:transparent;color:var(--dim);border:1px solid var(--line);font-size:.85rem;padding:9px}
+button:disabled{opacity:.4;cursor:not-allowed}
+button:focus-visible,input:focus-visible{outline:3px solid var(--warn);outline-offset:2px}
+.row{display:flex;gap:10px}.row>*{flex:1;min-width:0}.row>button{flex:0 0 auto}
+.rutas{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ops{display:grid;gap:10px}.ops button{text-align:left}
+.letras{display:flex;gap:6px;flex-wrap:wrap}
+.letra{width:38px;height:46px;display:grid;place-items:center;font-family:var(--display);font-size:1.4rem;font-weight:700;border:2px solid var(--signal);border-radius:8px;color:var(--signal)}
+.reloj{font-family:var(--display);font-weight:700;font-size:1.9rem;font-variant-numeric:tabular-nums;color:var(--signal);text-align:right}
+.reloj.poco{color:var(--warn)}
+.gigante{font-size:min(22vw,7rem);text-align:center}
+#qr{background:#fff;padding:14px;border-radius:12px;justify-self:center}
+.small{color:var(--dim);font-size:.95rem}
+.cartel{display:none}
+@media print{body{background:#fff!important}#nieve,main>*:not(#carteles){display:none!important}
+ .cartel{display:flex;flex-direction:column;align-items:center;gap:16px;page-break-after:always;color:#000;font-family:var(--display);padding-top:36px}
+ .cartel h2{font-size:38px;margin:0}.cartel b{font-size:52px;font-family:monospace}.cartel p{font-size:18px;margin:0}}
+@media (prefers-reduced-motion:reduce){#nieve{display:none}}
+@media (prefers-reduced-motion:no-preference){.found{animation:p 1.1s ease-out 2}@keyframes p{50%{box-shadow:0 0 28px var(--signal)}}}
+</style>
+<canvas id="nieve" aria-hidden="true"></canvas>
+<main id="app"></main>
+<script>
+// ===================== PARA EDITAR =====================
+// 10 postas en orden de recorrido. Alternan interés general (g) y lógica (l).
+// c = código del cartel · pista = adónde ir · a = índice de la opción correcta
+const P=[
+ {c:"FARO27",   pista:"El aula de 7° TIC, donde empieza todo.",                        t:"g", q:"¿Cuál es el nombre verdadero de Wolverine?", ops:["Logan Howlett","James Howlett","Victor Creed","Scott Summers"], a:1},
+ {c:"LENGA84",  pista:"Donde se toma asistencia cada mañana.",                          t:"l", q:"3, 6, 12, 24, … ¿qué número sigue?", ops:["36","48","30","42"], a:1},
+ {c:"CASTOR39", pista:"Donde viven las compus y un router que nunca duerme.",           t:"g", q:"¿En qué revista apareció Spider-Man por primera vez, en 1962?", ops:["Amazing Fantasy","Tales of Suspense","Action Comics","Strange Tales"], a:0},
+ {c:"GLACIAR52",pista:"Sin esto no hay mate: donde se carga el agua.",                  t:"l", q:"Todos los kree son guerreros. Ronan es kree. ¿Qué es seguro?", ops:["Ronan es guerrero","Todos los guerreros son kree","Ronan no es guerrero","No se puede saber nada"], a:0},
+ {c:"CANAL16",  pista:"Miles de datos sin enchufe: el lugar más silencioso.",           t:"g", q:"¿Quién fue el primer Flash, en 1940?", ops:["Barry Allen","Wally West","Bart Allen","Jay Garrick"], a:3},
+ {c:"PINGU73",  pista:"Ahí se cuelgan los avisos. Revisen la cartelera con linterna.",  t:"l", q:"En binario, ¿cuánto vale 1101?", ops:["11","12","13","1101"], a:2},
+ {c:"ZORRO45",  pista:"Donde nos juntamos todos en los actos.",                         t:"g", q:"En las películas de Marvel, ¿dónde se forjó Mjolnir, el martillo de Thor?", ops:["Asgard","Nidavellir","Jotunheim","Xandar"], a:1},
+ {c:"ORCA61",   pista:"Suban o bajen: la señal está en la escalera.",                   t:"l", q:"Hulk pesa más que Thor. Thor pesa más que Flash. ¿Quién es el más liviano?", ops:["Hulk","Thor","Flash","No se puede saber"], a:2},
+ {c:"MARTIAL38",pista:"Donde se arreglan y se arman cosas: el taller.",                 t:"g", q:"¿Quién dibujó la historieta original de El Eternauta, en 1957?", ops:["Quino","Francisco Solano López","Alberto Breccia","Dante Quinterno"], a:1},
+ {c:"ANDES90",  pista:"Última señal: la puerta de entrada de la escuela.",              t:"l", q:"5 robots arman 5 escudos en 5 minutos. ¿Cuánto tardan 100 robots en armar 100 escudos?", ops:["100 minutos","20 minutos","5 minutos","1 minuto"], a:2}
+];
+const PALABRA="MULTIVERSO"; // una letra por posta, en el orden del relato
+// El relato avanza por cantidad de postas resueltas, no por lugar: todas las rutas viven la misma historia
+const INTRO="Ushuaia, viernes a la noche. Se corta la luz en la escuela. Afuera empieza a caer una nieve que brilla raro. Por la radio se escucha a Juan Salvo: esta nevada no es de este mundo, rompió el multiverso. Diez héroes de Marvel y DC quedaron atrapados en la escuela. Ustedes tienen los trajes. Libérenlos antes de que la nevada cubra todo.";
+const RELATO=[
+ "Wolverine sale del hielo sacudiéndose. A él la nevada no lo mata. A ustedes sí. Les dice que sigan.",
+ "Batman aparece entre las sombras. Ya sabía que iban a venir. Les marca el camino con una linterna.",
+ "Spider-Man cuelga del techo. Su sentido arácnido detecta otra señal cerca.",
+ "Wonder Woman rompe el hielo con su lazo. El lazo no miente: el próximo está cerca.",
+ "Hulk mira la nieve sin moverse. Por primera vez, no rompe nada. Les señala un pasillo.",
+ "Flash pasa tan rápido que casi no lo ven. Les deja un aviso: la nevada avanza.",
+ "Thor levanta el martillo. Un trueno ilumina el pasillo un segundo.",
+ "Black Panther revisa los trajes. Tecnología fueguina, le gusta. Faltan pocos.",
+ "Superman siente la nevada: no es de Krypton ni de la Tierra. Falta uno solo.",
+ "Juan Salvo, el Eternauta, aparece en la puerta. Les recuerda que nadie se salva solo. La nevada se detiene."
+];
+// 4 rutas: cada equipo arranca en otra posta del circuito y no se amontonan
+const SALIDA={A:0,B:3,C:5,D:8};
+const ESPERA=20, DANIO=10; // segundos de bloqueo y energía que se pierde al errar
+// =======================================================
+
+const N=P.length, K="mision7v3", KC="mision7cfg";
+const nuevo=()=>({equipo:"",ruta:"",paso:0,buscando:true,energia:100,lock:0,fin:null});
+let st=nuevo(); try{st=Object.assign(nuevo(),JSON.parse(localStorage.getItem(K))||{})}catch(e){}
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}};
+let cfg=null; try{cfg=JSON.parse(localStorage.getItem(KC))}catch(e){}
+(function(){const q=new URLSearchParams(location.search);const t=+q.get("t"),m=+q.get("m");
+  if(t&&m){cfg={t,m};try{localStorage.setItem(KC,JSON.stringify(cfg))}catch(e){}
+    history.replaceState(null,"",location.pathname+location.hash)}})();
+const app=document.getElementById("app");
+const esc=s=>String(s).replace(/[&<>]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m]));
+const norm=s=>s.trim().toUpperCase().replace(/\s+/g,"");
+const two=n=>String(n).padStart(2,"0");
+let aviso="";
+
+const posta=k=>(SALIDA[st.ruta]+k)%N;          // posta que toca en el paso k
+const actual=()=>posta(st.paso);
+const letras=()=>PALABRA.slice(0,st.paso).split("");
+function fase(){if(!cfg)return"sin";const now=Date.now();if(now<cfg.t)return"antes";if(now<cfg.t+cfg.m*60000)return"jugando";return"fin"}
+function mmss(ms){const s=Math.max(0,Math.ceil(ms/1000));const h=Math.floor(s/3600);return (h?h+":"+two(Math.floor(s/60)%60):two(Math.floor(s/60)))+":"+two(s%60)}
+const horaLargada=()=>{const t=new Date(cfg.t);return two(t.getHours())+":"+two(t.getMinutes())};
+function textoReloj(){const f=fase();if(f==="antes")return mmss(cfg.t-Date.now());if(f==="jugando")return mmss(cfg.t+cfg.m*60000-Date.now());return f==="fin"?"00:00":""}
+
+// Llegada a una posta: por QR (#CODIGO) o escribiendo el código del cartel
+function llegar(cod){
+  cod=norm(cod); if(!cod)return;
+  const i=P.findIndex(p=>p.c===cod);
+  if(i<0){aviso="err:Ese código no es de la misión.";return}
+  if(!st.equipo){aviso="err:Primero anoten el equipo y la ruta.";return}
+  if(st.fin)return;
+  const f=fase();
+  if(f==="sin"){aviso="err:Falta escanear el QR de largada que les muestro.";return}
+  if(f==="antes"){aviso="err:Todavía no arrancó. Esperen la largada.";return}
+  if(f==="fin"){aviso="err:La nevada ya cubrió todo. Se terminó el tiempo.";return}
+  if(i!==actual()){const k=(i-SALIDA[st.ruta]+N)%N;aviso=k<st.paso?"ok:A este héroe ya lo liberaron.":"err:No es acá. Sigan la pista que tienen.";return}
+  if(!st.buscando){aviso="ok:Ya están en la posta. Resuelvan el desafío.";return}
+  st.buscando=false; save(); aviso="new:¡Señal encontrada!";
+}
+// Código de largada escrito a mano: HHMM-minutos (ej. 2230-30)
+function largadaManual(txt){const m=String(txt).replace(/\s/g,"").match(/^(\d{1,2}):?(\d{2})-(\d{1,3})$/);if(!m)return false;
+  const t=new Date();t.setHours(+m[1],+m[2],0,0);if(t.getTime()<Date.now()-3600000)t.setDate(t.getDate()+1);
+  cfg={t:t.getTime(),m:+m[3]};try{localStorage.setItem(KC,JSON.stringify(cfg))}catch(e){}ultima=fase();return true}
+const cajaLargada=()=>`<div class="box"><label for="larg">${cfg?"¿Cambió la largada? Código nuevo":"Código de largada (está debajo del QR)"}</label><div class="row"><input id="larg" inputmode="numeric" placeholder="Ej: 2230-30" autocomplete="off"><button id="oklarg">Listo</button></div></div>`;
+function leerHash(){const h=location.hash.slice(1);if(h&&h!=="profe"){llegar(h);history.replaceState(null,"",location.pathname+location.search)}}
+
+// ---------- Panel docente (#profe) ----------
+function panel(){
+  const d=new Date(Date.now()+5*60000);
+  const hh=two(d.getHours())+":"+two(d.getMinutes());
+  app.innerHTML=`<div><div class="eyebrow">Panel docente</div><h1>Largada de la <span>misión</span></h1></div>
+  <div class="box"><div class="row"><div><label for="hora">Hora de largada</label><input id="hora" type="time" value="${hh}"></div>
+  <div><label for="min">Minutos</label><input id="min" type="number" min="1" max="180" value="${cfg?cfg.m:30}"></div></div>
+  <button id="gen">Generar QR de largada</button></div>
+  <div class="box" id="salida" hidden><div id="qr"></div><p class="small" style="text-align:center">Cada equipo escanea este QR antes de la largada.</p>
+  <p style="text-align:center">Código de largada: <b id="clarg" style="font-family:var(--display);font-size:1.6rem;color:var(--signal)"></b></p>
+  <div class="reloj gigante" id="reloj"></div><div class="small" id="lfin" style="text-align:center"></div>
+  <button class="alt" id="probar">Probar como equipo en este celu</button></div>
+  <div class="box"><div class="eyebrow">Respuestas</div>${P.map((p,i)=>`<div class="small">${i+1}. ${p.c} · ${esc(p.ops[p.a])}</div>`).join("")}<div class="small">Palabra: ${PALABRA}</div></div>
+  <button class="alt" id="cart">Carteles de las postas para imprimir</button><div id="carteles"></div>`;
+  const gen=()=>{const [H,M]=document.getElementById("hora").value.split(":").map(Number);const m=+document.getElementById("min").value||30;
+    const t=new Date();t.setHours(H,M,0,0);if(t.getTime()<Date.now()-3600000)t.setDate(t.getDate()+1);
+    cfg={t:t.getTime(),m};try{localStorage.setItem(KC,JSON.stringify(cfg))}catch(e){}
+    const url=location.origin+location.pathname+"?t="+cfg.t+"&m="+m;
+    const q=document.getElementById("qr");q.innerHTML="";
+    if(window.QRCode)new QRCode(q,{text:url,width:260,height:260,correctLevel:QRCode.CorrectLevel.M});else q.textContent=url;
+    const fin=new Date(cfg.t+m*60000);
+    document.getElementById("lfin").textContent="Arranca a las "+two(t.getHours())+":"+two(t.getMinutes())+" · termina a las "+two(fin.getHours())+":"+two(fin.getMinutes());
+    document.getElementById("clarg").textContent=two(t.getHours())+two(t.getMinutes())+"-"+m;
+    document.getElementById("salida").hidden=false};
+  document.getElementById("gen").onclick=gen;
+  document.getElementById("probar").onclick=()=>{history.replaceState(null,"",location.pathname);render()};
+  document.getElementById("cart").onclick=()=>{const c=document.getElementById("carteles");c.innerHTML="";
+    P.forEach(p=>{const d=document.createElement("div");d.className="cartel";d.innerHTML=`<h2>SEÑAL DETECTADA</h2><div class="q"></div><p>Escaneá con la cámara o escribí este código:</p><b>${p.c}</b>`;c.appendChild(d);
+      if(window.QRCode)new QRCode(d.querySelector(".q"),{text:location.origin+location.pathname+"#"+p.c,width:380,height:380,correctLevel:QRCode.CorrectLevel.H})});
+    setTimeout(()=>{try{window.print()}catch(e){}},400)};
+  if(cfg&&fase()!=="fin"){const t=new Date(cfg.t);document.getElementById("hora").value=two(t.getHours())+":"+two(t.getMinutes());gen()}
+}
+
+// ---------- Juego ----------
+function render(){
+  if(location.hash==="#profe"){panel();return}
+  let h=`<div><div class="eyebrow">Pernocte · 7° TIC</div><h1>Misión <span>Nocturna</span></h1></div>`;
+  if(!st.equipo){
+    h+=`<div class="box"><p class="relato">${INTRO}</p></div>
+    <div class="box"><label for="eq">Nombre del equipo</label><input id="eq" autocomplete="off" placeholder="Ej: Los Eternautas">
+    <label>Ruta (se las asigno yo)</label><div class="rutas">${Object.keys(SALIDA).map(r=>`<button class="alt" data-r="${r}">${r}</button>`).join("")}</div>
+    <button id="go">Ponerse el traje</button>${aviso?`<div class="msg err">${aviso.slice(4)}</div>`:""}</div>
+    ${cajaLargada()}
+    <p class="small">${cfg?(fase()==="antes"?"Largada a las "+horaLargada()+".":"Largada lista."):"Antes de largar, escaneen el QR de largada que les muestro."} En cada posta hay un cartel con un QR: lo escanean o escriben el código que tiene abajo.</p>`;
+    app.innerHTML=h; aviso="";
+    const lg=document.getElementById("larg");
+    if(lg){const go=()=>{if(largadaManual(lg.value))render();else{aviso="err:Ese código de largada no es válido.";render()}};document.getElementById("oklarg").onclick=go;lg.onkeydown=e=>{if(e.key==="Enter")go()}}
+    let ruta=""; app.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{ruta=b.dataset.r;app.querySelectorAll("[data-r]").forEach(x=>x.classList.toggle("sel",x===b))});
+    document.getElementById("go").onclick=()=>{const v=document.getElementById("eq").value.trim();if(!v||!ruta){aviso="err:Falta el nombre o la ruta.";render();return}
+      Object.assign(st,nuevo(),{equipo:v,ruta});save();render()};
+    return;
+  }
+  const f=fase();
+  h+=`<div class="hud"><div><div class="eyebrow">${esc(st.equipo)} · Ruta ${st.ruta}</div>
+    <div class="radar" aria-label="${st.paso} de ${N} postas">${P.map((_,k)=>`<div class="dot ${k<st.paso?"ok":""}"></div>`).join("")}</div></div>
+    <div class="reloj" id="reloj">${textoReloj()}</div>
+    <div class="energia">Traje <div class="barra ${st.energia<=30?"baja":""}"><i style="width:${st.energia}%"></i></div>${st.energia}%</div></div>`;
+  if(aviso){const t=aviso.slice(0,3),m=aviso.slice(4);if(m)h+=`<div class="msg ${t==="err"?"err":""}">${m}</div>`}
+  const llegada=aviso.startsWith("new"); aviso="";
+
+  if(st.fin){
+    h+=`<div class="box found"><div class="eyebrow">Misión cumplida · ${mmss(st.fin-cfg.t)}</div><p class="relato">${RELATO[N-1]}</p>
+    <p>Liberaron a los ${N} héroes. Estas son sus letras, mezcladas:</p><div class="letras">${mezcla().map(l=>`<div class="letra">${l}</div>`).join("")}</div>
+    <p class="small">Ordénenlas para formar la palabra secreta y vengan a decírmela.</p></div>`;
+  } else if(f==="sin"){
+    h+=`<div class="box"><p>Escaneen el QR de largada que les muestro o escriban el código que está debajo.</p></div>`+cajaLargada();
+  } else if(f==="antes"){
+    h+=`<div class="box"><p class="relato">${INTRO}</p><p>La largada es a las <b>${horaLargada()}</b>. Ahí aparece la primera pista.</p></div>`+cajaLargada();
+  } else if(f==="fin"){
+    h+=`<div class="box found"><div class="eyebrow">Tiempo cumplido</div><p class="relato">La nevada cubrió la escuela.</p>
+    <p>Liberaron a ${st.paso} de ${N} héroes. Traje al ${st.energia}%.</p>
+    ${st.paso?`<div class="letras">${mezcla().map(l=>`<div class="letra">${l}</div>`).join("")}</div>`:""}
+    <p class="small">Vengan con esta pantalla. Gana quien liberó más héroes; si empatan, quien tenga más traje.</p></div>`;
+  } else if(!st.buscando){
+    const p=P[actual()];
+    h+=`<div class="box ${llegada?"found":""}"><span class="tipo ${p.t==="l"?"logica":""}">${p.t==="l"?"Desafío lógico":"Interés general"} · posta ${st.paso+1}</span>
+    <p>${esc(p.q)}</p><div class="ops">${p.ops.map((o,k)=>`<button class="alt" data-o="${k}">${esc(o)}</button>`).join("")}</div><div id="lock" class="small"></div></div>`;
+  } else {
+    const p=P[actual()];
+    h+=`<div class="box"><p class="relato">${st.paso?RELATO[st.paso-1]:"Arrancamos. El primer héroe está cerca."}</p></div>
+    <div class="box"><div class="eyebrow">Pista ${st.paso+1} de ${N}</div><p>${esc(p.pista)}</p></div>
+    <div class="box"><label for="cod">¿No anda el QR? Código del cartel</label><div class="row"><input id="cod" autocomplete="off"><button id="ir">Marcar</button></div></div>`;
+    if(st.paso)h+=`<div><div class="eyebrow">Letras</div><div class="letras">${letras().map(l=>`<div class="letra">${l}</div>`).join("")}</div></div>`;
+  }
+  h+=`<button class="ghost" id="rs">Reiniciar (solo si lo indico yo)</button>`;
+  app.innerHTML=h;
+
+  const ops=app.querySelectorAll("[data-o]");
+  const bloquear=()=>{const L=document.getElementById("lock");if(!L)return;const left=Math.ceil((st.lock-Date.now())/1000);
+    if(left>0){ops.forEach(b=>b.disabled=true);L.textContent="Respuesta equivocada: el traje perdió energía. Esperen "+left+" s.";setTimeout(bloquear,500)}
+    else{ops.forEach(b=>b.disabled=false);L.textContent=""}};
+  ops.forEach(b=>b.onclick=()=>{if(fase()!=="jugando"){render();return}
+    const p=P[actual()];
+    if(+b.dataset.o===p.a){st.paso++;st.buscando=true;if(st.paso===N)st.fin=Date.now();save();aviso="ok:¡Correcto! Ganaron la letra "+PALABRA[st.paso-1];render()}
+    else{st.energia=Math.max(0,st.energia-DANIO);st.lock=Date.now()+ESPERA*1000;save();render()}});
+  if(ops.length)bloquear();
+  const larg=document.getElementById("larg");
+  if(larg){const go=()=>{if(largadaManual(larg.value)){aviso="ok:Largada cargada."}else{aviso="err:Ese código no es válido. Es la hora y los minutos, por ejemplo 2230-30."}render()};document.getElementById("oklarg").onclick=go;larg.onkeydown=e=>{if(e.key==="Enter")go()}}
+  const cod=document.getElementById("cod");
+  if(cod){const go=()=>{llegar(cod.value);render()};document.getElementById("ir").onclick=go;cod.onkeydown=e=>{if(e.key==="Enter")go()}}
+  document.getElementById("rs").onclick=function(){if(this.dataset.c){st=nuevo();save();render()}else{this.dataset.c=1;this.textContent="Tocá de nuevo para confirmar"}};
+}
+// Letras mezcladas siempre igual para cada equipo (no cambian al recargar)
+function mezcla(){const a=letras();let s=0;for(const ch of st.equipo)s=(s*31+ch.charCodeAt(0))>>>0;
+  for(let i=a.length-1;i>0;i--){s=(s*1103515245+12345)>>>0;const j=s%(i+1);[a[i],a[j]]=[a[j],a[i]]}return a}
+
+let ultima=fase();
+setInterval(()=>{const f=fase();
+  if(f!==ultima){ultima=f;if(location.hash!=="#profe")render()}
+  const r=document.getElementById("reloj");if(r){r.textContent=textoReloj();r.classList.toggle("poco",f==="jugando"&&cfg.t+cfg.m*60000-Date.now()<120000)}},500);
+addEventListener("hashchange",()=>{leerHash();render()});
+leerHash();render();
+
+// Nevada de fondo
+(function(){const c=document.getElementById("nieve");if(!c.getContext||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const x=c.getContext("2d");let W,H,F=[];const rs=()=>{W=c.width=innerWidth;H=c.height=innerHeight};rs();addEventListener("resize",rs);
+  for(let i=0;i<60;i++)F.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*2+.6,v:Math.random()*.5+.2});
+  const col=getComputedStyle(document.documentElement).getPropertyValue("--snow").trim()||"#cfe3ff";
+  (function loop(){x.clearRect(0,0,W,H);x.fillStyle=col;F.forEach(f=>{f.y+=f.v;f.x+=Math.sin(f.y/40)*.3;if(f.y>H){f.y=-5;f.x=Math.random()*W}x.beginPath();x.arc(f.x,f.y,f.r,0,7);x.fill()});requestAnimationFrame(loop)})()})();
+</script>
+
+</body></html>
