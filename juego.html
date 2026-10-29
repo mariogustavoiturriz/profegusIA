@@ -121,8 +121,11 @@ const nuevo=()=>({equipo:"",ruta:"",paso:0,buscando:true,energia:100,lock:0,fin:
 let st=nuevo(); try{st=Object.assign(nuevo(),JSON.parse(localStorage.getItem(K))||{})}catch(e){}
 const save=()=>{try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}};
 let cfg=null; try{cfg=JSON.parse(localStorage.getItem(KC))}catch(e){}
+function ponerLargada(c){
+  if(!cfg||cfg.t!==c.t||cfg.m!==c.m){const {equipo,ruta}=st;st=Object.assign(nuevo(),{equipo,ruta});save()}
+  cfg=c;try{localStorage.setItem(KC,JSON.stringify(cfg))}catch(e){}}
 (function(){const q=new URLSearchParams(location.search);const t=+q.get("t"),m=+q.get("m");
-  if(t&&m){cfg={t,m};try{localStorage.setItem(KC,JSON.stringify(cfg))}catch(e){}
+  if(t&&m){ponerLargada({t,m});
     history.replaceState(null,"",location.pathname+location.hash)}})();
 const app=document.getElementById("app");
 const esc=s=>String(s).replace(/[&<>]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m]));
@@ -156,7 +159,7 @@ function llegar(cod){
 // Código de largada escrito a mano: HHMM-minutos (ej. 2230-30)
 function largadaManual(txt){const m=String(txt).replace(/\s/g,"").match(/^(\d{1,2}):?(\d{2})-(\d{1,3})$/);if(!m)return false;
   const t=new Date();t.setHours(+m[1],+m[2],0,0);if(t.getTime()<Date.now()-3600000)t.setDate(t.getDate()+1);
-  cfg={t:t.getTime(),m:+m[3]};try{localStorage.setItem(KC,JSON.stringify(cfg))}catch(e){}ultima=fase();return true}
+  ponerLargada({t:t.getTime(),m:+m[3]});ultima=fase();return true}
 const cajaLargada=()=>`<div class="box"><label for="larg">${cfg?"¿Cambió la largada? Código nuevo":"Código de largada (está debajo del QR)"}</label><div class="row"><input id="larg" inputmode="numeric" placeholder="Ej: 2230-30" autocomplete="off"><button id="oklarg">Listo</button></div></div>`;
 function leerHash(){const h=location.hash.slice(1);if(h&&h!=="profe"){llegar(h);history.replaceState(null,"",location.pathname+location.search)}}
 
@@ -176,7 +179,7 @@ function panel(){
   <button class="alt" id="cart">Carteles de las postas para imprimir</button><div id="carteles"></div>`;
   const gen=()=>{const [H,M]=document.getElementById("hora").value.split(":").map(Number);const m=+document.getElementById("min").value||30;
     const t=new Date();t.setHours(H,M,0,0);if(t.getTime()<Date.now()-3600000)t.setDate(t.getDate()+1);
-    cfg={t:t.getTime(),m};try{localStorage.setItem(KC,JSON.stringify(cfg))}catch(e){}
+    ponerLargada({t:t.getTime(),m});
     const url=location.origin+location.pathname+"?t="+cfg.t+"&m="+m;
     const q=document.getElementById("qr");q.innerHTML="";
     if(window.QRCode)new QRCode(q,{text:url,width:260,height:260,correctLevel:QRCode.CorrectLevel.M});else q.textContent=url;
