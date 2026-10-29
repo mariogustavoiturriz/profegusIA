@@ -264,7 +264,7 @@ function leerHash(){const h=location.hash.slice(1);if(h&&h!=="profe"){llegar(h);
 
 // ---------- Panel docente (#profe) ----------
 function panel(){
-  const d=new Date(Date.now()+5*60000);
+  const d=new Date(Date.now()+2*60000);
   const hh=two(d.getHours())+":"+two(d.getMinutes());
   app.innerHTML=`<div><div class="eyebrow">Panel docente</div><h1>Largada de la <span>misión</span></h1></div>
   <div class="box"><div class="row"><div><label for="hora">Hora de largada</label><input id="hora" type="time" value="${hh}"></div>
