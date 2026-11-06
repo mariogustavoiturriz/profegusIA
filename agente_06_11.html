@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Las dos partes juntas y el informe</title>
+<style>
+  .preg{background:#FFFDF6;border-left:6px solid var(--amb);border-radius:8px;
+        padding:12px 17px;margin:11px 0;font-size:17px;line-height:1.6;font-weight:bold;}
+  .preg strong:first-child{color:var(--amb);margin-right:5px;}
+  :root{
+    --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
+    --vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;
+    --bco:#FFFFFF;--code-bg:#1E1E1E;--r:12px;
+    --p1:#1F6E5C;--p1-bg:#E8F4F0;
+    --g2:#2E6820;--g2-bg:#EFF8EE;
+    --json:#006400;--json-bg:#F0FFF0;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;
+    --azul:#1565C0;--azul-bg:#E3F2FD;
+    --classroom:#137333;--class-bg:#F0FFF4;
+    --rpg:#5C2070;--rpg-bg:#F8F3FF;
+    --plan:#2A4A7F;--plan-bg:#E5ECF6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:20px;padding:15px 0 50px;}
+  header{background:var(--nav);color:var(--bco);padding:25px 20px;border-bottom:5px solid var(--vio);}
+  header h1{font-size:26px;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
+  header p{font-size:17px;opacity:.9;}
+  .container{width:95%;max-width:1400px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:20px;margin-bottom:10px;padding:10px 20px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  .c-p1{border-left-color:var(--p1);background:var(--p1-bg);}
+  .c-plan{border-left-color:var(--plan);background:var(--plan-bg);}
+  .c-info{border-left-color:var(--vio);background:#FAFCFF;}
+  .c-json{border-left-color:var(--json);background:var(--json-bg);}
+  .c-rojo{border-left-color:var(--rojo);background:var(--rojo-bg);}
+  .c-entrega{border-left-color:var(--classroom);background:var(--class-bg);}
+  .c-asistente{border-left-color:var(--rpg);background:var(--rpg-bg);}
+  .c-avanzado{border-left-color:var(--amb);background:#FFFBF5;}
+  h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
+  .badge{background:var(--nav);color:var(--bco);padding:5px 12px;border-radius:6px;font-size:17px;font-weight:bold;}
+  .info{padding:18px 20px;border-radius:var(--r);margin:15px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
+  .i-p1{background:var(--p1-bg);border-color:var(--p1);}
+  .i-plan{background:var(--plan-bg);border-color:var(--plan);}
+  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
+  .i-amb{background:#FFF8EE;border-color:var(--amb);}
+  .i-azul{background:var(--azul-bg);border-color:var(--azul);}
+  .i-rojo{background:var(--rojo-bg);border-color:var(--rojo);}
+  .i-json{background:var(--json-bg);border-color:var(--json);}
+  .info > strong:first-child{display:block;margin-bottom:6px;font-size:19px;}
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:18px 20px;font-size:17px;overflow-x:auto;white-space:pre;line-height:1.65;margin:14px 0;border-radius:8px;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
+  .nm{color:#B5CEA8;} .fn{color:#DCDCAA;} .dk{color:#9CDCFE;}
+  code{background:#E8E6FF;color:var(--vio);padding:2px 6px;border-radius:4px;font-family:'Consolas',monospace;font-size:17px;}
+  ul{margin-left:22px;} li{margin-bottom:8px;}
+  ol{margin-left:22px;} ol li{margin-bottom:8px;}
+  table{width:100%;border-collapse:collapse;font-size:17px;margin:16px 0;background:#fff;border-radius:8px;overflow:hidden;}
+  th,td{border:1px solid var(--bd);padding:12px 14px;text-align:left;}
+  th{background:var(--nav);color:#fff;font-size:15px;text-transform:uppercase;letter-spacing:.5px;}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+  .trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;}
+  .mini{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:16px;font-size:16px;line-height:1.6;}
+  .mini strong{color:var(--p1);display:block;margin-bottom:4px;font-size:17px;}
+  .check{list-style:none;margin-left:0;}
+  .check li{padding-left:34px;position:relative;margin-bottom:12px;font-size:18px;}
+  .check li::before{content:"\25A2";position:absolute;left:0;font-size:24px;color:var(--p1);}
+  #asist-chat{display:none;}
+  #asist-msgs{background:#1E1E1E;border-radius:10px;padding:16px;min-height:160px;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:10px;}
+  .asist-inp{display:flex;gap:8px;}
+  .asist-inp input{flex:1;padding:11px;border-radius:8px;border:1px solid #ccc;font-size:17px;outline:none;}
+  .btn-rpg{background:var(--rpg);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;}
+  .btn-rpg:disabled{background:#ccc;cursor:not-allowed;}
+  .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
+  .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
+  @media(max-width:768px){.duo,.trio{grid-template-columns:1fr;}}
+
+  /* Ejercicio de JSON */
+  .jej{display:none;}
+  .jej.activo{display:block;}
+  .jpanel{background:#F0FFF0;border:2px solid #006400;border-radius:10px;padding:18px 20px;
+          font-family:Consolas,monospace;font-size:17px;line-height:2;overflow-x:auto;white-space:pre;}
+  .jval{background:#fff;border:2px solid var(--bd);border-radius:6px;padding:1px 7px;
+        cursor:pointer;transition:all .15s;display:inline-block;}
+  .jval:hover{border-color:var(--json);background:#E6F7E6;}
+  .jval.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jval.no{background:#FFEBEE;border-color:var(--rojo);}
+  .jkey{color:#9CDCFE;}
+  .jctx{background:var(--azul-bg);border-left:5px solid var(--azul);border-radius:8px;
+        padding:12px 16px;margin-bottom:12px;font-size:17px;}
+  .jpide{font-size:21px;font-weight:bold;margin:14px 0 10px;}
+  .jfb{margin-top:12px;font-size:18px;}
+  .jcamino{background:var(--code-bg);color:#D4D4D4;font-family:Consolas,monospace;
+           padding:12px 16px;border-radius:8px;font-size:17px;margin-top:10px;overflow-x:auto;}
+  .jcam-ops{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+  .jcam-op{background:#1E1E1E;color:#D4D4D4;font-family:Consolas,monospace;font-size:16px;
+           padding:11px 14px;border:2px solid #3A3A3A;border-radius:8px;cursor:pointer;text-align:left;
+           transition:all .15s;}
+  .jcam-op:hover:enabled{border-color:var(--vio);}
+  .jcam-op:disabled{cursor:default;}
+  .jcam-op.cam-ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jcam-op.cam-no{background:#3a1e1e;border-color:#C0392B;opacity:.6;}
+  .jprog{font-size:16px;color:#666;margin-bottom:8px;}
+
+  /* Taller de reparaciones */
+  .rep{display:none;}
+  .rep.activo{display:block;}
+  .repcod{background:var(--code-bg);border-radius:8px;padding:14px 0;font-family:Consolas,monospace;
+          font-size:16px;line-height:1.9;overflow-x:auto;}
+  .rline{display:block;padding:2px 18px;cursor:pointer;white-space:pre;color:#D4D4D4;}
+  .rline:hover{background:#2D2D2D;}
+  .rline.ok{background:#1F6E5C;}
+  .rline.no{background:#5C1F1F;}
+  .rline.fija{cursor:default;color:#808080;}
+  .rline.fija:hover{background:transparent;}
+  .rnum{color:#606060;display:inline-block;width:26px;user-select:none;}
+
+  .encasa{display:inline-block;background:#7A4B00;color:#fff;font-size:14px;font-weight:bold;
+          letter-spacing:1px;padding:5px 12px;border-radius:20px;margin-left:auto;}
+  .banda-casa{background:#FFF8EE;border:2px dashed #B8720A;border-radius:10px;
+              padding:12px 18px;margin-bottom:16px;font-size:18px;}
+
+  /* Campos extraíbles */
+  .campo{display:inline-block;background:#fff;border:2px solid var(--bd);border-radius:22px;
+         padding:9px 18px;margin:6px 6px 6px 0;cursor:pointer;font-size:18px;transition:all .15s;}
+  .campo:hover{border-color:var(--p1);background:#F2FAF8;}
+  .campo.si{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .campo.no{background:#FFEBEE;border-color:var(--rojo);color:#8B1A1A;text-decoration:line-through;}
+  .ext-txt{background:#FFFDF5;border:2px solid var(--amb);border-radius:10px;padding:16px 20px;
+           font-size:19px;line-height:1.7;font-style:italic;margin-bottom:14px;}
+
+  .tarea{background:#fff;border:2px solid var(--bd);border-radius:10px;
+         padding:13px 18px;margin-bottom:10px;font-size:18px;transition:all .15s;
+         display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
+  .tarea-txt{flex:1 1 240px;}
+  .tarea-btns{display:flex;gap:8px;}
+  .tbtn{background:#fff;border:2px solid var(--bd);border-radius:8px;padding:8px 12px;
+        font-size:16px;cursor:pointer;font-family:inherit;color:var(--txt);white-space:nowrap;}
+  .tbtn:hover:enabled{border-color:var(--vio);}
+  .tbtn:disabled{cursor:default;opacity:.55;}
+  .tbtn.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;opacity:1;}
+  .tbtn.mal{background:#FFEBEE;border-color:#C0392B;color:#8B1A1A;opacity:1;}
+  .tarea.resuelta{background:#F7FBF9;border-color:#1F6E5C;}
+  .tarea-fb{flex:1 1 100%;font-size:16px;}
+  .btn-op{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px 20px;
+          margin:6px 8px 6px 0;font-size:18px;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .btn-op:hover{border-color:var(--p1);}
+  .btn-op.ok{background:#E8F4F0;border-color:var(--p1);}
+  .btn-op.mal{background:#FFEBEE;border-color:var(--rojo);}
+  .parte{display:inline-block;background:#1E1E1E;color:#DCDCAA;border:2px solid #444;
+         border-radius:8px;padding:8px 14px;margin:5px 4px;cursor:pointer;
+         font-family:Consolas,monospace;font-size:20px;}
+  .parte:hover{border-color:#DCDCAA;}
+  .parte.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .parte.mal{background:#5C1F1F;border-color:#C62828;}
+
+  /* Cuestionario de cierre */
+  .cq-op{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);
+         border-radius:10px;padding:13px 18px;margin-bottom:9px;font-size:18px;cursor:pointer;
+         font-family:inherit;color:var(--txt);line-height:1.5;}
+  .cq-op:hover:enabled{border-color:var(--vio);background:#FAF7FF;}
+  .cq-op:disabled{cursor:default;opacity:.95;}
+  .cq-vf{display:inline-block;width:48%;text-align:center;font-size:20px;font-weight:bold;
+         padding:16px;margin:0 1% 10px;border:2px solid var(--bd);border-radius:10px;
+         background:#fff;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .cq-vf:hover:enabled{border-color:var(--vio);}
+  .cq-vf:disabled{cursor:default;opacity:.95;}
+  .cq-barra{height:14px;background:#E8E8E8;border-radius:7px;overflow:hidden;margin:10px 0 4px;}
+  .cq-fill{height:100%;background:var(--vio);width:0;transition:width .3s;}
+</style>
+</head>
+<body>
+<header>
+  <h1>LAS DOS PARTES JUNTAS Y EL INFORME</h1>
+  <p>Taller de IA &middot; 7&deg; TIC &middot; Viernes 6/11 &middot; los cuatro grupos</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">&#11013; Volver al &Iacute;ndice</a>
+<style>  .cp{width:100%;box-sizing:border-box;border:2px solid var(--bd);border-radius:9px;padding:11px 14px;
+      font-size:16px;font-family:inherit;line-height:1.5;resize:vertical;margin-top:7px;}
+  .cp:focus{outline:none;border-color:var(--p1);}
+  .lb{font-weight:bold;font-size:17px;margin-top:15px;display:block;}
+  .ay{display:block;font-size:15px;color:#667;margin-top:2px;}
+  .reloj{display:inline-block;background:var(--amb);color:#fff;font-size:15px;font-weight:bold;
+         padding:3px 12px;border-radius:20px;margin-left:10px;vertical-align:middle;}
+  .cod{background:#1E1E1E;color:#D4D4D4;border-radius:10px;padding:15px 19px;margin:10px 0;
+       font-family:Consolas,monospace;font-size:15.5px;line-height:1.7;white-space:pre-wrap;overflow-x:auto;}
+  .cod .cm{color:#6A9955;} .cod .st{color:#CE9178;} .cod .kw{color:#569CD6;}
+  .mal{background:#FDECEA;border:2px solid #C0392B;border-radius:10px;padding:13px 17px;
+       font-family:Consolas,monospace;font-size:15px;line-height:1.7;margin:8px 0;}
+  .bien{background:#F0FAF7;border:2px solid #1F6E5C;border-radius:10px;padding:13px 17px;
+        font-family:Consolas,monospace;font-size:15px;line-height:1.7;margin:8px 0;}
+  .mal,.bien{white-space:pre-wrap;}
+  details.pista{background:var(--gris);border-left:5px solid var(--vio);border-radius:8px;
+                padding:12px 16px;margin-top:9px;}
+  details.pista summary{cursor:pointer;font-weight:bold;color:var(--vio);font-size:17px;}
+  details.pista p{margin:10px 0 0 0;font-size:17px;}
+  table.cierre{width:100%;border-collapse:collapse;font-size:16px;margin:12px 0;}
+  table.cierre th{background:var(--nav);color:#fff;padding:9px 12px;text-align:left;font-size:13.5px;}
+  table.cierre td{border:1px solid var(--bd);padding:10px 12px;vertical-align:top;}
+  table.cierre tr:nth-child(even) td{background:#F7FAFC;}</style><style>
+  .reloj{background:#A35A12 !important;}
+  .que{font-size:18px;line-height:1.6;margin:6px 0 10px;}
+  .chico{font-size:15px;color:#556;margin:6px 0;}
+  ol.pasos{font-size:17.5px;margin:8px 0 10px 24px;} ol.pasos li{margin-bottom:5px;}
+  ol.pasos code, .info code{overflow-wrap:anywhere;}
+  .hueco{background:#FFE082;color:#5D4300;border-radius:4px;padding:0 3px;font-weight:bold;}
+  .cod .hueco{color:#3A2A00;}
+  .btn-cp{background:var(--p1);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:16px;font-weight:bold;cursor:pointer;margin:2px 0 6px;}
+  .camino{display:flex;flex-wrap:wrap;align-items:center;gap:6px;background:var(--gris);border-radius:10px;padding:8px 12px;margin:4px 0 10px;}
+  .camino .nodo{border:2px solid var(--bd);border-radius:20px;padding:3px 12px;font-size:15px;background:#fff;}
+  .camino .nodo.on{background:var(--json);border-color:var(--json);color:#fff;font-weight:bold;}
+  .camino .fl{color:#99A;}
+  .pq{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px;}
+  .pq > div{border-radius:10px;padding:10px 14px;font-size:16.5px;}
+  .pq-a{background:#F2F5FB;border-left:6px solid var(--vio);} .pq-b{background:#F0FAF7;border-left:6px solid var(--p1);}
+  .pq-t{font-weight:bold;font-size:14px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+  .pq-a .pq-t{color:var(--vio);} .pq-b .pq-t{color:var(--p1);}
+  .sale{background:#F0FAF7;border-left:6px solid var(--p1);border-radius:8px;padding:10px 14px;margin:10px 0;font-size:16.5px;}
+  .pistas{background:var(--gris);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .pistas details{background:#fff;border-left:5px solid var(--vio);border-radius:8px;padding:9px 14px;margin-top:8px;}
+  .pistas summary{cursor:pointer;font-weight:bold;color:var(--vio);font-size:16.5px;}
+  .pistas details p{margin:8px 0 2px;font-size:16px;}
+  details.lin{background:var(--gris);border-radius:10px;padding:9px 14px;margin:10px 0 12px;}
+  details.lin.err{background:#FDF1EE;border-left:5px solid var(--rojo);}
+  details.lin summary{cursor:pointer;font-weight:bold;font-size:17px;color:var(--nav);}
+  details.lin table{margin-top:8px;background:#fff;}
+  table.cierre{width:100%;border-collapse:collapse;font-size:16px;margin:6px 0 10px;}
+  table.cierre th{background:var(--nav);color:#fff;text-align:left;padding:8px 10px;}
+  table.cierre td{border-bottom:1px solid var(--bd);padding:8px 10px;vertical-align:top;}
+  table.cierre td code{white-space:nowrap;}
+  table.cierre td code.hm{white-space:nowrap !important;overflow-wrap:normal !important;}
+  details.lin.err td code{white-space:normal;overflow-wrap:anywhere;}
+  .lin table.cierre td:first-child{width:38%;}
+  pre.arch{background:#F3F6F9;border-left:5px solid var(--json);border-radius:8px;padding:10px 14px;font-size:15px;overflow-x:auto;margin:8px 0;white-space:pre-wrap;}
+  .eq-bar{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px;}
+  .btn-eq{background:#fff;border:3px solid var(--nav);border-radius:12px;padding:10px 18px;font-size:18px;font-weight:bold;cursor:pointer;color:var(--nav);}
+  .btn-eq.activo{background:var(--nav);color:#fff;}
+  .falta-eq{font-size:15px;color:#a05a00;font-weight:bold;margin:6px 0;}
+  @media (max-width:640px){
+    .pq{grid-template-columns:1fr;}
+    .cod{overflow-wrap:anywhere;} .pistas code{overflow-wrap:anywhere;word-break:break-all;}
+    table.cierre{font-size:14.5px;} table.cierre td, table.cierre th{padding:7px 6px;overflow-wrap:anywhere;}
+    table.cierre td code{white-space:normal;overflow-wrap:anywhere;}
+    .lin table.cierre, .lin table.cierre tbody, .lin table.cierre tr, .lin table.cierre td{display:block;width:auto !important;}
+    .lin table.cierre tr{border-bottom:1px solid #D5DCE6;padding:6px 0;} .lin table.cierre td{border:none;padding:2px 8px;}
+    .lin table.cierre td:first-child code{font-weight:bold;}
+    .lin table.cierre tr:has(th){display:none;}
+  }
+</style><div class="card c-info">
+  <h2><span class="badge" style="background:var(--teal)">0</span> HOY SE JUNTAN LAS DOS PARTES</h2>
+  <p class="que">Hoy el agente lee la tabla de la planilla, y escriben el informe.</p>
+  <div class="camino" style="justify-content:flex-start"><span class="nodo on">📄 texto nuevo</span><span class="fl">→</span><span class="nodo on">🧪 extractor</span><span class="fl">→</span><span class="nodo on">✔ verifican</span><span class="fl">→</span><span class="nodo on">📊 planilla</span><span class="fl">→</span><span class="nodo on">🤖 agente</span></div>
+  <p class="que"><strong>Toquen su grupo:</strong></p>
+  <div class="eq-bar"><button class="btn-eq" data-v="vitalair" onclick="elegir('vitalair')">VitalAir</button><button class="btn-eq" data-v="ambiente" onclick="elegir('ambiente')">Ambiente Óptimo</button><button class="btn-eq" data-v="residuo" onclick="elegir('residuo')">Residuo Econexo</button><button class="btn-eq" data-v="mpxl" onclick="elegir('mpxl')">MPXL</button></div>
+  <ol class="pasos">
+    <li><span data-eq="vitalair" style="display:none">Abran la planilla, el extractor y el agente.</span><span data-eq="ambiente" style="display:none">Abran la planilla y el Colab del agente.</span><span data-eq="residuo" style="display:none">Abran la planilla y el Colab del agente.</span><span data-eq="mpxl" style="display:none">Abran la planilla y el Colab del agente.</span> Lo corre el mismo del lunes.</li>
+    <li>En el agente, ▶ los bloques 1 a 6.</li>
+    <li><span data-eq="vitalair" style="display:none">¿Falta el 10? Uno lo termina con la página del lunes 2.</span><span data-eq="ambiente" style="display:none">¿Falta el 10? Termínenlo primero, con la página del lunes 2.</span><span data-eq="residuo" style="display:none">¿Falta el 10? Termínenlo primero, con la página del lunes 2.</span><span data-eq="mpxl" style="display:none">¿Falta el 10? Termínenlo primero, con la página del lunes 2.</span></li>
+  </ol>
+  <div class="info i-grn"><strong>👥 Repártanse</strong><span data-eq="vitalair" style="display:none">Dos: 13 y 14. Uno: la hoja agente del 16. Uno: el informe (18).</span><span data-eq="ambiente" style="display:none">Uno: el 16 y el 17. Los demás: el informe (18).</span><span data-eq="residuo" style="display:none">Uno: el 16 y el 17. Los demás: el informe (18).</span><span data-eq="mpxl" style="display:none">Uno: el 16 y el 17. Los demás: el informe (18).</span> Evalúo lo grupal y lo individual.</div>
+  <div data-eq="vitalair" style="display:none"><div class="info i-grn"><strong>VitalAir</strong>Cuando carguen el texto nuevo en Textos fuente, avísenle a Abril.</div></div>
+  <div class="info i-amb"><strong>Dos cosas de siempre</strong>✍️ Comentarios con sus palabras. 📁 Colabs en la carpeta codigo.</div>
+</div>
+<div class="card c-info"><h2><span class="badge" style="background:var(--teal)">🗺️</span> QUÉ HACEMOS HOY</h2>
+  <p class="que">Hasta ahora la tabla <strong>estaba pegada en el código</strong>. Hoy el agente la lee de la planilla.</p>
+  <div class="falta-eq">⬆ Toquen su grupo, arriba de todo.</div><div data-eq="vitalair" style="display:none"><table class="cierre"><tr><th style="white-space:nowrap">Bloque</th><th>Qué hacen</th></tr><tr><td style="white-space:nowrap">13</td><td>📄 Consiguen un texto nuevo, con un dato que su tabla no tiene.</td></tr><tr><td style="white-space:nowrap">14</td><td>🧪 El extractor le saca los datos.</td></tr><tr><td style="white-space:nowrap">15</td><td>✔ Lo verifican y lo cargan en la planilla.</td></tr><tr><td style="white-space:nowrap">16</td><td>🤖 El agente lee la tabla directo de la planilla.</td></tr><tr><td style="white-space:nowrap">17</td><td>🔁 Prueban la cadena completa.</td></tr><tr><td style="white-space:nowrap">18</td><td>📝 El informe: uno lo arranca desde el principio.</td></tr></table></div><div data-eq="ambiente" style="display:none"><table class="cierre"><tr><th style="white-space:nowrap">Bloque</th><th>Qué hacen</th></tr><tr><td style="white-space:nowrap">16</td><td>🤖 El agente lee la tabla directo de la planilla.</td></tr><tr><td style="white-space:nowrap">17</td><td>🔁 Prueban que decide igual que el lunes.</td></tr><tr><td style="white-space:nowrap">18</td><td>📝 El informe del proyecto.</td></tr></table></div><div data-eq="residuo" style="display:none"><table class="cierre"><tr><th style="white-space:nowrap">Bloque</th><th>Qué hacen</th></tr><tr><td style="white-space:nowrap">16</td><td>🤖 El agente lee la tabla directo de la planilla.</td></tr><tr><td style="white-space:nowrap">17</td><td>🔁 Prueban que decide igual que el lunes.</td></tr><tr><td style="white-space:nowrap">18</td><td>📝 El informe del proyecto.</td></tr></table></div><div data-eq="mpxl" style="display:none"><table class="cierre"><tr><th style="white-space:nowrap">Bloque</th><th>Qué hacen</th></tr><tr><td style="white-space:nowrap">16</td><td>🤖 El agente lee la tabla directo de la planilla.</td></tr><tr><td style="white-space:nowrap">17</td><td>🔁 Prueban que decide igual que el lunes.</td></tr><tr><td style="white-space:nowrap">18</td><td>📝 El informe del proyecto.</td></tr></table></div>
+  <div class="info i-grn"><strong>🎯 Lo mínimo de hoy</strong><span data-eq="vitalair" style="display:none">Fila nueva verificada, el agente leyendo la planilla y el informe empezado.</span><span data-eq="ambiente" style="display:none">El agente leyendo la planilla y el informe terminado.</span><span data-eq="residuo" style="display:none">El agente leyendo la planilla y el informe terminado.</span><span data-eq="mpxl" style="display:none">El agente leyendo la planilla y el informe terminado.</span></div></div>
+<div class="falta-eq">⬆ Toquen su grupo, arriba de todo.</div>
+<div data-eq="vitalair" style="display:none"><div class="card c-json"><h2><span class="badge" style="background:var(--json)">13</span> UN TEXTO NUEVO</h2><div class="camino"><span class="aqui">📍</span><span class="nodo on">👀 percibe</span><span class="fl">→</span><span class="nodo">🧠 razona</span><span class="fl">→</span><span class="nodo">⚖️ decide</span><span class="fl">→</span><span class="nodo">📣 actúa</span></div><p class="que">En este bloque buscan un documento nuevo, con un dato que su tabla todavía no tiene, y lo cargan en Textos fuente. No hay código.</p><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>Porque la tabla no es fija: cuando aparece un documento nuevo, el agente tiene que poder usarlo.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>Para tener un dato nuevo, con su fuente, que recorra toda la cadena.</div></div><ol class="pasos"><li>Busquen un documento con un dato que su tabla no tiene. Para ustedes, <span data-eq="vitalair" style="display:none">un documento que diga a qué valor suena la alarma de un detector de gas: su tabla tiene el límite de explosión, no uno de alarma. Les sirve el artículo de Seitron sobre el LEL: <a href="https://www.seitron.com/en/magazine/technology/what-is-the-lower-explosive-limit-lel-and-why-is-it-important/" target="_blank">seitron.com, What is the Lower Explosive Limit</a>. Está en inglés: copien solo el renglón <code>10% LEL = early warning threshold to intervene in time</code>. La tabla del final y el ejemplo del metano no van: la tabla da rangos de medición, no límites, y el metano ya lo tienen. El de Seitron que tienen en la ficha no tiene números.</span><span data-eq="ambiente" style="display:none">un valor de un organismo que diga desde cuándo ya es un riesgo, no solo incómodo. Ya tienen uno: la temperatura de 18 °C de la OMS, en su hoja Contexto. Pásenlo a Textos fuente, con su enlace.</span><span data-eq="residuo" style="display:none">un documento que diga, con el color escrito, en qué contenedor va el papel y cartón, las latas o los orgánicos: su tabla no los tiene. Su texto 1, de Fundación AQUAE, ya lo dice y nunca pasó por el extractor: si no encuentran otro, usen ese, que ya está en Textos fuente.</span><span data-eq="mpxl" style="display:none">un documento que hable del pescado, que sacaron el viernes 30 porque agroglobal no lo nombraba. Ya tienen uno: Cold Food Storage Chart, su texto N° 5, tiene el pescado graso y el magro. Copien el renglón que elijan junto con el de los títulos: las temperaturas están ahí.</span></li><li>El dato tiene que estar escrito, no explicado: el criterio del 7/9. <span data-eq="vitalair" style="display:none">Un número con su unidad, no una opinión.</span><span data-eq="ambiente" style="display:none">Un número con su unidad, no una opinión.</span><span data-eq="residuo" style="display:none">El contenedor con su color, no una opinión.</span><span data-eq="mpxl" style="display:none">Un número con su unidad, no una opinión.</span></li><li>Cárguenlo en la planilla, hoja <strong>Textos fuente</strong>: el documento, el link, el fragmento tal cual y quién lo consiguió.</li></ol><div class="info i-rojo"><strong>Si el documento no tiene el dato escrito, no sirve</strong>Busquen otro. Un dato que hay que deducir es un dato que la IA va a inventar.</div></div></div>
+<div data-eq="vitalair" style="display:none"><div class="card c-json"><h2><span class="badge" style="background:var(--json)">14</span> EL EXTRACTOR LO PROCESA</h2><div class="camino"><span class="aqui">📍</span><span class="nodo on">👀 percibe</span><span class="fl">→</span><span class="nodo">🧠 razona</span><span class="fl">→</span><span class="nodo">⚖️ decide</span><span class="fl">→</span><span class="nodo">📣 actúa</span></div><p class="que">En este bloque le pasan el texto nuevo a su extractor, el de la parte 1. Ustedes completan la fuente y el fragmento, como en la lista del 5/10.</p><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>Porque los datos de la tabla los saca el extractor: así le sacaron los datos a todos sus textos.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>Para que el texto nuevo se convierta en una fila, con los mismos campos que el resto de la tabla.</div></div><ol class="pasos"><li>En el extractor, con <strong>Editar → Buscar y reemplazar</strong>, busquen <code>for texto in lista_textos</code>. Si aparece dos veces, es el de más abajo: el bucle que junta los resultados.</li><li>Hagan clic justo antes de <code>for</code>, aprieten Enter y suban con la flecha ↑: queda un renglón vacío arriba. Ahí peguen el bloque 14: 📋 Copiar → Ctrl+V. Complétenlo con el fragmento nuevo, tal cual, sin las comillas del principio y del final si las tiene. La lista nueva reemplaza a la vieja solo por hoy: no borren nada.</li><li>▶ esa celda. Si se baja un tabla.csv, no lo usen.</li><li>Cuando terminen, borren el bloque 14 de esa celda: así el extractor vuelve a tener todos sus textos.</li></ol><div class="cod" id="c1">lista_textos = [
+&quot;&quot;&quot;Fuente: <span class="hueco">[completar: el documento nuevo]</span>
+<span class="hueco">[completar: el fragmento, tal cual]</span>&quot;&quot;&quot;,
+]
+print(len(lista_textos), &quot;fragmentos&quot;)</div><button class="btn-cp" onclick="copiar('c1', this)">📋 Copiar</button><div class="chico">✍️ <strong>Coméntenlo ustedes:</strong> en el Colab, arriba de cada parte, una línea con <code>#</code> que diga con sus palabras qué hace y para qué. Después abran «Qué hace cada línea» y comparen.</div><div class="sale"><strong>✅ Tiene que salir:</strong> <code>1 fragmentos</code>, después <code>✅</code> con el nombre del documento y <code>→ 1 fila(s)</code>, y <code>1 filas extraídas de 1 textos</code>. Lo que sacó la IA está abajo de todo, en la tabla. Si el fragmento trae dos datos, dice 2: está bien. Si quedó un <code>[completar</code> adentro de las comillas, no da error: fíjense antes.</div><div class="falta-eq">⬆ Toquen su grupo, arriba de todo.</div><div data-eq="vitalair" style="display:none"><div class="info i-grn"><strong>VitalAir</strong>Abril le saca los datos al mismo texto con su página, con su instrucción. Comparen lo que le sale a ella con lo que sale del extractor: ¿coinciden?</div></div><div data-eq="ambiente" style="display:none"></div><div data-eq="residuo" style="display:none"></div><div data-eq="mpxl" style="display:none"><div class="info i-grn"><strong>MPXL</strong>Si el fragmento habla de heladera y de freezer, sale una lista entre corchetes con dos diccionarios, uno por lugar: está bien, son dos filas. Si sale ⚠️ Falló este fragmento y la IA devolvió dos JSON sueltos, uno abajo del otro, en reglas_estrictas cambien <code>genera DOS objetos JSON independientes</code> por <code>devolvé una lista con los dos objetos</code>, ▶ esa celda y la del bucle.</div></div><details class="lin err"><summary>🧯 Si aparece un error</summary><table class="cierre"><tr><th>Lo que ven</th><th>Qué es</th><th>Qué hacen</th></tr><tr><td><code>⚠️ Falló este fragmento</code></td><td>La IA no devolvió JSON. Miren qué devolvió.</td><td>Si lo que devolvió empieza con ⚠️ Error API, no es el texto: miren las filas de 401 y de rate limit. Si no, ▶ la celda una vez más. Si el texto no tiene el dato, no es un fallo: es un descarte, y buscan otro texto.</td></tr><tr><td><code>SecretNotFoundError</code> con otro nombre, por ejemplo <code>API_K</code></td><td>Su extractor busca la clave con ese nombre.</td><td>En Secrets, guarden la clave de Groq también con ese nombre.</td></tr><tr><td><code>La IA devolvió: ⚠️ Error API (401): Invalid API Key</code></td><td>La clave que su extractor busca en Secrets, <code>API_K</code>, no anda.</td><td>En Secrets, en <code>API_K</code>, peguen la misma clave que usa el agente en <code>GROQ_API_KEY</code>, con el acceso activado. ▶ la celda otra vez. Si sigue, avísenme.</td></tr><tr><td><code>SyntaxError</code> en el bloque 14</td><td>Faltan las tres comillas del fragmento, o el fragmento termina con una comilla que se pega a las tres del final.</td><td>Compárenlo con el bloque 14 de la página: tres comillas al principio, tres al final y una coma. Si el fragmento termina con una comilla, sáquenla.</td></tr><tr><td><code>⚠️ Error</code> con <em>rate limit</em>, <em>429</em>, <em>Too Many Requests</em> o <code>'choices'</code></td><td>Muchas llamadas seguidas: cada extractor lo muestra distinto.</td><td>Esperen un minuto y ▶ el bucle.</td></tr><tr><td>Procesa todos los textos viejos otra vez</td><td>El bloque 14 quedó arriba de otra lista, no del <code>for</code>.</td><td>Tiene que quedar justo arriba del renglón <code>for texto in lista_textos</code>, en la misma celda.</td></tr><tr><td>✅, pero con otros campos, como <code>parametro</code> o <code>valor_maximo</code></td><td>La IA siguió otro ejemplo.</td><td>En <code>system_prompt</code>, cambien el ejemplo por uno con los campos de su tabla y ▶ la celda.</td></tr><tr><td>La IA devuelve datos que no están en su texto</td><td>Quedó un <code>[completar</code> adentro de las comillas: no da error.</td><td>Cámbienlo por el documento y el fragmento, y ▶ la celda.</td></tr></table></details><details class="lin"><summary>🔍 Qué hace cada línea <span class="chico">· ábranlo después de escribir sus comentarios, para comparar</span></summary><table class="cierre"><tr><td><code>lista_textos = [...]</code></td><td>La misma lista del 5/10, ahora con un solo fragmento: el nuevo.</td></tr><tr><td><code>"""Fuente: ...</code></td><td>Arriba del fragmento, su fuente: la IA solo saca lo que está en el texto.</td></tr><tr><td><code>print(len(...))</code></td><td>Cuenta los fragmentos: tiene que dar 1.</td></tr><tr><td><code>arriba del for</code></td><td>Python lee de arriba para abajo: la lista que vale es la última que se definió antes del bucle.</td></tr><tr><td><code>el bucle</code></td><td>El suyo, el del 5/10: le pasa cada fragmento a la IA con sus reglas y lo convierte en diccionario.</td></tr></table></details></div></div>
+<div data-eq="vitalair" style="display:none"><div class="card c-json"><h2><span class="badge" style="background:var(--json)">15</span> VERIFICAR Y CARGAR</h2><div class="camino"><span class="aqui">📍</span><span class="nodo on">👀 percibe</span><span class="fl">→</span><span class="nodo">🧠 razona</span><span class="fl">→</span><span class="nodo">⚖️ decide</span><span class="fl">→</span><span class="nodo">📣 actúa</span></div><p class="que">En este bloque dos de ustedes comparan cada valor de la fila con el documento, como en la parte 1, y la cargan en la tabla. No hay código.</p><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>Porque el agente decide con lo que hay en la tabla: un valor inventado ahí es una decisión equivocada después.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>Para que la fila nueva entre a la tabla verificada, con su fuente y con quién la verificó.</div></div><ol class="pasos"><li>Dos personas, cada una por su lado: cada valor de la fila, en la tabla que muestra el extractor abajo de todo, ¿está escrito en el fragmento? ¿Con el mismo número y la misma unidad?</li><li>Si un valor no está en el texto, la IA lo inventó: esa celda queda vacía. Y la fuente, ¿es el documento?</li><li>Carguen la fila en su tabla, en la hoja <strong>tabla</strong> o en <strong>Tabla de datos</strong>: el N° que sigue, los valores, la fuente y quién verificó.</li><li>Anoten en Clase a clase, en la fila del viernes 6, si la IA acertó todo o qué corrigieron.</li></ol><div class="falta-eq">⬆ Toquen su grupo, arriba de todo.</div><div data-eq="vitalair" style="display:none"></div><div data-eq="ambiente" style="display:none"></div><div data-eq="residuo" style="display:none"></div><div data-eq="mpxl" style="display:none"><div class="info i-amb"><strong>MPXL: los nombres no son los de la tabla</strong><code>temperatura_max</code> va en temperatura; <code>tiempo_maximo</code> y <code>unidad_tiempo</code> van juntos en dias_maximos, como dice el texto, por ejemplo 1 a 3 días: su regla guarda solo el 1. <code>lugar</code> va en lugar, y condicion queda no especifica si el texto no la dice. Una fila por cada diccionario.</div></div></div></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--json)">16</span> EL AGENTE LEE LA PLANILLA</h2><div class="camino"><span class="aqui">📍</span><span class="nodo">👀 percibe</span><span class="fl">→</span><span class="nodo on">🧠 razona</span><span class="fl">→</span><span class="nodo">⚖️ decide</span><span class="fl">→</span><span class="nodo">📣 actúa</span></div><p class="que">El agente lee la tabla de la planilla (hoja agente), no del código. Las mediciones, como siempre: el bloque 2 baja el archivo de su grupo, <code>BASE + MI_FUENTE + ".json"</code>.</p><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>Para sumar una fila no hay que tocar el código.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>Lo verificado en la planilla llega al agente.</div></div><div class="info i-azul"><strong>¿Por qué una hoja nueva?</strong>Porque Tabla de datos tiene cosas que no son datos: ej, Verificó, notas. En la hoja agente va solo lo que antes pegaban en el bloque 6.</div><ol class="pasos"><li>Hoja nueva: <strong>agente</strong>. Peguen la tabla: títulos y datos,<span data-eq="vitalair" style="display:none"> con la nueva si ya la cargaron (si no, la suman cuando esté),</span><span data-eq="ambiente" style="display:none"></span><span data-eq="residuo" style="display:none"> sin las filas de arriba que tienen solo la fuente o están vacías,</span><span data-eq="mpxl" style="display:none"></span> sin ej, sin Verificó, sin ¿Está bien?, sin notas.</li><li><strong>Archivo → Compartir → Publicar en la Web</strong>. Elijan la hoja <strong>agente</strong> y <strong>Valores separados por comas (.csv)</strong>. Publicar. Dejen la ventana abierta.</li><li>Bloque 6: borren solo la tabla, de <code>TABLA = """</code> a sus tres comillas de cierre. Ahí: 📋 Copiar → Ctrl+V. En <code>[completar]</code>, el enlace entre comillas.</li><li>▶ el 6 y <code>print(MI_SYSTEM_PROMPT)</code>.</li></ol><div class="cod" id="c2">URL_TABLA = <span class="hueco">[completar]</span>
+TABLA = requests.get(URL_TABLA).content.decode(&quot;utf-8&quot;)</div><button class="btn-cp" onclick="copiar('c2', this)">📋 Copiar</button><div class="chico">✍️ <strong>Coméntenlo ustedes:</strong> en el Colab, arriba de cada parte, una línea con <code>#</code> que diga con sus palabras qué hace y para qué. Después abran «Qué hace cada línea» y comparen.</div><div class="sale"><strong>✅ Tiene que salir:</strong> <code>✅ Listo.</code> En el print, su tabla, con comas entre las columnas<span data-eq="vitalair" style="display:none">, y la fila nueva al final.</span><span data-eq="ambiente" style="display:none">.</span><span data-eq="residuo" style="display:none">.</span><span data-eq="mpxl" style="display:none">.</span></div><div class="info i-azul"><strong>Desde ahora</strong>Fila nueva: en Tabla de datos y en la hoja agente. Después ▶ el 6.</div><details class="lin err"><summary>🧯 Si aparece un error</summary><table class="cierre"><tr><th>Lo que ven</th><th>Qué es</th><th>Qué hacen</th></tr><tr><td>En el print aparece <code>&lt;!DOCTYPE html&gt;</code> o <code>&lt;html</code></td><td>Copiaron el enlace de la planilla, o publicaron como Página web y no como .csv.</td><td>Vuelvan a Publicar en la Web, elijan la hoja agente y Valores separados por comas (.csv), y copien ese enlace: termina en output=csv.</td></tr><tr><td><code>SyntaxError</code> en <code>URL_TABLA</code></td><td>Le faltan las comillas, le falta la de cierre, son comillas “ ” copiadas de otro lado, o quedó <code>[completar]</code> al lado.</td><td>Va entre comillas: <code>URL_TABLA = "https://..."</code>.</td></tr><tr><td><code>MissingSchema</code> o <code>Invalid URL</code></td><td>El enlace está incompleto o no empieza con https.</td><td>Cópienlo de nuevo, entero.</td></tr><tr><td><code>InvalidSchema: No connection adapters</code></td><td>Quedaron los corchetes del hueco, o al enlace le falta el principio.</td><td>Solo con comillas: <code>URL_TABLA = "https://..."</code>.</td></tr><tr><td><code>NameError: name 'completar'</code></td><td>Quedó el hueco sin completar.</td><td>Peguen el enlace entre comillas.</td></tr><tr><td>En el print aparece otra hoja, por ejemplo la ficha del equipo con sus nombres</td><td>Publicaron el documento completo, no la hoja agente: toda la planilla queda en internet.</td><td>Publicar en la Web → Detener la publicación. Después publiquen solo la hoja agente.</td></tr><tr><td>En el print, en lugar de la tabla o arriba de ella, aparece <code>URL_TABLA = ...</code></td><td>Pegaron el código adentro de las tres comillas de la tabla.</td><td>Borren también <code>TABLA = """</code> y las tres comillas que cierran: el código va solo.</td></tr><tr><td>La fila nueva no aparece</td><td>Lo publicado tarda unos minutos en actualizarse.</td><td>Esperen y ▶ el 6 otra vez.</td></tr><tr><td><code>SyntaxError</code> que dice <em>unterminated triple-quoted</em></td><td>Quedaron las tres comillas de la tabla vieja, o se borró el renglón de MI_SYSTEM_PROMPT.</td><td>Arriba de las reglas quedan solo los dos renglones del 16 y <code>MI_SYSTEM_PROMPT = f"""</code>. Si ese renglón se borró, escríbanlo de nuevo.</td></tr><tr><td><code>NameError: name 'MI_SYSTEM_PROMPT'</code></td><td>Borraron también sus reglas.</td><td>Ctrl+Z adentro del 6 hasta que vuelvan. Si no vuelven: Archivo → Historial de revisiones, abran la versión del lunes y copien de ahí su system prompt.</td></tr><tr><td><code>NameError: name 'requests'</code></td><td>Colab se reinició.</td><td>▶ desde el bloque 1, en orden.</td></tr><tr><td><code>SecretNotFoundError</code></td><td>Corre el Colab otro compañero: las claves están en la cuenta del que lo corrió el lunes.</td><td>Que lo corra él.</td></tr><tr><td>En el print, la tabla sin comas entre las columnas</td><td>El 6 sigue con la tabla vieja: quedó abajo del 16, o pegaron el 16 en una celda aparte.</td><td>El 16 va adentro del 6, arriba de <code>MI_SYSTEM_PROMPT</code>. Borren la tabla vieja o la celda aparte, y ▶ el 6.</td></tr><tr><td>No les deja Publicar en la Web</td><td>La planilla no les da ese permiso.</td><td>Avísenme y lo publico yo.</td></tr></table></details><details class="lin"><summary>🔍 Qué hace cada línea <span class="chico">· ábranlo después de escribir sus comentarios, para comparar</span></summary><table class="cierre"><tr><td><code>URL_TABLA</code></td><td>La dirección de su hoja agente publicada, como el BASE del bloque 2.</td></tr><tr><td><code>requests.get(URL_TABLA)</code></td><td>Le pide la hoja a internet, como pide las mediciones en el bloque 2.</td></tr><tr><td><code>.content.decode("utf-8")</code></td><td>Lo que llega lo pasa a texto, con las tildes bien. En el bloque 2 era <code>.json()</code> porque llegaba un JSON; acá llega una tabla con comas, un CSV.</td></tr><tr><td><code>TABLA</code></td><td>Sigue llamándose igual: el system prompt la mete en <code>{TABLA}</code> como siempre.</td></tr></table></details><div class="pistas"><strong>💡 Si se traban</strong><div class="chico" style="margin:2px 0 6px">Toquen la duda que tengan. La última tiene la respuesta: ábranla solo si con las otras no les salió.</div><details><summary>¿Qué va en URL_TABLA?</summary><p>El enlace que copiaron en Publicar en la Web, entre comillas: es un texto.</p></details><details><summary>¿Qué borro del bloque 6?</summary><p>Solo la tabla pegada: desde <code>TABLA = """</code> hasta las tres comillas que la cierran. El system prompt, de <code>MI_SYSTEM_PROMPT</code> para abajo, queda igual.</p></details><details><summary>Ver la respuesta</summary><p>El bloque 6 empieza así, con su enlace entre las comillas. De <code>MI_SYSTEM_PROMPT</code> para abajo, queda como estaba.<br><code>URL_TABLA = "https://docs.google.com/spreadsheets/d/e/…/pub?gid=…&amp;single=true&amp;output=csv"</code><br><code>TABLA = requests.get(URL_TABLA).content.decode("utf-8")</code><br><code>MI_SYSTEM_PROMPT = f"""</code></p></details></div></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--json)">17</span> LA CADENA COMPLETA</h2><div class="camino"><span class="aqui">📍</span><span class="nodo on">👀 percibe</span><span class="fl">→</span><span class="nodo on">🧠 razona</span><span class="fl">→</span><span class="nodo on">⚖️ decide</span><span class="fl">→</span><span class="nodo on">📣 actúa</span></div><p class="que"><span data-eq="vitalair" style="display:none">Prueban el agente entero, con el dato nuevo: lee, decide y avisa.</span><span data-eq="ambiente" style="display:none">Prueban el agente entero: lee, decide y avisa. Sin código nuevo.</span><span data-eq="residuo" style="display:none">Prueban el agente entero: lee, decide y avisa. Sin código nuevo.</span><span data-eq="mpxl" style="display:none">Prueban el agente entero: lee, decide y avisa. Sin código nuevo.</span></p><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>Porque no alcanza con que corra: tiene que decidir bien.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>Para probar todo, del texto al aviso.</div></div><ol class="pasos"><li>👀 <strong>Lee el dato.</strong> En el bloque 8, pongan <span data-eq="vitalair" style="display:none"><code>HORA = 10</code> y <code>MINUTO = 10</code></span><span data-eq="ambiente" style="display:none"><code>HORA = 8</code> y <code>MINUTO = 0</code></span><span data-eq="residuo" style="display:none"><code>HORA = 13</code> y <code>MINUTO = 20</code></span><span data-eq="mpxl" style="display:none"><code>HORA = 7</code> y <code>MINUTO = 35</code></span> y ▶. El agente lee la medición de esa hora.</li><li>🧠 <strong>Lee la tabla.</strong> ▶ el 6: ahora la tabla viene de la planilla.</li><li>⚖️ <strong>Decide solo.</strong> ▶ el 10. Nadie le escribe nada: imprime el nivel, la acción y la razón.</li><li>📣 <strong>Avisa.</strong> ▶ el 11. Con Telegram, el aviso llega al celular. Sin Telegram, sale en pantalla después de 📣, y abajo <code>⚠️ No se pudo enviar</code>: está bien. (Sin Telegram, en Secrets <code>TELEGRAM_TOKEN</code> y <code>TELEGRAM_CHAT</code> van con <code>pendiente</code>.)</li><li>Comparen con el lunes (Clase a clase, fila del lunes 2): ¿el mismo nivel?<span data-eq="vitalair" style="display:none"> ¿La razón usa el 10 % de Seitron?</span><span data-eq="ambiente" style="display:none"></span><span data-eq="residuo" style="display:none"></span><span data-eq="mpxl" style="display:none"></span> Anótenlo en la fila del viernes 6.</li></ol><div class="info i-azul"><strong>¿Y el chat del bloque 7?</strong>Es aparte: sirve para preguntarle cosas a mano. El agente es esto de arriba: lee, decide y avisa solo.</div><div class="sale"><strong>✅ Tiene que salir:</strong> en el 10, un diccionario con el nivel; en el 11, el aviso. Ejemplos, abajo.</div><div class="falta-eq">⬆ Toquen su grupo, arriba de todo.</div><div data-eq="vitalair" style="display:none"><details class="lin"><summary>Ejemplos de respuestas</summary><table class="cierre" style="margin-top:8px"><tr><th>Prueba</th><th>Una respuesta posible</th></tr><tr><td>En el bucle: ¿A qué valor tiene que sonar la alarma de gas?</td><td><code style="white-space:normal;overflow-wrap:anywhere">La alarma tiene que sonar al 10 % del LEL, el límite de explosión. Fuente: Seitron.</code></td></tr><tr><td>En el bucle: ¿El monóxido de 44 ppm es peligroso?</td><td><code style="white-space:normal;overflow-wrap:anywhere">Sí: 44 ppm supera 25 ppm en 1 hora. Fuente: OMS, recogido por inBiot.</code></td></tr><tr><td>En el 10, con el monóxido en 44 ppm</td><td><code style="white-space:normal;overflow-wrap:anywhere">{&#x27;nivel&#x27;: &#x27;alerta&#x27;, &#x27;accion&#x27;: &#x27;salir del aula y abrir las ventanas&#x27;, &#x27;mensaje&#x27;: &#x27;El monóxido está en 44 ppm, más que 25 ppm.&#x27;, &#x27;razon&#x27;: &#x27;44 ppm supera 25 ppm (1 hora, OMS - inBiot)&#x27;}</code></td></tr><tr><td>En el 10, con todo en valores bajos</td><td><code style="white-space:normal;overflow-wrap:anywhere">{&#x27;nivel&#x27;: &#x27;normal&#x27;, &#x27;accion&#x27;: &#x27;ninguna&#x27;, &#x27;mensaje&#x27;: &#x27;El aire está bien.&#x27;, &#x27;razon&#x27;: &#x27;el monóxido está debajo de 9 ppm y el gas combustible lejos del 10 % LEL&#x27;}</code></td></tr></table><p style="margin-top:6px">Las palabras cambian. Tiene que coincidir el nivel.</p></details></div><div data-eq="ambiente" style="display:none"><details class="lin"><summary>Ejemplos de respuestas</summary><table class="cierre" style="margin-top:8px"><tr><th>Prueba</th><th>Una respuesta posible</th></tr><tr><td>En el bucle: ¿Qué temperatura tiene que tener un aula?</td><td><code style="white-space:normal;overflow-wrap:anywhere">Entre 20 y 30 °C, según la fila de centros escolares. Fuente: BID.</code></td></tr><tr><td>En el bucle: ¿Y la humedad de una casa en invierno?</td><td><code style="white-space:normal;overflow-wrap:anywhere">Entre 40 y 50 %, con 21 a 23 °C. Fuente: RITE.</code></td></tr><tr><td>En el 10, con el aula a 15 °C</td><td><code style="white-space:normal;overflow-wrap:anywhere">{&#x27;nivel&#x27;: &#x27;atencion&#x27;, &#x27;accion&#x27;: &#x27;prender la calefacción&#x27;, &#x27;mensaje&#x27;: &#x27;El aula está fría: 15 °C.&#x27;, &#x27;razon&#x27;: &#x27;15 °C está abajo de 20 a 30 °C (centros escolares, BID)&#x27;}</code></td></tr><tr><td>En el 10, con el aula a 22 °C</td><td><code style="white-space:normal;overflow-wrap:anywhere">{&#x27;nivel&#x27;: &#x27;normal&#x27;, &#x27;accion&#x27;: &#x27;ninguna&#x27;, &#x27;mensaje&#x27;: &#x27;La temperatura está bien.&#x27;, &#x27;razon&#x27;: &#x27;22 °C está entre 20 y 30 °C (centros escolares, BID)&#x27;}</code></td></tr></table><p style="margin-top:6px">Las palabras cambian. Tiene que coincidir el nivel.</p></details></div><div data-eq="residuo" style="display:none"><details class="lin"><summary>Ejemplos de respuestas</summary><table class="cierre" style="margin-top:8px"><tr><th>Prueba</th><th>Una respuesta posible</th></tr><tr><td>En el bucle: ¿Dónde va una botella de plástico?</td><td><code style="white-space:normal;overflow-wrap:anywhere">En el contenedor amarillo. Fuente: la de esa fila de su tabla.</code></td></tr><tr><td>En el bucle: ¿Dónde van las pilas?</td><td><code style="white-space:normal;overflow-wrap:anywhere">A los puntos limpios. Si dice amarillo, es la fila que marcaron con No: revísenla.</code></td></tr><tr><td>En el 10, con una botella en el amarillo</td><td><code style="white-space:normal;overflow-wrap:anywhere">{&#x27;nivel&#x27;: &#x27;normal&#x27;, &#x27;accion&#x27;: &#x27;ninguna&#x27;, &#x27;mensaje&#x27;: &#x27;Se tiró en el contenedor correcto.&#x27;, &#x27;razon&#x27;: &#x27;botella de plástico va al amarillo (fila 2)&#x27;}</code></td></tr><tr><td>En el 10, con pilas en el gris</td><td><code style="white-space:normal;overflow-wrap:anywhere">{&#x27;nivel&#x27;: &#x27;alerta&#x27;, &#x27;accion&#x27;: &#x27;sacar las pilas y llevarlas a un punto limpio&#x27;, &#x27;mensaje&#x27;: &#x27;Hay pilas en el contenedor gris.&#x27;, &#x27;razon&#x27;: &#x27;las pilas son peligrosas fuera de su lugar (fila de pilas)&#x27;}</code></td></tr></table><p style="margin-top:6px">Las palabras cambian. Tiene que coincidir el nivel.</p></details></div><div data-eq="mpxl" style="display:none"><details class="lin"><summary>Ejemplos de respuestas</summary><table class="cierre" style="margin-top:8px"><tr><th>Prueba</th><th>Una respuesta posible</th></tr><tr><td>En el bucle: ¿A qué temperatura va la carne vacuna en la heladera?</td><td><code style="white-space:normal;overflow-wrap:anywhere">A 4 °C, de 3 a 5 días. Fuente: frigorificosada.</code></td></tr><tr><td>En el bucle: ¿Y en el freezer?</td><td><code style="white-space:normal;overflow-wrap:anywhere">Entre −14 y −18 °C. Fuente: la de esa fila de su tabla.</code></td></tr><tr><td>En el 10, con la heladera a 9 °C</td><td><code style="white-space:normal;overflow-wrap:anywhere">{&#x27;nivel&#x27;: &#x27;atencion&#x27;, &#x27;accion&#x27;: &#x27;revisar que la puerta esté cerrada&#x27;, &#x27;mensaje&#x27;: &#x27;La heladera está a 9 °C.&#x27;, &#x27;razon&#x27;: &#x27;9 °C supera los 4 °C de la carne vacuna en heladera (fila 3)&#x27;}</code></td></tr><tr><td>En el 10, con la heladera a 4 °C</td><td><code style="white-space:normal;overflow-wrap:anywhere">{&#x27;nivel&#x27;: &#x27;normal&#x27;, &#x27;accion&#x27;: &#x27;ninguna&#x27;, &#x27;mensaje&#x27;: &#x27;La heladera está bien.&#x27;, &#x27;razon&#x27;: &#x27;4 °C es lo que dice la fila 3 para la carne vacuna&#x27;}</code></td></tr></table><p style="margin-top:6px">Las palabras cambian. Tiene que coincidir el nivel.</p></details></div><div class="info i-grn"><strong>Esto es encadenar</strong>El agente solo usa lo que revisó una persona.</div></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--vio)">18</span> 📝 EL INFORME DEL PROYECTO</h2><p class="que">Cinco preguntas, dos o tres oraciones cada una.</p><div class="pq"><div class="pq-a"><div class="pq-t">❔ Por qué</div>Porque un proyecto que nadie más entiende no se puede usar ni seguir.</div><div class="pq-b"><div class="pq-t">🎯 Para qué</div>Para dejar escrito qué hace su agente, de dónde salen sus datos y cómo lo probaron.</div></div><div class="falta-eq">⬆ Toquen su grupo, arriba de todo.</div><div data-eq="vitalair" style="display:none"><div class="info i-grn"><strong>VitalAir</strong>Ustedes lo arrancan desde el principio: uno escribe las preguntas 1, 3 y 5 mientras los demás hacen del 13 al 17. La 2 y la 4, cuando terminen el 17.</div></div><div data-eq="ambiente" style="display:none"></div><div data-eq="residuo" style="display:none"></div><div data-eq="mpxl" style="display:none"></div><ol class="pasos"><li>En Drive, abran su carpeta <strong>documentacion</strong> → <strong>+ Nuevo → Documentos de Google</strong>. Nómbrenlo <code>Informe_NombreDelEquipo</code>.</li><li>📋 Copiar → Ctrl+V en el documento.</li><li>Repártanse las preguntas. Abajo de cada una, dos o tres oraciones, con sus palabras.</li><li>Al final, léanlo entre todos: ¿se entiende?</li></ol><div class="cod" id="esq">INFORME DEL PROYECTO
+Equipo:
+Integrantes:
+
+1. ¿Qué hace nuestro agente?
+
+2. ¿De dónde salen nuestros datos?
+
+3. ¿Cómo decide si avisa?
+
+4. ¿Qué probamos y qué pasó?
+
+5. ¿Quién hizo qué?</div><button class="btn-cp" onclick="copiar('esq', this)">📋 Copiar</button><details class="lin"><summary>Dónde mirar para cada pregunta</summary><table class="cierre" style="margin-top:8px"><tr><th>Pregunta</th><th>Dónde</th></tr><tr><td style="white-space:nowrap">1</td><td>Lo que imprime el bloque 4: qué mide. Las reglas del bloque 6: qué decide. Si la ficha del equipo dice otra cosa, cuenten lo que hace hoy.</td></tr><tr><td style="white-space:nowrap">2</td><td>La hoja Textos fuente: cuenten las filas con texto. La columna Fuente de la tabla, para nombrar dos. Quién verificó: la columna Verificó o, si no dice un nombre, Clase a clase.<span data-eq="vitalair" style="display:none"> Las mediciones salen de su sensor.</span><span data-eq="ambiente" style="display:none"> Las mediciones no son de un sensor: son el archivo que les armé yo, el del bloque 2.</span><span data-eq="residuo" style="display:none"> Las mediciones no son de un sensor: son el archivo que les armé yo, el del bloque 2.</span><span data-eq="mpxl" style="display:none"> Las mediciones no son de un sensor: son el archivo que les armé yo, el del bloque 2.</span></td></tr><tr><td style="white-space:nowrap">3</td><td>Las reglas del bloque 6: qué es normal, atención y alerta. En su Colab, el bloque 11: con qué nivel no avisa.<span data-eq="vitalair" style="display:none"></span><span data-eq="ambiente" style="display:none"> Si no tienen alerta, digan por qué.</span><span data-eq="residuo" style="display:none"></span><span data-eq="mpxl" style="display:none"></span></td></tr><tr><td style="white-space:nowrap">4</td><td>Clase a clase, filas del viernes 30, del lunes 2 y del viernes 6</td></tr><tr><td style="white-space:nowrap">5</td><td>Clase a clase, columna Quién hizo qué hoy. Lo que no anotaron, lo cuentan ustedes.</td></tr></table></details><div class="info i-amb"><strong>Con sus palabras</strong>Si algo no lo hicieron, escríbanlo así. Lo escriben ustedes, no una IA.</div></div>
+<div class="card c-entrega" style="border-top:6px solid var(--vio);">
+  <h2><span class="badge" style="background:var(--vio)">📓</span> ANTES DE IRSE</h2>
+  <table class="cierre"><tr><th>Qué</th><th>Dónde</th></tr>
+    <tr><td><strong><span data-eq="vitalair" style="display:none">Los dos Colabs</span><span data-eq="ambiente" style="display:none">El Colab del agente</span><span data-eq="residuo" style="display:none">El Colab del agente</span><span data-eq="mpxl" style="display:none">El Colab del agente</span></strong>, con sus comentarios</td><td>Archivo → Guardar, en la carpeta codigo</td></tr>
+    <tr><td><span data-eq="vitalair" style="display:none">El texto nuevo, la fila verificada y la cadena completa</span><span data-eq="ambiente" style="display:none">La prueba del bloque 17</span><span data-eq="residuo" style="display:none">La prueba del bloque 17</span><span data-eq="mpxl" style="display:none">La prueba del bloque 17</span></td><td>Planilla → <span data-eq="vitalair" style="display:none">Textos fuente, la tabla y </span><span data-eq="ambiente" style="display:none"></span><span data-eq="residuo" style="display:none"></span><span data-eq="mpxl" style="display:none"></span>Clase a clase, fila del viernes 6</td></tr>
+    <tr><td><strong>El informe</strong></td><td>Carpeta documentacion, <code>Informe_NombreDelEquipo</code></td></tr>
+  </table>
+  <div class="info i-grn"><strong>📓 Y cada uno, su bitácora</strong>La del día, la de siempre, con algo concreto: <span data-eq="vitalair" style="display:none">qué documento sumaron, qué sacó el extractor y si el agente lo usó.</span><span data-eq="ambiente" style="display:none">si el agente decidió igual leyendo la planilla, y qué pregunta del informe contestó cada uno.</span><span data-eq="residuo" style="display:none">si el agente decidió igual leyendo la planilla, y qué pregunta del informe contestó cada uno.</span><span data-eq="mpxl" style="display:none">si el agente decidió igual leyendo la planilla, y qué pregunta del informe contestó cada uno.</span></div>
+</div>
+<div class="card c-info"><h2><span class="badge" style="background:var(--teal)">🧩</span> EL AGENTE COMPLETO</h2><p class="que">El comienzo de cada bloque. Lo que sigue a los puntos está en su Colab. No es para copiar.</p><ol class="pasos"><li>¿Su Colab tiene todos estos bloques, en este orden?</li></ol><div class="cod" style="white-space:pre;overflow-x:auto;overflow-wrap:normal;word-break:normal;font-size:13px"># Bloque 1 - La hora de Argentina
+import requests
+from datetime import datetime, timedelta, timezone
+..............................
+
+# Bloque 2 - De donde salen los datos
+MI_FUENTE = &quot;...&quot;
+BASE = &quot;...&quot;
+FUENTE = requests.get(BASE + MI_FUENTE + &quot;.json&quot;).json()
+..............................
+
+# Bloque 3 - La medicion de esta hora
+ahora = datetime.now(ARGENTINA)
+minutos_del_dia = ahora.hour * 60 + ahora.minute
+numero_de_medicion = minutos_del_dia // 5
+..............................
+
+# Bloque 4 - La medicion, en texto
+material = &quot;&quot;
+for clave, valor in lectura.items():
+    material = material + f&quot;{clave}: {valor}\n&quot;
+..............................
+
+# Bloque 5 - La conexion
+from google.colab import userdata
+API_KEY = userdata.get(&#x27;GROQ_API_KEY&#x27;)
+..............................
+
+# Bloque 6 - Su tabla y las reglas
+URL_TABLA = &quot;...&quot;
+TABLA = requests.get(URL_TABLA).content.decode(&quot;utf-8&quot;)
+MI_SYSTEM_PROMPT = f&quot;&quot;&quot;
+..............................
+
+# Bloque 7 - El bucle
+while True:
+    entrada = input(&quot;Vos: &quot;)
+    if entrada.lower() == &quot;/salir&quot;:
+..............................
+
+# Bloque 8 - Un momento dificil
+HORA = ...
+MINUTO = ...
+minutos_del_dia = HORA * 60 + MINUTO
+..............................
+
+# Bloque 10 - Decide solo, con un limite
+import json
+import time
+MAX_INTENTOS = 3
+def decidir():
+..............................
+
+# Bloque 11 - Actua: el aviso
+TOKEN = userdata.get(&#x27;TELEGRAM_TOKEN&#x27;)
+CHAT = userdata.get(&#x27;TELEGRAM_CHAT&#x27;)
+EQUIPO = &quot;...&quot;
+def actuar(decision):
+..............................</div></div>
+</div>
+<script>
+var NOMBRES = {'vitalair':'VitalAir','ambiente':'Ambiente Óptimo','residuo':'Residuo Econexo','mpxl':'MPXL'};
+function elegir(e){
+  document.querySelectorAll('[data-eq]').forEach(function(el){ el.style.display = (el.getAttribute('data-eq')===e) ? '' : 'none'; });
+  document.querySelectorAll('.falta-eq').forEach(function(el){ el.style.display = 'none'; });
+  document.querySelectorAll('.btn-eq').forEach(function(b){ b.classList.toggle('activo', b.getAttribute('data-v')===e); });
+  try{ localStorage.setItem('agente_grupo', e); }catch(x){}
+  try{ history.replaceState(null, '', '#' + e); }catch(x){}
+}
+window.addEventListener('load', function(){
+  var h = location.hash.replace('#',''), e = null;
+  if (NOMBRES[h]) e = h; else { try{ var g = localStorage.getItem('agente_grupo'); if (NOMBRES[g]) e = g; }catch(x){} }
+  if (e) elegir(e);
+});
+function copiar(id, b){
+  var t = document.getElementById(id).innerText;
+  function ok(){ var o=b.textContent; b.textContent='✅ Copiado'; setTimeout(function(){ b.textContent=o; }, 1600); }
+  function viejo(){ var a=document.createElement('textarea'); a.value=t; document.body.appendChild(a); a.select();
+    try{ document.execCommand('copy'); ok(); }catch(x){ b.textContent='Seleccionalo y copialo a mano'; } document.body.removeChild(a); }
+  if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(ok, viejo); } else { viejo(); }
+}
+</script>
+</body></html>
