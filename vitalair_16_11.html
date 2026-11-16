@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VitalAir · terminar el agente</title>
+<style>
+  .preg{background:#FFFDF6;border-left:6px solid var(--amb);border-radius:8px;
+        padding:12px 17px;margin:11px 0;font-size:17px;line-height:1.6;font-weight:bold;}
+  .preg strong:first-child{color:var(--amb);margin-right:5px;}
+  :root{
+    --nav:#1A2C3A;--teal:#00949A;--grn:#2A6049;--amb:#D4873A;
+    --vio:#3D5A99;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#2C3E50;
+    --bco:#FFFFFF;--code-bg:#1E1E1E;--r:12px;
+    --p1:#1F6E5C;--p1-bg:#E8F4F0;
+    --g2:#2E6820;--g2-bg:#EFF8EE;
+    --json:#006400;--json-bg:#F0FFF0;
+    --rojo:#C62828;--rojo-bg:#FFEBEE;
+    --azul:#1565C0;--azul-bg:#E3F2FD;
+    --classroom:#137333;--class-bg:#F0FFF4;
+    --rpg:#5C2070;--rpg-bg:#F8F3FF;
+    --plan:#2A4A7F;--plan-bg:#E5ECF6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#EEF3F7;color:var(--txt);line-height:1.6;font-size:20px;padding:15px 0 50px;}
+  header{background:var(--nav);color:var(--bco);padding:25px 20px;border-bottom:5px solid var(--vio);}
+  header h1{font-size:26px;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}
+  header p{font-size:17px;opacity:.9;}
+  .container{width:95%;max-width:1400px;margin:0 auto;padding:0 15px;}
+  .back-btn{display:inline-block;margin-top:20px;margin-bottom:10px;padding:10px 20px;background:var(--bco);color:var(--nav);text-decoration:none;font-weight:bold;border-radius:8px;border:2px solid var(--bd);}
+  .card{background:var(--bco);border-radius:var(--r);padding:30px;margin-bottom:28px;margin-top:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--bd);}
+  .c-p1{border-left-color:var(--p1);background:var(--p1-bg);}
+  .c-plan{border-left-color:var(--plan);background:var(--plan-bg);}
+  .c-info{border-left-color:var(--vio);background:#FAFCFF;}
+  .c-json{border-left-color:var(--json);background:var(--json-bg);}
+  .c-rojo{border-left-color:var(--rojo);background:var(--rojo-bg);}
+  .c-entrega{border-left-color:var(--classroom);background:var(--class-bg);}
+  .c-asistente{border-left-color:var(--rpg);background:var(--rpg-bg);}
+  .c-avanzado{border-left-color:var(--amb);background:#FFFBF5;}
+  h2{color:var(--nav);font-size:23px;margin-bottom:15px;text-transform:uppercase;border-bottom:2px solid var(--gris);padding-bottom:10px;display:flex;align-items:center;gap:10px;}
+  .badge{background:var(--nav);color:var(--bco);padding:5px 12px;border-radius:6px;font-size:17px;font-weight:bold;}
+  .info{padding:18px 20px;border-radius:var(--r);margin:15px 0;border-left:5px solid;font-size:18px;line-height:1.7;}
+  .i-p1{background:var(--p1-bg);border-color:var(--p1);}
+  .i-plan{background:var(--plan-bg);border-color:var(--plan);}
+  .i-grn{background:var(--g2-bg);border-color:var(--g2);}
+  .i-amb{background:#FFF8EE;border-color:var(--amb);}
+  .i-azul{background:var(--azul-bg);border-color:var(--azul);}
+  .i-rojo{background:var(--rojo-bg);border-color:var(--rojo);}
+  .i-json{background:var(--json-bg);border-color:var(--json);}
+  .info > strong:first-child{display:block;margin-bottom:6px;font-size:19px;}
+  .code-block{background:var(--code-bg);color:#D4D4D4;font-family:'Consolas',monospace;padding:18px 20px;font-size:17px;overflow-x:auto;white-space:pre;line-height:1.65;margin:14px 0;border-radius:8px;}
+  .kw{color:#569CD6;} .str{color:#CE9178;} .cm{color:#6A9955;font-style:italic;}
+  .nm{color:#B5CEA8;} .fn{color:#DCDCAA;} .dk{color:#9CDCFE;}
+  code{background:#E8E6FF;color:var(--vio);padding:2px 6px;border-radius:4px;font-family:'Consolas',monospace;font-size:17px;}
+  ul{margin-left:22px;} li{margin-bottom:8px;}
+  ol{margin-left:22px;} ol li{margin-bottom:8px;}
+  table{width:100%;border-collapse:collapse;font-size:17px;margin:16px 0;background:#fff;border-radius:8px;overflow:hidden;}
+  th,td{border:1px solid var(--bd);padding:12px 14px;text-align:left;}
+  th{background:var(--nav);color:#fff;font-size:15px;text-transform:uppercase;letter-spacing:.5px;}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+  .trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;}
+  .mini{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:16px;font-size:16px;line-height:1.6;}
+  .mini strong{color:var(--p1);display:block;margin-bottom:4px;font-size:17px;}
+  .check{list-style:none;margin-left:0;}
+  .check li{padding-left:34px;position:relative;margin-bottom:12px;font-size:18px;}
+  .check li::before{content:"\25A2";position:absolute;left:0;font-size:24px;color:var(--p1);}
+  #asist-chat{display:none;}
+  #asist-msgs{background:#1E1E1E;border-radius:10px;padding:16px;min-height:160px;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:10px;}
+  .asist-inp{display:flex;gap:8px;}
+  .asist-inp input{flex:1;padding:11px;border-radius:8px;border:1px solid #ccc;font-size:17px;outline:none;}
+  .btn-rpg{background:var(--rpg);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;}
+  .btn-rpg:disabled{background:#ccc;cursor:not-allowed;}
+  .key-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
+  .key-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;outline:none;}
+  @media(max-width:768px){.duo,.trio{grid-template-columns:1fr;}}
+
+  /* Ejercicio de JSON */
+  .jej{display:none;}
+  .jej.activo{display:block;}
+  .jpanel{background:#F0FFF0;border:2px solid #006400;border-radius:10px;padding:18px 20px;
+          font-family:Consolas,monospace;font-size:17px;line-height:2;overflow-x:auto;white-space:pre;}
+  .jval{background:#fff;border:2px solid var(--bd);border-radius:6px;padding:1px 7px;
+        cursor:pointer;transition:all .15s;display:inline-block;}
+  .jval:hover{border-color:var(--json);background:#E6F7E6;}
+  .jval.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jval.no{background:#FFEBEE;border-color:var(--rojo);}
+  .jkey{color:#9CDCFE;}
+  .jctx{background:var(--azul-bg);border-left:5px solid var(--azul);border-radius:8px;
+        padding:12px 16px;margin-bottom:12px;font-size:17px;}
+  .jpide{font-size:21px;font-weight:bold;margin:14px 0 10px;}
+  .jfb{margin-top:12px;font-size:18px;}
+  .jcamino{background:var(--code-bg);color:#D4D4D4;font-family:Consolas,monospace;
+           padding:12px 16px;border-radius:8px;font-size:17px;margin-top:10px;overflow-x:auto;}
+  .jcam-ops{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+  .jcam-op{background:#1E1E1E;color:#D4D4D4;font-family:Consolas,monospace;font-size:16px;
+           padding:11px 14px;border:2px solid #3A3A3A;border-radius:8px;cursor:pointer;text-align:left;
+           transition:all .15s;}
+  .jcam-op:hover:enabled{border-color:var(--vio);}
+  .jcam-op:disabled{cursor:default;}
+  .jcam-op.cam-ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .jcam-op.cam-no{background:#3a1e1e;border-color:#C0392B;opacity:.6;}
+  .jprog{font-size:16px;color:#666;margin-bottom:8px;}
+
+  /* Taller de reparaciones */
+  .rep{display:none;}
+  .rep.activo{display:block;}
+  .repcod{background:var(--code-bg);border-radius:8px;padding:14px 0;font-family:Consolas,monospace;
+          font-size:16px;line-height:1.9;overflow-x:auto;}
+  .rline{display:block;padding:2px 18px;cursor:pointer;white-space:pre;color:#D4D4D4;}
+  .rline:hover{background:#2D2D2D;}
+  .rline.ok{background:#1F6E5C;}
+  .rline.no{background:#5C1F1F;}
+  .rline.fija{cursor:default;color:#808080;}
+  .rline.fija:hover{background:transparent;}
+  .rnum{color:#606060;display:inline-block;width:26px;user-select:none;}
+
+  .encasa{display:inline-block;background:#7A4B00;color:#fff;font-size:14px;font-weight:bold;
+          letter-spacing:1px;padding:5px 12px;border-radius:20px;margin-left:auto;}
+  .banda-casa{background:#FFF8EE;border:2px dashed #B8720A;border-radius:10px;
+              padding:12px 18px;margin-bottom:16px;font-size:18px;}
+
+  /* Campos extraíbles */
+  .campo{display:inline-block;background:#fff;border:2px solid var(--bd);border-radius:22px;
+         padding:9px 18px;margin:6px 6px 6px 0;cursor:pointer;font-size:18px;transition:all .15s;}
+  .campo:hover{border-color:var(--p1);background:#F2FAF8;}
+  .campo.si{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .campo.no{background:#FFEBEE;border-color:var(--rojo);color:#8B1A1A;text-decoration:line-through;}
+  .ext-txt{background:#FFFDF5;border:2px solid var(--amb);border-radius:10px;padding:16px 20px;
+           font-size:19px;line-height:1.7;font-style:italic;margin-bottom:14px;}
+
+  .tarea{background:#fff;border:2px solid var(--bd);border-radius:10px;
+         padding:13px 18px;margin-bottom:10px;font-size:18px;transition:all .15s;
+         display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
+  .tarea-txt{flex:1 1 240px;}
+  .tarea-btns{display:flex;gap:8px;}
+  .tbtn{background:#fff;border:2px solid var(--bd);border-radius:8px;padding:8px 12px;
+        font-size:16px;cursor:pointer;font-family:inherit;color:var(--txt);white-space:nowrap;}
+  .tbtn:hover:enabled{border-color:var(--vio);}
+  .tbtn:disabled{cursor:default;opacity:.55;}
+  .tbtn.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;opacity:1;}
+  .tbtn.mal{background:#FFEBEE;border-color:#C0392B;color:#8B1A1A;opacity:1;}
+  .tarea.resuelta{background:#F7FBF9;border-color:#1F6E5C;}
+  .tarea-fb{flex:1 1 100%;font-size:16px;}
+  .btn-op{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px 20px;
+          margin:6px 8px 6px 0;font-size:18px;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .btn-op:hover{border-color:var(--p1);}
+  .btn-op.ok{background:#E8F4F0;border-color:var(--p1);}
+  .btn-op.mal{background:#FFEBEE;border-color:var(--rojo);}
+  .parte{display:inline-block;background:#1E1E1E;color:#DCDCAA;border:2px solid #444;
+         border-radius:8px;padding:8px 14px;margin:5px 4px;cursor:pointer;
+         font-family:Consolas,monospace;font-size:20px;}
+  .parte:hover{border-color:#DCDCAA;}
+  .parte.ok{background:#1F6E5C;color:#fff;border-color:#1F6E5C;}
+  .parte.mal{background:#5C1F1F;border-color:#C62828;}
+
+  /* Cuestionario de cierre */
+  .cq-op{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);
+         border-radius:10px;padding:13px 18px;margin-bottom:9px;font-size:18px;cursor:pointer;
+         font-family:inherit;color:var(--txt);line-height:1.5;}
+  .cq-op:hover:enabled{border-color:var(--vio);background:#FAF7FF;}
+  .cq-op:disabled{cursor:default;opacity:.95;}
+  .cq-vf{display:inline-block;width:48%;text-align:center;font-size:20px;font-weight:bold;
+         padding:16px;margin:0 1% 10px;border:2px solid var(--bd);border-radius:10px;
+         background:#fff;cursor:pointer;font-family:inherit;color:var(--txt);}
+  .cq-vf:hover:enabled{border-color:var(--vio);}
+  .cq-vf:disabled{cursor:default;opacity:.95;}
+  .cq-barra{height:14px;background:#E8E8E8;border-radius:7px;overflow:hidden;margin:10px 0 4px;}
+  .cq-fill{height:100%;background:var(--vio);width:0;transition:width .3s;}
+</style>
+</head>
+<body>
+<header>
+  <h1>VITALAIR: TERMINAR EL AGENTE</h1>
+  <p>Taller de IA &middot; 7&deg; TIC &middot; Lunes 16/11</p>
+</header>
+<div class="container">
+<a href="index.html" class="back-btn">&#11013; Volver al &Iacute;ndice</a>
+<style>  .cp{width:100%;box-sizing:border-box;border:2px solid var(--bd);border-radius:9px;padding:11px 14px;
+      font-size:16px;font-family:inherit;line-height:1.5;resize:vertical;margin-top:7px;}
+  .cp:focus{outline:none;border-color:var(--p1);}
+  .lb{font-weight:bold;font-size:17px;margin-top:15px;display:block;}
+  .ay{display:block;font-size:15px;color:#667;margin-top:2px;}
+  .reloj{display:inline-block;background:var(--amb);color:#fff;font-size:15px;font-weight:bold;
+         padding:3px 12px;border-radius:20px;margin-left:10px;vertical-align:middle;}
+  .cod{background:#1E1E1E;color:#D4D4D4;border-radius:10px;padding:15px 19px;margin:10px 0;
+       font-family:Consolas,monospace;font-size:15.5px;line-height:1.7;white-space:pre-wrap;overflow-x:auto;}
+  .cod .cm{color:#6A9955;} .cod .st{color:#CE9178;} .cod .kw{color:#569CD6;}
+  .mal{background:#FDECEA;border:2px solid #C0392B;border-radius:10px;padding:13px 17px;
+       font-family:Consolas,monospace;font-size:15px;line-height:1.7;margin:8px 0;}
+  .bien{background:#F0FAF7;border:2px solid #1F6E5C;border-radius:10px;padding:13px 17px;
+        font-family:Consolas,monospace;font-size:15px;line-height:1.7;margin:8px 0;}
+  .mal,.bien{white-space:pre-wrap;}
+  details.pista{background:var(--gris);border-left:5px solid var(--vio);border-radius:8px;
+                padding:12px 16px;margin-top:9px;}
+  details.pista summary{cursor:pointer;font-weight:bold;color:var(--vio);font-size:17px;}
+  details.pista p{margin:10px 0 0 0;font-size:17px;}
+  table.cierre{width:100%;border-collapse:collapse;font-size:16px;margin:12px 0;}
+  table.cierre th{background:var(--nav);color:#fff;padding:9px 12px;text-align:left;font-size:13.5px;}
+  table.cierre td{border:1px solid var(--bd);padding:10px 12px;vertical-align:top;}
+  table.cierre tr:nth-child(even) td{background:#F7FAFC;}</style><style>
+  .reloj{background:#A35A12 !important;}
+  .que{font-size:18px;line-height:1.6;margin:6px 0 10px;}
+  .chico{font-size:15px;color:#556;margin:6px 0;}
+  ol.pasos{font-size:17.5px;margin:8px 0 10px 24px;} ol.pasos li{margin-bottom:5px;}
+  ol.pasos code, .info code{overflow-wrap:anywhere;}
+  .hueco{background:#FFE082;color:#5D4300;border-radius:4px;padding:0 3px;font-weight:bold;}
+  .cod .hueco{color:#3A2A00;}
+  .btn-cp{background:var(--p1);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:16px;font-weight:bold;cursor:pointer;margin:2px 0 6px;}
+  .camino{display:flex;flex-wrap:wrap;align-items:center;gap:6px;background:var(--gris);border-radius:10px;padding:8px 12px;margin:4px 0 10px;}
+  .camino .nodo{border:2px solid var(--bd);border-radius:20px;padding:3px 12px;font-size:15px;background:#fff;}
+  .camino .nodo.on{background:var(--json);border-color:var(--json);color:#fff;font-weight:bold;}
+  .camino .fl{color:#99A;}
+  .pq{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px;}
+  .pq > div{border-radius:10px;padding:10px 14px;font-size:16.5px;}
+  .pq-a{background:#F2F5FB;border-left:6px solid var(--vio);} .pq-b{background:#F0FAF7;border-left:6px solid var(--p1);}
+  .pq-t{font-weight:bold;font-size:14px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+  .pq-a .pq-t{color:var(--vio);} .pq-b .pq-t{color:var(--p1);}
+  .sale{background:#F0FAF7;border-left:6px solid var(--p1);border-radius:8px;padding:10px 14px;margin:10px 0;font-size:16.5px;}
+  .pistas{background:var(--gris);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .pistas details{background:#fff;border-left:5px solid var(--vio);border-radius:8px;padding:9px 14px;margin-top:8px;}
+  .pistas summary{cursor:pointer;font-weight:bold;color:var(--vio);font-size:16.5px;}
+  .pistas details p{margin:8px 0 2px;font-size:16px;}
+  details.lin{background:var(--gris);border-radius:10px;padding:9px 14px;margin:10px 0 12px;}
+  details.lin.err{background:#FDF1EE;border-left:5px solid var(--rojo);}
+  details.lin summary{cursor:pointer;font-weight:bold;font-size:17px;color:var(--nav);}
+  details.lin table{margin-top:8px;background:#fff;}
+  table.cierre{width:100%;border-collapse:collapse;font-size:16px;margin:6px 0 10px;}
+  table.cierre th{background:var(--nav);color:#fff;text-align:left;padding:8px 10px;}
+  table.cierre td{border-bottom:1px solid var(--bd);padding:8px 10px;vertical-align:top;}
+  table.cierre td code{white-space:nowrap;}
+  table.cierre td code.hm{white-space:nowrap !important;overflow-wrap:normal !important;}
+  details.lin.err td code{white-space:normal;overflow-wrap:anywhere;}
+  .lin table.cierre td:first-child{width:38%;}
+  pre.arch{background:#F3F6F9;border-left:5px solid var(--json);border-radius:8px;padding:10px 14px;font-size:15px;overflow-x:auto;margin:8px 0;white-space:pre-wrap;}
+  .eq-bar{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px;}
+  .btn-eq{background:#fff;border:3px solid var(--nav);border-radius:12px;padding:10px 18px;font-size:18px;font-weight:bold;cursor:pointer;color:var(--nav);}
+  .btn-eq.activo{background:var(--nav);color:#fff;}
+  .falta-eq{font-size:15px;color:#a05a00;font-weight:bold;margin:6px 0;}
+  @media (max-width:640px){
+    .pq{grid-template-columns:1fr;}
+    .cod{overflow-wrap:anywhere;} .pistas code{overflow-wrap:anywhere;word-break:break-all;}
+    table.cierre{font-size:14.5px;} table.cierre td, table.cierre th{padding:7px 6px;overflow-wrap:anywhere;}
+    table.cierre td code{white-space:normal;overflow-wrap:anywhere;}
+    .lin table.cierre, .lin table.cierre tbody, .lin table.cierre tr, .lin table.cierre td{display:block;width:auto !important;}
+    .lin table.cierre tr{border-bottom:1px solid #D5DCE6;padding:6px 0;} .lin table.cierre td{border:none;padding:2px 8px;}
+    .lin table.cierre td:first-child code{font-weight:bold;}
+    .lin table.cierre tr:has(th){display:none;}
+  }
+</style><div class="card c-info"><h2><span class="badge" style="background:var(--teal)">0</span> HOY TERMINAN EL AGENTE</h2><p class="que">Su agente ya anda casi entero: hoy cambian dos bloques, el 6 y el 8, y lo prueban. Después, si tienen su bot, hacen que el aviso llegue por Telegram, y le agregan al informe lo que le falta.</p><div class="info i-grn"><strong>Qué hay que cambiar</strong>El bloque 6 tiene un pedazo de un archivo de mediciones en lugar de su tabla, y la línea del JSON quedó cortada. El 8 usa la hora de ahora, y para probar hace falta una hora elegida.</div><p class="chico">Al final, anoten en Clase a clase, en la fila del lunes 16/11, qué hicieron y quién.</p></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--vio)">📄</span> LA HOJA AGENTE, EN LA PLANILLA</h2><ol class="pasos"><li>En su planilla, hagan una hoja nueva que se llame <strong>agente</strong>, con estas columnas de Tabla de datos y sus títulos: contaminante, limite, unidad, tiempo_exposicion, tipo_de_riesgo y Fuente.</li><li>Copien solo las filas que su sensor puede comparar: la N° 1, 4, 7, 8, 10, 14, 18, 22, 26, 30, 34, 38, 39, 40, 41, 42 y 43. Son las de monóxido en ppm, el LEL en ppm de cada gas, la humedad y la temperatura. Con menos filas, la IA gasta menos tokens.</li><li>En las filas 38 a 43, la Fuente dice Rango proporcionado. Cámbienla por Naturgy, que es el texto 12 de Textos fuente.</li><li>Agreguen una fila con lo de Seitron (texto 17 de Textos fuente): Gas combustible · 10 · % del LEL · Inmediato · Alarma temprana · Seitron.</li><li>Archivo → Compartir → Publicar en la Web → elijan la hoja agente y <strong>Valores separados por comas (.csv)</strong> → Publicar. Copien el link: termina en <code>output=csv</code>.</li></ol></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--teal)">6</span> LA TABLA Y LAS REGLAS</h2><p class="que">Reemplacen todo el bloque 6 por este. En lugar de <code>[completar]</code>, peguen su link entre comillas. Las frases de accion, mensaje y razon son un ejemplo: cámbienlas si quieren.</p><div class="cod" id="v1">URL_TABLA = [completar]
+TABLA = requests.get(URL_TABLA).content.decode(&quot;utf-8&quot;)
+
+MI_SYSTEM_PROMPT = f&quot;&quot;&quot;
+Sos un agente que interpreta mediciones ambientales.
+
+TU TABLA DE REFERENCIA:
+{TABLA}
+
+LA MEDICION DE AHORA:
+{material}
+
+REGLAS:
+- Compará SOLO contra los valores de la tabla. NUNCA inventes un valor de referencia.
+- Si falta un dato para decidir, decilo.
+- Respondé solo con un JSON, sin nada antes ni despues, con este formato: {{&quot;nivel&quot;: &quot;normal, atencion o alerta, en minuscula y sin tilde; si falta un dato, atencion&quot;, &quot;accion&quot;: &quot;qué hay que hacer ahora: ventilar, salir, cortar el gas o nada&quot;, &quot;mensaje&quot;: &quot;qué pasa, en una o dos oraciones&quot;, &quot;razon&quot;: &quot;con qué fila de la tabla comparó: el límite, el tiempo y la fuente&quot;}}
+&quot;&quot;&quot;
+
+historial = [{&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: MI_SYSTEM_PROMPT}]
+if &quot;[completar&quot; in MI_SYSTEM_PROMPT:
+    print(&quot;⚠️ Les quedó un hueco sin completar en el system prompt.&quot;)
+else:
+    print(&quot;✅ Listo.&quot;)</div><div><button class="btn-cp" onclick="copiar('v1', this)">📋 Copiar</button></div><div class="sale"><strong>✅ Tiene que salir:</strong> ✅ Listo. Si sale NameError: name 'completar' is not defined, falta pegar el link.</div><p class="que">Para ver qué le llega a la IA, en una celda nueva debajo del 6:</p><div class="cod" id="v2">print(TABLA)</div><div><button class="btn-cp" onclick="copiar('v2', this)">📋 Copiar</button></div><div class="sale"><strong>✅ Tiene que salir:</strong> sus 18 filas, con las columnas separadas por comas. Si sale un texto que empieza con <code>&lt;!DOCTYPE html&gt;</code>, el link no es el publicado.</div></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--vio)">8</span> EL MOMENTO DIFÍCIL</h2><p class="que">Reemplacen el bloque 8 por este: elige las 17:25, el pico de monóxido de la tarde.</p><div class="cod" id="v3">HORA = 17
+MINUTO = 25
+
+minutos_del_dia = HORA * 60 + MINUTO
+numero_de_medicion = minutos_del_dia // 5
+
+lectura = FUENTE[&quot;lecturas&quot;][numero_de_medicion]
+
+material = &quot;&quot;
+for clave, valor in lectura.items():
+    material = material + f&quot;{clave}: {valor}\n&quot;
+
+print(f&quot;Medicion de las {lectura[&#x27;hora&#x27;]}:\n&quot;)
+print(material)
+print(&quot;Ahora volve a correr el bloque 6 y despues el bucle.&quot;)</div><div><button class="btn-cp" onclick="copiar('v3', this)">📋 Copiar</button></div></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--teal)">🧪</span> LA PRUEBA</h2><ol class="pasos"><li>▶ los bloques 1 a 5, si el Colab se desconectó.</li><li>▶ el 8, el 6, el 10 y el 11, en ese orden.</li></ol><div class="sale"><strong>✅ Tiene que salir:</strong> a las 17:25 el sensor marca 44 ppm de monóxido. Nivel <strong>alerta</strong>, y en la razón, el límite de 25 ppm en 1 hora con su fuente: OMS, recogido por inBiot.</div><p class="chico">Si sale otra cosa, miren primero si el 6 dijo ✅ Listo y si print(TABLA) muestra sus filas.</p></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--vio)">📲</span> EL AVISO POR TELEGRAM</h2><p class="que">Si tienen su bot, que el aviso llegue de verdad:</p><ol class="pasos"><li>En Telegram, abran su bot y toquen <strong>Iniciar</strong>.</li><li>En Secrets (la llave 🔑): <code>TELEGRAM_TOKEN</code> es el token que les dio BotFather (números, dos puntos y letras). <code>TELEGRAM_CHAT</code> es el número de su chat.</li><li>Para ver el número del chat, abran este link en el navegador, con su token en lugar de TOKEN. Busquen <code>"chat":{"id":</code> y el número que sigue.<div class="cod" id="v4">https://api.telegram.org/botTOKEN/getUpdates</div><div><button class="btn-cp" onclick="copiar('v4', this)">📋 Copiar</button></div><p class="chico">Si sale vacío, mándenle un mensaje al bot y vuelvan a abrir el link.</p></li><li>▶ el 11.</li></ol><div class="sale"><strong>✅ Tiene que salir:</strong> ✅ Aviso enviado por Telegram, y el mensaje en el celular.</div><div class="info"><strong>🧯 Si no llega</strong><ul class="pasos"><li><strong>Not Found:</strong> el token está mal copiado, o dice pendiente.</li><li><strong>Unauthorized:</strong> ese token ya no sirve. Pídanle uno nuevo a BotFather.</li><li><strong>Bad Request: chat not found:</strong> el número del chat está mal, o no tocaron Iniciar.</li><li><strong>Forbidden:</strong> el bot no puede escribir en ese chat. Toquen Iniciar en el bot, y revisen que el número sea el de su chat y no el del bot.</li></ul></div><p class="chico">Si no tienen bot, dejen pendiente en los dos Secrets: el aviso sale en pantalla y está bien.</p></div>
+<div class="card c-json"><h2><span class="badge" style="background:var(--teal)">📝</span> EL INFORME</h2><p class="que">Su informe ya tiene las cinco preguntas. Le falta lo concreto:</p><ol class="pasos"><li>En la 2, nombren las fuentes de su hoja agente: OMS (recogido por inBiot), NOM-021, NOAA, NIOSH, OSHA, Naturgy, Seitron y las demás.</li><li>En la 3, la regla con números. Por ejemplo: más de 25 ppm de monóxido en una hora es alerta; el gas combustible desde el 10 % del LEL, alerta; la humedad fuera de 40 a 60 %, atención.</li><li>En la 4, la prueba de las 17:25: el valor que midió el sensor, el nivel y la razón que dio el agente, y si el aviso llegó a Telegram.</li><li>Donde dice que la integración con Telegram continúa en desarrollo, cuenten cómo quedó.</li></ol></div>
+</div>
+<script>
+var NOMBRES = {'vitalair':'VitalAir','ambiente':'Ambiente Óptimo','residuo':'Residuo Econexo','mpxl':'MPXL'};
+function elegir(e){
+  document.querySelectorAll('[data-eq]').forEach(function(el){ el.style.display = (el.getAttribute('data-eq')===e) ? '' : 'none'; });
+  document.querySelectorAll('.falta-eq').forEach(function(el){ el.style.display = 'none'; });
+  document.querySelectorAll('.btn-eq').forEach(function(b){ b.classList.toggle('activo', b.getAttribute('data-v')===e); });
+  try{ localStorage.setItem('agente_grupo', e); }catch(x){}
+  try{ history.replaceState(null, '', '#' + e); }catch(x){}
+}
+window.addEventListener('load', function(){
+  var h = location.hash.replace('#',''), e = null;
+  if (NOMBRES[h]) e = h; else { try{ var g = localStorage.getItem('agente_grupo'); if (NOMBRES[g]) e = g; }catch(x){} }
+  if (e) elegir(e);
+});
+function copiar(id, b){
+  var t = document.getElementById(id).innerText;
+  function ok(){ var o=b.textContent; b.textContent='✅ Copiado'; setTimeout(function(){ b.textContent=o; }, 1600); }
+  function viejo(){ var a=document.createElement('textarea'); a.value=t; document.body.appendChild(a); a.select();
+    try{ document.execCommand('copy'); ok(); }catch(x){ b.textContent='Seleccionalo y copialo a mano'; } document.body.removeChild(a); }
+  if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(ok, viejo); } else { viejo(); }
+}
+</script>
+</body></html>
